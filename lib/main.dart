@@ -19,9 +19,26 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Little Miracles',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          fontFamily: 'Manrope',
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          // scaffoldBackgroundColor: AppColors.lightBlueF3F8F9,
+          appBarTheme: AppBarTheme(
+            centerTitle: true,
+            backgroundColor: Colors.white,
+            //todo: implement it later
+            // titleTextStyle: TextStyle(
+            //   color: AppColors.blue00586F,
+            //   fontSize: 16,
+            //   fontWeight: FontWeight.bold,
+            // ),
+          ),
+          colorScheme:
+              ColorScheme.fromSwatch().copyWith(secondary: Colors.white),
+        ),
       home: OnboardingPage(),
     );
   }
