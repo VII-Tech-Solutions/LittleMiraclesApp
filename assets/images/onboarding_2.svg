@@ -1,0 +1,13 @@
+<svg width="125" height="59" viewBox="0 0 125 59" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" fill-rule="evenodd">
+        <path fill="#C8BFBD" d="M15.437 35.906 13.64 44l7.25-8.094 8.576 5.16-3.688-7.868L31 25.573l-8.68 2.176L18.267 20l-1.378 9.913L8 27.749z"/>
+        <circle fill="#AFDADB" cx="37" cy="50" r="3"/>
+        <circle fill="#AFDADB" cx="90" cy="3" r="3"/>
+        <circle fill="#F8C0B8" cx="3" cy="40" r="3"/>
+        <circle fill="#F8C0B8" cx="122" cy="23" r="3"/>
+        <circle fill="#F8C0B8" cx="58" cy="40" r="3"/>
+        <circle fill="#B0A3A0" cx="87" cy="56" r="3"/>
+        <path fill="#8DC4CB" d="m89.447 44 8.95-7.916 7.575 6.174-2.3-9.91L110 26.319l-9.04 2.129L97.015 19 94.99 29.542 86 26.32l6.243 8.577z"/>
+        <path fill="#F8C0B8" d="M55.006 8.375 61.765 0v9.819L72 8.375l-8.497 6.76 5.59 7.831-9.536-3.164L51.98 24l3.026-8.865L45 8.375z"/>
+    </g>
+</svg>
