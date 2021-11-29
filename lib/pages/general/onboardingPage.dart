@@ -24,19 +24,36 @@ class _OnboardingPageState extends State<OnboardingPage> {
       children: [
         Expanded(
           child: Stack(
-            clipBehavior: Clip.hardEdge,
+            clipBehavior: Clip.none,
             children: [
               Container(
                 width: double.infinity,
                 height: double.infinity,
-                child: Image.asset(
-                  'assets/images/sample.jpeg',
-                  fit: BoxFit.cover,
+                child: ShaderMask(
+                  shaderCallback: (rectangle) {
+                    return LinearGradient(
+                      colors: [Colors.black, Colors.transparent],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ).createShader(
+                      Rect.fromLTRB(
+                        0,
+                        0,
+                        rectangle.width,
+                        rectangle.height,
+                      ),
+                    );
+                  },
+                  blendMode: BlendMode.dstIn,
+                  child: Image.asset(
+                    'assets/images/sample.jpeg',
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               Positioned(
-                bottom: 0,
-                right: 18,
+                bottom: -20,
+                right: 20,
                 child: SvgPicture.asset(
                     'assets/images/onboarding_$_selectedPage.svg'),
               ),
@@ -45,8 +62,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
         ),
         Container(
           height: MediaQuery.of(context).size.width * 0.65,
-          padding: EdgeInsets.fromLTRB(30, 12, 30, 0),
-          color: Colors.white,
+          padding: EdgeInsets.fromLTRB(30, 13, 30, 0),
+          color: Colors.transparent,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -59,7 +76,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   fontSize: 24.0,
                   letterSpacing: -0.4,
                 ),
-                textAlign: TextAlign.center,
               ),
               Padding(
                 padding: EdgeInsets.only(top: 11),
@@ -130,7 +146,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
           ),
           FilledButtonWidget(
             margin: EdgeInsets.fromLTRB(30, 40, 30, 54),
-            onPress: () {},
+            onPress: () {
+              //TODO: go to home page
+            },
             type: ButtonType.generalWhite,
             title: 'Skip Onboarding',
           ),
