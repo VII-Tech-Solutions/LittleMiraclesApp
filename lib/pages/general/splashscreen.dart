@@ -57,7 +57,10 @@ class _SplashscreenState extends State<Splashscreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.asset('assets/images/logo.png'),
+                  Image.asset(
+                    'assets/images/logo.png',
+                    width: MediaQuery.of(context).size.width * 0.541,
+                  ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.116),
                   LoadingIndicator()
                 ],

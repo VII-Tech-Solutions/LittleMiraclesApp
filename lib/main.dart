@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 //PROVIDERS
 //WIDGETS
 //PAGES
-import './pages/general/onboardingPage.dart';
+import './pages/general/splashscreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         ),
         colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.white),
       ),
-      home: OnboardingPage(),
+      home: Splashscreen(),
     );
   }
 }
