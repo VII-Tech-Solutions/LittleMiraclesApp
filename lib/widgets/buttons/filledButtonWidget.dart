@@ -8,7 +8,7 @@ import '../../global/colors.dart';
 //PAGES
 
 enum ButtonType {
-  generalWhite,
+  generalGrey,
 }
 
 class FilledButtonWidget extends StatelessWidget {
@@ -27,7 +27,7 @@ class FilledButtonWidget extends StatelessWidget {
 
   Color? _buildButtonStyle() {
     switch (type) {
-      case ButtonType.generalWhite:
+      case ButtonType.generalGrey:
         {
           return AppColors.greyF2F3F3;
         }
@@ -40,7 +40,7 @@ class FilledButtonWidget extends StatelessWidget {
 
   Widget _buildContentWidget() {
     switch (type) {
-      case ButtonType.generalWhite:
+      case ButtonType.generalGrey:
         {
           return _subBuildTextWidget(title);
         }

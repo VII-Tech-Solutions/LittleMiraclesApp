@@ -19,7 +19,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
   int _selectedPage = 0;
   List<Image> images = [];
 
-  //
+  //Initiate data
   @override
   void initState() {
     super.initState();
@@ -47,7 +47,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
     );
   }
 
-//Prefetches an image into the image cache.
+//Prefetches images into the image cache
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -172,12 +172,21 @@ class _OnboardingPageState extends State<OnboardingPage> {
               });
             },
             children: <Widget>[
-              _buildPageWidget(0, 'Capture Special Moments',
-                  'Get professional portraits and capture those special moments with your little miracles. They’re only little for a little while.'),
-              _buildPageWidget(1, 'The right milestones',
-                  'Make every milestone count. From maternity, to welcoming your newborn, to their 1st birthday. Find the right package to capture these milestones.'),
-              _buildPageWidget(2, 'Book in seconds',
-                  'We’ll stay in touch with you as your due date approaches to fit you in at the perfect time. Book your session in advance and we’ll take care of the rest.'),
+              _buildPageWidget(
+                  0,
+                  'Capture Special Moments',
+                  'Get professional portraits and capture those special moments' +
+                      'with your little miracles. They’re only little for a little while.'),
+              _buildPageWidget(
+                  1,
+                  'The right milestones',
+                  'Make every milestone count. From maternity, to welcoming your' +
+                      ' newborn, to their 1st birthday. Find the right package to capture these milestones.'),
+              _buildPageWidget(
+                  2,
+                  'Book in seconds',
+                  'We’ll stay in touch with you as your due date approaches to' +
+                      'fit you in at the perfect time. Book your session in advance and we’ll take care of the rest.'),
             ],
           ),
           Container(
@@ -207,7 +216,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 (Route<dynamic> route) => false,
               );
             },
-            type: ButtonType.generalWhite,
+            type: ButtonType.generalGrey,
             title: 'Skip Onboarding',
           ),
         ],
