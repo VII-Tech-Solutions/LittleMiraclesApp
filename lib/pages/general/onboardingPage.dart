@@ -28,8 +28,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
       Image.network(
         'https://i.picsum.photos/id/73/2000/3000.jpg?hmac=Jspw7y56WDEQnVpO7SljydpKPiuykaswRil7QwFY9mU',
         fit: BoxFit.cover,
-        width: double.infinity,
-        height: double.infinity,
       ),
     );
     images.insert(
@@ -37,8 +35,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
       Image.network(
         'https://i.picsum.photos/id/820/2000/3000.jpg?hmac=NkZ9UIBB8GPKFhlvBtGnoO2nYn_J_GwMq1Ay57QO_0M',
         fit: BoxFit.cover,
-        width: double.infinity,
-        height: double.infinity,
       ),
     );
     images.insert(
@@ -46,8 +42,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
       Image.network(
         'https://i.picsum.photos/id/5/2000/3000.jpg?hmac=513kUuGPVkVcvFLEsVyDcCSm48jRQ9N7euwpd-LskD8',
         fit: BoxFit.cover,
-        width: double.infinity,
-        height: double.infinity,
       ),
     );
   }
