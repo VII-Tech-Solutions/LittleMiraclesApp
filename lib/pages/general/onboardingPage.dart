@@ -1,12 +1,12 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/widgets/buttons/filledButtonWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 //GLOBAL
-import 'package:LMP0001_LittleMiraclesApp/global/colors.dart';
+import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
 //WIDGETS
+import '../../widgets/buttons/filledButtonWidget.dart';
 //PAGES
 
 class OnboardingPage extends StatefulWidget {
@@ -70,7 +70,12 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 child: ShaderMask(
                   shaderCallback: (item) {
                     return LinearGradient(
-                      colors: [Colors.black, Colors.transparent],
+                      colors: [
+                        Colors.black,
+                        Colors.black,
+                        Colors.black,
+                        Colors.transparent
+                      ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ).createShader(

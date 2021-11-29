@@ -29,7 +29,7 @@ class FilledButtonWidget extends StatelessWidget {
     switch (type) {
       case ButtonType.generalWhite:
         {
-          return AppColors.greyB9BEC2;
+          return AppColors.greyF2F3F3;
         }
       default:
         {
