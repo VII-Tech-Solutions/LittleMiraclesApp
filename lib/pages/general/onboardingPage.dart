@@ -45,8 +45,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     );
                   },
                   blendMode: BlendMode.dstIn,
-                  child: Image.asset(
-                    'assets/images/baby_$page.jpeg',
+                  child: Image.network(
+                    'https://picsum.photos/250?image=9',
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -139,7 +139,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
             ],
           ),
           Container(
-            height: MediaQuery.of(context).size.width * 0.65,
+            height: MediaQuery.of(context).size.height * 0.3,
             width: 32,
             child: Row(
               children: [
