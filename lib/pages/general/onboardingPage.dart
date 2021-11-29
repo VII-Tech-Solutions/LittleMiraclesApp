@@ -1,12 +1,12 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/widgets/buttons/filledButtonWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 //GLOBAL
-import 'package:LMP0001_LittleMiraclesApp/global/colors.dart';
+import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
 //WIDGETS
+import '../../widgets/buttons/filledButtonWidget.dart';
 //PAGES
 
 class OnboardingPage extends StatefulWidget {
@@ -18,7 +18,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
   int _selectedPage = 0;
   List<Image> images = [];
 
-  //
+  //Initiate data
   @override
   void initState() {
     super.initState();
@@ -46,7 +46,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
     );
   }
 
-//Prefetches an image into the image cache.
+//Prefetches images into the image cache
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -70,7 +70,12 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 child: ShaderMask(
                   shaderCallback: (item) {
                     return LinearGradient(
-                      colors: [Colors.black, Colors.transparent],
+                      colors: [
+                        Colors.black,
+                        Colors.black,
+                        Colors.black,
+                        Colors.transparent,
+                      ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ).createShader(
@@ -166,12 +171,21 @@ class _OnboardingPageState extends State<OnboardingPage> {
               });
             },
             children: <Widget>[
-              _buildPageWidget(0, 'Capture Special Moments',
-                  'Get professional portraits and capture those special moments with your little miracles. They’re only little for a little while.'),
-              _buildPageWidget(1, 'The right milestones',
-                  'Make every milestone count. From maternity, to welcoming your newborn, to their 1st birthday. Find the right package to capture these milestones.'),
-              _buildPageWidget(2, 'Book in seconds',
-                  'We’ll stay in touch with you as your due date approaches to fit you in at the perfect time. Book your session in advance and we’ll take care of the rest.'),
+              _buildPageWidget(
+                  0,
+                  'Capture Special Moments',
+                  'Get professional portraits and capture those special moments' +
+                      'with your little miracles. They’re only little for a little while.'),
+              _buildPageWidget(
+                  1,
+                  'The right milestones',
+                  'Make every milestone count. From maternity, to welcoming your' +
+                      ' newborn, to their 1st birthday. Find the right package to capture these milestones.'),
+              _buildPageWidget(
+                  2,
+                  'Book in seconds',
+                  'We’ll stay in touch with you as your due date approaches to' +
+                      'fit you in at the perfect time. Book your session in advance and we’ll take care of the rest.'),
             ],
           ),
           Container(
