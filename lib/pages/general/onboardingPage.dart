@@ -30,7 +30,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 width: double.infinity,
                 height: double.infinity,
                 child: ShaderMask(
-                  shaderCallback: (rectangle) {
+                  shaderCallback: (item) {
                     return LinearGradient(
                       colors: [Colors.black, Colors.transparent],
                       begin: Alignment.topCenter,
@@ -39,30 +39,31 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       Rect.fromLTRB(
                         0,
                         0,
-                        rectangle.width,
-                        rectangle.height,
+                        item.width,
+                        item.height,
                       ),
                     );
                   },
                   blendMode: BlendMode.dstIn,
                   child: Image.asset(
-                    'assets/images/sample.jpeg',
+                    'assets/images/baby_$page.jpeg',
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
               Positioned(
-                bottom: -20,
+                bottom: -18,
                 right: 20,
-                child: SvgPicture.asset(
-                    'assets/images/onboarding_$_selectedPage.svg'),
+                child: SvgPicture.asset('assets/images/onboarding_$page.svg'),
               ),
             ],
           ),
         ),
         Container(
-          height: MediaQuery.of(context).size.width * 0.65,
-          padding: EdgeInsets.fromLTRB(30, 13, 30, 0),
+          height: MediaQuery.of(context).size.height * 0.35,
+          padding: EdgeInsets.all(
+            MediaQuery.of(context).size.width * 0.08,
+          ),
           color: Colors.transparent,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,7 +79,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 11),
+                padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.01,
+                ),
                 child: Text(
                   '$description',
                   style: const TextStyle(
@@ -113,11 +116,13 @@ class _OnboardingPageState extends State<OnboardingPage> {
     final PageController controller =
         PageController(initialPage: _selectedPage);
     return Scaffold(
+      extendBodyBehindAppBar: true,
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
           PageView(
             scrollDirection: Axis.horizontal,
+            physics: ClampingScrollPhysics(),
             controller: controller,
             onPageChanged: (page) {
               setState(() {
@@ -134,7 +139,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
             ],
           ),
           Container(
-            height: MediaQuery.of(context).size.width * 0.7,
+            height: MediaQuery.of(context).size.width * 0.65,
             width: 32,
             child: Row(
               children: [
@@ -145,7 +150,12 @@ class _OnboardingPageState extends State<OnboardingPage> {
             ),
           ),
           FilledButtonWidget(
-            margin: EdgeInsets.fromLTRB(30, 40, 30, 54),
+            margin: EdgeInsets.fromLTRB(
+              MediaQuery.of(context).size.width * 0.08,
+              MediaQuery.of(context).size.height * 0.5,
+              MediaQuery.of(context).size.width * 0.08,
+              MediaQuery.of(context).size.height * 0.05,
+            ),
             onPress: () {
               //TODO: go to home page
             },
