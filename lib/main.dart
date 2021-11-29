@@ -22,14 +22,13 @@ class MyApp extends StatelessWidget {
       title: 'Little Miracles',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        // textTheme: GoogleFonts.manropeTextTheme(
-        //   Theme.of(context).textTheme,
-        // ),
-        fontFamily: 'Manrope',
+        textTheme: GoogleFonts.manropeTextTheme(
+          Theme.of(context).textTheme,
+        ),
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        // scaffoldBackgroundColor: AppColors.lightBlueF3F8F9,
+        scaffoldBackgroundColor: Colors.white,
         appBarTheme: AppBarTheme(
           centerTitle: true,
           backgroundColor: Colors.white,
