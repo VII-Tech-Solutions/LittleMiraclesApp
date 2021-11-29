@@ -16,10 +16,48 @@ class OnboardingPage extends StatefulWidget {
 
 class _OnboardingPageState extends State<OnboardingPage> {
   int _selectedPage = 0;
+  List<Image> images = [];
+
+  //
+  @override
+  void initState() {
+    super.initState();
+
+    images.insert(
+      0,
+      Image.network(
+        'https://i.picsum.photos/id/73/2000/3000.jpg?hmac=Jspw7y56WDEQnVpO7SljydpKPiuykaswRil7QwFY9mU',
+        fit: BoxFit.cover,
+      ),
+    );
+    images.insert(
+      1,
+      Image.network(
+        'https://i.picsum.photos/id/820/2000/3000.jpg?hmac=NkZ9UIBB8GPKFhlvBtGnoO2nYn_J_GwMq1Ay57QO_0M',
+        fit: BoxFit.cover,
+      ),
+    );
+    images.insert(
+      2,
+      Image.network(
+        'https://i.picsum.photos/id/5/2000/3000.jpg?hmac=513kUuGPVkVcvFLEsVyDcCSm48jRQ9N7euwpd-LskD8',
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+
+//Prefetches an image into the image cache.
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    precacheImage(images[0].image, context);
+    precacheImage(images[1].image, context);
+    precacheImage(images[2].image, context);
+  }
 
 //Main info widget
-  Widget _buildPageWidget(
-      BuildContext context, int page, String title, String description) {
+  Widget _buildPageWidget(int page, String title, String description) {
+    final size = MediaQuery.of(context).size;
     return Column(
       children: [
         Expanded(
@@ -45,10 +83,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     );
                   },
                   blendMode: BlendMode.dstIn,
-                  child: Image.asset(
-                    'assets/images/baby_$page.jpeg',
-                    fit: BoxFit.cover,
-                  ),
+                  child: images[page],
                 ),
               ),
               Positioned(
@@ -60,9 +95,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
           ),
         ),
         Container(
-          height: MediaQuery.of(context).size.height * 0.35,
+          height: size.height * 0.35,
           padding: EdgeInsets.all(
-            MediaQuery.of(context).size.width * 0.08,
+            size.width * 0.08,
           ),
           color: Colors.transparent,
           child: Column(
@@ -80,7 +115,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
               ),
               Padding(
                 padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.01,
+                  top: size.height * 0.01,
                 ),
                 child: Text(
                   '$description',
@@ -113,6 +148,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     final PageController controller =
         PageController(initialPage: _selectedPage);
     return Scaffold(
@@ -130,16 +166,16 @@ class _OnboardingPageState extends State<OnboardingPage> {
               });
             },
             children: <Widget>[
-              _buildPageWidget(context, 0, 'Capture Special Moments',
+              _buildPageWidget(0, 'Capture Special Moments',
                   'Get professional portraits and capture those special moments with your little miracles. They’re only little for a little while.'),
-              _buildPageWidget(context, 1, 'The right milestones',
+              _buildPageWidget(1, 'The right milestones',
                   'Make every milestone count. From maternity, to welcoming your newborn, to their 1st birthday. Find the right package to capture these milestones.'),
-              _buildPageWidget(context, 2, 'Book in seconds',
+              _buildPageWidget(2, 'Book in seconds',
                   'We’ll stay in touch with you as your due date approaches to fit you in at the perfect time. Book your session in advance and we’ll take care of the rest.'),
             ],
           ),
           Container(
-            height: MediaQuery.of(context).size.width * 0.65,
+            height: size.height * 0.3,
             width: 32,
             child: Row(
               children: [
@@ -151,10 +187,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
           ),
           FilledButtonWidget(
             margin: EdgeInsets.fromLTRB(
-              MediaQuery.of(context).size.width * 0.08,
-              MediaQuery.of(context).size.height * 0.5,
-              MediaQuery.of(context).size.width * 0.08,
-              MediaQuery.of(context).size.height * 0.05,
+              size.width * 0.08,
+              size.height * 0.5,
+              size.width * 0.08,
+              size.height * 0.05,
             ),
             onPress: () {
               //TODO: go to home page
