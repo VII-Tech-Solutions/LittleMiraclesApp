@@ -209,7 +209,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
             onPress: () {
               //TODO: go to home page
             },
-            type: ButtonType.generalWhite,
+            type: ButtonType.generalGrey,
             title: 'Skip Onboarding',
           ),
         ],
