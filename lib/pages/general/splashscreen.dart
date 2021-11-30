@@ -49,24 +49,24 @@ class _SplashscreenState extends State<Splashscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      body: Expanded(
-        child: Container(
-            color: AppColors.whiteF4F9FA,
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/images/logo.png',
-                    width: MediaQuery.of(context).size.width * 0.541,
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.116),
-                  LoadingIndicator()
-                ],
-              ),
-            )),
-      ),
+      body: Container(
+          height: double.infinity,
+          width: double.infinity,
+          color: AppColors.whiteF4F9FA,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/images/logo.png',
+                  width: MediaQuery.of(context).size.width * 0.541,
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.116),
+                LoadingIndicator()
+              ],
+            ),
+          )),
     );
   }
 }

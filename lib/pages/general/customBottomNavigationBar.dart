@@ -7,6 +7,7 @@ import '../../global/colors.dart';
 //WIDGETS
 //PAGES
 import '../home/homePage.dart';
+import '../../playground/playgroundPage.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
   const CustomBottomNavigationBar({Key? key}) : super(key: key);
@@ -30,10 +31,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
       'Index 2: Studio',
       style: optionStyle,
     ),
-    Text(
-      'Index 3: More',
-      style: optionStyle,
-    ),
+    PlayrgoundPage()
   ];
 
   void _onItemTapped(int index) {
