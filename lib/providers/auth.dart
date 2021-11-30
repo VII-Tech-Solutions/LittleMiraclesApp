@@ -10,8 +10,6 @@ import '../global/const.dart';
 import '../../database/db_sqflite.dart';
 //MODELS
 import '../models/ssoData.dart';
-import '../models/onboarding.dart';
-import '../models/dailyTip.dart';
 //PROVIDERS
 //WIDGETS
 //PAGES
