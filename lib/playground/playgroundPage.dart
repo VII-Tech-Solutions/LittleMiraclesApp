@@ -65,7 +65,7 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
             description:
                 'Get a customized photo album or prints to go with your sessions',
             url:
-                'https://i.picsum.photos/id/120/343/450.jpg?hmac=AyIGjf9cKGUSUoz8A2DDjOl1Y5ePGkq0IlKmSO49faE',
+                'https://i.picsum.photos/id/127/343/450.jpg?hmac=4XbgfyFPlCRsfVUZRRFdMC7K_314nhISKohXg3wKZBI',
           ),
         ],
       ),

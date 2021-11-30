@@ -7,6 +7,7 @@ import '../../global/colors.dart';
 //PROVIDERS
 //WIDGETS
 //PAGES
+import '../../pages/home/dailyTipDetailsPage.dart';
 
 class TipContainer extends StatelessWidget {
   final String? title;
@@ -19,6 +20,12 @@ class TipContainer extends StatelessWidget {
     return InkWell(
       onTap: () {
         //todo go to Daily Tip deatils page
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DailyTipDetails(),
+          ),
+        );
       },
       child: Padding(
         padding: EdgeInsets.fromLTRB(
