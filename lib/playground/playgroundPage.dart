@@ -1,14 +1,15 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/widgets/containers/popularPackagesContainer.dart';
+
 import 'package:flutter/material.dart';
 //GLOBAL
 //MODELS
 //PROVIDERS
 //WIDGETS
+import '../widgets/texts/cutomText.dart';
+import '../../widgets/containers/workshopContainer.dart';
 import '../widgets/containers/tipsContainer.dart';
 import '../widgets/containers/promotionsContainer.dart';
-import '../widgets/texts/globalTextWidget.dart';
-import '../../widgets/containers/workshopContainer.dart';
+import '../../widgets/containers/popularPackagesContainer.dart';
 //PAGES
 
 class PlayrgoundPage extends StatefulWidget {
@@ -27,7 +28,10 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
         padding: EdgeInsets.all(size.width * 0.04),
         child: ListView(
           children: [
-            mainHomeTitle(context, title: 'Your daily tip'),
+            CustomText(
+              title: 'Your daily tip',
+              type: CustomTextType.mainHomeTitle,
+            ),
             TipsContainer(
               title: 'Welcome to Little Miracles by Sherin',
               url: 'https://via.placeholder.com/373x177',
@@ -35,14 +39,20 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
             TipsContainer(
               title: 'Baby Safety During Photoshoots',
             ),
-            mainHomeTitle(context, title: 'Promotions'),
+            CustomText(
+              title: 'Promotions',
+              type: CustomTextType.mainHomeTitle,
+            ),
             PromotionsContainer(
               title: 'Your First Photoshoot',
               url:
                   'https://i.picsum.photos/id/988/343/177.jpg?hmac=hBwZZTySe-hInmpgXTymSq5GxhuoWwIOWCDEJOD26TA',
               percentage: '20% Off',
             ),
-            mainHomeTitle(context, title: 'Workshop'),
+            CustomText(
+              title: 'Workshop',
+              type: CustomTextType.mainHomeTitle,
+            ),
             WorkshopContainer(
               title: 'Family Photoshoot Workshop',
               price: 'BD40',
@@ -50,7 +60,10 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
               url:
                   'https://i.picsum.photos/id/845/343/177.jpg?hmac=3g0mRIkagUNhIuKOOnL_mW5BBQYIVeFLddy4X3nuquY',
             ),
-            mainHomeTitle(context, title: 'Popular packages'),
+            CustomText(
+              title: 'Popular packages',
+              type: CustomTextType.mainHomeTitle,
+            ),
             PopularPackagesContainer(
               title: 'The Baby Plan',
               price: 'BHD 650',
