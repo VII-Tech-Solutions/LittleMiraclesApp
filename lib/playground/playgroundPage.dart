@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 //WIDGETS
 import '../widgets/containers/tipsContainer.dart';
 import '../widgets/containers/promotionsContainer.dart';
-import '../widgets/texts/globalTextWidget.dart';
+import '../widgets/texts/globalTexts.dart';
 import '../../widgets/containers/workshopContainer.dart';
 //PAGES
 

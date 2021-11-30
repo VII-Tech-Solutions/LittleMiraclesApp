@@ -6,7 +6,7 @@ import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
 //WIDGETS
-import '../../widgets/texts/globalTextWidget.dart';
+import '../../widgets/texts/globalTexts.dart';
 //PAGES
 
 class PromotionsContainer extends StatelessWidget {
