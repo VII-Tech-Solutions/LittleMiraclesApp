@@ -9,10 +9,12 @@ import '../../global/colors.dart';
 import '../../widgets/texts/globalTextWidget.dart';
 //PAGES
 
-class TipsContainer extends StatelessWidget {
+class PromotionsContainer extends StatelessWidget {
   final String? title;
+  final String? percentage;
   final String? url;
-  const TipsContainer({Key? key, @required this.title, this.url})
+  const PromotionsContainer(
+      {Key? key, @required this.title, @required this.url, this.percentage})
       : super(key: key);
 
   @override
@@ -33,10 +35,6 @@ class TipsContainer extends StatelessWidget {
             Container(
               height: size.height * 0.25,
               width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                color: AppColors.blue8DC4CB,
-              ),
               child: CachedNetworkImage(
                 imageUrl: '$url',
                 imageBuilder: (context, imageProvider) => Container(
@@ -49,36 +47,48 @@ class TipsContainer extends StatelessWidget {
                     ),
                   ),
                 ),
-                //todo fix placeholder
-                placeholder: (context, url) => Image(
-                  image: AssetImage('assets/images/logo.png'),
+                placeholder: (context, url) => const CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 150,
                 ),
-                errorWidget: (context, url, error) => Icon(Icons.error),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10.0),
-              child: Text(
-                '$title',
-                maxLines: 1,
-                style: TextStyle(
-                  color: AppColors.black45515D,
-                  fontWeight: FontWeight.w800,
-                  fontSize: 14.0,
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '$title',
+                    maxLines: 1,
+                    style: TextStyle(
+                      color: AppColors.black45515D,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 14.0,
+                    ),
+                  ),
+                  Text(
+                    '$percentage',
+                    maxLines: 1,
+                    style: TextStyle(
+                      color: AppColors.black45515D,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 14.0,
+                    ),
+                  ),
+                ],
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 9.0),
               child: Row(
                 children: [
-                  //todo change the icon to match the design
                   Icon(
-                    Icons.lightbulb_rounded,
+                    Icons.star_rounded,
                     size: 16,
-                    color: AppColors.yellowFFB400,
+                    color: AppColors.pinkEF5DA8,
                   ),
-                  miniTitle(context, title: 'Tips & Tricks'),
+                  miniTitle(context, title: 'Promotions')
                 ],
               ),
             ),
