@@ -35,14 +35,14 @@ class _SplashscreenState extends State<Splashscreen> {
     //     ));
     // });
 
-    Future.delayed(Duration(seconds: 2)).then(
-      (value) => Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OnboardingPage(),
-        ),
-      ),
-    );
+    // Future.delayed(Duration(seconds: 2)).then(
+    //   (value) => Navigator.pushReplacement(
+    //     context,
+    //     MaterialPageRoute(
+    //       builder: (context) => OnboardingPage(),
+    //     ),
+    //   ),
+    // );
   }
 
   @override
@@ -53,19 +53,20 @@ class _SplashscreenState extends State<Splashscreen> {
           height: double.infinity,
           width: double.infinity,
           color: AppColors.whiteF4F9FA,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset(
-                  'assets/images/logo.png',
-                  width: MediaQuery.of(context).size.width * 0.541,
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.116),
-                LoadingIndicator()
-              ],
-            ),
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Image.asset(
+                'assets/images/splash_background.png',
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.cover,
+              ),
+              Positioned(
+                bottom: MediaQuery.of(context).size.height * 0.39,
+                child: LoadingIndicator(),
+              )
+            ],
           )),
     );
   }
