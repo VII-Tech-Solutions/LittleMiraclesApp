@@ -1,5 +1,4 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/widgets/containers/tipContainer.dart';
 import 'package:flutter/material.dart';
 //GLOBAL
 //MODELS
@@ -9,6 +8,8 @@ import '../widgets/texts/titleText.dart';
 import '../../widgets/containers/workshopContainer.dart';
 import '../widgets/containers/promotionContainer.dart';
 import '../widgets/containers/popularPackageContainer.dart';
+import '../widgets/containers/actionContainer.dart';
+import '../widgets/containers/tipContainer.dart';
 //PAGES
 
 class PlayrgoundPage extends StatefulWidget {
@@ -58,6 +59,13 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
             title: 'The Baby Plan',
             price: 'BHD 650',
             description: 'Maternity, newborn, sitting up, & 1st birthday',
+          ),
+          ActionContainer(
+            title: 'Make it memorable',
+            description:
+                'Get a customized photo album or prints to go with your sessions',
+            url:
+                'https://i.picsum.photos/id/120/343/450.jpg?hmac=AyIGjf9cKGUSUoz8A2DDjOl1Y5ePGkq0IlKmSO49faE',
           ),
         ],
       ),
