@@ -6,7 +6,7 @@ import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
 //WIDGETS
-import '../../widgets/texts/globalTexts.dart';
+import '../texts/cutomText.dart';
 //PAGES
 
 class PromotionsContainer extends StatelessWidget {
@@ -88,7 +88,10 @@ class PromotionsContainer extends StatelessWidget {
                     size: 16,
                     color: AppColors.pinkEF5DA8,
                   ),
-                  miniTitle(context, title: 'Promotions')
+                  CustomText(
+                    title: 'Promotions',
+                    type: CustomTextType.miniTitle,
+                  ),
                 ],
               ),
             ),

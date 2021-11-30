@@ -6,7 +6,7 @@ import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
 //WIDGETS
-import '../../widgets/texts/globalTexts.dart';
+import '../texts/cutomText.dart';
 //PAGES
 
 class TipsContainer extends StatelessWidget {
@@ -78,7 +78,10 @@ class TipsContainer extends StatelessWidget {
                     size: 16,
                     color: AppColors.yellowFFB400,
                   ),
-                  miniTitle(context, title: 'Tips & Tricks'),
+                  CustomText(
+                    title: 'Tips & Tricks',
+                    type: CustomTextType.miniTitle,
+                  ),
                 ],
               ),
             ),
