@@ -8,6 +8,7 @@ import '../../global/colors.dart';
 //WIDGETS
 import '../../widgets/buttons/filledButtonWidget.dart';
 //PAGES
+import 'customBottomNavigationBar.dart';
 
 class OnboardingPage extends StatefulWidget {
   @override
@@ -74,7 +75,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         Colors.black,
                         Colors.black,
                         Colors.black,
-                        Colors.transparent,
+                        Colors.transparent
                       ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
@@ -207,7 +208,13 @@ class _OnboardingPageState extends State<OnboardingPage> {
               size.height * 0.05,
             ),
             onPress: () {
-              //TODO: go to home page
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CustomBottomNavigationBar(),
+                ),
+                (Route<dynamic> route) => false,
+              );
             },
             type: ButtonType.generalGrey,
             title: 'Skip Onboarding',
