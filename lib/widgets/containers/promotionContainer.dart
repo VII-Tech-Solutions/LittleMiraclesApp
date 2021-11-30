@@ -8,36 +8,33 @@ import '../../global/colors.dart';
 //WIDGETS
 //PAGES
 
-class PopularPackagesContainer extends StatelessWidget {
+class PromotionContainer extends StatelessWidget {
   final String? title;
+  final String? percentage;
   final String? url;
-  final String? price;
-  final String? description;
-  const PopularPackagesContainer(
-      {Key? key,
-      @required this.title,
-      this.url,
-      @required this.price,
-      @required this.description})
+  const PromotionContainer(
+      {Key? key, @required this.title, @required this.url, this.percentage})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return InkWell(
       onTap: () {
         //todo go to Daily Tip deatils page
       },
       child: Padding(
-        padding: EdgeInsets.only(
-          bottom: size.height * 0.02,
+        padding: EdgeInsets.fromLTRB(
+          16.0,
+          22.0,
+          16.0,
+          10.0,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: size.height * 0.25,
+              height: 177,
               width: double.infinity,
               child: CachedNetworkImage(
                 imageUrl: '$url',
@@ -72,7 +69,7 @@ class PopularPackagesContainer extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '$price',
+                    '$percentage',
                     maxLines: 1,
                     style: TextStyle(
                       color: AppColors.black45515D,
@@ -84,15 +81,28 @@ class PopularPackagesContainer extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 4.0),
-              child: Text(
-                '$description',
-                maxLines: 1,
-                style: TextStyle(
-                  color: AppColors.black45515D,
-                  fontWeight: FontWeight.w200,
-                  fontSize: 14.0,
-                ),
+              padding: const EdgeInsets.only(top: 9.0),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.star_rounded,
+                    size: 16,
+                    color: AppColors.pinkEF5DA8,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5.0),
+                    child: Text(
+                      'Promotions'.toUpperCase(),
+                      maxLines: 1,
+                      style: TextStyle(
+                        color: AppColors.black45515D,
+                        fontWeight: FontWeight.w200,
+                        fontSize: 10.0,
+                        letterSpacing: 1.0,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
