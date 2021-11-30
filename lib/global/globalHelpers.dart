@@ -9,6 +9,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 //WIDGETS
 //PAGES
 
+class BasicAuth {
+  String getBasicAuth() {
+    final String username = 'little';
+    final String password = 'password';
+    final String basicAuth =
+        'Basic ' + base64Encode(utf8.encode('$username:$password'));
+    return basicAuth;
+  }
+}
+
 class LastUpdateClass {
   Future<String> getLastUpdate(String lastUpdate) async {
     final prefs = await SharedPreferences.getInstance();

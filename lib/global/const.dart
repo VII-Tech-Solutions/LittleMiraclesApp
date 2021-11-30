@@ -1,5 +1,5 @@
 class APIEnvironment {
-  static const String staging = '';
+  static const String staging = 'https://littlemiracles.viitech.net';
   static const String production = '';
 }
 
