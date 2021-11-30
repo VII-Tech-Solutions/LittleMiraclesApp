@@ -1,13 +1,17 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
+import '../../providers/auth.dart';
+import '../../providers/appData.dart';
 //WIDGETS
 import '../../widgets/general/loadingIndicator.dart';
 //PAGES
 import './onboardingPage.dart';
+import './customBottomNavigationBar.dart';
 
 class Splashscreen extends StatefulWidget {
   const Splashscreen({Key? key}) : super(key: key);
@@ -17,32 +21,33 @@ class Splashscreen extends StatefulWidget {
 }
 
 class _SplashscreenState extends State<Splashscreen> {
+  bool _isInit = true;
+
   @override
   void initState() {
     super.initState();
+  }
 
-    // final authProvider = context.read<Auth>();
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      final authProvider = context.read<Auth>();
+      final appDataProvider = context.read<AppData>();
 
-    // authProvider.fetchAndSetAppData().then((_) {
-    // Navigator.pushReplacement(
-    //     context,
-    //     MaterialPageRoute(
-    //       builder: (context) => authProvider.isFirstOpen
-    //           ? OnboardingPage()
-    //           : authProvider.isAuth
-    //               ? StudentMainPage()
-    //               : LandingPage(),
-    //     ));
-    // });
-
-    Future.delayed(Duration(seconds: 2)).then(
-      (value) => Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OnboardingPage(),
-        ),
-      ),
-    );
+      appDataProvider.fetchAndSetAppData().then((_) {
+        authProvider.getToken().then((_) {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => authProvider.isFirstOpen
+                    ? OnboardingPage()
+                    : CustomBottomNavigationBar(),
+              ));
+        });
+      });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
   }
 
   @override

@@ -1,14 +1,18 @@
 //PACKAGES
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
+import '../../providers/auth.dart';
+import '../../providers/appData.dart';
+
 //WIDGETS
 import '../../widgets/buttons/filledButtonWidget.dart';
 //PAGES
-import 'customBottomNavigationBar.dart';
+import './customBottomNavigationBar.dart';
 
 class OnboardingPage extends StatefulWidget {
   @override
@@ -24,10 +28,14 @@ class _OnboardingPageState extends State<OnboardingPage> {
   void initState() {
     super.initState();
 
+    final onboardingList = context.read<AppData>().onboardings;
+
+    print(onboardingList);
+
     images.insert(
       0,
       Image.network(
-        'https://i.picsum.photos/id/73/2000/3000.jpg?hmac=Jspw7y56WDEQnVpO7SljydpKPiuykaswRil7QwFY9mU',
+        '${onboardingList[0].image}',
         fit: BoxFit.cover,
       ),
     );
@@ -208,13 +216,16 @@ class _OnboardingPageState extends State<OnboardingPage> {
               40.0,
             ),
             onPress: () {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CustomBottomNavigationBar(),
-                ),
-                (Route<dynamic> route) => false,
-              );
+              final authProvider = context.read<Auth>();
+              authProvider.setFirstOpen().then((_) {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CustomBottomNavigationBar(),
+                  ),
+                  (Route<dynamic> route) => false,
+                );
+              });
             },
             type: ButtonType.generalGrey,
             title: 'Skip Onboarding',

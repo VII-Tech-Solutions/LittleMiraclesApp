@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 //GLOBAL
 import '../global/globalEnvironment.dart';
@@ -43,7 +44,8 @@ class AppData with ChangeNotifier {
     try {
       final response = await http.get(url, headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Bearer $authToken'
+        'Platform': 'ios',
+        'App-Version': '0.0.1',
       }).timeout(Duration(seconds: Timeout.value));
 
       final extractedData = json.decode(response.body)['data'];
