@@ -42,12 +42,7 @@ class MyApp extends StatelessWidget {
         ),
         colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.white),
       ),
-<<<<<<< HEAD
-      //home: PlayrgoundPage(),
-      home: OnboardingPage(),
-=======
       home: Splashscreen(),
->>>>>>> 60d816b19e3d2e4522ab6098f427d5ec7fda4a08
     );
   }
 }
