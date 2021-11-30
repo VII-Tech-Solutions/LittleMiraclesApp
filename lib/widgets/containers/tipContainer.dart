@@ -6,32 +6,33 @@ import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
 //WIDGETS
-import '../texts/cutomText.dart';
 //PAGES
 
-class TipsContainer extends StatelessWidget {
+class TipContainer extends StatelessWidget {
   final String? title;
   final String? url;
-  const TipsContainer({Key? key, @required this.title, this.url})
+  const TipContainer({Key? key, @required this.title, this.url})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return InkWell(
       onTap: () {
         //todo go to Daily Tip deatils page
       },
       child: Padding(
-        padding: EdgeInsets.only(
-          bottom: size.height * 0.02,
+        padding: EdgeInsets.fromLTRB(
+          16.0,
+          22.0,
+          16.0,
+          10.0,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: size.height * 0.25,
+              height: 177,
               width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8.0),
@@ -59,7 +60,7 @@ class TipsContainer extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 10.0),
               child: Text(
-                '$title',
+                'Welcome to Little Miracles by Sherinr',
                 maxLines: 1,
                 style: TextStyle(
                   color: AppColors.black45515D,
@@ -78,9 +79,19 @@ class TipsContainer extends StatelessWidget {
                     size: 16,
                     color: AppColors.yellowFFB400,
                   ),
-                  CustomText(
-                    title: 'Tips & Tricks',
-                    type: CustomTextType.miniTitle,
+
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5.0),
+                    child: Text(
+                      'Tips & Tricks'.toUpperCase(),
+                      maxLines: 1,
+                      style: TextStyle(
+                        color: AppColors.black45515D,
+                        fontWeight: FontWeight.w200,
+                        fontSize: 10.0,
+                        letterSpacing: 1.0,
+                      ),
+                    ),
                   ),
                 ],
               ),

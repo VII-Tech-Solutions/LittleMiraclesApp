@@ -9,7 +9,6 @@ import '../../global/colors.dart';
 
 enum CustomTextType {
   mainHomeTitle,
-  miniTitle,
 }
 
 class CustomText extends StatelessWidget {
@@ -23,10 +22,6 @@ class CustomText extends StatelessWidget {
         {
           return _mainHomeTitle(title);
         }
-      case CustomTextType.miniTitle:
-        {
-          return _miniTitle(title);
-        }
       default:
         {
           return Container();
@@ -36,9 +31,11 @@ class CustomText extends StatelessWidget {
 
   Widget _mainHomeTitle(String? text) {
     return Padding(
-      padding: EdgeInsets.only(
-        bottom: 20.0,
-        top: 25.0,
+      padding: EdgeInsets.fromLTRB(
+        16.0,
+        25.0,
+        16.0,
+        10.0,
       ),
       child: Text(
         text ?? '',
@@ -46,22 +43,6 @@ class CustomText extends StatelessWidget {
           color: AppColors.black45515D,
           fontWeight: FontWeight.w800,
           fontSize: 24.0,
-        ),
-      ),
-    );
-  }
-
-  Widget _miniTitle(String? text) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 5.0),
-      child: Text(
-        text!.toUpperCase(),
-        maxLines: 1,
-        style: TextStyle(
-          color: AppColors.black45515D,
-          fontWeight: FontWeight.w200,
-          fontSize: 10.0,
-          letterSpacing: 1.0,
         ),
       ),
     );
