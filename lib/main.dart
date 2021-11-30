@@ -1,4 +1,5 @@
 //PACKAGES
+import 'package:LMP0001_LittleMiraclesApp/playground/playgroundPage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 //GLOBAL
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
         ),
         colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.white),
       ),
+      //home: PlayrgoundPage(),
       home: OnboardingPage(),
     );
   }
