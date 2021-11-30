@@ -35,14 +35,14 @@ class _SplashscreenState extends State<Splashscreen> {
     //     ));
     // });
 
-    // Future.delayed(Duration(seconds: 2)).then(
-    //   (value) => Navigator.pushReplacement(
-    //     context,
-    //     MaterialPageRoute(
-    //       builder: (context) => OnboardingPage(),
-    //     ),
-    //   ),
-    // );
+    Future.delayed(Duration(seconds: 2)).then(
+      (value) => Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OnboardingPage(),
+        ),
+      ),
+    );
   }
 
   @override
