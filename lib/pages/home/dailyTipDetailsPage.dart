@@ -8,6 +8,7 @@ import '../../global/colors.dart';
 import '../../models/dailyTip.dart';
 //PROVIDERS
 //WIDGETS
+import '../../widgets/general/HtmlDescriptionText.dart';
 //PAGES
 
 class DailyTipDetailsPage extends StatelessWidget {
@@ -71,23 +72,26 @@ class DailyTipDetailsPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8.0),
                     color: AppColors.blue8DC4CB,
                   ),
-                  child: CachedNetworkImage(
-                    imageUrl: '${dailyTip!.image}',
-                    imageBuilder: (context, imageProvider) => Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.0),
-                        color: AppColors.blue8DC4CB,
-                        image: DecorationImage(
-                          image: imageProvider,
-                          fit: BoxFit.fill,
+                  child: Hero(
+                    tag: 'dailyTipImage',
+                    child: CachedNetworkImage(
+                      imageUrl: '${dailyTip!.image}',
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.0),
+                          color: AppColors.blue8DC4CB,
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.fill,
+                          ),
                         ),
                       ),
+                      //todo fix placeholder
+                      placeholder: (context, url) => Image(
+                        image: AssetImage('assets/images/logo.png'),
+                      ),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
-                    //todo fix placeholder
-                    placeholder: (context, url) => Image(
-                      image: AssetImage('assets/images/logo.png'),
-                    ),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
                 ),
               ),
@@ -113,13 +117,7 @@ class DailyTipDetailsPage extends StatelessWidget {
                   ),
                 ),
               ),
-              Text(
-                '${dailyTip?.content}',
-                style: TextStyle(
-                  color: AppColors.black45515D,
-                  fontSize: 14,
-                ),
-              ),
+              HtmlDescriptionText('${dailyTip?.content}'),
             ],
           ),
         ),

@@ -8,14 +8,10 @@ import '../../global/colors.dart';
 //WIDGETS
 //PAGES
 
-class WorkshopDetailsPage extends StatefulWidget {
-  const WorkshopDetailsPage({Key? key}) : super(key: key);
+class WorkshopDetailsPage extends StatelessWidget {
+  // final Workshop? workshop;
+  // const WorkshopDetailsPage(this.workshop);
 
-  @override
-  _WorkshopDetailsPageState createState() => _WorkshopDetailsPageState();
-}
-
-class _WorkshopDetailsPageState extends State<WorkshopDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -10,14 +10,10 @@ import '../../global/colors.dart';
 //WIDGETS
 //PAGES
 
-class PromotionDetails extends StatefulWidget {
-  const PromotionDetails({Key? key}) : super(key: key);
+class PromotionDetails extends StatelessWidget {
+  // final Promotion? promotion;
+  // const PromotionDetails(this.promotion);
 
-  @override
-  _PromotionDetailsState createState() => _PromotionDetailsState();
-}
-
-class _PromotionDetailsState extends State<PromotionDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
