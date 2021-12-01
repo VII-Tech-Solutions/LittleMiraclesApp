@@ -7,6 +7,7 @@ import '../../global/colors.dart';
 //PROVIDERS
 //WIDGETS
 //PAGES
+import '../../pages/home/workshopDetailsPage.dart';
 
 class WorkshopContainer extends StatelessWidget {
   final String? title;
@@ -25,7 +26,13 @@ class WorkshopContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        //todo go to Daily Tip deatils page
+        //todo go to Workshop deatils page
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => WorkshopDetailsPage(),
+          ),
+        );
       },
       child: Padding(
         padding: EdgeInsets.fromLTRB(
