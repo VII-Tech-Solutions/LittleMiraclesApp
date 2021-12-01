@@ -27,12 +27,7 @@ class ActionContainer extends StatelessWidget {
         //todo go to Daily Tip deatils page
       },
       child: Padding(
-        padding: EdgeInsets.fromLTRB(
-          16.0,
-          32.0,
-          16.0,
-          10.0,
-        ),
+        padding: EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 10.0),
         child: Stack(
           children: [
             Container(

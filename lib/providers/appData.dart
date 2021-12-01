@@ -1,6 +1,7 @@
 //PACKAGES
 import 'dart:async';
 import 'dart:convert';
+import 'package:LMP0001_LittleMiraclesApp/models/sections.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 //GLOBAL
@@ -24,6 +25,7 @@ class AppData with ChangeNotifier {
   List<DailyTip> _dailyTips = [];
   List<Promotion> _promotions = [];
   List<Workshop> _workshops = [];
+  List<Section> _sections = [];
 
   AppData(
     this.authToken,
@@ -31,6 +33,7 @@ class AppData with ChangeNotifier {
     this._dailyTips,
     this._promotions,
     this._workshops,
+    this._sections,
   );
 
   List<Onboarding> get onboardings {
@@ -47,6 +50,10 @@ class AppData with ChangeNotifier {
 
   List<Workshop> get workshops {
     return [..._workshops];
+  }
+
+  List<Section> get sections {
+    return [..._sections];
   }
 
   Future<void> fetchAndSetAppData() async {
@@ -66,6 +73,7 @@ class AppData with ChangeNotifier {
       final dailyTipsJson = extractedData['daily_tips'] as List;
       final promotionsJson = extractedData['promotions'] as List;
       final workshopsJson = extractedData['workshops'] as List;
+      final sectionsJson = extractedData['sections'] as List;
 
       if (response.statusCode != 200) {
         return;
@@ -82,6 +90,8 @@ class AppData with ChangeNotifier {
 
       _workshops =
           workshopsJson.map((json) => Workshop.fromJson(json)).toList();
+
+      _sections = sectionsJson.map((json) => Section.fromJson(json)).toList();
 
       await LastUpdateClass().setLastUpdate(LastUpdate.appData);
       await syncLocalDatabase();
@@ -130,6 +140,15 @@ class AppData with ChangeNotifier {
         DBHelper.insert(Tables.workshops, item.toMap());
       }
     });
+
+    // SECTIONS
+    _sections.forEach((item) {
+      if (item.deletedAt != null) {
+        DBHelper.deleteById(Tables.sections, item.id ?? -1);
+      } else {
+        DBHelper.insert(Tables.sections, item.toMap());
+      }
+    });
   }
 
   Future<void> getLocalAppData() async {
@@ -137,6 +156,7 @@ class AppData with ChangeNotifier {
     final dailyTipsDataList = await DBHelper.getData(Tables.dailyTips);
     final promotionsDataList = await DBHelper.getData(Tables.promotions);
     final workshopsDataList = await DBHelper.getData(Tables.workshops);
+    final sectionsDataList = await DBHelper.getData(Tables.sections);
 
     // ONBOARDING
     if (onboardingDataList.isNotEmpty) {
@@ -209,6 +229,27 @@ class AppData with ChangeNotifier {
               updatedAt: item['updatedAt'],
               deletedAt: item['deletedAt'],
               postedAt: item['postedAt'],
+            ),
+          )
+          .toList();
+    }
+
+    // SECTIONS
+    if (sectionsDataList.isEmpty) {
+      _sections = sectionsDataList
+          .map(
+            (item) => Section(
+              id: item['id'],
+              image: item['image'],
+              title: item['title'],
+              content: item['content'],
+              status: item['status'],
+              type: item['type'],
+              actionText: item['actionText'],
+              goTo: item['goTo'],
+              updatedAt: item['updatedAt'],
+              deletedAt: item['deletedAt'],
+              isFeatured: item['isFeatured'],
             ),
           )
           .toList();

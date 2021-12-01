@@ -22,6 +22,8 @@ class DBHelper {
             'CREATE TABLE promotions(id INT PRIMARY KEY, image TEXT, title TEXT, offer TEXT, type TEXT, content TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT, postedAt TEXT, validUntil TEXT, promoCode TEXT)');
         await db.execute(
             'CREATE TABLE workshops(id INT PRIMARY KEY, image TEXT, title TEXT, price TEXT, content TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT, postedAt TEXT)');
+        await db.execute(
+            'CREATE TABLE sections(id INT PRIMARY KEY, image TEXT, title TEXT, content TEXT, status INTEGER, type INTEGER, actionText TEXT, goTo TEXT, updatedAt TEXT, deletedAt TEXT, isFeatured INTEGER)');
       },
       version: 1,
       onUpgrade: (db, oldVersion, newVersion) async {
