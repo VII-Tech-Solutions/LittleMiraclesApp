@@ -7,18 +7,18 @@ import '../../global/colors.dart';
 //WIDGETS
 //PAGES
 
-enum CustomTextType {
+enum TitleTextType {
   mainHomeTitle,
 }
 
-class CustomText extends StatelessWidget {
+class TitleText extends StatelessWidget {
   final String? title;
-  final CustomTextType? type;
-  const CustomText({Key? key, this.title, this.type}) : super(key: key);
+  final TitleTextType? type;
+  const TitleText({Key? key, this.title, this.type}) : super(key: key);
 
   Widget _buildContentWidget() {
     switch (type) {
-      case CustomTextType.mainHomeTitle:
+      case TitleTextType.mainHomeTitle:
         {
           return _mainHomeTitle(title);
         }
@@ -31,12 +31,8 @@ class CustomText extends StatelessWidget {
 
   Widget _mainHomeTitle(String? text) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(
-        16.0,
-        25.0,
-        16.0,
-        10.0,
-      ),
+      // padding: EdgeInsets.fromLTRB(16.0, 25.0, 16.0, 10.0),
+      padding: EdgeInsets.only(top: 0),
       child: Text(
         text ?? '',
         style: TextStyle(

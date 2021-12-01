@@ -32,9 +32,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
     onboardingList = context.read<AppData>().onboardings;
 
-    print(onboardingList.length);
-    print(onboardingList[2].image);
-
     images.insert(
       0,
       Image.network(

@@ -25,14 +25,14 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
     return Scaffold(
       body: ListView(
         children: [
-          CustomText(
+          TitleText(
             title: 'Your daily tip',
-            type: CustomTextType.mainHomeTitle,
+            type: TitleTextType.mainHomeTitle,
           ),
           TipContainer(title: 'title'),
-          CustomText(
+          TitleText(
             title: 'Promotions',
-            type: CustomTextType.mainHomeTitle,
+            type: TitleTextType.mainHomeTitle,
           ),
           PromotionContainer(
             title: 'Your First Photoshoot',
@@ -40,9 +40,9 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
                 'https://i.picsum.photos/id/988/343/177.jpg?hmac=hBwZZTySe-hInmpgXTymSq5GxhuoWwIOWCDEJOD26TA',
             percentage: '20% Off',
           ),
-          CustomText(
+          TitleText(
             title: 'Workshop',
-            type: CustomTextType.mainHomeTitle,
+            type: TitleTextType.mainHomeTitle,
           ),
           WorkshopContainer(
             title: 'Family Photoshoot Workshop',
@@ -51,9 +51,9 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
             url:
                 'https://i.picsum.photos/id/845/343/177.jpg?hmac=3g0mRIkagUNhIuKOOnL_mW5BBQYIVeFLddy4X3nuquY',
           ),
-          CustomText(
+          TitleText(
             title: 'Popular packages',
-            type: CustomTextType.mainHomeTitle,
+            type: TitleTextType.mainHomeTitle,
           ),
           PopularPackageContainer(
             title: 'The Baby Plan',
