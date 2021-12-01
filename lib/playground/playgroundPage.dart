@@ -26,9 +26,11 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
   Widget build(BuildContext context) {
     final dailyTipList = context.read<AppData>().dailyTips;
     final promotionList = context.read<AppData>().promotions;
+    final workshopList = context.read<AppData>().workshops;
 
     print(dailyTipList.length);
     print(promotionList.length);
+    print(workshopList.length);
 
     return Scaffold(
       body: ListView(
@@ -47,13 +49,7 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
             title: 'Workshop',
             type: CustomTextType.mainHomeTitle,
           ),
-          WorkshopContainer(
-            title: 'Family Photoshoot Workshop',
-            price: 'BD40',
-            date: '8th, January 2022',
-            url:
-                'https://i.picsum.photos/id/845/343/177.jpg?hmac=3g0mRIkagUNhIuKOOnL_mW5BBQYIVeFLddy4X3nuquY',
-          ),
+          WorkshopContainer(workshopList.first),
           CustomText(
             title: 'Popular packages',
             type: CustomTextType.mainHomeTitle,

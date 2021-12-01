@@ -1,4 +1,5 @@
 //PACKAGES
+import 'package:LMP0001_LittleMiraclesApp/widgets/general/HtmlDescriptionText.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
@@ -17,13 +18,16 @@ class PromotionDetails extends StatelessWidget {
   const PromotionDetails(this.promotion);
 
   String getDate(String date) {
-    var dateTimeString = date;
-    final dateTime = DateTime.parse(dateTimeString);
+    if (date != 'null') {
+      var dateTimeString = date;
+      final dateTime = DateTime.parse(dateTimeString);
 
-    final format = DateFormat('dd/MM/yyyy');
-    final formattedDate = format.format(dateTime);
-
-    return formattedDate;
+      final format = DateFormat('dd/MM/yyyy');
+      final formattedDate = format.format(dateTime);
+      return formattedDate;
+    } else {
+      return date;
+    }
   }
 
   @override
@@ -71,31 +75,28 @@ class PromotionDetails extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8.0),
                     color: AppColors.blue8DC4CB,
                   ),
-                  child: Hero(
-                    tag: 'promotionImage',
-                    child: CachedNetworkImage(
-                      imageUrl: '${promotion?.image}',
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8.0),
-                          color: AppColors.blue8DC4CB,
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.fill,
-                          ),
+                  child: CachedNetworkImage(
+                    imageUrl: '${promotion?.image}',
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.0),
+                        color: AppColors.blue8DC4CB,
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.fill,
                         ),
                       ),
-                      //todo fix placeholder
-                      placeholder: (context, url) => Image(
-                        image: AssetImage('assets/images/logo.png'),
-                      ),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
+                    //todo fix placeholder
+                    placeholder: (context, url) => Image(
+                      image: AssetImage('assets/images/logo.png'),
+                    ),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
                 ),
               ),
               Text(
-                '${promotion?.postedAt}',
+                getDate('${promotion?.postedAt}'),
                 style: TextStyle(
                   color: AppColors.black45515D,
                   fontWeight: FontWeight.w600,
@@ -116,13 +117,7 @@ class PromotionDetails extends StatelessWidget {
                   ),
                 ),
               ),
-              Text(
-                '${promotion?.content}',
-                style: TextStyle(
-                  color: AppColors.black45515D,
-                  fontSize: 14,
-                ),
-              ),
+              HtmlDescriptionText('${promotion?.content}'),
               Container(
                 margin: const EdgeInsets.only(
                   top: 20.0,

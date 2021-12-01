@@ -1,16 +1,32 @@
 //PACKAGES
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:intl/intl.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
+import '../../models/workshop.dart';
 //PROVIDERS
 //WIDGETS
+import '../../widgets/general/HtmlDescriptionText.dart';
 //PAGES
 
 class WorkshopDetailsPage extends StatelessWidget {
-  // final Workshop? workshop;
-  // const WorkshopDetailsPage(this.workshop);
+  final Workshop? workshop;
+  const WorkshopDetailsPage(this.workshop);
+
+  String getDate(String date) {
+    if (date != 'null') {
+      var dateTimeString = date;
+      final dateTime = DateTime.parse(dateTimeString);
+
+      final format = DateFormat('dd/MM/yyyy');
+      final formattedDate = format.format(dateTime);
+      return formattedDate;
+    } else {
+      return date;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,12 +62,7 @@ class WorkshopDetailsPage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.fromLTRB(
-            16.0,
-            22.0,
-            16.0,
-            10.0,
-          ),
+          padding: EdgeInsets.fromLTRB(16.0, 22.0, 16.0, 10.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -65,8 +76,7 @@ class WorkshopDetailsPage extends StatelessWidget {
                     color: AppColors.blue8DC4CB,
                   ),
                   child: CachedNetworkImage(
-                    imageUrl:
-                        'https://i.picsum.photos/id/403/343/177.jpg?hmac=hQDFIyGExoNtQOqkJMORkSfy7n0AVk3wEhmxQ_G1cXU',
+                    imageUrl: '${workshop?.image}',
                     imageBuilder: (context, imageProvider) => Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8.0),
@@ -86,7 +96,7 @@ class WorkshopDetailsPage extends StatelessWidget {
                 ),
               ),
               Text(
-                '01/08/2021',
+                getDate('${workshop?.postedAt}'),
                 style: TextStyle(
                   color: AppColors.black45515D,
                   fontWeight: FontWeight.w600,
@@ -99,7 +109,7 @@ class WorkshopDetailsPage extends StatelessWidget {
                   bottom: 16.0,
                 ),
                 child: Text(
-                  'Family Photoshoot Workshop',
+                  '${workshop?.title}',
                   style: TextStyle(
                     color: AppColors.black45515D,
                     fontWeight: FontWeight.w800,
@@ -107,17 +117,7 @@ class WorkshopDetailsPage extends StatelessWidget {
                   ),
                 ),
               ),
-              Text(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ' +
-                    'eiusmod tempor incididunt ut labore et dolore magna aliqua. Venenatis' +
-                    'urna cursus eget nunc scelerisque viverra mauris in. Viverra suspendisse' +
-                    'potenti nullam ac tortor vitae. Nibh tellus molestie nunc non. Urna' +
-                    'et pharetra pharetra massa massa ultricies mi. Id interdum velit laoreet id donec.',
-                style: TextStyle(
-                  color: AppColors.black45515D,
-                  fontSize: 14,
-                ),
-              ),
+              HtmlDescriptionText('${workshop?.content}'),
             ],
           ),
         ),

@@ -35,24 +35,21 @@ class PromotionContainer extends StatelessWidget {
             Container(
               height: 177,
               width: double.infinity,
-              child: Hero(
-                tag: 'promotionImage',
-                child: CachedNetworkImage(
-                  imageUrl: '${promotion?.image}',
-                  imageBuilder: (context, imageProvider) => Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.0),
-                      color: AppColors.blue8DC4CB,
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.fill,
-                      ),
+              child: CachedNetworkImage(
+                imageUrl: '${promotion?.image}',
+                imageBuilder: (context, imageProvider) => Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    color: AppColors.blue8DC4CB,
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.fill,
                     ),
                   ),
-                  placeholder: (context, url) => const CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 150,
-                  ),
+                ),
+                placeholder: (context, url) => const CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 150,
                 ),
               ),
             ),

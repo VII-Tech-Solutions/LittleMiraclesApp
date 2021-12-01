@@ -4,23 +4,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
+import '../../models/workshop.dart';
 //PROVIDERS
 //WIDGETS
 //PAGES
 import '../../pages/home/workshopDetailsPage.dart';
 
 class WorkshopContainer extends StatelessWidget {
-  final String? title;
-  final String? url;
-  final String? price;
-  final String? date;
-  const WorkshopContainer(
-      {Key? key,
-      @required this.title,
-      this.url,
-      @required this.price,
-      @required this.date})
-      : super(key: key);
+  final Workshop? workshop;
+  const WorkshopContainer(this.workshop);
 
   @override
   Widget build(BuildContext context) {
@@ -30,17 +22,12 @@ class WorkshopContainer extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => WorkshopDetailsPage(),
+            builder: (context) => WorkshopDetailsPage(workshop),
           ),
         );
       },
       child: Padding(
-        padding: EdgeInsets.fromLTRB(
-          16.0,
-          22.0,
-          16.0,
-          10.0,
-        ),
+        padding: EdgeInsets.fromLTRB(16.0, 22.0, 16.0, 10.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +36,7 @@ class WorkshopContainer extends StatelessWidget {
               height: 177,
               width: double.infinity,
               child: CachedNetworkImage(
-                imageUrl: '$url',
+                imageUrl: '${workshop?.image}',
                 imageBuilder: (context, imageProvider) => Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
@@ -72,7 +59,7 @@ class WorkshopContainer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '$title',
+                    '${workshop?.title}',
                     maxLines: 1,
                     style: TextStyle(
                       color: AppColors.black45515D,
@@ -81,7 +68,7 @@ class WorkshopContainer extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '$price',
+                    '${workshop?.price}',
                     maxLines: 1,
                     style: TextStyle(
                       color: AppColors.black45515D,
@@ -95,7 +82,7 @@ class WorkshopContainer extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 4.0),
               child: Text(
-                '$date',
+                '${workshop?.price}',
                 maxLines: 1,
                 style: TextStyle(
                   color: AppColors.black45515D,
