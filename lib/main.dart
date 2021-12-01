@@ -38,8 +38,9 @@ class MyApp extends StatelessWidget {
             previousAppData == null ? [] : previousAppData.dailyTips,
             previousAppData == null ? [] : previousAppData.promotions,
             previousAppData == null ? [] : previousAppData.workshops,
+            previousAppData == null ? [] : previousAppData.sections,
           ),
-          create: (context) => AppData("", [], [], [], []),
+          create: (context) => AppData("", [], [], [], [], []),
         ),
       ],
       child: MaterialApp(
