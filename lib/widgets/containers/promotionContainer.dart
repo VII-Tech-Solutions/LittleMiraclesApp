@@ -7,6 +7,7 @@ import '../../global/colors.dart';
 //PROVIDERS
 //WIDGETS
 //PAGES
+import '../../pages/home/promotionDetailsPage.dart';
 
 class PromotionContainer extends StatelessWidget {
   final String? title;
@@ -21,6 +22,12 @@ class PromotionContainer extends StatelessWidget {
     return InkWell(
       onTap: () {
         //todo go to Daily Tip deatils page
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PromotionDetails(),
+          ),
+        );
       },
       child: Padding(
         padding: EdgeInsets.fromLTRB(

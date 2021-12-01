@@ -213,10 +213,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
           ),
           FilledButtonWidget(
             margin: EdgeInsets.fromLTRB(
-              size.width * 0.08,
-              size.height * 0.5,
-              size.width * 0.08,
-              size.height * 0.05,
+              30.0,
+              40.0,
+              30.0,
+              40.0,
             ),
             onPress: () {
               final authProvider = context.read<Auth>();
