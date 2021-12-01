@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
+import '../../models/onboarding.dart';
 //PROVIDERS
 import '../../providers/auth.dart';
 import '../../providers/appData.dart';
@@ -22,15 +23,17 @@ class OnboardingPage extends StatefulWidget {
 class _OnboardingPageState extends State<OnboardingPage> {
   int _selectedPage = 0;
   List<Image> images = [];
+  late final List<Onboarding> onboardingList;
 
   //Initiate data
   @override
   void initState() {
     super.initState();
 
-    final onboardingList = context.read<AppData>().onboardings;
+    onboardingList = context.read<AppData>().onboardings;
 
-    print(onboardingList);
+    print(onboardingList.length);
+    print(onboardingList[2].image);
 
     images.insert(
       0,
@@ -42,14 +45,14 @@ class _OnboardingPageState extends State<OnboardingPage> {
     images.insert(
       1,
       Image.network(
-        'https://i.picsum.photos/id/820/2000/3000.jpg?hmac=NkZ9UIBB8GPKFhlvBtGnoO2nYn_J_GwMq1Ay57QO_0M',
+        '${onboardingList[1].image}',
         fit: BoxFit.cover,
       ),
     );
     images.insert(
       2,
       Image.network(
-        'https://i.picsum.photos/id/5/2000/3000.jpg?hmac=513kUuGPVkVcvFLEsVyDcCSm48jRQ9N7euwpd-LskD8',
+        '${onboardingList[2].image}',
         fit: BoxFit.cover,
       ),
     );
@@ -181,20 +184,20 @@ class _OnboardingPageState extends State<OnboardingPage> {
             },
             children: <Widget>[
               _buildPageWidget(
-                  0,
-                  'Capture Special Moments',
-                  'Get professional portraits and capture those special moments' +
-                      'with your little miracles. They’re only little for a little while.'),
+                0,
+                '${onboardingList[0].title}',
+                '${onboardingList[0].content}',
+              ),
               _buildPageWidget(
-                  1,
-                  'The right milestones',
-                  'Make every milestone count. From maternity, to welcoming your' +
-                      ' newborn, to their 1st birthday. Find the right package to capture these milestones.'),
+                1,
+                '${onboardingList[1].title}',
+                '${onboardingList[1].content}',
+              ),
               _buildPageWidget(
-                  2,
-                  'Book in seconds',
-                  'We’ll stay in touch with you as your due date approaches to' +
-                      'fit you in at the perfect time. Book your session in advance and we’ll take care of the rest.'),
+                2,
+                '${onboardingList[2].title}',
+                '${onboardingList[2].content}',
+              ),
             ],
           ),
           Container(
