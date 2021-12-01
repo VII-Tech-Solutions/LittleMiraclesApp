@@ -1,23 +1,35 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/widgets/buttons/filledButtonWidget.dart';
+import 'package:LMP0001_LittleMiraclesApp/widgets/general/HtmlDescriptionText.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
+import '../../models/promotion.dart';
 //PROVIDERS
 //WIDGETS
+import '../../widgets/buttons/filledButtonWidget.dart';
 //PAGES
 
-class PromotionDetails extends StatefulWidget {
-  const PromotionDetails({Key? key}) : super(key: key);
+class PromotionDetails extends StatelessWidget {
+  final Promotion? promotion;
+  const PromotionDetails(this.promotion);
 
-  @override
-  _PromotionDetailsState createState() => _PromotionDetailsState();
-}
+  String getDate(String date) {
+    if (date != 'null') {
+      var dateTimeString = date;
+      final dateTime = DateTime.parse(dateTimeString);
 
-class _PromotionDetailsState extends State<PromotionDetails> {
+      final format = DateFormat('dd/MM/yyyy');
+      final formattedDate = format.format(dateTime);
+      return formattedDate;
+    } else {
+      return date;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,9 +43,7 @@ class _PromotionDetailsState extends State<PromotionDetails> {
           ),
         ),
         leading: Padding(
-          padding: EdgeInsets.only(
-            left: 16.0,
-          ),
+          padding: EdgeInsets.only(left: 16.0),
           child: MaterialButton(
             elevation: 0,
             onPressed: () {
@@ -52,12 +62,7 @@ class _PromotionDetailsState extends State<PromotionDetails> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.fromLTRB(
-            16.0,
-            22.0,
-            16.0,
-            10.0,
-          ),
+          padding: EdgeInsets.fromLTRB(16.0, 22.0, 16.0, 10.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -71,8 +76,7 @@ class _PromotionDetailsState extends State<PromotionDetails> {
                     color: AppColors.blue8DC4CB,
                   ),
                   child: CachedNetworkImage(
-                    imageUrl:
-                        'https://i.picsum.photos/id/403/343/177.jpg?hmac=hQDFIyGExoNtQOqkJMORkSfy7n0AVk3wEhmxQ_G1cXU',
+                    imageUrl: '${promotion?.image}',
                     imageBuilder: (context, imageProvider) => Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8.0),
@@ -92,7 +96,7 @@ class _PromotionDetailsState extends State<PromotionDetails> {
                 ),
               ),
               Text(
-                '01/08/2021',
+                getDate('${promotion?.postedAt}'),
                 style: TextStyle(
                   color: AppColors.black45515D,
                   fontWeight: FontWeight.w600,
@@ -105,7 +109,7 @@ class _PromotionDetailsState extends State<PromotionDetails> {
                   bottom: 16.0,
                 ),
                 child: Text(
-                  'Your First Photoshoot',
+                  '${promotion?.title}',
                   style: TextStyle(
                     color: AppColors.black45515D,
                     fontWeight: FontWeight.w800,
@@ -113,17 +117,7 @@ class _PromotionDetailsState extends State<PromotionDetails> {
                   ),
                 ),
               ),
-              Text(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ' +
-                    'eiusmod tempor incididunt ut labore et dolore magna aliqua. Venenatis' +
-                    'urna cursus eget nunc scelerisque viverra mauris in. Viverra suspendisse' +
-                    'potenti nullam ac tortor vitae. Nibh tellus molestie nunc non. Urna' +
-                    'et pharetra pharetra massa massa ultricies mi. Id interdum velit laoreet id donec.',
-                style: TextStyle(
-                  color: AppColors.black45515D,
-                  fontSize: 14,
-                ),
-              ),
+              HtmlDescriptionText('${promotion?.content}'),
               Container(
                 margin: const EdgeInsets.only(
                   top: 20.0,
@@ -140,7 +134,7 @@ class _PromotionDetailsState extends State<PromotionDetails> {
                     border: Border.all(color: AppColors.greyD0D3D6),
                   ),
                   child: Text(
-                    'MINIME123',
+                    '${promotion?.promoCode}',
                     style: TextStyle(
                       color: AppColors.black45515D,
                       fontWeight: FontWeight.bold,
@@ -150,7 +144,7 @@ class _PromotionDetailsState extends State<PromotionDetails> {
                 ),
               ),
               Text(
-                '*This gift is valid until 21/12/2021',
+                '*This gift is valid until ${promotion?.validUntil}',
                 style: TextStyle(
                   fontSize: 14,
                   color: AppColors.black45515D,
@@ -167,12 +161,7 @@ class _PromotionDetailsState extends State<PromotionDetails> {
                     elevation: 2,
                     duration: Duration(seconds: 2),
                     content: Padding(
-                      padding: EdgeInsets.fromLTRB(
-                        30.0,
-                        20.0,
-                        30.0,
-                        20.0,
-                      ),
+                      padding: EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 20.0),
                       child: Text(
                         'Promo Code Copied',
                         style: TextStyle(
@@ -188,7 +177,7 @@ class _PromotionDetailsState extends State<PromotionDetails> {
                     ),
                   );
                   Clipboard.setData(
-                    ClipboardData(text: 'MINIME123'),
+                    ClipboardData(text: '${promotion?.validUntil}'),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },

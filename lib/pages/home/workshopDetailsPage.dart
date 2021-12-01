@@ -5,15 +5,15 @@ import 'package:intl/intl.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
-import '../../models/dailyTip.dart';
+import '../../models/workshop.dart';
 //PROVIDERS
 //WIDGETS
 import '../../widgets/general/HtmlDescriptionText.dart';
 //PAGES
 
-class DailyTipDetailsPage extends StatelessWidget {
-  final DailyTip? dailyTip;
-  const DailyTipDetailsPage(this.dailyTip);
+class WorkshopDetailsPage extends StatelessWidget {
+  final Workshop? workshop;
+  const WorkshopDetailsPage(this.workshop);
 
   String getDate(String date) {
     if (date != 'null') {
@@ -34,7 +34,7 @@ class DailyTipDetailsPage extends StatelessWidget {
       appBar: AppBar(
         elevation: 1,
         title: const Text(
-          'Your daily tip',
+          'Workshop',
           style: TextStyle(
             color: AppColors.black45515D,
             fontSize: 18,
@@ -76,7 +76,7 @@ class DailyTipDetailsPage extends StatelessWidget {
                     color: AppColors.blue8DC4CB,
                   ),
                   child: CachedNetworkImage(
-                    imageUrl: '${dailyTip?.image}',
+                    imageUrl: '${workshop?.image}',
                     imageBuilder: (context, imageProvider) => Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8.0),
@@ -96,7 +96,7 @@ class DailyTipDetailsPage extends StatelessWidget {
                 ),
               ),
               Text(
-                getDate('${dailyTip?.postedAt}'),
+                getDate('${workshop?.postedAt}'),
                 style: TextStyle(
                   color: AppColors.black45515D,
                   fontWeight: FontWeight.w600,
@@ -109,7 +109,7 @@ class DailyTipDetailsPage extends StatelessWidget {
                   bottom: 16.0,
                 ),
                 child: Text(
-                  '${dailyTip?.title}',
+                  '${workshop?.title}',
                   style: TextStyle(
                     color: AppColors.black45515D,
                     fontWeight: FontWeight.w800,
@@ -117,7 +117,7 @@ class DailyTipDetailsPage extends StatelessWidget {
                   ),
                 ),
               ),
-              HtmlDescriptionText('${dailyTip?.content}'),
+              HtmlDescriptionText('${workshop?.content}'),
             ],
           ),
         ),

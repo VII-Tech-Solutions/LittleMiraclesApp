@@ -1,8 +1,10 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 //GLOBAL
 //MODELS
 //PROVIDERS
+import '../../providers/appData.dart';
 //WIDGETS
 import '../widgets/texts/titleText.dart';
 import '../../widgets/containers/workshopContainer.dart';
@@ -22,6 +24,14 @@ class PlayrgoundPage extends StatefulWidget {
 class _PlayrgoundPageState extends State<PlayrgoundPage> {
   @override
   Widget build(BuildContext context) {
+    final dailyTipList = context.read<AppData>().dailyTips;
+    final promotionList = context.read<AppData>().promotions;
+    final workshopList = context.read<AppData>().workshops;
+
+    print(dailyTipList.length);
+    print(promotionList.length);
+    print(workshopList.length);
+
     return Scaffold(
       body: ListView(
         children: [
@@ -29,28 +39,17 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
             title: 'Your daily tip',
             type: TitleTextType.mainHomeTitle,
           ),
-          TipContainer(title: 'title'),
+          TipContainer(dailyTipList.first),
           TitleText(
             title: 'Promotions',
             type: TitleTextType.mainHomeTitle,
           ),
-          PromotionContainer(
-            title: 'Your First Photoshoot',
-            url:
-                'https://i.picsum.photos/id/988/343/177.jpg?hmac=hBwZZTySe-hInmpgXTymSq5GxhuoWwIOWCDEJOD26TA',
-            percentage: '20% Off',
-          ),
+          PromotionContainer(promotionList.last),
           TitleText(
             title: 'Workshop',
             type: TitleTextType.mainHomeTitle,
           ),
-          WorkshopContainer(
-            title: 'Family Photoshoot Workshop',
-            price: 'BD40',
-            date: '8th, January 2022',
-            url:
-                'https://i.picsum.photos/id/845/343/177.jpg?hmac=3g0mRIkagUNhIuKOOnL_mW5BBQYIVeFLddy4X3nuquY',
-          ),
+          WorkshopContainer(workshopList.first),
           TitleText(
             title: 'Popular packages',
             type: TitleTextType.mainHomeTitle,
