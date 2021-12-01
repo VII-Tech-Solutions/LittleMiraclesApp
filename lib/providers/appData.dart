@@ -1,6 +1,7 @@
 //PACKAGES
 import 'dart:async';
 import 'dart:convert';
+import 'package:LMP0001_LittleMiraclesApp/models/promotion.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 //GLOBAL
@@ -20,11 +21,13 @@ class AppData with ChangeNotifier {
   // User? _user;
   List<Onboarding> _onboardings = [];
   List<DailyTip> _dailyTips = [];
+  List<Promotion> _promotions = [];
 
   AppData(
     this.authToken,
     this._onboardings,
     this._dailyTips,
+    this._promotions,
   );
 
   List<Onboarding> get onboardings {
@@ -33,6 +36,10 @@ class AppData with ChangeNotifier {
 
   List<DailyTip> get dailyTips {
     return [..._dailyTips];
+  }
+
+  List<Promotion> get promotions {
+    return [..._promotions];
   }
 
   Future<void> fetchAndSetAppData() async {
@@ -50,6 +57,7 @@ class AppData with ChangeNotifier {
       final extractedData = json.decode(response.body)['data'];
       final onboardingJson = extractedData['onboarding'] as List;
       final dailyTipsJson = extractedData['daily_tips'] as List;
+      final promotionsJson = extractedData['promotions'] as List;
 
       if (response.statusCode != 200) {
         return;
@@ -60,6 +68,9 @@ class AppData with ChangeNotifier {
 
       _dailyTips =
           dailyTipsJson.map((json) => DailyTip.fromJson(json)).toList();
+
+      _promotions =
+          promotionsJson.map((json) => Promotion.fromJson(json)).toList();
 
       await LastUpdateClass().setLastUpdate(LastUpdate.appData);
       return;
@@ -91,11 +102,21 @@ class AppData with ChangeNotifier {
         DBHelper.insert(Tables.dailyTips, item.toMap());
       }
     });
+
+    // PROMOTIONS
+    _promotions.forEach((item) {
+      if (item.deletedAt != null) {
+        DBHelper.deleteById(Tables.promotions, item.id ?? -1);
+      } else {
+        DBHelper.insert(Tables.promotions, item.toMap());
+      }
+    });
   }
 
   Future<void> getLocalAppData() async {
     final onboardingDataList = await DBHelper.getData(Tables.onboarding);
     final dailyTipsDataList = await DBHelper.getData(Tables.dailyTips);
+    final promotionsDataList = await DBHelper.getData(Tables.promotions);
 
     // ONBOARDING
     if (onboardingDataList.isNotEmpty) {
@@ -127,6 +148,28 @@ class AppData with ChangeNotifier {
               title: item['title'],
               postedAt: item['postedAt'],
               content: item['content'],
+            ),
+          )
+          .toList();
+    }
+
+    // PROMOTIONS
+    if (promotionsDataList.isEmpty) {
+      _promotions = promotionsDataList
+          .map(
+            (item) => Promotion(
+              id: item['id'],
+              image: item['image'],
+              title: item['title'],
+              offer: item['offer'],
+              type: item['type'],
+              content: item['content'],
+              status: item['status'],
+              updatedAt: item['updatedAt'],
+              deletedAt: item['deletedAt'],
+              postedAt: item['postedAt'],
+              validUntil: item['validUntil'],
+              promoCode: item['promoCode'],
             ),
           )
           .toList();

@@ -18,6 +18,8 @@ class DBHelper {
             'CREATE TABLE onboardings(id INT PRIMARY KEY, updatedAt TEXT, deletedAt TEXT, title TEXT, content TEXT, image TEXT, orderNum INTEGER)');
         await db.execute(
             'CREATE TABLE dailyTips(id INT PRIMARY KEY, status INTEGER, updatedAt TEXT, deletedAt TEXT, image TEXT, title TEXT, postedAt TEXT, content TEXT)');
+        await db.execute(
+            'CREATE TABLE promotions(id INT PRIMARY KEY, image TEXT, title TEXT, offer TEXT, type TEXT, content TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT, postedAt TEXT, validUntil TEXT, promoCode TEXT)');
       },
       version: 1,
       onUpgrade: (db, oldVersion, newVersion) async {

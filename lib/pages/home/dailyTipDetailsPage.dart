@@ -75,7 +75,7 @@ class DailyTipDetailsPage extends StatelessWidget {
                   child: Hero(
                     tag: 'dailyTipImage',
                     child: CachedNetworkImage(
-                      imageUrl: '${dailyTip!.image}',
+                      imageUrl: '${dailyTip?.image}',
                       imageBuilder: (context, imageProvider) => Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8.0),

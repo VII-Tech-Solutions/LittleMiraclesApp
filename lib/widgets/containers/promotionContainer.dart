@@ -4,18 +4,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
+import '../../models/promotion.dart';
 //PROVIDERS
 //WIDGETS
 //PAGES
 import '../../pages/home/promotionDetailsPage.dart';
 
 class PromotionContainer extends StatelessWidget {
-  final String? title;
-  final String? percentage;
-  final String? url;
-  const PromotionContainer(
-      {Key? key, @required this.title, @required this.url, this.percentage})
-      : super(key: key);
+  final Promotion? promotion;
+  const PromotionContainer(this.promotion);
 
   @override
   Widget build(BuildContext context) {
@@ -25,17 +22,12 @@ class PromotionContainer extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PromotionDetails(),
+            builder: (context) => PromotionDetails(promotion),
           ),
         );
       },
       child: Padding(
-        padding: EdgeInsets.fromLTRB(
-          16.0,
-          22.0,
-          16.0,
-          10.0,
-        ),
+        padding: EdgeInsets.fromLTRB(16.0, 22.0, 16.0, 10.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,21 +35,24 @@ class PromotionContainer extends StatelessWidget {
             Container(
               height: 177,
               width: double.infinity,
-              child: CachedNetworkImage(
-                imageUrl: '$url',
-                imageBuilder: (context, imageProvider) => Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    color: AppColors.blue8DC4CB,
-                    image: DecorationImage(
-                      image: imageProvider,
-                      fit: BoxFit.fill,
+              child: Hero(
+                tag: 'promotionImage',
+                child: CachedNetworkImage(
+                  imageUrl: '${promotion?.image}',
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.0),
+                      color: AppColors.blue8DC4CB,
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
-                ),
-                placeholder: (context, url) => const CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 150,
+                  placeholder: (context, url) => const CircleAvatar(
+                    backgroundColor: Colors.white,
+                    radius: 150,
+                  ),
                 ),
               ),
             ),
@@ -67,7 +62,7 @@ class PromotionContainer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '$title',
+                    '${promotion?.title}',
                     maxLines: 1,
                     style: TextStyle(
                       color: AppColors.black45515D,
@@ -76,7 +71,7 @@ class PromotionContainer extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '$percentage',
+                    '${promotion?.offer}',
                     maxLines: 1,
                     style: TextStyle(
                       color: AppColors.black45515D,

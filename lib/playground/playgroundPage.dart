@@ -25,6 +25,11 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
   @override
   Widget build(BuildContext context) {
     final dailyTipList = context.read<AppData>().dailyTips;
+    final promotionList = context.read<AppData>().promotions;
+
+    print(dailyTipList.length);
+    print(promotionList.length);
+
     return Scaffold(
       body: ListView(
         children: [
@@ -37,12 +42,7 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
             title: 'Promotions',
             type: CustomTextType.mainHomeTitle,
           ),
-          PromotionContainer(
-            title: 'Your First Photoshoot',
-            url:
-                'https://i.picsum.photos/id/988/343/177.jpg?hmac=hBwZZTySe-hInmpgXTymSq5GxhuoWwIOWCDEJOD26TA',
-            percentage: '20% Off',
-          ),
+          PromotionContainer(promotionList.last),
           CustomText(
             title: 'Workshop',
             type: CustomTextType.mainHomeTitle,
