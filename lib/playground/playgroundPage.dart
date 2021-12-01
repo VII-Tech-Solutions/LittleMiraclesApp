@@ -35,24 +35,24 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
     return Scaffold(
       body: ListView(
         children: [
-          CustomText(
+          TitleText(
             title: 'Your daily tip',
-            type: CustomTextType.mainHomeTitle,
+            type: TitleTextType.mainHomeTitle,
           ),
           TipContainer(dailyTipList.first),
-          CustomText(
+          TitleText(
             title: 'Promotions',
-            type: CustomTextType.mainHomeTitle,
+            type: TitleTextType.mainHomeTitle,
           ),
           PromotionContainer(promotionList.last),
-          CustomText(
+          TitleText(
             title: 'Workshop',
-            type: CustomTextType.mainHomeTitle,
+            type: TitleTextType.mainHomeTitle,
           ),
           WorkshopContainer(workshopList.first),
-          CustomText(
+          TitleText(
             title: 'Popular packages',
-            type: CustomTextType.mainHomeTitle,
+            type: TitleTextType.mainHomeTitle,
           ),
           PopularPackageContainer(
             title: 'The Baby Plan',

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 //MODELS
 //PROVIDERS
 //WIDGETS
+import '../../widgets/appbars/homeHeaderSliverAppBar.dart';
+import '../../widgets/appbars/loginSliverAppBar.dart';
 //PAGES
 
 class HomePage extends StatefulWidget {
@@ -16,14 +18,25 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text(
-        'Index 0: Home',
-        style: TextStyle(
-          fontSize: 30,
-          fontWeight: FontWeight.bold,
+    return CustomScrollView(
+      slivers: <Widget>[
+        HomeHeaderSliverAppBar(),
+        LoginSliverAppBar(),
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
+              return Container(
+                color: index.isOdd ? Colors.white : Colors.black12,
+                height: 100.0,
+                child: Center(
+                  child: Text('$index', textScaleFactor: 5),
+                ),
+              );
+            },
+            childCount: 20,
+          ),
         ),
-      ),
+      ],
     );
   }
 }
