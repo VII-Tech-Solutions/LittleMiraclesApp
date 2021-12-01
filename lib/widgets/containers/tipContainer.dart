@@ -5,35 +5,30 @@ import 'package:cached_network_image/cached_network_image.dart';
 import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
+import '../../models/dailyTip.dart';
 //WIDGETS
 //PAGES
 import '../../pages/home/dailyTipDetailsPage.dart';
 
 class TipContainer extends StatelessWidget {
-  final String? title;
-  final String? url;
-  const TipContainer({Key? key, @required this.title, this.url})
-      : super(key: key);
+  final DailyTip? dailyTip;
+  const TipContainer(this.dailyTip);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        //todo go to Daily Tip deatils page
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DailyTipDetails(),
-          ),
-        );
+        if (dailyTip?.id != null) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DailyTipDetailsPage(dailyTip),
+            ),
+          );
+        }
       },
       child: Padding(
-        padding: EdgeInsets.fromLTRB(
-          16.0,
-          22.0,
-          16.0,
-          10.0,
-        ),
+        padding: EdgeInsets.fromLTRB(16.0, 22.0, 16.0, 10.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,7 +41,7 @@ class TipContainer extends StatelessWidget {
                 color: AppColors.blue8DC4CB,
               ),
               child: CachedNetworkImage(
-                imageUrl: '$url',
+                imageUrl: '${dailyTip?.image}',
                 imageBuilder: (context, imageProvider) => Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
@@ -67,7 +62,7 @@ class TipContainer extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 10.0),
               child: Text(
-                'Welcome to Little Miracles by Sherinr',
+                '${dailyTip?.title}',
                 maxLines: 1,
                 style: TextStyle(
                   color: AppColors.black45515D,

@@ -1,21 +1,29 @@
 //PACKAGES
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:intl/intl.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
+import '../../models/dailyTip.dart';
 //PROVIDERS
 //WIDGETS
 //PAGES
 
-class DailyTipDetails extends StatefulWidget {
-  const DailyTipDetails({Key? key}) : super(key: key);
+class DailyTipDetailsPage extends StatelessWidget {
+  final DailyTip? dailyTip;
+  const DailyTipDetailsPage(this.dailyTip);
 
-  @override
-  _DailyTipDetailsState createState() => _DailyTipDetailsState();
-}
+  String getDate(String date) {
+    var dateTimeString = date;
+    final dateTime = DateTime.parse(dateTimeString);
 
-class _DailyTipDetailsState extends State<DailyTipDetails> {
+    final format = DateFormat('dd/MM/yyyy');
+    final formattedDate = format.format(dateTime);
+
+    return formattedDate;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,12 +58,7 @@ class _DailyTipDetailsState extends State<DailyTipDetails> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.fromLTRB(
-            16.0,
-            22.0,
-            16.0,
-            10.0,
-          ),
+          padding: EdgeInsets.fromLTRB(16.0, 22.0, 16.0, 10.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -69,8 +72,7 @@ class _DailyTipDetailsState extends State<DailyTipDetails> {
                     color: AppColors.blue8DC4CB,
                   ),
                   child: CachedNetworkImage(
-                    imageUrl:
-                        'https://i.picsum.photos/id/403/343/177.jpg?hmac=hQDFIyGExoNtQOqkJMORkSfy7n0AVk3wEhmxQ_G1cXU',
+                    imageUrl: '${dailyTip!.image}',
                     imageBuilder: (context, imageProvider) => Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8.0),
@@ -90,7 +92,7 @@ class _DailyTipDetailsState extends State<DailyTipDetails> {
                 ),
               ),
               Text(
-                '01/08/2021',
+                getDate('${dailyTip?.postedAt}'),
                 style: TextStyle(
                   color: AppColors.black45515D,
                   fontWeight: FontWeight.w600,
@@ -103,7 +105,7 @@ class _DailyTipDetailsState extends State<DailyTipDetails> {
                   bottom: 16.0,
                 ),
                 child: Text(
-                  'Welcome to Little Miracles by Sherin',
+                  '${dailyTip?.title}',
                   style: TextStyle(
                     color: AppColors.black45515D,
                     fontWeight: FontWeight.w800,
@@ -112,11 +114,7 @@ class _DailyTipDetailsState extends State<DailyTipDetails> {
                 ),
               ),
               Text(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ' +
-                    'eiusmod tempor incididunt ut labore et dolore magna aliqua. Venenatis' +
-                    'urna cursus eget nunc scelerisque viverra mauris in. Viverra suspendisse' +
-                    'potenti nullam ac tortor vitae. Nibh tellus molestie nunc non. Urna' +
-                    'et pharetra pharetra massa massa ultricies mi. Id interdum velit laoreet id donec.',
+                '${dailyTip?.content}',
                 style: TextStyle(
                   color: AppColors.black45515D,
                   fontSize: 14,

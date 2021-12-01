@@ -1,8 +1,10 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 //GLOBAL
 //MODELS
 //PROVIDERS
+import '../../providers/appData.dart';
 //WIDGETS
 import '../widgets/texts/titleText.dart';
 import '../../widgets/containers/workshopContainer.dart';
@@ -22,6 +24,7 @@ class PlayrgoundPage extends StatefulWidget {
 class _PlayrgoundPageState extends State<PlayrgoundPage> {
   @override
   Widget build(BuildContext context) {
+    final dailyTipList = context.read<AppData>().dailyTips;
     return Scaffold(
       body: ListView(
         children: [
@@ -29,7 +32,7 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
             title: 'Your daily tip',
             type: CustomTextType.mainHomeTitle,
           ),
-          TipContainer(title: 'title'),
+          TipContainer(dailyTipList.first),
           CustomText(
             title: 'Promotions',
             type: CustomTextType.mainHomeTitle,
