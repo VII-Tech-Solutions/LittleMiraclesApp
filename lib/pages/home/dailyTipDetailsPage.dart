@@ -1,9 +1,9 @@
 //PACKAGES
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 //GLOBAL
 import '../../global/colors.dart';
+import '../../global/globalHelpers.dart';
 //MODELS
 import '../../models/dailyTip.dart';
 //PROVIDERS
@@ -15,19 +15,6 @@ import '../../widgets/appbars/appBarWithBack.dart';
 class DailyTipDetailsPage extends StatelessWidget {
   final DailyTip? dailyTip;
   const DailyTipDetailsPage(this.dailyTip);
-
-  String getDate(String date) {
-    if (date != 'null') {
-      var dateTimeString = date;
-      final dateTime = DateTime.parse(dateTimeString);
-
-      final format = DateFormat('dd/MM/yyyy');
-      final formattedDate = format.format(dateTime);
-      return formattedDate;
-    } else {
-      return date;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +56,7 @@ class DailyTipDetailsPage extends StatelessWidget {
                 ),
               ),
               Text(
-                getDate('${dailyTip?.postedAt}'),
+                DateFormatClass().getDate('${dailyTip?.postedAt}'),
                 style: TextStyle(
                   color: AppColors.black45515D,
                   fontWeight: FontWeight.w600,

@@ -1,10 +1,10 @@
 //PACKAGES
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 //GLOBAL
 import '../../global/colors.dart';
+import '../../global/globalHelpers.dart';
 //MODELS
 import '../../models/promotion.dart';
 //PROVIDERS
@@ -17,19 +17,6 @@ import '../../widgets/texts/HtmlDescriptionText.dart';
 class PromotionDetails extends StatelessWidget {
   final Promotion? promotion;
   const PromotionDetails(this.promotion);
-
-  String getDate(String date) {
-    if (date != 'null') {
-      var dateTimeString = date;
-      final dateTime = DateTime.parse(dateTimeString);
-
-      final format = DateFormat('dd/MM/yyyy');
-      final formattedDate = format.format(dateTime);
-      return formattedDate;
-    } else {
-      return date;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +58,7 @@ class PromotionDetails extends StatelessWidget {
                 ),
               ),
               Text(
-                getDate('${promotion?.postedAt}'),
+                DateFormatClass().getDate('${promotion?.postedAt}'),
                 style: TextStyle(
                   color: AppColors.black45515D,
                   fontWeight: FontWeight.w600,

@@ -1,9 +1,9 @@
 //PACKAGES
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:intl/intl.dart';
 //GLOBAL
 import '../../global/colors.dart';
+import '../../global/globalHelpers.dart';
 //MODELS
 import '../../models/workshop.dart';
 //PROVIDERS
@@ -14,19 +14,6 @@ import '../../pages/home/workshopDetailsPage.dart';
 class WorkshopContainer extends StatelessWidget {
   final Workshop? workshop;
   const WorkshopContainer(this.workshop);
-
-  String getDate(String date) {
-    if (date != 'null') {
-      var dateTimeString = date;
-      final dateTime = DateTime.parse(dateTimeString);
-
-      final format = DateFormat('dd/MM/yyyy');
-      final formattedDate = format.format(dateTime);
-      return formattedDate;
-    } else {
-      return date;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +84,7 @@ class WorkshopContainer extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 4.0),
               child: Text(
-                getDate('${workshop?.postedAt}'),
+                DateFormatClass().getDate('${workshop?.postedAt}'),
                 maxLines: 1,
                 style: TextStyle(
                   color: AppColors.black45515D,

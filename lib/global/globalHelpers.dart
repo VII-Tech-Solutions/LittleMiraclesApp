@@ -1,5 +1,6 @@
 //PACKAGES
 import 'dart:convert';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 //GLOBAL
 //MODELS
@@ -45,5 +46,20 @@ class LastUpdateClass {
         json.encode({
           '$lastUpdate': dateString,
         }));
+  }
+}
+
+class DateFormatClass {
+  String getDate(String date) {
+    if (date.isNotEmpty) {
+      var dateTimeString = date;
+      final dateTime = DateTime.parse(dateTimeString);
+
+      final format = DateFormat('dd/MM/yyyy');
+      final formattedDate = format.format(dateTime);
+      return formattedDate;
+    } else {
+      return date;
+    }
   }
 }
