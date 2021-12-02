@@ -14,12 +14,14 @@ import '../models/dailyTip.dart';
 import '../models/promotion.dart';
 import '../models/workshop.dart';
 import '../models/sections.dart';
+import '../models/package.dart';
 //PROVIDERS
 //WIDGETS
 import '../widgets/texts/titleText.dart';
 import '../widgets/containers/tipContainer.dart';
 import '../widgets/containers/promotionContainer.dart';
 import '../widgets/containers/workshopContainer.dart';
+import '../widgets/containers/popularPackageContainer.dart';
 //PAGES
 
 class AppData with ChangeNotifier {
@@ -29,6 +31,7 @@ class AppData with ChangeNotifier {
   List<Promotion> _promotions = [];
   List<Workshop> _workshops = [];
   List<Section> _sections = [];
+  List<Package> _packages = [];
 
   // MAIN PAGES WIDGETS LISTS
   List<Widget> _homeList = [];
@@ -41,6 +44,7 @@ class AppData with ChangeNotifier {
     this._workshops,
     this._sections,
     this._homeList,
+    this._packages,
   );
 
   List<Onboarding> get onboardings {
@@ -61,6 +65,18 @@ class AppData with ChangeNotifier {
 
   List<Section> get sections {
     return [..._sections];
+  }
+
+  List<Package> get packages {
+    return [..._packages];
+  }
+
+  List<Package> get popularPackages {
+    List<Package> list = [];
+
+    list = _packages.where((element) => element.isPopular == true).toList();
+
+    return [...list];
   }
 
   // WIDGET LIST GETTERS
@@ -86,6 +102,7 @@ class AppData with ChangeNotifier {
       final promotionsJson = extractedData['promotions'] as List;
       final workshopsJson = extractedData['workshops'] as List;
       final sectionsJson = extractedData['sections'] as List;
+      final packagesJson = extractedData['packages'] as List;
 
       if (response.statusCode != 200) {
         return;
@@ -104,6 +121,8 @@ class AppData with ChangeNotifier {
           workshopsJson.map((json) => Workshop.fromJson(json)).toList();
 
       _sections = sectionsJson.map((json) => Section.fromJson(json)).toList();
+
+      _packages = packagesJson.map((json) => Package.fromJson(json)).toList();
 
       await LastUpdateClass().setLastUpdate(LastUpdate.appData);
       await syncLocalDatabase();
@@ -162,6 +181,15 @@ class AppData with ChangeNotifier {
         DBHelper.insert(Tables.sections, item.toMap());
       }
     });
+
+    // POPULAR PACKAGES
+    _packages.forEach((item) {
+      if (item.deletedAt != null) {
+        DBHelper.deleteById(Tables.packages, item.id ?? -1);
+      } else {
+        DBHelper.insert(Tables.packages, item.toMap());
+      }
+    });
   }
 
   Future<void> getLocalAppData() async {
@@ -170,6 +198,10 @@ class AppData with ChangeNotifier {
     final promotionsDataList = await DBHelper.getData(Tables.promotions);
     final workshopsDataList = await DBHelper.getData(Tables.workshops);
     final sectionsDataList = await DBHelper.getData(Tables.sections);
+    final packagesDataList = await DBHelper.getData(Tables.packages);
+
+    print(promotionsDataList.first);
+    print(packagesDataList.length);
 
     // ONBOARDING
     if (onboardingDataList.isNotEmpty) {
@@ -268,6 +300,29 @@ class AppData with ChangeNotifier {
           .toList();
     }
 
+    // POPULAR PACKAGES
+    if (packagesDataList.isEmpty) {
+      _packages = packagesDataList
+          .map(
+            (item) => Package(
+              id: item['id'],
+              image: item['image'],
+              title: item['title'],
+              tag: item['tag'],
+              price: item['price'],
+              isPopular: item['isPopular'],
+              type: item['type'],
+              content: item['content'],
+              locationText: item['locationText'],
+              locationLink: item['locationLink'],
+              status: item['status'],
+              updatedAt: item['updatedAt'],
+              deletedAt: item['deletedAt'],
+            ),
+          )
+          .toList();
+    }
+
     notifyListeners();
     //end of function
   }
@@ -300,8 +355,14 @@ class AppData with ChangeNotifier {
       });
     }
 
-    // _homeList.add(TitleText(
-    //     title: 'Popular packages', type: TitleTextType.mainHomeTitle));
+    if (_packages.isNotEmpty) {
+      _homeList.add(TitleText(
+          title: 'Popular packages', type: TitleTextType.mainHomeTitle));
+
+      this.popularPackages.forEach((element) {
+        _homeList.add(PopularPackageContainer(element));
+      });
+    }
   }
   //END OF CLASS
 }

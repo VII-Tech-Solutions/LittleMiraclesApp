@@ -24,6 +24,8 @@ class DBHelper {
             'CREATE TABLE workshops(id INT PRIMARY KEY, image TEXT, title TEXT, price TEXT, content TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT, postedAt TEXT)');
         await db.execute(
             'CREATE TABLE sections(id INT PRIMARY KEY, image TEXT, title TEXT, content TEXT, status INTEGER, type INTEGER, actionText TEXT, goTo TEXT, updatedAt TEXT, deletedAt TEXT, isFeatured INTEGER)');
+        await db.execute(
+            'CREATE TABLE packages(id INT PRIMARY KEY, title TEXT, tag TEXT, image TEXT, price TEXT, isPopular INTEGER, type INTEGER, content TEXT, locationText TEXT, locationLink TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
       },
       version: 1,
       onUpgrade: (db, oldVersion, newVersion) async {

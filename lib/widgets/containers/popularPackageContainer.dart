@@ -4,22 +4,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
+import '../../models/package.dart';
 //PROVIDERS
 //WIDGETS
 //PAGES
 
 class PopularPackageContainer extends StatelessWidget {
-  final String? title;
-  final String? url;
-  final String? price;
-  final String? description;
-  const PopularPackageContainer(
-      {Key? key,
-      @required this.title,
-      this.url,
-      @required this.price,
-      @required this.description})
-      : super(key: key);
+  final Package? package;
+  const PopularPackageContainer(this.package);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +29,7 @@ class PopularPackageContainer extends StatelessWidget {
               height: 177,
               width: double.infinity,
               child: CachedNetworkImage(
-                imageUrl: '$url',
+                imageUrl: package?.image ?? '',
                 placeholder: (context, url) => Container(),
                 errorWidget: (context, url, error) => Container(),
                 imageBuilder: (context, imageProvider) => Container(
@@ -46,7 +38,7 @@ class PopularPackageContainer extends StatelessWidget {
                     color: AppColors.blue8DC4CB,
                     image: DecorationImage(
                       image: imageProvider,
-                      fit: BoxFit.fill,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
@@ -58,7 +50,7 @@ class PopularPackageContainer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '$title',
+                    '${package?.title}',
                     maxLines: 1,
                     style: TextStyle(
                       color: AppColors.black45515D,
@@ -67,7 +59,7 @@ class PopularPackageContainer extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '$price',
+                    'BHD ${package?.price}',
                     maxLines: 1,
                     style: TextStyle(
                       color: AppColors.black45515D,
@@ -81,7 +73,7 @@ class PopularPackageContainer extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 4.0),
               child: Text(
-                '$description',
+                '${package?.tag}',
                 maxLines: 1,
                 style: TextStyle(
                   color: AppColors.black45515D,

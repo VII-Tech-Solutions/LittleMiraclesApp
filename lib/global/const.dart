@@ -31,4 +31,5 @@ class Tables {
   static const String promotions = 'promotions';
   static const String workshops = 'workshops';
   static const String sections = 'sections';
+  static const String packages = 'packages';
 }
