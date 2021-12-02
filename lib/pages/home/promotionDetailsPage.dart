@@ -125,7 +125,7 @@ class PromotionDetails extends StatelessWidget {
                     ),
                   );
                   Clipboard.setData(
-                    ClipboardData(text: promotion?.validUntil ?? ''),
+                    ClipboardData(text: promotion?.promoCode ?? ''),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },
