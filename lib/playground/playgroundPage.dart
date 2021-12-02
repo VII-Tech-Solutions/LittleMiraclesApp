@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 //PROVIDERS
 //WIDGETS
 import '../widgets/texts/titleText.dart';
+//PAGES
 
 class PlayrgoundPage extends StatefulWidget {
   const PlayrgoundPage({Key? key}) : super(key: key);
@@ -21,7 +22,6 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
         children: [
           TitleText(
             title: 'Playground',
-            type: TitleTextType.mainHomeTitle,
           ),
         ],
       ),
