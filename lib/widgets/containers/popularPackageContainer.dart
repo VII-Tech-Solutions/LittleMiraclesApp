@@ -39,7 +39,7 @@ class PopularPackageContainer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '${package?.title}',
+                    package?.title ?? '',
                     maxLines: 1,
                     style: TextStyle(
                       color: AppColors.black45515D,
@@ -48,7 +48,7 @@ class PopularPackageContainer extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'BHD ${package?.price}',
+                    'BHD ${package?.price ?? ''}',
                     maxLines: 1,
                     style: TextStyle(
                       color: AppColors.black45515D,
@@ -62,7 +62,7 @@ class PopularPackageContainer extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 4.0),
               child: Text(
-                '${package?.tag}',
+                package?.tag ?? '',
                 maxLines: 1,
                 style: TextStyle(
                   color: AppColors.black45515D,
