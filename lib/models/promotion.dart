@@ -58,8 +58,8 @@ class Promotion {
       updatedAt: json['updated_at'] as String?,
       deletedAt: json['deleted_at'] as String?,
       postedAt: json['posted_at'] as String?,
-      validUntil: json['validUntil'] as String?,
-      promoCode: json['promoCode'] as String?,
+      validUntil: json['valid_until'] as String?,
+      promoCode: json['promo_code'] as String?,
     );
   }
 }

@@ -92,7 +92,7 @@ class PromotionDetails extends StatelessWidget {
                 ),
               ),
               Text(
-                '*This gift is valid until ${promotion?.validUntil ?? ''}',
+                '*This gift is valid until ${DateFormatClass().getDate('${promotion?.validUntil}')}',
                 style: TextStyle(
                   fontSize: 14,
                   color: AppColors.black45515D,
@@ -125,7 +125,7 @@ class PromotionDetails extends StatelessWidget {
                     ),
                   );
                   Clipboard.setData(
-                    ClipboardData(text: promotion?.validUntil ?? ''),
+                    ClipboardData(text: promotion?.promoCode ?? ''),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },
