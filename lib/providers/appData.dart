@@ -303,7 +303,7 @@ class AppData with ChangeNotifier {
               goTo: item['goTo'],
               updatedAt: item['updatedAt'],
               deletedAt: item['deletedAt'],
-              isFeatured: item['isFeatured'],
+              isFeatured: item['isFeatured'] == 1 ? true : false,
             ),
           )
           .toList();
@@ -337,9 +337,7 @@ class AppData with ChangeNotifier {
   }
 
   Future<void> generateHomePageWidgets() async {
-    this.getCardSections(true).forEach((element) {
-      
-    });
+    this.getCardSections(true).forEach((element) {});
     if (_dailyTips.isNotEmpty) {
       _homeList.add(TitleText(title: 'Your daily tip'));
 

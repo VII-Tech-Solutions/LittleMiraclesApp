@@ -11,7 +11,7 @@ class Section {
   final String? goTo;
   final String? updatedAt;
   final String? deletedAt;
-  final int? isFeatured;
+  final bool? isFeatured;
 
   Section({
     @required this.id,
@@ -39,7 +39,7 @@ class Section {
       'goTo': goTo ?? -1,
       'updatedAt': updatedAt ?? "",
       'deletedAt': deletedAt ?? "",
-      'isFeatured': isFeatured ?? -1,
+      'isFeatured': isFeatured == true ? 1 : 0,
     };
   }
 
@@ -55,7 +55,7 @@ class Section {
       goTo: json['go_to'] as String?,
       updatedAt: json['updated_at'] as String?,
       deletedAt: json['deleted_at'] as String?,
-      isFeatured: json['is_featured'] as int?,
+      isFeatured: json['is_featured'] as bool?,
     );
   }
 }
