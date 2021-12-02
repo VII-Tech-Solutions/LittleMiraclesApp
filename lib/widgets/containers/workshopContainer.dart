@@ -1,6 +1,5 @@
 //PACKAGES
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 //GLOBAL
 import '../../global/colors.dart';
 import '../../global/globalHelpers.dart';
@@ -49,7 +48,7 @@ class WorkshopContainer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '${workshop?.title}',
+                    workshop?.title ?? '',
                     maxLines: 1,
                     style: TextStyle(
                       color: AppColors.black45515D,
@@ -58,7 +57,7 @@ class WorkshopContainer extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'BD${workshop?.price}',
+                    'BD${workshop?.price ?? ''}',
                     maxLines: 1,
                     style: TextStyle(
                       color: AppColors.black45515D,

@@ -47,7 +47,7 @@ class TipContainer extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 10.0),
               child: Text(
-                '${dailyTip?.title}',
+                dailyTip?.title ?? '',
                 maxLines: 1,
                 style: TextStyle(
                   color: AppColors.black45515D,

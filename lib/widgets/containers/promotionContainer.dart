@@ -47,7 +47,7 @@ class PromotionContainer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '${promotion?.title}',
+                    promotion?.title ?? '',
                     maxLines: 1,
                     style: TextStyle(
                       color: AppColors.black45515D,
@@ -56,7 +56,7 @@ class PromotionContainer extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${promotion?.offer}',
+                    promotion?.offer ?? '',
                     maxLines: 1,
                     style: TextStyle(
                       color: AppColors.black45515D,
