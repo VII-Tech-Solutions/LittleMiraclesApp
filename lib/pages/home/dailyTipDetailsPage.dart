@@ -69,7 +69,7 @@ class DailyTipDetailsPage extends StatelessWidget {
                   bottom: 16.0,
                 ),
                 child: Text(
-                  '${dailyTip?.title}',
+                  dailyTip?.title ?? '',
                   style: TextStyle(
                     color: AppColors.black45515D,
                     fontWeight: FontWeight.w800,
