@@ -52,12 +52,7 @@ class ActionContainer extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(
-                30.0,
-                192.0,
-                29.0,
-                40.0,
-              ),
+              padding: EdgeInsets.fromLTRB(30.0, 192.0, 29.0, 40.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
