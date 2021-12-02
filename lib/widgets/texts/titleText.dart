@@ -13,28 +13,18 @@ enum TitleTextType {
 
 class TitleText extends StatelessWidget {
   final String? title;
-  final TitleTextType? type;
-  const TitleText({Key? key, this.title, this.type}) : super(key: key);
+  final EdgeInsetsGeometry? customPadding;
+  const TitleText({
+    this.title,
+    this.customPadding = const EdgeInsets.fromLTRB(16.0, 25.0, 16.0, 0.0),
+  });
 
-  Widget _buildContentWidget() {
-    switch (type) {
-      case TitleTextType.mainHomeTitle:
-        {
-          return _mainHomeTitle(title);
-        }
-      default:
-        {
-          return Container();
-        }
-    }
-  }
-
-  Widget _mainHomeTitle(String? text) {
+  @override
+  Widget build(BuildContext context) {
     return Padding(
-      // padding: EdgeInsets.fromLTRB(16.0, 25.0, 16.0, 10.0),
-      padding: EdgeInsets.only(top: 0),
+      padding: customPadding ?? const EdgeInsets.only(top: 0),
       child: Text(
-        text ?? '',
+        title ?? '',
         style: TextStyle(
           color: AppColors.black45515D,
           fontWeight: FontWeight.w800,
@@ -42,10 +32,5 @@ class TitleText extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return _buildContentWidget();
   }
 }

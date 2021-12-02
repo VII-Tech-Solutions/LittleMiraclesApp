@@ -7,10 +7,6 @@ import 'package:provider/provider.dart';
 import '../../providers/appData.dart';
 //WIDGETS
 import '../widgets/texts/titleText.dart';
-import '../widgets/containers/workshopContainer.dart';
-import '../widgets/containers/promotionContainer.dart';
-import '../widgets/containers/actionContainer.dart';
-import '../widgets/containers/tipContainer.dart';
 //PAGES
 
 class PlayrgoundPage extends StatefulWidget {
@@ -28,7 +24,6 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
         children: [
           TitleText(
             title: 'Playground',
-            type: TitleTextType.mainHomeTitle,
           ),
         ],
       ),

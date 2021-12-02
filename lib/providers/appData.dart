@@ -13,7 +13,7 @@ import '../models/onboarding.dart';
 import '../models/dailyTip.dart';
 import '../models/promotion.dart';
 import '../models/workshop.dart';
-import '../models/sections.dart';
+import '../models/section.dart';
 import '../models/package.dart';
 //PROVIDERS
 //WIDGETS
@@ -200,9 +200,6 @@ class AppData with ChangeNotifier {
     final sectionsDataList = await DBHelper.getData(Tables.sections);
     final packagesDataList = await DBHelper.getData(Tables.packages);
 
-    print(promotionsDataList.first);
-    print(packagesDataList.length);
-
     // ONBOARDING
     if (onboardingDataList.isNotEmpty) {
       _onboardings = onboardingDataList
@@ -329,8 +326,7 @@ class AppData with ChangeNotifier {
 
   Future<void> generateHomePageWidgets() async {
     if (_dailyTips.isNotEmpty) {
-      _homeList.add(TitleText(
-          title: 'Your daily tip', type: TitleTextType.mainHomeTitle));
+      _homeList.add(TitleText(title: 'Your daily tip'));
 
       _dailyTips.forEach((element) {
         _homeList.add(TipContainer(element));
@@ -338,8 +334,7 @@ class AppData with ChangeNotifier {
     }
 
     if (_promotions.isNotEmpty) {
-      _homeList.add(
-          TitleText(title: 'Promotions', type: TitleTextType.mainHomeTitle));
+      _homeList.add(TitleText(title: 'Promotions'));
 
       _promotions.forEach((element) {
         _homeList.add(PromotionContainer(element));
@@ -347,8 +342,9 @@ class AppData with ChangeNotifier {
     }
 
     if (_workshops.isNotEmpty) {
-      _homeList
-          .add(TitleText(title: 'Workshop', type: TitleTextType.mainHomeTitle));
+      _homeList.add(TitleText(
+        title: 'Workshop',
+      ));
 
       _workshops.forEach((element) {
         _homeList.add(WorkshopContainer(element));
@@ -356,8 +352,7 @@ class AppData with ChangeNotifier {
     }
 
     if (_packages.isNotEmpty) {
-      _homeList.add(TitleText(
-          title: 'Popular packages', type: TitleTextType.mainHomeTitle));
+      _homeList.add(TitleText(title: 'Popular packages'));
 
       this.popularPackages.forEach((element) {
         _homeList.add(PopularPackageContainer(element));

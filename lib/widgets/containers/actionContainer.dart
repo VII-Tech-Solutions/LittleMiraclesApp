@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
+import '../../models/section.dart';
 //PROVIDERS
 //WIDGETS
 //PAGES
@@ -17,8 +18,7 @@ class ActionContainer extends StatelessWidget {
       {Key? key,
       @required this.title,
       @required this.url,
-      @required this.description})
-      : super(key: key);
+      @required this.description});
 
   @override
   Widget build(BuildContext context) {

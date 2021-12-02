@@ -28,7 +28,7 @@ class TipContainer extends StatelessWidget {
         }
       },
       child: Padding(
-        padding: EdgeInsets.fromLTRB(16.0, 22.0, 16.0, 10.0),
+        padding: EdgeInsets.fromLTRB(16.0, 20.0, 16.0, 0.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,

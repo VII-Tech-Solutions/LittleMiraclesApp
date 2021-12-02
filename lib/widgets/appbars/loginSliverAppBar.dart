@@ -33,7 +33,7 @@ class LoginSliverAppBar extends StatelessWidget {
                 children: [
                   TitleText(
                     title: 'Hi there ♥️',
-                    type: TitleTextType.mainHomeTitle,
+                    customPadding: null,
                   ),
                   Row(
                     children: [
