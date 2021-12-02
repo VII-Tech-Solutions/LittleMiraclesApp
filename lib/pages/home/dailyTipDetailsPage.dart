@@ -8,7 +8,7 @@ import '../../global/colors.dart';
 import '../../models/dailyTip.dart';
 //PROVIDERS
 //WIDGETS
-import '../../widgets/general/HtmlDescriptionText.dart';
+import '../../widgets/texts/HtmlDescriptionText.dart';
 import '../../widgets/appbars/appBarWithBack.dart';
 //PAGES
 
@@ -56,7 +56,7 @@ class DailyTipDetailsPage extends StatelessWidget {
                         color: AppColors.blue8DC4CB,
                         image: DecorationImage(
                           image: imageProvider,
-                          fit: BoxFit.fill,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),

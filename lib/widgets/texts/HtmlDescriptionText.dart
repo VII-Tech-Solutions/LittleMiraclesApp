@@ -29,6 +29,7 @@ class HtmlDescriptionText extends StatelessWidget {
         },
         onLinkTap: (String? url, RenderContext context,
             Map<String, String> attributes, element) async {
+          print(url);
           if (await canLaunch(url!)) {
             await launch(
               url,

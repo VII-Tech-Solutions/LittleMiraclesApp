@@ -1,10 +1,8 @@
 //PACKAGES
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 //GLOBAL
 //MODELS
 //PROVIDERS
-import '../../providers/appData.dart';
 //WIDGETS
 import '../widgets/texts/titleText.dart';
 //PAGES

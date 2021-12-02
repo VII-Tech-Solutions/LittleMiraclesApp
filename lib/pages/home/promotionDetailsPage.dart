@@ -11,7 +11,7 @@ import '../../models/promotion.dart';
 //WIDGETS
 import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/appbars/appBarWithBack.dart';
-import '../../widgets/general/HtmlDescriptionText.dart';
+import '../../widgets/texts/HtmlDescriptionText.dart';
 //PAGES
 
 class PromotionDetails extends StatelessWidget {
@@ -58,7 +58,7 @@ class PromotionDetails extends StatelessWidget {
                         color: AppColors.blue8DC4CB,
                         image: DecorationImage(
                           image: imageProvider,
-                          fit: BoxFit.fill,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
