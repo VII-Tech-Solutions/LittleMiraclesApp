@@ -1,8 +1,6 @@
 //PACKAGES
 import 'dart:async';
 import 'dart:convert';
-import 'package:LMP0001_LittleMiraclesApp/widgets/containers/promotionContainer.dart';
-import 'package:LMP0001_LittleMiraclesApp/widgets/containers/workshopContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 //GLOBAL
@@ -20,6 +18,8 @@ import '../models/sections.dart';
 //WIDGETS
 import '../widgets/texts/titleText.dart';
 import '../widgets/containers/tipContainer.dart';
+import '../widgets/containers/promotionContainer.dart';
+import '../widgets/containers/workshopContainer.dart';
 //PAGES
 
 class AppData with ChangeNotifier {

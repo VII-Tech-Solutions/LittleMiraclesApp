@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import '../../providers/appData.dart';
 //WIDGETS
 import '../widgets/texts/titleText.dart';
-import '../../widgets/containers/workshopContainer.dart';
+import '../widgets/containers/workshopContainer.dart';
 import '../widgets/containers/promotionContainer.dart';
 import '../widgets/containers/popularPackageContainer.dart';
 import '../widgets/containers/actionContainer.dart';
