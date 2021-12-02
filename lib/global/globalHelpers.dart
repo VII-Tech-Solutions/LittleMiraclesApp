@@ -59,7 +59,7 @@ class DateFormatClass {
       final formattedDate = format.format(dateTime);
       return formattedDate;
     } else {
-      return date;
+      return "";
     }
   }
 }
