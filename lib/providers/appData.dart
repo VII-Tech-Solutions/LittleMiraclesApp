@@ -1,7 +1,6 @@
 //PACKAGES
 import 'dart:async';
 import 'dart:convert';
-import 'package:LMP0001_LittleMiraclesApp/models/sections.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 //GLOBAL
@@ -14,18 +13,23 @@ import '../models/onboarding.dart';
 import '../models/dailyTip.dart';
 import '../models/promotion.dart';
 import '../models/workshop.dart';
+import '../models/sections.dart';
 //PROVIDERS
 //WIDGETS
+import '../widgets/texts/titleText.dart';
+import '../widgets/containers/tipContainer.dart';
 //PAGES
 
 class AppData with ChangeNotifier {
   String authToken;
-  // User? _user;
   List<Onboarding> _onboardings = [];
   List<DailyTip> _dailyTips = [];
   List<Promotion> _promotions = [];
   List<Workshop> _workshops = [];
   List<Section> _sections = [];
+
+  // MAIN PAGES WIDGETS LISTS
+  List<Widget> _homeList = [];
 
   AppData(
     this.authToken,
@@ -34,6 +38,7 @@ class AppData with ChangeNotifier {
     this._promotions,
     this._workshops,
     this._sections,
+    this._homeList,
   );
 
   List<Onboarding> get onboardings {
@@ -54,6 +59,11 @@ class AppData with ChangeNotifier {
 
   List<Section> get sections {
     return [..._sections];
+  }
+
+  // WIDGET LIST GETTERS
+  List<Widget> get homeList {
+    return [..._homeList];
   }
 
   Future<void> fetchAndSetAppData() async {
@@ -96,6 +106,7 @@ class AppData with ChangeNotifier {
       await LastUpdateClass().setLastUpdate(LastUpdate.appData);
       await syncLocalDatabase();
       await getLocalAppData();
+      await generateHomePageWidgets();
       return;
     } on TimeoutException catch (e) {
       print('Exception Timeout:: $e');
@@ -259,5 +270,28 @@ class AppData with ChangeNotifier {
     //end of function
   }
 
+  Future<void> generateHomePageWidgets() async {
+    if (_dailyTips.isNotEmpty) {
+      _homeList.add(
+          TitleText(title: 'You daily tip', type: TitleTextType.mainHomeTitle));
+
+      _dailyTips.forEach((element) {
+        _homeList.add(TipContainer(element));
+      });
+    }
+
+    if (_promotions.isNotEmpty) {
+      _homeList.add(
+          TitleText(title: 'Promotions', type: TitleTextType.mainHomeTitle));
+    }
+
+    if (_workshops.isNotEmpty) {
+      _homeList
+          .add(TitleText(title: 'Workshop', type: TitleTextType.mainHomeTitle));
+    }
+
+    // _homeList.add(TitleText(
+    //     title: 'Popular packages', type: TitleTextType.mainHomeTitle));
+  }
   //END OF CLASS
 }

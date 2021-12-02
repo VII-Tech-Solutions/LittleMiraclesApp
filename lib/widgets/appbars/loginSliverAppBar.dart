@@ -38,9 +38,16 @@ class LoginSliverAppBar extends StatelessWidget {
                   Row(
                     children: [
                       IconButtonWidget(
-                          onPress: () {}, icon: Icons.shopping_cart),
+                          onPress: () {
+                            print('go to cart');
+                          },
+                          icon: Icons.shopping_cart),
                       SizedBox(width: 16),
-                      IconButtonWidget(onPress: () {}, icon: Icons.forum),
+                      IconButtonWidget(
+                          onPress: () {
+                            print('go to chat');
+                          },
+                          icon: Icons.forum),
                     ],
                   )
                 ],
