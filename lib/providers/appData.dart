@@ -273,7 +273,7 @@ class AppData with ChangeNotifier {
   Future<void> generateHomePageWidgets() async {
     if (_dailyTips.isNotEmpty) {
       _homeList.add(
-          TitleText(title: 'You daily tip', type: TitleTextType.mainHomeTitle));
+          TitleText(title: 'Your daily tip', type: TitleTextType.mainHomeTitle));
 
       _dailyTips.forEach((element) {
         _homeList.add(TipContainer(element));
