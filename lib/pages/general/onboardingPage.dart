@@ -9,7 +9,6 @@ import '../../models/onboarding.dart';
 //PROVIDERS
 import '../../providers/auth.dart';
 import '../../providers/appData.dart';
-
 //WIDGETS
 import '../../widgets/buttons/filledButtonWidget.dart';
 //PAGES

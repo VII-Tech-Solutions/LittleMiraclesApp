@@ -1,9 +1,8 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/widgets/general/HtmlDescriptionText.dart';
-import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
@@ -12,6 +11,7 @@ import '../../models/promotion.dart';
 //WIDGETS
 import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/appbars/appBarWithBack.dart';
+import '../../widgets/general/HtmlDescriptionText.dart';
 //PAGES
 
 class PromotionDetails extends StatelessWidget {
