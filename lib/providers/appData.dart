@@ -1,6 +1,8 @@
 //PACKAGES
 import 'dart:async';
 import 'dart:convert';
+import 'package:LMP0001_LittleMiraclesApp/widgets/containers/promotionContainer.dart';
+import 'package:LMP0001_LittleMiraclesApp/widgets/containers/workshopContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 //GLOBAL
@@ -272,8 +274,8 @@ class AppData with ChangeNotifier {
 
   Future<void> generateHomePageWidgets() async {
     if (_dailyTips.isNotEmpty) {
-      _homeList.add(
-          TitleText(title: 'Your daily tip', type: TitleTextType.mainHomeTitle));
+      _homeList.add(TitleText(
+          title: 'Your daily tip', type: TitleTextType.mainHomeTitle));
 
       _dailyTips.forEach((element) {
         _homeList.add(TipContainer(element));
@@ -283,11 +285,19 @@ class AppData with ChangeNotifier {
     if (_promotions.isNotEmpty) {
       _homeList.add(
           TitleText(title: 'Promotions', type: TitleTextType.mainHomeTitle));
+
+      _promotions.forEach((element) {
+        _homeList.add(PromotionContainer(element));
+      });
     }
 
     if (_workshops.isNotEmpty) {
       _homeList
           .add(TitleText(title: 'Workshop', type: TitleTextType.mainHomeTitle));
+
+      _workshops.forEach((element) {
+        _homeList.add(WorkshopContainer(element));
+      });
     }
 
     // _homeList.add(TitleText(

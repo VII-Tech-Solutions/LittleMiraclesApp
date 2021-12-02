@@ -18,13 +18,14 @@ class WorkshopContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        //todo go to Workshop deatils page
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => WorkshopDetailsPage(workshop),
-          ),
-        );
+        if (workshop?.id != null) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => WorkshopDetailsPage(workshop),
+            ),
+          );
+        }
       },
       child: Padding(
         padding: EdgeInsets.fromLTRB(16.0, 22.0, 16.0, 10.0),

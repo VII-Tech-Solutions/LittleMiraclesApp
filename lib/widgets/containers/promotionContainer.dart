@@ -18,13 +18,14 @@ class PromotionContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        //todo go to Daily Tip deatils page
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => PromotionDetails(promotion),
-          ),
-        );
+        if (promotion?.id != null) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PromotionDetails(promotion),
+            ),
+          );
+        }
       },
       child: Padding(
         padding: EdgeInsets.fromLTRB(16.0, 22.0, 16.0, 10.0),

@@ -9,6 +9,7 @@ import '../../models/workshop.dart';
 //PROVIDERS
 //WIDGETS
 import '../../widgets/general/HtmlDescriptionText.dart';
+import '../../widgets/appbars/appBarWithBack.dart';
 //PAGES
 
 class WorkshopDetailsPage extends StatelessWidget {
@@ -31,35 +32,7 @@ class WorkshopDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 1,
-        title: const Text(
-          'Workshop',
-          style: TextStyle(
-            color: AppColors.black45515D,
-            fontSize: 18,
-          ),
-        ),
-        leading: Padding(
-          padding: EdgeInsets.only(
-            left: 16.0,
-          ),
-          child: MaterialButton(
-            elevation: 0,
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            color: AppColors.greyF2F3F3,
-            child: Icon(
-              Icons.arrow_back,
-              color: AppColors.black45515D,
-              size: 24,
-            ),
-            padding: EdgeInsets.all(8.0),
-            shape: CircleBorder(),
-          ),
-        ),
-      ),
+      appBar: AppBarWithBack(title: 'Workshop'),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.fromLTRB(16.0, 22.0, 16.0, 10.0),
