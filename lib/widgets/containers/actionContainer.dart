@@ -1,14 +1,12 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/widgets/general/cachedImageWidget.dart';
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 //GLOBAL
 import '../../global/colors.dart';
-import '../../global/globalHelpers.dart';
 //MODELS
 import '../../models/section.dart';
 //PROVIDERS
 //WIDGETS
+import '../../widgets/general/cachedImageWidget.dart';
 //PAGES
 
 class ActionContainer extends StatelessWidget {

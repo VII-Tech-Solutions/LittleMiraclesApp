@@ -1,6 +1,5 @@
 //PACKAGES
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 //GLOBAL
 import '../../global/colors.dart';
 import '../../global/globalHelpers.dart';
