@@ -1,10 +1,12 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
+import '../../providers/appData.dart';
 //WIDGETS
 //PAGES
 
@@ -13,6 +15,7 @@ class HomeHeaderSliverAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final url = context.read<AppData>().helloSection.image;
     final size = MediaQuery.of(context).size;
     final statusBarHeight = MediaQuery.of(context).padding.top;
     return SliverAppBar(
@@ -33,8 +36,7 @@ class HomeHeaderSliverAppBar extends StatelessWidget {
                 child: CachedNetworkImage(
                   height: double.infinity,
                   width: double.infinity,
-                  imageUrl:
-                      'https://littlemiracles.viitech.net/storage/uploads/sections/NPjxgJmn03Xj4FQd.jpg',
+                  imageUrl: url ?? '',
                   placeholder: (context, url) => Container(),
                   errorWidget: (context, url, error) => Container(),
                   imageBuilder: (context, imageProvider) => Container(

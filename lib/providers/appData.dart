@@ -68,6 +68,13 @@ class AppData with ChangeNotifier {
     return [..._sections];
   }
 
+  Section get helloSection {
+    final section =
+        _sections.firstWhere((element) => element.type == SectionType.header);
+
+    return section;
+  }
+
   List<Section> getCardSections(bool isFeatured) {
     List<Section> list = [];
 
