@@ -41,7 +41,7 @@ class ActionContainer extends StatelessWidget {
                     color: AppColors.blue8DC4CB,
                     image: DecorationImage(
                       image: imageProvider,
-                      fit: BoxFit.fill,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
