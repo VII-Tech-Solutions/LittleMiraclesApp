@@ -1,12 +1,12 @@
 //PACKAGES
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
 import '../../models/dailyTip.dart';
 //WIDGETS
+import '../general/cachedImageWidget.dart';
 //PAGES
 import '../../pages/home/dailyTipDetailsPage.dart';
 
@@ -34,31 +34,16 @@ class TipContainer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 177,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                color: AppColors.blue8DC4CB,
-              ),
-              child: CachedNetworkImage(
-                imageUrl: '${dailyTip?.image}',
-                imageBuilder: (context, imageProvider) => Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    color: AppColors.blue8DC4CB,
-                    image: DecorationImage(
-                      image: imageProvider,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                height: 177,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.0),
+                  color: AppColors.blue8DC4CB,
                 ),
-                //todo fix placeholder
-                placeholder: (context, url) => Image(
-                  image: AssetImage('assets/images/logo.png'),
-                ),
-                errorWidget: (context, url, error) => Icon(Icons.error),
-              ),
-            ),
+                child: CachedImageWidget(
+                  dailyTip?.image,
+                  ImageShape.rectangle,
+                )),
             Padding(
               padding: const EdgeInsets.only(top: 10.0),
               child: Text(
@@ -85,7 +70,7 @@ class TipContainer extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 5.0),
                     child: Text(
-                      'Tips & Tricks'.toUpperCase(),
+                      'TIPS & TRICKS',
                       maxLines: 1,
                       style: TextStyle(
                         color: AppColors.black45515D,

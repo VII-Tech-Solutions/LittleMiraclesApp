@@ -8,6 +8,7 @@ import '../../global/globalHelpers.dart';
 import '../../models/workshop.dart';
 //PROVIDERS
 //WIDGETS
+import '../general/cachedImageWidget.dart';
 //PAGES
 import '../../pages/home/workshopDetailsPage.dart';
 
@@ -37,22 +38,9 @@ class WorkshopContainer extends StatelessWidget {
             Container(
               height: 177,
               width: double.infinity,
-              child: CachedNetworkImage(
-                imageUrl: '${workshop?.image}',
-                imageBuilder: (context, imageProvider) => Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    color: AppColors.blue8DC4CB,
-                    image: DecorationImage(
-                      image: imageProvider,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                placeholder: (context, url) => const CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 150,
-                ),
+              child: CachedImageWidget(
+                workshop?.image,
+                ImageShape.rectangle,
               ),
             ),
             Padding(

@@ -1,8 +1,10 @@
 //PACKAGES
+import 'package:LMP0001_LittleMiraclesApp/widgets/general/cachedImageWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 //GLOBAL
 import '../../global/colors.dart';
+import '../../global/globalHelpers.dart';
 //MODELS
 import '../../models/section.dart';
 //PROVIDERS
@@ -10,15 +12,10 @@ import '../../models/section.dart';
 //PAGES
 
 class ActionContainer extends StatelessWidget {
-  final String? title;
-  final String? url;
-  final String? description;
+  final Section section;
+  const ActionContainer(this.section);
 
-  const ActionContainer(
-      {Key? key,
-      @required this.title,
-      @required this.url,
-      @required this.description});
+  // VARIABLES
 
   @override
   Widget build(BuildContext context) {
@@ -33,22 +30,9 @@ class ActionContainer extends StatelessWidget {
             Container(
               height: 450,
               width: double.infinity,
-              child: CachedNetworkImage(
-                imageUrl: '$url',
-                imageBuilder: (context, imageProvider) => Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    color: AppColors.blue8DC4CB,
-                    image: DecorationImage(
-                      image: imageProvider,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                placeholder: (context, url) => const CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 150,
-                ),
+              child: CachedImageWidget(
+                section.image ?? '',
+                ImageShape.square,
               ),
             ),
             Padding(
@@ -57,7 +41,7 @@ class ActionContainer extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '$title',
+                    section.title ?? '',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 36,
@@ -66,7 +50,7 @@ class ActionContainer extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 18.0),
                     child: Text(
-                      '$description',
+                      section.content ?? '',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
@@ -90,7 +74,7 @@ class ActionContainer extends StatelessWidget {
                           borderRadius: BorderRadius.circular(24),
                         ),
                         child: Text(
-                          'See Prints',
+                          section.actionText ?? '',
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w800,

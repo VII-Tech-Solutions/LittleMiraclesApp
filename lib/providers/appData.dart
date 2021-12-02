@@ -67,6 +67,18 @@ class AppData with ChangeNotifier {
     return [..._sections];
   }
 
+  List<Section> getCardSections(bool isFeatured) {
+    List<Section> list = [];
+
+    list = _sections
+        .where((element) =>
+            element.type == SectionType.card &&
+            element.isFeatured == isFeatured)
+        .toList();
+
+    return list;
+  }
+
   List<Package> get packages {
     return [..._packages];
   }
@@ -325,6 +337,9 @@ class AppData with ChangeNotifier {
   }
 
   Future<void> generateHomePageWidgets() async {
+    this.getCardSections(true).forEach((element) {
+      
+    });
     if (_dailyTips.isNotEmpty) {
       _homeList.add(TitleText(title: 'Your daily tip'));
 
