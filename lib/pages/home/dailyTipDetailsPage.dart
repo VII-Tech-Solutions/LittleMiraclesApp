@@ -8,7 +8,7 @@ import '../../global/colors.dart';
 import '../../models/dailyTip.dart';
 //PROVIDERS
 //WIDGETS
-import '../../widgets/general/HtmlDescriptionText.dart';
+import '../../widgets/texts/HtmlDescriptionText.dart';
 import '../../widgets/appbars/appBarWithBack.dart';
 //PAGES
 
