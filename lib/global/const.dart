@@ -33,3 +33,8 @@ class Tables {
   static const String sections = 'sections';
   static const String packages = 'packages';
 }
+
+class SectionType {
+  static const int header = 1;
+  static const int card = 2;
+}

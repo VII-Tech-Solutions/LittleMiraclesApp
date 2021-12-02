@@ -1,12 +1,32 @@
 //PACKAGES
+import 'dart:math';
 import 'dart:convert';
 import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 //GLOBAL
 //MODELS
 //PROVIDERS
 //WIDGETS
 //PAGES
+
+class GlobalHelpers {
+  static Widget randomPlaceholder(String shape) {
+    List<String> list = ['blue', 'pink', 'grey'];
+    int max = 3;
+    String colorName = list[Random().nextInt(max)];
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8.0),
+      child: Image.asset(
+        'assets/images/placeholder_${shape}_$colorName.png',
+        fit: BoxFit.cover,
+        height: double.infinity,
+        width: double.infinity,
+      ),
+    );
+  }
+}
 
 class BasicAuth {
   String getBasicAuth() {

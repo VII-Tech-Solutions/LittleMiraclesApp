@@ -1,12 +1,12 @@
 //PACKAGES
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
 import '../../models/package.dart';
 //PROVIDERS
 //WIDGETS
+import '../general/cachedImageWidget.dart';
 //PAGES
 
 class PopularPackageContainer extends StatelessWidget {
@@ -28,20 +28,9 @@ class PopularPackageContainer extends StatelessWidget {
             Container(
               height: 177,
               width: double.infinity,
-              child: CachedNetworkImage(
-                imageUrl: package?.image ?? '',
-                placeholder: (context, url) => Container(),
-                errorWidget: (context, url, error) => Container(),
-                imageBuilder: (context, imageProvider) => Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    color: AppColors.blue8DC4CB,
-                    image: DecorationImage(
-                      image: imageProvider,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
+              child: CachedImageWidget(
+                package?.image,
+                ImageShape.rectangle,
               ),
             ),
             Padding(
