@@ -37,7 +37,9 @@ class PromotionContainer extends StatelessWidget {
               height: 177,
               width: double.infinity,
               child: CachedNetworkImage(
-                imageUrl: '${promotion?.image}',
+                imageUrl: '${promotion?.image ?? ''}',
+                placeholder: (context, url) => Container(),
+                errorWidget: (context, url, error) => Container(),
                 imageBuilder: (context, imageProvider) => Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
@@ -47,10 +49,6 @@ class PromotionContainer extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                   ),
-                ),
-                placeholder: (context, url) => const CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 150,
                 ),
               ),
             ),
