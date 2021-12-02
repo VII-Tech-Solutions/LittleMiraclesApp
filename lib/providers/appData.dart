@@ -236,7 +236,7 @@ class AppData with ChangeNotifier {
     }
 
     // PROMOTIONS
-    if (promotionsDataList.isEmpty) {
+    if (promotionsDataList.isNotEmpty) {
       _promotions = promotionsDataList
           .map(
             (item) => Promotion(
@@ -258,7 +258,7 @@ class AppData with ChangeNotifier {
     }
 
     // WORKSHOPS
-    if (workshopsDataList.isEmpty) {
+    if (workshopsDataList.isNotEmpty) {
       _workshops = workshopsDataList
           .map(
             (item) => Workshop(
@@ -277,7 +277,7 @@ class AppData with ChangeNotifier {
     }
 
     // SECTIONS
-    if (sectionsDataList.isEmpty) {
+    if (sectionsDataList.isNotEmpty) {
       _sections = sectionsDataList
           .map(
             (item) => Section(
@@ -298,7 +298,7 @@ class AppData with ChangeNotifier {
     }
 
     // POPULAR PACKAGES
-    if (packagesDataList.isEmpty) {
+    if (packagesDataList.isNotEmpty) {
       _packages = packagesDataList
           .map(
             (item) => Package(
@@ -307,7 +307,7 @@ class AppData with ChangeNotifier {
               title: item['title'],
               tag: item['tag'],
               price: item['price'],
-              isPopular: item['isPopular'],
+              isPopular: item['isPopular'] == 1 ? true : false,
               type: item['type'],
               content: item['content'],
               locationText: item['locationText'],
