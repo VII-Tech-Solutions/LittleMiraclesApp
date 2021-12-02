@@ -18,6 +18,7 @@ import '../models/package.dart';
 //PROVIDERS
 //WIDGETS
 import '../widgets/texts/titleText.dart';
+import '../widgets/containers/actionContainer.dart';
 import '../widgets/containers/tipContainer.dart';
 import '../widgets/containers/promotionContainer.dart';
 import '../widgets/containers/workshopContainer.dart';
@@ -337,7 +338,10 @@ class AppData with ChangeNotifier {
   }
 
   Future<void> generateHomePageWidgets() async {
-    this.getCardSections(true).forEach((element) {});
+    this.getCardSections(true).forEach((element) {
+      _homeList.add(ActionContainer(element));
+    });
+
     if (_dailyTips.isNotEmpty) {
       _homeList.add(TitleText(title: 'Your daily tip'));
 
@@ -371,6 +375,10 @@ class AppData with ChangeNotifier {
         _homeList.add(PopularPackageContainer(element));
       });
     }
+
+    this.getCardSections(false).forEach((element) {
+      _homeList.add(ActionContainer(element));
+    });
   }
   //END OF CLASS
 }

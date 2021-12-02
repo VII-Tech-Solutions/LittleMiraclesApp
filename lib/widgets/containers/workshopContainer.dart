@@ -57,7 +57,7 @@ class WorkshopContainer extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'BD${workshop?.price ?? ''}',
+                    'BD ${workshop?.price ?? ''}',
                     maxLines: 1,
                     style: TextStyle(
                       color: AppColors.black45515D,

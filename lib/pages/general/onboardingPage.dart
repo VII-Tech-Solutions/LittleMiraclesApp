@@ -208,12 +208,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
             ),
           ),
           FilledButtonWidget(
-            margin: EdgeInsets.fromLTRB(
-              30.0,
-              40.0,
-              30.0,
-              40.0,
-            ),
+            margin: EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 40.0),
             onPress: () {
               final authProvider = context.read<Auth>();
               authProvider.setFirstOpen().then((_) {

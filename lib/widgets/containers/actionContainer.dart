@@ -22,8 +22,9 @@ class ActionContainer extends StatelessWidget {
         //todo go to Daily Tip deatils page
       },
       child: Padding(
-        padding: EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 10.0),
+        padding: EdgeInsets.fromLTRB(16.0, 25.0, 16.0, 0.0),
         child: Stack(
+          alignment: Alignment.bottomCenter,
           children: [
             Container(
               height: 450,
@@ -33,9 +34,25 @@ class ActionContainer extends StatelessWidget {
                 ImageShape.square,
               ),
             ),
+            Container(
+              height: 450,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    AppColors.black162534.withOpacity(0.0),
+                    AppColors.black162534,
+                  ],
+                ),
+              ),
+            ),
             Padding(
-              padding: EdgeInsets.fromLTRB(30.0, 192.0, 29.0, 40.0),
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -46,7 +63,7 @@ class ActionContainer extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 18.0),
+                    padding: const EdgeInsets.only(top: 18, bottom: 26.0),
                     child: Text(
                       section.content ?? '',
                       style: TextStyle(
@@ -57,30 +74,21 @@ class ActionContainer extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.only(
-                      top: 26.0,
-                    ),
                     height: 38,
-                    child: InkWell(
-                      onTap: () {},
-                      child: Container(
-                        width: 128,
-                        height: 38,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: AppColors.blue8DC4CB,
-                          borderRadius: BorderRadius.circular(24),
-                        ),
-                        child: Text(
-                          section.actionText ?? '',
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w800,
-                              color: AppColors.whiteFFFFFF),
-                        ),
+                    decoration: BoxDecoration(
+                      color: AppColors.blue8DC4CB,
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    padding: EdgeInsets.fromLTRB(20, 8, 20, 0),
+                    child: Text(
+                      section.actionText ?? '',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w800,
+                        color: AppColors.whiteFFFFFF,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             )
