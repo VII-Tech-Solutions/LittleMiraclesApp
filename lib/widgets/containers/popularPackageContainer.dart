@@ -38,6 +38,8 @@ class PopularPackageContainer extends StatelessWidget {
               width: double.infinity,
               child: CachedNetworkImage(
                 imageUrl: '$url',
+                placeholder: (context, url) => Container(),
+                errorWidget: (context, url, error) => Container(),
                 imageBuilder: (context, imageProvider) => Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
@@ -47,10 +49,6 @@ class PopularPackageContainer extends StatelessWidget {
                       fit: BoxFit.fill,
                     ),
                   ),
-                ),
-                placeholder: (context, url) => const CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 150,
                 ),
               ),
             ),
