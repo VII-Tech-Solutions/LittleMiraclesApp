@@ -1,5 +1,6 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
@@ -10,6 +11,7 @@ import '../../global/colors.dart';
 enum ButtonType {
   generalGrey,
   generalBlue,
+  generalPink,
 }
 
 class FilledButtonWidget extends StatelessWidget {
@@ -18,12 +20,16 @@ class FilledButtonWidget extends StatelessWidget {
   final bool isEnabled;
   final String? title;
   final EdgeInsetsGeometry? margin;
+  final IconData? icon;
+  final String? assetName;
   const FilledButtonWidget({
     @required this.onPress,
     @required this.type,
     this.isEnabled = true,
     this.title,
     this.margin,
+    this.icon,
+    this.assetName,
   });
 
   Color? _buildButtonStyle() {
@@ -36,6 +42,10 @@ class FilledButtonWidget extends StatelessWidget {
         {
           return AppColors.blue8DC4CB;
         }
+      case ButtonType.generalPink:
+        {
+          return AppColors.pinkFCE0DC;
+        }
       default:
         {
           return null;
@@ -46,6 +56,7 @@ class FilledButtonWidget extends StatelessWidget {
   Color? _buildButtonTextColor() {
     switch (type) {
       case ButtonType.generalGrey:
+      case ButtonType.generalPink:
         {
           return AppColors.black45515D;
         }
@@ -67,6 +78,10 @@ class FilledButtonWidget extends StatelessWidget {
         {
           return _subBuildTextWidget(title);
         }
+      case ButtonType.generalPink:
+        {
+          return _subBuildTextWithLeftIconWidget(title, assetName!);
+        }
       default:
         {
           return Container();
@@ -82,6 +97,23 @@ class FilledButtonWidget extends StatelessWidget {
         fontSize: 16,
         fontWeight: FontWeight.w600,
       ),
+    );
+  }
+
+  Widget _subBuildTextWithLeftIconWidget(String? text, String assetName) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(right: 17.0),
+          child: Container(
+            child: SvgPicture.asset(
+              assetName,
+            ),
+          ),
+        ),
+        _subBuildTextWidget(text),
+      ],
     );
   }
 

@@ -23,7 +23,7 @@ class ButtonWithIconWidget extends StatelessWidget {
     return InkWell(
       onTap: onPress,
       child: InkWell(
-        onTap: () {},
+        onTap: onPress,
         child: Container(
           margin: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
           width: double.infinity,
