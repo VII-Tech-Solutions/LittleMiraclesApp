@@ -9,6 +9,7 @@ import '../texts/titleText.dart';
 import '../buttons/filledButtonWidget.dart';
 import '../buttons/iconButtonWidget.dart';
 //PAGES
+import '../../pages/login/loginPage.dart';
 
 class LoginSliverAppBar extends StatelessWidget {
   const LoginSliverAppBar({Key? key}) : super(key: key);
@@ -64,6 +65,12 @@ class LoginSliverAppBar extends StatelessWidget {
               FilledButtonWidget(
                 onPress: () {
                   print('go to login');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LoginPage(),
+                    ),
+                  );
                 },
                 type: ButtonType.generalBlue,
                 title: 'Login',

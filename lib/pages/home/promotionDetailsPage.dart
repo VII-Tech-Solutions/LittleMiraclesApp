@@ -67,10 +67,7 @@ class PromotionDetails extends StatelessWidget {
               ),
               HtmlDescriptionText(promotion?.content ?? ''),
               Container(
-                margin: const EdgeInsets.only(
-                  top: 20.0,
-                  bottom: 10.0,
-                ),
+                margin: const EdgeInsets.only(top: 20.0, bottom: 10.0),
                 height: 80,
                 child: Container(
                   width: double.infinity,
