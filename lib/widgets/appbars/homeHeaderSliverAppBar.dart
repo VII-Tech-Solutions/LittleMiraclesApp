@@ -1,6 +1,7 @@
 //PACKAGES
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 //GLOBAL
 import '../../global/colors.dart';
@@ -28,6 +29,7 @@ class HomeHeaderSliverAppBar extends StatelessWidget {
       expandedHeight: size.height * 0.7 - kBottomNavigationBarHeight,
       elevation: 0,
       flexibleSpace: FlexibleSpaceBar(
+        collapseMode: CollapseMode.pin,
         background: Container(
           color: AppColors.pinkFCE6E3,
           child: Column(
@@ -68,14 +70,16 @@ class HomeHeaderSliverAppBar extends StatelessWidget {
                           text: 'Welcome ',
                           style: TextStyle(
                             fontSize: 36,
+                            fontFamily: GoogleFonts.manrope().fontFamily,
                             fontWeight: FontWeight.w300,
                             color: AppColors.black45515D,
                           ),
-                          children: const <TextSpan>[
+                          children: <TextSpan>[
                             TextSpan(
                               text: 'to Little\nMiracles by Sherin',
                               style: TextStyle(
                                 fontSize: 36,
+                                fontFamily: GoogleFonts.manrope().fontFamily,
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.black45515D,
                               ),
