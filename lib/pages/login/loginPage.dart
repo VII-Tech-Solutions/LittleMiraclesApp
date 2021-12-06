@@ -10,6 +10,7 @@ import '../../global/colors.dart';
 import '../../widgets/texts/titleText.dart';
 import '../../widgets/buttons/buttonWithIconWidget.dart';
 //PAGES
+import '../../pages/login/completeProfilePage.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -124,7 +125,14 @@ class LoginPage extends StatelessWidget {
                     ),
                     ButtonWithIconWidget(
                       buttonText: 'Login using Google',
-                      onPress: () {},
+                      onPress: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CompleteProfilePage(),
+                          ),
+                        );
+                      },
                       assetName: 'assets/images/iconsSocialGoogle.svg',
                     ),
                     ButtonWithIconWidget(

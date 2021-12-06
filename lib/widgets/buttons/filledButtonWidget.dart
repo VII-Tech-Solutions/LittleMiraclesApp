@@ -22,6 +22,7 @@ class FilledButtonWidget extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
   final IconData? icon;
   final String? assetName;
+  final double? customWidth;
   const FilledButtonWidget({
     @required this.onPress,
     @required this.type,
@@ -30,6 +31,7 @@ class FilledButtonWidget extends StatelessWidget {
     this.margin,
     this.icon,
     this.assetName,
+    this.customWidth = double.infinity,
   });
 
   Color? _buildButtonStyle() {
@@ -122,6 +124,7 @@ class FilledButtonWidget extends StatelessWidget {
     return Container(
       margin: margin,
       height: 48,
+      width: customWidth,
       child: InkWell(
         onTap: isEnabled ? onPress : null,
         child: Container(

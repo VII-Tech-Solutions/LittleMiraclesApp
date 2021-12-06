@@ -10,16 +10,15 @@ import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/form/formTextField.dart';
 import '../../widgets/appbars/appBarWithLogo.dart';
 //PAGES
-import '../../pages/login/partnerPage.dart';
 
-class CompleteProfilePage extends StatefulWidget {
-  const CompleteProfilePage({Key? key}) : super(key: key);
+class ChildrenPage extends StatefulWidget {
+  const ChildrenPage({Key? key}) : super(key: key);
 
   @override
-  State<CompleteProfilePage> createState() => _CompleteProfilePageState();
+  _ChildrenPageState createState() => _ChildrenPageState();
 }
 
-class _CompleteProfilePageState extends State<CompleteProfilePage> {
+class _ChildrenPageState extends State<ChildrenPage> {
   final _formKey = GlobalKey<FormState>();
   String selectedValue = 'Female';
 
@@ -31,19 +30,9 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0),
-              child: FilledButtonWidget(
-                margin: EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 0.0),
-                onPress: () {},
-                type: ButtonType.generalPink,
-                title: 'Google Account',
-                assetName: 'assets/images/iconsSocialGoogle.svg',
-              ),
-            ),
             TitleText(
               customPadding: EdgeInsets.fromLTRB(30.0, 20.0, 16.0, 10.0),
-              title: 'Complete your profile',
+              title: 'Your Children',
             ),
             Form(
               key: _formKey,
@@ -83,41 +72,27 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                     ),
                   ),
                   SignupFormTextFieldWidget(title: 'Birthday'),
+                  SignupFormTextFieldWidget(
+                    title: 'Description of Their Personalities',
+                    maxLines: 8,
+                  ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      SignupFormTextFieldWidget(
-                        title: '+973',
-                        customWidth: 90,
-                        customMargin:
-                            const EdgeInsets.fromLTRB(30.0, 10.0, 0.0, 10.0),
-                      ),
-                      Expanded(
-                        child: SignupFormTextFieldWidget(
-                          title: 'Phone',
-                          customMargin:
-                              const EdgeInsets.fromLTRB(10.0, 10.0, 30.0, 10.0),
-                        ),
+                      FilledButtonWidget(
+                        margin: EdgeInsets.only(right: 30.0),
+                        customWidth: 128,
+                        onPress: () {},
+                        type: ButtonType.generalGrey,
+                        title: 'Add more',
                       ),
                     ],
                   ),
-                  SignupFormTextFieldWidget(
-                    title: 'Have you ever worked with a professional photographer?' +
-                        'Were you happy with that experience? Why or why not?',
-                    maxLines: 8,
-                  ),
                   FilledButtonWidget(
-                    margin: EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 25.0),
-                    onPress: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PartnerPage(),
-                        ),
-                      );
-                    },
+                    margin: EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 25.0),
+                    onPress: () {},
                     type: ButtonType.generalBlue,
-                    title: 'Next: Partner\'s Info',
+                    title: 'Next: Family Info',
                   ),
                 ],
               ),

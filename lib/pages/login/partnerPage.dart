@@ -10,16 +10,16 @@ import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/form/formTextField.dart';
 import '../../widgets/appbars/appBarWithLogo.dart';
 //PAGES
-import '../../pages/login/partnerPage.dart';
+import '../../pages/login/childrenPage.dart';
 
-class CompleteProfilePage extends StatefulWidget {
-  const CompleteProfilePage({Key? key}) : super(key: key);
+class PartnerPage extends StatefulWidget {
+  const PartnerPage({Key? key}) : super(key: key);
 
   @override
-  State<CompleteProfilePage> createState() => _CompleteProfilePageState();
+  _PartnerPageState createState() => _PartnerPageState();
 }
 
-class _CompleteProfilePageState extends State<CompleteProfilePage> {
+class _PartnerPageState extends State<PartnerPage> {
   final _formKey = GlobalKey<FormState>();
   String selectedValue = 'Female';
 
@@ -31,19 +31,9 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0),
-              child: FilledButtonWidget(
-                margin: EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 0.0),
-                onPress: () {},
-                type: ButtonType.generalPink,
-                title: 'Google Account',
-                assetName: 'assets/images/iconsSocialGoogle.svg',
-              ),
-            ),
             TitleText(
               customPadding: EdgeInsets.fromLTRB(30.0, 20.0, 16.0, 10.0),
-              title: 'Complete your profile',
+              title: 'Your Partner',
             ),
             Form(
               key: _formKey,
@@ -101,23 +91,18 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                       ),
                     ],
                   ),
-                  SignupFormTextFieldWidget(
-                    title: 'Have you ever worked with a professional photographer?' +
-                        'Were you happy with that experience? Why or why not?',
-                    maxLines: 8,
-                  ),
                   FilledButtonWidget(
                     margin: EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 25.0),
                     onPress: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => PartnerPage(),
+                          builder: (context) => ChildrenPage(),
                         ),
                       );
                     },
                     type: ButtonType.generalBlue,
-                    title: 'Next: Partner\'s Info',
+                    title: 'Next: Children\'s Info',
                   ),
                 ],
               ),
