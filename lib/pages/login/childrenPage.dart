@@ -41,8 +41,8 @@ class _ChildrenPageState extends State<ChildrenPage> {
               key: _formKey,
               child: Column(
                 children: [
-                  MultilineTextFieldWidget(title: 'First Name'),
-                  MultilineTextFieldWidget(title: 'Last Name'),
+                  FormTextFieldWidget(title: 'First Name'),
+                  FormTextFieldWidget(title: 'Last Name'),
                   Container(
                     color: AppColors.whiteFFFFFF,
                     margin: const EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
@@ -75,8 +75,8 @@ class _ChildrenPageState extends State<ChildrenPage> {
                       ),
                     ),
                   ),
-                  MultilineTextFieldWidget(title: 'Birthday'),
-                  MultilineTextFieldWidget(
+                  FormTextFieldWidget(title: 'Birthday'),
+                  FormTextFieldWidget(
                     title: 'Description of Their Personalities',
                     maxLines: 8,
                   ),

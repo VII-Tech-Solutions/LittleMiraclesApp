@@ -7,12 +7,12 @@ import '../../global/colors.dart';
 //WIDGETS
 //PAGES
 
-class MultilineTextFieldWidget extends StatelessWidget {
+class FormTextFieldWidget extends StatelessWidget {
   final String? title;
   final int? maxLines;
   final double? customWidth;
   final EdgeInsetsGeometry? customMargin;
-  const MultilineTextFieldWidget({
+  const FormTextFieldWidget({
     required this.title,
     this.maxLines,
     this.customWidth = double.infinity,
