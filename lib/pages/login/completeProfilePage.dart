@@ -26,6 +26,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.blueF4F9FA,
       appBar: AppBarWithLogo(),
       body: SingleChildScrollView(
         child: Column(
@@ -44,14 +45,16 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
             TitleText(
               customPadding: EdgeInsets.fromLTRB(30.0, 20.0, 16.0, 10.0),
               title: 'Complete your profile',
+              type: TitleTextType.mainHomeTitle,
             ),
             Form(
               key: _formKey,
               child: Column(
                 children: [
-                  SignupFormTextFieldWidget(title: 'First Name'),
-                  SignupFormTextFieldWidget(title: 'Last Name'),
+                  MultilineTextFieldWidget(title: 'First Name'),
+                  MultilineTextFieldWidget(title: 'Last Name'),
                   Container(
+                    color: AppColors.whiteFFFFFF,
                     margin: const EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
                     child: DropdownButtonFormField(
                       value: selectedValue,
@@ -82,18 +85,18 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                       ),
                     ),
                   ),
-                  SignupFormTextFieldWidget(title: 'Birthday'),
+                  MultilineTextFieldWidget(title: 'Birthday'),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SignupFormTextFieldWidget(
+                      MultilineTextFieldWidget(
                         title: '+973',
                         customWidth: 90,
                         customMargin:
                             const EdgeInsets.fromLTRB(30.0, 10.0, 0.0, 10.0),
                       ),
                       Expanded(
-                        child: SignupFormTextFieldWidget(
+                        child: MultilineTextFieldWidget(
                           title: 'Phone',
                           customMargin:
                               const EdgeInsets.fromLTRB(10.0, 10.0, 30.0, 10.0),
@@ -101,7 +104,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                       ),
                     ],
                   ),
-                  SignupFormTextFieldWidget(
+                  MultilineTextFieldWidget(
                     title: 'Have you ever worked with a professional photographer?' +
                         'Were you happy with that experience? Why or why not?',
                     maxLines: 8,

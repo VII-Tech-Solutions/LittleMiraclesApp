@@ -350,7 +350,10 @@ class AppData with ChangeNotifier {
     });
 
     if (_dailyTips.isNotEmpty) {
-      _homeList.add(TitleText(title: 'Your daily tip'));
+      _homeList.add(TitleText(
+        title: 'Your daily tip',
+        type: TitleTextType.mainHomeTitle,
+      ));
 
       _dailyTips.forEach((element) {
         _homeList.add(TipContainer(element));
@@ -358,7 +361,10 @@ class AppData with ChangeNotifier {
     }
 
     if (_promotions.isNotEmpty) {
-      _homeList.add(TitleText(title: 'Promotions'));
+      _homeList.add(TitleText(
+        title: 'Promotions',
+        type: TitleTextType.mainHomeTitle,
+      ));
 
       _promotions.forEach((element) {
         _homeList.add(PromotionContainer(element));
@@ -368,6 +374,7 @@ class AppData with ChangeNotifier {
     if (_workshops.isNotEmpty) {
       _homeList.add(TitleText(
         title: 'Workshop',
+        type: TitleTextType.mainHomeTitle,
       ));
 
       _workshops.forEach((element) {
@@ -376,7 +383,10 @@ class AppData with ChangeNotifier {
     }
 
     if (_packages.isNotEmpty) {
-      _homeList.add(TitleText(title: 'Popular packages'));
+      _homeList.add(TitleText(
+        title: 'Popular packages',
+        type: TitleTextType.mainHomeTitle,
+      ));
 
       this.popularPackages.forEach((element) {
         _homeList.add(PopularPackageContainer(element));

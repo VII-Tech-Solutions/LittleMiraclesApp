@@ -10,6 +10,7 @@ import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/form/formTextField.dart';
 import '../../widgets/appbars/appBarWithLogo.dart';
 //PAGES
+import '../../pages/login/familyPage.dart';
 
 class ChildrenPage extends StatefulWidget {
   const ChildrenPage({Key? key}) : super(key: key);
@@ -25,6 +26,7 @@ class _ChildrenPageState extends State<ChildrenPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.blueF4F9FA,
       appBar: AppBarWithLogo(),
       body: SingleChildScrollView(
         child: Column(
@@ -33,14 +35,16 @@ class _ChildrenPageState extends State<ChildrenPage> {
             TitleText(
               customPadding: EdgeInsets.fromLTRB(30.0, 20.0, 16.0, 10.0),
               title: 'Your Children',
+              type: TitleTextType.mainHomeTitle,
             ),
             Form(
               key: _formKey,
               child: Column(
                 children: [
-                  SignupFormTextFieldWidget(title: 'First Name'),
-                  SignupFormTextFieldWidget(title: 'Last Name'),
+                  MultilineTextFieldWidget(title: 'First Name'),
+                  MultilineTextFieldWidget(title: 'Last Name'),
                   Container(
+                    color: AppColors.whiteFFFFFF,
                     margin: const EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
                     child: DropdownButtonFormField(
                       value: selectedValue,
@@ -71,8 +75,8 @@ class _ChildrenPageState extends State<ChildrenPage> {
                       ),
                     ),
                   ),
-                  SignupFormTextFieldWidget(title: 'Birthday'),
-                  SignupFormTextFieldWidget(
+                  MultilineTextFieldWidget(title: 'Birthday'),
+                  MultilineTextFieldWidget(
                     title: 'Description of Their Personalities',
                     maxLines: 8,
                   ),
@@ -90,7 +94,14 @@ class _ChildrenPageState extends State<ChildrenPage> {
                   ),
                   FilledButtonWidget(
                     margin: EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 25.0),
-                    onPress: () {},
+                    onPress: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => FamilyPage(),
+                        ),
+                      );
+                    },
                     type: ButtonType.generalBlue,
                     title: 'Next: Family Info',
                   ),

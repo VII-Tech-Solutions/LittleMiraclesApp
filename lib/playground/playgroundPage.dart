@@ -22,6 +22,7 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
         children: [
           TitleText(
             title: 'Playground',
+            type: TitleTextType.mainHomeTitle,
           ),
         ],
       ),
