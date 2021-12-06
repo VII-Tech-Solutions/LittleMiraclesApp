@@ -55,6 +55,8 @@ class _CheckboxTileWidgetState extends State<CheckboxTileWidget> {
             widget.text,
             style: TextStyle(
               color: AppColors.black45515D,
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
             ),
           ),
         ],

@@ -20,6 +20,11 @@ class FamilyPage extends StatefulWidget {
 }
 
 class _FamilyPageState extends State<FamilyPage> {
+  final favoriteController = TextEditingController();
+  final roomController = TextEditingController();
+  final childrenController = TextEditingController();
+  final commentsController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,6 +54,7 @@ class _FamilyPageState extends State<FamilyPage> {
               type: TitleTextType.questionTitle,
             ),
             FormTextFieldWidget(
+              controller: favoriteController,
               title: 'Your Message',
               maxLines: 3,
             ),
@@ -76,6 +82,7 @@ class _FamilyPageState extends State<FamilyPage> {
               type: TitleTextType.questionTitle,
             ),
             FormTextFieldWidget(
+              controller: roomController,
               title: 'Your Message',
               maxLines: 3,
             ),
@@ -86,6 +93,7 @@ class _FamilyPageState extends State<FamilyPage> {
               type: TitleTextType.questionTitle,
             ),
             FormTextFieldWidget(
+              controller: childrenController,
               title: 'Your Message',
               maxLines: 3,
             ),
@@ -95,6 +103,7 @@ class _FamilyPageState extends State<FamilyPage> {
               type: TitleTextType.questionTitle,
             ),
             FormTextFieldWidget(
+              controller: childrenController,
               title: 'Your Message',
               maxLines: 3,
             ),

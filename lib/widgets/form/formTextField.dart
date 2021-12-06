@@ -9,14 +9,22 @@ import '../../global/colors.dart';
 
 class FormTextFieldWidget extends StatelessWidget {
   final String? title;
+  final TextStyle? hintStyle;
   final int? maxLines;
   final double? customWidth;
   final EdgeInsetsGeometry? customMargin;
+  final VoidCallback? onTap;
+  final Icon? suffixIcon;
+  final TextEditingController? controller;
   const FormTextFieldWidget({
-    required this.title,
+    this.title,
+    this.hintStyle = const TextStyle(color: AppColors.greyD0D3D6),
     this.maxLines,
     this.customWidth = double.infinity,
     this.customMargin = const EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
+    this.onTap,
+    this.suffixIcon,
+    required this.controller,
   });
 
   @override
@@ -26,6 +34,11 @@ class FormTextFieldWidget extends StatelessWidget {
       width: customWidth,
       color: AppColors.whiteFFFFFF,
       child: TextFormField(
+        controller: controller,
+        style: TextStyle(
+          fontSize: 12,
+        ),
+        onTap: onTap,
         keyboardType: TextInputType.multiline,
         maxLines: maxLines,
         textInputAction: TextInputAction.next,
@@ -36,6 +49,7 @@ class FormTextFieldWidget extends StatelessWidget {
           return null;
         },
         decoration: InputDecoration(
+          suffixIcon: suffixIcon,
           contentPadding: const EdgeInsets.fromLTRB(16.0, 11.0, 16.0, 11.0),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.greyD0D3D6),
@@ -53,7 +67,7 @@ class FormTextFieldWidget extends StatelessWidget {
             borderSide: BorderSide(color: Colors.red),
           ),
           hintText: title,
-          hintStyle: TextStyle(color: AppColors.greyD0D3D6),
+          hintStyle: hintStyle,
         ),
       ),
     );
