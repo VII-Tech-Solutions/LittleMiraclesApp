@@ -24,6 +24,12 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
   String selectedValue = 'Female';
   String codeSelectedValue = '+973';
 
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final birthdayController = TextEditingController();
+  final phoneController = TextEditingController();
+  final detailsController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,12 +58,23 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
               key: _formKey,
               child: Column(
                 children: [
-                  FormTextFieldWidget(title: 'First Name'),
-                  FormTextFieldWidget(title: 'Last Name'),
+                  FormTextFieldWidget(
+                    title: 'First Name',
+                    controller: firstNameController,
+                  ),
+                  FormTextFieldWidget(
+                    title: 'Last Name',
+                    controller: lastNameController,
+                  ),
                   Container(
                     color: AppColors.whiteFFFFFF,
                     margin: const EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
                     child: DropdownButtonFormField(
+                      style: TextStyle(
+                        color: AppColors.black45515D,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
                       value: selectedValue,
                       items: <DropdownMenuItem<String>>[
                         DropdownMenuItem(
@@ -76,7 +93,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                       hint: Text('Gender'),
                       decoration: InputDecoration(
                         contentPadding:
-                            const EdgeInsets.fromLTRB(16.0, 11.0, 16.0, 11.0),
+                            const EdgeInsets.fromLTRB(16.0, 11.0, 10.0, 11.0),
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: AppColors.greyD0D3D6),
                         ),
@@ -86,7 +103,24 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                       ),
                     ),
                   ),
-                  FormTextFieldWidget(title: 'Birthday'),
+                  FormTextFieldWidget(
+                    controller: birthdayController,
+                    title: 'Birthday		      02/02/1980',
+                    hintStyle: TextStyle(
+                      color: AppColors.black45515D,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    suffixIcon: Icon(
+                      Icons.expand_more,
+                      color: AppColors.black45515D,
+                    ),
+                    onTap: () {
+                      FocusScope.of(context).requestFocus(
+                        new FocusNode(),
+                      );
+                    },
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -96,6 +130,11 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                         margin:
                             const EdgeInsets.fromLTRB(30.0, 10.0, 0.0, 10.0),
                         child: DropdownButtonFormField(
+                          style: TextStyle(
+                            color: AppColors.black45515D,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                          ),
                           value: codeSelectedValue,
                           items: <DropdownMenuItem<String>>[
                             DropdownMenuItem(
@@ -129,6 +168,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                       ),
                       Expanded(
                         child: FormTextFieldWidget(
+                          controller: phoneController,
                           title: 'Phone',
                           customMargin:
                               const EdgeInsets.fromLTRB(10.0, 10.0, 30.0, 10.0),
@@ -137,6 +177,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                     ],
                   ),
                   FormTextFieldWidget(
+                    controller: detailsController,
                     title: 'Have you ever worked with a professional photographer?' +
                         'Were you happy with that experience? Why or why not?',
                     maxLines: 8,

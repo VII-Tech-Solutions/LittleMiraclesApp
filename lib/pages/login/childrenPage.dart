@@ -23,6 +23,12 @@ class _ChildrenPageState extends State<ChildrenPage> {
   final _formKey = GlobalKey<FormState>();
   String selectedValue = 'Female';
 
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final birthdayController = TextEditingController();
+  final phoneController = TextEditingController();
+  final detailsController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,12 +47,23 @@ class _ChildrenPageState extends State<ChildrenPage> {
               key: _formKey,
               child: Column(
                 children: [
-                  FormTextFieldWidget(title: 'First Name'),
-                  FormTextFieldWidget(title: 'Last Name'),
+                  FormTextFieldWidget(
+                    title: 'First Name',
+                    controller: firstNameController,
+                  ),
+                  FormTextFieldWidget(
+                    title: 'Last Name',
+                    controller: lastNameController,
+                  ),
                   Container(
                     color: AppColors.whiteFFFFFF,
                     margin: const EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
                     child: DropdownButtonFormField(
+                      style: TextStyle(
+                        color: AppColors.black45515D,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
                       value: selectedValue,
                       items: <DropdownMenuItem<String>>[
                         DropdownMenuItem(
@@ -65,7 +82,7 @@ class _ChildrenPageState extends State<ChildrenPage> {
                       hint: Text('Gender'),
                       decoration: InputDecoration(
                         contentPadding:
-                            const EdgeInsets.fromLTRB(16.0, 11.0, 16.0, 11.0),
+                            const EdgeInsets.fromLTRB(16.0, 11.0, 10.0, 11.0),
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: AppColors.greyD0D3D6),
                         ),
@@ -75,8 +92,26 @@ class _ChildrenPageState extends State<ChildrenPage> {
                       ),
                     ),
                   ),
-                  FormTextFieldWidget(title: 'Birthday'),
                   FormTextFieldWidget(
+                    controller: birthdayController,
+                    title: 'Birthday		      02/02/1980',
+                    hintStyle: TextStyle(
+                      color: AppColors.black45515D,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    suffixIcon: Icon(
+                      Icons.expand_more,
+                      color: AppColors.black45515D,
+                    ),
+                    onTap: () {
+                      FocusScope.of(context).requestFocus(
+                        new FocusNode(),
+                      );
+                    },
+                  ),
+                  FormTextFieldWidget(
+                    controller: detailsController,
                     title: 'Description of Their Personalities',
                     maxLines: 8,
                   ),
