@@ -87,7 +87,7 @@ class LoginPage extends StatelessWidget {
                     'Sign in to unlock the best of Little Miracles by Sherin.',
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(16.0, 10.0, 16.0, 6.0),
+                padding: const EdgeInsets.fromLTRB(16.0, 10.0, 16.0, 11.0),
                 child: Text.rich(
                   TextSpan(
                     text: 'By proceeding, you agree to our ',

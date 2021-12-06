@@ -1,6 +1,5 @@
 //PACKAGES
 import 'package:flutter/material.dart';
-import 'package:flutter_html/style.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
@@ -20,33 +19,34 @@ class TitleText extends StatelessWidget {
   const TitleText({
     this.title,
     this.customPadding = const EdgeInsets.fromLTRB(16.0, 25.0, 16.0, 0.0),
-    @required this.type,
+    this.type,
   });
 
-  Widget _subBuildTextWidget(String? text, FontWeight weight, double fontSize) {
-    return Text(
-      text ?? '',
-      style: TextStyle(
-        color: AppColors.black45515D,
-        fontSize: fontSize,
-        fontWeight: weight,
-      ),
-    );
-  }
-
-  Widget _buildContentWidget() {
+  TextStyle? _textStyleBuilder() {
     switch (type) {
       case TitleTextType.mainHomeTitle:
         {
-          return _subBuildTextWidget(title, FontWeight.w800, 24);
+          return TextStyle(
+            color: AppColors.black45515D,
+            fontSize: 24,
+            fontWeight: FontWeight.w800,
+          );
         }
       case TitleTextType.questionTitle:
         {
-          return _subBuildTextWidget(title, FontWeight.w400, 14);
+          return TextStyle(
+            color: AppColors.black45515D,
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+          );
         }
       default:
         {
-          return Container();
+          return TextStyle(
+            color: AppColors.black45515D,
+            fontSize: 24,
+            fontWeight: FontWeight.w800,
+          );
         }
     }
   }
@@ -54,8 +54,11 @@ class TitleText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: customPadding ?? const EdgeInsets.only(top: 0),
-      child: _buildContentWidget(),
+      padding: customPadding ?? EdgeInsets.zero,
+      child: Text(
+        title ?? '',
+        style: _textStyleBuilder(),
+      ),
     );
   }
 }

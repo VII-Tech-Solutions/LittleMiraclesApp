@@ -65,7 +65,6 @@ class LoginSliverAppBar extends StatelessWidget {
               ),
               FilledButtonWidget(
                 onPress: () {
-                  print('go to login');
                   Navigator.push(
                     context,
                     MaterialPageRoute(
