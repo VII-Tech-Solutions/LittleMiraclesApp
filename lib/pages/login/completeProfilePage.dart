@@ -22,6 +22,7 @@ class CompleteProfilePage extends StatefulWidget {
 class _CompleteProfilePageState extends State<CompleteProfilePage> {
   final _formKey = GlobalKey<FormState>();
   String selectedValue = 'Female';
+  String codeSelectedValue = '+973';
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +52,8 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
               key: _formKey,
               child: Column(
                 children: [
-                  MultilineTextFieldWidget(title: 'First Name'),
-                  MultilineTextFieldWidget(title: 'Last Name'),
+                  FormTextFieldWidget(title: 'First Name'),
+                  FormTextFieldWidget(title: 'Last Name'),
                   Container(
                     color: AppColors.whiteFFFFFF,
                     margin: const EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
@@ -85,18 +86,49 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                       ),
                     ),
                   ),
-                  MultilineTextFieldWidget(title: 'Birthday'),
+                  FormTextFieldWidget(title: 'Birthday'),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      MultilineTextFieldWidget(
-                        title: '+973',
-                        customWidth: 90,
-                        customMargin:
+                      Container(
+                        width: 100,
+                        color: AppColors.whiteFFFFFF,
+                        margin:
                             const EdgeInsets.fromLTRB(30.0, 10.0, 0.0, 10.0),
+                        child: DropdownButtonFormField(
+                          value: codeSelectedValue,
+                          items: <DropdownMenuItem<String>>[
+                            DropdownMenuItem(
+                                child: Text('+973'), value: '+973'),
+                            DropdownMenuItem(
+                                child: Text('+965'), value: '+965'),
+                          ],
+                          onChanged: (value) {
+                            setState(() {
+                              selectedValue = value.toString();
+                            });
+                          },
+                          icon: Icon(
+                            Icons.expand_more,
+                            color: AppColors.black45515D,
+                          ),
+                          hint: Text('+973'),
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.fromLTRB(
+                                16.0, 11.0, 16.0, 11.0),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: AppColors.greyD0D3D6),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: AppColors.greyD0D3D6),
+                            ),
+                          ),
+                        ),
                       ),
                       Expanded(
-                        child: MultilineTextFieldWidget(
+                        child: FormTextFieldWidget(
                           title: 'Phone',
                           customMargin:
                               const EdgeInsets.fromLTRB(10.0, 10.0, 30.0, 10.0),
@@ -104,7 +136,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                       ),
                     ],
                   ),
-                  MultilineTextFieldWidget(
+                  FormTextFieldWidget(
                     title: 'Have you ever worked with a professional photographer?' +
                         'Were you happy with that experience? Why or why not?',
                     maxLines: 8,

@@ -32,7 +32,10 @@ class AppBarWithLogo extends StatelessWidget with PreferredSizeWidget {
           },
         ),
       ),
-      title: Image.asset('assets/images/logoNameColor.png'),
+      title: Image.asset(
+        'assets/images/logoNameColor.png',
+        width: 208,
+      ),
     );
   }
 }
