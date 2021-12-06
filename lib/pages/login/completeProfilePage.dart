@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 //GLOBAL
 import '../../global/colors.dart';
+import '../../global/globalHelpers.dart';
 //MODELS
 //PROVIDERS
 //WIDGETS
@@ -29,6 +30,21 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
   final birthdayController = TextEditingController();
   final phoneController = TextEditingController();
   final detailsController = TextEditingController();
+
+  DateTime selectedDate = DateTime.now();
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(1960, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+        print(picked);
+      });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +121,8 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                   ),
                   FormTextFieldWidget(
                     controller: birthdayController,
-                    title: 'Birthday		      02/02/1980',
+                    title:
+                        'Birthday\t\t\t\t${DateFormatClass().getDate('${selectedDate}')}',
                     hintStyle: TextStyle(
                       color: AppColors.black45515D,
                       fontSize: 12,
@@ -116,6 +133,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                       color: AppColors.black45515D,
                     ),
                     onTap: () {
+                      _selectDate(context);
                       FocusScope.of(context).requestFocus(
                         new FocusNode(),
                       );
