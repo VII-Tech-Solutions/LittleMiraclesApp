@@ -153,7 +153,7 @@ class LoginPage extends StatelessWidget {
                 onPress: () {},
                 assetName: 'assets/images/iconsSocialSnapchat.svg',
               ),
-              SizedBox(height: 24),
+              SizedBox(height: MediaQuery.of(context).padding.bottom + 24),
             ],
           ),
         ],

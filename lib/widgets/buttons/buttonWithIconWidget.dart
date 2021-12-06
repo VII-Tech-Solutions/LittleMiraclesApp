@@ -22,38 +22,40 @@ class ButtonWithIconWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onPress,
-      child: InkWell(
-        onTap: onPress,
-        child: Container(
-          margin: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
-          width: double.infinity,
+      child: Container(
           height: 60,
-          alignment: Alignment.center,
+          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
           decoration: BoxDecoration(
-            color: AppColors.whiteFFFFFF,
+            color: Colors.white,
             borderRadius: BorderRadius.circular(30),
           ),
-          child: Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16.0, 13.0, 60.0, 13.0),
-                child: SvgPicture.asset(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
                   assetName!,
+                  height: 34,
+                  width: 34,
                 ),
-              ),
-              Text(
-                buttonText ?? '',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: AppColors.black45515D,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
+                Text(
+                  buttonText ?? '',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: AppColors.black45515D,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              )
-            ],
-          ),
-        ),
-      ),
+                SizedBox(
+                  height: 34,
+                  width: 34,
+                ),
+              ],
+            ),
+          )),
     );
   }
 }
