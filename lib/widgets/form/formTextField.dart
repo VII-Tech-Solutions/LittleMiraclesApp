@@ -7,12 +7,12 @@ import '../../global/colors.dart';
 //WIDGETS
 //PAGES
 
-class SignupFormTextFieldWidget extends StatelessWidget {
+class MultilineTextFieldWidget extends StatelessWidget {
   final String? title;
   final int? maxLines;
   final double? customWidth;
   final EdgeInsetsGeometry? customMargin;
-  const SignupFormTextFieldWidget({
+  const MultilineTextFieldWidget({
     required this.title,
     this.maxLines,
     this.customWidth = double.infinity,
@@ -24,6 +24,7 @@ class SignupFormTextFieldWidget extends StatelessWidget {
     return Container(
       margin: customMargin,
       width: customWidth,
+      color: AppColors.whiteFFFFFF,
       child: TextFormField(
         keyboardType: TextInputType.multiline,
         maxLines: maxLines,

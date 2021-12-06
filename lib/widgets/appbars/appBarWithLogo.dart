@@ -16,6 +16,7 @@ class AppBarWithLogo extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: AppColors.blueF4F9FA,
       elevation: 0,
       toolbarHeight: 101,
       leading: Padding(
