@@ -7,6 +7,7 @@ import '../../global/colors.dart';
 //WIDGETS
 //PAGES
 import '../home/homePage.dart';
+import '../../pages/booking/bookingPage.dart';
 import '../../playground/playgroundPage.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
@@ -23,10 +24,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    Text(
-      'Index 1: Bookings',
-      style: optionStyle,
-    ),
+    BookingPage(),
     Text(
       'Index 2: Studio',
       style: optionStyle,
