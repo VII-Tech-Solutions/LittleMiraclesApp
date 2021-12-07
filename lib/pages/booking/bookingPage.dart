@@ -1,11 +1,12 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 //GLOBAL
 //MODELS
 //PROVIDERS
+import '../../providers/appData.dart';
 //WIDGETS
 import '../../widgets/appbars/pagesSliverAppBar.dart';
-import '../../widgets/containers/sessionContainer.dart';
 //PAGES
 
 class BookingPage extends StatefulWidget {
@@ -18,21 +19,16 @@ class BookingPage extends StatefulWidget {
 class _BookingPageState extends State<BookingPage> {
   @override
   Widget build(BuildContext context) {
-    //return SessionContainer();
+    final _list = context.watch<AppData>().bookingList;
     return CustomScrollView(
       slivers: <Widget>[
         PagesSliverAppBar(),
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (BuildContext context, int index) {
-              return Column(
-                children: [
-                  SessionContainer(true),
-                  SessionContainer(false),
-                ],
-              );
+              return _list[index];
             },
-            childCount: 1,
+            childCount: _list.length,
           ),
         ),
       ],

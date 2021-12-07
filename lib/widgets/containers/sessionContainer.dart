@@ -4,19 +4,22 @@ import 'package:flutter/material.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
+import '../../models/package.dart';
 //PROVIDERS
 //WIDGETS
 import '../general/cachedImageWidget.dart';
 //PAGES
 
 class SessionContainer extends StatelessWidget {
-  final bool isVisibile;
-  const SessionContainer(this.isVisibile);
+  final Package? package;
+  const SessionContainer(this.package);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        //TODO: go to session details
+      },
       child: Padding(
         padding: EdgeInsets.all(16.0),
         child: Stack(
@@ -25,7 +28,7 @@ class SessionContainer extends StatelessWidget {
               height: 343,
               width: double.infinity,
               child: CachedImageWidget(
-                'assets/images/splash_background.png',
+                package?.image,
                 ImageShape.rectangle,
               ),
             ),
@@ -45,12 +48,15 @@ class SessionContainer extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 30, top: 170),
+              padding: EdgeInsets.only(
+                left: 30,
+                top: package?.isPopular == true ? 179 : 204,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Visibility(
-                    visible: isVisibile,
+                    visible: package?.isPopular ?? false,
                     child: Container(
                       height: 24,
                       width: 147,
@@ -78,17 +84,17 @@ class SessionContainer extends StatelessWidget {
                   TitleText(
                     customPadding:
                         const EdgeInsets.only(top: 10.0, bottom: 5.0),
-                    title: 'Twinkle',
+                    title: package?.title ?? '',
                     type: TitleTextType.containerMainTitle,
                   ),
                   TitleText(
                     customPadding: const EdgeInsets.only(bottom: 5.0),
-                    title: 'Portrait Studio Session',
+                    title: package?.tag ?? '',
                     type: TitleTextType.subContainerMainTitle,
                   ),
                   TitleText(
-                    customPadding: const EdgeInsets.only(bottom: 30.0),
-                    title: 'BD 160',
+                    customPadding: const EdgeInsets.all(0),
+                    title: 'BD ${package?.price ?? ''}',
                     type: TitleTextType.subContainerMainTitle,
                     weight: FontWeight.w800,
                   ),

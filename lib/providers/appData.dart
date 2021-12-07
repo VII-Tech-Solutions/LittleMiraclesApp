@@ -23,6 +23,7 @@ import '../widgets/containers/tipContainer.dart';
 import '../widgets/containers/promotionContainer.dart';
 import '../widgets/containers/workshopContainer.dart';
 import '../widgets/containers/popularPackageContainer.dart';
+import '../widgets/containers/sessionContainer.dart';
 //PAGES
 
 class AppData with ChangeNotifier {
@@ -36,6 +37,7 @@ class AppData with ChangeNotifier {
 
   // MAIN PAGES WIDGETS LISTS
   List<Widget> _homeList = [];
+  List<Widget> _bookingList = [];
 
   AppData(
     this.authToken,
@@ -45,6 +47,7 @@ class AppData with ChangeNotifier {
     this._workshops,
     this._sections,
     this._homeList,
+    this._bookingList,
     this._packages,
   );
 
@@ -104,6 +107,10 @@ class AppData with ChangeNotifier {
     return [..._homeList];
   }
 
+  List<Widget> get bookingList {
+    return [..._bookingList];
+  }
+
   Future<void> fetchAndSetAppData() async {
     final lastUpdate =
         await LastUpdateClass().getLastUpdate(LastUpdate.appData);
@@ -148,6 +155,7 @@ class AppData with ChangeNotifier {
       await syncLocalDatabase();
       await getLocalAppData();
       await generateHomePageWidgets();
+      await generateBookingsPageWidgets();
       return;
     } on TimeoutException catch (e) {
       print('Exception Timeout:: $e');
@@ -397,5 +405,14 @@ class AppData with ChangeNotifier {
       _homeList.add(ActionContainer(element));
     });
   }
+
+  Future<void> generateBookingsPageWidgets() async {
+    if (_packages.isNotEmpty) {
+      _packages.forEach((element) {
+        _bookingList.add(SessionContainer(element));
+      });
+    }
+  }
+
   //END OF CLASS
 }
