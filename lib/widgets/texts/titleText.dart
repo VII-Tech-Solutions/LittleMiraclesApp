@@ -9,7 +9,7 @@ import '../../global/colors.dart';
 
 enum TitleTextType {
   mainHomeTitle,
-  questionTitle,
+  secondaryTitle,
   containerMainTitle,
   subContainerMainTitle
 }
@@ -36,12 +36,12 @@ class TitleText extends StatelessWidget {
             fontWeight: FontWeight.w800,
           );
         }
-      case TitleTextType.questionTitle:
+      case TitleTextType.secondaryTitle:
         {
           return TextStyle(
             color: AppColors.black45515D,
             fontSize: 14,
-            fontWeight: FontWeight.w400,
+            fontWeight: weight,
           );
         }
       case TitleTextType.containerMainTitle:

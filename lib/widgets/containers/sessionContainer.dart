@@ -1,5 +1,4 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/widgets/texts/titleText.dart';
 import 'package:flutter/material.dart';
 //GLOBAL
 import '../../global/colors.dart';
@@ -8,7 +7,9 @@ import '../../models/package.dart';
 //PROVIDERS
 //WIDGETS
 import '../general/cachedImageWidget.dart';
+import '../../widgets/texts/titleText.dart';
 //PAGES
+import '../../pages/booking/sessionDetailsPage.dart';
 
 class SessionContainer extends StatelessWidget {
   final Package? package;
@@ -18,7 +19,14 @@ class SessionContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        //TODO: go to session details
+        if (package?.id != null) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SessionDetailsPage(package),
+            ),
+          );
+        }
       },
       child: Padding(
         padding: EdgeInsets.all(16.0),

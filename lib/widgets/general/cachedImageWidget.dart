@@ -17,7 +17,12 @@ enum ImageShape {
 class CachedImageWidget extends StatelessWidget {
   final String? url;
   final ImageShape imageShape;
-  const CachedImageWidget(this.url, this.imageShape);
+  final double? radius;
+  const CachedImageWidget(
+    this.url,
+    this.imageShape, {
+    this.radius = 8.0,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +34,7 @@ class CachedImageWidget extends StatelessWidget {
       errorWidget: (context, url, error) => placeholder,
       imageBuilder: (context, imageProvider) => Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(radius ?? 0.0),
           color: AppColors.blue8DC4CB,
           image: DecorationImage(
             image: imageProvider,
