@@ -42,7 +42,7 @@ class _FamilyPageState extends State<FamilyPage> {
             TitleText(
               customPadding: EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 5.0),
               title: 'What types of images are most important to you?',
-              type: TitleTextType.questionTitle,
+              type: TitleTextType.secondaryTitle,
             ),
             CheckboxTileWidget('Individuals'),
             CheckboxTileWidget('Siblings Together'),
@@ -51,7 +51,7 @@ class _FamilyPageState extends State<FamilyPage> {
             TitleText(
               customPadding: EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 5.0),
               title: 'What is your favorite thing to do as a family?',
-              type: TitleTextType.questionTitle,
+              type: TitleTextType.secondaryTitle,
             ),
             FormTextFieldWidget(
               controller: favoriteController,
@@ -61,14 +61,14 @@ class _FamilyPageState extends State<FamilyPage> {
             TitleText(
               customPadding: EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 5.0),
               title: 'Would you say that you prefer color, b/w, or both?',
-              type: TitleTextType.questionTitle,
+              type: TitleTextType.secondaryTitle,
             ),
             CheckboxTileWidget('Color Photos'),
             CheckboxTileWidget('Black & White Photos'),
             TitleText(
               customPadding: EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 5.0),
               title: 'What types of images are most important to you?',
-              type: TitleTextType.questionTitle,
+              type: TitleTextType.secondaryTitle,
             ),
             CheckboxTileWidget('Large Display Portraits'),
             CheckboxTileWidget('Wall Galleries With a Series of Portraits'),
@@ -79,7 +79,7 @@ class _FamilyPageState extends State<FamilyPage> {
               customPadding: EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 5.0),
               title:
                   'What room(s) are you interested in hanging a wall portrait or portrait display??',
-              type: TitleTextType.questionTitle,
+              type: TitleTextType.secondaryTitle,
             ),
             FormTextFieldWidget(
               controller: roomController,
@@ -90,7 +90,7 @@ class _FamilyPageState extends State<FamilyPage> {
               customPadding: EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 5.0),
               title:
                   'What do you hope to convey to your children through these images?',
-              type: TitleTextType.questionTitle,
+              type: TitleTextType.secondaryTitle,
             ),
             FormTextFieldWidget(
               controller: childrenController,
@@ -100,7 +100,7 @@ class _FamilyPageState extends State<FamilyPage> {
             TitleText(
               customPadding: EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 5.0),
               title: 'Additional Comments:',
-              type: TitleTextType.questionTitle,
+              type: TitleTextType.secondaryTitle,
             ),
             FormTextFieldWidget(
               controller: childrenController,

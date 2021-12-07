@@ -9,17 +9,21 @@ import '../../global/colors.dart';
 
 enum TitleTextType {
   mainHomeTitle,
-  questionTitle,
+  secondaryTitle,
+  containerMainTitle,
+  subContainerMainTitle
 }
 
 class TitleText extends StatelessWidget {
   final String? title;
   final EdgeInsetsGeometry? customPadding;
   final TitleTextType? type;
+  final FontWeight weight;
   const TitleText({
     this.title,
     this.customPadding = const EdgeInsets.fromLTRB(16.0, 25.0, 16.0, 0.0),
     this.type,
+    this.weight = FontWeight.w400,
   });
 
   TextStyle? _textStyleBuilder() {
@@ -32,12 +36,28 @@ class TitleText extends StatelessWidget {
             fontWeight: FontWeight.w800,
           );
         }
-      case TitleTextType.questionTitle:
+      case TitleTextType.secondaryTitle:
         {
           return TextStyle(
             color: AppColors.black45515D,
             fontSize: 14,
-            fontWeight: FontWeight.w400,
+            fontWeight: weight,
+          );
+        }
+      case TitleTextType.containerMainTitle:
+        {
+          return TextStyle(
+            color: AppColors.whiteFFFFFF,
+            fontSize: 36,
+            fontWeight: FontWeight.w800,
+          );
+        }
+      case TitleTextType.subContainerMainTitle:
+        {
+          return TextStyle(
+            color: AppColors.whiteFFFFFF,
+            fontSize: 18,
+            fontWeight: weight,
           );
         }
       default:
