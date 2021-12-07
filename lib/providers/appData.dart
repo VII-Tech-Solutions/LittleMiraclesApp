@@ -4,26 +4,26 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 //GLOBAL
-import '../global/globalEnvironment.dart';
 import '../global/const.dart';
+import '../database/db_sqflite.dart';
 import '../global/globalHelpers.dart';
-import '../../database/db_sqflite.dart';
+import '../global/globalEnvironment.dart';
 //MODELS
-import '../models/onboarding.dart';
-import '../models/dailyTip.dart';
-import '../models/promotion.dart';
-import '../models/workshop.dart';
 import '../models/section.dart';
 import '../models/package.dart';
+import '../models/dailyTip.dart';
+import '../models/workshop.dart';
+import '../models/promotion.dart';
+import '../models/onboarding.dart';
 //PROVIDERS
 //WIDGETS
 import '../widgets/texts/titleText.dart';
-import '../widgets/containers/actionContainer.dart';
 import '../widgets/containers/tipContainer.dart';
-import '../widgets/containers/promotionContainer.dart';
-import '../widgets/containers/workshopContainer.dart';
-import '../widgets/containers/popularPackageContainer.dart';
+import '../widgets/containers/actionContainer.dart';
 import '../widgets/containers/sessionContainer.dart';
+import '../widgets/containers/workshopContainer.dart';
+import '../widgets/containers/promotionContainer.dart';
+import '../widgets/containers/popularPackageContainer.dart';
 //PAGES
 
 class AppData with ChangeNotifier {
