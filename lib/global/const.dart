@@ -38,3 +38,16 @@ class SectionType {
   static const int header = 1;
   static const int card = 2;
 }
+
+class SSOType {
+  static const String google = 'google';
+  static const String facebook = 'facebook';
+  static const String snapchat = 'snapchat';
+  static const String apple = 'apple';
+}
+
+class UserStatus {
+  static const int completed = 1;
+  static const int draft = 2;
+  static const int incomplete = 3;
+}

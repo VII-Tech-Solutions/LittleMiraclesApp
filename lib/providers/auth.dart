@@ -3,11 +3,12 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 //GLOBAL
-import '../Global/globalEnvironment.dart';
 import '../global/const.dart';
-import '../../database/db_sqflite.dart';
+import '../database/db_sqflite.dart';
+import '../Global/globalEnvironment.dart';
 //MODELS
 import '../models/ssoData.dart';
 //PROVIDERS
@@ -26,6 +27,13 @@ class Auth with ChangeNotifier {
   ];
   String? _token;
   bool? _isFirstOpen;
+  String? _userId;
+  String? _userEmail;
+  String? _userUsername;
+  String? _userRealName;
+  String? _userAvatar;
+  String? _expiryDate;
+  String? _provider;
 
   bool get isAuth {
     return _token != null;
@@ -37,6 +45,26 @@ class Auth with ChangeNotifier {
 
   bool get isFirstOpen {
     return _isFirstOpen ?? true;
+  }
+
+  String? get userName {
+    return _userRealName;
+  }
+
+  String? get userAvatar {
+    return _userAvatar;
+  }
+
+  String? get userEmail {
+    return _userEmail;
+  }
+
+  String? get userUsername {
+    return _userUsername;
+  }
+
+  String? get authProvider {
+    return _provider;
   }
 
   Future<void> setToken(SsoData data) async {
@@ -79,6 +107,13 @@ class Auth with ChangeNotifier {
 
         _token = extractedUserData['token'];
         _isFirstOpen = extractedUserData['firstOpen'];
+
+        _userId = extractedUserData['userId'] as String?;
+        _userEmail = extractedUserData['userEmail'] as String? ?? '';
+        _userUsername = extractedUserData['userUsername'] as String? ?? '';
+        _userRealName = extractedUserData['userRealName'] as String?;
+        _userAvatar = extractedUserData['userAvatar'] as String?;
+        _provider = extractedUserData['provider'] as String?;
         notifyListeners();
       }
     }
@@ -160,6 +195,104 @@ class Auth with ChangeNotifier {
       notifyListeners();
     } catch (e) {
       print(e);
+    }
+  }
+
+  Future<Map<String, dynamic>?> socialLogin(
+    dynamic body,
+    String provider,
+  ) async {
+    final url = Uri.parse('$apiLink/login');
+
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final response = await http
+          .post(
+            url,
+            headers: {
+              'Platform': 'ios',
+              'App-Version': '0.0.1',
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: body,
+          )
+          .timeout(Duration(seconds: Timeout.value));
+
+      final result = json.decode(response.body);
+
+      if (response.statusCode != 200) {
+        if ((response.statusCode >= 400 && response.statusCode <= 499) ||
+            response.statusCode == 503) {
+          return {'error': result['message'].toString()};
+        } else {
+          return null;
+        }
+      }
+
+      _token = result['data']['token'];
+      _expiryDate = result['data']['expires'];
+      _userId = result['data']['user']['id'].toString();
+      _userEmail = result['data']['user']['email'] ?? '';
+      _userUsername = result['data']['user']['username'] ?? '';
+      _userRealName = result['data']['user']['name'];
+      _userAvatar = result['data']['user']['avatar'];
+      _provider = provider;
+
+      prefs.setString(
+          'userData',
+          json.encode({
+            'token': _token,
+            'expiryDate': _expiryDate,
+            'userId': _userId,
+            'userEmail': _userEmail,
+            'userUsername': _userUsername,
+            'userRealName': _userRealName,
+            'userAvatar': _userAvatar,
+            'provider': provider,
+          }));
+
+      notifyListeners();
+      return {'success': 'you are now logged in'};
+    } catch (e) {
+      print('catch error:: $e');
+      return null;
+    }
+  }
+
+  //SOCIAL LOGIN FUNCTIONS
+  //
+  //GOOGLE SOCIAL LOGIN
+  //THIS WILL ONLY RUN IN RELEASE MODE WHEN THE APP GOES TO PRODUCTION
+  Future<Map<String, dynamic>?> signInWithGoogle(
+      {bool isLogout = false}) async {
+    if (isLogout == true) {
+      //sign out the user to trigger the right login behaviour
+      await GoogleSignIn(scopes: ['email']).signOut();
+      return null;
+    }
+
+    try {
+      await GoogleSignIn(scopes: ['email']).signOut();
+
+      final GoogleSignInAccount? googleUser =
+          await GoogleSignIn(scopes: ['email']).signIn();
+
+      if (googleUser != null) {
+        dynamic body = {
+          'id': googleUser.id.toString(),
+          'name': googleUser.displayName,
+          'email': googleUser.email,
+          'photo_url': googleUser.photoUrl,
+          'provider': SSOType.google,
+        };
+
+        print(body);
+
+        return socialLogin(body, SSOType.google);
+      }
+    } catch (error) {
+      print(error);
+      return null;
     }
   }
 

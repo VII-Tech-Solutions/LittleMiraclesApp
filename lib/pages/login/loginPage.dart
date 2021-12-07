@@ -1,15 +1,19 @@
 //PACKAGES
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 //GLOBAL
 import '../../global/colors.dart';
+import '../../global/const.dart';
 //MODELS
 //PROVIDERS
+import '../../providers/auth.dart';
 //WIDGETS
 import '../../widgets/texts/titleText.dart';
 import '../../widgets/buttons/buttonWithIconWidget.dart';
 import '../../widgets/buttons/iconButtonWidget.dart';
+import '../../widgets/dialogs/showOkDialog.dart';
 //PAGES
 import '../../pages/login/completeProfilePage.dart';
 
@@ -21,6 +25,52 @@ class LoginPage extends StatelessWidget {
       await launch(url);
     } else {
       throw 'Could not launch $url';
+    }
+  }
+
+  Future<void> _socialLogin(BuildContext context, String socialType) async {
+    Map<String, dynamic>? result;
+    final authProvider = context.read<Auth>();
+    // setState(() {
+    //   _isLoading = true;
+    // });
+
+    switch (socialType) {
+      case SSOType.google:
+        {
+          result = await authProvider.signInWithGoogle();
+        }
+        break;
+      case SSOType.facebook:
+        {
+          // result = await authProvider.signInWithGoogle();
+        }
+        break;
+      case SSOType.snapchat:
+        {
+          // result = await authProvider.signInWithFacebook();
+        }
+        break;
+      case SSOType.apple:
+        {
+          // result = await authProvider.signInWithTwitter();
+        }
+        break;
+    }
+
+    if (authProvider.isAuth && result != null) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => CompleteProfilePage(),
+        ),
+      );
+    } else {
+      if (result != null) {
+        if (result.containsKey('error')) {
+          ShowOkDialog(context, result['error']);
+        }
+      }
     }
   }
 
@@ -133,12 +183,7 @@ class LoginPage extends StatelessWidget {
               ),
               ButtonWithIconWidget(
                 onPress: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CompleteProfilePage(),
-                    ),
-                  );
+                  _socialLogin(context, SSOType.google);
                 },
                 buttonText: 'Login using Google',
                 assetName: 'assets/images/iconsSocialGoogle.svg',
