@@ -249,6 +249,7 @@ class Auth with ChangeNotifier {
             'userRealName': _userRealName,
             'userAvatar': _userAvatar,
             'provider': provider,
+            'firstOpen': false,
           }));
 
       notifyListeners();
@@ -285,8 +286,6 @@ class Auth with ChangeNotifier {
           'photo_url': googleUser.photoUrl,
           'provider': SSOType.google,
         };
-
-        print(body);
 
         return socialLogin(body, SSOType.google);
       }

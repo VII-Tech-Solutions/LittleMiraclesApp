@@ -189,13 +189,20 @@ class LoginPage extends StatelessWidget {
                 assetName: 'assets/images/iconsSocialGoogle.svg',
               ),
               ButtonWithIconWidget(
+                onPress: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CompleteProfilePage(),
+                    ),
+                  );
+                },
                 buttonText: 'Login using Facebook',
-                onPress: () {},
                 assetName: 'assets/images/iconsSocialFacebook.svg',
               ),
               ButtonWithIconWidget(
-                buttonText: 'Login using Snapchat',
                 onPress: () {},
+                buttonText: 'Login using Snapchat',
                 assetName: 'assets/images/iconsSocialSnapchat.svg',
               ),
               SizedBox(height: MediaQuery.of(context).padding.bottom + 24),

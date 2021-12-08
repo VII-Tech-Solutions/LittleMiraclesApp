@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:country_code_picker/country_localizations.dart';
 //GLOBAL
 //MODELS
 //PROVIDERS
@@ -47,6 +48,12 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        supportedLocales: [
+          Locale("en"),
+        ],
+        localizationsDelegates: [
+          CountryLocalizations.delegate,
+        ],
         title: 'Little Miracles',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

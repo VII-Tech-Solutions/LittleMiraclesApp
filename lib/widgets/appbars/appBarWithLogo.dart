@@ -23,7 +23,7 @@ class AppBarWithLogo extends StatelessWidget with PreferredSizeWidget {
         padding: EdgeInsets.only(left: 16.0),
         child: IconButton(
           icon: Icon(
-            Icons.arrow_back_sharp,
+            Icons.keyboard_backspace,
             color: AppColors.black45515D,
             size: 24,
           ),
@@ -34,7 +34,7 @@ class AppBarWithLogo extends StatelessWidget with PreferredSizeWidget {
       ),
       title: Image.asset(
         'assets/images/logoNameColor.png',
-        width: 208,
+        width: MediaQuery.of(context).size.width * 0.555,
       ),
     );
   }

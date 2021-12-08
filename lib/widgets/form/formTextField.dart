@@ -16,6 +16,7 @@ class FormTextFieldWidget extends StatelessWidget {
   final VoidCallback? onTap;
   final Icon? suffixIcon;
   final TextEditingController? controller;
+  final TextInputType inputType;
   const FormTextFieldWidget({
     this.title,
     this.hintStyle = const TextStyle(color: AppColors.greyD0D3D6),
@@ -24,6 +25,7 @@ class FormTextFieldWidget extends StatelessWidget {
     this.customMargin = const EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
     this.onTap,
     this.suffixIcon,
+    this.inputType = TextInputType.multiline,
     required this.controller,
   });
 
@@ -39,7 +41,7 @@ class FormTextFieldWidget extends StatelessWidget {
           fontSize: 12,
         ),
         onTap: onTap,
-        keyboardType: TextInputType.multiline,
+        keyboardType: inputType,
         maxLines: maxLines,
         textInputAction: TextInputAction.next,
         validator: (value) {

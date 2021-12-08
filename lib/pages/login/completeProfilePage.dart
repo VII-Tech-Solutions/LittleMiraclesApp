@@ -1,15 +1,18 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:country_code_picker/country_code_picker.dart';
 //GLOBAL
 import '../../global/colors.dart';
+import '../../global/const.dart';
 import '../../global/globalHelpers.dart';
 //MODELS
 //PROVIDERS
 //WIDGETS
 import '../../widgets/texts/titleText.dart';
-import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/form/formTextField.dart';
 import '../../widgets/appbars/appBarWithLogo.dart';
+import '../../widgets/buttons/filledButtonWidget.dart';
+import '../../widgets/containers/registrationAccountTypeContainer.dart';
 //PAGES
 import '../../pages/login/partnerPage.dart';
 
@@ -22,14 +25,14 @@ class CompleteProfilePage extends StatefulWidget {
 
 class _CompleteProfilePageState extends State<CompleteProfilePage> {
   final _formKey = GlobalKey<FormState>();
-  String selectedValue = 'Female';
-  String codeSelectedValue = '+973';
+  String _genderValue = '1';
+  String _countryCodeValue = '+973';
 
-  final firstNameController = TextEditingController();
-  final lastNameController = TextEditingController();
-  final birthdayController = TextEditingController();
-  final phoneController = TextEditingController();
-  final detailsController = TextEditingController();
+  final _firstNameController = TextEditingController();
+  final _lastNameController = TextEditingController();
+  final _birthdayController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _detailsController = TextEditingController();
 
   DateTime selectedDate = DateTime.now();
 
@@ -55,16 +58,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0),
-              child: FilledButtonWidget(
-                margin: EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 0.0),
-                onPress: () {},
-                type: ButtonType.generalPink,
-                title: 'Google Account',
-                assetName: 'assets/images/iconsSocialGoogle.svg',
-              ),
-            ),
+            RegistrationAccountTypeContainer("profileUrl", SSOType.google),
             TitleText(
               customPadding: EdgeInsets.fromLTRB(30.0, 20.0, 16.0, 10.0),
               title: 'Complete your profile',
@@ -76,11 +70,11 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                 children: [
                   FormTextFieldWidget(
                     title: 'First Name',
-                    controller: firstNameController,
+                    controller: _firstNameController,
                   ),
                   FormTextFieldWidget(
                     title: 'Last Name',
-                    controller: lastNameController,
+                    controller: _lastNameController,
                   ),
                   Container(
                     color: AppColors.whiteFFFFFF,
@@ -91,15 +85,14 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
                       ),
-                      value: selectedValue,
+                      value: _genderValue,
                       items: <DropdownMenuItem<String>>[
-                        DropdownMenuItem(
-                            child: Text('Female'), value: 'Female'),
-                        DropdownMenuItem(child: Text('Male'), value: 'Male'),
+                        DropdownMenuItem(child: Text('Male'), value: '1'),
+                        DropdownMenuItem(child: Text('Female'), value: '2'),
                       ],
                       onChanged: (value) {
                         setState(() {
-                          selectedValue = value.toString();
+                          _genderValue = value.toString();
                         });
                       },
                       icon: Icon(
@@ -120,7 +113,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                     ),
                   ),
                   FormTextFieldWidget(
-                    controller: birthdayController,
+                    controller: _birthdayController,
                     title:
                         'Birthday\t\t\t\t${DateFormatClass().getDate('${selectedDate}')}',
                     hintStyle: TextStyle(
@@ -144,60 +137,55 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                     children: [
                       Container(
                         width: 100,
-                        color: AppColors.whiteFFFFFF,
                         margin:
                             const EdgeInsets.fromLTRB(30.0, 10.0, 0.0, 10.0),
-                        child: DropdownButtonFormField(
-                          style: TextStyle(
-                            color: AppColors.black45515D,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                          ),
-                          value: codeSelectedValue,
-                          items: <DropdownMenuItem<String>>[
-                            DropdownMenuItem(
-                                child: Text('+973'), value: '+973'),
-                            DropdownMenuItem(
-                                child: Text('+965'), value: '+965'),
+                        decoration: BoxDecoration(
+                            color: AppColors.whiteFFFFFF,
+                            borderRadius: BorderRadius.circular(4),
+                            border: Border.all(
+                              color: AppColors.greyD0D3D6,
+                              width: 1,
+                            )),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CountryCodePicker(
+                              padding: EdgeInsets.zero,
+                              favorite: ['+973'],
+                              onChanged: (val) =>
+                                  _countryCodeValue = val.dialCode!,
+                              showFlag: false,
+                              showFlagDialog: true,
+                              initialSelection: _countryCodeValue,
+                              textStyle: TextStyle(
+                                color: AppColors.black45515D,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            Icon(
+                              Icons.expand_more,
+                              color: AppColors.black45515D,
+                            ),
                           ],
-                          onChanged: (value) {
-                            setState(() {
-                              selectedValue = value.toString();
-                            });
-                          },
-                          icon: Icon(
-                            Icons.expand_more,
-                            color: AppColors.black45515D,
-                          ),
-                          hint: Text('+973'),
-                          decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.fromLTRB(
-                                16.0, 11.0, 16.0, 11.0),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: AppColors.greyD0D3D6),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: AppColors.greyD0D3D6),
-                            ),
-                          ),
                         ),
                       ),
                       Expanded(
                         child: FormTextFieldWidget(
-                          controller: phoneController,
-                          title: 'Phone',
+                          controller: _phoneController,
+                          title: '0000 0000',
                           customMargin:
                               const EdgeInsets.fromLTRB(10.0, 10.0, 30.0, 10.0),
+                          inputType: TextInputType.phone,
                         ),
                       ),
                     ],
                   ),
                   FormTextFieldWidget(
-                    controller: detailsController,
+                    controller: _detailsController,
                     title: 'Have you ever worked with a professional photographer?' +
-                        'Were you happy with that experience? Why or why not?',
+                        ' Were you happy with that experience? Why or why not?',
                     maxLines: 8,
                   ),
                   FilledButtonWidget(
