@@ -16,6 +16,7 @@ import '../../widgets/buttons/iconButtonWidget.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
 //PAGES
 import '../../pages/login/completeProfilePage.dart';
+import '../../pages/login/childrenPage.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -202,12 +203,12 @@ class LoginPage extends StatelessWidget {
               ),
               ButtonWithIconWidget(
                 onPress: () {
-                  final user = context.read<Auth>().user;
-
-                  print(user?.id);
-                  print(user?.id);
-                  print(user?.id);
-                  print(user?.id);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ChildrenPage(),
+                    ),
+                  );
                 },
                 buttonText: 'Login using Snapchat',
                 assetName: 'assets/images/iconsSocialSnapchat.svg',

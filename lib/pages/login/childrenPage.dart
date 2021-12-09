@@ -1,16 +1,18 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+//EXTENSIONS
+import '../../extensions/stringExtension.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
 //WIDGETS
 import '../../widgets/texts/titleText.dart';
-import '../../widgets/buttons/filledButtonWidget.dart';
-import '../../widgets/form/formTextField.dart';
 import '../../widgets/appbars/appBarWithLogo.dart';
+import '../../widgets/buttons/filledButtonWidget.dart';
+import '../../widgets/dialogs/showOkDialog.dart';
 //PAGES
-import '../../pages/login/familyPage.dart';
+import '../../widgets/form/childrenForm.dart';
 
 class ChildrenPage extends StatefulWidget {
   const ChildrenPage({Key? key}) : super(key: key);
@@ -20,130 +22,147 @@ class ChildrenPage extends StatefulWidget {
 }
 
 class _ChildrenPageState extends State<ChildrenPage> {
-  final _formKey = GlobalKey<FormState>();
-  String selectedValue = 'Female';
+  final _scrollController = new ScrollController();
 
-  final firstNameController = TextEditingController();
-  final lastNameController = TextEditingController();
-  final birthdayController = TextEditingController();
-  final phoneController = TextEditingController();
-  final detailsController = TextEditingController();
+  List<GlobalKey<FormState>> _formKeysList = [];
+  List<TextEditingController> _firstNameControllersList = [];
+  List<TextEditingController> _lastNameControllersList = [];
+  List<TextEditingController> _genderControllersList = [];
+  List<TextEditingController> _birthdayControllersList = [];
+  List<TextEditingController> _detailsControllersList = [];
+
+  // late final _firstNameController;
+  // late final _lastNameController;
+  // late final _birthdayController;
+  // late final _detailsController;
+
+  DateTime selectedDate = DateTime.now();
+  String _formattedDate = '';
+
+  @override
+  void initState() {
+    _formKeysList.add(GlobalKey<FormState>());
+    _firstNameControllersList.add(TextEditingController());
+    _lastNameControllersList.add(TextEditingController());
+    _genderControllersList.add(TextEditingController());
+    _birthdayControllersList.add(TextEditingController());
+    _detailsControllersList.add(TextEditingController());
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _firstNameControllersList.forEach((element) {
+      element.dispose();
+    });
+    _lastNameControllersList.forEach((element) {
+      element.dispose();
+    });
+    _genderControllersList.forEach((element) {
+      element.dispose();
+    });
+    _birthdayControllersList.forEach((element) {
+      element.dispose();
+    });
+    _detailsControllersList.forEach((element) {
+      element.dispose();
+    });
+    super.dispose();
+  }
+
+  void _addAChild() {
+    setState(() {
+      _formKeysList.add(GlobalKey<FormState>());
+      _firstNameControllersList.add(TextEditingController());
+      _lastNameControllersList.add(TextEditingController());
+      _genderControllersList.add(TextEditingController());
+      _birthdayControllersList.add(TextEditingController());
+      _detailsControllersList.add(TextEditingController());
+    });
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent + 200,
+      duration: Duration(seconds: 1),
+      curve: Curves.fastOutSlowIn,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.blueF4F9FA,
       appBar: AppBarWithLogo(),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TitleText(
-              customPadding: EdgeInsets.fromLTRB(30.0, 20.0, 16.0, 10.0),
-              title: 'Your Children',
-              type: TitleTextType.mainHomeTitle,
-            ),
-            Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  FormTextFieldWidget(
-                    title: 'First Name',
-                    controller: firstNameController,
-                  ),
-                  FormTextFieldWidget(
-                    title: 'Last Name',
-                    controller: lastNameController,
-                  ),
-                  Container(
-                    color: AppColors.whiteFFFFFF,
-                    margin: const EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
-                    child: DropdownButtonFormField(
-                      style: TextStyle(
-                        color: AppColors.black45515D,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                      ),
-                      value: selectedValue,
-                      items: <DropdownMenuItem<String>>[
-                        DropdownMenuItem(
-                            child: Text('Female'), value: 'Female'),
-                        DropdownMenuItem(child: Text('Male'), value: 'Male'),
-                      ],
-                      onChanged: (value) {
-                        setState(() {
-                          selectedValue = value.toString();
-                        });
-                      },
-                      icon: Icon(
-                        Icons.expand_more,
-                        color: AppColors.black45515D,
-                      ),
-                      hint: Text('Gender'),
-                      decoration: InputDecoration(
-                        contentPadding:
-                            const EdgeInsets.fromLTRB(16.0, 11.0, 10.0, 11.0),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppColors.greyD0D3D6),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppColors.greyD0D3D6),
-                        ),
-                      ),
-                    ),
-                  ),
-                  FormTextFieldWidget(
-                    controller: birthdayController,
-                    title: 'Birthday		      02/02/1980',
-                    hintStyle: TextStyle(
-                      color: AppColors.black45515D,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                    ),
-                    suffixIcon: Icon(
-                      Icons.expand_more,
-                      color: AppColors.black45515D,
-                    ),
-                    onTap: () {
-                      FocusScope.of(context).requestFocus(
-                        new FocusNode(),
-                      );
-                    },
-                  ),
-                  FormTextFieldWidget(
-                    controller: detailsController,
-                    title: 'Description of Their Personalities',
-                    maxLines: 8,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      FilledButtonWidget(
-                        margin: EdgeInsets.only(right: 30.0),
-                        customWidth: 128,
-                        onPress: () {},
-                        type: ButtonType.generalGrey,
-                        title: 'Add more',
-                      ),
-                    ],
-                  ),
-                  FilledButtonWidget(
-                    margin: EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 25.0),
-                    onPress: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => FamilyPage(),
-                        ),
-                      );
-                    },
-                    type: ButtonType.generalBlue,
-                    title: 'Next: Family Info',
-                  ),
-                ],
+      body: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: SingleChildScrollView(
+          controller: _scrollController,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TitleText(
+                customPadding: EdgeInsets.fromLTRB(30.0, 20.0, 16.0, 10.0),
+                title: 'Your Children',
+                type: TitleTextType.mainHomeTitle,
               ),
-            ),
-          ],
+              ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: _formKeysList.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return ChildrenForm(
+                      _formKeysList[index],
+                      _firstNameControllersList[index],
+                      _lastNameControllersList[index],
+                      _genderControllersList[index],
+                      _birthdayControllersList[index],
+                      _detailsControllersList[index],
+                      index + 1 == _formKeysList.length,
+                      _addAChild,
+                    );
+                  }),
+              FilledButtonWidget(
+                margin: EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 25.0),
+                onPress: () {
+                  final isFormValid = _formKeysList[0].currentState?.validate();
+                  List<Map> childrenList = [];
+
+                  for (var i = 0; i < _formKeysList.length; i++) {
+                    childrenList.add({
+                      "first_name": _firstNameControllersList[i].text,
+                      "last_name": _lastNameControllersList[i].text,
+                      "gender": _genderControllersList[i].text,
+                      "birthdate": _birthdayControllersList[i].text.apiDob(),
+                      "personality": _detailsControllersList[i].text,
+                    });
+                  }
+
+                  childrenList.forEach((element) {
+                    print(element);
+                  });
+
+                  Map childrenData = {"children": childrenList};
+
+                  print(childrenData);
+
+                  if (isFormValid == true) {
+                  } else {
+                    ShowOkDialog(
+                      context,
+                      'Please check any missing information.',
+                      title: "Oops",
+                    );
+                  }
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => FamilyPage(),
+                  //   ),
+                  // );
+                },
+                type: ButtonType.generalBlue,
+                title: 'Next: Family Info',
+              ),
+            ],
+          ),
         ),
       ),
     );
