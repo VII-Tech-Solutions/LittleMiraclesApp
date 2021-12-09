@@ -30,6 +30,7 @@ class Auth with ChangeNotifier {
   User? _user;
   bool? _isFirstOpen;
   String? _expiryDate;
+  Map _registrationBody = {};
 
   bool get isAuth {
     return _token != null;
@@ -45,6 +46,12 @@ class Auth with ChangeNotifier {
 
   bool get isFirstOpen {
     return _isFirstOpen ?? true;
+  }
+
+  Future<void> amendRegistrationBody(Map data) async {
+    _registrationBody.addAll(data);
+
+    print(_registrationBody);
   }
 
   Future<void> setToken(SsoData data) async {

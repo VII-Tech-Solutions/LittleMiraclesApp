@@ -46,12 +46,13 @@ class FormTextFieldWidget extends StatelessWidget {
         textInputAction: TextInputAction.next,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return 'Please enter valid data';
+            return '';
           }
           return null;
         },
         decoration: InputDecoration(
           suffixIcon: suffixIcon,
+          errorStyle: TextStyle(height: 0),
           contentPadding: const EdgeInsets.fromLTRB(16.0, 11.0, 16.0, 11.0),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.greyD0D3D6),
