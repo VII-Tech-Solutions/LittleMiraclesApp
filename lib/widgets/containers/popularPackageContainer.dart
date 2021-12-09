@@ -8,6 +8,7 @@ import '../../models/package.dart';
 //WIDGETS
 import '../general/cachedImageWidget.dart';
 //PAGES
+import '../../pages/booking/sessionDetailsPage.dart';
 
 class PopularPackageContainer extends StatelessWidget {
   final Package? package;
@@ -17,7 +18,14 @@ class PopularPackageContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        //todo go to Daily Tip deatils page
+        if (package?.id != null) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SessionDetailsPage(package),
+            ),
+          );
+        }
       },
       child: Padding(
         padding: EdgeInsets.fromLTRB(16.0, 22.0, 16.0, 10.0),

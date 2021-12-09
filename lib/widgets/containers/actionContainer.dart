@@ -19,7 +19,7 @@ class ActionContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        //TODO: go to Daily Tip deatils page
+        //TODO: go to action deatils page
       },
       child: Padding(
         padding: EdgeInsets.fromLTRB(16.0, 25.0, 16.0, 0.0),
