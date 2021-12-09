@@ -201,7 +201,14 @@ class LoginPage extends StatelessWidget {
                 assetName: 'assets/images/iconsSocialFacebook.svg',
               ),
               ButtonWithIconWidget(
-                onPress: () {},
+                onPress: () {
+                  final user = context.read<Auth>().user;
+
+                  print(user?.id);
+                  print(user?.id);
+                  print(user?.id);
+                  print(user?.id);
+                },
                 buttonText: 'Login using Snapchat',
                 assetName: 'assets/images/iconsSocialSnapchat.svg',
               ),

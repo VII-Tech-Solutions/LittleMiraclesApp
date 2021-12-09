@@ -11,6 +11,7 @@ import '../database/db_sqflite.dart';
 import '../Global/globalEnvironment.dart';
 //MODELS
 import '../models/ssoData.dart';
+import '../models/user.dart';
 //PROVIDERS
 //WIDGETS
 //PAGES
@@ -26,14 +27,9 @@ class Auth with ChangeNotifier {
     Tables.workshops
   ];
   String? _token;
+  User? _user;
   bool? _isFirstOpen;
-  String? _userId;
-  String? _userEmail;
-  String? _userUsername;
-  String? _userRealName;
-  String? _userAvatar;
   String? _expiryDate;
-  String? _provider;
 
   bool get isAuth {
     return _token != null;
@@ -43,28 +39,12 @@ class Auth with ChangeNotifier {
     return _token ?? "";
   }
 
+  User? get user {
+    return _user;
+  }
+
   bool get isFirstOpen {
     return _isFirstOpen ?? true;
-  }
-
-  String? get userName {
-    return _userRealName;
-  }
-
-  String? get userAvatar {
-    return _userAvatar;
-  }
-
-  String? get userEmail {
-    return _userEmail;
-  }
-
-  String? get userUsername {
-    return _userUsername;
-  }
-
-  String? get authProvider {
-    return _provider;
   }
 
   Future<void> setToken(SsoData data) async {
@@ -107,13 +87,25 @@ class Auth with ChangeNotifier {
 
         _token = extractedUserData['token'];
         _isFirstOpen = extractedUserData['firstOpen'];
-
-        _userId = extractedUserData['userId'] as String?;
-        _userEmail = extractedUserData['userEmail'] as String? ?? '';
-        _userUsername = extractedUserData['userUsername'] as String? ?? '';
-        _userRealName = extractedUserData['userRealName'] as String?;
-        _userAvatar = extractedUserData['userAvatar'] as String?;
-        _provider = extractedUserData['provider'] as String?;
+        _user = User(
+          id: extractedUserData['userId'] as int?,
+          firstName: extractedUserData['firstName'] as String?,
+          lastName: extractedUserData['lastName'] as String?,
+          phoneNumber: extractedUserData['phoneNumber'] as String?,
+          email: extractedUserData['email'] as String?,
+          updatedAt: extractedUserData['updatedAt'] as String?,
+          deletedAt: extractedUserData['deletedAt'] as String?,
+          countryCode: extractedUserData['countryCode'] as String?,
+          gender: extractedUserData['gender'] as int?,
+          birthDate: extractedUserData['birthDate'] as String?,
+          avatar: extractedUserData['avatar'] as String?,
+          pastExperience: extractedUserData['pastExperience'] as String?,
+          familyId: extractedUserData['familyId'] as int?,
+          status: extractedUserData['status'] as int?,
+          providerId: extractedUserData['providerId'] as String?,
+          username: extractedUserData['username'] as String?,
+          provider: extractedUserData['provider'] as String?,
+        );
         notifyListeners();
       }
     }
@@ -231,25 +223,37 @@ class Auth with ChangeNotifier {
 
       _token = result['data']['token'];
       _expiryDate = result['data']['expires'];
-      _userId = result['data']['user']['id'].toString();
-      _userEmail = result['data']['user']['email'] ?? '';
-      _userUsername = result['data']['user']['username'] ?? '';
-      _userRealName = result['data']['user']['name'];
-      _userAvatar = result['data']['user']['avatar'];
-      _provider = provider;
+      User user = User.fromJson(result['data']['user']);
+      // _userId = result['data']['user']['id'].toString();
+      // _userEmail = result['data']['user']['email'] ?? '';
+      // _userUsername = result['data']['user']['username'] ?? '';
+      // _userRealName = result['data']['user']['name'];
+      // _userAvatar = result['data']['user']['avatar'];
+      // _provider = provider;
 
       prefs.setString(
           'userData',
           json.encode({
             'token': _token,
             'expiryDate': _expiryDate,
-            'userId': _userId,
-            'userEmail': _userEmail,
-            'userUsername': _userUsername,
-            'userRealName': _userRealName,
-            'userAvatar': _userAvatar,
-            'provider': provider,
             'firstOpen': false,
+            'userId': user.id,
+            'firstName': user.firstName,
+            'lastName': user.lastName,
+            'phoneNumber': user.phoneNumber,
+            'email': user.email,
+            'updatedAt': user.updatedAt,
+            'deletedAt': user.deletedAt,
+            'countryCode': user.countryCode,
+            'gender': user.gender,
+            'birthDate': user.birthDate,
+            'avatar': user.avatar,
+            'pastExperience': user.pastExperience,
+            'familyId': user.familyId,
+            'status': user.status,
+            'providerId': user.providerId,
+            'username': user.username,
+            'provider': user.provider,
           }));
 
       notifyListeners();

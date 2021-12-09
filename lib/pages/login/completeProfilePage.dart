@@ -58,7 +58,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            RegistrationAccountTypeContainer("profileUrl", SSOType.google),
+            RegistrationAccountTypeContainer(),
             TitleText(
               customPadding: EdgeInsets.fromLTRB(30.0, 20.0, 16.0, 10.0),
               title: 'Complete your profile',
