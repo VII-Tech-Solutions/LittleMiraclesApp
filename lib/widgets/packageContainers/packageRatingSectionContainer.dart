@@ -10,6 +10,7 @@ import '../../models/package.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/containers/reviewContainer.dart';
 //PAGES
+import '../../pages/general/reviewsPage.dart';
 
 class PackageRatingSectionContainer extends StatelessWidget {
   final Package? package;
@@ -75,7 +76,12 @@ class PackageRatingSectionContainer extends StatelessWidget {
                 top: 16.0, bottom: 30.0, left: 16.0, right: 16.0),
             child: FilledButtonWidget(
               onPress: () {
-                //TODO: go to all reviews
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ReviewsPage(),
+                  ),
+                );
               },
               type: ButtonType.generalGrey,
               title: 'See all reviews',

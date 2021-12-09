@@ -8,7 +8,8 @@ import '../../global/colors.dart';
 //PAGES
 
 class ReviewContainer extends StatelessWidget {
-  const ReviewContainer({Key? key}) : super(key: key);
+  final Color? borderColor;
+  const ReviewContainer({this.borderColor});
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +21,10 @@ class ReviewContainer extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
+              color: AppColors.whiteFFFFFF,
               borderRadius: BorderRadius.circular(8.0),
               border: Border.all(
-                color: AppColors.greyD0D3D6,
+                color: borderColor ?? AppColors.greyD0D3D6,
                 width: 1,
               ),
             ),
