@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
@@ -201,7 +202,7 @@ class SessionDetailsPage extends StatelessWidget {
                   child: Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(right: 8.0, bottom: 15),
+                        padding: const EdgeInsets.only(right: 8.0),
                         child: Icon(
                           Icons.place_outlined,
                           color: AppColors.black45515D,
@@ -239,9 +240,21 @@ class SessionDetailsPage extends StatelessWidget {
                           }
                         },
                         child: Container(
-                          child: Image.asset(
-                            'assets/images/map.jpg',
-                            fit: BoxFit.cover,
+                          height: 177,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.0),
+                            border: Border.all(
+                              color: AppColors.greyD0D3D6,
+                              width: 1,
+                            ),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Image.asset(
+                              'assets/images/map.jpg',
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),
@@ -288,7 +301,7 @@ class SessionDetailsPage extends StatelessWidget {
                   ),
                 ),
                 Center(
-                  child: Example(),
+                  child: ImageGridWidget(package?.image ?? ''),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -305,7 +318,7 @@ class SessionDetailsPage extends StatelessWidget {
                   child: Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 16.0),
+                        padding: const EdgeInsets.only(left: 16.0, right: 6.0),
                         child: Text(
                           '4.5',
                           style: TextStyle(
@@ -315,33 +328,14 @@ class SessionDetailsPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 6.0),
-                        child: Icon(
+                      RatingBarIndicator(
+                        rating: 4.5,
+                        itemBuilder: (context, index) => Icon(
                           Icons.star_rounded,
-                          size: 16,
                           color: AppColors.yellowFFB400,
                         ),
-                      ),
-                      Icon(
-                        Icons.star_rounded,
-                        size: 16,
-                        color: AppColors.yellowFFB400,
-                      ),
-                      Icon(
-                        Icons.star_rounded,
-                        size: 16,
-                        color: AppColors.yellowFFB400,
-                      ),
-                      Icon(
-                        Icons.star_rounded,
-                        size: 16,
-                        color: AppColors.yellowFFB400,
-                      ),
-                      Icon(
-                        Icons.star_half,
-                        size: 16,
-                        color: AppColors.yellowFFB400,
+                        itemCount: 5,
+                        itemSize: 15.0,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 9.0),
@@ -426,7 +420,9 @@ class SessionDetailsPage extends StatelessWidget {
                         children: [
                           FilledButtonWidget(
                             customWidth: 128,
-                            onPress: () {},
+                            onPress: () {
+                              //TODO: go to book now
+                            },
                             type: ButtonType.generalBlue,
                             title: 'Book Now',
                           )

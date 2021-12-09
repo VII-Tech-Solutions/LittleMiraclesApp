@@ -8,64 +8,9 @@ import 'package:flutter/material.dart';
 import '../../widgets/general/cachedImageWidget.dart';
 //PAGES
 
-class Example extends StatelessWidget {
-  const Example({Key? key}) : super(key: key);
-
-  Widget _oldWidget() {
-    return Container(
-      margin: const EdgeInsets.all(16.0),
-      height: 338,
-      child: Row(
-        children: [
-          Column(
-            children: [
-              Expanded(
-                child: AspectRatio(
-                  aspectRatio: 3 / 2,
-                  child: Container(
-                    margin: const EdgeInsets.all(5),
-                    child: Icon(Icons.ac_unit),
-                    color: Colors.red,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: AspectRatio(
-                  aspectRatio: 10 / 7,
-                  child: Container(
-                    child: Icon(Icons.ac_unit),
-                    color: Colors.yellow,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              Expanded(
-                child: AspectRatio(
-                  aspectRatio: 0.5,
-                  child: Container(
-                    child: Icon(Icons.ac_unit),
-                    color: Colors.green,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: AspectRatio(
-                  aspectRatio: 0.5,
-                  child: Container(
-                    child: Icon(Icons.ac_unit),
-                    color: Colors.blue,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
+class ImageGridWidget extends StatelessWidget {
+  final String image;
+  const ImageGridWidget(this.image);
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +27,7 @@ class Example extends StatelessWidget {
                 Container(
                   height: size * 0.414,
                   child: CachedImageWidget(
-                    'assets/images/splash_background.png',
+                    image,
                     ImageShape.rectangle,
                     radius: 0.0,
                   ),
@@ -92,7 +37,7 @@ class Example extends StatelessWidget {
                 ),
                 Expanded(
                   child: CachedImageWidget(
-                    'assets/images/splash_background.png',
+                    image,
                     ImageShape.square,
                     radius: 0.0,
                   ),
@@ -109,7 +54,7 @@ class Example extends StatelessWidget {
                 Container(
                   height: size * 0.592,
                   child: CachedImageWidget(
-                    'assets/images/splash_background.png',
+                    image,
                     ImageShape.square,
                     radius: 0.0,
                   ),
@@ -120,7 +65,7 @@ class Example extends StatelessWidget {
                 Expanded(
                   child: Container(
                     child: CachedImageWidget(
-                      'assets/images/splash_background.png',
+                      image,
                       ImageShape.square,
                       radius: 0.0,
                     ),
