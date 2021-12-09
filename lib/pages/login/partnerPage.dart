@@ -34,6 +34,7 @@ class _PartnerPageState extends State<PartnerPage> {
   late final _phoneController;
 
   DateTime selectedDate = DateTime.now();
+  String _formattedDate = '';
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -41,13 +42,12 @@ class _PartnerPageState extends State<PartnerPage> {
         initialDate: selectedDate,
         firstDate: DateTime(1960, 8),
         lastDate: DateTime(2101));
-    if (picked != null && picked != selectedDate)
-      // setState(() {
+    if (picked != null && picked != selectedDate) {
       selectedDate = picked;
-    _birthdayController.text =
-        'Birthday\t\t\t\t${DateFormatClass().getDate('${picked}')}';
-    print(picked);
-    // });
+      _birthdayController.text =
+          'Birthday\t\t\t\t${DateFormatClass().getDate('${picked}')}';
+      _formattedDate = DateFormatClass().getDate('${picked}');
+    }
   }
 
   @override
@@ -215,7 +215,7 @@ class _PartnerPageState extends State<PartnerPage> {
                               "gender": _genderValue,
                               "country_code": _countryCodeValue,
                               "phone_number": _phoneController.text,
-                              "birth_date": selectedDate,
+                              "birth_date": _formattedDate,
                             },
                           };
 
