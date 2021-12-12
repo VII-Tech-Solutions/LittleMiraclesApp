@@ -1,18 +1,21 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 //EXTENSIONS
 import '../../extensions/stringExtension.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
+import '../../providers/auth.dart';
 //WIDGETS
 import '../../widgets/texts/titleText.dart';
 import '../../widgets/appbars/appBarWithLogo.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
-//PAGES
 import '../../widgets/form/childrenForm.dart';
+//PAGES
+import '../../pages/login/familyPage.dart';
 
 class ChildrenPage extends StatefulWidget {
   const ChildrenPage({Key? key}) : super(key: key);
@@ -31,13 +34,7 @@ class _ChildrenPageState extends State<ChildrenPage> {
   List<TextEditingController> _birthdayControllersList = [];
   List<TextEditingController> _detailsControllersList = [];
 
-  // late final _firstNameController;
-  // late final _lastNameController;
-  // late final _birthdayController;
-  // late final _detailsController;
-
   DateTime selectedDate = DateTime.now();
-  String _formattedDate = '';
 
   @override
   void initState() {
@@ -139,11 +136,19 @@ class _ChildrenPageState extends State<ChildrenPage> {
                     print(element);
                   });
 
-                  Map childrenData = {"children": childrenList};
-
-                  print(childrenData);
-
                   if (isFormValid == true) {
+                    Map childrenData = {"children": childrenList};
+
+                    print(childrenData);
+
+                    context.read<Auth>().amendRegistrationBody(childrenData);
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FamilyPage(),
+                      ),
+                    );
                   } else {
                     ShowOkDialog(
                       context,
@@ -151,12 +156,6 @@ class _ChildrenPageState extends State<ChildrenPage> {
                       title: "Oops",
                     );
                   }
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => FamilyPage(),
-                  //   ),
-                  // );
                 },
                 type: ButtonType.generalBlue,
                 title: 'Next: Family Info',
