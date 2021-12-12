@@ -1,36 +1,23 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/widgets/general/cachedImageWidget.dart';
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 //EXTENSIONS
 //GLOBAL
 import '../../global/colors.dart';
+import '../../global/globalHelpers.dart';
 //MODELS
-import '../../models/package.dart';
 //PROVIDERS
 //WIDGETS
 import '../../widgets/appbars/appBarWithClose.dart';
 //PAGES
 
 class ImageExamplePage extends StatelessWidget {
-  final Package? package;
-  const ImageExamplePage(this.package);
+  final List<String>? images;
+  const ImageExamplePage(this.images);
 
   @override
   Widget build(BuildContext context) {
-    final items = [
-      CachedImageWidget(
-        'https://i.picsum.photos/id/514/343/200.jpg?hmac=agi3cn4az37bjgHqfKu0Ffo1EbYYSd5IRopJpWgdpXg',
-        ImageShape.rectangle,
-        customBoxFit: BoxFit.none,
-        radius: 0.0,
-      ),
-      CachedImageWidget(
-        'https://i.picsum.photos/id/304/343/300.jpg?hmac=ihrb8Va_phgzQqomNxAkLmxbWYGDG_FF1HDcAtGlIvc',
-        ImageShape.rectangle,
-        customBoxFit: BoxFit.fitHeight,
-        radius: 0.0,
-      ),
-    ];
+    final placeholder = GlobalHelpers.randomPlaceholder('r');
 
     return Scaffold(
       appBar: AppBarWithClose('Image Examples', AppColors.pinkFEF2F1),
@@ -39,13 +26,15 @@ class ImageExamplePage extends StatelessWidget {
         child: ListView.builder(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: items.length,
+          itemCount: images?.length,
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           itemBuilder: (ctx, index) {
-            return Container(
-              padding: EdgeInsets.symmetric(vertical: 10.0),
-              height: 350,
-              child: items[index],
+            return CachedNetworkImage(
+              imageUrl: images?[index] ?? '',
+              width: double.infinity,
+              fit: BoxFit.fitWidth,
+              placeholder: (context, url) => placeholder,
+              errorWidget: (context, url, error) => placeholder,
             );
           },
         ),

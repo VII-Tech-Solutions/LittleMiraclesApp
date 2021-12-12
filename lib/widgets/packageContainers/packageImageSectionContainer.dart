@@ -42,7 +42,10 @@ class PackageImageSectionContainer extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ImageExamplePage(package),
+                    builder: (context) => ImageExamplePage([
+                      'https://i.picsum.photos/id/514/343/200.jpg?hmac=agi3cn4az37bjgHqfKu0Ffo1EbYYSd5IRopJpWgdpXg',
+                      'https://i.picsum.photos/id/304/343/300.jpg?hmac=ihrb8Va_phgzQqomNxAkLmxbWYGDG_FF1HDcAtGlIvc',
+                    ]),
                   ),
                 );
               },
