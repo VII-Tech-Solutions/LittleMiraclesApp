@@ -7,7 +7,7 @@ class Question {
   final int? order;
   final String? updatedAt;
   final String? deletedAt;
-  final List<OptionsArray>? items;
+  final List<OptionsArray>? options;
 
   Question({
     @required this.id,
@@ -16,35 +16,38 @@ class Question {
     @required this.order,
     @required this.updatedAt,
     @required this.deletedAt,
-    @required this.items,
+    @required this.options,
   });
 
   Map toJson() {
-    List<Map>? items =
-        this.items != null ? this.items!.map((i) => i.toJson()).toList() : null;
+    List<Map>? items = this.options != null
+        ? this.options!.map((i) => i.toJson()).toList()
+        : null;
 
     return {
       'id': id,
       'question': question,
-      'questionType': questionType,
+      'question_type': questionType,
       'order': order,
-      'updatedAt': updatedAt,
-      'deletedAt': deletedAt,
+      'updated_at': updatedAt,
+      'deleted_at': deletedAt,
       'items': items,
     };
   }
 
-  // factory Question.fromJson(dynamic json) {
-  //   return Question(
-  //    id,                       id,
-  //    question,                 question,
-  //    questionType,             questionType,
-  //    order,                    order,
-  //    updatedAt,                updatedAt,
-  //    deletedAt,                deletedAt,
-  //    items,                    items,
-  //   );
-  // }
+  factory Question.fromJson(dynamic json) {
+    final optionsJson = json['options_array'] as List?;
+
+    return Question(
+      id: json['id'] as int?,
+      question: json['question'] as String?,
+      questionType: json['question_type'] as int?,
+      order: json['order'] as int?,
+      updatedAt: json['updated_at'] as String?,
+      deletedAt: json['deleted_at'] as String?,
+      options: optionsJson?.map((e) => OptionsArray.fromJson(e)).toList(),
+    );
+  }
 }
 
 class OptionsArray {
@@ -61,5 +64,12 @@ class OptionsArray {
       "id": id,
       "value": value,
     };
+  }
+
+  factory OptionsArray.fromJson(dynamic json) {
+    return OptionsArray(
+      id: json['id'] as int?,
+      value: json['value'] as String?,
+    );
   }
 }

@@ -8,10 +8,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 //GLOBAL
 import '../global/const.dart';
 import '../database/db_sqflite.dart';
-import '../Global/globalEnvironment.dart';
+import '../global/globalEnvironment.dart';
 //MODELS
 import '../models/ssoData.dart';
 import '../models/user.dart';
+import '../models/question.dart';
 //PROVIDERS
 //WIDGETS
 //PAGES
@@ -28,6 +29,7 @@ class Auth with ChangeNotifier {
   ];
   String? _token;
   User? _user;
+  List<Question>? _questions;
   bool? _isFirstOpen;
   String? _expiryDate;
   Map _registrationBody = {};
@@ -155,6 +157,36 @@ class Auth with ChangeNotifier {
     } catch (e) {
       print('catch error:: $e');
       return ErrorMessages.somethingWrong;
+    }
+  }
+
+  Future<void> fetchRegistrationQuestions() async {
+    final url = Uri.parse('$apiLink/questions');
+
+    try {
+      final response = await http.get(url, headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Platform': 'ios',
+        'App-Version': '0.0.1',
+        'Authorization': 'Bearer $token',
+      }).timeout(Duration(seconds: Timeout.value));
+
+      final extractedData =
+          json.decode(response.body)['data']['questions'] as List;
+
+      if (response.statusCode != 200) {
+        return;
+      }
+
+      _questions =
+          extractedData.map((json) => Question.fromJson(json)).toList();
+
+      notifyListeners();
+      return;
+    } on TimeoutException catch (e) {
+      print('Exception Timeout:: $e');
+    } catch (e) {
+      print('catch error:: $e');
     }
   }
 
