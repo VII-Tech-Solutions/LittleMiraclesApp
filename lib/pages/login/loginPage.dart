@@ -1,4 +1,5 @@
 //PACKAGES
+import 'package:LMP0001_LittleMiraclesApp/pages/login/familyPage.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -191,25 +192,19 @@ class LoginPage extends StatelessWidget {
               ),
               ButtonWithIconWidget(
                 onPress: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CompleteProfilePage(),
-                    ),
-                  );
+                  context.read<Auth>().fetchRegistrationQuestions();
                 },
                 buttonText: 'Login using Facebook',
                 assetName: 'assets/images/iconsSocialFacebook.svg',
               ),
               ButtonWithIconWidget(
                 onPress: () {
-                  context.read<Auth>().fetchRegistrationQuestions();
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => ChildrenPage(),
-                  //   ),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FamilyPage(),
+                    ),
+                  );
                 },
                 buttonText: 'Login using Snapchat',
                 assetName: 'assets/images/iconsSocialSnapchat.svg',

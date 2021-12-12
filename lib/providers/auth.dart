@@ -46,6 +46,10 @@ class Auth with ChangeNotifier {
     return _user;
   }
 
+  List<Question>? get questions {
+    return _questions;
+  }
+
   bool get isFirstOpen {
     return _isFirstOpen ?? true;
   }
