@@ -18,7 +18,7 @@ class SessionRowDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.only(bottom: 10, left: 16.0),
       child: Row(
         children: [
           Icon(
@@ -33,6 +33,7 @@ class SessionRowDetails extends StatelessWidget {
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 14,
+                color: AppColors.black45515D,
               ),
             ),
           ),

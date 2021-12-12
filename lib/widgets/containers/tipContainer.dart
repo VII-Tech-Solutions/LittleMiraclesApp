@@ -34,16 +34,17 @@ class TipContainer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-                height: 177,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.0),
-                  color: AppColors.blue8DC4CB,
-                ),
-                child: CachedImageWidget(
-                  dailyTip?.image,
-                  ImageShape.rectangle,
-                )),
+              height: 177,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                color: AppColors.blue8DC4CB,
+              ),
+              child: CachedImageWidget(
+                dailyTip?.image,
+                ImageShape.rectangle,
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 10.0),
               child: Text(
