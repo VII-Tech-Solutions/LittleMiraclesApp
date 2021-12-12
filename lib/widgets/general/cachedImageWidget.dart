@@ -18,10 +18,12 @@ class CachedImageWidget extends StatelessWidget {
   final String? url;
   final ImageShape imageShape;
   final double? radius;
+  final BoxFit? customBoxFit;
   const CachedImageWidget(
     this.url,
     this.imageShape, {
     this.radius = 8.0,
+    this.customBoxFit = BoxFit.cover,
   });
 
   @override
@@ -38,7 +40,7 @@ class CachedImageWidget extends StatelessWidget {
           color: AppColors.blue8DC4CB,
           image: DecorationImage(
             image: imageProvider,
-            fit: BoxFit.cover,
+            fit: customBoxFit,
           ),
         ),
       ),

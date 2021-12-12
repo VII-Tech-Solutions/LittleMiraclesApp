@@ -18,25 +18,17 @@ class ImageExamplePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final items = [
-      Image(
-        image: NetworkImage(
-            'https://i.picsum.photos/id/514/343/200.jpg?hmac=agi3cn4az37bjgHqfKu0Ffo1EbYYSd5IRopJpWgdpXg'),
-        fit: BoxFit.fill,
+      CachedImageWidget(
+        'https://i.picsum.photos/id/514/343/200.jpg?hmac=agi3cn4az37bjgHqfKu0Ffo1EbYYSd5IRopJpWgdpXg',
+        ImageShape.rectangle,
+        customBoxFit: BoxFit.none,
+        radius: 0.0,
       ),
-      Image(
-        image: NetworkImage(
-            'https://i.picsum.photos/id/304/343/300.jpg?hmac=ihrb8Va_phgzQqomNxAkLmxbWYGDG_FF1HDcAtGlIvc'),
-        fit: BoxFit.cover,
-      ),
-      Image(
-        image: NetworkImage(
-            'https://i.picsum.photos/id/291/343/400.jpg?hmac=G0E7KRKSGWzuEF8lXaHDLbEX_ZI3-BldVqF8x1cs8u4'),
-        fit: BoxFit.fitHeight,
-      ),
-      Image(
-        image: NetworkImage(
-            'https://i.picsum.photos/id/380/343/256.jpg?hmac=VOLQGXewDD74KH0BEbo0PNWcrf0ISoCcB8-HAxaGAG8'),
-        fit: BoxFit.cover,
+      CachedImageWidget(
+        'https://i.picsum.photos/id/304/343/300.jpg?hmac=ihrb8Va_phgzQqomNxAkLmxbWYGDG_FF1HDcAtGlIvc',
+        ImageShape.rectangle,
+        customBoxFit: BoxFit.fitHeight,
+        radius: 0.0,
       ),
     ];
 
@@ -52,6 +44,7 @@ class ImageExamplePage extends StatelessWidget {
           itemBuilder: (ctx, index) {
             return Container(
               padding: EdgeInsets.symmetric(vertical: 10.0),
+              height: 350,
               child: items[index],
             );
           },
