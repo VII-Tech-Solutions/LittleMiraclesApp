@@ -9,6 +9,7 @@ import '../../models/package.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/containers/imageGrid.dart';
 //PAGES
+import '../../pages/booking/imageExamplePage.dart';
 
 class PackageImageSectionContainer extends StatelessWidget {
   final Package? package;
@@ -38,7 +39,12 @@ class PackageImageSectionContainer extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: FilledButtonWidget(
               onPress: () {
-                //TODO: go to all image examples
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ImageExamplePage(package),
+                  ),
+                );
               },
               type: ButtonType.generalGrey,
               title: 'See all examples',

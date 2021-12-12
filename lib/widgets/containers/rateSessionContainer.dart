@@ -61,17 +61,13 @@ class RateSessionContainer extends StatelessWidget {
                       letterSpacing: -0.4,
                     ),
                     decoration: InputDecoration(
+                      hintText: '4.0',
                       contentPadding:
                           const EdgeInsets.symmetric(horizontal: 15.0),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.transparent),
                       ),
                     ),
-                    onTap: () {
-                      FocusScope.of(context).requestFocus(
-                        new FocusNode(),
-                      );
-                    },
                   ),
                 ),
                 Padding(
