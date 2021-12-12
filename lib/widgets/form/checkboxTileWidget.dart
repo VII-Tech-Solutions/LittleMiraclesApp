@@ -64,24 +64,3 @@ class _CheckboxTileWidgetState extends State<CheckboxTileWidget> {
     );
   }
 }
-
-
-// Padding(
-//   padding: const EdgeInsets.fromLTRB(30.0, 5.0, 30.0, 5.0),
-//   child: CheckboxListTile(
-//     tileColor: AppColors.whiteFFFFFF,
-//     selectedTileColor: AppColors.blueF4F9FA,
-//     shape: RoundedRectangleBorder(
-//       borderRadius: BorderRadius.circular(4.0),
-//       side: BorderSide(width: 0.5, color: AppColors.greyB9BEC2),
-//     ),
-//     contentPadding: const EdgeInsets.all(0),
-//     title: Text("title text"),
-//     value: true,
-//     onChanged: (bool? newValue) {
-//       //onChanged(newValue);
-//     },
-//     controlAffinity:
-//         ListTileControlAffinity.leading, //  <-- leading Checkbox
-//   ),
-// ),
