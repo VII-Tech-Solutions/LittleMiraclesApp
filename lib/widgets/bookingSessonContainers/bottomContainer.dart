@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 //PROVIDERS
 //WIDGETS
 //PAGES
+import '../../pages/booking/backdropPage.dart';
+import '../../pages/booking/cakePage.dart';
 
 class BottomContainer extends StatelessWidget {
   const BottomContainer();
@@ -34,7 +36,13 @@ class BottomContainer extends StatelessWidget {
               color: AppColors.black45515D,
             ),
             onTap: () {
-              //TODO: go to Select Backdrop
+              FocusScope.of(context).requestFocus(new FocusNode());
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BackdropPage(),
+                ),
+              );
             },
           ),
           FormTextFieldWidget(
@@ -52,7 +60,13 @@ class BottomContainer extends StatelessWidget {
               color: AppColors.black45515D,
             ),
             onTap: () {
-              //TODO: go to Select Cake
+              FocusScope.of(context).requestFocus(new FocusNode());
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CakePage(),
+                ),
+              );
             },
           ),
           Padding(
