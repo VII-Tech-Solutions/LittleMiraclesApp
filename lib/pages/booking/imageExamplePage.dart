@@ -29,12 +29,15 @@ class ImageExamplePage extends StatelessWidget {
           itemCount: images?.length,
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           itemBuilder: (ctx, index) {
-            return CachedNetworkImage(
-              imageUrl: images?[index] ?? '',
-              width: double.infinity,
-              fit: BoxFit.fitWidth,
-              placeholder: (context, url) => placeholder,
-              errorWidget: (context, url, error) => placeholder,
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: CachedNetworkImage(
+                imageUrl: images?[index] ?? '',
+                width: double.infinity,
+                fit: BoxFit.fitWidth,
+                placeholder: (context, url) => placeholder,
+                errorWidget: (context, url, error) => placeholder,
+              ),
             );
           },
         ),

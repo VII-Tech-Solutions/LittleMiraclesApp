@@ -9,7 +9,11 @@ import '../../global/colors.dart';
 
 class AppBarWithBack extends StatelessWidget with PreferredSizeWidget {
   final String? title;
-  const AppBarWithBack(this.title);
+  final FontWeight? weight;
+  const AppBarWithBack(
+    this.title, {
+    this.weight = FontWeight.w400,
+  });
 
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
@@ -41,6 +45,7 @@ class AppBarWithBack extends StatelessWidget with PreferredSizeWidget {
         style: TextStyle(
           color: AppColors.black45515D,
           fontSize: 18,
+          fontWeight: weight,
         ),
       ),
     );
