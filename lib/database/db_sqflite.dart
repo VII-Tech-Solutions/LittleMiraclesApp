@@ -28,6 +28,8 @@ class DBHelper {
             'CREATE TABLE packages(id INT PRIMARY KEY, title TEXT, tag TEXT, image TEXT, price TEXT, isPopular INTEGER, type INTEGER, content TEXT, locationText TEXT, locationLink TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
         await db.execute(
             'CREATE TABLE backdrops(id INT PRIMARY KEY, title TEXT, category TEXT, image TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
+        await db.execute(
+            'CREATE TABLE cakes(id INT PRIMARY KEY, title TEXT, category TEXT, image TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
       },
       version: 1,
       onUpgrade: (db, oldVersion, newVersion) async {

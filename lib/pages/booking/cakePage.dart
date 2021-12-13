@@ -21,7 +21,7 @@ class CakePage extends StatefulWidget {
 class _CakePageState extends State<CakePage> {
   @override
   Widget build(BuildContext context) {
-    final backdrops = context.watch<AppData>().backdrops;
+    final cakes = context.watch<AppData>().cakes;
 
     return Scaffold(
       appBar: AppBarWithBack(
@@ -33,7 +33,7 @@ class _CakePageState extends State<CakePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TitleText(
-              title: '${backdrops[0].category} Cake',
+              title: '${cakes[0].category} Cake',
               type: TitleTextType.subTitleBlack,
               weight: FontWeight.w800,
             ),
