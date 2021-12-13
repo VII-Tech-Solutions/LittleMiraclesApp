@@ -11,7 +11,8 @@ import '../texts/titleText.dart';
 
 class MultiSelectQuestionWidget extends StatefulWidget {
   final Question? question;
-  const MultiSelectQuestionWidget(this.question);
+  final void Function(Map?) onTapCallback;
+  const MultiSelectQuestionWidget(this.question, this.onTapCallback);
 
   @override
   _MultiSelectQuestionWidgetState createState() =>
@@ -19,9 +20,9 @@ class MultiSelectQuestionWidget extends StatefulWidget {
 }
 
 class _MultiSelectQuestionWidgetState extends State<MultiSelectQuestionWidget> {
-  bool selected = false;
+  List<int> selectedOptions = [];
 
-  final BoxDecoration unselectedOptionStyle = const BoxDecoration().copyWith(
+  final BoxDecoration unselectedOptionsStyle = const BoxDecoration().copyWith(
     color: Colors.white,
     borderRadius: BorderRadius.circular(4.0),
     border: Border.all(
@@ -30,7 +31,7 @@ class _MultiSelectQuestionWidgetState extends State<MultiSelectQuestionWidget> {
     ),
   );
 
-  final BoxDecoration selectedOptionStyle = const BoxDecoration().copyWith(
+  final BoxDecoration selectedOptionsStyle = const BoxDecoration().copyWith(
     color: AppColors.blueF4F9FA,
     borderRadius: BorderRadius.circular(4.0),
     border: Border.all(
@@ -42,25 +43,86 @@ class _MultiSelectQuestionWidgetState extends State<MultiSelectQuestionWidget> {
   List<Widget> _buildQuestionWidget() {
     List<Widget> list = [];
 
-    list.add(TitleText(
-      customPadding: const EdgeInsets.only(top: 20, bottom: 5),
-      title: 'What types of images are most important to you?',
-      type: TitleTextType.secondaryTitle,
-    ));
+    list.add(
+      TitleText(
+        customPadding: const EdgeInsets.only(top: 20, bottom: 5),
+        title: widget.question?.question ?? '',
+        type: TitleTextType.secondaryTitle,
+      ),
+    );
 
     widget.question?.options?.forEach((element) {
       list.add(InkWell(
         onTap: () {
           setState(() {
-            this.selected = !selected;
+            if (element.id != null) {
+              if (this.selectedOptions.contains(element.id) == true) {
+                this.selectedOptions.removeWhere((i) => i == element.id);
+              } else {
+                this.selectedOptions.add(element.id!);
+              }
+
+              var answer = '';
+
+              for (var i = 0; i < this.selectedOptions.length; i++) {
+                if (i + 1 == this.selectedOptions.length) {
+                  answer += '${this.selectedOptions[i]}';
+                } else {
+                  answer += '${this.selectedOptions[i]}, ';
+                }
+              }
+
+              if (widget.question?.id != null) {
+                return widget.onTapCallback({
+                  'question_id': widget.question?.id,
+                  'answer': answer,
+                });
+              }
+            }
           });
         },
         child: AnimatedContainer(
           height: 40,
           width: double.infinity,
+          margin: EdgeInsets.only(top: 5),
           duration: Duration(milliseconds: 150),
-          decoration:
-              selected == true ? selectedOptionStyle : unselectedOptionStyle,
+          decoration: this.selectedOptions.contains(element.id) == true
+              ? selectedOptionsStyle
+              : unselectedOptionsStyle,
+          child: Row(
+            children: [
+              Checkbox(
+                value: this.selectedOptions.contains(element.id) == true,
+                splashRadius: 4,
+                activeColor: AppColors.blue8DC4CB,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                side: BorderSide(
+                  color: this.selectedOptions.contains(element.id) == true
+                      ? Colors.white
+                      : AppColors.greyB9BEC2,
+                  width: 0.5,
+                ),
+                onChanged: (_) {
+                  setState(() {
+                    if (element.id != null) {
+                      if (this.selectedOptions.contains(element.id) == true) {
+                        this
+                            .selectedOptions
+                            .removeWhere((i) => i == element.id);
+                      } else {
+                        this.selectedOptions.add(element.id!);
+                      }
+                    }
+                  });
+                },
+              ),
+              Text(
+                element.value ?? '',
+              ),
+            ],
+          ),
         ),
       ));
     });
@@ -71,53 +133,8 @@ class _MultiSelectQuestionWidgetState extends State<MultiSelectQuestionWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: _buildQuestionWidget(),
-    );
-  }
-
-  Widget _old() {
-    bool isChecked = false;
-    Color fillColor = AppColors.whiteFFFFFF;
-    Color borderColor = AppColors.greyD0D3D6;
-    return Container(
-      // margin: const EdgeInsets.fromLTRB(30.0, 5.0, 30.0, 5.0),
-      decoration: BoxDecoration(
-        border: Border.all(color: borderColor),
-        borderRadius: BorderRadius.circular(4),
-        color: fillColor,
-      ),
-      child: Row(
-        children: <Widget>[
-          Checkbox(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(4.0),
-            ),
-            side: BorderSide(width: 0.5, color: AppColors.greyB9BEC2),
-            activeColor: AppColors.blue8DC4CB,
-            value: isChecked,
-            onChanged: (bool? value) {
-              setState(() {
-                isChecked = value!;
-                if (isChecked) {
-                  fillColor = AppColors.blueF4F9FA;
-                  borderColor = AppColors.blue8DC4CB;
-                } else if (!isChecked) {
-                  fillColor = AppColors.whiteFFFFFF;
-                  borderColor = AppColors.greyD0D3D6;
-                }
-              });
-            },
-          ),
-          Text(
-            widget.question?.question ?? '',
-            style: TextStyle(
-              color: AppColors.black45515D,
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

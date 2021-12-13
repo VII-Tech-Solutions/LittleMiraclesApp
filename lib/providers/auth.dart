@@ -13,6 +13,7 @@ import '../global/globalEnvironment.dart';
 import '../models/ssoData.dart';
 import '../models/user.dart';
 import '../models/question.dart';
+import '../models/apiResponse.dart';
 //PROVIDERS
 //WIDGETS
 //PAGES
@@ -29,7 +30,7 @@ class Auth with ChangeNotifier {
   ];
   String? _token;
   User? _user;
-  List<Question>? _questions;
+  List<Question> _questions = [];
   bool? _isFirstOpen;
   String? _expiryDate;
   Map _registrationBody = {};
@@ -47,7 +48,9 @@ class Auth with ChangeNotifier {
   }
 
   List<Question>? get questions {
-    return _questions;
+    _questions.sort((a, b) => a.order!.compareTo(b.order!));
+
+    return [..._questions];
   }
 
   bool get isFirstOpen {
@@ -57,7 +60,7 @@ class Auth with ChangeNotifier {
   Future<void> amendRegistrationBody(Map data) async {
     _registrationBody.addAll(data);
 
-    print(_registrationBody);
+    // print(_registrationBody);
   }
 
   Future<void> setToken(SsoData data) async {
@@ -185,6 +188,8 @@ class Auth with ChangeNotifier {
       _questions =
           extractedData.map((json) => Question.fromJson(json)).toList();
 
+      print('questions fetched: ${_questions.length}');
+
       notifyListeners();
       return;
     } on TimeoutException catch (e) {
@@ -194,7 +199,40 @@ class Auth with ChangeNotifier {
     }
   }
 
-  Future<void> register() async {}
+  Future<ApiResponse?> register() async {
+    final url = Uri.parse('$apiLink/register');
+
+    print(jsonEncode(_registrationBody));
+
+    try {
+      var response = await http
+          .post(
+            url,
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'Platform': 'ios',
+              'App-Version': '0.0.1',
+              'Authorization': 'Bearer $token',
+            },
+            body: jsonEncode(_registrationBody),
+          )
+          .timeout(Duration(seconds: Timeout.value));
+
+      print(response.statusCode);
+      print(response.body);
+
+      return (ApiResponse(
+        statusCode: response.statusCode,
+        message: response.body,
+      ));
+    } on TimeoutException catch (e) {
+      print('Exception Timeout:: $e');
+      return null;
+    } catch (e) {
+      print('catch error:: $e');
+      return null;
+    }
+  }
 
   Future<void> changePassword() async {}
 

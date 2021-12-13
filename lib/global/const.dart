@@ -6,6 +6,8 @@ class APIEnvironment {
 class ErrorMessages {
   static const String somethingWrong =
       'Something went wrong, please try again later.';
+  static const String fillRequiredInfo =
+      'Please fill in all the required information';
 }
 
 class Timeout {

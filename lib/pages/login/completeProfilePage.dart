@@ -2,8 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:country_code_picker/country_code_picker.dart';
+//EXTENSION
+import '../../extensions/stringExtension.dart';
 //GLOBAL
 import '../../global/colors.dart';
+import '../../global/const.dart';
 import '../../global/globalHelpers.dart';
 //MODELS
 //PROVIDERS
@@ -14,6 +17,7 @@ import '../../widgets/form/formTextField.dart';
 import '../../widgets/appbars/appBarWithLogo.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/containers/registrationAccountTypeContainer.dart';
+import '../../widgets/dialogs/showOkDialog.dart';
 //PAGES
 import '../../pages/login/partnerPage.dart';
 
@@ -48,7 +52,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
       selectedDate = picked;
       _birthdayController.text =
           'Birthday\t\t\t\t${DateFormatClass().getDate('${picked}')}';
-      _formattedDate = DateFormatClass().getDate('${picked}');
+      _formattedDate = _birthdayController.text.toString().apiDob();
     }
   }
 
@@ -59,6 +63,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
     _birthdayController = TextEditingController();
     _phoneController = TextEditingController();
     _detailsController = TextEditingController();
+    context.read<Auth>().fetchRegistrationQuestions();
     super.initState();
   }
 
@@ -238,6 +243,12 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                             MaterialPageRoute(
                               builder: (context) => PartnerPage(),
                             ),
+                          );
+                        } else {
+                          ShowOkDialog(
+                            context,
+                            ErrorMessages.fillRequiredInfo,
+                            title: "Oops",
                           );
                         }
                       },

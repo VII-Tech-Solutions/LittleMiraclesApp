@@ -192,7 +192,10 @@ class LoginPage extends StatelessWidget {
               ),
               ButtonWithIconWidget(
                 onPress: () {
-                  context.read<Auth>().fetchRegistrationQuestions();
+                  context
+                      .read<Auth>()
+                      .fetchRegistrationQuestions()
+                      .then((value) => print('done fetching'));
                 },
                 buttonText: 'Login using Facebook',
                 assetName: 'assets/images/iconsSocialFacebook.svg',
