@@ -8,7 +8,6 @@ import '../../global/colors.dart';
 //PROVIDERS
 //WIDGETS
 import '../../widgets/buttons/filledButtonWidget.dart';
-import '../../widgets/texts/titleText.dart';
 //PAGES
 
 class RateSessionContainer extends StatelessWidget {

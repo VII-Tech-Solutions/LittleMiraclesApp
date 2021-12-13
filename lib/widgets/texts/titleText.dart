@@ -11,7 +11,8 @@ enum TitleTextType {
   mainHomeTitle,
   secondaryTitle,
   containerMainTitle,
-  subContainerMainTitle
+  subContainerMainTitle,
+  subTitleBlack,
 }
 
 class TitleText extends StatelessWidget {
@@ -56,6 +57,13 @@ class TitleText extends StatelessWidget {
         {
           return TextStyle(
             color: AppColors.whiteFFFFFF,
+            fontSize: 18,
+            fontWeight: weight,
+          );
+        }
+      case TitleTextType.subTitleBlack:
+        {
+          return TextStyle(
             fontSize: 18,
             fontWeight: weight,
           );
