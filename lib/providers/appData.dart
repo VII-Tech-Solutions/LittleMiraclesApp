@@ -15,6 +15,8 @@ import '../models/dailyTip.dart';
 import '../models/workshop.dart';
 import '../models/promotion.dart';
 import '../models/onboarding.dart';
+import '../models/backdrop.dart';
+import '../models/cake.dart';
 //PROVIDERS
 //WIDGETS
 import '../widgets/texts/titleText.dart';
@@ -34,6 +36,8 @@ class AppData with ChangeNotifier {
   List<Workshop> _workshops = [];
   List<Section> _sections = [];
   List<Package> _packages = [];
+  List<Backdrop> _backdrops = [];
+  List<Cake> _cakes = [];
 
   // MAIN PAGES WIDGETS LISTS
   List<Widget> _homeList = [];
@@ -49,6 +53,8 @@ class AppData with ChangeNotifier {
     this._homeList,
     this._bookingList,
     this._packages,
+    this._backdrops,
+    this._cakes,
   );
 
   List<Onboarding> get onboardings {
@@ -102,6 +108,22 @@ class AppData with ChangeNotifier {
     return [...list];
   }
 
+  List<Backdrop> get backdrops {
+    return [..._backdrops];
+  }
+
+  List<Cake> get cakes {
+    return [..._cakes];
+  }
+
+  // List<BackdropCategory> get backdropCategories {
+  //   return [..._backdropCategories];
+  // }
+
+  // List<BackdropByCategory> getBackdropByCategory(int catId) {
+  //   return [..._backdrops.where((element) => element.categoryId == catId)];
+  // }
+
   // WIDGET LIST GETTERS
   List<Widget> get homeList {
     return [..._homeList];
@@ -130,6 +152,8 @@ class AppData with ChangeNotifier {
       final workshopsJson = extractedData['workshops'] as List;
       final sectionsJson = extractedData['sections'] as List;
       final packagesJson = extractedData['packages'] as List;
+      final backdropsJson = extractedData['backdrops'] as List;
+      final cakesJson = extractedData['cakes'] as List;
 
       if (response.statusCode != 200) {
         return;
@@ -150,6 +174,11 @@ class AppData with ChangeNotifier {
       _sections = sectionsJson.map((json) => Section.fromJson(json)).toList();
 
       _packages = packagesJson.map((json) => Package.fromJson(json)).toList();
+
+      _backdrops =
+          backdropsJson.map((json) => Backdrop.fromJson(json)).toList();
+
+      _cakes = cakesJson.map((json) => Cake.fromJson(json)).toList();
 
       await LastUpdateClass().setLastUpdate(LastUpdate.appData);
       await syncLocalDatabase();
@@ -218,6 +247,24 @@ class AppData with ChangeNotifier {
         DBHelper.insert(Tables.packages, item.toMap());
       }
     });
+
+    // BACKDROPS
+    _backdrops.forEach((item) {
+      if (item.deletedAt != null) {
+        DBHelper.deleteById(Tables.backdrops, item.id ?? -1);
+      } else {
+        DBHelper.insert(Tables.backdrops, item.toMap());
+      }
+    });
+
+    // CAKES
+    _cakes.forEach((item) {
+      if (item.deletedAt != null) {
+        DBHelper.deleteById(Tables.cakes, item.id ?? -1);
+      } else {
+        DBHelper.insert(Tables.cakes, item.toMap());
+      }
+    });
   }
 
   Future<void> getLocalAppData() async {
@@ -227,6 +274,8 @@ class AppData with ChangeNotifier {
     final workshopsDataList = await DBHelper.getData(Tables.workshops);
     final sectionsDataList = await DBHelper.getData(Tables.sections);
     final packagesDataList = await DBHelper.getData(Tables.packages);
+    final backdropsDataList = await DBHelper.getData(Tables.backdrops);
+    final cakesDataList = await DBHelper.getData(Tables.cakes);
 
     // ONBOARDING
     if (onboardingDataList.isNotEmpty) {
@@ -340,6 +389,40 @@ class AppData with ChangeNotifier {
               content: item['content'],
               locationText: item['locationText'],
               locationLink: item['locationLink'],
+              status: item['status'],
+              updatedAt: item['updatedAt'],
+              deletedAt: item['deletedAt'],
+            ),
+          )
+          .toList();
+    }
+
+    // BACKDROP
+    if (backdropsDataList.isNotEmpty) {
+      _backdrops = backdropsDataList
+          .map(
+            (item) => Backdrop(
+              id: item['id'],
+              title: item['title'],
+              image: item['image'],
+              category: item['category'],
+              status: item['status'],
+              updatedAt: item['updatedAt'],
+              deletedAt: item['deletedAt'],
+            ),
+          )
+          .toList();
+    }
+
+    // CAKE
+    if (cakesDataList.isNotEmpty) {
+      _cakes = cakesDataList
+          .map(
+            (item) => Cake(
+              id: item['id'],
+              title: item['title'],
+              image: item['image'],
+              category: item['category'],
               status: item['status'],
               updatedAt: item['updatedAt'],
               deletedAt: item['deletedAt'],

@@ -102,6 +102,7 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
       bottomNavigationBar: PackageBottomSectionContainer(
         widget.package,
         btnLabel: 'Next',
+        //TODO: change nav
       ),
     );
   }
