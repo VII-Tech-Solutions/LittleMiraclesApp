@@ -70,12 +70,25 @@ class LastUpdateClass {
 }
 
 class DateFormatClass {
-  String getDate(String date) {
+  String toddMMyyyy(String date) {
     if (date.isNotEmpty) {
       var dateTimeString = date;
       final dateTime = DateTime.parse(dateTimeString);
 
       final format = DateFormat('dd/MM/yyyy');
+      final formattedDate = format.format(dateTime);
+      return formattedDate;
+    } else {
+      return "";
+    }
+  }
+
+  String toyyyyMMdd(String date) {
+    if (date.isNotEmpty) {
+      var dateTimeString = date;
+      final dateTime = DateTime.parse(dateTimeString);
+
+      final format = DateFormat('yyyy-MM-dd');
       final formattedDate = format.format(dateTime);
       return formattedDate;
     } else {

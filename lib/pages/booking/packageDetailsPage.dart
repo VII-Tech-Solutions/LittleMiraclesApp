@@ -1,7 +1,7 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+//EXTENSIONS
 //GLOBAL
-import '../../global/colors.dart';
 //MODELS
 import '../../models/package.dart';
 //PROVIDERS

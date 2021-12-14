@@ -38,10 +38,8 @@ class ChildrenForm extends StatelessWidget {
         firstDate: DateTime(1960, 8),
         lastDate: DateTime(2101));
     if (picked != null) {
-      // selectedDate = picked;
       _birthdayController.text =
-          'Birthday\t\t\t\t${DateFormatClass().getDate('${picked}')}';
-      // _formattedDate = DateFormatClass().getDate('${picked}');
+          'Birthday\t\t\t\t${DateFormatClass().toddMMyyyy('${picked}')}';
     }
   }
 
@@ -99,7 +97,7 @@ class ChildrenForm extends StatelessWidget {
           FormTextFieldWidget(
             controller: _birthdayController,
             title:
-                'Birthday\t\t\t\t${DateFormatClass().getDate('${DateTime.now()}')}',
+                'Birthday\t\t\t\t${DateFormatClass().toddMMyyyy('${DateTime.now()}')}',
             hintStyle: TextStyle(
               color: AppColors.black45515D,
               fontSize: 12,

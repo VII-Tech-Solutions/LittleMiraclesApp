@@ -123,7 +123,7 @@ class Auth with ChangeNotifier {
           email: extractedUserData['email'] as String?,
           updatedAt: extractedUserData['updatedAt'] as String?,
           deletedAt: extractedUserData['deletedAt'] as String?,
-          countryCode: extractedUserData['countryCode'] as String?,
+          countryCode: extractedUserData['countryCode'] as int?,
           gender: extractedUserData['gender'] as int?,
           birthDate: extractedUserData['birthDate'] as String?,
           avatar: extractedUserData['avatar'] as String?,

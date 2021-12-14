@@ -51,8 +51,9 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
     if (picked != null && picked != selectedDate) {
       selectedDate = picked;
       _birthdayController.text =
-          'Birthday\t\t\t\t${DateFormatClass().getDate('${picked}')}';
-      _formattedDate = _birthdayController.text.toString().apiDob();
+          'Birthday\t\t\t\t${DateFormatClass().toddMMyyyy('$picked')}';
+      _formattedDate = DateFormatClass().toyyyyMMdd('$picked');
+
     }
   }
 
@@ -145,7 +146,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                     FormTextFieldWidget(
                       controller: _birthdayController,
                       title:
-                          'Birthday\t\t\t\t${DateFormatClass().getDate('${selectedDate}')}',
+                          'Birthday\t\t\t\t${DateFormatClass().toddMMyyyy('$selectedDate')}',
                       hintStyle: TextStyle(
                         color: AppColors.black45515D,
                         fontSize: 12,

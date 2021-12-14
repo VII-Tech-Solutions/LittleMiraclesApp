@@ -215,6 +215,9 @@ class LoginPage extends StatelessWidget {
               ),
               ButtonWithIconWidget(
                 onPress: () {
+                  final val =context.read<Auth>().user?.providerId;
+
+                  print(val);
                   Navigator.push(
                     context,
                     MaterialPageRoute(

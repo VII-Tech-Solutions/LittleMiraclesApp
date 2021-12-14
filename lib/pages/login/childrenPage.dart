@@ -135,8 +135,8 @@ class _ChildrenPageState extends State<ChildrenPage> {
                     childrenList.add({
                       "first_name": _firstNameControllersList[i].text,
                       "last_name": _lastNameControllersList[i].text,
-                      "gender": _genderControllersList[i].text.toInt(),
-                      "birthdate": _birthdayControllersList[i].text.apiDob(),
+                      "gender": _genderControllersList[i].text.toString().toInt(),
+                      "birth_date": _birthdayControllersList[i].text.apiDob(),
                       "personality": _detailsControllersList[i].text,
                     });
                   }
