@@ -228,7 +228,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                             "user": {
                               "first_name": _firstNameController.text,
                               "last_name": _lastNameController.text,
-                              "gender": _genderValue,
+                              "gender": _genderValue.toInt(),
                               "country_code": _countryCodeValue,
                               "phone_number": _phoneController.text,
                               "birth_date": _formattedDate,

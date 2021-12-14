@@ -69,42 +69,45 @@ class _FamilyPageState extends State<FamilyPage> {
     return Scaffold(
       backgroundColor: AppColors.blueF4F9FA,
       appBar: AppBarWithLogo(),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TitleText(
-              customPadding: const EdgeInsets.only(top: 20.0, bottom: 10.0),
-              title: 'Your Family',
-              type: TitleTextType.mainHomeTitle,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: _questionsList,
-            ),
-            FilledButtonWidget(
-              margin: const EdgeInsets.only(top: 30.0, bottom: 25.0),
-              onPress: () {
-                if (context.read<Auth>().questions?.length ==
-                    _answersList.length) {
-                  Map familyData = {"family": _answersList};
+      body: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: 30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TitleText(
+                customPadding: const EdgeInsets.only(top: 20.0, bottom: 10.0),
+                title: 'Your Family',
+                type: TitleTextType.mainHomeTitle,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: _questionsList,
+              ),
+              FilledButtonWidget(
+                margin: const EdgeInsets.only(top: 30.0, bottom: 25.0),
+                onPress: () {
+                  if (context.read<Auth>().questions?.length ==
+                      _answersList.length) {
+                    Map familyData = {"family": _answersList};
 
-                  context.read<Auth>().amendRegistrationBody(familyData);
+                    context.read<Auth>().amendRegistrationBody(familyData);
 
-                  context.read<Auth>().register().then((value) => null);
-                } else {
-                  ShowOkDialog(
-                    context,
-                    ErrorMessages.fillRequiredInfo,
-                    title: "Oops",
-                  );
-                }
-              },
-              type: ButtonType.generalBlue,
-              title: 'Confirm',
-            ),
-          ],
+                    context.read<Auth>().register().then((value) => null);
+                  } else {
+                    ShowOkDialog(
+                      context,
+                      ErrorMessages.fillRequiredInfo,
+                      title: "Oops",
+                    );
+                  }
+                },
+                type: ButtonType.generalBlue,
+                title: 'Confirm',
+              ),
+            ],
+          ),
         ),
       ),
     );

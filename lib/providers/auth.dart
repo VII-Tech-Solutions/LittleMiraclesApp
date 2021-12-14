@@ -72,7 +72,7 @@ class Auth with ChangeNotifier {
   Future<void> amendRegistrationBody(Map data) async {
     _registrationBody.addAll(data);
 
-    // print(_registrationBody);
+    print(jsonEncode(_registrationBody));
   }
 
   Future<void> setToken(SsoData data) async {

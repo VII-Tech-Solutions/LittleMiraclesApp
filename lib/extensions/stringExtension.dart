@@ -8,4 +8,8 @@ extension StringExtension on String {
     final formattedDate = removedTabs.replaceAll('/', '-');
     return "$formattedDate";
   }
+
+  int toInt() {
+    return int.parse(this);
+  }
 }
