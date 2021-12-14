@@ -22,7 +22,6 @@ class PackageDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> _list = [
-      // PackageMainTopSectionContainer(package),
       PackageDetailsSectionContainer(),
       PackageLocationSectionContainer(package),
       PackageImageSectionContainer(package),
@@ -39,7 +38,9 @@ class PackageDetailsPage extends StatelessWidget {
             automaticallyImplyLeading: false,
             elevation: 0,
             title: IconButtonWidget(
-              onPress: () {},
+              onPress: () {
+                Navigator.maybePop(context);
+              },
               icon: Icons.arrow_back,
             ),
             stretch: true,
@@ -63,20 +64,6 @@ class PackageDetailsPage extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: PackageBottomSectionContainer(package),
-    );
-  }
-
-  Widget _old() {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          PackageMainTopSectionContainer(package),
-          PackageDetailsSectionContainer(),
-          PackageLocationSectionContainer(package),
-          PackageImageSectionContainer(package),
-          PackageRatingSectionContainer(package),
-        ],
-      ),
     );
   }
 }

@@ -21,66 +21,51 @@ class PackageBottomSectionContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Stack(
+      height: 100,
+      width: double.infinity,
+      color: AppColors.greyF2F3F3,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            height: 100,
-            width: double.infinity,
-            color: AppColors.greyF2F3F3,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16.0, 20.0, 0.0, 2.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${package?.title}',
-                          style: TextStyle(
-                            color: AppColors.black45515D,
-                            fontSize: 18,
-                          ),
-                        ),
-                        Text(
-                          'BD ${package?.price}',
-                          style: TextStyle(
-                            color: AppColors.black45515D,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
-                      ],
-                    ),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '${package?.title}',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: AppColors.black45515D,
+                    fontSize: 18,
                   ),
-                  Flexible(
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          FilledButtonWidget(
-                            customWidth: 128,
-                            onPress: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      BookingSessionPage(package),
-                                ),
-                              );
-                            },
-                            type: ButtonType.generalBlue,
-                            title: btnLabel,
-                          ),
-                        ],
-                      ),
-                    ),
+                ),
+                Text(
+                  'BD ${package?.price}',
+                  style: TextStyle(
+                    color: AppColors.black45515D,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w800,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
+          ),
+          FilledButtonWidget(
+            customWidth: 128,
+            onPress: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BookingSessionPage(package),
+                ),
+              );
+            },
+            type: ButtonType.generalBlue,
+            title: btnLabel,
           ),
         ],
       ),

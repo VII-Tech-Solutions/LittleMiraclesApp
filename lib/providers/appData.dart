@@ -77,7 +77,7 @@ class AppData with ChangeNotifier {
     return [..._sections];
   }
 
-  Section get helloSection {
+  Section? get helloSection {
     final section =
         _sections.firstWhere((element) => element.type == SectionType.header);
 
