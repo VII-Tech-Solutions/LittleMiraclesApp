@@ -156,6 +156,10 @@ class AppData with ChangeNotifier {
       final cakesJson = extractedData['cakes'] as List;
 
       if (response.statusCode != 200) {
+        await getLocalAppData();
+        await generateHomePageWidgets();
+        await generateBookingsPageWidgets();
+        notifyListeners();
         return;
       }
 
@@ -191,7 +195,7 @@ class AppData with ChangeNotifier {
       print('Exception Timeout:: $e');
     } catch (e) {
       print('catch error:: $e');
-    } finally {}
+    }
   }
 
   Future<void> syncLocalDatabase() async {

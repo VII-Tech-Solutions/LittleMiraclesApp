@@ -149,11 +149,6 @@ class Auth with ChangeNotifier {
         }
       } else {
         _token = result['data']['token'];
-        // _refreshToken = result['refresh_token'];
-
-        // _firebaseMessaging.subscribeToTopic('b4bh');
-        // _firebaseMessaging.subscribeToTopic('events');
-
       }
 
       notifyListeners();

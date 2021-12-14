@@ -1,5 +1,4 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/pages/login/familyPage.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,8 +15,10 @@ import '../../widgets/buttons/buttonWithIconWidget.dart';
 import '../../widgets/buttons/iconButtonWidget.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
 //PAGES
+import '../../pages/general/customBottomNavigationBar.dart';
 import '../../pages/login/completeProfilePage.dart';
 import '../../pages/login/childrenPage.dart';
+import '../../pages/login/familyPage.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -61,12 +62,24 @@ class LoginPage extends StatelessWidget {
     }
 
     if (authProvider.isAuth && result != null) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => CompleteProfilePage(),
-        ),
-      );
+      final user = authProvider.user;
+
+      if (user?.status == 1) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CustomBottomNavigationBar(),
+          ),
+          (Route<dynamic> route) => false,
+        );
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CompleteProfilePage(),
+          ),
+        );
+      }
     } else {
       if (result != null) {
         if (result.containsKey('error')) {
