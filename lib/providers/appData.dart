@@ -22,7 +22,7 @@ import '../models/cake.dart';
 import '../widgets/texts/titleText.dart';
 import '../widgets/containers/tipContainer.dart';
 import '../widgets/containers/actionContainer.dart';
-import '../widgets/containers/sessionContainer.dart';
+import '../widgets/containers/packageContainer.dart';
 import '../widgets/containers/workshopContainer.dart';
 import '../widgets/containers/promotionContainer.dart';
 import '../widgets/containers/popularPackageContainer.dart';
@@ -497,7 +497,7 @@ class AppData with ChangeNotifier {
   Future<void> generateBookingsPageWidgets() async {
     if (_packages.isNotEmpty) {
       _packages.forEach((element) {
-        _bookingList.add(SessionContainer(element));
+        _bookingList.add(PackageContainer(element));
       });
     }
   }

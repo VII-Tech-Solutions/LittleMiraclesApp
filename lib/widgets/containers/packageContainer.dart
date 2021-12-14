@@ -9,11 +9,11 @@ import '../../models/package.dart';
 import '../general/cachedImageWidget.dart';
 import '../../widgets/texts/titleText.dart';
 //PAGES
-import '../../pages/booking/sessionDetailsPage.dart';
+import '../../pages/booking/packageDetailsPage.dart';
 
-class SessionContainer extends StatelessWidget {
+class PackageContainer extends StatelessWidget {
   final Package? package;
-  const SessionContainer(this.package);
+  const PackageContainer(this.package);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class SessionContainer extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => SessionDetailsPage(package),
+              builder: (context) => PackageDetailsPage(package),
             ),
           );
         }
