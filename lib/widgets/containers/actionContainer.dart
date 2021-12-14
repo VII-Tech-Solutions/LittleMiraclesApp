@@ -1,13 +1,17 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 //GLOBAL
 import '../../global/colors.dart';
+import '../../global/const.dart';
 //MODELS
 import '../../models/section.dart';
 //PROVIDERS
+import '../../providers/auth.dart';
 //WIDGETS
 import '../../widgets/general/cachedImageWidget.dart';
 //PAGES
+import '../../pages/login/loginPage.dart';
 
 class ActionContainer extends StatelessWidget {
   final Section section;
@@ -19,7 +23,24 @@ class ActionContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        //TODO: go to action deatils page
+        switch (section.goTo) {
+          case SectionAction.login:
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => LoginPage(),
+              ),
+            );
+            break;
+          case SectionAction.packages:
+            context.read<Auth>().setSelectedIndex(1);
+            break;
+          case SectionAction.studio:
+            context.read<Auth>().setSelectedIndex(2);
+            break;
+          default:
+            return;
+        }
       },
       child: Padding(
         padding: EdgeInsets.fromLTRB(16.0, 25.0, 16.0, 0.0),

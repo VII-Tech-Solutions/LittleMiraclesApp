@@ -35,6 +35,18 @@ class Auth with ChangeNotifier {
   String? _expiryDate;
   Map _registrationBody = {};
 
+  //test
+  int _selectedIndex = 0;
+
+  int get selectedIndex {
+    return _selectedIndex;
+  }
+
+  Future<void> setSelectedIndex(int index) async {
+    _selectedIndex = index;
+    notifyListeners();
+  }
+
   bool get isAuth {
     return _token != null;
   }

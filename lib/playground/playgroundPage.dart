@@ -1,8 +1,10 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 //GLOBAL
 //MODELS
 //PROVIDERS
+import '../providers/auth.dart';
 //WIDGETS
 import '../widgets/texts/titleText.dart';
 //PAGES
@@ -18,11 +20,23 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: TitleText(
+          title: 'Playground',
+          type: TitleTextType.mainHomeTitle,
+        ),
+      ),
       body: ListView(
         children: [
-          TitleText(
-            title: 'Playground',
-            type: TitleTextType.mainHomeTitle,
+          InkWell(
+            onTap: () {
+              context.read<Auth>().setSelectedIndex(1);
+            },
+            child: Container(
+              height: 100,
+              width: double.infinity,
+              color: Colors.red,
+            ),
           ),
         ],
       ),

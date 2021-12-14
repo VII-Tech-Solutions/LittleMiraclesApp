@@ -41,6 +41,12 @@ class SectionType {
   static const int card = 2;
 }
 
+class SectionAction {
+  static const String login = 'login';
+  static const String packages = 'packages';
+  static const String studio = 'studio';
+}
+
 class SSOType {
   static const String google = 'google';
   static const String facebook = 'facebook';
