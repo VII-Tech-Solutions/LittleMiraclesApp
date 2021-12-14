@@ -202,14 +202,12 @@ class Auth with ChangeNotifier {
   Future<ApiResponse?> register() async {
     final url = Uri.parse('$apiLink/register');
 
-    print(jsonEncode(_registrationBody));
-
     try {
       var response = await http
           .post(
             url,
             headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
+              'Content-Type': 'application/json',
               'Platform': 'ios',
               'App-Version': '0.0.1',
               'Authorization': 'Bearer $token',
@@ -305,12 +303,7 @@ class Auth with ChangeNotifier {
       _token = result['data']['token'];
       _expiryDate = result['data']['expires'];
       User user = User.fromJson(result['data']['user']);
-      // _userId = result['data']['user']['id'].toString();
-      // _userEmail = result['data']['user']['email'] ?? '';
-      // _userUsername = result['data']['user']['username'] ?? '';
-      // _userRealName = result['data']['user']['name'];
-      // _userAvatar = result['data']['user']['avatar'];
-      // _provider = provider;
+      _user = user;
 
       prefs.setString(
           'userData',

@@ -185,6 +185,7 @@ class AppData with ChangeNotifier {
       await getLocalAppData();
       await generateHomePageWidgets();
       await generateBookingsPageWidgets();
+      notifyListeners();
       return;
     } on TimeoutException catch (e) {
       print('Exception Timeout:: $e');
