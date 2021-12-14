@@ -37,6 +37,7 @@ class PackageDetailsPage extends StatelessWidget {
             pinned: true,
             centerTitle: false,
             automaticallyImplyLeading: false,
+            elevation: 0,
             title: IconButtonWidget(
               onPress: () {},
               icon: Icons.arrow_back,
@@ -44,7 +45,6 @@ class PackageDetailsPage extends StatelessWidget {
             stretch: true,
             backgroundColor: Colors.white,
             expandedHeight: 375,
-
             flexibleSpace: FlexibleSpaceBar(
               background: PackageMainTopSectionContainer(package),
               stretchModes: [
