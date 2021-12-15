@@ -10,6 +10,8 @@ import '../../widgets/appbars/appBarWithBack.dart';
 import '../../widgets/paymentContainer/paymentDetailsContainer.dart';
 import '../../widgets/paymentContainer/promoCodeContainer.dart';
 import '../../widgets/paymentContainer/paymentContainer.dart';
+import '../../widgets/paymentContainer/paymentBottomContainer.dart';
+import '../../widgets/paymentContainer/paymentAgreement.dart';
 //PAGES
 
 class PaymentPage extends StatelessWidget {
@@ -37,10 +39,12 @@ class PaymentPage extends StatelessWidget {
                 thickness: 1,
               ),
               PaymentContainer(),
+              PaymentAgreement(),
             ],
           ),
         ),
       ),
+      bottomNavigationBar: PaymentBottomContainer(),
     );
   }
 }

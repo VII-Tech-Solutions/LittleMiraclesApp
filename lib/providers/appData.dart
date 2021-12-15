@@ -206,8 +206,9 @@ class AppData with ChangeNotifier {
       _photographers =
           photographersJson.map((json) => Photographer.fromJson(json)).toList();
 
-      _paymentMethods =
-          paymentMethods.map((json) => PaymentMethod.fromJson(json)).toList();
+      _paymentMethods = paymentMethodsJson
+          .map((json) => PaymentMethod.fromJson(json))
+          .toList();
 
       await LastUpdateClass().setLastUpdate(LastUpdate.appData);
       await syncLocalDatabase();
@@ -499,7 +500,7 @@ class AppData with ChangeNotifier {
     }
 
     // PAYMENT METHODS
-    if (paymentMethods.isNotEmpty) {
+    if (paymentMethodsDataList.isNotEmpty) {
       _paymentMethods = paymentMethodsDataList
           .map(
             (item) => PaymentMethod(

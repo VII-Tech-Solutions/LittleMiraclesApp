@@ -1,14 +1,14 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/providers/appData.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/src/provider.dart';
 //EXTENSIONS
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
+import '../../providers/appData.dart';
 //WIDGETS
-import '../../widgets/general/cachedImageWidget.dart';
 //PAGES
 
 class PaymentContainer extends StatefulWidget {
@@ -23,6 +23,7 @@ class _PaymentContainerState extends State<PaymentContainer> {
   @override
   Widget build(BuildContext context) {
     final list = context.watch<AppData>().paymentMethods;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -57,21 +58,19 @@ class _PaymentContainerState extends State<PaymentContainer> {
                       children: [
                         Row(
                           children: [
-                            // Container(
-                            //   height: 68,
-                            //   width: 68,
-                            //   margin: const EdgeInsets.all(16.0),
-                            //   child: CachedImageWidget(
-                            //     list[i].image ?? '',
-                            //     ImageShape.square,
-                            //   ),
+                            // SvgPicture.asset(
+                            //   'assets/images/paymentMethod_0.svg',
                             // ),
-                            Text(
-                              list[i].title ?? '',
-                              style: TextStyle(
-                                color: AppColors.black45515D,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700,
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16.0, vertical: 30.0),
+                              child: Text(
+                                list[i].title ?? '',
+                                style: TextStyle(
+                                  color: AppColors.black45515D,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
                             ),
                           ],

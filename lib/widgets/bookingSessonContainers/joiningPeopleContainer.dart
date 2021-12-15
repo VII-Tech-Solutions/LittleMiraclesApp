@@ -48,19 +48,6 @@ class _JoiningPeopleContainerState extends State<JoiningPeopleContainer> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    IconButton(
-                      icon: const Icon(Icons.do_disturb_on_rounded),
-                      color: AppColors.black45515D,
-                      iconSize: 32,
-                      onPressed: () {
-                        peopleCount--;
-                        setState(() {
-                          if (peopleCount < 0) {
-                            peopleCount = 0;
-                          }
-                        });
-                      },
-                    ),
                     Container(
                       height: 40,
                       width: 100,
@@ -89,14 +76,6 @@ class _JoiningPeopleContainerState extends State<JoiningPeopleContainer> {
                           ),
                         ],
                       ),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.add_circle_rounded),
-                      color: AppColors.black45515D,
-                      iconSize: 32,
-                      onPressed: () {
-                        setState(() => peopleCount++);
-                      },
                     ),
                   ],
                 ),
