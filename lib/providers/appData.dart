@@ -1,7 +1,6 @@
 //PACKAGES
 import 'dart:async';
 import 'dart:convert';
-import 'package:LMP0001_LittleMiraclesApp/models/photographer.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 //GLOBAL
@@ -18,6 +17,8 @@ import '../models/promotion.dart';
 import '../models/onboarding.dart';
 import '../models/backdrop.dart';
 import '../models/cake.dart';
+import '../models/photographer.dart';
+import '../models/paymentMethod.dart';
 //PROVIDERS
 //WIDGETS
 import '../widgets/texts/titleText.dart';
@@ -40,6 +41,7 @@ class AppData with ChangeNotifier {
   List<Backdrop> _backdrops = [];
   List<Cake> _cakes = [];
   List<Photographer> _photographers = [];
+  List<PaymentMethod> _paymentMethods = [];
 
   // MAIN PAGES WIDGETS LISTS
   List<Widget> _homeList = [];
@@ -58,6 +60,7 @@ class AppData with ChangeNotifier {
     this._backdrops,
     this._cakes,
     this._photographers,
+    this._paymentMethods,
   );
 
   List<Onboarding> get onboardings {
@@ -123,6 +126,10 @@ class AppData with ChangeNotifier {
     return [..._photographers];
   }
 
+  List<PaymentMethod> get paymentMethods {
+    return [..._paymentMethods];
+  }
+
   // List<BackdropCategory> get backdropCategories {
   //   return [..._backdropCategories];
   // }
@@ -162,6 +169,7 @@ class AppData with ChangeNotifier {
       final backdropsJson = extractedData['backdrops'] as List;
       final cakesJson = extractedData['cakes'] as List;
       final photographersJson = extractedData['photographers'] as List;
+      final paymentMethodsJson = extractedData['payment_methods'] as List;
 
       if (response.statusCode != 200) {
         await getLocalAppData();
@@ -194,6 +202,9 @@ class AppData with ChangeNotifier {
 
       _photographers =
           photographersJson.map((json) => Photographer.fromJson(json)).toList();
+
+      _paymentMethods =
+          paymentMethods.map((json) => PaymentMethod.fromJson(json)).toList();
 
       await LastUpdateClass().setLastUpdate(LastUpdate.appData);
       await syncLocalDatabase();
@@ -282,12 +293,21 @@ class AppData with ChangeNotifier {
       }
     });
 
-    // PHOTOGRAPHER
+    // PHOTOGRAPHERS
     _photographers.forEach((item) {
       if (item.deletedAt != null) {
         DBHelper.deleteById(Tables.photographers, item.id ?? -1);
       } else {
         DBHelper.insert(Tables.photographers, item.toMap());
+      }
+    });
+
+    // PAYMENT METHODS
+    _paymentMethods.forEach((item) {
+      if (item.id != null) {
+        DBHelper.deleteById(Tables.paymentMethods, item.id ?? -1);
+      } else {
+        DBHelper.insert(Tables.paymentMethods, item.toMap());
       }
     });
   }
@@ -302,6 +322,8 @@ class AppData with ChangeNotifier {
     final backdropsDataList = await DBHelper.getData(Tables.backdrops);
     final cakesDataList = await DBHelper.getData(Tables.cakes);
     final photographersDataList = await DBHelper.getData(Tables.photographers);
+    final paymentMethodsDataList =
+        await DBHelper.getData(Tables.paymentMethods);
 
     // ONBOARDING
     if (onboardingDataList.isNotEmpty) {
@@ -468,6 +490,18 @@ class AppData with ChangeNotifier {
               status: item['status'],
               updatedAt: item['updatedAt'],
               deletedAt: item['deletedAt'],
+            ),
+          )
+          .toList();
+    }
+
+    // PAYMENT METHODS
+    if (paymentMethods.isNotEmpty) {
+      _paymentMethods = paymentMethodsDataList
+          .map(
+            (item) => PaymentMethod(
+              id: item['id'],
+              title: item['title'],
             ),
           )
           .toList();
