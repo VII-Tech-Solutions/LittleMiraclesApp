@@ -44,7 +44,7 @@ class PromotionDetails extends StatelessWidget {
                 ),
               ),
               Text(
-                DateFormatClass().getDate('${promotion?.postedAt}'),
+                DateFormatClass().toddMMyyyy('${promotion?.postedAt}'),
                 style: TextStyle(
                   color: AppColors.black45515D,
                   fontWeight: FontWeight.w600,
@@ -89,7 +89,7 @@ class PromotionDetails extends StatelessWidget {
                 ),
               ),
               Text(
-                '*This gift is valid until ${DateFormatClass().getDate('${promotion?.validUntil}')}',
+                '*This gift is valid until ${DateFormatClass().toddMMyyyy('${promotion?.validUntil}')}',
                 style: TextStyle(
                   fontSize: 14,
                   color: AppColors.black45515D,

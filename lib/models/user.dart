@@ -8,7 +8,7 @@ class User {
   final String? email;
   final String? updatedAt;
   final String? deletedAt;
-  final String? countryCode;
+  final int? countryCode;
   final int? gender;
   final String? birthDate;
   final String? avatar;
@@ -70,7 +70,7 @@ class User {
       email: json['email'] as String?,
       updatedAt: json['updated_at'] as String?,
       deletedAt: json['deleted_at'] as String?,
-      countryCode: json['country_code'] as String?,
+      countryCode: json['country_code'] as int?,
       gender: json['gender'] as int?,
       birthDate: json['birth_date'] as String?,
       avatar: json['avatar'] as String?,

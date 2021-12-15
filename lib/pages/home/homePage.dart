@@ -33,6 +33,7 @@ class _HomePageState extends State<HomePage> {
             childCount: _list.length,
           ),
         ),
+        SliverPadding(padding: EdgeInsets.only(bottom: 30))
       ],
     );
   }

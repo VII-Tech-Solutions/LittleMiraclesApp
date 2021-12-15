@@ -42,7 +42,7 @@ class WorkshopDetailsPage extends StatelessWidget {
                 ),
               ),
               Text(
-                DateFormatClass().getDate('${workshop?.postedAt}'),
+                DateFormatClass().toddMMyyyy('${workshop?.postedAt}'),
                 style: TextStyle(
                   color: AppColors.black45515D,
                   fontWeight: FontWeight.w600,

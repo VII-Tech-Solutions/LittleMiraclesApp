@@ -16,7 +16,7 @@ class HomeHeaderSliverAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final url = context.read<AppData>().helloSection.image;
+    final url = context.read<AppData>().helloSection?.image;
     final size = MediaQuery.of(context).size;
     final statusBarHeight = MediaQuery.of(context).padding.top;
     return SliverAppBar(

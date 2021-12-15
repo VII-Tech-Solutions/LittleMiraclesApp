@@ -8,7 +8,7 @@ import '../../models/package.dart';
 //WIDGETS
 import '../general/cachedImageWidget.dart';
 //PAGES
-import '../../pages/booking/sessionDetailsPage.dart';
+import '../../pages/booking/packageDetailsPage.dart';
 
 class PopularPackageContainer extends StatelessWidget {
   final Package? package;
@@ -22,7 +22,7 @@ class PopularPackageContainer extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => SessionDetailsPage(package),
+              builder: (context) => PackageDetailsPage(package),
             ),
           );
         }

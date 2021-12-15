@@ -22,7 +22,7 @@ import '../models/cake.dart';
 import '../widgets/texts/titleText.dart';
 import '../widgets/containers/tipContainer.dart';
 import '../widgets/containers/actionContainer.dart';
-import '../widgets/containers/sessionContainer.dart';
+import '../widgets/containers/packageContainer.dart';
 import '../widgets/containers/workshopContainer.dart';
 import '../widgets/containers/promotionContainer.dart';
 import '../widgets/containers/popularPackageContainer.dart';
@@ -77,7 +77,7 @@ class AppData with ChangeNotifier {
     return [..._sections];
   }
 
-  Section get helloSection {
+  Section? get helloSection {
     final section =
         _sections.firstWhere((element) => element.type == SectionType.header);
 
@@ -156,6 +156,10 @@ class AppData with ChangeNotifier {
       final cakesJson = extractedData['cakes'] as List;
 
       if (response.statusCode != 200) {
+        await getLocalAppData();
+        await generateHomePageWidgets();
+        await generateBookingsPageWidgets();
+        notifyListeners();
         return;
       }
 
@@ -185,12 +189,13 @@ class AppData with ChangeNotifier {
       await getLocalAppData();
       await generateHomePageWidgets();
       await generateBookingsPageWidgets();
+      notifyListeners();
       return;
     } on TimeoutException catch (e) {
       print('Exception Timeout:: $e');
     } catch (e) {
       print('catch error:: $e');
-    } finally {}
+    }
   }
 
   Future<void> syncLocalDatabase() async {
@@ -492,7 +497,7 @@ class AppData with ChangeNotifier {
   Future<void> generateBookingsPageWidgets() async {
     if (_packages.isNotEmpty) {
       _packages.forEach((element) {
-        _bookingList.add(SessionContainer(element));
+        _bookingList.add(PackageContainer(element));
       });
     }
   }

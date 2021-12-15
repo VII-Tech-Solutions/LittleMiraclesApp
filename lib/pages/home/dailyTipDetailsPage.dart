@@ -42,7 +42,7 @@ class DailyTipDetailsPage extends StatelessWidget {
                 ),
               ),
               Text(
-                DateFormatClass().getDate('${dailyTip?.postedAt}'),
+                DateFormatClass().toddMMyyyy('${dailyTip?.postedAt}'),
                 style: TextStyle(
                   color: AppColors.black45515D,
                   fontWeight: FontWeight.w600,

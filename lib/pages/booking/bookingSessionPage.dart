@@ -57,6 +57,7 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
               child: TableCalendar(
                 firstDay: DateTime.now(),
                 lastDay: DateTime.utc(2030, 12, 31),
+                availableGestures: AvailableGestures.horizontalSwipe,
                 headerStyle: HeaderStyle(
                   titleCentered: true,
                   titleTextStyle: TextStyle(

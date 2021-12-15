@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:country_code_picker/country_code_picker.dart';
+//EXTENSIONS
+import '../../extensions/stringExtension.dart';
 //GLOBAL
 import '../../global/colors.dart';
 import '../../global/globalHelpers.dart';
@@ -45,8 +47,8 @@ class _PartnerPageState extends State<PartnerPage> {
     if (picked != null && picked != selectedDate) {
       selectedDate = picked;
       _birthdayController.text =
-          'Birthday\t\t\t\t${DateFormatClass().getDate('${picked}')}';
-      _formattedDate = DateFormatClass().getDate('${picked}');
+          'Birthday\t\t\t\t${DateFormatClass().toddMMyyyy('$picked')}';
+      _formattedDate = DateFormatClass().toyyyyMMdd('$picked');
     }
   }
 
@@ -135,7 +137,7 @@ class _PartnerPageState extends State<PartnerPage> {
                     FormTextFieldWidget(
                       controller: _birthdayController,
                       title:
-                          'Birthday\t\t\t\t${DateFormatClass().getDate('${selectedDate}')}',
+                          'Birthday\t\t\t\t${DateFormatClass().toddMMyyyy('$selectedDate')}',
                       hintStyle: TextStyle(
                         color: AppColors.black45515D,
                         fontSize: 12,
@@ -212,7 +214,7 @@ class _PartnerPageState extends State<PartnerPage> {
                             "partner": {
                               "first_name": _firstNameController.text,
                               "last_name": _lastNameController.text,
-                              "gender": _genderValue,
+                              "gender": _genderValue.toInt(),
                               "country_code": _countryCodeValue,
                               "phone_number": _phoneController.text,
                               "birth_date": _formattedDate,

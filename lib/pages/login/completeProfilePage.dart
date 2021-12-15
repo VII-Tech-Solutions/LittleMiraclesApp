@@ -2,8 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:country_code_picker/country_code_picker.dart';
+//EXTENSION
+import '../../extensions/stringExtension.dart';
 //GLOBAL
 import '../../global/colors.dart';
+import '../../global/const.dart';
 import '../../global/globalHelpers.dart';
 //MODELS
 //PROVIDERS
@@ -14,6 +17,7 @@ import '../../widgets/form/formTextField.dart';
 import '../../widgets/appbars/appBarWithLogo.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/containers/registrationAccountTypeContainer.dart';
+import '../../widgets/dialogs/showOkDialog.dart';
 //PAGES
 import '../../pages/login/partnerPage.dart';
 
@@ -47,8 +51,9 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
     if (picked != null && picked != selectedDate) {
       selectedDate = picked;
       _birthdayController.text =
-          'Birthday\t\t\t\t${DateFormatClass().getDate('${picked}')}';
-      _formattedDate = DateFormatClass().getDate('${picked}');
+          'Birthday\t\t\t\t${DateFormatClass().toddMMyyyy('$picked')}';
+      _formattedDate = DateFormatClass().toyyyyMMdd('$picked');
+
     }
   }
 
@@ -59,6 +64,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
     _birthdayController = TextEditingController();
     _phoneController = TextEditingController();
     _detailsController = TextEditingController();
+    context.read<Auth>().fetchRegistrationQuestions();
     super.initState();
   }
 
@@ -140,7 +146,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                     FormTextFieldWidget(
                       controller: _birthdayController,
                       title:
-                          'Birthday\t\t\t\t${DateFormatClass().getDate('${selectedDate}')}',
+                          'Birthday\t\t\t\t${DateFormatClass().toddMMyyyy('$selectedDate')}',
                       hintStyle: TextStyle(
                         color: AppColors.black45515D,
                         fontSize: 12,
@@ -223,7 +229,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                             "user": {
                               "first_name": _firstNameController.text,
                               "last_name": _lastNameController.text,
-                              "gender": _genderValue,
+                              "gender": _genderValue.toInt(),
                               "country_code": _countryCodeValue,
                               "phone_number": _phoneController.text,
                               "birth_date": _formattedDate,
@@ -238,6 +244,12 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                             MaterialPageRoute(
                               builder: (context) => PartnerPage(),
                             ),
+                          );
+                        } else {
+                          ShowOkDialog(
+                            context,
+                            ErrorMessages.fillRequiredInfo,
+                            title: "Oops",
                           );
                         }
                       },

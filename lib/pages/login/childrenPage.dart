@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../extensions/stringExtension.dart';
 //GLOBAL
 import '../../global/colors.dart';
+import '../../global/const.dart';
 //MODELS
 //PROVIDERS
 import '../../providers/auth.dart';
@@ -119,27 +120,29 @@ class _ChildrenPageState extends State<ChildrenPage> {
               FilledButtonWidget(
                 margin: EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 25.0),
                 onPress: () {
-                  final isFormValid = _formKeysList[0].currentState?.validate();
+                  var isFormValid = true;
+
+                  _formKeysList.forEach((element) {
+                    final isValid = element.currentState?.validate();
+                    if (isValid == false) {
+                      isFormValid = false;
+                    }
+                  });
+
                   List<Map> childrenList = [];
 
                   for (var i = 0; i < _formKeysList.length; i++) {
                     childrenList.add({
                       "first_name": _firstNameControllersList[i].text,
                       "last_name": _lastNameControllersList[i].text,
-                      "gender": _genderControllersList[i].text,
-                      "birthdate": _birthdayControllersList[i].text.apiDob(),
+                      "gender": _genderControllersList[i].text.toString().toInt(),
+                      "birth_date": _birthdayControllersList[i].text.apiDob(),
                       "personality": _detailsControllersList[i].text,
                     });
                   }
 
-                  childrenList.forEach((element) {
-                    print(element);
-                  });
-
                   if (isFormValid == true) {
                     Map childrenData = {"children": childrenList};
-
-                    print(childrenData);
 
                     context.read<Auth>().amendRegistrationBody(childrenData);
 
@@ -152,7 +155,7 @@ class _ChildrenPageState extends State<ChildrenPage> {
                   } else {
                     ShowOkDialog(
                       context,
-                      'Please check any missing information.',
+                      ErrorMessages.fillRequiredInfo,
                       title: "Oops",
                     );
                   }

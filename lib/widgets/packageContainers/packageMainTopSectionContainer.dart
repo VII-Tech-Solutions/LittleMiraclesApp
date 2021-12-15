@@ -20,7 +20,7 @@ class PackageMainTopSectionContainer extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            height: 375,
+            height: double.infinity,
             width: double.infinity,
             child: CachedImageWidget(
               package?.image,
@@ -29,7 +29,7 @@ class PackageMainTopSectionContainer extends StatelessWidget {
             ),
           ),
           Container(
-            height: 375,
+            height: double.infinity,
             width: double.infinity,
             decoration: BoxDecoration(
               gradient: LinearGradient(

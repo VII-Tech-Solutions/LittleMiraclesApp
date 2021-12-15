@@ -1,9 +1,11 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
+import '../../providers/auth.dart';
 //WIDGETS
 //PAGES
 import '../home/homePage.dart';
@@ -11,7 +13,8 @@ import '../../pages/booking/bookingPage.dart';
 import '../../playground/playgroundPage.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
-  const CustomBottomNavigationBar({Key? key}) : super(key: key);
+  final GlobalKey? globalKey;
+  const CustomBottomNavigationBar({this.globalKey});
 
   @override
   _CustomBottomNavigationBarState createState() =>
@@ -34,20 +37,19 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      context.read<Auth>().setSelectedIndex(index);
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    _selectedIndex = context.watch<Auth>().selectedIndex;
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('CustomBottomNavigationBar Sample'),
-      // ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        key: widget.globalKey,
         enableFeedback: false,
         showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,

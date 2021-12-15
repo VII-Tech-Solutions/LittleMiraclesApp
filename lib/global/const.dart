@@ -6,6 +6,8 @@ class APIEnvironment {
 class ErrorMessages {
   static const String somethingWrong =
       'Something went wrong, please try again later.';
+  static const String fillRequiredInfo =
+      'Please fill in all the required information';
 }
 
 class Timeout {
@@ -37,6 +39,12 @@ class Tables {
 class SectionType {
   static const int header = 1;
   static const int card = 2;
+}
+
+class SectionAction {
+  static const String login = 'login';
+  static const String packages = 'packages';
+  static const String studio = 'studio';
 }
 
 class SSOType {
