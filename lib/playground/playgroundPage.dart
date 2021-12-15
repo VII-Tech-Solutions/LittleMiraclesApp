@@ -47,13 +47,13 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
               ShowLoadingDialog(context);
               Timer(Duration(seconds: 3), () {
                 // Navigator.pop(context);
-                ShowLoadingDialog(context, dismiss: true);
-                Navigator.push(
-                context,
-                MaterialPageRoute(
-                builder: (context) => HomePage(),
-                ),
-                );
+                // ShowLoadingDialog(context, dismiss: true);
+                // Navigator.push(
+                // context,
+                // MaterialPageRoute(
+                // builder: (context) => HomePage(),
+                // ),
+                // );
               });
             },
             type: ButtonType.generalBlue,

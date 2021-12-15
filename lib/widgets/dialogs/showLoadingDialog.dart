@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 //EXTENSIONS
 //GLOBAL
+import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
 //WIDGETS
@@ -26,7 +27,7 @@ class ShowLoadingDialog {
             width: 80,
             padding: EdgeInsetsDirectional.all(15),
             decoration: BoxDecoration(
-                color: Colors.black12.withOpacity(0.1),
+                color: AppColors.greyD4D4D4,
                 borderRadius: BorderRadius.circular(15)),
             child: LoadingIndicator(
               indicatorType: Indicator.circleStrokeSpin,
@@ -41,7 +42,7 @@ class ShowLoadingDialog {
       Navigator.pop(context);
     } else {
       showDialog(
-        barrierDismissible: false,
+        barrierDismissible: true,
         barrierColor: Colors.transparent,
         context: context,
         builder: (BuildContext context) {
