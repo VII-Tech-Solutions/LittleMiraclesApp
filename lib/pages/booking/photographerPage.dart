@@ -8,21 +8,20 @@ import 'package:provider/src/provider.dart';
 import '../../providers/appData.dart';
 //WIDGETS
 import '../../widgets/appbars/appBarWithBack.dart';
-import '../../widgets/texts/titleText.dart';
 import '../../widgets/bookingSessonContainers/selectionRow.dart';
 //PAGES
 
-class CakePage extends StatefulWidget {
-  const CakePage({Key? key}) : super(key: key);
+class PhotographerPage extends StatefulWidget {
+  const PhotographerPage({Key? key}) : super(key: key);
 
   @override
-  _CakePageState createState() => _CakePageState();
+  _PhotographerPageState createState() => _PhotographerPageState();
 }
 
-class _CakePageState extends State<CakePage> {
+class _PhotographerPageState extends State<PhotographerPage> {
   @override
   Widget build(BuildContext context) {
-    final cakes = context.watch<AppData>().cakes;
+    final photographers = context.watch<AppData>().photographers;
 
     return Scaffold(
       appBar: AppBarWithBack(
@@ -33,12 +32,7 @@ class _CakePageState extends State<CakePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TitleText(
-              title: '${cakes[0].category} Cake',
-              type: TitleTextType.subTitleBlack,
-              weight: FontWeight.w800,
-            ),
-            SelectionRow(cakes),
+            SelectionRow(photographers),
           ],
         ),
       ),
