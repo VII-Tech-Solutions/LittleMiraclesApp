@@ -17,7 +17,6 @@ class AvailableTimeContainer extends StatefulWidget {
 }
 
 class _AvailableTimeContainerState extends State<AvailableTimeContainer> {
-  int? _value;
   String selectedValue = '';
   bool isSelected = false;
 
@@ -61,7 +60,6 @@ class _AvailableTimeContainerState extends State<AvailableTimeContainer> {
 
         return InkWell(
           onTap: () {
-            print(item);
             setState(() {
               isSelected = true;
               if (isSelected) {
