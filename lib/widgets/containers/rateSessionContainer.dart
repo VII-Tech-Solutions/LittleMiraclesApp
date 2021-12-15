@@ -41,6 +41,7 @@ class RateSessionContainer extends StatelessWidget {
               ),
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 16),
@@ -69,23 +70,20 @@ class RateSessionContainer extends StatelessWidget {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 32.0),
-                  child: RatingBar.builder(
-                    initialRating: 4,
-                    minRating: 1,
-                    direction: Axis.horizontal,
-                    allowHalfRating: true,
-                    itemCount: 5,
-                    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                    itemBuilder: (context, _) => Icon(
-                      Icons.star_rounded,
-                      color: AppColors.yellowFFB400,
-                    ),
-                    onRatingUpdate: (rating) {
-                      userRating.text = '$rating';
-                    },
+                RatingBar.builder(
+                  initialRating: 4,
+                  minRating: 1,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                  itemBuilder: (context, _) => Icon(
+                    Icons.star_rounded,
+                    color: AppColors.yellowFFB400,
                   ),
+                  onRatingUpdate: (rating) {
+                    userRating.text = '$rating';
+                  },
                 ),
               ],
             ),

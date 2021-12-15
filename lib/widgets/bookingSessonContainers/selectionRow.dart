@@ -1,8 +1,6 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/providers/appData.dart';
 import 'package:LMP0001_LittleMiraclesApp/widgets/general/cachedImageWidget.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/src/provider.dart';
 //EXTENSIONS
 //GLOBAL
 import '../../global/colors.dart';

@@ -17,7 +17,7 @@ class BackdropPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final backdrops = context.watch<AppData>().backdrops;
-    final appDataProvider = context.watch<AppData>();
+    //final appDataProvider = context.watch<AppData>();
 
     return Scaffold(
       appBar: AppBarWithBack(
