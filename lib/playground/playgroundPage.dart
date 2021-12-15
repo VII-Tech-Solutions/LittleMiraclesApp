@@ -34,7 +34,9 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
         children: [
           InkWell(
             onTap: () {
-              context.read<Auth>().setSelectedIndex(1);
+              final val = context.read<Auth>().user?.providerId;
+
+              print(val);
             },
             child: Container(
               height: 100,
@@ -42,6 +44,7 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
               color: Colors.red,
             ),
           ),
+          Icon(IconData(0xe8fd, fontFamily: 'MaterialIcons')),
           FilledButtonWidget(
             onPress: () {
               ShowLoadingDialog(context);

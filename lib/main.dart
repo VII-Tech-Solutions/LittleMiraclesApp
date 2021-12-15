@@ -9,6 +9,7 @@ import 'package:country_code_picker/country_localizations.dart';
 //PROVIDERS
 import './providers/auth.dart';
 import './providers/appData.dart';
+import './providers/bookings.dart';
 //WIDGETS
 //PAGES
 import './pages/general/splashscreen.dart';

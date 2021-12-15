@@ -225,7 +225,7 @@ class LoginPage extends StatelessWidget {
 
                   print(val);
 
-                  ShowLoadingDialog(context);
+                  // ShowLoadingDialog(context);
                   // Navigator.push(
                   //   context,
                   //   MaterialPageRoute(
