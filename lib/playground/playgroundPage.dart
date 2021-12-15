@@ -1,13 +1,17 @@
 //PACKAGES
+import 'package:LMP0001_LittleMiraclesApp/widgets/buttons/filledButtonWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'dart:async';
 //GLOBAL
 //MODELS
 //PROVIDERS
 import '../providers/auth.dart';
 //WIDGETS
 import '../widgets/texts/titleText.dart';
+import '../widgets/dialogs/showLoadingDialog.dart';
 //PAGES
+import '../pages/home/homePage.dart';
 
 class PlayrgoundPage extends StatefulWidget {
   const PlayrgoundPage({Key? key}) : super(key: key);
@@ -38,6 +42,22 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
               color: Colors.red,
             ),
           ),
+          FilledButtonWidget(
+            onPress: () {
+              ShowLoadingDialog(context);
+              Timer(Duration(seconds: 3), () {
+                // Navigator.pop(context);
+                // ShowLoadingDialog(context, dismiss: true);
+                // Navigator.push(
+                // context,
+                // MaterialPageRoute(
+                // builder: (context) => HomePage(),
+                // ),
+                // );
+              });
+            },
+            type: ButtonType.generalBlue,
+          )
         ],
       ),
     );

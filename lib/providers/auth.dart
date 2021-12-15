@@ -48,7 +48,7 @@ class Auth with ChangeNotifier {
   }
 
   bool get isAuth {
-    return _token != null;
+    return _token != null && _user?.status == 1;
   }
 
   String get token {
@@ -228,7 +228,7 @@ class Auth with ChangeNotifier {
 
       return (ApiResponse(
         statusCode: response.statusCode,
-        message: response.body,
+        message: json.decode(response.body)['message'],
       ));
     } on TimeoutException catch (e) {
       print('Exception Timeout:: $e');

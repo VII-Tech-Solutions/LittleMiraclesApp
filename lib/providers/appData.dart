@@ -84,8 +84,11 @@ class AppData with ChangeNotifier {
   }
 
   Section? get helloSection {
-    final section =
-        _sections.firstWhere((element) => element.type == SectionType.header);
+    Section? section;
+    if (_sections.isNotEmpty) {
+      section =
+          _sections.firstWhere((element) => element.type == SectionType.header);
+    }
 
     return section;
   }

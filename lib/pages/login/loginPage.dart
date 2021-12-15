@@ -14,6 +14,7 @@ import '../../widgets/texts/titleText.dart';
 import '../../widgets/buttons/buttonWithIconWidget.dart';
 import '../../widgets/buttons/iconButtonWidget.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
+import '../../widgets/dialogs/showLoadingDialog.dart';
 //PAGES
 import '../../pages/general/customBottomNavigationBar.dart';
 import '../../pages/login/completeProfilePage.dart';
@@ -37,6 +38,8 @@ class LoginPage extends StatelessWidget {
     // setState(() {
     //   _isLoading = true;
     // });
+
+    ShowLoadingDialog(context);
 
     switch (socialType) {
       case SSOType.google:
@@ -64,6 +67,8 @@ class LoginPage extends StatelessWidget {
     if (authProvider.isAuth && result != null) {
       final user = authProvider.user;
 
+      ShowLoadingDialog(context, dismiss: true);
+
       if (user?.status == 1) {
         Navigator.pushAndRemoveUntil(
           context,
@@ -81,6 +86,7 @@ class LoginPage extends StatelessWidget {
         );
       }
     } else {
+      ShowLoadingDialog(context, dismiss: true);
       if (result != null) {
         if (result.containsKey('error')) {
           ShowOkDialog(context, result['error']);
@@ -215,15 +221,17 @@ class LoginPage extends StatelessWidget {
               ),
               ButtonWithIconWidget(
                 onPress: () {
-                  final val =context.read<Auth>().user?.providerId;
+                  final val = context.read<Auth>().user?.providerId;
 
                   print(val);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CompleteProfilePage(),
-                    ),
-                  );
+
+                  ShowLoadingDialog(context);
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => CompleteProfilePage(),
+                  //   ),
+                  // );
                 },
                 buttonText: 'Login using Snapchat',
                 assetName: 'assets/images/iconsSocialSnapchat.svg',

@@ -14,7 +14,9 @@ import '../../widgets/form/multiSelectQuestionWidget.dart';
 import '../../widgets/form/textQuestionWidget.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
+import '../../widgets/dialogs/showLoadingDialog.dart';
 //PAGES
+import '../general/customBottomNavigationBar.dart';
 
 class FamilyPage extends StatefulWidget {
   const FamilyPage();
@@ -94,7 +96,26 @@ class _FamilyPageState extends State<FamilyPage> {
 
                     context.read<Auth>().amendRegistrationBody(familyData);
 
-                    context.read<Auth>().register().then((value) => null);
+                    ShowLoadingDialog(context);
+
+                    context.read<Auth>().register().then((response) {
+                      ShowLoadingDialog(context, dismiss: true);
+                      if (response?.statusCode == 200) {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CustomBottomNavigationBar(),
+                          ),
+                          (Route<dynamic> route) => false,
+                        );
+                      } else {
+                        ShowOkDialog(
+                          context,
+                          response?.message ?? ErrorMessages.somethingWrong,
+                          title: "Oops",
+                        );
+                      }
+                    });
                   } else {
                     ShowOkDialog(
                       context,
