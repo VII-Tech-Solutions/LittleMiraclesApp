@@ -1,4 +1,5 @@
 //PACKAGES
+import 'package:LMP0001_LittleMiraclesApp/providers/appData.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 //EXTENSIONS
@@ -6,32 +7,37 @@ import 'package:provider/src/provider.dart';
 import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
-import '../../providers/appData.dart';
 //WIDGETS
-import '../../widgets/appbars/appBarWithBack.dart';
 import '../../widgets/general/cachedImageWidget.dart';
 //PAGES
 
-class PhotographerPage extends StatefulWidget {
-  const PhotographerPage({Key? key}) : super(key: key);
+class PaymentContainer extends StatefulWidget {
+  const PaymentContainer({Key? key}) : super(key: key);
 
   @override
-  _PhotographerPageState createState() => _PhotographerPageState();
+  _PaymentContainerState createState() => _PaymentContainerState();
 }
 
-class _PhotographerPageState extends State<PhotographerPage> {
+class _PaymentContainerState extends State<PaymentContainer> {
+  int? val;
   @override
   Widget build(BuildContext context) {
-    final list = context.watch<AppData>().photographers;
-    int? val;
-
-    return Scaffold(
-      appBar: AppBarWithBack(
-        'Select Photographer',
-        weight: FontWeight.w800,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
+    final list = context.watch<AppData>().paymentMethods;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+          child: Text(
+            'Payment Method',
+            style: TextStyle(
+              fontWeight: FontWeight.w800,
+              fontSize: 18,
+              color: AppColors.black45515D,
+            ),
+          ),
+        ),
+        Column(
           children: <Widget>[
             for (int i = 0; i < list.length; i++)
               Container(
@@ -51,17 +57,17 @@ class _PhotographerPageState extends State<PhotographerPage> {
                       children: [
                         Row(
                           children: [
-                            Container(
-                              height: 68,
-                              width: 68,
-                              margin: const EdgeInsets.all(16.0),
-                              child: CachedImageWidget(
-                                list[i].image ?? '',
-                                ImageShape.square,
-                              ),
-                            ),
+                            // Container(
+                            //   height: 68,
+                            //   width: 68,
+                            //   margin: const EdgeInsets.all(16.0),
+                            //   child: CachedImageWidget(
+                            //     list[i].image ?? '',
+                            //     ImageShape.square,
+                            //   ),
+                            // ),
                             Text(
-                              list[i].name ?? '',
+                              list[i].title ?? '',
                               style: TextStyle(
                                 color: AppColors.black45515D,
                                 fontSize: 14,
@@ -91,7 +97,7 @@ class _PhotographerPageState extends State<PhotographerPage> {
               ),
           ],
         ),
-      ),
+      ],
     );
   }
 }

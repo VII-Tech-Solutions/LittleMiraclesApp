@@ -53,7 +53,8 @@ class FormTextFieldWidget extends StatelessWidget {
         decoration: InputDecoration(
           suffixIcon: suffixIcon,
           errorStyle: TextStyle(height: 0),
-          contentPadding: const EdgeInsets.fromLTRB(16.0, 11.0, 16.0, 11.0),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 16.0, vertical: 11.0),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.greyD0D3D6),
           ),
