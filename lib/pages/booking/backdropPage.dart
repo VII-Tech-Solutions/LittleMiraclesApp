@@ -9,6 +9,7 @@ import '../../providers/appData.dart';
 //WIDGETS
 import '../../widgets/appbars/appBarWithBack.dart';
 import '../../widgets/texts/titleText.dart';
+import '../../widgets/bookingSessonContainers/selectionRow.dart';
 //PAGES
 
 class BackdropPage extends StatelessWidget {
@@ -17,7 +18,6 @@ class BackdropPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final backdrops = context.watch<AppData>().backdrops;
-    final appDataProvider = context.watch<AppData>();
 
     return Scaffold(
       appBar: AppBarWithBack(
@@ -33,6 +33,7 @@ class BackdropPage extends StatelessWidget {
               type: TitleTextType.subTitleBlack,
               weight: FontWeight.w800,
             ),
+            SelectionRow(backdrops),
             // Expanded(
             //   child: ListView.builder(
             //     itemCount: appDataProvider.backdrops.length,

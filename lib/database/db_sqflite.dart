@@ -30,6 +30,8 @@ class DBHelper {
             'CREATE TABLE backdrops(id INT PRIMARY KEY, title TEXT, category TEXT, image TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
         await db.execute(
             'CREATE TABLE cakes(id INT PRIMARY KEY, title TEXT, category TEXT, image TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
+        await db.execute(
+            'CREATE TABLE photographers(id INT PRIMARY KEY, name TEXT, image TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
       },
       version: 1,
       onUpgrade: (db, oldVersion, newVersion) async {

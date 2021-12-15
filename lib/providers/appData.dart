@@ -1,6 +1,7 @@
 //PACKAGES
 import 'dart:async';
 import 'dart:convert';
+import 'package:LMP0001_LittleMiraclesApp/models/photographer.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 //GLOBAL
@@ -38,6 +39,7 @@ class AppData with ChangeNotifier {
   List<Package> _packages = [];
   List<Backdrop> _backdrops = [];
   List<Cake> _cakes = [];
+  List<Photographer> _photographers = [];
 
   // MAIN PAGES WIDGETS LISTS
   List<Widget> _homeList = [];
@@ -55,6 +57,7 @@ class AppData with ChangeNotifier {
     this._packages,
     this._backdrops,
     this._cakes,
+    this._photographers,
   );
 
   List<Onboarding> get onboardings {
@@ -116,6 +119,10 @@ class AppData with ChangeNotifier {
     return [..._cakes];
   }
 
+  List<Photographer> get photographers {
+    return [..._photographers];
+  }
+
   // List<BackdropCategory> get backdropCategories {
   //   return [..._backdropCategories];
   // }
@@ -154,6 +161,7 @@ class AppData with ChangeNotifier {
       final packagesJson = extractedData['packages'] as List;
       final backdropsJson = extractedData['backdrops'] as List;
       final cakesJson = extractedData['cakes'] as List;
+      final photographersJson = extractedData['photographers'] as List;
 
       if (response.statusCode != 200) {
         await getLocalAppData();
@@ -183,6 +191,9 @@ class AppData with ChangeNotifier {
           backdropsJson.map((json) => Backdrop.fromJson(json)).toList();
 
       _cakes = cakesJson.map((json) => Cake.fromJson(json)).toList();
+
+      _photographers =
+          photographersJson.map((json) => Photographer.fromJson(json)).toList();
 
       await LastUpdateClass().setLastUpdate(LastUpdate.appData);
       await syncLocalDatabase();
@@ -270,6 +281,15 @@ class AppData with ChangeNotifier {
         DBHelper.insert(Tables.cakes, item.toMap());
       }
     });
+
+    // PHOTOGRAPHER
+    _photographers.forEach((item) {
+      if (item.deletedAt != null) {
+        DBHelper.deleteById(Tables.photographers, item.id ?? -1);
+      } else {
+        DBHelper.insert(Tables.photographers, item.toMap());
+      }
+    });
   }
 
   Future<void> getLocalAppData() async {
@@ -281,6 +301,7 @@ class AppData with ChangeNotifier {
     final packagesDataList = await DBHelper.getData(Tables.packages);
     final backdropsDataList = await DBHelper.getData(Tables.backdrops);
     final cakesDataList = await DBHelper.getData(Tables.cakes);
+    final photographersDataList = await DBHelper.getData(Tables.photographers);
 
     // ONBOARDING
     if (onboardingDataList.isNotEmpty) {
@@ -428,6 +449,22 @@ class AppData with ChangeNotifier {
               title: item['title'],
               image: item['image'],
               category: item['category'],
+              status: item['status'],
+              updatedAt: item['updatedAt'],
+              deletedAt: item['deletedAt'],
+            ),
+          )
+          .toList();
+    }
+
+    // PHOTOGRAPHER
+    if (photographersDataList.isNotEmpty) {
+      _photographers = photographersDataList
+          .map(
+            (item) => Photographer(
+              id: item['id'],
+              image: item['image'],
+              name: item['name'],
               status: item['status'],
               updatedAt: item['updatedAt'],
               deletedAt: item['deletedAt'],

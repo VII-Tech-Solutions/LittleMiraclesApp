@@ -1,60 +1,85 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/providers/appData.dart';
 import 'package:LMP0001_LittleMiraclesApp/widgets/general/cachedImageWidget.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/src/provider.dart';
 //EXTENSIONS
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
-import '../../models/backdrop.dart';
 //PROVIDERS
 //WIDGETS
 //PAGES
 
 class SelectionRow extends StatefulWidget {
-  final Backdrop? backdrop;
-  const SelectionRow(this.backdrop);
+  final List? list;
+  const SelectionRow(this.list);
 
   @override
   _SelectionRowState createState() => _SelectionRowState();
 }
 
 class _SelectionRowState extends State<SelectionRow> {
-  bool isChecked = false;
-  Color fillColor = AppColors.whiteFFFFFF;
-  Color borderColor = AppColors.greyD0D3D6;
+  int? val;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8.0),
-        border: Border.all(color: AppColors.greyD0D3D6),
-        color: Colors.white,
-      ),
-      child: Row(
-        children: <Widget>[
+    return Column(
+      children: <Widget>[
+        for (int i = 0; i < widget.list!.length; i++)
           Container(
-            height: 68,
-            width: 68,
-            margin: const EdgeInsets.all(16.0),
-            child: CachedImageWidget(
-              widget.backdrop?.image ?? '',
-              ImageShape.square,
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.0),
+              border: Border.all(
+                color: AppColors.greyD0D3D6,
+              ),
+              color: AppColors.whiteFFFFFF,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          height: 68,
+                          width: 68,
+                          margin: const EdgeInsets.all(16.0),
+                          child: CachedImageWidget(
+                            widget.list?[i].image ?? '',
+                            ImageShape.square,
+                          ),
+                        ),
+                        Text(
+                          widget.list?[i].title ?? '',
+                          style: TextStyle(
+                            color: AppColors.black45515D,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+                Column(
+                  children: [
+                    Radio(
+                      value: widget.list?[i].id as int,
+                      groupValue: val,
+                      onChanged: (value) {
+                        setState(() {
+                          val = value as int?;
+                        });
+                      },
+                      activeColor: AppColors.blue8DC4CB,
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
-          Text(
-            widget.backdrop?.title ?? '',
-            style: TextStyle(
-              color: AppColors.black45515D,
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-        ],
-      ),
+      ],
     );
   }
 }
