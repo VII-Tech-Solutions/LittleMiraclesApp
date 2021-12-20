@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
-import '../../models/package.dart';
 //PROVIDERS
 import '../../providers/bookings.dart';
 //WIDGETS
@@ -25,7 +24,7 @@ class PackageMainTopSectionContainer extends StatelessWidget {
             height: double.infinity,
             width: double.infinity,
             child: CachedImageWidget(
-              package?.image,
+              package?.image ?? '',
               ImageShape.square,
               radius: 0.0,
             ),

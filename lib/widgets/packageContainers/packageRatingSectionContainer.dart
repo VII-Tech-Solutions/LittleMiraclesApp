@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
-import '../../models/package.dart';
 //PROVIDERS
 import '../../providers/bookings.dart';
 //WIDGETS
@@ -20,6 +19,10 @@ class PackageRatingSectionContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final package = context.watch<Bookings>().package;
+    return Container();
+  }
+
+  _old() {
     return Container(
       child: Column(
         children: [
@@ -44,6 +47,7 @@ class PackageRatingSectionContainer extends StatelessWidget {
                     Icons.star_rounded,
                     color: AppColors.yellowFFB400,
                   ),
+                  unratedColor: AppColors.greyB9BEC2,
                   itemCount: 5,
                   itemSize: 15.0,
                 ),
@@ -78,12 +82,12 @@ class PackageRatingSectionContainer extends StatelessWidget {
                 top: 16.0, bottom: 30.0, left: 16.0, right: 16.0),
             child: FilledButtonWidget(
               onPress: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ReviewsPage(),
-                  ),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => ReviewsPage(),
+                //   ),
+                // );
               },
               type: ButtonType.generalGrey,
               title: 'See all reviews',

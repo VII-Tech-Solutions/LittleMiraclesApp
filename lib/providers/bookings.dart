@@ -11,6 +11,7 @@ import '../global/globalHelpers.dart';
 import '../global/globalEnvironment.dart';
 //MODELS
 import '../models/package.dart';
+import '../models/benefit.dart';
 import '../models/apiResponse.dart';
 //PROVIDERS
 //WIDGETS
@@ -19,14 +20,20 @@ import '../models/apiResponse.dart';
 class Bookings with ChangeNotifier {
   String authToken;
   Package? _package;
+  List<Benefit> _benefits = [];
 
   Bookings(
     this.authToken,
     this._package,
+    this._benefits,
   );
 
   Package? get package {
     return _package;
+  }
+
+  List<Benefit> get benefits {
+    return [..._benefits];
   }
 
   Future<ApiResponse> fetchAndSetPackageDetails(int id) async {
@@ -56,6 +63,8 @@ class Bookings with ChangeNotifier {
       final packagesList =
           packagesData.map((json) => Package.fromJson(json)).toList();
       _package = packagesList.first;
+
+      _benefits = benefitsData.map((json) => Benefit.fromJson(json)).toList();
 
       notifyListeners();
       return (ApiResponse(

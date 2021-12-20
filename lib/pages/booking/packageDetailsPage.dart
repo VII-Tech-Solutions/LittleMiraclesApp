@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 //EXTENSIONS
 //GLOBAL
 //MODELS
-import '../../models/package.dart';
 //PROVIDERS
 //WIDGETS
 import '../../widgets/buttons/iconButtonWidget.dart';
@@ -23,8 +22,8 @@ class PackageDetailsPage extends StatelessWidget {
     List<Widget> _list = [
       PackageDetailsSectionContainer(),
       PackageLocationSectionContainer(),
-      PackageImageSectionContainer(),
-      PackageRatingSectionContainer(),
+      // PackageImageSectionContainer(),
+      // PackageRatingSectionContainer(),
     ];
     return Scaffold(
       extendBodyBehindAppBar: true,

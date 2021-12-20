@@ -7,10 +7,10 @@ import '../../global/colors.dart';
 //WIDGETS
 //PAGES
 
-class SessionRowDetails extends StatelessWidget {
+class BenefitDetailsRow extends StatelessWidget {
   final String content;
   final IconData icon;
-  const SessionRowDetails(
+  const BenefitDetailsRow(
     this.content,
     this.icon,
   );
@@ -18,7 +18,7 @@ class SessionRowDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10, left: 16.0),
+      padding: const EdgeInsets.symmetric(vertical: 6.5),
       child: Row(
         children: [
           Icon(

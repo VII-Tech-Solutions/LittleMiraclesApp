@@ -3,7 +3,9 @@ import 'package:LMP0001_LittleMiraclesApp/widgets/buttons/filledButtonWidget.dar
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 //GLOBAL
+import '../global/colors.dart';
 //MODELS
 //PROVIDERS
 import '../providers/auth.dart';
@@ -60,7 +62,42 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
               });
             },
             type: ButtonType.generalBlue,
-          )
+          ),
+          RatingBarIndicator(
+            rating: 4.5,
+            itemBuilder: (context, index) => Icon(
+              Icons.star_rounded,
+              color: AppColors.yellowFFB400,
+            ),
+            unratedColor: AppColors.greyB9BEC2,
+            itemCount: 5,
+            itemSize: 50.0,
+          ),
+          RatingBar(
+            initialRating: 3,
+            direction: Axis.horizontal,
+            // allowHalfRating: true,
+            itemCount: 5,
+            
+            ratingWidget: RatingWidget(
+              full: Icon(
+                Icons.star_rounded,
+                color: AppColors.yellowFFB400,
+              ),
+              half: Icon(
+                Icons.star_half_rounded,
+                color: AppColors.yellowFFB400,
+              ),
+              empty: Icon(
+                Icons.star_outline_rounded,
+                color: Colors.black,
+              ),
+            ),
+            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+            onRatingUpdate: (rating) {
+              print(rating);
+            },
+          ),
         ],
       ),
     );
