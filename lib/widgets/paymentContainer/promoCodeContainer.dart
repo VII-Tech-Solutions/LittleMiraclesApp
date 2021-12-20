@@ -1,6 +1,4 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/widgets/buttons/filledButtonWidget.dart';
-import 'package:LMP0001_LittleMiraclesApp/widgets/form/formTextField.dart';
 import 'package:flutter/material.dart';
 //EXTENSIONS
 //GLOBAL
@@ -8,6 +6,7 @@ import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
 //WIDGETS
+import '../../widgets/buttons/filledButtonWidget.dart';
 //PAGES
 
 class PromoCodeContainer extends StatelessWidget {

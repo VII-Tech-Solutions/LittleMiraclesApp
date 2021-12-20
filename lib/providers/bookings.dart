@@ -21,11 +21,15 @@ class Bookings with ChangeNotifier {
   String authToken;
   Package? _package;
   List<Benefit> _benefits = [];
+  List<String> _packageMedia = [];
+  List<String> _packageReviews = [];
 
   Bookings(
     this.authToken,
     this._package,
     this._benefits,
+    this._packageMedia,
+    this._packageReviews,
   );
 
   Package? get package {
@@ -34,6 +38,14 @@ class Bookings with ChangeNotifier {
 
   List<Benefit> get benefits {
     return [..._benefits];
+  }
+
+  List<String> get packageMedia {
+    return [..._packageMedia];
+  }
+
+  List<String> get packageReviews {
+    return [..._packageReviews];
   }
 
   Future<ApiResponse> fetchAndSetPackageDetails(int id) async {

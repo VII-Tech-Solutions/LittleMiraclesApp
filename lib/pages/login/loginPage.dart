@@ -18,8 +18,6 @@ import '../../widgets/dialogs/showLoadingDialog.dart';
 //PAGES
 import '../../pages/general/customBottomNavigationBar.dart';
 import '../../pages/login/completeProfilePage.dart';
-import '../../pages/login/childrenPage.dart';
-import '../../pages/login/familyPage.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);

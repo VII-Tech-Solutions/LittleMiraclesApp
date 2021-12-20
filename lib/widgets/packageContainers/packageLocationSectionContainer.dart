@@ -18,7 +18,7 @@ class PackageLocationSectionContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final package = context.watch<Bookings>().package;
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 34, 16, 20),
+      padding: const EdgeInsets.fromLTRB(16, 20, 16, 20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,

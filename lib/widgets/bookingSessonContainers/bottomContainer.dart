@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 //PAGES
 import '../../pages/booking/backdropPage.dart';
 import '../../pages/booking/cakePage.dart';
-import '../../pages/booking/photographerPage.dart';
 
 class BottomContainer extends StatelessWidget {
   const BottomContainer();

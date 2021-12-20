@@ -14,6 +14,7 @@ class ReviewContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -24,9 +25,9 @@ class ReviewContainer extends StatelessWidget {
         );
       },
       child: Container(
-        margin: const EdgeInsets.only(top: 16.0, right: 6.0),
         height: 133,
-        width: 287,
+        width: size.width * 0.765,
+        margin: const EdgeInsets.symmetric(horizontal: 3, vertical: 5),
         child: Stack(
           children: [
             Container(

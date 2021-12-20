@@ -444,6 +444,11 @@ class AppData with ChangeNotifier {
               status: item['status'],
               updatedAt: item['updatedAt'],
               deletedAt: item['deletedAt'],
+              benefitsIds: item['benefitsIds'],
+              reviewsIds: item['reviewsIds'],
+              mediaIds: item['mediaIds'],
+              totalReviews: item['totalReviews'],
+              rating: item['rating'],
             ),
           )
           .toList();

@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
-import '../../models/package.dart';
 //PROVIDERS
 import '../../providers/bookings.dart';
 //WIDGETS
