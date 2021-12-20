@@ -1,11 +1,13 @@
 //PACKAGES
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:provider/provider.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
 import '../../models/package.dart';
 //PROVIDERS
+import '../../providers/bookings.dart';
 //WIDGETS
 import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/containers/reviewContainer.dart';
@@ -13,11 +15,11 @@ import '../../widgets/containers/reviewContainer.dart';
 import '../../pages/general/reviewsPage.dart';
 
 class PackageRatingSectionContainer extends StatelessWidget {
-  final Package? package;
-  const PackageRatingSectionContainer(this.package);
+  const PackageRatingSectionContainer();
 
   @override
   Widget build(BuildContext context) {
+    final package = context.watch<Bookings>().package;
     return Container(
       child: Column(
         children: [

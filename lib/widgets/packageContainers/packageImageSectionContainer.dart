@@ -1,10 +1,12 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
 import '../../models/package.dart';
 //PROVIDERS
+import '../../providers/bookings.dart';
 //WIDGETS
 import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/containers/imageGrid.dart';
@@ -12,11 +14,11 @@ import '../../widgets/containers/imageGrid.dart';
 import '../../pages/booking/imageExamplePage.dart';
 
 class PackageImageSectionContainer extends StatelessWidget {
-  final Package? package;
-  const PackageImageSectionContainer(this.package);
+  const PackageImageSectionContainer();
 
   @override
   Widget build(BuildContext context) {
+    final package = context.watch<Bookings>().package;
     return InkWell(
       onTap: () {
         Navigator.push(

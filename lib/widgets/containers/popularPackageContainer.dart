@@ -1,12 +1,17 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 //GLOBAL
 import '../../global/colors.dart';
+import '../../global/const.dart';
 //MODELS
 import '../../models/package.dart';
 //PROVIDERS
+import '../../providers/bookings.dart';
 //WIDGETS
 import '../general/cachedImageWidget.dart';
+import '../dialogs/showLoadingDialog.dart';
+import '../dialogs/showOkDialog.dart';
 //PAGES
 import '../../pages/booking/packageDetailsPage.dart';
 
@@ -19,12 +24,26 @@ class PopularPackageContainer extends StatelessWidget {
     return InkWell(
       onTap: () {
         if (package?.id != null) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => PackageDetailsPage(package),
-            ),
-          );
+          ShowLoadingDialog(context);
+          context
+              .read<Bookings>()
+              .fetchAndSetPackageDetails(package!.id!)
+              .then((response) {
+            ShowLoadingDialog(context, dismiss: true);
+            if (response.statusCode == 200) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PackageDetailsPage(),
+                ),
+              );
+            } else {
+              ShowOkDialog(
+                context,
+                response.message ?? ErrorMessages.somethingWrong,
+              );
+            }
+          });
         }
       },
       child: Padding(

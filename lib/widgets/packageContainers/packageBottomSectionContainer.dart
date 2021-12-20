@@ -1,25 +1,26 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
 import '../../models/package.dart';
 //PROVIDERS
+import '../../providers/bookings.dart';
 //WIDGETS
 import '../../widgets/buttons/filledButtonWidget.dart';
 //PAGES
 import '../../pages/booking/bookingSessionPage.dart';
 
 class PackageBottomSectionContainer extends StatelessWidget {
-  final Package? package;
   final String? btnLabel;
-  const PackageBottomSectionContainer(
-    this.package, {
+  const PackageBottomSectionContainer({
     this.btnLabel = 'Book Now',
   });
 
   @override
   Widget build(BuildContext context) {
+    final package = context.watch<Bookings>().package;
     return Container(
       height: 100,
       width: double.infinity,
@@ -65,7 +66,7 @@ class PackageBottomSectionContainer extends StatelessWidget {
               );
             },
             type: ButtonType.generalBlue,
-            title: btnLabel,
+            title: 'Book Now',
           ),
         ],
       ),

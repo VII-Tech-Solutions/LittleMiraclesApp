@@ -1,21 +1,23 @@
 //PACKAGES
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:provider/provider.dart';
 //EXTENSIONS
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
 import '../../models/package.dart';
 //PROVIDERS
+import '../../providers/bookings.dart';
 //WIDGETS
 //PAGES
 
 class PackageLocationSectionContainer extends StatelessWidget {
-  final Package? package;
-  const PackageLocationSectionContainer(this.package);
+  const PackageLocationSectionContainer();
 
   @override
   Widget build(BuildContext context) {
+    final package = context.watch<Bookings>().package;
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

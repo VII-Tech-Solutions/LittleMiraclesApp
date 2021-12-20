@@ -52,6 +52,13 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               AppData("", [], [], [], [], [], [], [], [], [], [], [], []),
         ),
+        ChangeNotifierProxyProvider<Auth, Bookings>(
+          update: (context, auth, previousBookings) => Bookings(
+            auth.token,
+            previousBookings == null ? null : previousBookings.package,
+          ),
+          create: (context) => Bookings('', null),
+        ),
       ],
       child: MaterialApp(
         supportedLocales: [
