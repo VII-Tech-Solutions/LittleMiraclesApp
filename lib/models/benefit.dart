@@ -34,8 +34,8 @@ class Benefit {
       icon: json['icon'] as String?,
       title: json['title'] as String?,
       status: json['status'] as int?,
-      updatedAt: json['updatedAt'] as String?,
-      deletedAt: json['deletedAt'] as String?,
+      updatedAt: json['updated_at'] as String?,
+      deletedAt: json['deleted_at'] as String?,
     );
   }
 }

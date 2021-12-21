@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../global/colors.dart';
 import '../../global/const.dart';
 //MODELS
+import '../../models/apiResponse.dart';
 //PROVIDERS
 import '../../providers/auth.dart';
 //WIDGETS
@@ -31,7 +32,7 @@ class LoginPage extends StatelessWidget {
   }
 
   Future<void> _socialLogin(BuildContext context, String socialType) async {
-    Map<String, dynamic>? result;
+    ApiResponse? result;
     final authProvider = context.read<Auth>();
     // setState(() {
     //   _isLoading = true;
@@ -62,34 +63,33 @@ class LoginPage extends StatelessWidget {
         break;
     }
 
-    if (authProvider.isAuth && result != null) {
+    if (result != null) {
       final user = authProvider.user;
 
       ShowLoadingDialog(context, dismiss: true);
-
-      if (user?.status == 1) {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => CustomBottomNavigationBar(),
-          ),
-          (Route<dynamic> route) => false,
-        );
+      if (authProvider.token.isNotEmpty) {
+        if (user?.status == 1) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CustomBottomNavigationBar(),
+            ),
+            (Route<dynamic> route) => false,
+          );
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CompleteProfilePage(),
+            ),
+          );
+        }
       } else {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => CompleteProfilePage(),
-          ),
-        );
+        ShowOkDialog(context, ErrorMessages.somethingWrong);
       }
     } else {
       ShowLoadingDialog(context, dismiss: true);
-      if (result != null) {
-        if (result.containsKey('error')) {
-          ShowOkDialog(context, result['error']);
-        }
-      }
+      ShowOkDialog(context, ErrorMessages.somethingWrong);
     }
   }
 
