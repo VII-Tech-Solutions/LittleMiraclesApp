@@ -1,5 +1,4 @@
 //PACKAGES
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 //EXTENSIONS
@@ -31,9 +30,10 @@ class _CalendarContainerState extends State<CalendarContainer> {
           title: 'Select your date',
           type: TitleTextType.subTitleBlack,
           weight: FontWeight.w800,
+          customPadding: EdgeInsets.zero,
         ),
         Container(
-          margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+          margin: const EdgeInsets.symmetric(vertical: 10.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.0),
             border: Border.all(
