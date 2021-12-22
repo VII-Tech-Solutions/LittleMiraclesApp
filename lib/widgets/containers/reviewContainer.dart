@@ -60,7 +60,7 @@ class ReviewContainer extends StatelessWidget {
                       ),
                     ),
                     Icon(
-                      Icons.star_rounded,
+                      Icons.star,
                       size: 16,
                       color: AppColors.yellowFFB400,
                     )
