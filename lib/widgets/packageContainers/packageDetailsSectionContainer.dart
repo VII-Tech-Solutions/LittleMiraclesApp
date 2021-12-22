@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 //EXTENSIONS
+import '../../extensions/stringExtension.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
@@ -50,14 +51,15 @@ class PackageDetailsSectionContainer extends StatelessWidget {
       ),
     );
 
-    benefitList.forEach(
-      (item) => widgetList.add(
+    benefitList.forEach((item) {
+      final icon = '0x${item.icon}'.toInt();
+      widgetList.add(
         BenefitDetailsRow(
           item.title ?? '',
-          Icons.access_time,
+          IconData(icon, fontFamily: 'MaterialIcons'),
         ),
-      ),
-    );
+      );
+    });
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),

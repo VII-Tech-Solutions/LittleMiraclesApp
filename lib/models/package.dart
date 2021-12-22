@@ -14,6 +14,8 @@ class Package {
   final int? status;
   final String? updatedAt;
   final String? deletedAt;
+  final int? backdropAllowed;
+  final int? cakeAllowed;
   final String? benefitsIds;
   final String? reviewsIds;
   final String? mediaIds;
@@ -34,6 +36,8 @@ class Package {
     @required this.status,
     @required this.updatedAt,
     @required this.deletedAt,
+    @required this.backdropAllowed,
+    @required this.cakeAllowed,
     @required this.benefitsIds,
     @required this.reviewsIds,
     @required this.mediaIds,
@@ -56,6 +60,8 @@ class Package {
       'status': status ?? -1,
       'updatedAt': updatedAt ?? "",
       'deletedAt': deletedAt ?? "",
+      'backdropAllowed': backdropAllowed ?? -1,
+      'cakeAllowed': cakeAllowed ?? -1,
       'benefitsIds': benefitsIds ?? "",
       'reviewsIds': reviewsIds ?? "",
       'mediaIds': mediaIds ?? "",
@@ -80,11 +86,13 @@ class Package {
       status: json['status'] as int?,
       updatedAt: json['updated_at'] as String?,
       deletedAt: json['deleted_at'] as String?,
+      backdropAllowed: json['backdrop_allowed'] as int?,
+      cakeAllowed: json['cake_allowed'] as int?,
       benefitsIds: json['benefits_ids'] as String?,
       reviewsIds: json['reviews_ids'] as String?,
       mediaIds: json['media_ids'] as String?,
       totalReviews: json['total_reviews'] as int?,
-      rating: double.parse(rate.toString()) ,
+      rating: double.parse(rate.toString()),
     );
   }
 }
