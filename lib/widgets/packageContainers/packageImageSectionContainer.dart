@@ -17,7 +17,6 @@ class PackageImageSectionContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final package = context.watch<Bookings>().package;
     final media = context.watch<Bookings>().packageMedia;
     return Visibility(
       visible: media.isNotEmpty,
@@ -26,12 +25,7 @@ class PackageImageSectionContainer extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ImageExamplePage([
-                'https://i.picsum.photos/id/514/343/200.jpg?hmac=agi3cn4az37bjgHqfKu0Ffo1EbYYSd5IRopJpWgdpXg',
-                'https://i.picsum.photos/id/304/343/300.jpg?hmac=ihrb8Va_phgzQqomNxAkLmxbWYGDG_FF1HDcAtGlIvc',
-                'https://i.picsum.photos/id/112/343/400.jpg?hmac=-04JmOPZENdYxUybn8DJYSpYdAG07GsHmE4ZOLRxc-Y',
-                'https://i.picsum.photos/id/591/343/256.jpg?hmac=4HZvluquq6Vt1oGDHYTjK8iH7C8YLm_dhsf8oqsjwMY',
-              ]),
+              builder: (context) => ImageExamplePage(media),
             ),
           );
         },
@@ -51,7 +45,7 @@ class PackageImageSectionContainer extends StatelessWidget {
                 ),
               ),
               Center(
-                child: ImageGridWidget(package?.image ?? ''),
+                child: ImageGridWidget(media),
               ),
               FilledButtonWidget(
                 onPress: null,

@@ -1,3 +1,12 @@
+//PACKAGES
+import 'package:intl/intl.dart';
+//EXTENSIONS
+//GLOBAL
+//MODELS
+//PROVIDERS
+//WIDGETS
+//PAGES
+
 extension StringExtension on String {
   String firstLetterToUpper() {
     return "${this[0].toUpperCase()}${this.substring(1)}";
@@ -18,5 +27,18 @@ extension StringExtension on String {
       return 1;
     }
     return int.parse(this);
+  }
+
+  String toddMMMyyyy() {
+    if (this.isNotEmpty) {
+      var dateTimeString = this;
+      final dateTime = DateTime.parse(dateTimeString);
+
+      final format = DateFormat('dd, MMM yyyy');
+      final formattedDate = format.format(dateTime);
+      return formattedDate;
+    } else {
+      return "";
+    }
   }
 }

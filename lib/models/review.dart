@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 
 class Review {
   final int? id;
-  final int? rating;
+  final double? rating;
   final String? userName;
   final String? userImage;
   final int? userId;
@@ -30,7 +30,7 @@ class Review {
   Map<String, Object> toMap() {
     return {
       'id': id ?? -1,
-      'rating': rating ?? -1,
+      'rating': rating ?? -1.0,
       'userName': userName ?? "",
       'userImage': userImage ?? "",
       'userId': userId ?? -1,
@@ -44,9 +44,10 @@ class Review {
   }
 
   factory Review.fromJson(dynamic json) {
+    final rate = json['rating'] as String?;
     return Review(
       id: json['id'] as int?,
-      rating: json['rating'] as int?,
+      rating: double.parse(rate.toString()),
       userName: json['user_name'] as String?,
       userImage: json['user_image'] as String?,
       userId: json['user_id'] as int?,

@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 //EXTENSIONS
 //GLOBAL
 //MODELS
+import '../../models/media.dart';
 //PROVIDERS
 //WIDGETS
 import '../../widgets/general/cachedImageWidget.dart';
 //PAGES
 
 class ImageGridWidget extends StatelessWidget {
-  final String image;
-  const ImageGridWidget(this.image);
+  final List<Media> media;
+  const ImageGridWidget(this.media);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class ImageGridWidget extends StatelessWidget {
                 Container(
                   height: size * 0.414,
                   child: CachedImageWidget(
-                    image,
+                    media[0].url,
                     ImageShape.rectangle,
                     radius: 0.0,
                   ),
@@ -37,7 +38,7 @@ class ImageGridWidget extends StatelessWidget {
                 ),
                 Expanded(
                   child: CachedImageWidget(
-                    image,
+                    media[1].url,
                     ImageShape.square,
                     radius: 0.0,
                   ),
@@ -54,7 +55,7 @@ class ImageGridWidget extends StatelessWidget {
                 Container(
                   height: size * 0.592,
                   child: CachedImageWidget(
-                    image,
+                    media[2].url,
                     ImageShape.square,
                     radius: 0.0,
                   ),
@@ -65,7 +66,7 @@ class ImageGridWidget extends StatelessWidget {
                 Expanded(
                   child: Container(
                     child: CachedImageWidget(
-                      image,
+                      media[3].url,
                       ImageShape.square,
                       radius: 0.0,
                     ),

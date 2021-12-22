@@ -1,10 +1,12 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 //EXTENSIONS
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
+import '../../providers/bookings.dart';
 //WIDGETS
 import '../../widgets/appbars/appBarWithClose.dart';
 import '../../widgets/containers/rateSessionContainer.dart';
@@ -20,14 +22,10 @@ class ReviewsPage extends StatefulWidget {
 
 class _ReviewsPageState extends State<ReviewsPage> {
   final controller = TextEditingController();
-  final items = [
-    ReviewContainer(borderColor: AppColors.whiteFFFFFF),
-    ReviewContainer(borderColor: AppColors.whiteFFFFFF),
-    ReviewContainer(borderColor: AppColors.whiteFFFFFF),
-  ];
 
   @override
   Widget build(BuildContext context) {
+    final reviewsList = context.watch<Bookings>().packageReviews;
     return Scaffold(
       appBar: AppBarWithClose('Reviews', AppColors.pinkFEF2F1),
       backgroundColor: AppColors.pinkFEF2F1,
@@ -38,11 +36,12 @@ class _ReviewsPageState extends State<ReviewsPage> {
             ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              itemCount: items.length,
+              itemCount: reviewsList.length,
               padding: EdgeInsets.only(left: 16, right: 10),
-              itemBuilder: (ctx, index) {
-                return items[index];
-              },
+              itemBuilder: (ctx, index) => ReviewContainer(
+                reviewsList[index],
+                borderColor: Colors.white,
+              ),
             ),
           ],
         ),

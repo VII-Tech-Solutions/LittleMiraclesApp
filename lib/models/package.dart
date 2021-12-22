@@ -65,8 +65,7 @@ class Package {
   }
 
   factory Package.fromJson(dynamic json) {
-    //TODO:: this is temporary until the API is fixed
-    final rate = json['rating'] as int?;
+    final rate = json['rating'] as String?;
     return Package(
       id: json['id'] as int?,
       image: json['image'] as String?,

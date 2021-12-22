@@ -10,9 +10,11 @@ import '../database/db_sqflite.dart';
 import '../global/globalHelpers.dart';
 import '../global/globalEnvironment.dart';
 //MODELS
+import '../models/apiResponse.dart';
 import '../models/package.dart';
 import '../models/benefit.dart';
-import '../models/apiResponse.dart';
+import '../models/media.dart';
+import '../models/review.dart';
 //PROVIDERS
 //WIDGETS
 //PAGES
@@ -21,8 +23,8 @@ class Bookings with ChangeNotifier {
   String authToken;
   Package? _package;
   List<Benefit> _benefits = [];
-  List<String> _packageMedia = [];
-  List<String> _packageReviews = [];
+  List<Media> _packageMedia = [];
+  List<Review> _packageReviews = [];
 
   Bookings(
     this.authToken,
@@ -40,11 +42,11 @@ class Bookings with ChangeNotifier {
     return [..._benefits];
   }
 
-  List<String> get packageMedia {
+  List<Media> get packageMedia {
     return [..._packageMedia];
   }
 
-  List<String> get packageReviews {
+  List<Review> get packageReviews {
     return [..._packageReviews];
   }
 
@@ -61,8 +63,8 @@ class Bookings with ChangeNotifier {
       final extractedData = json.decode(response.body)['data'];
       final packagesData = extractedData['packages'] as List;
       final benefitsData = extractedData['benefits'] as List;
-      final reviewsData = extractedData['reviews'] as List;
       final mediaData = extractedData['media'] as List;
+      final reviewsData = extractedData['reviews'] as List;
 
       if (response.statusCode != 200) {
         notifyListeners();
@@ -77,6 +79,11 @@ class Bookings with ChangeNotifier {
       _package = packagesList.first;
 
       _benefits = benefitsData.map((json) => Benefit.fromJson(json)).toList();
+
+      _packageMedia = mediaData.map((json) => Media.fromJson(json)).toList();
+
+      _packageReviews =
+          reviewsData.map((json) => Review.fromJson(json)).toList();
 
       notifyListeners();
       return (ApiResponse(
