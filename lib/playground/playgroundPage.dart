@@ -49,7 +49,7 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
           Icon(IconData(0xe8fd, fontFamily: 'MaterialIcons')),
           FilledButtonWidget(
             onPress: () {
-              final list =context.read<AppData>().backdropCategories;
+              final list = context.read<AppData>().cakeCategories;
 
               print(list.length);
             },

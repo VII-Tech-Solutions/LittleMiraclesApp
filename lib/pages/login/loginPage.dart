@@ -208,12 +208,7 @@ class LoginPage extends StatelessWidget {
                 assetName: 'assets/images/iconsSocialGoogle.svg',
               ),
               ButtonWithIconWidget(
-                onPress: () {
-                  context
-                      .read<Auth>()
-                      .fetchRegistrationQuestions()
-                      .then((value) => print('done fetching'));
-                },
+                onPress: () {},
                 buttonText: 'Login using Facebook',
                 assetName: 'assets/images/iconsSocialFacebook.svg',
               ),

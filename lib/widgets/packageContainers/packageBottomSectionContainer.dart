@@ -35,7 +35,7 @@ class PackageBottomSectionContainer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${package?.title}',
+                  '${package?.tag}',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -65,7 +65,7 @@ class PackageBottomSectionContainer extends StatelessWidget {
               );
             },
             type: ButtonType.generalBlue,
-            title: 'Book Now',
+            title: btnLabel ?? 'Book Now',
           ),
         ],
       ),

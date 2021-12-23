@@ -144,7 +144,8 @@ class AppData with ChangeNotifier {
   }
 
   List<Backdrop> getBackdropsByCategoryId(int catId) {
-    return [..._backdrops.where((element) => element.categoryId == catId)];
+    final list = _backdrops.where((element) => element.categoryId == catId);
+    return [...list];
   }
 
   List<CakeCategory> get cakeCategories {
@@ -332,6 +333,7 @@ class AppData with ChangeNotifier {
     });
 
     // PAYMENT METHODS
+    //TODO:: fix this to be deleted at
     _paymentMethods.forEach((item) {
       if (item.id != null) {
         DBHelper.deleteById(Tables.paymentMethods, item.id ?? -1);
@@ -342,7 +344,7 @@ class AppData with ChangeNotifier {
 
     // BACKDROP CATEGORIES
     _backdropCategories.forEach((item) {
-      if (item.id != null) {
+      if (item.deletedAt != null) {
         DBHelper.deleteById(Tables.backdropCategories, item.id ?? -1);
       } else {
         DBHelper.insert(Tables.backdropCategories, item.toMap());
@@ -351,7 +353,7 @@ class AppData with ChangeNotifier {
 
     // CAKE CATEGORIES
     _cakeCategories.forEach((item) {
-      if (item.id != null) {
+      if (item.deletedAt != null) {
         DBHelper.deleteById(Tables.cakeCategories, item.id ?? -1);
       } else {
         DBHelper.insert(Tables.cakeCategories, item.toMap());
@@ -491,6 +493,8 @@ class AppData with ChangeNotifier {
               status: item['status'],
               updatedAt: item['updatedAt'],
               deletedAt: item['deletedAt'],
+              cakeAllowed: item['cakeAllowed'],
+              backdropAllowed: item['backdropAllowed'],
               benefitsIds: item['benefitsIds'],
               reviewsIds: item['reviewsIds'],
               mediaIds: item['mediaIds'],
