@@ -223,9 +223,6 @@ class Auth with ChangeNotifier {
           )
           .timeout(Duration(seconds: Timeout.value));
 
-      print(response.statusCode);
-      print(response.body);
-
       return (ApiResponse(
         statusCode: response.statusCode,
         message: json.decode(response.body)['message'],
@@ -276,7 +273,7 @@ class Auth with ChangeNotifier {
     }
   }
 
-  Future<Map<String, dynamic>?> socialLogin(
+  Future<ApiResponse?> socialLogin(
     dynamic body,
     String provider,
   ) async {
@@ -301,7 +298,9 @@ class Auth with ChangeNotifier {
       if (response.statusCode != 200) {
         if ((response.statusCode >= 400 && response.statusCode <= 499) ||
             response.statusCode == 503) {
-          return {'error': result['message'].toString()};
+          return ApiResponse(
+              statusCode: response.statusCode,
+              message: result['message'].toString());
         } else {
           return null;
         }
@@ -338,7 +337,7 @@ class Auth with ChangeNotifier {
           }));
 
       notifyListeners();
-      return {'success': 'you are now logged in'};
+      return ApiResponse(statusCode: response.statusCode, message: '');
     } catch (e) {
       print('catch error:: $e');
       return null;
@@ -349,8 +348,7 @@ class Auth with ChangeNotifier {
   //
   //GOOGLE SOCIAL LOGIN
   //THIS WILL ONLY RUN IN RELEASE MODE WHEN THE APP GOES TO PRODUCTION
-  Future<Map<String, dynamic>?> signInWithGoogle(
-      {bool isLogout = false}) async {
+  Future<ApiResponse?> signInWithGoogle({bool isLogout = false}) async {
     if (isLogout == true) {
       //sign out the user to trigger the right login behaviour
       await GoogleSignIn(scopes: ['email']).signOut();

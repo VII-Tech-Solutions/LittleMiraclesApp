@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 //EXTENSIONS
+import '../../extensions/dateTimeExtension.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
@@ -18,10 +19,10 @@ class CalendarContainer extends StatefulWidget {
 }
 
 class _CalendarContainerState extends State<CalendarContainer> {
+  DateTime selectedDay = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
-    DateTime selectedDay = DateTime.now();
-    DateTime focusedDay = DateTime.now();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -29,9 +30,10 @@ class _CalendarContainerState extends State<CalendarContainer> {
           title: 'Select your date',
           type: TitleTextType.subTitleBlack,
           weight: FontWeight.w800,
+          customPadding: EdgeInsets.zero,
         ),
         Container(
-          margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+          margin: const EdgeInsets.symmetric(vertical: 10.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.0),
             border: Border.all(
@@ -60,18 +62,26 @@ class _CalendarContainerState extends State<CalendarContainer> {
                 color: AppColors.grey737C85,
               ),
             ),
-            focusedDay: focusedDay,
+            focusedDay: selectedDay,
             onDaySelected: (DateTime selectDay, DateTime focusDay) {
               setState(() {
                 selectedDay = selectDay;
-                focusedDay = focusDay;
               });
             },
             selectedDayPredicate: (day) {
               return isSameDay(selectedDay, day);
             },
+            enabledDayPredicate: (value) {
+              var now = new DateTime.now().add(Duration(days: 2));
+
+              String excludedDate = now.toyyyyMMdd();
+              String calendarDate = value.toyyyyMMdd();
+
+              return calendarDate == excludedDate ? false : true;
+            },
             calendarStyle: CalendarStyle(
               isTodayHighlighted: false,
+              outsideDaysVisible: false,
               selectedDecoration: BoxDecoration(
                 color: AppColors.black45515D,
                 shape: BoxShape.circle,

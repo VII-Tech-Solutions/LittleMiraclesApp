@@ -29,7 +29,7 @@ class BackdropPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TitleText(
-              title: 'Backdrop type 1 - ${backdrops[0].category}',
+              title: 'Backdrop type 1 - ${backdrops[0].categoryId}',
               type: TitleTextType.subTitleBlack,
               weight: FontWeight.w800,
             ),

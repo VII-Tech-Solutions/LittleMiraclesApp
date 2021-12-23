@@ -1,21 +1,22 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
-import '../../models/package.dart';
 //PROVIDERS
+import '../../providers/bookings.dart';
 //WIDGETS
 import '../../widgets/general/cachedImageWidget.dart';
 import '../../widgets/texts/titleText.dart';
 //PAGES
 
 class PackageMainTopSectionContainer extends StatelessWidget {
-  final Package? package;
-  const PackageMainTopSectionContainer(this.package);
+  const PackageMainTopSectionContainer();
 
   @override
   Widget build(BuildContext context) {
+    final package = context.watch<Bookings>().package;
     return Container(
       child: Stack(
         children: [
@@ -23,7 +24,7 @@ class PackageMainTopSectionContainer extends StatelessWidget {
             height: double.infinity,
             width: double.infinity,
             child: CachedImageWidget(
-              package?.image,
+              package?.image ?? '',
               ImageShape.square,
               radius: 0.0,
             ),

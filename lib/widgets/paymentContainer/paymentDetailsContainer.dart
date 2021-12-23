@@ -6,7 +6,7 @@ import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
 //WIDGETS
-import '../../widgets/general/sessionDetailsRow.dart';
+import '../general/benefitDetailsRow.dart';
 //PAGES
 
 class PaymentDetailsContainer extends StatelessWidget {
@@ -28,23 +28,23 @@ class PaymentDetailsContainer extends StatelessWidget {
             ),
           ),
         ),
-        SessionRowDetails(
+        BenefitDetailsRow(
           '30 minutes in the studio',
           Icons.today,
         ),
-        SessionRowDetails(
+        BenefitDetailsRow(
           '04:00 PM',
           Icons.access_time,
         ),
-        SessionRowDetails(
+        BenefitDetailsRow(
           '1 baby, 2 adult',
           Icons.perm_identity_rounded,
         ),
-        SessionRowDetails(
+        BenefitDetailsRow(
           'Pastel Rainbow Backdrop',
           Icons.wallpaper,
         ),
-        SessionRowDetails(
+        BenefitDetailsRow(
           'Naked Cake - Pink',
           Icons.cake,
         ),

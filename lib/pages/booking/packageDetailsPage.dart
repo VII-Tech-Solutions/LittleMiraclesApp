@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 //EXTENSIONS
 //GLOBAL
 //MODELS
-import '../../models/package.dart';
 //PROVIDERS
 //WIDGETS
 import '../../widgets/buttons/iconButtonWidget.dart';
@@ -16,16 +15,15 @@ import '../../widgets/packageContainers/packageImageSectionContainer.dart';
 //PAGES
 
 class PackageDetailsPage extends StatelessWidget {
-  final Package? package;
-  const PackageDetailsPage(this.package);
+  const PackageDetailsPage();
 
   @override
   Widget build(BuildContext context) {
     List<Widget> _list = [
       PackageDetailsSectionContainer(),
-      PackageLocationSectionContainer(package),
-      PackageImageSectionContainer(package),
-      PackageRatingSectionContainer(package),
+      PackageLocationSectionContainer(),
+      PackageImageSectionContainer(),
+      PackageRatingSectionContainer(),
     ];
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -47,7 +45,7 @@ class PackageDetailsPage extends StatelessWidget {
             backgroundColor: Colors.white,
             expandedHeight: 375,
             flexibleSpace: FlexibleSpaceBar(
-              background: PackageMainTopSectionContainer(package),
+              background: PackageMainTopSectionContainer(),
               stretchModes: [
                 StretchMode.zoomBackground,
               ],
@@ -63,7 +61,7 @@ class PackageDetailsPage extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: PackageBottomSectionContainer(package),
+      bottomNavigationBar: PackageBottomSectionContainer(),
     );
   }
 }

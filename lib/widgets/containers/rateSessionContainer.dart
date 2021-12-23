@@ -11,7 +11,8 @@ import '../../widgets/buttons/filledButtonWidget.dart';
 //PAGES
 
 class RateSessionContainer extends StatelessWidget {
-  const RateSessionContainer({Key? key}) : super(key: key);
+  final String title;
+  const RateSessionContainer(this.title);
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +33,11 @@ class RateSessionContainer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'RATE THE SESSION',
+              title,
               style: TextStyle(
                 fontSize: 10,
                 color: AppColors.grey737C85,
                 fontWeight: FontWeight.w600,
-                letterSpacing: 1,
               ),
             ),
             Row(
@@ -77,6 +77,7 @@ class RateSessionContainer extends StatelessWidget {
                   allowHalfRating: true,
                   itemCount: 5,
                   itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                  updateOnDrag: true,
                   itemBuilder: (context, _) => Icon(
                     Icons.star_rounded,
                     color: AppColors.yellowFFB400,

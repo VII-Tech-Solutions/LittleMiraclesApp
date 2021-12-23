@@ -48,9 +48,23 @@ class MyApp extends StatelessWidget {
             previousAppData == null ? [] : previousAppData.cakes,
             previousAppData == null ? [] : previousAppData.photographers,
             previousAppData == null ? [] : previousAppData.paymentMethods,
+            previousAppData == null ? [] : previousAppData.backdropCategories,
+            previousAppData == null ? [] : previousAppData.cakeCategories,
           ),
           create: (context) =>
-              AppData("", [], [], [], [], [], [], [], [], [], [], [], []),
+              AppData("", [], [], [], [], [], [], [], [], [], [], [], [], [], []),
+        ),
+        ChangeNotifierProxyProvider<Auth, Bookings>(
+          update: (context, auth, previousBookings) => Bookings(
+            auth.token,
+            previousBookings == null ? null : previousBookings.package,
+            previousBookings == null ? [] : previousBookings.benefits,
+            previousBookings == null ? [] : previousBookings.packageMedia,
+            previousBookings == null ? [] : previousBookings.packageReviews,
+            previousBookings == null ? [] : previousBookings.selectedBackdrops,
+            previousBookings == null ? [] : previousBookings.selectedCakes,
+          ),
+          create: (context) => Bookings('', null, [], [], [], [], []),
         ),
       ],
       child: MaterialApp(

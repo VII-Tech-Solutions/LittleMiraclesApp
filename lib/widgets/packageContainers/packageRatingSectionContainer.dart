@@ -1,11 +1,12 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
-import '../../models/package.dart';
 //PROVIDERS
+import '../../providers/bookings.dart';
 //WIDGETS
 import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/containers/reviewContainer.dart';
@@ -13,79 +14,155 @@ import '../../widgets/containers/reviewContainer.dart';
 import '../../pages/general/reviewsPage.dart';
 
 class PackageRatingSectionContainer extends StatelessWidget {
-  final Package? package;
-  const PackageRatingSectionContainer(this.package);
+  const PackageRatingSectionContainer();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final package = context.watch<Bookings>().package;
+    final reviewsList = context.watch<Bookings>().packageReviews;
+
+    return Visibility(
+      visible: package?.totalReviews != 0,
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 40.0),
+            padding: const EdgeInsets.fromLTRB(16, 20, 16, 10),
             child: Row(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 16.0, right: 6.0),
-                  child: Text(
-                    '4.5',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: AppColors.black45515D,
-                      fontWeight: FontWeight.w600,
-                    ),
+                Text(
+                  '${package?.rating ?? 0.0}',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: AppColors.black45515D,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-                RatingBarIndicator(
-                  rating: 4.5,
-                  itemBuilder: (context, index) => Icon(
-                    Icons.star_rounded,
-                    color: AppColors.yellowFFB400,
-                  ),
-                  itemCount: 5,
-                  itemSize: 15.0,
-                ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 9.0),
-                  child: Text(
-                    '(6 Reviews)',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: AppColors.black45515D,
+                  padding: const EdgeInsets.only(left: 5, right: 10),
+                  child: RatingBarIndicator(
+                    rating: package?.rating ?? 0.0,
+                    itemBuilder: (context, index) => Icon(
+                      Icons.star_rounded,
+                      color: AppColors.yellowFFB400,
                     ),
+                    unratedColor: AppColors.greyB9BEC2,
+                    itemCount: 5,
+                    itemSize: 15.0,
+                  ),
+                ),
+                Text(
+                  '(${package?.totalReviews ?? 0} Reviews)',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: AppColors.black45515D,
                   ),
                 ),
               ],
+            ),
+          ),
+          SizedBox(
+            height: 133,
+            child: ListView.builder(
+              itemCount: reviewsList.length,
+              scrollDirection: Axis.horizontal,
+              padding: EdgeInsets.symmetric(horizontal: 13),
+              itemBuilder: (context, index) =>
+                  ReviewContainer(reviewsList[index]),
+            ),
+          ),
+          FilledButtonWidget(
+            onPress: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ReviewsPage(),
+                ),
+              );
+            },
+            margin: const EdgeInsets.fromLTRB(16, 11, 16, 30),
+            type: ButtonType.generalGrey,
+            title: 'See all reviews',
+          ),
+        ],
+      ),
+    );
+  }
+
+//TODO:: to be finished later
+  Widget _old() {
+    return Container(
+      height: 254,
+      width: double.infinity,
+      padding: const EdgeInsetsDirectional.all(16),
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      decoration: BoxDecoration(
+        color: Colors.red,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: AppColors.greyD0D3D6,
+          width: 1,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                height: 49,
+                width: 67,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.0),
+                  color: AppColors.pinkFEF2F1,
+                ),
+                child: TextField(
+                  // controller: userRating,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: AppColors.black45515D,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: -0.4,
+                  ),
+                  decoration: InputDecoration(
+                    hintText: '4.0',
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 15.0),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.transparent),
+                    ),
+                  ),
+                ),
+              ),
+              RatingBar.builder(
+                initialRating: 4,
+                minRating: 1,
+                direction: Axis.horizontal,
+                allowHalfRating: true,
+                itemCount: 5,
+                itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                glow: false,
+                updateOnDrag: true,
+                itemBuilder: (context, _) => Icon(
+                  Icons.star_rounded,
+                  color: AppColors.yellowFFB400,
+                ),
+                onRatingUpdate: (rating) {
+                  // userRating.text = '$rating';
+                },
+              ),
+            ],
+          ),
+          Expanded(
+            child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 16),
+              color: Colors.blue,
             ),
           ),
           Container(
-            // margin: const EdgeInsets.only(left: 16.0),
-            height: 133.0,
-            child: ListView(
-              padding: const EdgeInsets.only(left: 16.0),
-              scrollDirection: Axis.horizontal,
-              children: [
-                ReviewContainer(),
-                ReviewContainer(),
-                ReviewContainer(),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-                top: 16.0, bottom: 30.0, left: 16.0, right: 16.0),
-            child: FilledButtonWidget(
-              onPress: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ReviewsPage(),
-                  ),
-                );
-              },
-              type: ButtonType.generalGrey,
-              title: 'See all reviews',
-            ),
+            width: 143,
+            height: 38,
+            color: Colors.black,
           ),
         ],
       ),

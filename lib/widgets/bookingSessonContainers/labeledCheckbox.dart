@@ -1,5 +1,6 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 //EXTENSIONS
 //GLOBAL
 import '../../global/colors.dart';
@@ -8,34 +9,34 @@ import '../../global/colors.dart';
 //WIDGETS
 //PAGES
 
-class LabeledCheckbox extends StatefulWidget {
-  final String label;
+class LabeledCheckbox extends StatelessWidget {
+  final int? id;
+  final String? label;
+  final bool? isUser;
+  final bool? isSelected;
+  final void Function(int?)? onTapCallback;
 
-  const LabeledCheckbox(
-    this.label,
-  );
+  const LabeledCheckbox({
+    @required this.id,
+    @required this.label,
+    @required this.isUser,
+    @required this.isSelected,
+    @required this.onTapCallback,
+  });
 
-  @override
-  State<LabeledCheckbox> createState() => _LabeledCheckboxState();
-}
-
-class _LabeledCheckboxState extends State<LabeledCheckbox> {
-  bool isChecked = false;
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        setState(() {
-          isChecked = !isChecked;
-        });
+        return onTapCallback!(id);
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        padding: const EdgeInsets.only(left: 20, right: 13),
         child: Row(
           children: <Widget>[
             Expanded(
               child: Text(
-                widget.label,
+                label ?? '',
                 style: TextStyle(
                   color: AppColors.black45515D,
                   fontSize: 14,
@@ -43,18 +44,21 @@ class _LabeledCheckboxState extends State<LabeledCheckbox> {
                 ),
               ),
             ),
-            Checkbox(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Checkbox(
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                visualDensity: VisualDensity.compact,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4.0),
+                ),
+                side: BorderSide(width: 0.5, color: AppColors.greyB9BEC2),
+                activeColor: AppColors.blue8DC4CB,
+                value: isSelected,
+                onChanged: (bool? value) {
+                  return onTapCallback!(id);
+                },
               ),
-              side: BorderSide(width: 0.5, color: AppColors.greyB9BEC2),
-              activeColor: AppColors.blue8DC4CB,
-              value: isChecked,
-              onChanged: (bool? value) {
-                setState(() {
-                  isChecked = value!;
-                });
-              },
             ),
           ],
         ),
