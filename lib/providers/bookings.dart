@@ -15,6 +15,8 @@ import '../models/package.dart';
 import '../models/benefit.dart';
 import '../models/media.dart';
 import '../models/review.dart';
+import '../models/backdrop.dart';
+import '../models/cake.dart';
 //PROVIDERS
 //WIDGETS
 //PAGES
@@ -25,6 +27,8 @@ class Bookings with ChangeNotifier {
   List<Benefit> _benefits = [];
   List<Media> _packageMedia = [];
   List<Review> _packageReviews = [];
+  List<Cake> _selectedCakes = [];
+  List<Backdrop> _selectedBackdrops = [];
 
   Bookings(
     this.authToken,
@@ -32,6 +36,8 @@ class Bookings with ChangeNotifier {
     this._benefits,
     this._packageMedia,
     this._packageReviews,
+    this._selectedBackdrops,
+    this._selectedCakes,
   );
 
   Package? get package {
@@ -48,6 +54,14 @@ class Bookings with ChangeNotifier {
 
   List<Review> get packageReviews {
     return [..._packageReviews];
+  }
+
+  List<Backdrop> get selectedBackdrops {
+    return [..._selectedBackdrops];
+  }
+
+  List<Cake> get selectedCakes {
+    return [..._selectedCakes];
   }
 
   Future<ApiResponse> fetchAndSetPackageDetails(int id) async {

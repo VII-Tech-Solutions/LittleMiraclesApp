@@ -45,7 +45,6 @@ class _AvailableTimeContainerState extends State<AvailableTimeContainer> {
           weight: FontWeight.w800,
           customPadding: const EdgeInsets.only(top: 20),
         ),
-        // _buildTimeSlots(),
         Container(
           margin: const EdgeInsets.symmetric(vertical: 10.0),
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16.0),
@@ -98,44 +97,6 @@ class _AvailableTimeContainerState extends State<AvailableTimeContainer> {
           ),
         ),
       ],
-    );
-  }
-
-  _old() {
-    return Wrap(
-      spacing: 6.0,
-      runSpacing: 6.0,
-      children: availableTimes.map(
-        (val) {
-          return Container(
-            width: 111,
-            child: ChoiceChip(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 15, vertical: 5.0),
-              selectedShadowColor: null,
-              elevation: 0,
-              pressElevation: 0,
-              label: Text(
-                val,
-                style: TextStyle(
-                  color: _value == availableTimes.indexOf(val)
-                      ? Colors.white
-                      : AppColors.black45515D,
-                ),
-              ),
-              selected: _value == availableTimes.indexOf(val),
-              selectedColor: _value == availableTimes.indexOf(val)
-                  ? AppColors.black45515D
-                  : AppColors.greyF2F3F3,
-              onSelected: (bool selected) {
-                setState(() {
-                  _value = selected ? availableTimes.indexOf(val) : null;
-                });
-              },
-            ),
-          );
-        },
-      ).toList(),
     );
   }
 }

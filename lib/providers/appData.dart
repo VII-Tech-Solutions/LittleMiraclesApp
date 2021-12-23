@@ -19,6 +19,8 @@ import '../models/backdrop.dart';
 import '../models/cake.dart';
 import '../models/photographer.dart';
 import '../models/paymentMethod.dart';
+import '../models/backdropCategory.dart';
+import '../models/cakeCategory.dart';
 //PROVIDERS
 //WIDGETS
 import '../widgets/texts/titleText.dart';
@@ -42,6 +44,8 @@ class AppData with ChangeNotifier {
   List<Cake> _cakes = [];
   List<Photographer> _photographers = [];
   List<PaymentMethod> _paymentMethods = [];
+  List<BackdropCategory> _backdropCategories = [];
+  List<CakeCategory> _cakeCategories = [];
 
   // MAIN PAGES WIDGETS LISTS
   List<Widget> _homeList = [];
@@ -61,6 +65,8 @@ class AppData with ChangeNotifier {
     this._cakes,
     this._photographers,
     this._paymentMethods,
+    this._backdropCategories,
+    this._cakeCategories,
   );
 
   List<Onboarding> get onboardings {
@@ -133,13 +139,21 @@ class AppData with ChangeNotifier {
     return [..._paymentMethods];
   }
 
-  // List<BackdropCategory> get backdropCategories {
-  //   return [..._backdropCategories];
-  // }
+  List<BackdropCategory> get backdropCategories {
+    return [..._backdropCategories];
+  }
 
-  // List<BackdropByCategory> getBackdropByCategory(int catId) {
-  //   return [..._backdrops.where((element) => element.categoryId == catId)];
-  // }
+  List<Backdrop> getBackdropsByCategoryId(int catId) {
+    return [..._backdrops.where((element) => element.categoryId == catId)];
+  }
+
+  List<CakeCategory> get cakeCategories {
+    return [..._cakeCategories];
+  }
+
+  List<Cake> getCakesByCategoryId(int catId) {
+    return [..._cakes.where((element) => element.categoryId == catId)];
+  }
 
   // WIDGET LIST GETTERS
   List<Widget> get homeList {
@@ -173,6 +187,9 @@ class AppData with ChangeNotifier {
       final cakesJson = extractedData['cakes'] as List;
       final photographersJson = extractedData['photographers'] as List;
       final paymentMethodsJson = extractedData['payment_methods'] as List;
+      final backdropCategoriesJson =
+          extractedData['backdrop_categories'] as List;
+      final cakeCategoriesJson = extractedData['cake_categories'] as List;
 
       if (response.statusCode != 200) {
         await getLocalAppData();
@@ -208,6 +225,14 @@ class AppData with ChangeNotifier {
 
       _paymentMethods = paymentMethodsJson
           .map((json) => PaymentMethod.fromJson(json))
+          .toList();
+
+      _backdropCategories = backdropCategoriesJson
+          .map((json) => BackdropCategory.fromJson(json))
+          .toList();
+
+      _cakeCategories = cakeCategoriesJson
+          .map((json) => CakeCategory.fromJson(json))
           .toList();
 
       await LastUpdateClass().setLastUpdate(LastUpdate.appData);
@@ -314,6 +339,24 @@ class AppData with ChangeNotifier {
         DBHelper.insert(Tables.paymentMethods, item.toMap());
       }
     });
+
+    // BACKDROP CATEGORIES
+    _backdropCategories.forEach((item) {
+      if (item.id != null) {
+        DBHelper.deleteById(Tables.backdropCategories, item.id ?? -1);
+      } else {
+        DBHelper.insert(Tables.backdropCategories, item.toMap());
+      }
+    });
+
+    // CAKE CATEGORIES
+    _cakeCategories.forEach((item) {
+      if (item.id != null) {
+        DBHelper.deleteById(Tables.cakeCategories, item.id ?? -1);
+      } else {
+        DBHelper.insert(Tables.cakeCategories, item.toMap());
+      }
+    });
   }
 
   Future<void> getLocalAppData() async {
@@ -328,6 +371,10 @@ class AppData with ChangeNotifier {
     final photographersDataList = await DBHelper.getData(Tables.photographers);
     final paymentMethodsDataList =
         await DBHelper.getData(Tables.paymentMethods);
+    final backdropCategoriesDataList =
+        await DBHelper.getData(Tables.backdropCategories);
+    final cakeCategoriesDataList =
+        await DBHelper.getData(Tables.cakeCategories);
 
     // ONBOARDING
     if (onboardingDataList.isNotEmpty) {
@@ -462,7 +509,7 @@ class AppData with ChangeNotifier {
               id: item['id'],
               title: item['title'],
               image: item['image'],
-              category: item['category'],
+              categoryId: item['categoryId'],
               status: item['status'],
               updatedAt: item['updatedAt'],
               deletedAt: item['deletedAt'],
@@ -479,7 +526,7 @@ class AppData with ChangeNotifier {
               id: item['id'],
               title: item['title'],
               image: item['image'],
-              category: item['category'],
+              categoryId: item['categoryId'],
               status: item['status'],
               updatedAt: item['updatedAt'],
               deletedAt: item['deletedAt'],
@@ -511,6 +558,36 @@ class AppData with ChangeNotifier {
             (item) => PaymentMethod(
               id: item['id'],
               title: item['title'],
+            ),
+          )
+          .toList();
+    }
+
+    // BACKDROP CATEGORIES
+    if (backdropCategoriesDataList.isNotEmpty) {
+      _backdropCategories = backdropCategoriesDataList
+          .map(
+            (item) => BackdropCategory(
+              id: item['id'],
+              name: item['name'],
+              status: item['status'],
+              updatedAt: item['updated_at'],
+              deletedAt: item['deleted_at'],
+            ),
+          )
+          .toList();
+    }
+
+    // CAKE CATEGORIES
+    if (cakeCategoriesDataList.isNotEmpty) {
+      _cakeCategories = cakeCategoriesDataList
+          .map(
+            (item) => CakeCategory(
+              id: item['id'],
+              name: item['name'],
+              status: item['status'],
+              updatedAt: item['updated_at'],
+              deletedAt: item['deleted_at'],
             ),
           )
           .toList();

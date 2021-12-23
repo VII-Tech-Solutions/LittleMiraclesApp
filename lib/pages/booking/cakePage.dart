@@ -34,7 +34,7 @@ class _CakePageState extends State<CakePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TitleText(
-              title: '${cakes[0].category} Cake',
+              title: '${cakes[0].categoryId} Cake',
               type: TitleTextType.subTitleBlack,
               weight: FontWeight.w800,
             ),

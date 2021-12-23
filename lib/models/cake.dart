@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Cake {
   final int? id;
   final String? title;
-  final String? category;
+  final int? categoryId;
   final String? image;
   final int? status;
   final String? updatedAt;
@@ -12,7 +12,7 @@ class Cake {
   Cake({
     @required this.id,
     @required this.title,
-    @required this.category,
+    @required this.categoryId,
     @required this.image,
     @required this.status,
     @required this.updatedAt,
@@ -23,7 +23,7 @@ class Cake {
     return {
       'id': id ?? -1,
       'title': title ?? "",
-      'category': category ?? "",
+      'categoryId': categoryId ?? -1,
       'image': image ?? "",
       'status': status ?? -1,
       'updatedAt': updatedAt ?? "",
@@ -35,7 +35,7 @@ class Cake {
     return Cake(
       id: json['id'] as int?,
       title: json['title'] as String?,
-      category: json['category'] as String?,
+      categoryId: json['category_id'] as int?,
       image: json['image'] as String?,
       status: json['status'] as int?,
       updatedAt: json['updated_at'] as String?,

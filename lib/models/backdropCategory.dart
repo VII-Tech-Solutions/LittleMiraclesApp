@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 
-class Backdrop {
+class BackdropCategory {
   final int? id;
-  final String? title;
-  final int? categoryId;
-  final String? image;
+  final String? name;
   final int? status;
   final String? updatedAt;
   final String? deletedAt;
 
-  Backdrop({
+  BackdropCategory({
     @required this.id,
-    @required this.title,
-    @required this.categoryId,
-    @required this.image,
+    @required this.name,
     @required this.status,
     @required this.updatedAt,
     @required this.deletedAt,
@@ -22,21 +18,17 @@ class Backdrop {
   Map<String, Object> toMap() {
     return {
       'id': id ?? -1,
-      'title': title ?? "",
-      'categoryId': categoryId ?? "",
-      'image': image ?? "",
+      'name': name ?? "",
       'status': status ?? -1,
       'updatedAt': updatedAt ?? "",
       'deletedAt': deletedAt ?? "",
     };
   }
 
-  factory Backdrop.fromJson(dynamic json) {
-    return Backdrop(
+  factory BackdropCategory.fromJson(dynamic json) {
+    return BackdropCategory(
       id: json['id'] as int?,
-      title: json['title'] as String?,
-      categoryId: json['category_id'] as int?,
-      image: json['image'] as String?,
+      name: json['name'] as String?,
       status: json['status'] as int?,
       updatedAt: json['updated_at'] as String?,
       deletedAt: json['deleted_at'] as String?,

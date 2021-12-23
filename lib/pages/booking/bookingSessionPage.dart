@@ -1,5 +1,4 @@
 //PACKAGES
-import '../../widgets/bookingSessonContainers/calendarContainer.dart';
 import 'package:flutter/material.dart';
 //EXTENSIONS
 //GLOBAL
@@ -12,6 +11,8 @@ import '../../widgets/bookingSessonContainers/availableTimeContainer.dart';
 import '../../widgets/bookingSessonContainers/joiningPeopleContainer.dart';
 import '../../widgets/packageContainers/packageBottomSectionContainer.dart';
 import '../../widgets/bookingSessonContainers/bottomContainer.dart';
+import '../../widgets/bookingSessonContainers/calendarContainer.dart';
+import '../../widgets/bookingSessonContainers/backdropSelector.dart';
 //PAGES
 
 class BookingSessionPage extends StatefulWidget {
@@ -37,7 +38,7 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
             CalendarContainer(),
             AvailableTimeContainer(),
             JoiningPeopleContainer(),
-            BottomContainer(),
+            BackdropSelector(),
           ],
         ),
       ),

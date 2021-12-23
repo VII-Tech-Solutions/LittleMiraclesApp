@@ -9,6 +9,7 @@ import '../global/colors.dart';
 //MODELS
 //PROVIDERS
 import '../providers/auth.dart';
+import '../providers/appData.dart';
 //WIDGETS
 import '../widgets/texts/titleText.dart';
 import '../widgets/dialogs/showLoadingDialog.dart';
@@ -48,17 +49,9 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
           Icon(IconData(0xe8fd, fontFamily: 'MaterialIcons')),
           FilledButtonWidget(
             onPress: () {
-              ShowLoadingDialog(context);
-              Timer(Duration(seconds: 3), () {
-                // Navigator.pop(context);
-                // ShowLoadingDialog(context, dismiss: true);
-                // Navigator.push(
-                // context,
-                // MaterialPageRoute(
-                // builder: (context) => HomePage(),
-                // ),
-                // );
-              });
+              final list =context.read<AppData>().backdropCategories;
+
+              print(list.length);
             },
             type: ButtonType.generalBlue,
           ),
@@ -77,7 +70,7 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
             direction: Axis.horizontal,
             // allowHalfRating: true,
             itemCount: 5,
-            
+
             ratingWidget: RatingWidget(
               full: Icon(
                 Icons.star_rounded,

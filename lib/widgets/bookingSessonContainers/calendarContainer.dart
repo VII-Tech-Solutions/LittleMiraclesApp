@@ -73,6 +73,7 @@ class _CalendarContainerState extends State<CalendarContainer> {
             },
             enabledDayPredicate: (value) {
               var now = new DateTime.now().add(Duration(days: 2));
+
               String excludedDate = now.toyyyyMMdd();
               String calendarDate = value.toyyyyMMdd();
 
