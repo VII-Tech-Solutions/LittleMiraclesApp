@@ -33,7 +33,7 @@ class DBHelper {
         await db.execute(
             'CREATE TABLE photographers(id INT PRIMARY KEY, name TEXT, image TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
         await db.execute(
-            'CREATE TABLE paymentMethods(id INT PRIMARY KEY, title TEXT)');
+            'CREATE TABLE familyMember(id INT PRIMARY KEY, familyId INTEGER, firstName TEXT, lastName TEXT, gender INTEGER, birthDate TEXT, relationship INTEGER, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
       },
       version: 1,
       onUpgrade: (db, oldVersion, newVersion) async {
