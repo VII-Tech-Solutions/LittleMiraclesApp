@@ -148,12 +148,30 @@ class AppData with ChangeNotifier {
     return [...list];
   }
 
+  List<Backdrop> getBackdropsByIds(List<int> list) {
+    var finalList = [];
+    list.forEach((id) {
+      final item = _backdrops.firstWhere((element) => element.id == id);
+      finalList.add(item);
+    });
+    return [...finalList];
+  }
+
   List<CakeCategory> get cakeCategories {
     return [..._cakeCategories];
   }
 
   List<Cake> getCakesByCategoryId(int catId) {
     return [..._cakes.where((element) => element.categoryId == catId)];
+  }
+
+   List<Cake> getCakesByIds(List<int> list) {
+    var finalList = [];
+    list.forEach((id) {
+      final item = _cakes.firstWhere((element) => element.id == id);
+      finalList.add(item);
+    });
+    return [...finalList];
   }
 
   // WIDGET LIST GETTERS

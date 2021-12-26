@@ -13,6 +13,7 @@ import '../../widgets/packageContainers/packageBottomSectionContainer.dart';
 import '../../widgets/bookingSessonContainers/bottomContainer.dart';
 import '../../widgets/bookingSessonContainers/calendarContainer.dart';
 import '../../widgets/bookingSessonContainers/backdropSelector.dart';
+import '../../widgets/bookingSessonContainers/cakeSelector.dart';
 //PAGES
 
 class BookingSessionPage extends StatefulWidget {
@@ -39,6 +40,7 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
             AvailableTimeContainer(),
             JoiningPeopleContainer(),
             BackdropSelector(),
+            CakeSelector(),
           ],
         ),
       ),

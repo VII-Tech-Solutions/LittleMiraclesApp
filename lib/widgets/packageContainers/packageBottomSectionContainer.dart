@@ -57,12 +57,14 @@ class PackageBottomSectionContainer extends StatelessWidget {
           FilledButtonWidget(
             customWidth: 128,
             onPress: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => BookingSessionPage(package),
-                ),
-              );
+              if (package?.type == 1 || package?.type == 3) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BookingSessionPage(package),
+                  ),
+                );
+              }
             },
             type: ButtonType.generalBlue,
             title: btnLabel ?? 'Book Now',

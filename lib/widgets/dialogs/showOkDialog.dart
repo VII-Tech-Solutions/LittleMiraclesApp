@@ -9,7 +9,7 @@ class ShowOkDialog {
   final bool popToFirst;
 
   ShowOkDialog(this.context, this.message,
-      {this.title = 'Error', this.popToFirst = false}) {
+      {this.title = 'Oops', this.popToFirst = false}) {
     Theme.of(context).platform == TargetPlatform.iOS
         ? showCupertinoDialog(
             context: context,

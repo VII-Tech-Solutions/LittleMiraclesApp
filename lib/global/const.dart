@@ -37,6 +37,7 @@ class Tables {
   static const String paymentMethods = 'paymentMethods';
   static const String backdropCategories = 'backdropCategories';
   static const String cakeCategories = 'cakeCategories';
+  static const String familyMembers = 'familyMembers';
 }
 
 class SectionType {

@@ -22,7 +22,7 @@ class PackageDetailsPage extends StatelessWidget {
     List<Widget> _list = [
       PackageDetailsSectionContainer(),
       PackageLocationSectionContainer(),
-      // PackageImageSectionContainer(), //TODO:: uncomment
+      PackageImageSectionContainer(),
       PackageRatingSectionContainer(),
     ];
     return Scaffold(

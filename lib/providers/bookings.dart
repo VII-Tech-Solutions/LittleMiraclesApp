@@ -27,8 +27,8 @@ class Bookings with ChangeNotifier {
   List<Benefit> _benefits = [];
   List<Media> _packageMedia = [];
   List<Review> _packageReviews = [];
-  List<Cake> _selectedCakes = [];
-  List<Backdrop> _selectedBackdrops = [];
+  List<int> _selectedCakes = [];
+  List<int> _selectedBackdrops = [];
 
   Bookings(
     this.authToken,
@@ -56,12 +56,22 @@ class Bookings with ChangeNotifier {
     return [..._packageReviews];
   }
 
-  List<Backdrop> get selectedBackdrops {
+  List<int> get selectedBackdrops {
     return [..._selectedBackdrops];
   }
 
-  List<Cake> get selectedCakes {
+  List<int> get selectedCakes {
     return [..._selectedCakes];
+  }
+
+  void assignSelectedBackdrops(List<int> selectedList) {
+    _selectedBackdrops = selectedList;
+    notifyListeners();
+  }
+
+  void assignSelectedCakes(List<int> selectedList) {
+    _selectedCakes = selectedList;
+    notifyListeners();
   }
 
   Future<ApiResponse> fetchAndSetPackageDetails(int id) async {

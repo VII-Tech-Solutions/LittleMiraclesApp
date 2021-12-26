@@ -14,6 +14,7 @@ import '../models/ssoData.dart';
 import '../models/user.dart';
 import '../models/question.dart';
 import '../models/apiResponse.dart';
+import '../models/familyMember.dart';
 //PROVIDERS
 //WIDGETS
 //PAGES
@@ -30,6 +31,7 @@ class Auth with ChangeNotifier {
   ];
   String? _token;
   User? _user;
+  List<FamilyMember> _familyMembers = [];
   List<Question> _questions = [];
   bool? _isFirstOpen;
   String? _expiryDate;
@@ -57,6 +59,10 @@ class Auth with ChangeNotifier {
 
   User? get user {
     return _user;
+  }
+
+  List<FamilyMember> get familyMembers {
+    return [..._familyMembers];
   }
 
   List<Question>? get questions {
@@ -107,6 +113,7 @@ class Auth with ChangeNotifier {
 
   Future<void> getToken() async {
     final prefs = await SharedPreferences.getInstance();
+    final familyMembersDataList = await DBHelper.getData(Tables.familyMembers);
     if (prefs.containsKey('userData') == true) {
       if (prefs.getString('userData') != null) {
         final extractedUserData = json.decode(prefs.getString('userData') ?? "")
@@ -134,43 +141,27 @@ class Auth with ChangeNotifier {
           username: extractedUserData['username'] as String?,
           provider: extractedUserData['provider'] as String?,
         );
+
+        if (familyMembersDataList.isNotEmpty) {
+          _familyMembers = familyMembersDataList
+              .map(
+                (item) => FamilyMember(
+                  id: item['id'],
+                  familyId: item['familyId'],
+                  firstName: item['firstName'],
+                  lastName: item['lastName'],
+                  gender: item['gender'],
+                  birthDate: item['birthDate'],
+                  relationship: item['relationship'],
+                  status: item['status'],
+                  updatedAt: item['updated_at'],
+                  deletedAt: item['deleted_at'],
+                ),
+              )
+              .toList();
+        }
         notifyListeners();
       }
-    }
-  }
-
-  Future<String?> login(String email, String password) async {
-    final url = Uri.parse('$apiLink/login');
-
-    try {
-      final response = await http.post(url, headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      }, body: {
-        'email': email,
-        'password': password,
-        'type': 'token',
-      }).timeout(Duration(seconds: Timeout.value));
-
-      final result = json.decode(response.body);
-
-      if (response.statusCode != 200) {
-        if ((response.statusCode >= 400 && response.statusCode <= 499)) {
-          return result['message'] ?? ErrorMessages.somethingWrong;
-        } else {
-          return ErrorMessages.somethingWrong;
-        }
-      } else {
-        _token = result['data']['token'];
-      }
-
-      notifyListeners();
-      return null;
-    } on TimeoutException catch (e) {
-      print('Exception Timeout:: $e');
-      return ErrorMessages.somethingWrong;
-    } catch (e) {
-      print('catch error:: $e');
-      return ErrorMessages.somethingWrong;
     }
   }
 
@@ -210,6 +201,7 @@ class Auth with ChangeNotifier {
     final url = Uri.parse('$apiLink/register');
 
     try {
+      final prefs = await SharedPreferences.getInstance();
       var response = await http
           .post(
             url,
@@ -223,6 +215,70 @@ class Auth with ChangeNotifier {
           )
           .timeout(Duration(seconds: Timeout.value));
 
+      final result = json.decode(response.body);
+
+      print(response.statusCode);
+      print(response.body);
+
+      if (response.statusCode != 200) {
+        if ((response.statusCode >= 400 && response.statusCode <= 499) ||
+            response.statusCode == 503) {
+          return ApiResponse(
+              statusCode: response.statusCode,
+              message: result['message'].toString());
+        } else {
+          return null;
+        }
+      }
+
+      User user = User.fromJson(result['data']['user']);
+      FamilyMember partner = FamilyMember.fromJson(result['data']['partner']);
+      final childrenJson = result['data']['children'] as List;
+      _user = user;
+
+      prefs.setString(
+          'userData',
+          json.encode({
+            'token': _token,
+            'expiryDate': _expiryDate,
+            'firstOpen': false,
+            'userId': user.id,
+            'firstName': user.firstName,
+            'lastName': user.lastName,
+            'phoneNumber': user.phoneNumber,
+            'email': user.email,
+            'updatedAt': user.updatedAt,
+            'deletedAt': user.deletedAt,
+            'countryCode': user.countryCode,
+            'gender': user.gender,
+            'birthDate': user.birthDate,
+            'avatar': user.avatar,
+            'pastExperience': user.pastExperience,
+            'familyId': user.familyId,
+            'status': user.status,
+            'providerId': user.providerId,
+            'username': user.username,
+            'provider': user.provider,
+          }));
+
+      if (partner.id != null) {
+        _familyMembers.add(partner);
+      }
+
+      _familyMembers = [
+        ..._familyMembers,
+        ...childrenJson.map((json) => FamilyMember.fromJson(json)).toList()
+      ];
+
+      _familyMembers.forEach((item) {
+        if (item.deletedAt != null) {
+          DBHelper.deleteById(Tables.familyMembers, item.id ?? -1);
+        } else {
+          DBHelper.insert(Tables.familyMembers, item.toMap());
+        }
+      });
+
+      notifyListeners();
       return (ApiResponse(
         statusCode: response.statusCode,
         message: json.decode(response.body)['message'],
@@ -273,10 +329,7 @@ class Auth with ChangeNotifier {
     }
   }
 
-  Future<ApiResponse?> socialLogin(
-    dynamic body,
-    String provider,
-  ) async {
+  Future<ApiResponse?> socialLogin(dynamic body, String provider) async {
     final url = Uri.parse('$apiLink/login');
 
     try {
@@ -295,6 +348,9 @@ class Auth with ChangeNotifier {
 
       final result = json.decode(response.body);
 
+      print(response.statusCode);
+      print(response.body);
+
       if (response.statusCode != 200) {
         if ((response.statusCode >= 400 && response.statusCode <= 499) ||
             response.statusCode == 503) {
@@ -309,6 +365,8 @@ class Auth with ChangeNotifier {
       _token = result['data']['token'];
       _expiryDate = result['data']['expires'];
       User user = User.fromJson(result['data']['user']);
+      FamilyMember partner = FamilyMember.fromJson(result['data']['partner']);
+      final childrenJson = result['data']['children'] as List;
       _user = user;
 
       prefs.setString(
@@ -335,6 +393,23 @@ class Auth with ChangeNotifier {
             'username': user.username,
             'provider': user.provider,
           }));
+
+      if (partner.id != null) {
+        _familyMembers.add(partner);
+      }
+
+      _familyMembers = [
+        ..._familyMembers,
+        ...childrenJson.map((json) => FamilyMember.fromJson(json)).toList()
+      ];
+
+      _familyMembers.forEach((item) {
+        if (item.deletedAt != null) {
+          DBHelper.deleteById(Tables.familyMembers, item.id ?? -1);
+        } else {
+          DBHelper.insert(Tables.familyMembers, item.toMap());
+        }
+      });
 
       notifyListeners();
       return ApiResponse(statusCode: response.statusCode, message: '');

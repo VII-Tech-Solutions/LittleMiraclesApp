@@ -13,15 +13,15 @@ import '../../providers/bookings.dart';
 import '../../widgets/form/formTextField.dart';
 import '../general/cachedImageWidget.dart';
 //PAGES
-import '../../pages/booking/backdropPage.dart';
+import '../../pages/booking/cakePage.dart';
 
-class BackdropSelector extends StatelessWidget {
-  const BackdropSelector();
+class CakeSelector extends StatelessWidget {
+  const CakeSelector();
 
   @override
   Widget build(BuildContext context) {
     final bookingsProvider = context.watch<Bookings>();
-    return bookingsProvider.selectedBackdrops.length > 0
+    return bookingsProvider.selectedCakes.length > 0
         ? Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: Column(
@@ -29,7 +29,7 @@ class BackdropSelector extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TitleText(
-                  title: 'Backdrop',
+                  title: 'Cake',
                   customPadding: const EdgeInsets.only(bottom: 10),
                 ),
                 Container(
@@ -50,8 +50,8 @@ class BackdropSelector extends StatelessWidget {
                         child: Column(
                           children: context
                               .watch<AppData>()
-                              .getBackdropsByIds(
-                                  bookingsProvider.selectedBackdrops)
+                              .getCakesByIds(
+                                  bookingsProvider.selectedCakes)
                               .map(
                                 (e) => Padding(
                                   padding: const EdgeInsets.symmetric(vertical: 5),
@@ -88,7 +88,7 @@ class BackdropSelector extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => BackdropPage(),
+                              builder: (context) => CakePage(),
                             ),
                           );
                         },
@@ -109,10 +109,10 @@ class BackdropSelector extends StatelessWidget {
         : FormTextFieldWidget(
             controller: TextEditingController(),
             customMargin:
-                const EdgeInsets.symmetric(horizontal: 0.0, vertical: 20),
-            title: bookingsProvider.package?.backdropAllowed == 1
-                ? 'Select Backdrop'
-                : 'Select ${bookingsProvider.package?.backdropAllowed} Backdrops',
+                const EdgeInsets.symmetric(horizontal: 0.0, vertical: 0),
+            title: bookingsProvider.package?.cakeAllowed == 1
+                ? 'Select Cake'
+                : 'Select ${bookingsProvider.package?.cakeAllowed} Cakes',
             hintStyle: TextStyle(
               color: AppColors.black45515D,
               fontSize: 12,
@@ -127,7 +127,7 @@ class BackdropSelector extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => BackdropPage(),
+                  builder: (context) => CakePage(),
                 ),
               );
             },
