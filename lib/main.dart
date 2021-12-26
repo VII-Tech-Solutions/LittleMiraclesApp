@@ -51,8 +51,8 @@ class MyApp extends StatelessWidget {
             previousAppData == null ? [] : previousAppData.backdropCategories,
             previousAppData == null ? [] : previousAppData.cakeCategories,
           ),
-          create: (context) =>
-              AppData("", [], [], [], [], [], [], [], [], [], [], [], [], [], []),
+          create: (context) => AppData(
+              "", [], [], [], [], [], [], [], [], [], [], [], [], [], []),
         ),
         ChangeNotifierProxyProvider<Auth, Bookings>(
           update: (context, auth, previousBookings) => Bookings(
@@ -63,8 +63,12 @@ class MyApp extends StatelessWidget {
             previousBookings == null ? [] : previousBookings.packageReviews,
             previousBookings == null ? [] : previousBookings.selectedBackdrops,
             previousBookings == null ? [] : previousBookings.selectedCakes,
+            previousBookings == null ? '' : previousBookings.customBackdrop,
+            previousBookings == null ? '' : previousBookings.customCake,
+            previousBookings == null ? {} : previousBookings.bookingsBody,
           ),
-          create: (context) => Bookings('', null, [], [], [], [], []),
+          create: (context) =>
+              Bookings('', null, [], [], [], [], [], '', '', {}),
         ),
       ],
       child: MaterialApp(

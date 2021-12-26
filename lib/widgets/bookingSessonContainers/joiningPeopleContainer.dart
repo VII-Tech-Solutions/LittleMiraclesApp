@@ -7,6 +7,7 @@ import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
 import '../../providers/auth.dart';
+import '../../providers/bookings.dart';
 //WIDGETS
 import '../../widgets/texts/titleText.dart';
 import '../../widgets/bookingSessonContainers/labeledCheckbox.dart';
@@ -20,6 +21,7 @@ class JoiningPeopleContainer extends StatefulWidget {
 }
 
 class _JoiningPeopleContainerState extends State<JoiningPeopleContainer> {
+  int _userSelected = 0;
   List<int?> _selectedPeople = [];
 
   void _selectPerson(int? id) {
@@ -30,6 +32,7 @@ class _JoiningPeopleContainerState extends State<JoiningPeopleContainer> {
         _selectedPeople.add(id);
       }
     });
+    context.read<Bookings>().amendBookingBody({'people': _selectedPeople});
   }
 
   @override
@@ -78,7 +81,7 @@ class _JoiningPeopleContainerState extends State<JoiningPeopleContainer> {
                           ),
                         ),
                         Text(
-                          '${_selectedPeople.length}',
+                          '${_selectedPeople.length + _userSelected}',
                           style: TextStyle(
                             color: AppColors.black45515D,
                             fontSize: 18,
@@ -97,12 +100,27 @@ class _JoiningPeopleContainerState extends State<JoiningPeopleContainer> {
                 margin: const EdgeInsets.only(top: 20, bottom: 9),
               ),
               LabeledCheckbox(
-                id: user?.id,
+                id: 0,
                 label: '${user?.firstName} ${user?.lastName}',
                 isUser: true,
-                isSelected: _selectedPeople.contains(user?.id),
+                isSelected: _userSelected == 1 ? true : false,
                 onTapCallback: (val) {
-                  _selectPerson(val);
+                  setState(() {
+                    if (_userSelected == 1) {
+                      _userSelected = 0;
+                      context
+                          .read<Bookings>()
+                          .amendBookingBody({'include_me': false});
+                    } else {
+                      _userSelected = 1;
+                      context
+                          .read<Bookings>()
+                          .amendBookingBody({'include_me': true});
+                    }
+                    context
+                        .read<Bookings>()
+                        .amendBookingBody({'people': _selectedPeople});
+                  });
                 },
               ),
               Column(

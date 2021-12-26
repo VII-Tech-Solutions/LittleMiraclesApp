@@ -29,7 +29,6 @@ class Bookings with ChangeNotifier {
   List<Review> _packageReviews = [];
 
   //bookings details
-
   Map _bookingBody = {};
   List<int> _selectedCakes = [];
   String _customCake = '';
@@ -44,6 +43,9 @@ class Bookings with ChangeNotifier {
     this._packageReviews,
     this._selectedBackdrops,
     this._selectedCakes,
+    this._customBackrop,
+    this._customCake,
+    this._bookingBody,
   );
 
   Package? get package {
@@ -70,15 +72,45 @@ class Bookings with ChangeNotifier {
     return [..._selectedCakes];
   }
 
+  String get customBackdrop {
+    return _customBackrop;
+  }
+
+  String get customCake {
+    return _customCake;
+  }
+
+  Map get bookingsBody {
+    return _bookingBody;
+  }
+
+  Future<void> amendBookingBody(Map data) async {
+    _bookingBody.addAll({'package_id': _package?.id});
+
+    _bookingBody.addAll(data);
+
+    print(jsonEncode(_bookingBody));
+  }
+
   void assignSelectedBackdrops(List<int> selectedList, String val) {
     _selectedBackdrops = selectedList;
     _customBackrop = val;
+
+    amendBookingBody({
+      'backdrops': _selectedBackdrops,
+      'custom_backdrop': _customBackrop,
+    });
     notifyListeners();
   }
 
   void assignSelectedCakes(List<int> selectedList, String val) {
     _selectedCakes = selectedList;
     _customCake = val;
+
+    amendBookingBody({
+      'cakes': _selectedCakes,
+      'custom_cake': _customCake,
+    });
     notifyListeners();
   }
 

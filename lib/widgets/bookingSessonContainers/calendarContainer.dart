@@ -1,12 +1,14 @@
 //PACKAGES
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:provider/provider.dart';
 //EXTENSIONS
 import '../../extensions/dateTimeExtension.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
-//PROVIDERS
+//
+import '../../providers/bookings.dart';
 //WIDGETS
 import '../../widgets/texts/titleText.dart';
 //PAGES
@@ -23,7 +25,9 @@ class _CalendarContainerState extends State<CalendarContainer> {
 
   @override
   void initState() {
-    
+    context
+        .read<Bookings>()
+        .amendBookingBody({'date': selectedDay.toyyyyMMdd()});
     super.initState();
   }
 
@@ -72,6 +76,9 @@ class _CalendarContainerState extends State<CalendarContainer> {
             onDaySelected: (DateTime selectDay, DateTime focusDay) {
               setState(() {
                 selectedDay = selectDay;
+                context
+                    .read<Bookings>()
+                    .amendBookingBody({'date': selectedDay.toyyyyMMdd()});
               });
             },
             selectedDayPredicate: (day) {

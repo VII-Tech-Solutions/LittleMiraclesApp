@@ -14,8 +14,8 @@ import '../../widgets/paymentContainer/paymentBottomContainer.dart';
 import '../../widgets/paymentContainer/paymentAgreement.dart';
 //PAGES
 
-class PaymentPage extends StatelessWidget {
-  const PaymentPage({Key? key}) : super(key: key);
+class ReviewAndPayPage extends StatelessWidget {
+  const ReviewAndPayPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,23 +25,27 @@ class PaymentPage extends StatelessWidget {
         weight: FontWeight.w800,
       ),
       body: SingleChildScrollView(
-        child: Container(
-          child: Column(
-            children: [
-              PaymentDetailsContainer(),
-              Divider(
-                color: AppColors.greyE8E9EB,
-                thickness: 1,
-              ),
-              PromoCodeContainer(),
-              Divider(
-                color: AppColors.greyE8E9EB,
-                thickness: 1,
-              ),
-              PaymentContainer(),
-              PaymentAgreement(),
-            ],
-          ),
+        padding: EdgeInsets.only(top: 16, bottom: 30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            PaymentDetailsContainer(),
+            Container(
+              height: 1,
+              width: double.infinity,
+              color: AppColors.greyE8E9EB,
+              margin: const EdgeInsets.only(top: 20),
+            ),
+            PromoCodeContainer(),
+            Container(
+              height: 1,
+              width: double.infinity,
+              color: AppColors.greyE8E9EB,
+              // margin: const EdgeInsets.only(top: 20),
+            ),
+            PaymentContainer(),
+            PaymentAgreement(),
+          ],
         ),
       ),
       bottomNavigationBar: PaymentBottomContainer(),

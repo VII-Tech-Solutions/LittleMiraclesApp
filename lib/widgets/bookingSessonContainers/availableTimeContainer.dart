@@ -1,10 +1,12 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 //EXTENSIONS
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
+import '../../providers/bookings.dart';
 //WIDGETS
 import '../../widgets/texts/titleText.dart';
 //PAGES
@@ -71,6 +73,9 @@ class _AvailableTimeContainerState extends State<AvailableTimeContainer> {
                 onTap: () {
                   setState(() {
                     selectedTime = availableTimes[index];
+                    context
+                        .read<Bookings>()
+                        .amendBookingBody({'time': selectedTime});
                   });
                 },
                 child: Container(
