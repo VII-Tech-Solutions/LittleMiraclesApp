@@ -22,6 +22,12 @@ class _CalendarContainerState extends State<CalendarContainer> {
   DateTime selectedDay = DateTime.now();
 
   @override
+  void initState() {
+    
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

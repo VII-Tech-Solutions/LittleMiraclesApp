@@ -143,7 +143,6 @@ class Auth with ChangeNotifier {
         );
 
         if (familyMembersDataList.isNotEmpty) {
-          print('local db family: $familyMembersDataList');
           _familyMembers = familyMembersDataList
               .map(
                 (item) => FamilyMember(
@@ -161,7 +160,6 @@ class Auth with ChangeNotifier {
               )
               .toList();
         }
-        print(_familyMembers);
         notifyListeners();
       }
     }
@@ -280,8 +278,6 @@ class Auth with ChangeNotifier {
         }
       });
 
-      print('register $_familyMembers');
-
       notifyListeners();
       return (ApiResponse(
         statusCode: response.statusCode,
@@ -369,7 +365,15 @@ class Auth with ChangeNotifier {
       _token = result['data']['token'];
       _expiryDate = result['data']['expires'];
       User user = User.fromJson(result['data']['user']);
-      FamilyMember partner = FamilyMember.fromJson(result['data']['partner']);
+
+      //TODO:: this is just a temporary solution, until the API is fixed.
+      if (user.status == 1) {
+        FamilyMember partner = FamilyMember.fromJson(result['data']['partner']);
+        if (partner.id != null) {
+          _familyMembers.add(partner);
+        }
+      }
+
       final childrenJson = result['data']['children'] as List;
       _user = user;
 
@@ -398,16 +402,10 @@ class Auth with ChangeNotifier {
             'provider': user.provider,
           }));
 
-      if (partner.id != null) {
-        _familyMembers.add(partner);
-      }
-
       _familyMembers = [
         ..._familyMembers,
         ...childrenJson.map((json) => FamilyMember.fromJson(json)).toList()
       ];
-
-      print('social login: $_familyMembers');
 
       _familyMembers.forEach((item) {
         if (item.deletedAt != null) {

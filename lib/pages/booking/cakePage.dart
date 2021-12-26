@@ -6,14 +6,13 @@ import 'package:provider/provider.dart';
 import '../../global/colors.dart';
 //MODELS
 import '../../models/question.dart';
-import '../../models/cake.dart';
 //PROVIDERS
 import '../../providers/appData.dart';
 import '../../providers/bookings.dart';
 //WIDGETS
 import '../../widgets/appbars/appBarWithBack.dart';
 import '../../widgets/bookingSessonContainers/selectionRow.dart';
-import 'package:LMP0001_LittleMiraclesApp/widgets/buttons/filledButtonWidget.dart';
+import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/form/textQuestionWidget.dart';
 //PAGES
 
@@ -26,7 +25,7 @@ class CakePage extends StatefulWidget {
 
 class _CakePageState extends State<CakePage> {
   List<int> _selectedItems = [];
-  // List<Cake> _selectedcakes = [];
+  bool _isClearSelected = false;
   String _customCake = '';
 
   @override
@@ -73,8 +72,31 @@ class _CakePageState extends State<CakePage> {
         weight: FontWeight.w800,
       ),
       body: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 30),
+        padding: const EdgeInsets.fromLTRB(16, 15, 16, 30),
         children: [
+          SelectionRow(
+            () {
+              setState(() {
+                _selectedItems.clear();
+                _isClearSelected = true;
+              });
+            },
+            '',
+            Container(
+              decoration: BoxDecoration(
+                color: AppColors.greyE8E9EB,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(
+                Icons.do_not_disturb,
+                size: 48,
+                color: AppColors.black45515D,
+              ),
+            ),
+            'No Cake',
+            _isClearSelected,
+            bookingsProvider.package!.cakeAllowed!,
+          ),
           ListView.builder(
             primary: false,
             shrinkWrap: true,
@@ -92,26 +114,20 @@ class _CakePageState extends State<CakePage> {
                         .map(
                           (item) => SelectionRow(() {
                             setState(() {
+                              _isClearSelected = false;
                               if (_selectedItems.contains(item.id)) {
                                 _selectedItems.removeWhere(
                                     (element) => element == item.id);
-                                // _selectedcakes.removeWhere(
-                                //     (element) => element.id == item.id);
                               } else {
                                 if (allowedSelection == 1) {
                                   _selectedItems.clear();
-                                  // _selectedcakes.clear();
                                   _selectedItems.add(item.id!);
-                                  // _selectedcakes.add(item);
                                 } else if (allowedSelection > 1 &&
                                     allowedSelection == _selectedItems.length) {
                                   _selectedItems.removeAt(0);
-                                  // _selectedcakes.removeAt(0);
                                   _selectedItems.add(item.id!);
-                                  // _selectedcakes.add(item);
                                 } else {
                                   _selectedItems.add(item.id!);
-                                  // _selectedcakes.add(item);
                                 }
                               }
                             });
@@ -159,10 +175,8 @@ class _CakePageState extends State<CakePage> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: FilledButtonWidget(
           onPress: () {
-            if (_selectedItems.isNotEmpty) {
-              bookingsProvider.assignSelectedCakes(_selectedItems, _customCake);
-              Navigator.pop(context);
-            } else {}
+            bookingsProvider.assignSelectedCakes(_selectedItems, _customCake);
+            Navigator.pop(context);
           },
           title: 'Confirm Cake',
           type: ButtonType.generalBlue,
