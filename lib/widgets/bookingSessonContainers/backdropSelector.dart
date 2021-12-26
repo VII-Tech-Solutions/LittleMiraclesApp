@@ -93,7 +93,7 @@ class BackdropSelector extends StatelessWidget {
                           );
                         },
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 5.0),
+                          padding: const EdgeInsets.only(top: 13.0),
                           child: Icon(
                             Icons.edit,
                             size: 32,

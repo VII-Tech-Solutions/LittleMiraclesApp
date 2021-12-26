@@ -1,16 +1,17 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 //EXTENSIONS
 //GLOBAL
 //MODELS
 import '../../models/package.dart';
 //PROVIDERS
+import '../../providers/bookings.dart';
 //WIDGETS
 import '../../widgets/appbars/appBarWithBack.dart';
 import '../../widgets/bookingSessonContainers/availableTimeContainer.dart';
 import '../../widgets/bookingSessonContainers/joiningPeopleContainer.dart';
 import '../../widgets/packageContainers/packageBottomSectionContainer.dart';
-import '../../widgets/bookingSessonContainers/bottomContainer.dart';
 import '../../widgets/bookingSessonContainers/calendarContainer.dart';
 import '../../widgets/bookingSessonContainers/backdropSelector.dart';
 import '../../widgets/bookingSessonContainers/cakeSelector.dart';
@@ -46,7 +47,9 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
       ),
       bottomNavigationBar: PackageBottomSectionContainer(
         btnLabel: 'Next',
-        //TODO: change nav
+        onTap: () {
+          final bookingsProvider = context.read<Bookings>();
+        },
       ),
     );
   }

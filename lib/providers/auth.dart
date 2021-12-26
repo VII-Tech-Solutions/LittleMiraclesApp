@@ -143,6 +143,7 @@ class Auth with ChangeNotifier {
         );
 
         if (familyMembersDataList.isNotEmpty) {
+          print('local db family: $familyMembersDataList');
           _familyMembers = familyMembersDataList
               .map(
                 (item) => FamilyMember(
@@ -160,6 +161,7 @@ class Auth with ChangeNotifier {
               )
               .toList();
         }
+        print(_familyMembers);
         notifyListeners();
       }
     }
@@ -277,6 +279,8 @@ class Auth with ChangeNotifier {
           DBHelper.insert(Tables.familyMembers, item.toMap());
         }
       });
+
+      print('register $_familyMembers');
 
       notifyListeners();
       return (ApiResponse(
@@ -402,6 +406,8 @@ class Auth with ChangeNotifier {
         ..._familyMembers,
         ...childrenJson.map((json) => FamilyMember.fromJson(json)).toList()
       ];
+
+      print('social login: $_familyMembers');
 
       _familyMembers.forEach((item) {
         if (item.deletedAt != null) {

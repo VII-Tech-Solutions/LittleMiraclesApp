@@ -40,11 +40,11 @@ class FamilyMember {
   factory FamilyMember.fromJson(dynamic json) {
     return FamilyMember(
       id: json['id'] as int?,
-      familyId: json['familyId'] as int?,
-      firstName: json['firstName'] as String?,
-      lastName: json['lastName'] as String?,
+      familyId: json['family_id'] as int?,
+      firstName: json['first_name'] as String?,
+      lastName: json['last_name'] as String?,
       gender: json['gender'] as int?,
-      birthDate: json['birthDate'] as String?,
+      birthDate: json['birth_date'] as String?,
       relationship: json['relationship'] as int?,
       status: json['status'] as int?,
       updatedAt: json['updated_at'] as String?,
