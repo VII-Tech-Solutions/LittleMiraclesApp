@@ -1,7 +1,5 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/widgets/buttons/filledButtonWidget.dart';
 import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/showOkDialog.dart';
-import 'package:LMP0001_LittleMiraclesApp/widgets/texts/titleText.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 //EXTENSIONS
@@ -9,15 +7,13 @@ import 'package:provider/provider.dart';
 import '../../global/colors.dart';
 //MODELS
 import '../../models/question.dart';
-import '../../models/backdrop.dart';
 //PROVIDERS
 import '../../providers/appData.dart';
 import '../../providers/bookings.dart';
 //WIDGETS
 import '../../widgets/appbars/appBarWithBack.dart';
 import '../../widgets/bookingSessonContainers/selectionRow.dart';
-import '../../widgets/general/cachedImageWidget.dart';
-
+import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/form/textQuestionWidget.dart';
 //PAGES
 
@@ -30,7 +26,6 @@ class BackdropPage extends StatefulWidget {
 
 class _BackdropPageState extends State<BackdropPage> {
   List<int> _selectedItems = [];
-  // List<Backdrop> _selectedbackdrops = [];
   String _customBackdrop = '';
 
   @override
@@ -100,23 +95,16 @@ class _BackdropPageState extends State<BackdropPage> {
                               if (_selectedItems.contains(item.id)) {
                                 _selectedItems.removeWhere(
                                     (element) => element == item.id);
-                                // _selectedbackdrops.removeWhere(
-                                //     (element) => element.id == item.id);
                               } else {
                                 if (allowedSelection == 1) {
                                   _selectedItems.clear();
-                                  // _selectedbackdrops.clear();
                                   _selectedItems.add(item.id!);
-                                  // _selectedbackdrops.add(item);
                                 } else if (allowedSelection > 1 &&
                                     allowedSelection == _selectedItems.length) {
                                   _selectedItems.removeAt(0);
-                                  // _selectedbackdrops.removeAt(0);
                                   _selectedItems.add(item.id!);
-                                  // _selectedbackdrops.add(item);
                                 } else {
                                   _selectedItems.add(item.id!);
-                                  // _selectedbackdrops.add(item);
                                 }
                               }
                             });
@@ -165,9 +153,12 @@ class _BackdropPageState extends State<BackdropPage> {
         child: FilledButtonWidget(
           onPress: () {
             if (_selectedItems.isNotEmpty) {
-              bookingsProvider.assignSelectedBackdrops(_selectedItems, _customBackdrop);
+              bookingsProvider.assignSelectedBackdrops(
+                  _selectedItems, _customBackdrop);
               Navigator.pop(context);
-            } else {}
+            } else {
+              ShowOkDialog(context, 'Please select a backrop to proceed');
+            }
           },
           title: 'Confirm Backdrop',
           type: ButtonType.generalBlue,

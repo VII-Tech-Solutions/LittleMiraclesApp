@@ -49,6 +49,7 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
         btnLabel: 'Next',
         onTap: () {
           final bookingsProvider = context.read<Bookings>();
+          
         },
       ),
     );

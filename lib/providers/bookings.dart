@@ -27,6 +27,10 @@ class Bookings with ChangeNotifier {
   List<Benefit> _benefits = [];
   List<Media> _packageMedia = [];
   List<Review> _packageReviews = [];
+
+  //bookings details
+
+  Map _bookingBody = {};
   List<int> _selectedCakes = [];
   String _customCake = '';
   List<int> _selectedBackdrops = [];
