@@ -15,28 +15,56 @@ class FreeGiftContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TitleText(
           title: 'A free gift awaits…',
           type: TitleTextType.mainHomeTitle,
+          customPadding: const EdgeInsets.symmetric(horizontal: 16.0),
         ),
-        Text(
-          'Complete 5 sessions and get a free gift',
-          maxLines: 1,
-          style: TextStyle(
-            color: AppColors.black45515D,
-            fontWeight: FontWeight.w800,
-            fontSize: 14.0,
+        TitleText(
+          title: 'Complete 5 sessions and get a free gift',
+          type: TitleTextType.secondaryTitle,
+          customPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CircleAvatar(
+                backgroundColor: AppColors.yellowFFB400,
+                radius: 30.5,
+                child: CircleAvatar(
+                  backgroundImage: AssetImage('assets/images/logo.png'),
+                  backgroundColor: Colors.white,
+                  radius: 28,
+                ),
+              ),
+              CircleAvatar(
+                backgroundColor: AppColors.yellowFFB400,
+                radius: 30.5,
+                child: CircleAvatar(
+                  backgroundImage: AssetImage('assets/images/logo.png'),
+                  backgroundColor: Colors.white,
+                  radius: 28,
+                ),
+              ),
+              CircleAvatar(
+                radius: 30.5,
+                backgroundColor: AppColors.greyE8E9EB,
+              ),
+              CircleAvatar(
+                radius: 30.5,
+                backgroundColor: AppColors.greyE8E9EB,
+              ),
+              CircleAvatar(
+                radius: 30.5,
+                backgroundColor: AppColors.greyE8E9EB,
+              ),
+            ],
           ),
-        ),
-        Row(
-          children: [
-            CircleAvatar(
-              radius: 50,
-              backgroundImage: AssetImage('assets/images/logo.png'),
-              backgroundColor: AppColors.greyE8E9EB,
-            )
-          ],
         )
       ],
     );

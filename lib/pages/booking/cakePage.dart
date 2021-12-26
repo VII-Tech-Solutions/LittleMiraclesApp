@@ -68,7 +68,7 @@ class _CakePageState extends State<CakePage> {
 
     return Scaffold(
       appBar: AppBarWithBack(
-        'Select Cake',
+        title: 'Select Cake',
         weight: FontWeight.w800,
       ),
       body: ListView(

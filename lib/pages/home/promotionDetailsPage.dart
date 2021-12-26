@@ -21,7 +21,7 @@ class PromotionDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWithBack('Promotion'),
+      appBar: AppBarWithBack(title: 'Promotion'),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.fromLTRB(16.0, 22.0, 16.0, 10.0),

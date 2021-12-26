@@ -21,7 +21,7 @@ class PaymentPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWithBack(
-        'Review & Pay',
+        title: 'Review & Pay',
         weight: FontWeight.w800,
       ),
       body: SingleChildScrollView(

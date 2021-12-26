@@ -30,7 +30,7 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWithBack(
-        'Reserve your session',
+        title: 'Reserve your session',
         weight: FontWeight.w800,
       ),
       body: SingleChildScrollView(
@@ -49,7 +49,6 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
         btnLabel: 'Next',
         onTap: () {
           final bookingsProvider = context.read<Bookings>();
-          
         },
       ),
     );
