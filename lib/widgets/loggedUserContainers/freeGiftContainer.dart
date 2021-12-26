@@ -1,4 +1,5 @@
 //PACKAGES
+import 'package:LMP0001_LittleMiraclesApp/widgets/buttons/filledButtonWidget.dart';
 import 'package:flutter/material.dart';
 //EXTENSIONS
 //GLOBAL
@@ -65,7 +66,13 @@ class FreeGiftContainer extends StatelessWidget {
               ),
             ],
           ),
-        )
+        ),
+        FilledButtonWidget(
+          onPress: () {},
+          type: ButtonType.outlinedYellow,
+          title: 'Claim free gift 🎁',
+          margin: EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
+        ),
       ],
     );
   }
