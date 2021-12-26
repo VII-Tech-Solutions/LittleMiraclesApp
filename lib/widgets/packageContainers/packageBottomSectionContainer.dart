@@ -9,12 +9,13 @@ import '../../providers/bookings.dart';
 //WIDGETS
 import '../../widgets/buttons/filledButtonWidget.dart';
 //PAGES
-import '../../pages/booking/bookingSessionPage.dart';
 
 class PackageBottomSectionContainer extends StatelessWidget {
   final String? btnLabel;
+  final VoidCallback? onTap;
   const PackageBottomSectionContainer({
     this.btnLabel = 'Book Now',
+    this.onTap,
   });
 
   @override
@@ -56,16 +57,7 @@ class PackageBottomSectionContainer extends StatelessWidget {
           ),
           FilledButtonWidget(
             customWidth: 128,
-            onPress: () {
-              if (package?.type == 1 || package?.type == 3) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BookingSessionPage(package),
-                  ),
-                );
-              }
-            },
+            onPress: onTap,
             type: ButtonType.generalBlue,
             title: btnLabel ?? 'Book Now',
           ),

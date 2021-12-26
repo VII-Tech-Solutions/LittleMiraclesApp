@@ -23,7 +23,6 @@ class _JoiningPeopleContainerState extends State<JoiningPeopleContainer> {
   List<int?> _selectedPeople = [];
 
   void _selectPerson(int? id) {
-    print(_selectedPeople.length);
     setState(() {
       if (_selectedPeople.contains(id)) {
         _selectedPeople.removeWhere((element) => element == id);
@@ -31,8 +30,6 @@ class _JoiningPeopleContainerState extends State<JoiningPeopleContainer> {
         _selectedPeople.add(id);
       }
     });
-
-    print(_selectedPeople.length);
   }
 
   @override
@@ -108,7 +105,23 @@ class _JoiningPeopleContainerState extends State<JoiningPeopleContainer> {
                   _selectPerson(val);
                 },
               ),
-              // LabeledCheckbox(),
+              Column(
+                children: context
+                    .watch<Auth>()
+                    .familyMembers
+                    .map(
+                      (e) => LabeledCheckbox(
+                        id: e.id,
+                        label: '${e.firstName} ${e.lastName}',
+                        isUser: false,
+                        isSelected: _selectedPeople.contains(e.id),
+                        onTapCallback: (val) {
+                          _selectPerson(val);
+                        },
+                      ),
+                    )
+                    .toList(),
+              )
             ],
           ),
         ),

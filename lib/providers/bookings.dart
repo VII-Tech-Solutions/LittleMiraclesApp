@@ -28,7 +28,9 @@ class Bookings with ChangeNotifier {
   List<Media> _packageMedia = [];
   List<Review> _packageReviews = [];
   List<int> _selectedCakes = [];
+  String _customCake = '';
   List<int> _selectedBackdrops = [];
+  String _customBackrop = '';
 
   Bookings(
     this.authToken,
@@ -64,13 +66,15 @@ class Bookings with ChangeNotifier {
     return [..._selectedCakes];
   }
 
-  void assignSelectedBackdrops(List<int> selectedList) {
+  void assignSelectedBackdrops(List<int> selectedList, String val) {
     _selectedBackdrops = selectedList;
+    _customBackrop = val;
     notifyListeners();
   }
 
-  void assignSelectedCakes(List<int> selectedList) {
+  void assignSelectedCakes(List<int> selectedList, String val) {
     _selectedCakes = selectedList;
+    _customCake = val;
     notifyListeners();
   }
 

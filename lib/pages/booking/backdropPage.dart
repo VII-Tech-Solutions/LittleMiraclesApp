@@ -165,7 +165,7 @@ class _BackdropPageState extends State<BackdropPage> {
         child: FilledButtonWidget(
           onPress: () {
             if (_selectedItems.isNotEmpty) {
-              bookingsProvider.assignSelectedBackdrops(_selectedItems);
+              bookingsProvider.assignSelectedBackdrops(_selectedItems, _customBackdrop);
               Navigator.pop(context);
             } else {}
           },

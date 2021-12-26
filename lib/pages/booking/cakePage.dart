@@ -1,7 +1,4 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/widgets/buttons/filledButtonWidget.dart';
-import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/showOkDialog.dart';
-import 'package:LMP0001_LittleMiraclesApp/widgets/texts/titleText.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 //EXTENSIONS
@@ -16,8 +13,7 @@ import '../../providers/bookings.dart';
 //WIDGETS
 import '../../widgets/appbars/appBarWithBack.dart';
 import '../../widgets/bookingSessonContainers/selectionRow.dart';
-import '../../widgets/general/cachedImageWidget.dart';
-
+import 'package:LMP0001_LittleMiraclesApp/widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/form/textQuestionWidget.dart';
 //PAGES
 
@@ -164,7 +160,7 @@ class _CakePageState extends State<CakePage> {
         child: FilledButtonWidget(
           onPress: () {
             if (_selectedItems.isNotEmpty) {
-              bookingsProvider.assignSelectedCakes(_selectedItems);
+              bookingsProvider.assignSelectedCakes(_selectedItems, _customCake);
               Navigator.pop(context);
             } else {}
           },

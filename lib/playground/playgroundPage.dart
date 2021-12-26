@@ -36,9 +36,12 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
         children: [
           InkWell(
             onTap: () {
-              final val = context.read<Auth>().user?.providerId;
+              final user = context.read<Auth>().user;
 
-              print(val);
+              print(user?.id);
+              print(user?.providerId);
+              print(user?.email);
+
             },
             child: Container(
               height: 100,

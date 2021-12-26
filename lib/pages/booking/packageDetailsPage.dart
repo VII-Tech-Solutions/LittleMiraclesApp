@@ -1,9 +1,11 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 //EXTENSIONS
 //GLOBAL
 //MODELS
 //PROVIDERS
+import '../../providers/bookings.dart';
 //WIDGETS
 import '../../widgets/buttons/iconButtonWidget.dart';
 import '../../widgets/packageContainers/packageMainTopSectionContainer.dart';
@@ -13,6 +15,7 @@ import '../../widgets/packageContainers/packageBottomSectionContainer.dart';
 import '../../widgets/packageContainers/packageRatingSectionContainer.dart';
 import '../../widgets/packageContainers/packageImageSectionContainer.dart';
 //PAGES
+import '../../pages/booking/bookingSessionPage.dart';
 
 class PackageDetailsPage extends StatelessWidget {
   const PackageDetailsPage();
@@ -61,7 +64,17 @@ class PackageDetailsPage extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: PackageBottomSectionContainer(),
+      bottomNavigationBar: PackageBottomSectionContainer(onTap: () {
+        final package = context.read<Bookings>().package;
+        if (package?.type == 1 || package?.type == 3) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => BookingSessionPage(package),
+            ),
+          );
+        }
+      }),
     );
   }
 }
