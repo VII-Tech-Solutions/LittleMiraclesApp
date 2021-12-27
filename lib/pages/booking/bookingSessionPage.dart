@@ -3,21 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 //EXTENSIONS
 //GLOBAL
+import '../../global/const.dart';
 //MODELS
 import '../../models/package.dart';
 import '../../models/question.dart';
 //PROVIDERS
 import '../../providers/bookings.dart';
 //WIDGETS
+import '../../widgets/dialogs/showOkDialog.dart';
+import '../../widgets/dialogs/showLoadingDialog.dart';
 import '../../widgets/appbars/appBarWithBack.dart';
+import '../../widgets/form/textQuestionWidget.dart';
+import '../../widgets/bookingSessonContainers/cakeSelector.dart';
+import '../../widgets/bookingSessonContainers/backdropSelector.dart';
+import '../../widgets/bookingSessonContainers/calendarContainer.dart';
 import '../../widgets/bookingSessonContainers/availableTimeContainer.dart';
 import '../../widgets/bookingSessonContainers/joiningPeopleContainer.dart';
 import '../../widgets/packageContainers/packageBottomSectionContainer.dart';
-import '../../widgets/bookingSessonContainers/calendarContainer.dart';
-import '../../widgets/bookingSessonContainers/backdropSelector.dart';
-import '../../widgets/bookingSessonContainers/cakeSelector.dart';
-import '../../widgets/form/textQuestionWidget.dart';
-import '../../widgets/dialogs/showOkDialog.dart';
 //PAGES
 import '../../pages/booking/photographerPage.dart';
 
@@ -30,6 +32,12 @@ class BookingSessionPage extends StatefulWidget {
 }
 
 class _BookingSessionPageState extends State<BookingSessionPage> {
+  @override
+  void deactivate() {
+    context.read<Bookings>().resetBookingsData();
+    super.deactivate();
+  }
+
   @override
   Widget build(BuildContext context) {
     final bookingsProvider = context.read<Bookings>();
@@ -76,19 +84,31 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
 
           if (!bookingsBody.containsKey('date')) {
             ShowOkDialog(context, 'Please select a data to proceed');
-          } else if (!bookingsBody.containsKey('time') || !timings.contains(bookingsBody['time'])) {
+          } else if (!bookingsBody.containsKey('time') ||
+              !timings.contains(bookingsBody['time'])) {
             ShowOkDialog(context, 'Please select a time to proceed');
           } else if (!bookingsBody.containsKey('people')) {
             ShowOkDialog(context, 'Please select people joining to proceed');
           } else if (!bookingsBody.containsKey('backdrops')) {
             ShowOkDialog(context, 'Please select a backdrop to proceed');
           } else {
+            // ShowLoadingDialog(context);
+            // context.read<Bookings>().bookASession().then((response) {
+            //   ShowLoadingDialog(context, dismiss: true);
+            //   if (response?.statusCode == 200) {
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => PhotographerPage(),
               ),
             );
+            // } else {
+            //   ShowOkDialog(
+            //     context,
+            //     response?.message ?? ErrorMessages.somethingWrong,
+            //   );
+            // }
+            // });
           }
         },
       ),

@@ -23,7 +23,6 @@ class CalendarContainer extends StatefulWidget {
 class _CalendarContainerState extends State<CalendarContainer> {
   DateTime firstDay = DateTime.now();
   DateTime selectedDay = DateTime.now();
-
   late final List<AvailableDates> _availableDate;
 
   @override

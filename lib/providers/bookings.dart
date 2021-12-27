@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 //EXTENSIONS
 //GLOBAL
 import '../global/const.dart';
@@ -94,7 +95,8 @@ class Bookings with ChangeNotifier {
   }
 
   void getAvailableTimings(String date) {
-    final list = _availableDates.where((element) => element.date == date).toList();
+    final list =
+        _availableDates.where((element) => element.date == date).toList();
 
     if (list.isNotEmpty) {
       _availableTimings = list.first.timings;
@@ -102,6 +104,18 @@ class Bookings with ChangeNotifier {
 
     notifyListeners();
     return;
+  }
+
+  void resetBookingsData() {
+    _bookingBody = {};
+    _selectedCakes = [];
+    _customCake = '';
+    _selectedBackdrops = [];
+    _customBackrop = '';
+    _availableDates = [];
+    _availableTimings = [];
+
+    print(jsonEncode(_bookingBody));
   }
 
   Future<void> amendBookingBody(Map data) async {
@@ -234,6 +248,53 @@ class Bookings with ChangeNotifier {
         statusCode: 500,
         message: ErrorMessages.somethingWrong,
       ));
+    }
+  }
+
+  Future<ApiResponse?> bookASession() async {
+    final url = Uri.parse('$apiLink/sessions');
+
+    try {
+      var response = await http
+          .post(
+            url,
+            headers: {
+              'Content-Type': 'application/json',
+              'Platform': 'ios',
+              'App-Version': '0.0.1',
+              'Authorization': 'Bearer $authToken',
+            },
+            body: jsonEncode(_bookingBody),
+          )
+          .timeout(Duration(seconds: Timeout.value));
+
+      final result = json.decode(response.body);
+
+      print(response.statusCode);
+      print(response.body);
+
+      if (response.statusCode != 200) {
+        if ((response.statusCode >= 400 && response.statusCode <= 499) ||
+            response.statusCode == 503) {
+          return ApiResponse(
+              statusCode: response.statusCode,
+              message: result['message'].toString());
+        } else {
+          return null;
+        }
+      }
+
+      notifyListeners();
+      return (ApiResponse(
+        statusCode: response.statusCode,
+        message: json.decode(response.body)['message'],
+      ));
+    } on TimeoutException catch (e) {
+      print('Exception Timeout:: $e');
+      return null;
+    } catch (e) {
+      print('catch error:: $e');
+      return null;
     }
   }
 
