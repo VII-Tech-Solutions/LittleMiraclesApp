@@ -14,6 +14,7 @@ import '../../widgets/bookingSessonContainers/selectionRow.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
 //PAGES
 import './additionsPage.dart';
+import './reviewAndPayPage.dart';
 
 class PhotographerPage extends StatefulWidget {
   const PhotographerPage();
@@ -70,7 +71,8 @@ class _PhotographerPageState extends State<PhotographerPage> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => AdditionsPage(),
+                // builder: (context) => AdditionsPage(),
+                builder: (context) => ReviewAndPayPage(),
               ),
             );
           }

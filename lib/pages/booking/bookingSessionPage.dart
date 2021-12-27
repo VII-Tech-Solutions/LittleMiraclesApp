@@ -78,7 +78,7 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
           } else if (!bookingsBody.containsKey('time')) {
             ShowOkDialog(context, 'Please select a time to proceed');
           } else if (!bookingsBody.containsKey('people')) {
-            ShowOkDialog(context, 'Please select joining people to proceed');
+            ShowOkDialog(context, 'Please select people joining to proceed');
           } else if (!bookingsBody.containsKey('backdrops')) {
             ShowOkDialog(context, 'Please select a backdrop to proceed');
           } else {

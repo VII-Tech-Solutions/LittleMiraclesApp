@@ -32,7 +32,7 @@ class _PaymentContainerState extends State<PaymentContainer> {
         height: 80,
         margin: const EdgeInsets.symmetric(vertical: 5),
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        decoration: true == true
+        decoration: _selectedPayment == id
             ? BoxDecoration(
                 color: AppColors.blueF4F9FA,
                 border: Border.all(
@@ -50,9 +50,17 @@ class _PaymentContainerState extends State<PaymentContainer> {
               ),
         child: Row(
           children: [
-            Container(
-              color: Colors.red,
-            ),
+            id == 3
+                ? Image.asset(
+                    'assets/images/payment_$id.png',
+                    height: 44,
+                    width: 38,
+                  )
+                : Image.asset(
+                    'assets/images/payment_$id.png',
+                    height: 34,
+                    width: 48,
+                  ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -78,7 +86,9 @@ class _PaymentContainerState extends State<PaymentContainer> {
                   )),
               child: Container(
                 decoration: BoxDecoration(
-                  color: true == true ? AppColors.blue8DC4CB : Colors.white,
+                  color: _selectedPayment == id
+                      ? AppColors.blue8DC4CB
+                      : Colors.white,
                   shape: BoxShape.circle,
                 ),
               ),
@@ -93,23 +103,29 @@ class _PaymentContainerState extends State<PaymentContainer> {
   Widget build(BuildContext context) {
     final list = context.watch<AppData>().paymentMethods;
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Payment Method',
-          style: TextStyle(
-            fontWeight: FontWeight.w800,
-            fontSize: 18,
-            color: AppColors.black45515D,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 20, bottom: 5),
+            child: Text(
+              'Payment Method',
+              style: TextStyle(
+                fontWeight: FontWeight.w800,
+                fontSize: 18,
+                color: AppColors.black45515D,
+              ),
+            ),
           ),
-        ),
-        _buildSelectionRow(0, 'Paypal'),
-        _buildSelectionRow(1, 'Apple Pay'),
-        _buildSelectionRow(2, 'Debit Card'),
-        _buildSelectionRow(3, 'Credit Card'),
-      ],
+          _buildSelectionRow(1, 'Paypal'),
+          _buildSelectionRow(2, 'Apple Pay'),
+          _buildSelectionRow(3, 'Debit Card'),
+          _buildSelectionRow(4, 'Credit Card'),
+        ],
+      ),
     );
   }
 }

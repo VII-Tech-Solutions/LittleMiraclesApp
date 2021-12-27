@@ -21,6 +21,7 @@ import '../models/photographer.dart';
 import '../models/paymentMethod.dart';
 import '../models/backdropCategory.dart';
 import '../models/cakeCategory.dart';
+import '../models/studioPackage.dart';
 //PROVIDERS
 //WIDGETS
 import '../widgets/texts/titleText.dart';
@@ -46,6 +47,7 @@ class AppData with ChangeNotifier {
   List<PaymentMethod> _paymentMethods = [];
   List<BackdropCategory> _backdropCategories = [];
   List<CakeCategory> _cakeCategories = [];
+  List<StudioPackage> _studioPackages = [];
 
   // MAIN PAGES WIDGETS LISTS
   List<Widget> _homeList = [];
@@ -67,6 +69,7 @@ class AppData with ChangeNotifier {
     this._paymentMethods,
     this._backdropCategories,
     this._cakeCategories,
+    this._studioPackages,
   );
 
   List<Onboarding> get onboardings {
@@ -165,13 +168,17 @@ class AppData with ChangeNotifier {
     return [..._cakes.where((element) => element.categoryId == catId)];
   }
 
-   List<Cake> getCakesByIds(List<int> list) {
+  List<Cake> getCakesByIds(List<int> list) {
     var finalList = [];
     list.forEach((id) {
       final item = _cakes.firstWhere((element) => element.id == id);
       finalList.add(item);
     });
     return [...finalList];
+  }
+
+  List<StudioPackage> get studioPackage {
+    return [..._studioPackages];
   }
 
   // WIDGET LIST GETTERS
@@ -377,6 +384,15 @@ class AppData with ChangeNotifier {
         DBHelper.insert(Tables.cakeCategories, item.toMap());
       }
     });
+
+    // STUDIO PACKAGES
+    _studioPackages.forEach((item) {
+      if (item.deletedAt != null) {
+        DBHelper.deleteById(Tables.studioPackages, item.id ?? -1);
+      } else {
+        DBHelper.insert(Tables.studioPackages, item.toMap());
+      }
+    });
   }
 
   Future<void> getLocalAppData() async {
@@ -395,6 +411,8 @@ class AppData with ChangeNotifier {
         await DBHelper.getData(Tables.backdropCategories);
     final cakeCategoriesDataList =
         await DBHelper.getData(Tables.cakeCategories);
+    final studioPackagesDataList =
+        await DBHelper.getData(Tables.studioPackages);
 
     // ONBOARDING
     if (onboardingDataList.isNotEmpty) {
@@ -610,6 +628,23 @@ class AppData with ChangeNotifier {
               status: item['status'],
               updatedAt: item['updated_at'],
               deletedAt: item['deleted_at'],
+            ),
+          )
+          .toList();
+    }
+
+    // STUDIO PACKAGES
+    if (studioPackagesDataList.isNotEmpty) {
+      _studioPackages = studioPackagesDataList
+          .map(
+            (item) => StudioPackage(
+              id: item['id'],
+              title: item['title'],
+              image: item['image'],
+              startingPrice: item['startingPrice'],
+              status: item['status'],
+              updatedAt: item['updatedAt'],
+              deletedAt: item['deletedAt'],
             ),
           )
           .toList();

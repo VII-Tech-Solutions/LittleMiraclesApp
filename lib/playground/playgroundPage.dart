@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
 import 'package:flutter_svg/flutter_svg.dart';
 //GLOBAL
 import '../global/colors.dart';
