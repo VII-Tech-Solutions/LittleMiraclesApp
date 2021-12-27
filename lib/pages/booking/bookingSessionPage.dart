@@ -35,7 +35,7 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
     final bookingsProvider = context.read<Bookings>();
     return Scaffold(
       appBar: AppBarWithBack(
-        'Reserve your session',
+        title: 'Reserve your session',
         weight: FontWeight.w800,
       ),
       body: GestureDetector(

@@ -33,7 +33,7 @@ class _PhotographerPageState extends State<PhotographerPage> {
 
     return Scaffold(
       appBar: AppBarWithBack(
-        'Select Photographer',
+        title: 'Select Photographer',
         weight: FontWeight.w800,
       ),
       body: ListView.builder(

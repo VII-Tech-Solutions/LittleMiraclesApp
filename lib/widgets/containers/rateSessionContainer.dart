@@ -11,8 +11,7 @@ import '../../widgets/buttons/filledButtonWidget.dart';
 //PAGES
 
 class RateSessionContainer extends StatelessWidget {
-  final String title;
-  const RateSessionContainer(this.title);
+  const RateSessionContainer();
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +19,7 @@ class RateSessionContainer extends StatelessWidget {
     var userRating = TextEditingController();
 
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+      //margin: EdgeInsets.symmetric(vertical: 24, horizontal: 16),
       height: 284,
       width: double.infinity,
       decoration: BoxDecoration(
@@ -33,9 +32,10 @@ class RateSessionContainer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              title,
+              'RATE THE SESSION',
               style: TextStyle(
                 fontSize: 10,
+                letterSpacing: 1,
                 color: AppColors.grey737C85,
                 fontWeight: FontWeight.w600,
               ),

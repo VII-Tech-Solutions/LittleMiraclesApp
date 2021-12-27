@@ -6,6 +6,7 @@ class AppColors {
   //--------------------------------------
   // Add your custom colors below
 
+  static const Color transpernt00FFFFFF = Color(0x00FFFFFF);
   static const Color whiteF4F9FA = Color(0xFFF4F9FA);
   static const Color whiteFFFFFF = Color(0xFFFFFFFF);
   static const Color pinkFEF2F1 = Color(0xFFFEF2F1);
@@ -21,11 +22,13 @@ class AppColors {
   static const Color greyD4D4D4 = Color(0xFFD4D4D4);
   static const Color greyA2A8AE = Color(0xFFA2A8AE);
   static const Color blue8DC4CB = Color(0xFF8DC4CB);
+  static const Color blueE8F3F5 = Color(0xFFE8F3F5);
   static const Color blueF4F9FA = Color(0xFFF4F9FA);
   static const Color black45515D = Color(0xFF45515D);
   static const Color black2D3B48 = Color(0xFF2D3B48);
   static const Color black5C6671 = Color(0xFF5C6671);
   static const Color black162534 = Color(0xFF162534);
+  static const Color yellowFFF0CC = Color(0xFFFFF0CC);
   static const Color yellowFFB400 = Color(0xFFFFB400);
   static const Color orangeFF6B00 = Color(0xFFFF6B00);
 }

@@ -10,8 +10,10 @@ import '../../global/colors.dart';
 class AppBarWithBack extends StatelessWidget with PreferredSizeWidget {
   final String? title;
   final FontWeight? weight;
-  const AppBarWithBack(
-    this.title, {
+  final double? elevation;
+  const AppBarWithBack({
+    this.title = '',
+    this.elevation = 1.0,
     this.weight = FontWeight.w400,
   });
 
@@ -21,7 +23,7 @@ class AppBarWithBack extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      elevation: 1,
+      elevation: elevation ?? 0.0,
       automaticallyImplyLeading: false,
       leading: Padding(
         padding: EdgeInsets.only(left: 16.0),

@@ -33,7 +33,7 @@ class _AdditionsPageState extends State<AdditionsPage> {
 
     return Scaffold(
       appBar: AppBarWithBack(
-        'Additions',
+        title: 'Additions',
         weight: FontWeight.w800,
       ),
       body: ListView(

@@ -32,7 +32,7 @@ class _ReviewsPageState extends State<ReviewsPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            RateSessionContainer('RATE THE SESSION'),
+            RateSessionContainer(),
             ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,

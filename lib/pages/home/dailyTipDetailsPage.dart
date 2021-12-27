@@ -19,7 +19,7 @@ class DailyTipDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWithBack('Your Daily Tip'),
+      appBar: AppBarWithBack(title: 'Your Daily Tip'),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.fromLTRB(16.0, 22.0, 16.0, 10.0),

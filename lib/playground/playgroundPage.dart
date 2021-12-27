@@ -1,8 +1,6 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/widgets/buttons/filledButtonWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'dart:async';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 //GLOBAL
@@ -13,7 +11,9 @@ import '../providers/auth.dart';
 import '../providers/appData.dart';
 //WIDGETS
 import '../widgets/texts/titleText.dart';
-import '../widgets/dialogs/showLoadingDialog.dart';
+import '../../widgets/buttons/filledButtonWidget.dart';
+import '../../widgets/loggedUserContainers/freeGiftContainer.dart';
+import '../widgets/loggedUserContainers/yourSessionContainer.dart';
 //PAGES
 
 import '../pages/booking/reviewAndPayPage.dart';

@@ -68,7 +68,7 @@ class _BackdropPageState extends State<BackdropPage> {
 
     return Scaffold(
       appBar: AppBarWithBack(
-        'Select Backdrop',
+        title: 'Select Backdrop',
         weight: FontWeight.w800,
       ),
       body: ListView(

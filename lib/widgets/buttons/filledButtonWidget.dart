@@ -12,6 +12,7 @@ enum ButtonType {
   generalGrey,
   generalBlue,
   generalPink,
+  outlinedYellow,
 }
 
 class FilledButtonWidget extends StatelessWidget {
@@ -48,6 +49,10 @@ class FilledButtonWidget extends StatelessWidget {
         {
           return AppColors.pinkFCE0DC;
         }
+      case ButtonType.outlinedYellow:
+        {
+          return AppColors.yellowFFF0CC;
+        }
       default:
         {
           return null;
@@ -59,6 +64,7 @@ class FilledButtonWidget extends StatelessWidget {
     switch (type) {
       case ButtonType.generalGrey:
       case ButtonType.generalPink:
+      case ButtonType.outlinedYellow:
         {
           return AppColors.black45515D;
         }
@@ -73,10 +79,24 @@ class FilledButtonWidget extends StatelessWidget {
     }
   }
 
+  Color _buildBorderStyle() {
+    switch (type) {
+      case ButtonType.outlinedYellow:
+        {
+          return AppColors.yellowFFB400;
+        }
+      default:
+        {
+          return AppColors.transpernt00FFFFFF;
+        }
+    }
+  }
+
   Widget _buildContentWidget() {
     switch (type) {
       case ButtonType.generalBlue:
       case ButtonType.generalGrey:
+      case ButtonType.outlinedYellow:
         {
           return _subBuildTextWidget(title);
         }
@@ -134,6 +154,9 @@ class FilledButtonWidget extends StatelessWidget {
           decoration: BoxDecoration(
             color: _buildButtonStyle(),
             borderRadius: BorderRadius.circular(24),
+            border: Border.all(
+              color: _buildBorderStyle(),
+            ),
           ),
           child: _buildContentWidget(),
         ),
