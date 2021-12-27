@@ -6,8 +6,6 @@ import 'package:http/http.dart' as http;
 //EXTENSIONS
 //GLOBAL
 import '../global/const.dart';
-import '../database/db_sqflite.dart';
-import '../global/globalHelpers.dart';
 import '../global/globalEnvironment.dart';
 //MODELS
 import '../models/apiResponse.dart';
@@ -15,8 +13,7 @@ import '../models/package.dart';
 import '../models/benefit.dart';
 import '../models/media.dart';
 import '../models/review.dart';
-import '../models/backdrop.dart';
-import '../models/cake.dart';
+import '../models/availableDates.dart';
 //PROVIDERS
 //WIDGETS
 //PAGES
@@ -34,6 +31,8 @@ class Bookings with ChangeNotifier {
   String _customCake = '';
   List<int> _selectedBackdrops = [];
   String _customBackrop = '';
+  List<AvailableDates> _availableDates = [];
+  List<dynamic>? _availableTimings = [];
 
   Bookings(
     this.authToken,
@@ -46,6 +45,8 @@ class Bookings with ChangeNotifier {
     this._customBackrop,
     this._customCake,
     this._bookingBody,
+    this._availableDates,
+    this._availableTimings,
   );
 
   Package? get package {
@@ -82,6 +83,25 @@ class Bookings with ChangeNotifier {
 
   Map get bookingsBody {
     return _bookingBody;
+  }
+
+  List<AvailableDates> get availableDates {
+    return [..._availableDates];
+  }
+
+  List<dynamic> get availableTimings {
+    return [..._availableTimings ?? []];
+  }
+
+  void getAvailableTimings(String date) {
+    final list = _availableDates.where((element) => element.date == date).toList();
+
+    if (list.isNotEmpty) {
+      _availableTimings = list.first.timings;
+    }
+
+    notifyListeners();
+    return;
   }
 
   Future<void> amendBookingBody(Map data) async {
@@ -148,6 +168,54 @@ class Bookings with ChangeNotifier {
 
       _packageReviews =
           reviewsData.map((json) => Review.fromJson(json)).toList();
+
+      notifyListeners();
+      return (ApiResponse(
+        statusCode: response.statusCode,
+        message: '',
+      ));
+    } on TimeoutException catch (e) {
+      print('Exception Timeout:: $e');
+      return (ApiResponse(
+        statusCode: 500,
+        message: ErrorMessages.somethingWrong,
+      ));
+    } catch (e) {
+      print('catch error:: $e');
+      return (ApiResponse(
+        statusCode: 500,
+        message: ErrorMessages.somethingWrong,
+      ));
+    }
+  }
+
+  Future<ApiResponse> fetchAndSetAvailableDates() async {
+    final url =
+        Uri.parse('$apiLink/available-hours?package_id=${_package?.id}');
+
+    try {
+      final response = await http.get(url, headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Platform': 'ios',
+        'App-Version': '0.0.1',
+      }).timeout(Duration(seconds: Timeout.value));
+
+      final extractedData = json.decode(response.body)['data']['dates'] as List;
+
+      if (response.statusCode != 200) {
+        notifyListeners();
+        return (ApiResponse(
+          statusCode: response.statusCode,
+          message: ErrorMessages.somethingWrong,
+        ));
+      }
+
+      _availableDates =
+          extractedData.map((json) => AvailableDates.fromJson(json)).toList();
+
+      if (_availableDates.isNotEmpty) {
+        _availableTimings = _availableDates.first.timings;
+      }
 
       notifyListeners();
       return (ApiResponse(

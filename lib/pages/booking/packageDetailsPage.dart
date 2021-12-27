@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 //EXTENSIONS
 //GLOBAL
+import '../../global/const.dart';
 //MODELS
 //PROVIDERS
 import '../../providers/bookings.dart';
@@ -14,6 +15,8 @@ import '../../widgets/packageContainers/packageLocationSectionContainer.dart';
 import '../../widgets/packageContainers/packageBottomSectionContainer.dart';
 import '../../widgets/packageContainers/packageRatingSectionContainer.dart';
 import '../../widgets/packageContainers/packageImageSectionContainer.dart';
+import '../../widgets/dialogs/showLoadingDialog.dart';
+import '../../widgets/dialogs/showOkDialog.dart';
 //PAGES
 import '../../pages/booking/bookingSessionPage.dart';
 
@@ -67,12 +70,28 @@ class PackageDetailsPage extends StatelessWidget {
       bottomNavigationBar: PackageBottomSectionContainer(onTap: () {
         final package = context.read<Bookings>().package;
         if (package?.type == 1 || package?.type == 3) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => BookingSessionPage(package),
-            ),
-          );
+          if (package?.id != null) {
+            ShowLoadingDialog(context);
+            context
+                .read<Bookings>()
+                .fetchAndSetAvailableDates()
+                .then((response) {
+              ShowLoadingDialog(context, dismiss: true);
+              if (response.statusCode == 200) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BookingSessionPage(package),
+                  ),
+                );
+              } else {
+                ShowOkDialog(
+                  context,
+                  response.message ?? ErrorMessages.somethingWrong,
+                );
+              }
+            });
+          }
         }
       }),
     );

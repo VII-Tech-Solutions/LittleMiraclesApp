@@ -71,11 +71,12 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
       bottomNavigationBar: PackageBottomSectionContainer(
         btnLabel: 'Next',
         onTap: () {
+          final timings = context.read<Bookings>().availableTimings;
           final bookingsBody = context.read<Bookings>().bookingsBody;
 
           if (!bookingsBody.containsKey('date')) {
             ShowOkDialog(context, 'Please select a data to proceed');
-          } else if (!bookingsBody.containsKey('time')) {
+          } else if (!bookingsBody.containsKey('time') || !timings.contains(bookingsBody['time'])) {
             ShowOkDialog(context, 'Please select a time to proceed');
           } else if (!bookingsBody.containsKey('people')) {
             ShowOkDialog(context, 'Please select people joining to proceed');

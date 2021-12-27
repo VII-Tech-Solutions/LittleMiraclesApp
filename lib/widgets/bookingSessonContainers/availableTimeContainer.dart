@@ -19,25 +19,11 @@ class AvailableTimeContainer extends StatefulWidget {
 }
 
 class _AvailableTimeContainerState extends State<AvailableTimeContainer> {
-  int? _value;
-
   String selectedTime = "";
-
-  List availableTimes = [
-    '03:00 PM',
-    '04:00 PM',
-    '06:00 PM',
-    '07:00 PM',
-    '08:00 PM',
-    '10:00 PM',
-    '11:00 PM',
-    '12:00 PM',
-    '01:00 PM',
-    '02:00 PM',
-  ];
 
   @override
   Widget build(BuildContext context) {
+    final availableTimes = context.watch<Bookings>().availableTimings;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

@@ -1,14 +1,14 @@
 //PACKAGES
 import 'package:flutter/material.dart';
-import 'package:table_calendar/table_calendar.dart';
 import 'package:provider/provider.dart';
+import 'package:table_calendar/table_calendar.dart';
 //EXTENSIONS
 import '../../extensions/dateTimeExtension.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
-//
 import '../../providers/bookings.dart';
+import '../../models/availableDates.dart';
 //WIDGETS
 import '../../widgets/texts/titleText.dart';
 //PAGES
@@ -21,18 +21,29 @@ class CalendarContainer extends StatefulWidget {
 }
 
 class _CalendarContainerState extends State<CalendarContainer> {
+  DateTime firstDay = DateTime.now();
   DateTime selectedDay = DateTime.now();
+
+  late final List<AvailableDates> _availableDate;
 
   @override
   void initState() {
-    context
-        .read<Bookings>()
-        .amendBookingBody({'date': selectedDay.toyyyyMMdd()});
+    final provider = context.read<Bookings>();
+    _availableDate = provider.availableDates;
+    final firstDate = provider.availableDates.first.date;
+
+    if (firstDate != null) {
+      firstDay = DateTime.parse(firstDate);
+      selectedDay = DateTime.parse(firstDate);
+      provider.amendBookingBody({'date': firstDate});
+    }
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.read<Bookings>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -52,7 +63,8 @@ class _CalendarContainerState extends State<CalendarContainer> {
             ),
           ),
           child: TableCalendar(
-            firstDay: DateTime.now(),
+            firstDay: firstDay,
+            focusedDay: selectedDay,
             lastDay: DateTime.utc(2030, 12, 31),
             availableGestures: AvailableGestures.horizontalSwipe,
             headerStyle: HeaderStyle(
@@ -72,25 +84,24 @@ class _CalendarContainerState extends State<CalendarContainer> {
                 color: AppColors.grey737C85,
               ),
             ),
-            focusedDay: selectedDay,
             onDaySelected: (DateTime selectDay, DateTime focusDay) {
               setState(() {
                 selectedDay = selectDay;
-                context
-                    .read<Bookings>()
-                    .amendBookingBody({'date': selectedDay.toyyyyMMdd()});
+                final formattedDate = selectedDay.toyyyyMMdd();
+                provider.amendBookingBody({'date': formattedDate});
+                provider.getAvailableTimings(formattedDate);
               });
             },
             selectedDayPredicate: (day) {
               return isSameDay(selectedDay, day);
             },
             enabledDayPredicate: (value) {
-              var now = new DateTime.now().add(Duration(days: 2));
-
-              String excludedDate = now.toyyyyMMdd();
               String calendarDate = value.toyyyyMMdd();
 
-              return calendarDate == excludedDate ? false : true;
+              final list = _availableDate
+                  .where((element) => element.date == calendarDate);
+
+              return list.isEmpty ? false : true;
             },
             calendarStyle: CalendarStyle(
               isTodayHighlighted: false,
