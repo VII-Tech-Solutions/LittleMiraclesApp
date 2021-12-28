@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 //EXTENSIONS
 //GLOBAL
+import '../../global/const.dart';
 //MODELS
 //PROVIDERS
 import '../../providers/appData.dart';
@@ -12,6 +13,7 @@ import '../../widgets/appbars/appBarWithBack.dart';
 import '../../widgets/packageContainers/packageBottomSectionContainer.dart';
 import '../../widgets/bookingSessonContainers/selectionRow.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
+import '../../widgets/dialogs/showLoadingDialog.dart';
 //PAGES
 import './additionsPage.dart';
 import './reviewAndPayPage.dart';
@@ -67,13 +69,28 @@ class _PhotographerPageState extends State<PhotographerPage> {
             ShowOkDialog(context, 'Please select a photographer to proceed');
           } else {
             bookingsProvider
-                .amendBookingBody({'photographer': _selectedItems.first});
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                // builder: (context) => AdditionsPage(),
-                builder: (context) => ReviewAndPayPage(),
-              ),
+                .amendBookingBody({'photographer': _selectedItems.first}).then(
+              (_) {
+                ShowLoadingDialog(context);
+                context.read<Bookings>().bookASession().then(
+                  (response) {
+                    ShowLoadingDialog(context, dismiss: true);
+                    if (response?.statusCode == 200) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ReviewAndPayPage(),
+                        ),
+                      );
+                    } else {
+                      ShowOkDialog(
+                        context,
+                        response?.message ?? ErrorMessages.somethingWrong,
+                      );
+                    }
+                  },
+                );
+              },
             );
           }
         },

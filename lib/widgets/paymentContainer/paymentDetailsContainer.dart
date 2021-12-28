@@ -1,5 +1,4 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/widgets/texts/titleText.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 //EXTENSIONS
@@ -17,7 +16,8 @@ class PaymentDetailsContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.watch<Bookings>();
+    final package = context.watch<Bookings>().package;
+    final session = context.watch<Bookings>().session;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -27,7 +27,7 @@ class PaymentDetailsContainer extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: Text(
-              '${provider.package?.tag ?? ''}',
+              '${package?.title ?? ''} ${package?.tag ?? ''}',
               style: TextStyle(
                 fontWeight: FontWeight.w800,
                 fontSize: 18,
@@ -35,25 +35,47 @@ class PaymentDetailsContainer extends StatelessWidget {
               ),
             ),
           ),
-          BenefitDetailsRow(
-            '30 minutes in the studio',
-            Icons.today,
+          Visibility(
+            visible: session?.formattedDate != null,
+            child: BenefitDetailsRow(
+              '${session?.formattedDate}',
+              Icons.today_outlined,
+            ),
           ),
-          BenefitDetailsRow(
-            '04:00 PM',
-            Icons.access_time,
+          Visibility(
+            visible: session?.time != null,
+            child: BenefitDetailsRow(
+              '${session?.time}',
+              Icons.access_time,
+            ),
           ),
-          BenefitDetailsRow(
-            '1 baby, 2 adult',
-            Icons.perm_identity_rounded,
+          Visibility(
+            visible: session?.formattedPeople != null,
+            child: BenefitDetailsRow(
+              '${session?.formattedPeople}',
+              Icons.perm_identity_rounded,
+            ),
           ),
-          BenefitDetailsRow(
-            'Pastel Rainbow Backdrop',
-            Icons.wallpaper,
+          Visibility(
+            visible: session?.formattedBackdrop != null,
+            child: BenefitDetailsRow(
+              '${session?.formattedBackdrop}',
+              Icons.wallpaper,
+            ),
           ),
-          BenefitDetailsRow(
-            'Naked Cake - Pink',
-            Icons.cake,
+          Visibility(
+            visible: session?.formattedCake != null,
+            child: BenefitDetailsRow(
+              '${session?.formattedCake}',
+              Icons.cake_outlined,
+            ),
+          ),
+          Visibility(
+            visible: session?.photographerName != null,
+            child: BenefitDetailsRow(
+              '${session?.photographerName}',
+              Icons.photo_camera_outlined,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 17, bottom: 6),
@@ -66,7 +88,7 @@ class PaymentDetailsContainer extends StatelessWidget {
             ),
           ),
           Text(
-            'No Comments',
+            '${session?.comments ?? 'No Comments'}',
             style: TextStyle(
               fontSize: 14,
               color: AppColors.black45515D,

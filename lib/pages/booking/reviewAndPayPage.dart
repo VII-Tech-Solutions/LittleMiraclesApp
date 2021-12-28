@@ -29,46 +29,49 @@ class ReviewAndPayPage extends StatelessWidget {
         title: 'Review & Pay',
         weight: FontWeight.w800,
       ),
-      body: SingleChildScrollView(
-        controller: _scrollController,
-        padding: EdgeInsets.only(top: 16, bottom: 30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            PaymentDetailsContainer(),
-            Container(
-              height: 1,
-              width: double.infinity,
-              color: AppColors.greyE8E9EB,
-              margin: const EdgeInsets.only(top: 20),
-            ),
-            PromoCodeContainer(),
-            Container(
-              height: 1,
-              width: double.infinity,
-              color: AppColors.greyE8E9EB,
-            ),
-            PaymentContainer(
-              onTapCallback: (val) {
-                _selectedPayment = val;
-              },
-            ),
-            PaymentAgreement(onTapCallback: (val) {
-              _isAgreementChecked = val;
-            }),
-          ],
+      body: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: SingleChildScrollView(
+          controller: _scrollController,
+          padding: EdgeInsets.only(top: 16, bottom: 30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              PaymentDetailsContainer(),
+              Container(
+                height: 1,
+                width: double.infinity,
+                color: AppColors.greyE8E9EB,
+                margin: const EdgeInsets.only(top: 20),
+              ),
+              PromoCodeContainer(),
+              Container(
+                height: 1,
+                width: double.infinity,
+                color: AppColors.greyE8E9EB,
+              ),
+              PaymentContainer(
+                onTapCallback: (val) {
+                  _selectedPayment = val;
+                },
+              ),
+              PaymentAgreement(onTapCallback: (val) {
+                _isAgreementChecked = val;
+              }),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: PaymentBottomContainer(
         onTapCallback: () {
-          if (_isAgreementChecked == false) {
+          if (_selectedPayment == null) {
+            ShowOkDialog(context, 'Please select a payment method');
+          } else if (_isAgreementChecked == false) {
             _scrollController.animateTo(
               _scrollController.position.maxScrollExtent,
               duration: Duration(seconds: 1),
               curve: Curves.fastOutSlowIn,
             );
-          } else if (_selectedPayment == null) {
-            ShowOkDialog(context, 'Please select a payment method');
           } else {
             //TODO:: go to payment page
 

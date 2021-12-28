@@ -14,6 +14,8 @@ import '../models/benefit.dart';
 import '../models/media.dart';
 import '../models/review.dart';
 import '../models/availableDates.dart';
+import '../models/session.dart';
+import '../models/promoCode.dart';
 //PROVIDERS
 //WIDGETS
 //PAGES
@@ -33,6 +35,8 @@ class Bookings with ChangeNotifier {
   String _customBackrop = '';
   List<AvailableDates> _availableDates = [];
   List<dynamic>? _availableTimings = [];
+  Session? _session;
+  PromoCode? _promoCode;
 
   Bookings(
     this.authToken,
@@ -47,6 +51,8 @@ class Bookings with ChangeNotifier {
     this._bookingBody,
     this._availableDates,
     this._availableTimings,
+    this._session,
+    this._promoCode,
   );
 
   Package? get package {
@@ -93,6 +99,14 @@ class Bookings with ChangeNotifier {
     return [..._availableTimings ?? []];
   }
 
+  Session? get session {
+    return _session;
+  }
+
+  PromoCode? get promoCode {
+    return _promoCode;
+  }
+
   void getAvailableTimings(String date) {
     final list =
         _availableDates.where((element) => element.date == date).toList();
@@ -113,6 +127,7 @@ class Bookings with ChangeNotifier {
     _customBackrop = '';
     _availableDates = [];
     _availableTimings = [];
+    _session = null;
 
     print(jsonEncode(_bookingBody));
   }
@@ -283,6 +298,16 @@ class Bookings with ChangeNotifier {
         }
       }
 
+      final sessionsJson = result['data']['sessions'] as List;
+
+      final sessionsList =
+          sessionsJson.map((json) => Session.fromJson(json)).toList();
+
+      print(sessionsList.first.id);
+      print(sessionsList.length);
+
+      _session = sessionsList.last;
+
       notifyListeners();
       return (ApiResponse(
         statusCode: response.statusCode,
@@ -295,6 +320,61 @@ class Bookings with ChangeNotifier {
       print('catch error:: $e');
       return null;
     }
+  }
+
+  Future<ApiResponse?> applyPromoCode(String code) async {
+    final url = Uri.parse('$apiLink/sessions/${_session?.id}/promotion');
+
+    try {
+      var response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Platform': 'ios',
+          'App-Version': '0.0.1',
+          'Authorization': 'Bearer $authToken',
+        },
+        body: {
+          'code': code,
+        },
+      ).timeout(Duration(seconds: Timeout.value));
+
+      final result = json.decode(response.body);
+
+      print(response.statusCode);
+      print(response.body);
+
+      if (response.statusCode != 200) {
+        if ((response.statusCode >= 400 && response.statusCode <= 499) ||
+            response.statusCode == 503) {
+          return ApiResponse(
+              statusCode: response.statusCode,
+              message: result['message'].toString());
+        } else {
+          return null;
+        }
+      }
+
+      _promoCode = PromoCode.fromJson(result, code);
+
+      notifyListeners();
+      return (ApiResponse(
+        statusCode: response.statusCode,
+        message: json.decode(response.body)['message'],
+      ));
+    } on TimeoutException catch (e) {
+      print('Exception Timeout:: $e');
+      return null;
+    } catch (e) {
+      print('catch error:: $e');
+      return null;
+    }
+  }
+
+  Future<void> removePromoCode() async {
+    _promoCode = null;
+
+    notifyListeners();
   }
 
   //END OF CLASS

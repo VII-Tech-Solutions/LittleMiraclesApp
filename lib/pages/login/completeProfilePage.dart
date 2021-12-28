@@ -53,7 +53,6 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
       _birthdayController.text =
           'Birthday\t\t\t\t${DateFormatClass().toddMMyyyy('$picked')}';
       _formattedDate = DateFormatClass().toyyyyMMdd('$picked');
-
     }
   }
 
