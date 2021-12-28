@@ -12,19 +12,25 @@ import '../../widgets/paymentContainer/promoCodeContainer.dart';
 import '../../widgets/paymentContainer/paymentContainer.dart';
 import '../../widgets/paymentContainer/paymentBottomContainer.dart';
 import '../../widgets/paymentContainer/paymentAgreement.dart';
+import '../../widgets/dialogs/showOkDialog.dart';
 //PAGES
 
 class ReviewAndPayPage extends StatelessWidget {
-  const ReviewAndPayPage({Key? key}) : super(key: key);
+  const ReviewAndPayPage();
 
   @override
   Widget build(BuildContext context) {
+    bool _isAgreementChecked = false;
+    int? _selectedPayment = null;
+    final _scrollController = new ScrollController();
+
     return Scaffold(
       appBar: AppBarWithBack(
         title: 'Review & Pay',
         weight: FontWeight.w800,
       ),
       body: SingleChildScrollView(
+        controller: _scrollController,
         padding: EdgeInsets.only(top: 16, bottom: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,14 +47,34 @@ class ReviewAndPayPage extends StatelessWidget {
               height: 1,
               width: double.infinity,
               color: AppColors.greyE8E9EB,
-              // margin: const EdgeInsets.only(top: 20),
             ),
-            PaymentContainer(),
-            PaymentAgreement(),
+            PaymentContainer(
+              onTapCallback: (val) {
+                _selectedPayment = val;
+              },
+            ),
+            PaymentAgreement(onTapCallback: (val) {
+              _isAgreementChecked = val;
+            }),
           ],
         ),
       ),
-      bottomNavigationBar: PaymentBottomContainer(),
+      bottomNavigationBar: PaymentBottomContainer(
+        onTapCallback: () {
+          if (_isAgreementChecked == false) {
+            _scrollController.animateTo(
+              _scrollController.position.maxScrollExtent,
+              duration: Duration(seconds: 1),
+              curve: Curves.fastOutSlowIn,
+            );
+          } else if (_selectedPayment == null) {
+            ShowOkDialog(context, 'Please select a payment method');
+          } else {
+            //TODO:: go to payment page
+
+          }
+        },
+      ),
     );
   }
 }

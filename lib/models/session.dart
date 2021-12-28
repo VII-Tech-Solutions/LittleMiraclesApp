@@ -13,7 +13,18 @@ class Session {
   final int? status;
   final String? updatedAt;
   final String? deletedAt;
-  final int? includeMe;
+  final String? date;
+  final String? time;
+  final bool? includeMe;
+  final String? locationText;
+  final String? locationLink;
+  final bool? isOutdoor;
+  final String? formattedDate;
+  final String? formattedPeople;
+  final String? formattedBackdrop;
+  final String? formattedCake;
+  final String? photographerName;
+  final bool? hasGuideline;
   final String? benefitsIds;
   final String? reviewsIds;
   final String? mediaIds;
@@ -31,7 +42,18 @@ class Session {
     @required this.status,
     @required this.updatedAt,
     @required this.deletedAt,
+    @required this.date,
+    @required this.time,
     @required this.includeMe,
+    @required this.locationText,
+    @required this.locationLink,
+    @required this.isOutdoor,
+    @required this.formattedDate,
+    @required this.formattedPeople,
+    @required this.formattedBackdrop,
+    @required this.formattedCake,
+    @required this.photographerName,
+    @required this.hasGuideline,
     @required this.benefitsIds,
     @required this.reviewsIds,
     @required this.mediaIds,
@@ -51,7 +73,18 @@ class Session {
       'status': status ?? -1,
       'updatedAt': updatedAt ?? "",
       'deletedAt': deletedAt ?? "",
-      'includeMe': includeMe ?? -1,
+      'date': date ?? "",
+      'time': time ?? "",
+      'includeMe': includeMe == true ? 1 : 0,
+      'locationText': locationText ?? "",
+      'locationLink': locationLink ?? "",
+      'isOutdoor': isOutdoor == true ? 1 : 0,
+      'formattedDate': formattedDate ?? "",
+      'formattedPeople': formattedPeople ?? "",
+      'formattedBackdrop': formattedBackdrop ?? "",
+      'formattedCake': formattedCake ?? "",
+      'photographerName': photographerName ?? "",
+      'hasGuideline': hasGuideline == true ? 1 : 0,
       'benefitsIds': benefitsIds ?? "",
       'reviewsIds': reviewsIds ?? "",
       'mediaIds': mediaIds ?? "",
@@ -67,15 +100,26 @@ class Session {
       packageId: json['package_id'] as int?,
       customBackdrop: json['custom_backdrop'] as String?,
       customCake: json['custom_cake'] as String?,
-      comments: json['omments'] as String?,
+      comments: json['comments'] as String?,
       totalPrice: json['total_price'] as String?,
       status: json['status'] as int?,
       updatedAt: json['updated_at'] as String?,
       deletedAt: json['deleted_at'] as String?,
-      includeMe: json['include_me'] as int?,
-      benefitsIds: json['benefitsIds'] as String?,
-      reviewsIds: json['eviewsIds'] as String?,
-      mediaIds: json['mediaIds'] as String?,
+      date: json['date'] as String?,
+      time: json['time'] as String?,
+      includeMe: json['include_me'] as bool?,
+      locationText: json['location_text'] as String?,
+      locationLink: json['location_link'] as String?,
+      isOutdoor: json['is_outdoor'] as bool?,
+      formattedDate: json['formatted_date'] as String?,
+      formattedPeople: json['formatted_people'] as String?,
+      formattedBackdrop: json['formatted_backdrop'] as String?,
+      formattedCake: json['formatted_cake'] as String?,
+      photographerName: json['photographer_name'] as String?,
+      hasGuideline: json['has_guideline'] as bool?,
+      benefitsIds: json['benefits_ids'] as String?,
+      reviewsIds: json['reviews_ids'] as String?,
+      mediaIds: json['media_ids'] as String?,
     );
   }
 }

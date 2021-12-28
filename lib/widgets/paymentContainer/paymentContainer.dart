@@ -11,7 +11,8 @@ import '../../providers/appData.dart';
 //PAGES
 
 class PaymentContainer extends StatefulWidget {
-  const PaymentContainer();
+  final void Function(int?)? onTapCallback;
+  const PaymentContainer({@required this.onTapCallback});
 
   @override
   _PaymentContainerState createState() => _PaymentContainerState();
@@ -26,6 +27,8 @@ class _PaymentContainerState extends State<PaymentContainer> {
         setState(() {
           _selectedPayment = id;
         });
+
+        return widget.onTapCallback!(_selectedPayment);
       },
       child: Container(
         width: double.infinity,
