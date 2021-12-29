@@ -11,7 +11,7 @@ import '../../providers/appData.dart';
 //PAGES
 
 class PaymentContainer extends StatefulWidget {
-  final void Function(int?)? onTapCallback;
+  final void Function(String?)? onTapCallback;
   const PaymentContainer({@required this.onTapCallback});
 
   @override
@@ -28,7 +28,7 @@ class _PaymentContainerState extends State<PaymentContainer> {
           _selectedPayment = id;
         });
 
-        return widget.onTapCallback!(_selectedPayment);
+        return widget.onTapCallback!(title);
       },
       child: Container(
         width: double.infinity,
@@ -54,10 +54,13 @@ class _PaymentContainerState extends State<PaymentContainer> {
         child: Row(
           children: [
             id == 3
-                ? Image.asset(
-                    'assets/images/payment_$id.png',
-                    height: 44,
-                    width: 38,
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                    child: Image.asset(
+                      'assets/images/payment_$id.png',
+                      height: 44,
+                      width: 38,
+                    ),
                   )
                 : Image.asset(
                     'assets/images/payment_$id.png',

@@ -127,7 +127,6 @@ class Bookings with ChangeNotifier {
     _customBackrop = '';
     _availableDates = [];
     _availableTimings = [];
-    _session = null;
 
     print(jsonEncode(_bookingBody));
   }
@@ -136,6 +135,12 @@ class Bookings with ChangeNotifier {
     _bookingBody.addAll({'package_id': _package?.id});
 
     _bookingBody.addAll(data);
+
+    print(jsonEncode(_bookingBody));
+  }
+
+  Future<void> removeKeyFromBookinBody(String key) async {
+    _bookingBody.remove('$key');
 
     print(jsonEncode(_bookingBody));
   }

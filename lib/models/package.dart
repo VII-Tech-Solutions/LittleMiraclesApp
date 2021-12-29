@@ -16,6 +16,8 @@ class Package {
   final String? deletedAt;
   final int? backdropAllowed;
   final int? cakeAllowed;
+  final bool? outdoorAllowed;
+  final bool? hasGuideline;
   final String? benefitsIds;
   final String? reviewsIds;
   final String? mediaIds;
@@ -39,6 +41,8 @@ class Package {
     @required this.backdropAllowed,
     @required this.cakeAllowed,
     @required this.benefitsIds,
+    @required this.outdoorAllowed,
+    @required this.hasGuideline,
     @required this.reviewsIds,
     @required this.mediaIds,
     @required this.totalReviews,
@@ -63,6 +67,8 @@ class Package {
       'backdropAllowed': backdropAllowed ?? -1,
       'cakeAllowed': cakeAllowed ?? -1,
       'benefitsIds': benefitsIds ?? "",
+      'outdoorAllowed': outdoorAllowed == true ? 1 : 0,
+      'hasGuideline': hasGuideline == true ? 1 : 0,
       'reviewsIds': reviewsIds ?? "",
       'mediaIds': mediaIds ?? "",
       'totalReviews': totalReviews ?? -1,
@@ -88,6 +94,8 @@ class Package {
       deletedAt: json['deleted_at'] as String?,
       backdropAllowed: json['backdrop_allowed'] as int?,
       cakeAllowed: json['cake_allowed'] as int?,
+      outdoorAllowed: json['outdoor_allowed'] as bool?,
+      hasGuideline: json['has_guideline'] as bool?,
       benefitsIds: json['benefits_ids'] as String?,
       reviewsIds: json['reviews_ids'] as String?,
       mediaIds: json['media_ids'] as String?,

@@ -72,6 +72,7 @@ class _PhotographerPageState extends State<PhotographerPage> {
                 .amendBookingBody({'photographer': _selectedItems.first}).then(
               (_) {
                 ShowLoadingDialog(context);
+                context.read<Bookings>().removePromoCode();
                 context.read<Bookings>().bookASession().then(
                   (response) {
                     ShowLoadingDialog(context, dismiss: true);

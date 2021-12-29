@@ -10,37 +10,58 @@ import '../../global/colors.dart';
 class BenefitDetailsRow extends StatelessWidget {
   final String content;
   final IconData icon;
-  const BenefitDetailsRow(
-    this.content,
-    this.icon,
-  );
+  final String? tag;
+  final bool isLocation;
+  const BenefitDetailsRow(this.content, this.icon,
+      {this.tag, this.isLocation = false});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6.5),
-      child: Row(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            icon,
-            color: AppColors.blue8DC4CB,
-            size: 24.0,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(
+                icon,
+                color: AppColors.blue8DC4CB,
+                size: 24.0,
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8, right: 16),
+                  child: Text(
+                    content,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14,
+                      color: AppColors.black45515D,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-          Expanded(
+          Visibility(
+            visible: tag != null,
             child: Padding(
-              padding: const EdgeInsets.only(left: 8, right: 16),
+              padding: const EdgeInsets.only(left: 32, right: 16),
               child: Text(
-                content,
+                tag ?? '',
+                textAlign: TextAlign.start,
                 style: TextStyle(
-                  fontWeight: FontWeight.w600,
                   fontSize: 14,
-                  color: AppColors.black45515D,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.greyB0A3A0,
                 ),
               ),
             ),
-          ),
+          )
         ],
       ),
     );

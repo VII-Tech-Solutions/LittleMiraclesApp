@@ -17,6 +17,7 @@ import '../../widgets/form/textQuestionWidget.dart';
 import '../../widgets/bookingSessonContainers/cakeSelector.dart';
 import '../../widgets/bookingSessonContainers/backdropSelector.dart';
 import '../../widgets/bookingSessonContainers/calendarContainer.dart';
+import '../../widgets/bookingSessonContainers/availableLocationsContainer.dart';
 import '../../widgets/bookingSessonContainers/availableTimeContainer.dart';
 import '../../widgets/bookingSessonContainers/joiningPeopleContainer.dart';
 import '../../widgets/packageContainers/packageBottomSectionContainer.dart';
@@ -53,6 +54,7 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           child: Column(
             children: [
+              AvailableLocationContainer(),
               CalendarContainer(),
               AvailableTimeContainer(),
               JoiningPeopleContainer(),
@@ -81,8 +83,9 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
         onTap: () {
           final timings = context.read<Bookings>().availableTimings;
           final bookingsBody = context.read<Bookings>().bookingsBody;
-
-          if (!bookingsBody.containsKey('date')) {
+          if (bookingsBody.containsKey('location_link') && bookingsBody['location_link'] == "") {
+            ShowOkDialog(context, 'Please add the location link to proceed');
+          } else if (!bookingsBody.containsKey('date')) {
             ShowOkDialog(context, 'Please select a data to proceed');
           } else if (!bookingsBody.containsKey('time') ||
               !timings.contains(bookingsBody['time'])) {

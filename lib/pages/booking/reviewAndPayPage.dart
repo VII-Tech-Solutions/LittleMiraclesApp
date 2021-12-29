@@ -14,16 +14,22 @@ import '../../widgets/paymentContainer/paymentBottomContainer.dart';
 import '../../widgets/paymentContainer/paymentAgreement.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
 //PAGES
+import '../../pages/booking/successPaymentPage.dart';
 
-class ReviewAndPayPage extends StatelessWidget {
+class ReviewAndPayPage extends StatefulWidget {
   const ReviewAndPayPage();
 
   @override
-  Widget build(BuildContext context) {
-    bool _isAgreementChecked = false;
-    int? _selectedPayment = null;
-    final _scrollController = new ScrollController();
+  State<ReviewAndPayPage> createState() => _ReviewAndPayPageState();
+}
 
+class _ReviewAndPayPageState extends State<ReviewAndPayPage> {
+  bool _isAgreementChecked = false;
+  String? _selectedPayment = null;
+  final _scrollController = new ScrollController();
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWithBack(
         title: 'Review & Pay',
@@ -73,8 +79,13 @@ class ReviewAndPayPage extends StatelessWidget {
               curve: Curves.fastOutSlowIn,
             );
           } else {
-            //TODO:: go to payment page
-
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SuccessPaymentPage(_selectedPayment),
+              ),
+              (Route<dynamic> route) => false,
+            );
           }
         },
       ),

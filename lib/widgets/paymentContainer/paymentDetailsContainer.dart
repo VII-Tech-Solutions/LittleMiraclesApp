@@ -1,6 +1,7 @@
 //PACKAGES
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 //EXTENSIONS
 //GLOBAL
 import '../../global/colors.dart';
@@ -12,7 +13,15 @@ import '../general/benefitDetailsRow.dart';
 //PAGES
 
 class PaymentDetailsContainer extends StatelessWidget {
-  const PaymentDetailsContainer({Key? key}) : super(key: key);
+  const PaymentDetailsContainer();
+
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      print('Could not launch $url');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +36,7 @@ class PaymentDetailsContainer extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: Text(
-              '${package?.title ?? ''} ${package?.tag ?? ''}',
+              '${session?.title ?? ''}',
               style: TextStyle(
                 fontWeight: FontWeight.w800,
                 fontSize: 18,
@@ -47,6 +56,21 @@ class PaymentDetailsContainer extends StatelessWidget {
             child: BenefitDetailsRow(
               '${session?.time}',
               Icons.access_time,
+            ),
+          ),
+          Visibility(
+            visible: package?.outdoorAllowed == true,
+            child: InkWell(
+              onTap: () {
+                if (session?.locationLink != null) {
+                  _launchURL('${session?.locationLink}');
+                }
+              },
+              child: BenefitDetailsRow(
+                '${session?.locationText}',
+                Icons.camera_outdoor,
+                tag: session?.locationLink,
+              ),
             ),
           ),
           Visibility(
