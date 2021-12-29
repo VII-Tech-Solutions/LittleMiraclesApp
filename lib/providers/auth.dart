@@ -20,6 +20,20 @@ import '../models/familyMember.dart';
 //PAGES
 
 class Auth with ChangeNotifier {
+  // bool _disposed = false;
+  // @override
+  // void dispose() {
+  //   _disposed = true;
+  //   super.dispose();
+  // }
+
+  // @override
+  // void notifyListeners() {
+  //   if (!_disposed) {
+  //     super.notifyListeners();
+  //   }
+  // }
+
   List<String> _tables = [
     Tables.onboarding,
     Tables.photographers,
@@ -160,7 +174,6 @@ class Auth with ChangeNotifier {
               )
               .toList();
         }
-        notifyListeners();
       }
     }
   }

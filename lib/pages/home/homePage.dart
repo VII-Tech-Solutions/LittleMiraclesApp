@@ -20,7 +20,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    final _list = context.watch<AppData>().homeList;
+    final _list = context.watch<AppData>().sessionsAndHomeList;
     return CustomScrollView(
       slivers: <Widget>[
         HomeHeaderSliverAppBar(),

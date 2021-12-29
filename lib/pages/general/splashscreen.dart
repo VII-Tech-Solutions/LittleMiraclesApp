@@ -31,19 +31,37 @@ class _SplashscreenState extends State<Splashscreen> {
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      final authProvider = context.read<Auth>();
+      final authProvider = context.watch<Auth>();
       final appDataProvider = context.read<AppData>();
 
-      appDataProvider.fetchAndSetAppData().then((_) {
-        authProvider.getToken().then((_) {
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => authProvider.isFirstOpen
-                    ? OnboardingPage()
-                    : CustomBottomNavigationBar(),
-              ));
-        });
+      authProvider.getToken().then((_) {
+        if (authProvider.isAuth) {
+          final token = authProvider.token;
+          appDataProvider.fetchAndSetSession(token).then(
+                (value) => appDataProvider.fetchAndSetAppData().then(
+                  (_) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => authProvider.isFirstOpen
+                            ? OnboardingPage()
+                            : CustomBottomNavigationBar(),
+                      ),
+                    );
+                  },
+                ),
+              );
+        } else {
+          appDataProvider.fetchAndSetAppData().then((_) {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => authProvider.isFirstOpen
+                      ? OnboardingPage()
+                      : CustomBottomNavigationBar(),
+                ));
+          });
+        }
       });
     }
     _isInit = false;

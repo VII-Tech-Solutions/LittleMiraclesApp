@@ -9,6 +9,7 @@ import '../database/db_sqflite.dart';
 import '../global/globalHelpers.dart';
 import '../global/globalEnvironment.dart';
 //MODELS
+import '../models/session.dart';
 import '../models/section.dart';
 import '../models/package.dart';
 import '../models/dailyTip.dart';
@@ -31,11 +32,13 @@ import '../widgets/containers/packageContainer.dart';
 import '../widgets/containers/workshopContainer.dart';
 import '../widgets/containers/promotionContainer.dart';
 import '../widgets/containers/popularPackageContainer.dart';
+import '../widgets/loggedUserContainers/homeSessionContainer.dart';
 //PAGES
 
 class AppData with ChangeNotifier {
   String authToken;
   List<Onboarding> _onboardings = [];
+  List<Session> _sessions = [];
   List<DailyTip> _dailyTips = [];
   List<Promotion> _promotions = [];
   List<Workshop> _workshops = [];
@@ -50,16 +53,19 @@ class AppData with ChangeNotifier {
   List<StudioPackage> _studioPackages = [];
 
   // MAIN PAGES WIDGETS LISTS
+  List<Widget> _sessionWidgetsList = [];
   List<Widget> _homeList = [];
   List<Widget> _bookingList = [];
 
   AppData(
     this.authToken,
+    this._sessions,
     this._onboardings,
     this._dailyTips,
     this._promotions,
     this._workshops,
     this._sections,
+    this._sessionWidgetsList,
     this._homeList,
     this._bookingList,
     this._packages,
@@ -71,6 +77,10 @@ class AppData with ChangeNotifier {
     this._cakeCategories,
     this._studioPackages,
   );
+
+  List<Session> get sessions {
+    return [..._sessions];
+  }
 
   List<Onboarding> get onboardings {
     return [..._onboardings];
@@ -182,12 +192,64 @@ class AppData with ChangeNotifier {
   }
 
   // WIDGET LIST GETTERS
+  List<Widget> get sessionWidgetsList {
+    return [..._sessionWidgetsList];
+  }
+
   List<Widget> get homeList {
     return [..._homeList];
   }
 
+  List<Widget> get sessionsAndHomeList {
+    return [..._sessionWidgetsList, ..._homeList];
+  }
+
   List<Widget> get bookingList {
     return [..._bookingList];
+  }
+
+  Future<void> fetchAndSetSession(String token) async {
+    final url = Uri.parse('$apiLink/sessions');
+
+    try {
+      final response = await http.get(url, headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Platform': 'ios',
+        'App-Version': '0.0.1',
+        'Authorization': 'Bearer $token',
+      }).timeout(Duration(seconds: Timeout.value));
+
+      print(response.body);
+
+      final sessionsJson =
+          json.decode(response.body)['data']['sessions'] as List;
+
+      if (response.statusCode != 200) {
+        notifyListeners();
+        return;
+      }
+
+      _sessions = sessionsJson.map((json) => Session.fromJson(json)).toList();
+
+      if (_sessions.isNotEmpty) {
+        _sessionWidgetsList.clear();
+        _sessionWidgetsList.add(TitleText(
+          title: 'Your sessions',
+          type: TitleTextType.mainHomeTitle,
+        ));
+
+        _sessions.forEach((element) {
+          _sessionWidgetsList.add(HomeSessionContainer(element));
+        });
+      }
+
+      notifyListeners();
+      return;
+    } on TimeoutException catch (e) {
+      print('Exception Timeout:: $e');
+    } catch (e) {
+      print('catch error:: $e');
+    }
   }
 
   Future<void> fetchAndSetAppData() async {
@@ -656,7 +718,11 @@ class AppData with ChangeNotifier {
 
   Future<void> generateHomePageWidgets() async {
     this.getCardSections(true).forEach((element) {
-      _homeList.add(ActionContainer(element));
+      if (_sessionWidgetsList.isNotEmpty &&
+          element.goTo == SectionAction.packages) {
+      } else {
+        _homeList.add(ActionContainer(element));
+      }
     });
 
     if (_dailyTips.isNotEmpty) {

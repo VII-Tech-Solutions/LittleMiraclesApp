@@ -3,21 +3,21 @@ import 'package:flutter/material.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
+import '../../models/session.dart';
 //PROVIDERS
 //WIDGETS
 import '../general/cachedImageWidget.dart';
 //PAGES
 import '../../pages/session/completedSessionDetailsPage.dart';
 
-class YourSessionContainer extends StatelessWidget {
-  //final Session? session;
-  final bool isCompleted;
-  const YourSessionContainer(this.isCompleted);
+class HomeSessionContainer extends StatelessWidget {
+  final Session? session;
+  const HomeSessionContainer(this.session);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: isCompleted ? Colors.white : AppColors.blueE8F3F5,
+      color: session?.status == 5 ? Colors.white : AppColors.blueE8F3F5,
       child: InkWell(
         onTap: () {
           Navigator.push(
@@ -70,7 +70,7 @@ class YourSessionContainer extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 4.0),
                 child: Text(
-                  isCompleted ? 'Completed' : 'Upcoming Session',
+                  session?.status == 5 ? 'Completed' : 'Upcoming Session',
                   maxLines: 1,
                   style: TextStyle(
                     color: AppColors.black45515D,

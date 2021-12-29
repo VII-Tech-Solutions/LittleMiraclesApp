@@ -36,11 +36,13 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProxyProvider<Auth, AppData>(
           update: (context, auth, previousAppData) => AppData(
             auth.token,
+            previousAppData == null ? [] : previousAppData.sessions,
             previousAppData == null ? [] : previousAppData.onboardings,
             previousAppData == null ? [] : previousAppData.dailyTips,
             previousAppData == null ? [] : previousAppData.promotions,
             previousAppData == null ? [] : previousAppData.workshops,
             previousAppData == null ? [] : previousAppData.sections,
+            previousAppData == null ? [] : previousAppData.sessionWidgetsList,
             previousAppData == null ? [] : previousAppData.homeList,
             previousAppData == null ? [] : previousAppData.bookingList,
             previousAppData == null ? [] : previousAppData.packages,
@@ -52,8 +54,8 @@ class MyApp extends StatelessWidget {
             previousAppData == null ? [] : previousAppData.cakeCategories,
             previousAppData == null ? [] : previousAppData.studioPackage,
           ),
-          create: (context) => AppData(
-              "", [], [], [], [], [], [], [], [], [], [], [], [], [], [], []),
+          create: (context) => AppData("", [], [], [], [], [], [], [], [], [],
+              [], [], [], [], [], [], [], []),
         ),
         ChangeNotifierProxyProvider<Auth, Bookings>(
           update: (context, auth, previousBookings) => Bookings(
@@ -72,8 +74,8 @@ class MyApp extends StatelessWidget {
             previousBookings == null ? null : previousBookings.session,
             previousBookings == null ? null : previousBookings.promoCode,
           ),
-          create: (context) =>
-              Bookings('', null, [], [], [], [], [], '', '', {}, [], [], null, null),
+          create: (context) => Bookings(
+              '', null, [], [], [], [], [], '', '', {}, [], [], null, null),
         ),
       ],
       child: MaterialApp(
