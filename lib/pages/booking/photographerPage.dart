@@ -15,7 +15,6 @@ import '../../widgets/bookingSessonContainers/selectionRow.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
 import '../../widgets/dialogs/showLoadingDialog.dart';
 //PAGES
-import './additionsPage.dart';
 import './reviewAndPayPage.dart';
 
 class PhotographerPage extends StatefulWidget {

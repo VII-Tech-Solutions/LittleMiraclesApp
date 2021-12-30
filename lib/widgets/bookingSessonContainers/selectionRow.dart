@@ -1,12 +1,10 @@
 //PACKAGES
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 //EXTENSIONS
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
-import '../../providers/bookings.dart';
 //WIDGETS
 import '../../widgets/general/cachedImageWidget.dart';
 //PAGES

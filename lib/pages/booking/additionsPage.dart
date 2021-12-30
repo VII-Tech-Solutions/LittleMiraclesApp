@@ -11,10 +11,8 @@ import '../../providers/appData.dart';
 import '../../providers/bookings.dart';
 //WIDGETS
 import '../../widgets/appbars/appBarWithBack.dart';
-import '../../widgets/general/cachedImageWidget.dart';
 import '../../widgets/packageContainers/packageBottomSectionContainer.dart';
 import '../../widgets/bookingSessonContainers/selectionRow.dart';
-import '../../widgets/dialogs/showOkDialog.dart';
 //PAGES
 import './reviewAndPayPage.dart';
 

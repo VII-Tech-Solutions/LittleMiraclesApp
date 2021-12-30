@@ -107,8 +107,6 @@ class _PaymentContainerState extends State<PaymentContainer> {
 
   @override
   Widget build(BuildContext context) {
-    final list = context.watch<AppData>().paymentMethods;
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(

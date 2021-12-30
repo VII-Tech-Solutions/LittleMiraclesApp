@@ -32,6 +32,7 @@ import '../widgets/containers/packageContainer.dart';
 import '../widgets/containers/workshopContainer.dart';
 import '../widgets/containers/promotionContainer.dart';
 import '../widgets/containers/popularPackageContainer.dart';
+import '../widgets/buttons/viewAllSessionsButton.dart';
 import '../widgets/loggedUserContainers/homeSessionContainer.dart';
 //PAGES
 
@@ -201,7 +202,13 @@ class AppData with ChangeNotifier {
   }
 
   List<Widget> get sessionsAndHomeList {
-    return [..._sessionWidgetsList, ..._homeList];
+    if (_sessionWidgetsList.length > 3) {
+      var list = _sessionWidgetsList.getRange(0, 4).toList();
+      list.add(ViewAllSessionsButton());
+      return [...list, ..._homeList];
+    } else {
+      return [..._sessionWidgetsList, ..._homeList];
+    }
   }
 
   List<Widget> get bookingList {
@@ -219,8 +226,6 @@ class AppData with ChangeNotifier {
         'Authorization': 'Bearer $token',
       }).timeout(Duration(seconds: Timeout.value));
 
-      print(response.body);
-
       final sessionsJson =
           json.decode(response.body)['data']['sessions'] as List;
 
@@ -236,6 +241,8 @@ class AppData with ChangeNotifier {
         _sessionWidgetsList.add(TitleText(
           title: 'Your sessions',
           type: TitleTextType.mainHomeTitle,
+          customPadding:
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         ));
 
         _sessions.forEach((element) {
@@ -593,6 +600,8 @@ class AppData with ChangeNotifier {
               deletedAt: item['deletedAt'],
               cakeAllowed: item['cakeAllowed'],
               backdropAllowed: item['backdropAllowed'],
+              hasGuideline: item['hasGuideline'],
+              outdoorAllowed: item['outdoorAllowed'],
               benefitsIds: item['benefitsIds'],
               reviewsIds: item['reviewsIds'],
               mediaIds: item['mediaIds'],

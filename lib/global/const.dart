@@ -64,3 +64,11 @@ class UserStatus {
   static const int draft = 2;
   static const int incomplete = 3;
 }
+
+class SessionStatus {
+  static const int booked = 1;
+  static const int photoShootDay = 2;
+  static const int magicMaking = 3;
+  static const int gettingInOrder = 4;
+  static const int ready = 5;
+}
