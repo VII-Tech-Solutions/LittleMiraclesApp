@@ -38,6 +38,8 @@ import '../widgets/loggedUserContainers/homeSessionContainer.dart';
 
 class AppData with ChangeNotifier {
   String authToken;
+  Package? _package;
+  Session? _session;
   List<Onboarding> _onboardings = [];
   List<Session> _sessions = [];
   List<DailyTip> _dailyTips = [];
@@ -60,6 +62,8 @@ class AppData with ChangeNotifier {
 
   AppData(
     this.authToken,
+    this._session,
+    this._package,
     this._sessions,
     this._onboardings,
     this._dailyTips,
@@ -78,6 +82,20 @@ class AppData with ChangeNotifier {
     this._cakeCategories,
     this._studioPackages,
   );
+
+  Future<void> assignSessionById(int? id) async {
+    _session = await _sessions.firstWhere((element) => element.id == id);
+    _package = await _packages.firstWhere((element) => element.id == _session?.packageId);
+    notifyListeners();
+  }
+
+  Session? get session {
+    return _session;
+  }
+
+  Package? get package {
+    return _package;
+  }
 
   List<Session> get sessions {
     return [..._sessions];
@@ -600,8 +618,8 @@ class AppData with ChangeNotifier {
               deletedAt: item['deletedAt'],
               cakeAllowed: item['cakeAllowed'],
               backdropAllowed: item['backdropAllowed'],
-              hasGuideline: item['hasGuideline'],
-              outdoorAllowed: item['outdoorAllowed'],
+              hasGuideline: item['hasGuideline'] == 1 ? true : false,
+              outdoorAllowed: item['outdoorAllowed'] == 1 ? true : false,
               benefitsIds: item['benefitsIds'],
               reviewsIds: item['reviewsIds'],
               mediaIds: item['mediaIds'],

@@ -1,5 +1,6 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 //EXTENSION
 import '../../extensions/stringExtension.dart';
 //GLOBAL
@@ -8,10 +9,12 @@ import '../../global/const.dart';
 //MODELS
 import '../../models/session.dart';
 //PROVIDERS
+import '../../providers/appData.dart';
 //WIDGETS
 import '../general/cachedImageWidget.dart';
 //PAGES
-import '../../pages/session/completedSessionDetailsPage.dart';
+import '../../pages/home/upcomingSesionDetailsPage.dart';
+import '../../pages/home/completedSessionDetailsPage.dart';
 
 class HomeSessionContainer extends StatelessWidget {
   final Session? session;
@@ -39,72 +42,106 @@ class HomeSessionContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: session?.status == 5 ? Colors.white : AppColors.blueE8F3F5,
+      padding: EdgeInsets.fromLTRB(16.0, 22.0, 16.0, 27.0),
       child: InkWell(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => CompletedSessionDetailsPage(),
-            ),
-          );
-        },
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(16.0, 22.0, 16.0, 27.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: 177,
-                width: double.infinity,
-                child: CachedImageWidget(
-                  //TODO:: chage it to session image
-                  'https://i.picsum.photos/id/102/343/177.jpg?hmac=e1sICk0f4rw_aK6rvEOObRMe3OPobO35sP3CUiIZJCE',
-                  ImageShape.rectangle,
+          context.read<AppData>().assignSessionById(session?.id).then((_) {
+            if (session?.status == 5) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CompletedSessionDetailsPage(),
                 ),
+              );
+            } else {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => UpcomingSessionDetailsPage(),
+                ),
+              );
+            }
+          });
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 177,
+              width: double.infinity,
+              child: CachedImageWidget(
+                session?.featuredImage ?? '',
+                ImageShape.rectangle,
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.688,
+                    child: Text(
                       session?.title ?? '',
                       maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: AppColors.black45515D,
                         fontWeight: FontWeight.w800,
                         fontSize: 14.0,
                       ),
                     ),
-                    Text(
-                      session?.date.toString().toSlashddMMMyyyy() ?? '',
-                      maxLines: 1,
-                      style: TextStyle(
-                        color: AppColors.black45515D,
-                        fontWeight: FontWeight.w800,
-                        fontSize: 14.0,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 4.0),
-                child: Text(
-                  _statusText(),
-                  maxLines: 1,
-                  style: TextStyle(
-                    color: AppColors.black45515D,
-                    fontWeight: FontWeight.w200,
-                    fontSize: 14.0,
                   ),
+                  Text(
+                    session?.date.toString().toSlashddMMMyyyy() ?? '',
+                    maxLines: 1,
+                    style: TextStyle(
+                      color: AppColors.black45515D,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 14.0,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 4.0),
+              child: Text(
+                _statusText(),
+                maxLines: 1,
+                style: TextStyle(
+                  color: AppColors.black45515D,
+                  fontWeight: FontWeight.w200,
+                  fontSize: 14.0,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 }
+
+
+  // Text(
+                  //   // session?.title ?? '',
+                  //   ' something something something something sometinhg ',
+                  //   maxLines: 1,
+                  //   overflow: TextOverflow.ellipsis,
+                  //   style: TextStyle(
+                  //     color: AppColors.black45515D,
+                  //     fontWeight: FontWeight.w800,
+                  //     fontSize: 14.0,
+                  //   ),
+                  // ),
+                  // Text(
+                  //   session?.date.toString().toSlashddMMMyyyy() ?? '',
+                  //   maxLines: 1,
+                  //   style: TextStyle(
+                  //     color: AppColors.black45515D,
+                  //     fontWeight: FontWeight.w800,
+                  //     fontSize: 14.0,
+                  //   ),
+                  // ),

@@ -1,6 +1,4 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/providers/appData.dart';
-import 'package:LMP0001_LittleMiraclesApp/widgets/texts/titleText.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 //EXTENSIONS
@@ -9,9 +7,11 @@ import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
 import '../../providers/bookings.dart';
+import '../../providers/appData.dart';
 //WIDGETS
 import '../../widgets/form/formTextField.dart';
 import '../general/cachedImageWidget.dart';
+import '../../widgets/texts/titleText.dart';
 //PAGES
 import '../../pages/booking/backdropPage.dart';
 
@@ -34,7 +34,8 @@ class BackdropSelector extends StatelessWidget {
                 ),
                 Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.symmetric(horizontal:16, vertical: 11),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: AppColors.greyD0D3D6,
@@ -54,7 +55,8 @@ class BackdropSelector extends StatelessWidget {
                                   bookingsProvider.selectedBackdrops)
                               .map(
                                 (e) => Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 5),
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 5),
                                   child: Row(children: [
                                     SizedBox(
                                       height: 48,
@@ -106,31 +108,34 @@ class BackdropSelector extends StatelessWidget {
                 )
               ],
             ))
-        : FormTextFieldWidget(
-            controller: TextEditingController(),
-            customMargin:
-                const EdgeInsets.symmetric(horizontal: 0.0, vertical: 20),
-            title: bookingsProvider.package?.backdropAllowed == 1
-                ? 'Select Backdrop'
-                : 'Select ${bookingsProvider.package?.backdropAllowed} Backdrops',
-            hintStyle: TextStyle(
-              color: AppColors.black45515D,
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
+        : Visibility(
+            visible: bookingsProvider.package?.backdropAllowed != 0,
+            child: FormTextFieldWidget(
+              controller: TextEditingController(),
+              customMargin:
+                  const EdgeInsets.symmetric(horizontal: 0.0, vertical: 20),
+              title: bookingsProvider.package?.backdropAllowed == 1
+                  ? 'Select Backdrop'
+                  : 'Select ${bookingsProvider.package?.backdropAllowed ?? ''} Backdrops',
+              hintStyle: TextStyle(
+                color: AppColors.black45515D,
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+              ),
+              suffixIcon: Icon(
+                Icons.keyboard_arrow_right,
+                color: AppColors.black45515D,
+              ),
+              onTap: () {
+                FocusScope.of(context).requestFocus(new FocusNode());
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BackdropPage(),
+                  ),
+                );
+              },
             ),
-            suffixIcon: Icon(
-              Icons.keyboard_arrow_right,
-              color: AppColors.black45515D,
-            ),
-            onTap: () {
-              FocusScope.of(context).requestFocus(new FocusNode());
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => BackdropPage(),
-                ),
-              );
-            },
           );
   }
 }
