@@ -1,12 +1,11 @@
 //PACKAGES
+import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
-import 'package:provider/src/provider.dart';
 //EXTENSIONS
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
-import '../../providers/appData.dart';
 //WIDGETS
 //PAGES
 
@@ -125,7 +124,10 @@ class _PaymentContainerState extends State<PaymentContainer> {
             ),
           ),
           _buildSelectionRow(1, 'Paypal'),
-          _buildSelectionRow(2, 'Apple Pay'),
+          Visibility(
+            visible: Platform.isIOS,
+            child: _buildSelectionRow(2, 'Apple Pay'),
+          ),
           _buildSelectionRow(3, 'Debit Card'),
           _buildSelectionRow(4, 'Credit Card'),
         ],

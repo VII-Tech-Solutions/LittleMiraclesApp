@@ -19,7 +19,7 @@ class RateSessionContainer extends StatelessWidget {
     var userRating = TextEditingController();
 
     return Container(
-      //margin: EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+      //margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
       height: 284,
       width: double.infinity,
       decoration: BoxDecoration(
@@ -44,7 +44,7 @@ class RateSessionContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  margin: EdgeInsets.symmetric(vertical: 16),
+                  margin: const EdgeInsets.symmetric(vertical: 16),
                   height: 49,
                   width: 67,
                   decoration: BoxDecoration(
@@ -76,8 +76,9 @@ class RateSessionContainer extends StatelessWidget {
                   direction: Axis.horizontal,
                   allowHalfRating: true,
                   itemCount: 5,
-                  itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                  itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
                   updateOnDrag: true,
+                  glow: false,
                   itemBuilder: (context, _) => Icon(
                     Icons.star_rounded,
                     color: AppColors.yellowFFB400,
@@ -94,8 +95,8 @@ class RateSessionContainer extends StatelessWidget {
               decoration: InputDecoration(
                 filled: true,
                 fillColor: AppColors.greyF2F3F3,
-                contentPadding:
-                    const EdgeInsets.fromLTRB(16.0, 11.0, 16.0, 11.0),
+                contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 16.0, vertical: 11.0),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: AppColors.greyF2F3F3),
                 ),

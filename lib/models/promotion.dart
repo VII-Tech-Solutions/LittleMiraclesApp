@@ -5,7 +5,7 @@ class Promotion {
   final String? image;
   final String? title;
   final String? offer;
-  final String? type;
+  final int? type;
   final String? content;
   final int? status;
   final String? updatedAt;
@@ -35,7 +35,7 @@ class Promotion {
       'image': image ?? "",
       'title': title ?? "",
       'offer': offer ?? "",
-      'type': type ?? "",
+      'type': type ?? -1,
       'content': content ?? "",
       'status': status ?? -1,
       'updatedAt': updatedAt ?? "",
@@ -52,7 +52,7 @@ class Promotion {
       image: json['image'] as String?,
       title: json['title'] as String?,
       offer: json['offer'] as String?,
-      type: json['type'] as String?,
+      type: json['type'] as int?,
       content: json['content'] as String?,
       status: json['status'] as int?,
       updatedAt: json['updated_at'] as String?,

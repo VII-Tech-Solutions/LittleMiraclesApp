@@ -1,4 +1,5 @@
 //PACKAGES
+import 'dart:io' show Platform;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -228,6 +229,14 @@ class LoginPage extends StatelessWidget {
                 },
                 buttonText: 'Login using Snapchat',
                 assetName: 'assets/images/iconsSocialSnapchat.svg',
+              ),
+              Visibility(
+                visible: Platform.isIOS,
+                child: ButtonWithIconWidget(
+                  onPress: () {},
+                  buttonText: 'Login using Apple',
+                  assetName: 'assets/images/iconsSocialApple.svg',
+                ),
               ),
               SizedBox(height: MediaQuery.of(context).padding.bottom + 24),
             ],

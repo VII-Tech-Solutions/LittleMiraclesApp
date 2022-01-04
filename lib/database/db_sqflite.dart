@@ -19,7 +19,7 @@ class DBHelper {
         await db.execute(
             'CREATE TABLE dailyTips(id INT PRIMARY KEY, status INTEGER, updatedAt TEXT, deletedAt TEXT, image TEXT, title TEXT, postedAt TEXT, content TEXT)');
         await db.execute(
-            'CREATE TABLE promotions(id INT PRIMARY KEY, image TEXT, title TEXT, offer TEXT, type TEXT, content TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT, postedAt TEXT, validUntil TEXT, promoCode TEXT)');
+            'CREATE TABLE promotions(id INT PRIMARY KEY, image TEXT, title TEXT, offer TEXT, type INTEGER, content TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT, postedAt TEXT, validUntil TEXT, promoCode TEXT)');
         await db.execute(
             'CREATE TABLE workshops(id INT PRIMARY KEY, image TEXT, title TEXT, price TEXT, content TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT, postedAt TEXT)');
         await db.execute(
