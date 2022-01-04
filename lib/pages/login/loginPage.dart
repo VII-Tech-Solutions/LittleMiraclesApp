@@ -36,9 +36,6 @@ class LoginPage extends StatelessWidget {
   Future<void> _socialLogin(BuildContext context, String socialType,
       Auth authProvider, AppData appDataProvider) async {
     ApiResponse? result;
-    // setState(() {
-    //   _isLoading = true;
-    // });
 
     ShowLoadingDialog(context);
 

@@ -16,6 +16,7 @@ import '../models/review.dart';
 import '../models/availableDates.dart';
 import '../models/session.dart';
 import '../models/promoCode.dart';
+import '../models/question.dart';
 //PROVIDERS
 //WIDGETS
 //PAGES
@@ -37,6 +38,7 @@ class Bookings with ChangeNotifier {
   List<dynamic>? _availableTimings = [];
   Session? _session;
   PromoCode? _promoCode;
+  List<Question> _feedbackQuestions = [];
 
   Bookings(
     this.authToken,
@@ -53,6 +55,7 @@ class Bookings with ChangeNotifier {
     this._availableTimings,
     this._session,
     this._promoCode,
+    this._feedbackQuestions,
   );
 
   Package? get package {
@@ -105,6 +108,10 @@ class Bookings with ChangeNotifier {
 
   PromoCode? get promoCode {
     return _promoCode;
+  }
+
+  List<Question> get feedbackQuestions {
+    return _feedbackQuestions;
   }
 
   void getAvailableTimings(String date) {
@@ -365,7 +372,7 @@ class Bookings with ChangeNotifier {
       notifyListeners();
       return (ApiResponse(
         statusCode: response.statusCode,
-        message: json.decode(response.body)['message'],
+        message: result['message'],
       ));
     } on TimeoutException catch (e) {
       print('Exception Timeout:: $e');
@@ -380,6 +387,93 @@ class Bookings with ChangeNotifier {
     _promoCode = null;
 
     notifyListeners();
+  }
+
+  Future<ApiResponse?> fetchAndSetFeedbackQuestions() async {
+    final url = Uri.parse('$apiLink/feedback-questions');
+
+    try {
+      final response = await http.get(url, headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Platform': 'ios',
+        'App-Version': '0.0.1',
+        'Authorization': 'Bearer $authToken',
+      }).timeout(Duration(seconds: Timeout.value));
+
+      final result = json.decode(response.body);
+      final extractedData = result['data']['questions'] as List;
+
+      if (response.statusCode != 200) {
+        if ((response.statusCode >= 400 && response.statusCode <= 499) ||
+            response.statusCode == 503) {
+          return ApiResponse(
+              statusCode: response.statusCode,
+              message: result['message'].toString());
+        } else {
+          return null;
+        }
+      }
+
+      _feedbackQuestions =
+          extractedData.map((json) => Question.fromJson(json)).toList();
+
+      print('questions fetched: ${_feedbackQuestions.length}');
+
+      notifyListeners();
+      return (ApiResponse(
+        statusCode: response.statusCode,
+        message: result['message'],
+      ));
+    } on TimeoutException catch (e) {
+      print('Exception Timeout:: $e');
+    } catch (e) {
+      print('catch error:: $e');
+    }
+  }
+
+  Future<ApiResponse?> submitSessionFeedback(dynamic feedbackQuestions) async {
+    final url = Uri.parse('$apiLink/sessions/${session?.id}/feedback');
+
+    print(jsonEncode(feedbackQuestions));
+
+    try {
+      final response = await http
+          .post(
+            url,
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'Platform': 'ios',
+              'App-Version': '0.0.1',
+              'Authorization': 'Bearer $authToken',
+            },
+            body: jsonEncode(feedbackQuestions),
+          )
+          .timeout(Duration(seconds: Timeout.value));
+
+      final result = json.decode(response.body);
+      final extractedData = result['data']['questions'] as List;
+
+      if (response.statusCode != 200) {
+        if ((response.statusCode >= 400 && response.statusCode <= 499) ||
+            response.statusCode == 503) {
+          return ApiResponse(
+              statusCode: response.statusCode,
+              message: result['message'].toString());
+        } else {
+          return null;
+        }
+      }
+
+      notifyListeners();
+      return (ApiResponse(
+        statusCode: response.statusCode,
+        message: result['message'],
+      ));
+    } on TimeoutException catch (e) {
+      print('Exception Timeout:: $e');
+    } catch (e) {
+      print('catch error:: $e');
+    }
   }
 
   //END OF CLASS

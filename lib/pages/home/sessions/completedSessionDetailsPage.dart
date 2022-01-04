@@ -1,16 +1,22 @@
 //PACKAGES
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
+import 'package:provider/provider.dart';
 //GLOBAL
 import '../../../global/colors.dart';
+import '../../../global/const.dart';
 //MODELS
 //PROVIDERS
+import '../../../providers/bookings.dart';
 //WIDGETS
 import '../../../widgets/appbars/appBarWithBack.dart';
 import '../../../widgets/buttons/filledButtonWidget.dart';
 import '../../../widgets/containers/rateSessionContainer.dart';
 import '../../../widgets/general/cachedImageWidget.dart';
+import '../../../widgets/dialogs/showLoadingDialog.dart';
+import '../../../widgets/dialogs/showOkDialog.dart';
 //PAGES
+import './sessionFeedbackPage.dart';
 
 class CompletedSessionDetailsPage extends StatelessWidget {
   const CompletedSessionDetailsPage();
@@ -138,7 +144,28 @@ class CompletedSessionDetailsPage extends StatelessWidget {
               ),
             ),
             FilledButtonWidget(
-              onPress: () {},
+              onPress: () {
+                ShowLoadingDialog(context);
+                context
+                    .read<Bookings>()
+                    .fetchAndSetFeedbackQuestions()
+                    .then((response) {
+                  ShowLoadingDialog(context, dismiss: true);
+                  if (response?.statusCode == 200) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SessionFeedbackPage(),
+                      ),
+                    );
+                  } else {
+                    ShowOkDialog(
+                      context,
+                      response?.message ?? ErrorMessages.somethingWrong,
+                    );
+                  }
+                });
+              },
               title: 'Complete a customer feedback form',
               type: ButtonType.generalGrey,
               margin: const EdgeInsets.symmetric(vertical: 20.0),

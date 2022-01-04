@@ -75,9 +75,10 @@ class MyApp extends StatelessWidget {
             previousBookings == null ? [] : previousBookings.availableTimings,
             previousBookings == null ? null : previousBookings.session,
             previousBookings == null ? null : previousBookings.promoCode,
+            previousBookings == null ? [] : previousBookings.feedbackQuestions,
           ),
           create: (context) => Bookings(
-              '', null, [], [], [], [], [], '', '', {}, [], [], null, null),
+              '', null, [], [], [], [], [], '', '', {}, [], [], null, null, []),
         ),
       ],
       child: MaterialApp(

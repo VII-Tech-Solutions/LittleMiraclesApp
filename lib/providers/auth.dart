@@ -20,20 +20,6 @@ import '../models/familyMember.dart';
 //PAGES
 
 class Auth with ChangeNotifier {
-  // bool _disposed = false;
-  // @override
-  // void dispose() {
-  //   _disposed = true;
-  //   super.dispose();
-  // }
-
-  // @override
-  // void notifyListeners() {
-  //   if (!_disposed) {
-  //     super.notifyListeners();
-  //   }
-  // }
-
   List<String> _tables = [
     Tables.onboarding,
     Tables.photographers,
@@ -179,7 +165,7 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> fetchRegistrationQuestions() async {
-    final url = Uri.parse('$apiLink/questions');
+    final url = Uri.parse('$apiLink/family-questions');
 
     try {
       final response = await http.get(url, headers: {
