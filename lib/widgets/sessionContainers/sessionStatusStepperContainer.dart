@@ -41,7 +41,7 @@ class SessionStatusStepperContainer extends StatelessWidget {
               color: Colors.white,
               shape: BoxShape.circle,
               border: Border.all(
-                color: status == step
+                color: status! >= step
                     ? AppColors.blue8DC4CB
                     : AppColors.greyD0D3D6,
                 width: 1,
@@ -49,7 +49,7 @@ class SessionStatusStepperContainer extends StatelessWidget {
             ),
             child: Container(
               decoration: BoxDecoration(
-                color: status == step ? AppColors.blue8DC4CB : Colors.white,
+                color: status >= step ? AppColors.blue8DC4CB : Colors.white,
                 shape: BoxShape.circle,
               ),
             ),
