@@ -13,6 +13,7 @@ import '../../../providers/bookings.dart';
 import '../../../widgets/buttons/iconButtonWidget.dart';
 import '../../../widgets/form/multiSelectQuestionWidget.dart';
 import '../../../widgets/form/textQuestionWidget.dart';
+import '../../../widgets/form/polarQuestionWidget.dart';
 import '../../../widgets/dialogs/showOkDialog.dart';
 import '../../../widgets/dialogs/showLoadingDialog.dart';
 import '../../../widgets/buttons/filledButtonWidget.dart';
@@ -52,7 +53,7 @@ class _SessionFeedbackPageState extends State<SessionFeedbackPage> {
         );
       } else {
         _questionsList.add(
-          TextQuestionWidget(
+          PolarQuestionWidget(
             question,
             (val) {
               return _assignAnswerValue(val, question.id);
@@ -169,7 +170,8 @@ class _SessionFeedbackPageState extends State<SessionFeedbackPage> {
                               Navigator.pop(context);
                               ShowOkDialog(
                                 context,
-                                response?.message ?? 'Thanks for your feedback.',
+                                response?.message ??
+                                    'Thanks for your feedback.',
                                 title: "Yaaay",
                               );
                             } else {
@@ -177,7 +179,6 @@ class _SessionFeedbackPageState extends State<SessionFeedbackPage> {
                                 context,
                                 response?.message ??
                                     ErrorMessages.somethingWrong,
-                                title: "Oops",
                               );
                             }
                           });
@@ -185,7 +186,6 @@ class _SessionFeedbackPageState extends State<SessionFeedbackPage> {
                           ShowOkDialog(
                             context,
                             ErrorMessages.fillRequiredInfo,
-                            title: "Oops",
                           );
                         }
                       },

@@ -134,6 +134,7 @@ class _MultiSelectQuestionWidgetState extends State<MultiSelectQuestionWidget> {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: _buildQuestionWidget(),
     );
   }
