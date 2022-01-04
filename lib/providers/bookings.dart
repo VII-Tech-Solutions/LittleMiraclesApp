@@ -38,6 +38,9 @@ class Bookings with ChangeNotifier {
   List<dynamic>? _availableTimings = [];
   Session? _session;
   PromoCode? _promoCode;
+
+  //Session Details
+  String _guidelineString = '';
   List<Question> _feedbackQuestions = [];
 
   Bookings(
@@ -56,6 +59,7 @@ class Bookings with ChangeNotifier {
     this._session,
     this._promoCode,
     this._feedbackQuestions,
+    this._guidelineString,
   );
 
   Package? get package {
@@ -112,6 +116,10 @@ class Bookings with ChangeNotifier {
 
   List<Question> get feedbackQuestions {
     return _feedbackQuestions;
+  }
+
+  String get guidelineString {
+    return _guidelineString;
   }
 
   void getAvailableTimings(String date) {
@@ -387,6 +395,44 @@ class Bookings with ChangeNotifier {
     _promoCode = null;
 
     notifyListeners();
+  }
+
+  Future<ApiResponse?> showSessionGuidelines(int? id) async {
+    final url = Uri.parse('$apiLink/sessions/$id/guideline');
+
+    try {
+      final response = await http.get(url, headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Platform': 'ios',
+        'App-Version': '0.0.1',
+        'Authorization': 'Bearer $authToken',
+      }).timeout(Duration(seconds: Timeout.value));
+
+      final result = json.decode(response.body);
+
+      if (response.statusCode != 200) {
+        if ((response.statusCode >= 400 && response.statusCode <= 499) ||
+            response.statusCode == 503) {
+          return ApiResponse(
+              statusCode: response.statusCode,
+              message: result['message'].toString());
+        } else {
+          return null;
+        }
+      }
+
+      _guidelineString = result['data']['guideline'] as String;
+
+      notifyListeners();
+      return (ApiResponse(
+        statusCode: response.statusCode,
+        message: result['message'],
+      ));
+    } on TimeoutException catch (e) {
+      print('Exception Timeout:: $e');
+    } catch (e) {
+      print('catch error:: $e');
+    }
   }
 
   Future<ApiResponse?> fetchAndSetFeedbackQuestions() async {

@@ -1,10 +1,12 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 //EXTENSIONS
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
+import '../../providers/bookings.dart';
 //WIDGETS
 import '../../widgets/appbars/appBarWithBack.dart';
 import '../../widgets/paymentContainer/paymentDetailsContainer.dart';
@@ -13,6 +15,7 @@ import '../../widgets/paymentContainer/paymentContainer.dart';
 import '../../widgets/paymentContainer/paymentBottomContainer.dart';
 import '../../widgets/paymentContainer/paymentAgreement.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
+import '../../widgets/sessionContainers/guidelinesButtonWidget.dart';
 //PAGES
 import '../../pages/booking/successPaymentPage.dart';
 
@@ -30,6 +33,9 @@ class _ReviewAndPayPageState extends State<ReviewAndPayPage> {
 
   @override
   Widget build(BuildContext context) {
+    final package = context.watch<Bookings>().package;
+    final session = context.watch<Bookings>().session;
+
     return Scaffold(
       appBar: AppBarWithBack(
         title: 'Review & Pay',
@@ -43,6 +49,7 @@ class _ReviewAndPayPageState extends State<ReviewAndPayPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              GuidelinesButtonWidget(package, session),
               PaymentDetailsContainer(),
               Container(
                 height: 1,
