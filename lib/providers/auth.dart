@@ -342,7 +342,8 @@ class Auth with ChangeNotifier {
     }
   }
 
-  Future<ApiResponse?> socialLogin(dynamic body, String provider) async {
+  Future<ApiResponse?> socialLogin(dynamic body, String provider,
+      {bool withNotifyListeners = true}) async {
     final url = Uri.parse('$apiLink/login');
 
     try {
@@ -428,7 +429,9 @@ class Auth with ChangeNotifier {
         }
       });
 
-      notifyListeners();
+      if (withNotifyListeners == true) {
+        notifyListeners();
+      }
       return ApiResponse(statusCode: response.statusCode, message: '');
     } catch (e) {
       print('catch error:: $e');
@@ -462,7 +465,7 @@ class Auth with ChangeNotifier {
           'provider': SSOType.google,
         };
 
-        return socialLogin(body, SSOType.google);
+        return socialLogin(body, SSOType.google, withNotifyListeners: false);
       }
     } catch (error) {
       print(error);

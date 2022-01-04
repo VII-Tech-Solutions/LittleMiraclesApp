@@ -19,6 +19,7 @@ class Session {
   final String? locationText;
   final String? locationLink;
   final bool? isOutdoor;
+  final bool? giftClaimed;
   final String? formattedDate;
   final String? formattedPeople;
   final String? formattedBackdrop;
@@ -49,6 +50,7 @@ class Session {
     @required this.locationText,
     @required this.locationLink,
     @required this.isOutdoor,
+    @required this.giftClaimed,
     @required this.formattedDate,
     @required this.formattedPeople,
     @required this.formattedBackdrop,
@@ -81,6 +83,7 @@ class Session {
       'locationText': locationText ?? "",
       'locationLink': locationLink ?? "",
       'isOutdoor': isOutdoor == true ? 1 : 0,
+      'giftClaimed': giftClaimed == true ? 1 : 0,
       'formattedDate': formattedDate ?? "",
       'formattedPeople': formattedPeople ?? "",
       'formattedBackdrop': formattedBackdrop ?? "",
@@ -114,6 +117,7 @@ class Session {
       locationText: json['location_text'] as String?,
       locationLink: json['location_link'] as String?,
       isOutdoor: json['is_outdoor'] as bool?,
+      giftClaimed: json['gift_claimed'] as bool?,
       formattedDate: json['formatted_date'] as String?,
       formattedPeople: json['formatted_people'] as String?,
       formattedBackdrop: json['formatted_backdrop'] as String?,

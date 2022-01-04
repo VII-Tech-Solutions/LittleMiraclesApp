@@ -2,14 +2,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
 //GLOBAL
-import '../../global/colors.dart';
+import '../../../global/colors.dart';
 //MODELS
 //PROVIDERS
 //WIDGETS
-import '../../widgets/appbars/appBarWithBack.dart';
-import '../../widgets/buttons/filledButtonWidget.dart';
-import '../../widgets/containers/rateSessionContainer.dart';
-import '../../widgets/general/cachedImageWidget.dart';
+import '../../../widgets/appbars/appBarWithBack.dart';
+import '../../../widgets/buttons/filledButtonWidget.dart';
+import '../../../widgets/containers/rateSessionContainer.dart';
+import '../../../widgets/general/cachedImageWidget.dart';
 //PAGES
 
 class CompletedSessionDetailsPage extends StatelessWidget {

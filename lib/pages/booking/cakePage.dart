@@ -147,7 +147,15 @@ class _CakePageState extends State<CakePage> {
             },
           ),
           TextQuestionWidget(
-            Question(id: 1, question: 'Custom Cake'),
+            Question(
+              id: 1,
+              question: 'Custom Cake',
+              updatedAt: null,
+              deletedAt: null,
+              options: null,
+              order: null,
+              questionType: null,
+            ),
             (val) {
               if (val != null) {
                 if (val['answer'] != '') {

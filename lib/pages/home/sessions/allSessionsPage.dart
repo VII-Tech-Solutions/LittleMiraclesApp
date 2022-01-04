@@ -5,10 +5,10 @@ import 'package:provider/provider.dart';
 //GLOBAL
 //MODELS
 //PROVIDERS
-import '../../providers/appData.dart';
+import '../../../providers/appData.dart';
 //WIDGETS
-import '../../widgets/appbars/appBarWithBack.dart';
-import '../../widgets/loggedUserContainers/homeSessionContainer.dart';
+import '../../../widgets/appbars/appBarWithBack.dart';
+import '../../../widgets/loggedUserContainers/homeSessionContainer.dart';
 //PAGES
 
 class AllSessionPage extends StatelessWidget {

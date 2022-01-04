@@ -61,7 +61,15 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
               BackdropSelector(),
               CakeSelector(),
               TextQuestionWidget(
-                Question(id: 1, question: 'Additional Comments:'),
+                Question(
+                  id: 1,
+                  question: 'Additional Comments:',
+                  updatedAt: null,
+                  deletedAt: null,
+                  options: null,
+                  order: null,
+                  questionType: null,
+                ),
                 (val) {
                   if (val != null) {
                     if (val['answer'] != '') {
@@ -83,7 +91,8 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
         onTap: () {
           final timings = context.read<Bookings>().availableTimings;
           final bookingsBody = context.read<Bookings>().bookingsBody;
-          if (bookingsBody.containsKey('location_link') && bookingsBody['location_link'] == "") {
+          if (bookingsBody.containsKey('location_link') &&
+              bookingsBody['location_link'] == "") {
             ShowOkDialog(context, 'Please add the location link to proceed');
           } else if (!bookingsBody.containsKey('date')) {
             ShowOkDialog(context, 'Please select a data to proceed');

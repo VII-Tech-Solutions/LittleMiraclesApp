@@ -37,7 +37,7 @@ class _SplashscreenState extends State<Splashscreen> {
       authProvider.getToken().then((_) {
         if (authProvider.isAuth) {
           final token = authProvider.token;
-          appDataProvider.fetchAndSetSession(token).then(
+          appDataProvider.fetchAndSetSession(token: token).then(
                 (value) => appDataProvider.fetchAndSetAppData().then(
                   (_) {
                     Navigator.pushReplacement(

@@ -124,7 +124,15 @@ class _BackdropPageState extends State<BackdropPage> {
             },
           ),
           TextQuestionWidget(
-            Question(id: 1, question: 'Custom Backdrop'),
+            Question(
+              id: 1,
+              question: 'Custom Backdrop',
+              updatedAt: null,
+              deletedAt: null,
+              options: null,
+              order: null,
+              questionType: null,
+            ),
             (val) {
               if (val != null) {
                 if (val['answer'] != '') {

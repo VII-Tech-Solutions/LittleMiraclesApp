@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 //MODELS
 //PROVIDERS
 //WIDGETS
-import '../../widgets/buttons/iconButtonWidget.dart';
-import '../../widgets/sessionContainers/sessionTopSectionContainer.dart';
-import '../../widgets/sessionContainers/sessionDetailsContainer.dart';
-import '../../widgets/sessionContainers/sessionStatusStepperContainer.dart';
-import '../../widgets/sessionContainers/sessionButtonsContainer.dart';
+import '../../../widgets/buttons/iconButtonWidget.dart';
+import '../../../widgets/sessionContainers/sessionTopSectionContainer.dart';
+import '../../../widgets/sessionContainers/sessionDetailsContainer.dart';
+import '../../../widgets/sessionContainers/sessionStatusStepperContainer.dart';
+import '../../../widgets/sessionContainers/sessionButtonsContainer.dart';
 //PAGES
 
 class UpcomingSessionDetailsPage extends StatelessWidget {

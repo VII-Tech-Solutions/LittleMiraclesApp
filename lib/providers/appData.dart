@@ -34,6 +34,7 @@ import '../widgets/containers/promotionContainer.dart';
 import '../widgets/containers/popularPackageContainer.dart';
 import '../widgets/buttons/viewAllSessionsButton.dart';
 import '../widgets/loggedUserContainers/homeSessionContainer.dart';
+import '../widgets/loggedUserContainers/freeGiftContainer.dart';
 //PAGES
 
 class AppData with ChangeNotifier {
@@ -85,7 +86,8 @@ class AppData with ChangeNotifier {
 
   Future<void> assignSessionById(int? id) async {
     _session = await _sessions.firstWhere((element) => element.id == id);
-    _package = await _packages.firstWhere((element) => element.id == _session?.packageId);
+    _package = await _packages
+        .firstWhere((element) => element.id == _session?.packageId);
     notifyListeners();
   }
 
@@ -99,6 +101,13 @@ class AppData with ChangeNotifier {
 
   List<Session> get sessions {
     return [..._sessions];
+  }
+
+  int get getGiftsCount {
+    return _sessions
+        .where((element) => element.status == 5 && element.giftClaimed == false)
+        .toList()
+        .length;
   }
 
   List<Onboarding> get onboardings {
@@ -233,7 +242,7 @@ class AppData with ChangeNotifier {
     return [..._bookingList];
   }
 
-  Future<void> fetchAndSetSession(String token) async {
+  Future<void> fetchAndSetSession({String? token}) async {
     final url = Uri.parse('$apiLink/sessions');
 
     try {
@@ -241,7 +250,7 @@ class AppData with ChangeNotifier {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Platform': 'ios',
         'App-Version': '0.0.1',
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer ${token ?? authToken}',
       }).timeout(Duration(seconds: Timeout.value));
 
       final sessionsJson =
@@ -744,13 +753,19 @@ class AppData with ChangeNotifier {
   }
 
   Future<void> generateHomePageWidgets() async {
+    _homeList.clear();
     this.getCardSections(true).forEach((element) {
       if (_sessionWidgetsList.isNotEmpty &&
           element.goTo == SectionAction.packages) {
+        //do nothing and don't add the sesion
       } else {
         _homeList.add(ActionContainer(element));
       }
     });
+
+    if (_sessionWidgetsList.isNotEmpty) {
+      _homeList.add(FreeGiftContainer());
+    }
 
     if (_dailyTips.isNotEmpty) {
       _homeList.add(TitleText(

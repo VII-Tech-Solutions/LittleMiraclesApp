@@ -11,6 +11,7 @@ import '../../global/const.dart';
 import '../../models/apiResponse.dart';
 //PROVIDERS
 import '../../providers/auth.dart';
+import '../../providers/appData.dart';
 //WIDGETS
 import '../../widgets/texts/titleText.dart';
 import '../../widgets/buttons/buttonWithIconWidget.dart';
@@ -32,9 +33,9 @@ class LoginPage extends StatelessWidget {
     }
   }
 
-  Future<void> _socialLogin(BuildContext context, String socialType) async {
+  Future<void> _socialLogin(BuildContext context, String socialType,
+      Auth authProvider, AppData appDataProvider) async {
     ApiResponse? result;
-    final authProvider = context.read<Auth>();
     // setState(() {
     //   _isLoading = true;
     // });
@@ -67,25 +68,31 @@ class LoginPage extends StatelessWidget {
     if (result != null) {
       final user = authProvider.user;
 
-      ShowLoadingDialog(context, dismiss: true);
       if (authProvider.token.isNotEmpty) {
-        if (user?.status == 1) {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) => CustomBottomNavigationBar(),
-            ),
-            (Route<dynamic> route) => false,
-          );
-        } else {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => CompleteProfilePage(),
-            ),
-          );
-        }
+        final token = authProvider.token;
+        await appDataProvider.fetchAndSetSession(token: token).then((_) {
+          appDataProvider.fetchAndSetAppData().then((_) {
+            ShowLoadingDialog(context, dismiss: true);
+            if (user?.status == 1) {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CustomBottomNavigationBar(),
+                ),
+                (Route<dynamic> route) => false,
+              );
+            } else {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CompleteProfilePage(),
+                ),
+              );
+            }
+          });
+        });
       } else {
+        ShowLoadingDialog(context, dismiss: true);
         ShowOkDialog(context, ErrorMessages.somethingWrong);
       }
     } else {
@@ -96,6 +103,8 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = context.watch<Auth>();
+    final appDataProvider = context.watch<AppData>();
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
@@ -203,7 +212,8 @@ class LoginPage extends StatelessWidget {
               ),
               ButtonWithIconWidget(
                 onPress: () {
-                  _socialLogin(context, SSOType.google);
+                  _socialLogin(
+                      context, SSOType.google, authProvider, appDataProvider);
                 },
                 buttonText: 'Login using Google',
                 assetName: 'assets/images/iconsSocialGoogle.svg',

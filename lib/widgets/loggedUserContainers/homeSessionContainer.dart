@@ -13,8 +13,8 @@ import '../../providers/appData.dart';
 //WIDGETS
 import '../general/cachedImageWidget.dart';
 //PAGES
-import '../../pages/home/upcomingSesionDetailsPage.dart';
-import '../../pages/home/completedSessionDetailsPage.dart';
+import '../../pages/home/sessions/upcomingSesionDetailsPage.dart';
+import '../../pages/home/sessions/completedSessionDetailsPage.dart';
 
 class HomeSessionContainer extends StatelessWidget {
   final Session? session;

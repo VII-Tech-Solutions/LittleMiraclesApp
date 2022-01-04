@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 //WIDGETS
 import './filledButtonWidget.dart';
 //PAGES
-import '../../pages/home/allSessionsPage.dart';
+import '../../pages/home/sessions/allSessionsPage.dart';
 
 class ViewAllSessionsButton extends StatelessWidget {
   const ViewAllSessionsButton({Key? key}) : super(key: key);
