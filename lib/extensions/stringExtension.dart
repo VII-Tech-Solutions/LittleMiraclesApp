@@ -54,4 +54,10 @@ extension StringExtension on String {
       return "";
     }
   }
+
+  int? dateToInt() {
+    final formattedDate = this.replaceAll('-', '');
+
+    return int.parse(formattedDate);
+  }
 }

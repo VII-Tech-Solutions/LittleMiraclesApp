@@ -3,6 +3,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+//EXTENSION
+import '../extensions/stringExtension.dart';
 //GLOBAL
 import '../global/const.dart';
 import '../database/db_sqflite.dart';
@@ -100,7 +102,19 @@ class AppData with ChangeNotifier {
   }
 
   List<Session> get sessions {
-    return [..._sessions];
+    List<Session> _inProgressList =
+        _sessions.where((element) => element.status != 5).toList();
+
+    _inProgressList
+        .sort((a, b) => b.date!.dateToInt()!.compareTo(a.date!.dateToInt()!));
+
+    List<Session> _completedList =
+        _sessions.where((element) => element.status == 5).toList();
+
+    _completedList
+        .sort((a, b) => b.date!.dateToInt()!.compareTo(a.date!.dateToInt()!));
+
+    return [..._inProgressList, ..._completedList];
   }
 
   int get getGiftsCount {
@@ -272,7 +286,7 @@ class AppData with ChangeNotifier {
               const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         ));
 
-        _sessions.forEach((element) {
+        this.sessions.forEach((element) {
           _sessionWidgetsList.add(HomeSessionContainer(element));
         });
       }
