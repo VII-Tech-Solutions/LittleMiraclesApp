@@ -19,7 +19,6 @@ class RateSessionContainer extends StatelessWidget {
     var userRating = TextEditingController();
 
     return Container(
-      //margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
       height: 284,
       width: double.infinity,
       decoration: BoxDecoration(

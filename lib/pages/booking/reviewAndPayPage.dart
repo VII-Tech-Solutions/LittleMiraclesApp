@@ -33,7 +33,6 @@ class _ReviewAndPayPageState extends State<ReviewAndPayPage> {
 
   @override
   Widget build(BuildContext context) {
-    final package = context.watch<Bookings>().package;
     final session = context.watch<Bookings>().session;
 
     return Scaffold(
@@ -49,7 +48,7 @@ class _ReviewAndPayPageState extends State<ReviewAndPayPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              GuidelinesButtonWidget(package, session),
+              GuidelinesButtonWidget(session),
               PaymentDetailsContainer(),
               Container(
                 height: 1,

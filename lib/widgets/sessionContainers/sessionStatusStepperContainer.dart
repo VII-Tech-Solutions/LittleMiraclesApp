@@ -75,7 +75,7 @@ class SessionStatusStepperContainer extends StatelessWidget {
       height: 422,
       width: double.infinity,
       padding: const EdgeInsets.only(left: 18, right: 20),
-      margin: const EdgeInsets.only(top: 30),
+      margin: EdgeInsets.only(top: session?.hasGuideline == true ? 20 : 30),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,

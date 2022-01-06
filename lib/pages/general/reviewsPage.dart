@@ -32,12 +32,16 @@ class _ReviewsPageState extends State<ReviewsPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            RateSessionContainer(),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 15.0, horizontal: 16),
+              child: RateSessionContainer(),
+            ),
             ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: reviewsList.length,
-              padding: EdgeInsets.only(left: 16, right: 10),
+              padding: EdgeInsets.symmetric(horizontal: 13),
               itemBuilder: (ctx, index) => ReviewContainer(
                 reviewsList[index],
                 borderColor: Colors.white,

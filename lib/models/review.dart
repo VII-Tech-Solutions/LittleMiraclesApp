@@ -47,7 +47,7 @@ class Review {
     final rate = json['rating'] as String?;
     return Review(
       id: json['id'] as int?,
-      rating: double.parse(rate.toString()),
+      rating: rate == null ? 0.0 : double.parse(rate.toString()),
       userName: json['user_name'] as String?,
       userImage: json['user_image'] as String?,
       userId: json['user_id'] as int?,

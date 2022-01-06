@@ -1,15 +1,18 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 //EXTENSIONS
 //GLOBAL
 //MODELS
 //PROVIDERS
+import '../../../providers/appData.dart';
 //WIDGETS
 import '../../../widgets/buttons/iconButtonWidget.dart';
 import '../../../widgets/sessionContainers/sessionTopSectionContainer.dart';
 import '../../../widgets/sessionContainers/sessionDetailsContainer.dart';
 import '../../../widgets/sessionContainers/sessionStatusStepperContainer.dart';
 import '../../../widgets/sessionContainers/sessionButtonsContainer.dart';
+import '../../../widgets/sessionContainers/guidelinesButtonWidget.dart';
 //PAGES
 
 class UpcomingSessionDetailsPage extends StatelessWidget {
@@ -17,8 +20,13 @@ class UpcomingSessionDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final session = context.watch<AppData>().session;
     List<Widget> _list = [
       SessionDetailsContainer(),
+      GuidelinesButtonWidget(
+        session,
+        margin: const EdgeInsets.fromLTRB(16, 20, 16, 0),
+      ),
       SessionStatusStepperContainer(),
       SessionButtonContainer(),
     ];

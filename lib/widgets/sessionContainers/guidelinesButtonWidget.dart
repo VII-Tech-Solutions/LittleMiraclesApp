@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import '../../global/const.dart';
 import '../../global/colors.dart';
 //MODELS
-import '../../models/package.dart';
 import '../../models/session.dart';
 //PROVIDERS
 import '../../providers/bookings.dart';
@@ -18,17 +17,20 @@ import '../../widgets/appbars/appBarWithClose.dart';
 //PAGES
 
 class GuidelinesButtonWidget extends StatelessWidget {
-  final Package? package;
   final Session? session;
-  const GuidelinesButtonWidget(this.package, this.session);
+  final EdgeInsetsGeometry? margin;
+  const GuidelinesButtonWidget(
+    this.session, {
+    this.margin = const EdgeInsets.fromLTRB(16, 0, 16, 20),
+  });
 
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible: package?.hasGuideline == true,
+      visible: session?.hasGuideline == true,
       child: FilledButtonWidget(
         onPress: () {
-          if (package?.id != null) {
+          if (session?.id != null) {
             ShowLoadingDialog(context);
             context
                 .read<Bookings>()
@@ -68,7 +70,7 @@ class GuidelinesButtonWidget extends StatelessWidget {
         },
         title: 'Guidelines',
         type: ButtonType.generalBlue,
-        margin: const EdgeInsets.fromLTRB(16, 0, 16, 20),
+        margin: margin,
       ),
     );
   }

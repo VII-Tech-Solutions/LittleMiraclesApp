@@ -71,6 +71,8 @@ class ReviewContainer extends StatelessWidget {
             SizedBox(width: 8),
             Expanded(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,6 +104,7 @@ class ReviewContainer extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 8.0, top: 6.0),
                     child: Text(
                       review.comment ?? '',
+                      textAlign: TextAlign.start,
                       style: TextStyle(
                         fontSize: 12,
                         color: AppColors.black45515D,
