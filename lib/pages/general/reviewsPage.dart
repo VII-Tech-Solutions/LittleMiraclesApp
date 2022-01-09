@@ -9,12 +9,11 @@ import '../../global/colors.dart';
 import '../../providers/bookings.dart';
 //WIDGETS
 import '../../widgets/appbars/appBarWithClose.dart';
-import '../../widgets/containers/rateSessionContainer.dart';
 import '../../widgets/containers/reviewContainer.dart';
 //PAGES
 
 class ReviewsPage extends StatefulWidget {
-  const ReviewsPage({Key? key}) : super(key: key);
+  const ReviewsPage();
 
   @override
   _ReviewsPageState createState() => _ReviewsPageState();
@@ -29,25 +28,12 @@ class _ReviewsPageState extends State<ReviewsPage> {
     return Scaffold(
       appBar: AppBarWithClose('Reviews', AppColors.pinkFEF2F1),
       backgroundColor: AppColors.pinkFEF2F1,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 15.0, horizontal: 16),
-              child: RateSessionContainer(),
-            ),
-            ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: reviewsList.length,
-              padding: EdgeInsets.symmetric(horizontal: 13),
-              itemBuilder: (ctx, index) => ReviewContainer(
-                reviewsList[index],
-                borderColor: Colors.white,
-              ),
-            ),
-          ],
+      body: ListView.builder(
+        itemCount: reviewsList.length,
+        padding: EdgeInsets.symmetric(horizontal: 13, vertical: 10),
+        itemBuilder: (ctx, index) => ReviewContainer(
+          reviewsList[index],
+          borderColor: Colors.white,
         ),
       ),
     );

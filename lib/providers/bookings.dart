@@ -522,5 +522,55 @@ class Bookings with ChangeNotifier {
     }
   }
 
+  Future<ApiResponse?> submitSessionReview(
+      int? sessionId, dynamic rate, String comment) async {
+    final url = Uri.parse('$apiLink/sessions/$sessionId/review');
+
+    print(session?.id);
+    print(rate);
+    print(comment);
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Platform': 'ios',
+          'App-Version': '0.0.1',
+          'Authorization': 'Bearer $authToken',
+        },
+        body: {
+          'rating': rate,
+          'comment': comment,
+        },
+      ).timeout(Duration(seconds: Timeout.value));
+
+      final result = json.decode(response.body);
+
+      print(result);
+
+      if (response.statusCode != 200) {
+        if ((response.statusCode >= 400 && response.statusCode <= 499) ||
+            response.statusCode == 503) {
+          return ApiResponse(
+              statusCode: response.statusCode,
+              message: result['message'].toString());
+        } else {
+          return null;
+        }
+      }
+
+      notifyListeners();
+      return (ApiResponse(
+        statusCode: response.statusCode,
+        message: result['message'],
+      ));
+    } on TimeoutException catch (e) {
+      print('Exception Timeout:: $e');
+    } catch (e) {
+      print('catch error:: $e');
+    }
+  }
+
   //END OF CLASS
 }

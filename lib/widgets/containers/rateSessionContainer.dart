@@ -1,22 +1,49 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 //EXTENSIONS
 //GLOBAL
 import '../../global/colors.dart';
+import '../../../global/const.dart';
 //MODELS
 //PROVIDERS
+import '../../../providers/appData.dart';
+import '../../../providers/bookings.dart';
 //WIDGETS
 import '../../widgets/buttons/filledButtonWidget.dart';
+import '../../../widgets/dialogs/showOkDialog.dart';
+import '../../../widgets/dialogs/showLoadingDialog.dart';
 //PAGES
 
-class RateSessionContainer extends StatelessWidget {
+class RateSessionContainer extends StatefulWidget {
   const RateSessionContainer();
 
   @override
+  State<RateSessionContainer> createState() => _RateSessionContainerState();
+}
+
+class _RateSessionContainerState extends State<RateSessionContainer> {
+  late final TextEditingController _textController;
+  late final TextEditingController _userRating;
+
+  @override
+  void initState() {
+    _textController = TextEditingController();
+    _userRating = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    _userRating.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final controller = TextEditingController();
-    var userRating = TextEditingController();
+    final sessionId = context.watch<AppData>().session?.id;
 
     return Container(
       height: 284,
@@ -51,7 +78,7 @@ class RateSessionContainer extends StatelessWidget {
                     color: AppColors.pinkFEF2F1,
                   ),
                   child: TextField(
-                    controller: userRating,
+                    controller: _userRating,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: AppColors.black45515D,
@@ -73,7 +100,7 @@ class RateSessionContainer extends StatelessWidget {
                   initialRating: 4,
                   minRating: 1,
                   direction: Axis.horizontal,
-                  allowHalfRating: true,
+                  allowHalfRating: false,
                   itemCount: 5,
                   itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
                   updateOnDrag: true,
@@ -83,13 +110,13 @@ class RateSessionContainer extends StatelessWidget {
                     color: AppColors.yellowFFB400,
                   ),
                   onRatingUpdate: (rating) {
-                    userRating.text = '$rating';
+                    _userRating.text = '$rating';
                   },
                 ),
               ],
             ),
             TextField(
-              controller: controller,
+              controller: _textController,
               maxLines: 3,
               decoration: InputDecoration(
                 filled: true,
@@ -113,7 +140,31 @@ class RateSessionContainer extends StatelessWidget {
               ),
             ),
             FilledButtonWidget(
-              onPress: () {},
+              onPress: () {
+                if (_userRating.text.isEmpty) {
+                  _userRating.text = '4';
+                }
+                ShowLoadingDialog(context);
+                context
+                    .read<Bookings>()
+                    .submitSessionReview(
+                        sessionId, _userRating.text, _textController.text)
+                    .then((response) {
+                  ShowLoadingDialog(context, dismiss: true);
+                  if (response?.statusCode == 200) {
+                    ShowOkDialog(
+                      context,
+                      response?.message ?? 'Thanks for your review.',
+                      title: "Yaaay",
+                    );
+                  } else {
+                    ShowOkDialog(
+                      context,
+                      response?.message ?? ErrorMessages.somethingWrong,
+                    );
+                  }
+                });
+              },
               margin: const EdgeInsets.only(top: 16.0),
               type: ButtonType.generalBlue,
               customWidth: 148,
