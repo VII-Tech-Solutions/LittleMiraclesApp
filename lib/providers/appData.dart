@@ -107,7 +107,7 @@ class AppData with ChangeNotifier {
         _sessions.where((element) => element.status != 5).toList();
 
     _inProgressList
-        .sort((a, b) => b.date!.dateToInt()!.compareTo(a.date!.dateToInt()!));
+        .sort((a, b) => a.date!.dateToInt()!.compareTo(b.date!.dateToInt()!));
 
     List<Session> _completedList =
         _sessions.where((element) => element.status == 5).toList();
@@ -257,7 +257,7 @@ class AppData with ChangeNotifier {
     return [..._bookingList];
   }
 
-  Future<void> fetchAndSetSession({String? token}) async {
+  Future<void> fetchAndSetSessions({String? token}) async {
     final url = Uri.parse('$apiLink/sessions');
 
     try {

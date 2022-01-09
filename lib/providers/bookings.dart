@@ -342,6 +342,59 @@ class Bookings with ChangeNotifier {
     }
   }
 
+  Future<ApiResponse?> confirmASession() async {
+    final url = Uri.parse('$apiLink/sessions/${session?.id}/confirm');
+
+    try {
+      var response = await http
+          .post(
+            url,
+            headers: {
+              'Content-Type': 'application/json',
+              'Platform': 'ios',
+              'App-Version': '0.0.1',
+              'Authorization': 'Bearer $authToken',
+            },
+            body: jsonEncode(_bookingBody),
+          )
+          .timeout(Duration(seconds: Timeout.value));
+
+      final result = json.decode(response.body);
+
+      print(response.statusCode);
+      print(response.body);
+
+      if (response.statusCode != 200) {
+        if ((response.statusCode >= 400 && response.statusCode <= 499) ||
+            response.statusCode == 503) {
+          return ApiResponse(
+              statusCode: response.statusCode,
+              message: result['message'].toString());
+        } else {
+          return null;
+        }
+      }
+
+      final sessionsJson = result['data']['sessions'] as dynamic;
+
+      final sessionObject = Session.fromJson(sessionsJson);
+
+      _session = sessionObject;
+
+      notifyListeners();
+      return (ApiResponse(
+        statusCode: response.statusCode,
+        message: json.decode(response.body)['message'],
+      ));
+    } on TimeoutException catch (e) {
+      print('Exception Timeout:: $e');
+      return null;
+    } catch (e) {
+      print('catch error:: $e');
+      return null;
+    }
+  }
+
   Future<ApiResponse?> applyPromoCode(String code) async {
     final url = Uri.parse('$apiLink/sessions/${_session?.id}/promotion');
 

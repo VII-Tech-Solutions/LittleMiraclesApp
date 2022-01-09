@@ -37,7 +37,7 @@ class _SplashscreenState extends State<Splashscreen> {
       authProvider.getToken().then((_) {
         if (authProvider.isAuth) {
           final token = authProvider.token;
-          appDataProvider.fetchAndSetSession(token: token).then(
+          appDataProvider.fetchAndSetSessions(token: token).then(
                 (value) => appDataProvider
                     .fetchAndSetAppData()
                     .then((_) => authProvider.getToken(withNotify: true).then(

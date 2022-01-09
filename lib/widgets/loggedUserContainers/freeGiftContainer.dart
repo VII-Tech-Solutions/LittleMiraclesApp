@@ -81,16 +81,21 @@ class FreeGiftContainer extends StatelessWidget {
             type: TitleTextType.secondaryTitle,
             customPadding: const EdgeInsets.symmetric(horizontal: 5),
           ),
-          SizedBox(height: 15),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _giftLogo(giftsCount >= 1),
-              _giftLogo(giftsCount >= 2),
-              _giftLogo(giftsCount >= 3),
-              _giftLogo(giftsCount >= 4),
-              _giftLogo(giftsCount >= 5),
-            ],
+          Visibility(
+            visible: giftsCount < 5,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _giftLogo(giftsCount >= 1),
+                  _giftLogo(giftsCount >= 2),
+                  _giftLogo(giftsCount >= 3),
+                  _giftLogo(giftsCount >= 4),
+                  _giftLogo(giftsCount >= 5),
+                ],
+              ),
+            ),
           ),
           Visibility(
             visible: giftsCount >= 5,
@@ -103,11 +108,7 @@ class FreeGiftContainer extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Scaffold(
-                          body: Container(
-                            child: Text('zbala'),
-                          ),
-                        ),
+                        builder: (context) => LoyaltyPage(),
                       ),
                     );
                   } else {

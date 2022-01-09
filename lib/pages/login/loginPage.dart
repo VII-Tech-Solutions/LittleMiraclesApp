@@ -67,7 +67,7 @@ class LoginPage extends StatelessWidget {
 
       if (authProvider.token.isNotEmpty) {
         final token = authProvider.token;
-        await appDataProvider.fetchAndSetSession(token: token).then((_) {
+        await appDataProvider.fetchAndSetSessions(token: token).then((_) {
           appDataProvider.fetchAndSetAppData().then((_) {
             ShowLoadingDialog(context, dismiss: true);
             if (user?.status == 1) {

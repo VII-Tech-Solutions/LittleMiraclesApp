@@ -7,12 +7,14 @@ import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
 import '../../providers/auth.dart';
+import '../../providers/appData.dart';
 import '../../providers/bookings.dart';
 //WIDGETS
 import '../../widgets/paymentContainer/paymentDetailsContainer.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
 //PAGES
 import '../../pages/general/customBottomNavigationBar.dart';
+import '../../pages/home/sessions/upcomingSesionDetailsPage.dart';
 
 class SuccessPaymentPage extends StatelessWidget {
   final String? paymentMethod;
@@ -21,6 +23,7 @@ class SuccessPaymentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final package = context.watch<Bookings>().package;
+    final session = context.watch<Bookings>().session;
     final promoCode = context.watch<Bookings>().promoCode;
     return Scaffold(
       appBar: AppBar(
@@ -126,7 +129,14 @@ class SuccessPaymentPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: FilledButtonWidget(
           onPress: () {
-            //TODO:: go to session details page
+            context.read<AppData>().assignSessionById(session?.id).then((_) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => UpcomingSessionDetailsPage(),
+                ),
+              );
+            });
           },
           title: 'Go To Booking Details',
           type: ButtonType.generalBlue,
