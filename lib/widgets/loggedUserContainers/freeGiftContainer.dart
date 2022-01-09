@@ -4,13 +4,17 @@ import 'package:provider/provider.dart';
 //EXTENSIONS
 //GLOBAL
 import '../../global/colors.dart';
+import '../../global/const.dart';
 //MODELS
 //PROVIDERS
 import '../../providers/appData.dart';
 //WIDGETS
 import '../../widgets/texts/titleText.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
+import '../../widgets/dialogs/showLoadingDialog.dart';
+import '../../widgets/dialogs/showOkDialog.dart';
 //PAGES
+import '../../pages/home/loyaltyPage.dart';
 
 class FreeGiftContainer extends StatelessWidget {
   const FreeGiftContainer();
@@ -71,8 +75,9 @@ class FreeGiftContainer extends StatelessWidget {
             customPadding: const EdgeInsets.symmetric(horizontal: 5),
           ),
           TitleText(
-            title:
-                giftsCount < 5 ? 'Complete 5 sessions and get a free gift' : 'You have completed 5 sessions with us 🎉 ',
+            title: giftsCount < 5
+                ? 'Complete 5 sessions and get a free gift'
+                : 'You have completed 5 sessions with us 🎉 ',
             type: TitleTextType.secondaryTitle,
             customPadding: const EdgeInsets.symmetric(horizontal: 5),
           ),
@@ -90,7 +95,29 @@ class FreeGiftContainer extends StatelessWidget {
           Visibility(
             visible: giftsCount >= 5,
             child: FilledButtonWidget(
-              onPress: () {},
+              onPress: () {
+                ShowLoadingDialog(context);
+                context.read<AppData>().claimFreeGiftRequest().then((response) {
+                  ShowLoadingDialog(context, dismiss: true);
+                  if (response?.statusCode == 200) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Scaffold(
+                          body: Container(
+                            child: Text('zbala'),
+                          ),
+                        ),
+                      ),
+                    );
+                  } else {
+                    ShowOkDialog(
+                      context,
+                      response?.message ?? ErrorMessages.somethingWrong,
+                    );
+                  }
+                });
+              },
               type: ButtonType.outlinedYellow,
               title: 'Claim free gift 🎁',
               margin: const EdgeInsets.fromLTRB(5, 20, 5, 0),

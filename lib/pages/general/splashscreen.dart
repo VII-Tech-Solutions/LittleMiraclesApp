@@ -38,18 +38,18 @@ class _SplashscreenState extends State<Splashscreen> {
         if (authProvider.isAuth) {
           final token = authProvider.token;
           appDataProvider.fetchAndSetSession(token: token).then(
-                (value) => appDataProvider.fetchAndSetAppData().then(
-                  (_) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => authProvider.isFirstOpen
-                            ? OnboardingPage()
-                            : CustomBottomNavigationBar(),
-                      ),
-                    );
-                  },
-                ),
+                (value) => appDataProvider
+                    .fetchAndSetAppData()
+                    .then((_) => authProvider.getToken(withNotify: true).then(
+                          (_) => Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => authProvider.isFirstOpen
+                                  ? OnboardingPage()
+                                  : CustomBottomNavigationBar(),
+                            ),
+                          ),
+                        )),
               );
         } else {
           appDataProvider.fetchAndSetAppData().then((_) {

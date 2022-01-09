@@ -477,8 +477,9 @@ class Bookings with ChangeNotifier {
     }
   }
 
-  Future<ApiResponse?> submitSessionFeedback(dynamic feedbackQuestions) async {
-    final url = Uri.parse('$apiLink/sessions/${session?.id}/feedback');
+  Future<ApiResponse?> submitSessionFeedback(
+      int? sessionId, dynamic feedbackQuestions) async {
+    final url = Uri.parse('$apiLink/sessions/$sessionId/feedback');
 
     print(jsonEncode(feedbackQuestions));
 
@@ -497,7 +498,8 @@ class Bookings with ChangeNotifier {
           .timeout(Duration(seconds: Timeout.value));
 
       final result = json.decode(response.body);
-      final extractedData = result['data']['questions'] as List;
+
+      print(result);
 
       if (response.statusCode != 200) {
         if ((response.statusCode >= 400 && response.statusCode <= 499) ||

@@ -1,4 +1,6 @@
 //PACKAGES
+import 'package:LMP0001_LittleMiraclesApp/pages/login/childrenPage.dart';
+import 'package:LMP0001_LittleMiraclesApp/pages/login/familyPage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 //GLOBAL
@@ -33,12 +35,14 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
         children: [
           InkWell(
             onTap: () {
-              final provider = context.read<Bookings>();
+              context.read<Auth>().fetchRegistrationQuestions();
 
-              provider.fetchAndSetAvailableDates().then((value) {
-                print(provider.availableDates.first.date);
-                print(provider.availableDates.first.timings);
-              });
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FamilyPage(),
+                ),
+              );
             },
             child: Container(
               width: double.infinity,

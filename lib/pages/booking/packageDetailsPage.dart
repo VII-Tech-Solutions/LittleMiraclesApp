@@ -31,6 +31,7 @@ class PackageDetailsPage extends StatelessWidget {
       PackageImageSectionContainer(),
       PackageRatingSectionContainer(),
     ];
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       body: CustomScrollView(

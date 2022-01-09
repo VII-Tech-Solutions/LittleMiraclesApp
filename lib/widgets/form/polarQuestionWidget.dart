@@ -50,11 +50,12 @@ class _PolarQuestionWidgetState extends State<PolarQuestionWidget> {
         child: InkWell(
           onTap: () {
             setState(() {
-              if (this.selectedOptions.contains(optionId) == true) {
-                this.selectedOptions.removeWhere((i) => i == optionId);
-              } else {
+              // if (this.selectedOptions.contains(optionId) == true) {
+              //   this.selectedOptions.removeWhere((i) => i == optionId);
+              // } else {
+                this.selectedOptions.clear();
                 this.selectedOptions.add(optionId);
-              }
+              // }
 
               var answer = '';
 
@@ -98,11 +99,12 @@ class _PolarQuestionWidgetState extends State<PolarQuestionWidget> {
                   ),
                   onChanged: (_) {
                     setState(() {
-                      if (this.selectedOptions.contains(optionId) == true) {
-                        this.selectedOptions.removeWhere((i) => i == optionId);
-                      } else {
+                      // if (this.selectedOptions.contains(optionId) == true) {
+                      //   this.selectedOptions.removeWhere((i) => i == optionId);
+                      // } else {
+                        this.selectedOptions.clear;
                         this.selectedOptions.add(optionId);
-                      }
+                      // }
                     });
                   },
                 ),

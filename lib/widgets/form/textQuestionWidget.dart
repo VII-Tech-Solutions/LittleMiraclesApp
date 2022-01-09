@@ -13,7 +13,9 @@ import '../texts/titleText.dart';
 class TextQuestionWidget extends StatelessWidget {
   final Question? question;
   final void Function(Map?) onChangedCallback;
-  const TextQuestionWidget(this.question, this.onChangedCallback);
+  final TextEditingController? textController;
+  const TextQuestionWidget(this.question, this.onChangedCallback,
+      {this.textController = null});
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,7 @@ class TextQuestionWidget extends StatelessWidget {
           width: double.infinity,
           color: Colors.white,
           child: TextFormField(
+            controller: textController,
             onChanged: (val) {
               if (question?.id != null) {
                 return onChangedCallback({

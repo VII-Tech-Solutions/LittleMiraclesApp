@@ -111,7 +111,7 @@ class Auth with ChangeNotifier {
     }
   }
 
-  Future<void> getToken() async {
+  Future<void> getToken({bool withNotify = false}) async {
     final prefs = await SharedPreferences.getInstance();
     final familyMembersDataList = await DBHelper.getData(Tables.familyMembers);
     if (prefs.containsKey('userData') == true) {
@@ -161,6 +161,10 @@ class Auth with ChangeNotifier {
               .toList();
         }
       }
+    }
+
+    if (withNotify == true) {
+      notifyListeners();
     }
   }
 

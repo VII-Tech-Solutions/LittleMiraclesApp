@@ -1,13 +1,14 @@
 //PACKAGES
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 //EXTENSIONS
 //GLOBAL
 import '../../../global/colors.dart';
 import '../../../global/const.dart';
 //MODELS
 //PROVIDERS
+import '../../../providers/appData.dart';
 import '../../../providers/bookings.dart';
 //WIDGETS
 import '../../../widgets/buttons/iconButtonWidget.dart';
@@ -30,16 +31,21 @@ class _SessionFeedbackPageState extends State<SessionFeedbackPage> {
   List<Widget> _questionsList = [];
   List<Map> _answersList = [];
 
+  List<TextEditingController> _textControllersList = [];
+
   @override
   void initState() {
     context.read<Bookings>().feedbackQuestions.forEach((question) {
       if (question.questionType == 1) {
+        final _controller = TextEditingController();
+        _textControllersList.add(_controller);
         _questionsList.add(
           TextQuestionWidget(
             question,
             (val) {
               return _assignAnswerValue(val, question.id);
             },
+            textController: _controller,
           ),
         );
       } else if (question.questionType == 2) {
@@ -74,6 +80,14 @@ class _SessionFeedbackPageState extends State<SessionFeedbackPage> {
         _answersList.add(map);
       }
     }
+  }
+
+  @override
+  void dispose() {
+    _textControllersList.forEach((element) {
+      element.dispose();
+    });
+    super.dispose();
   }
 
   @override
@@ -145,9 +159,9 @@ class _SessionFeedbackPageState extends State<SessionFeedbackPage> {
               sliver: SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
-                    return _questionsList[index];
+                    return Column(children: _questionsList);
                   },
-                  childCount: _questionsList.length,
+                  childCount: 1,
                 ),
               ),
             ),
@@ -158,21 +172,23 @@ class _SessionFeedbackPageState extends State<SessionFeedbackPage> {
                   (BuildContext context, int index) {
                     return FilledButtonWidget(
                       onPress: () {
+                        final sessionId = context.read<AppData>().session?.id;
                         if (context.read<Bookings>().feedbackQuestions.length ==
                             _answersList.length) {
                           ShowLoadingDialog(context);
                           context
                               .read<Bookings>()
-                              .submitSessionFeedback(_answersList)
+                              .submitSessionFeedback(sessionId, _answersList)
                               .then((response) {
                             ShowLoadingDialog(context, dismiss: true);
                             if (response?.statusCode == 200) {
-                              Navigator.pop(context);
+                              // Navigator.pop(context);
                               ShowOkDialog(
                                 context,
                                 response?.message ??
                                     'Thanks for your feedback.',
                                 title: "Yaaay",
+                                popWithAction: true,
                               );
                             } else {
                               ShowOkDialog(
