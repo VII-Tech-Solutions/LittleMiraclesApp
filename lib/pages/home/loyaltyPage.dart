@@ -43,15 +43,15 @@ class LoyaltyPage extends StatelessWidget {
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
                     colors: [
-                      AppColors.pinkFEF2F1,
-                      AppColors.pinkF8C0B8,
+                      AppColors.yellowFFFBF0,
+                      AppColors.yellowFFB400,
                     ],
                   ),
                 ),
                 child: RichText(
                   textAlign: TextAlign.start,
                   text: TextSpan(
-                    text: 'We would ',
+                    text: 'We got a special ',
                     style: TextStyle(
                       fontSize: 36,
                       fontFamily: GoogleFonts.manrope().fontFamily,
@@ -60,7 +60,7 @@ class LoyaltyPage extends StatelessWidget {
                     ),
                     children: <TextSpan>[
                       TextSpan(
-                        text: 'love to hear from you ♥️',
+                        text: 'gift for you 🎁',
                         style: TextStyle(
                           fontSize: 36,
                           fontFamily: GoogleFonts.manrope().fontFamily,
@@ -96,7 +96,7 @@ class LoyaltyPage extends StatelessWidget {
                   return Container(
                     width: double.infinity,
                     height: 100,
-                    color: Colors.red,
+                    color: Colors.yellow,
                   );
                 },
                 childCount: 1,

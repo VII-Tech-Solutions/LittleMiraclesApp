@@ -69,7 +69,7 @@ class PaymentDetailsContainer extends StatelessWidget {
               child: BenefitDetailsRow(
                 '${session?.locationText}',
                 Icons.camera_outdoor,
-                tag: session?.locationLink,
+                description: session?.locationLink,
               ),
             ),
           ),

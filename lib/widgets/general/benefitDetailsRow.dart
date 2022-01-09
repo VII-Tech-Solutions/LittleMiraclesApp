@@ -8,12 +8,12 @@ import '../../global/colors.dart';
 //PAGES
 
 class BenefitDetailsRow extends StatelessWidget {
-  final String content;
+  final String title;
   final IconData icon;
-  final String? tag;
+  final String? description;
   final bool isLocation;
-  const BenefitDetailsRow(this.content, this.icon,
-      {this.tag, this.isLocation = false});
+  const BenefitDetailsRow(this.title, this.icon,
+      {this.description, this.isLocation = false});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class BenefitDetailsRow extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8, right: 16),
                   child: Text(
-                    content,
+                    title,
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
@@ -48,16 +48,18 @@ class BenefitDetailsRow extends StatelessWidget {
             ],
           ),
           Visibility(
-            visible: tag != null,
+            visible: description != null,
             child: Padding(
               padding: const EdgeInsets.only(left: 32, right: 16),
               child: Text(
-                tag ?? '',
+                description ?? '',
                 textAlign: TextAlign.start,
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
-                  color: AppColors.greyB0A3A0,
+                  color: isLocation == true
+                      ? AppColors.greyB0A3A0
+                      : AppColors.black45515D,
                 ),
               ),
             ),
