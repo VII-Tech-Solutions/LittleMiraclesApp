@@ -25,7 +25,7 @@ class DBHelper {
         await db.execute(
             'CREATE TABLE sections(id INT PRIMARY KEY, image TEXT, title TEXT, content TEXT, status INTEGER, type INTEGER, actionText TEXT, goTo TEXT, updatedAt TEXT, deletedAt TEXT, isFeatured INTEGER)');
         await db.execute(
-            'CREATE TABLE packages(id INT PRIMARY KEY, title TEXT, tag TEXT, image TEXT, price TEXT, isPopular INTEGER, type INTEGER, content TEXT, locationText TEXT, locationLink TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT, backdropAllowed INTEGER, cakeAllowed INTEGER, outdoorAllowed INTEGER, hasGuideline INTEGER, benefitsIds TEXT, reviewsIds TEXT, mediaIds TEXT, totalReviews INTEGER, rating REAL)');
+            'CREATE TABLE packages(id INT PRIMARY KEY, title TEXT, tag TEXT, image TEXT, price TEXT, isPopular INTEGER, type INTEGER, content TEXT, locationText TEXT, locationLink TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT, backdropAllowed INTEGER, cakeAllowed INTEGER, outdoorAllowed INTEGER, hasGuideline INTEGER, benefitsIds TEXT, subPackagesIds TEXT, reviewsIds TEXT, mediaIds TEXT, totalReviews INTEGER, rating REAL)');
         await db.execute(
             'CREATE TABLE backdrops(id INT PRIMARY KEY, title TEXT, categoryId INTEGER, image TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
         await db.execute(

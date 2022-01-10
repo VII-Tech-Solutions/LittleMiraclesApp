@@ -19,6 +19,7 @@ class Package {
   final bool? outdoorAllowed;
   final bool? hasGuideline;
   final String? benefitsIds;
+  final String? subPackagesIds;
   final String? reviewsIds;
   final String? mediaIds;
   final int? totalReviews;
@@ -43,6 +44,7 @@ class Package {
     @required this.benefitsIds,
     @required this.outdoorAllowed,
     @required this.hasGuideline,
+    @required this.subPackagesIds,
     @required this.reviewsIds,
     @required this.mediaIds,
     @required this.totalReviews,
@@ -69,6 +71,7 @@ class Package {
       'benefitsIds': benefitsIds ?? "",
       'outdoorAllowed': outdoorAllowed == true ? 1 : 0,
       'hasGuideline': hasGuideline == true ? 1 : 0,
+      'subPackagesIds': subPackagesIds ?? "",
       'reviewsIds': reviewsIds ?? "",
       'mediaIds': mediaIds ?? "",
       'totalReviews': totalReviews ?? -1,
@@ -97,10 +100,47 @@ class Package {
       outdoorAllowed: json['outdoor_allowed'] as bool?,
       hasGuideline: json['has_guideline'] as bool?,
       benefitsIds: json['benefits_ids'] as String?,
+      subPackagesIds: json['sub_packages_ids'] as String?,
       reviewsIds: json['reviews_ids'] as String?,
       mediaIds: json['media_ids'] as String?,
       totalReviews: json['total_reviews'] as int?,
       rating: double.parse(rate.toString()),
+    );
+  }
+}
+
+class SubPackage {
+  final int? id;
+  final String? title;
+  final String? description;
+  final int? backdropAllowed;
+  final int? cakeAllowed;
+
+  SubPackage({
+    @required this.id,
+    @required this.title,
+    @required this.description,
+    @required this.backdropAllowed,
+    @required this.cakeAllowed,
+  });
+
+  Map<String, Object> toMap() {
+    return {
+      'id': id ?? -1,
+      'title': title ?? "",
+      'description': description ?? "",
+      'backdropAllowed': backdropAllowed ?? -1,
+      'cakeAllowed': cakeAllowed ?? -1,
+    };
+  }
+
+  factory SubPackage.fromJson(dynamic json) {
+    return SubPackage(
+      id: json['id'] as int?,
+      title: json['title'] as String?,
+      description: json['description'] as String?,
+      backdropAllowed: json['backdrop_allowed'] as int?,
+      cakeAllowed: json['cake_allowed'] as int?,
     );
   }
 }

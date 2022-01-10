@@ -27,6 +27,7 @@ class Bookings with ChangeNotifier {
   List<Benefit> _benefits = [];
   List<Media> _packageMedia = [];
   List<Review> _packageReviews = [];
+  List<SubPackage> _subPackages = [];
 
   //bookings details
   Map _bookingBody = {};
@@ -49,6 +50,7 @@ class Bookings with ChangeNotifier {
     this._benefits,
     this._packageMedia,
     this._packageReviews,
+    this._subPackages,
     this._selectedBackdrops,
     this._selectedCakes,
     this._customBackrop,
@@ -76,6 +78,10 @@ class Bookings with ChangeNotifier {
 
   List<Review> get packageReviews {
     return [..._packageReviews];
+  }
+
+  List<SubPackage> get subPackages {
+    return [..._subPackages];
   }
 
   List<int> get selectedBackdrops {
@@ -197,6 +203,7 @@ class Bookings with ChangeNotifier {
       final benefitsData = extractedData['benefits'] as List;
       final mediaData = extractedData['media'] as List;
       final reviewsData = extractedData['reviews'] as List;
+      final subPackagesData = extractedData['sub_packages'] as List;
 
       if (response.statusCode != 200) {
         notifyListeners();
@@ -216,6 +223,12 @@ class Bookings with ChangeNotifier {
 
       _packageReviews =
           reviewsData.map((json) => Review.fromJson(json)).toList();
+
+      _packageReviews =
+          reviewsData.map((json) => Review.fromJson(json)).toList();
+
+      _subPackages =
+          subPackagesData.map((json) => SubPackage.fromJson(json)).toList();
 
       notifyListeners();
       return (ApiResponse(

@@ -1,43 +1,38 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/pages/login/childrenPage.dart';
-import 'package:LMP0001_LittleMiraclesApp/pages/login/familyPage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 //EXTENSIONS
-import '../extensions/stringExtension.dart';
 //GLOBAL
-import '../global/colors.dart';
+import '../../../global/colors.dart';
 //MODELS
-import '../models/package.dart';
 import '../../../models/question.dart';
 //PROVIDERS
-import '../providers/auth.dart';
-import '../providers/appData.dart';
-import '../providers/bookings.dart';
+import '../../../providers/bookings.dart';
 //WIDGETS
-import '../widgets/texts/titleText.dart';
 import '../../../widgets/appbars/appBarWithBack.dart';
-import '../../../widgets/texts/titleText.dart';
 import '../../../widgets/form/textQuestionWidget.dart';
+import '../../../widgets/bookingSessonContainers/sessionSelector.dart';
+import '../../../widgets/packageContainers/packageBottomSectionContainer.dart';
 //PAGES
 
-class PlayrgoundPage extends StatefulWidget {
-  const PlayrgoundPage({Key? key}) : super(key: key);
+class MultiSessionBookingPage extends StatefulWidget {
+  const MultiSessionBookingPage({Key? key}) : super(key: key);
 
   @override
-  _PlayrgoundPageState createState() => _PlayrgoundPageState();
+  _MultiSessionBookingPageState createState() =>
+      _MultiSessionBookingPageState();
 }
 
-class _PlayrgoundPageState extends State<PlayrgoundPage> {
+class _MultiSessionBookingPageState extends State<MultiSessionBookingPage> {
   @override
   Widget build(BuildContext context) {
-    final bookingsProvider = context.read<Bookings>();
+    final bookingsProvider = context.watch<Bookings>();
+    final subPackagesList = bookingsProvider.subPackages;
     return Scaffold(
-      appBar: AppBar(
-        title: TitleText(
-          title: 'Playground',
-          type: TitleTextType.mainHomeTitle,
-        ),
+      appBar: AppBarWithBack(
+        title: 'Reserve your session',
+        weight: FontWeight.w800,
       ),
       body: CustomScrollView(
         shrinkWrap: true,
@@ -48,7 +43,7 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
                 return Padding(
                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
                   child: Text(
-                    'Select your 4 sessions date',
+                    'Select your ${subPackagesList.length} sessions date',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w300,
@@ -63,20 +58,15 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {
-                return Container(
-                  margin: const EdgeInsets.fromLTRB(16, 10, 16, 0),
-                  height: 60,
-                  color: Colors.red,
-                );
+                return SessionSelector(subPackagesList[index]);
               },
-              childCount: 7,
+              childCount: subPackagesList.length,
             ),
           ),
           SliverFillRemaining(
             fillOverscroll: false,
             hasScrollBody: false,
             child: Container(
-              color: Colors.blue,
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 30),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -107,6 +97,12 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
             ),
           ),
         ],
+      ),
+      bottomNavigationBar: PackageBottomSectionContainer(
+        btnLabel: 'Next',
+        onTap: () {
+          //TODO:: go to payment review
+        },
       ),
     );
   }

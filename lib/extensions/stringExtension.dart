@@ -60,4 +60,21 @@ extension StringExtension on String {
 
     return int.parse(formattedDate);
   }
+
+  List<int> toIDsList() {
+    List<int> list = [];
+
+    //this is some weird shit, but it's working
+    if ('$this' != 'null' && this.isNotEmpty) {
+      final splittedList = this.split(',');
+
+      splittedList.removeWhere((element) => element.isEmpty);
+
+      splittedList.forEach((element) {
+        list.add(int.parse(element));
+      });
+    }
+
+    return list;
+  }
 }

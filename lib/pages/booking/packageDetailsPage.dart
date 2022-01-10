@@ -19,6 +19,7 @@ import '../../widgets/dialogs/showLoadingDialog.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
 //PAGES
 import '../../pages/booking/bookingSessionPage.dart';
+import '../../pages/booking/multiSessionPackage/multiSessionBookingPage.dart';
 
 class PackageDetailsPage extends StatelessWidget {
   const PackageDetailsPage();
@@ -93,6 +94,13 @@ class PackageDetailsPage extends StatelessWidget {
               }
             });
           }
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MultiSessionBookingPage(),
+            ),
+          );
         }
       }),
     );

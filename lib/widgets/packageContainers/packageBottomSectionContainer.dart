@@ -36,7 +36,9 @@ class PackageBottomSectionContainer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${package?.tag}',
+                  package?.subPackagesIds != null
+                      ? package?.title ?? ''
+                      : package?.tag ?? '',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(

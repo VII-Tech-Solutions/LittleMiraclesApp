@@ -64,6 +64,7 @@ class TitleText extends StatelessWidget {
       case TitleTextType.subTitleBlack:
         {
           return TextStyle(
+            color: AppColors.black45515D,
             fontSize: 18,
             fontWeight: weight,
           );
