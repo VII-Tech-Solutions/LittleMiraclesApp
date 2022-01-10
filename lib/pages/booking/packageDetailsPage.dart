@@ -79,7 +79,7 @@ class PackageDetailsPage extends StatelessWidget {
                 .fetchAndSetAvailableDates()
                 .then((response) {
               ShowLoadingDialog(context, dismiss: true);
-              if (response.statusCode == 200) {
+              if (response?.statusCode == 200) {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -89,7 +89,7 @@ class PackageDetailsPage extends StatelessWidget {
               } else {
                 ShowOkDialog(
                   context,
-                  response.message ?? ErrorMessages.somethingWrong,
+                  response?.message ?? ErrorMessages.somethingWrong,
                 );
               }
             });

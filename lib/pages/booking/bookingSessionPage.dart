@@ -95,7 +95,7 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
               bookingsBody['location_link'] == "") {
             ShowOkDialog(context, 'Please add the location link to proceed');
           } else if (!bookingsBody.containsKey('date')) {
-            ShowOkDialog(context, 'Please select a data to proceed');
+            ShowOkDialog(context, 'Please select a date to proceed');
           } else if (!bookingsBody.containsKey('time') ||
               !timings.contains(bookingsBody['time'])) {
             ShowOkDialog(context, 'Please select a time to proceed');

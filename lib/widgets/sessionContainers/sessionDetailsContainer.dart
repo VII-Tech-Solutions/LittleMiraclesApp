@@ -13,7 +13,8 @@ import '../general/benefitDetailsRow.dart';
 //PAGES
 
 class SessionDetailsContainer extends StatelessWidget {
-  const SessionDetailsContainer();
+  final bool isReschedule;
+  const SessionDetailsContainer({this.isReschedule = false});
 
   _launchURL(String url) async {
     if (await canLaunch(url)) {
@@ -28,8 +29,21 @@ class SessionDetailsContainer extends StatelessWidget {
     final package = context.watch<AppData>().package;
     final session = context.watch<AppData>().session;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      padding: isReschedule == true
+          ? const EdgeInsets.fromLTRB(16, 0, 16, 9.5)
+          : null,
+      decoration: isReschedule
+          ? BoxDecoration(
+              color: AppColors.pinkFCE0DC,
+              border: Border.all(
+                color: AppColors.greyD0D3D6,
+                width: 1,
+              ),
+              borderRadius: BorderRadius.circular(8),
+            )
+          : null,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -37,15 +51,17 @@ class SessionDetailsContainer extends StatelessWidget {
           Visibility(
             visible: session?.formattedDate != null,
             child: BenefitDetailsRow(
-              '${session?.formattedDate}',
+              session?.formattedDate ?? '',
               Icons.today_outlined,
+              isReschedule,
             ),
           ),
           Visibility(
             visible: session?.time != null,
             child: BenefitDetailsRow(
-              '${session?.time}',
+              session?.time ?? '',
               Icons.access_time,
+              isReschedule,
             ),
           ),
           Visibility(
@@ -57,8 +73,9 @@ class SessionDetailsContainer extends StatelessWidget {
                 }
               },
               child: BenefitDetailsRow(
-                '${session?.locationText}',
+                session?.locationText ?? '',
                 Icons.camera_outdoor,
+                isReschedule,
                 description: session?.locationLink,
               ),
             ),
@@ -66,46 +83,56 @@ class SessionDetailsContainer extends StatelessWidget {
           Visibility(
             visible: session?.formattedPeople != null,
             child: BenefitDetailsRow(
-              '${session?.formattedPeople}',
+              session?.formattedPeople ?? '',
               Icons.perm_identity_rounded,
+              isReschedule,
             ),
           ),
           Visibility(
             visible: session?.formattedBackdrop != null,
             child: BenefitDetailsRow(
-              '${session?.formattedBackdrop}',
+              session?.formattedBackdrop ?? '',
               Icons.wallpaper,
+              isReschedule,
             ),
           ),
           Visibility(
             visible: session?.formattedCake != null,
             child: BenefitDetailsRow(
-              '${session?.formattedCake}',
+              session?.formattedCake ?? '',
               Icons.cake_outlined,
+              isReschedule,
             ),
           ),
           Visibility(
             visible: session?.photographerName != null,
             child: BenefitDetailsRow(
-              '${session?.photographerName}',
+              session?.photographerName ?? '',
               Icons.photo_camera_outlined,
+              isReschedule,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 17, bottom: 6),
+          Visibility(
+            visible: isReschedule == false,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 17, bottom: 6),
+              child: Text(
+                'Additional Comments:',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: AppColors.black45515D,
+                ),
+              ),
+            ),
+          ),
+          Visibility(
+            visible: isReschedule == false,
             child: Text(
-              'Additional Comments:',
+              '${session?.comments ?? 'No Comments'}',
               style: TextStyle(
                 fontSize: 14,
                 color: AppColors.black45515D,
               ),
-            ),
-          ),
-          Text(
-            '${session?.comments ?? 'No Comments'}',
-            style: TextStyle(
-              fontSize: 14,
-              color: AppColors.black45515D,
             ),
           ),
         ],

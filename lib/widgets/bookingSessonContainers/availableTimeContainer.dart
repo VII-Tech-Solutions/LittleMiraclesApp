@@ -12,7 +12,8 @@ import '../../widgets/texts/titleText.dart';
 //PAGES
 
 class AvailableTimeContainer extends StatefulWidget {
-  const AvailableTimeContainer({Key? key}) : super(key: key);
+  final void Function(String?)? onChangeCallback;
+  const AvailableTimeContainer({this.onChangeCallback = null});
 
   @override
   State<AvailableTimeContainer> createState() => _AvailableTimeContainerState();
@@ -59,9 +60,13 @@ class _AvailableTimeContainerState extends State<AvailableTimeContainer> {
                 onTap: () {
                   setState(() {
                     selectedTime = availableTimes[index];
-                    context
-                        .read<Bookings>()
-                        .amendBookingBody({'time': selectedTime});
+                    if (widget.onChangeCallback != null) {
+                      widget.onChangeCallback!(selectedTime);
+                    } else {
+                      context
+                          .read<Bookings>()
+                          .amendBookingBody({'time': selectedTime});
+                    }
                   });
                 },
                 child: Container(

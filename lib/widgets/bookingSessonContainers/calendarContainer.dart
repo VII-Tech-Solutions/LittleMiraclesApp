@@ -14,7 +14,12 @@ import '../../widgets/texts/titleText.dart';
 //PAGES
 
 class CalendarContainer extends StatefulWidget {
-  const CalendarContainer({Key? key}) : super(key: key);
+  final bool isReschedule;
+  final void Function(String?)? onChangeCallback;
+  const CalendarContainer({
+    this.isReschedule = false,
+    this.onChangeCallback = null,
+  });
 
   @override
   State<CalendarContainer> createState() => _CalendarContainerState();
@@ -34,7 +39,11 @@ class _CalendarContainerState extends State<CalendarContainer> {
     if (firstDate != null) {
       firstDay = DateTime.parse(firstDate);
       selectedDay = DateTime.parse(firstDate);
-      provider.amendBookingBody({'date': firstDate});
+      if (widget.onChangeCallback != null) {
+        widget.onChangeCallback!(firstDate);
+      } else {
+        provider.amendBookingBody({'date': firstDate});
+      }
     }
 
     super.initState();
@@ -47,7 +56,9 @@ class _CalendarContainerState extends State<CalendarContainer> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TitleText(
-          title: 'Select your date',
+          title: widget.isReschedule == true
+              ? 'Select your new date'
+              : 'Select your date',
           type: TitleTextType.subTitleBlack,
           weight: FontWeight.w800,
           customPadding: EdgeInsets.zero,
@@ -66,6 +77,7 @@ class _CalendarContainerState extends State<CalendarContainer> {
             focusedDay: selectedDay,
             lastDay: DateTime.utc(2030, 12, 31),
             availableGestures: AvailableGestures.horizontalSwipe,
+            rowHeight: 45,
             headerStyle: HeaderStyle(
               titleCentered: true,
               titleTextStyle: TextStyle(
@@ -87,8 +99,13 @@ class _CalendarContainerState extends State<CalendarContainer> {
               setState(() {
                 selectedDay = selectDay;
                 final formattedDate = selectedDay.toyyyyMMdd();
-                provider.amendBookingBody({'date': formattedDate});
                 provider.getAvailableTimings(formattedDate);
+
+                if (widget.onChangeCallback != null) {
+                  widget.onChangeCallback!(formattedDate);
+                } else {
+                  provider.amendBookingBody({'date': formattedDate});
+                }
               });
             },
             selectedDayPredicate: (day) {

@@ -257,6 +257,20 @@ class AppData with ChangeNotifier {
     return [..._bookingList];
   }
 
+  Future<void> updateSessionDetails(Session? session) async {
+    if (session != null) {
+      _session = session;
+
+      final index = _sessions.indexWhere((element) => element.id == session.id);
+
+      _sessions[index] = session;
+
+      this.generateHomePageWidgets();
+
+      notifyListeners();
+    }
+  }
+
   Future<void> fetchAndSetSessions({String? token}) async {
     final url = Uri.parse('$apiLink/sessions');
 

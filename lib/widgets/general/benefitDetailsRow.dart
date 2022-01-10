@@ -10,9 +10,10 @@ import '../../global/colors.dart';
 class BenefitDetailsRow extends StatelessWidget {
   final String title;
   final IconData icon;
+  final bool isReschedule;
   final String? description;
   final bool isLocation;
-  const BenefitDetailsRow(this.title, this.icon,
+  const BenefitDetailsRow(this.title, this.icon, this.isReschedule,
       {this.description, this.isLocation = false});
 
   @override
@@ -29,7 +30,9 @@ class BenefitDetailsRow extends StatelessWidget {
             children: [
               Icon(
                 icon,
-                color: AppColors.blue8DC4CB,
+                color: isReschedule == true
+                    ? AppColors.black45515D
+                    : AppColors.blue8DC4CB,
                 size: 24.0,
               ),
               Expanded(

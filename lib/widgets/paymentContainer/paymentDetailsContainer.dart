@@ -49,6 +49,7 @@ class PaymentDetailsContainer extends StatelessWidget {
             child: BenefitDetailsRow(
               '${session?.formattedDate}',
               Icons.today_outlined,
+              false,
             ),
           ),
           Visibility(
@@ -56,6 +57,7 @@ class PaymentDetailsContainer extends StatelessWidget {
             child: BenefitDetailsRow(
               '${session?.time}',
               Icons.access_time,
+              false,
             ),
           ),
           Visibility(
@@ -69,6 +71,7 @@ class PaymentDetailsContainer extends StatelessWidget {
               child: BenefitDetailsRow(
                 '${session?.locationText}',
                 Icons.camera_outdoor,
+                false,
                 description: session?.locationLink,
               ),
             ),
@@ -78,6 +81,7 @@ class PaymentDetailsContainer extends StatelessWidget {
             child: BenefitDetailsRow(
               '${session?.formattedPeople}',
               Icons.perm_identity_rounded,
+              false,
             ),
           ),
           Visibility(
@@ -85,6 +89,7 @@ class PaymentDetailsContainer extends StatelessWidget {
             child: BenefitDetailsRow(
               '${session?.formattedBackdrop}',
               Icons.wallpaper,
+              false,
             ),
           ),
           Visibility(
@@ -92,6 +97,7 @@ class PaymentDetailsContainer extends StatelessWidget {
             child: BenefitDetailsRow(
               '${session?.formattedCake}',
               Icons.cake_outlined,
+              false,
             ),
           ),
           Visibility(
@@ -99,6 +105,7 @@ class PaymentDetailsContainer extends StatelessWidget {
             child: BenefitDetailsRow(
               '${session?.photographerName}',
               Icons.photo_camera_outlined,
+              false,
             ),
           ),
           Padding(

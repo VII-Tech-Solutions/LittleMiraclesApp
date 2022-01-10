@@ -57,6 +57,7 @@ class PackageDetailsSectionContainer extends StatelessWidget {
         BenefitDetailsRow(
           item.title ?? '',
           IconData(icon, fontFamily: 'MaterialIcons'),
+          false,
           description: item.description,
         ),
       );
