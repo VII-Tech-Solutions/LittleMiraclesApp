@@ -125,6 +125,15 @@ class AppData with ChangeNotifier {
         .length;
   }
 
+  bool get hasPreviousGifts {
+    return _sessions
+            .where(
+                (element) => element.status == 5 && element.giftClaimed == true)
+            .toList()
+            .length >=
+        5;
+  }
+
   List<Onboarding> get onboardings {
     return [..._onboardings];
   }
@@ -327,6 +336,45 @@ class AppData with ChangeNotifier {
       }).timeout(Duration(seconds: Timeout.value));
 
       final result = json.decode(response.body);
+
+      if (response.statusCode != 200) {
+        if ((response.statusCode >= 400 && response.statusCode <= 499) ||
+            response.statusCode == 503) {
+          return ApiResponse(
+              statusCode: response.statusCode,
+              message: result['message'].toString());
+        } else {
+          return null;
+        }
+      }
+
+      notifyListeners();
+      return (ApiResponse(
+        statusCode: response.statusCode,
+        message: result['message'],
+      ));
+    } on TimeoutException catch (e) {
+      print('Exception Timeout:: $e');
+    } catch (e) {
+      print('catch error:: $e');
+    }
+  }
+
+  Future<ApiResponse?> fetchAndSetGifts() async {
+    final url = Uri.parse('$apiLink/gifts');
+
+    try {
+      final response = await http.get(url, headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Platform': 'ios',
+        'App-Version': '0.0.1',
+        'Authorization': 'Bearer $authToken',
+      }).timeout(Duration(seconds: Timeout.value));
+
+      final result = json.decode(response.body);
+
+      print(response.statusCode);
+      print(response.body);
 
       if (response.statusCode != 200) {
         if ((response.statusCode >= 400 && response.statusCode <= 499) ||

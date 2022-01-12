@@ -72,3 +72,14 @@ class SessionStatus {
   static const int gettingInOrder = 4;
   static const int ready = 5;
 }
+
+class StudioCategory {
+  static const albumSize = 1;
+  static const spreads = 2;
+  static const paperType = 3;
+  static const coverType = 4;
+  static const canvasThickness = 5;
+  static const canvasSize = 6;
+  static const printType = 7;
+  static const paperSize = 8;
+}

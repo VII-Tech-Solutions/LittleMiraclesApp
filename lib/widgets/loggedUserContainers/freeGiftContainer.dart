@@ -62,6 +62,7 @@ class FreeGiftContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final giftsCount = context.watch<AppData>().getGiftsCount;
+    final hasPreviousGifts = context.watch<AppData>().hasPreviousGifts;
 
     return Container(
       padding: const EdgeInsets.fromLTRB(11, 30, 11, 0),
@@ -122,6 +123,55 @@ class FreeGiftContainer extends StatelessWidget {
               type: ButtonType.outlinedYellow,
               title: 'Claim free gift 🎁',
               margin: const EdgeInsets.fromLTRB(5, 20, 5, 0),
+            ),
+          ),
+          Visibility(
+            visible: hasPreviousGifts == true && giftsCount < 5,
+            child: InkWell(
+              onTap: () {
+                ShowLoadingDialog(context);
+                context.read<AppData>().fetchAndSetGifts().then((response) {
+                  ShowLoadingDialog(context, dismiss: true);
+                  if (response?.statusCode == 200) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoyaltyPage(),
+                      ),
+                    );
+                  } else {
+                    ShowOkDialog(
+                      context,
+                      response?.message ?? ErrorMessages.somethingWrong,
+                    );
+                  }
+                });
+              },
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(5, 15, 5, 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Show previous gifts',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.grey5C6671,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 3.0, left: 4),
+                      child: Icon(
+                        Icons.arrow_forward_ios,
+                        size: 14,
+                        color: AppColors.grey5C6671,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
         ],
