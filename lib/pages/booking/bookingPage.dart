@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 //PROVIDERS
 import '../../providers/appData.dart';
 //WIDGETS
-import '../../widgets/appbars/pagesSliverAppBar.dart';
+import '../../widgets/appbars/mainPagesSliverAppBar.dart';
 //PAGES
 
 class BookingPage extends StatefulWidget {
@@ -22,7 +22,7 @@ class _BookingPageState extends State<BookingPage> {
     final _list = context.watch<AppData>().bookingList;
     return CustomScrollView(
       slivers: <Widget>[
-        PagesSliverAppBar(),
+        MainPagesSliverAppBar('Photo', 'Sessions 📸'),
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (BuildContext context, int index) {

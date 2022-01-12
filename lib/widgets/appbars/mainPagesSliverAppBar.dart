@@ -1,5 +1,6 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
@@ -8,8 +9,10 @@ import '../../global/colors.dart';
 import '../buttons/iconButtonWidget.dart';
 //PAGES
 
-class PagesSliverAppBar extends StatelessWidget {
-  const PagesSliverAppBar({Key? key}) : super(key: key);
+class MainPagesSliverAppBar extends StatelessWidget {
+  final String titleFirst;
+  final String titleSecond;
+  const MainPagesSliverAppBar(this.titleFirst, this.titleSecond);
 
   @override
   Widget build(BuildContext context) {
@@ -30,19 +33,23 @@ class PagesSliverAppBar extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   RichText(
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     text: TextSpan(
-                      text: 'Photo ',
+                      text: '$titleFirst ',
                       style: TextStyle(
                         fontSize: 24,
                         color: AppColors.black45515D,
+                        fontFamily: GoogleFonts.manrope().fontFamily,
                       ),
-                      children: const <TextSpan>[
+                      children: <TextSpan>[
                         TextSpan(
-                          text: 'Sessions 📸',
+                          text: '$titleSecond',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 24,
                             color: AppColors.black45515D,
+                            fontFamily: GoogleFonts.manrope().fontFamily,
                           ),
                         ),
                       ],

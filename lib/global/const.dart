@@ -39,6 +39,7 @@ class Tables {
   static const String cakeCategories = 'cakeCategories';
   static const String familyMembers = 'familyMembers';
   static const String studioPackages = 'studioPackages';
+  static const String studioMetadata = 'studioMetadata';
 }
 
 class SectionType {

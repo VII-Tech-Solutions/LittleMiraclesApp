@@ -10,6 +10,7 @@ import '../../providers/auth.dart';
 //PAGES
 import '../home/homePage.dart';
 import '../../pages/booking/bookingPage.dart';
+import '../../pages/studio/studioPage.dart';
 import '../../playground/playgroundPage.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
@@ -28,10 +29,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   static List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     BookingPage(),
-    Text(
-      'Index 2: Studio',
-      style: optionStyle,
-    ),
+    StudioPage(),
     PlayrgoundPage()
   ];
 

@@ -1,17 +1,15 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/widgets/texts/titleText.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 //EXTENSIONS
 //GLOBAL
 import '../../../global/colors.dart';
-import '../../../global/const.dart';
 //MODELS
 //PROVIDERS
 //WIDGETS
 import '../../../widgets/buttons/iconButtonWidget.dart';
 import '../../widgets/general/cachedImageWidget.dart';
+import '../../widgets/texts/titleText.dart';
 //PAGES
 
 class LoyaltyPage extends StatelessWidget {

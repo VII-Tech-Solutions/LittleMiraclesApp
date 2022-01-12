@@ -25,6 +25,7 @@ import '../models/paymentMethod.dart';
 import '../models/backdropCategory.dart';
 import '../models/cakeCategory.dart';
 import '../models/studioPackage.dart';
+import '../models/studioMetadata.dart';
 import '../models/apiResponse.dart';
 //PROVIDERS
 //WIDGETS
@@ -35,6 +36,7 @@ import '../widgets/containers/packageContainer.dart';
 import '../widgets/containers/workshopContainer.dart';
 import '../widgets/containers/promotionContainer.dart';
 import '../widgets/containers/popularPackageContainer.dart';
+import '../widgets/containers/studioContainer.dart';
 import '../widgets/buttons/viewAllSessionsButton.dart';
 import '../widgets/loggedUserContainers/homeSessionContainer.dart';
 import '../widgets/loggedUserContainers/freeGiftContainer.dart';
@@ -58,11 +60,13 @@ class AppData with ChangeNotifier {
   List<BackdropCategory> _backdropCategories = [];
   List<CakeCategory> _cakeCategories = [];
   List<StudioPackage> _studioPackages = [];
+  List<StudioMetadata> _studioMetadataList = [];
 
   // MAIN PAGES WIDGETS LISTS
   List<Widget> _sessionWidgetsList = [];
   List<Widget> _homeList = [];
   List<Widget> _bookingList = [];
+  List<Widget> _studioList = [];
 
   AppData(
     this.authToken,
@@ -77,6 +81,7 @@ class AppData with ChangeNotifier {
     this._sessionWidgetsList,
     this._homeList,
     this._bookingList,
+    this._studioList,
     this._packages,
     this._backdrops,
     this._cakes,
@@ -85,6 +90,7 @@ class AppData with ChangeNotifier {
     this._backdropCategories,
     this._cakeCategories,
     this._studioPackages,
+    this._studioMetadataList,
   );
 
   Future<void> assignSessionById(int? id) async {
@@ -239,8 +245,12 @@ class AppData with ChangeNotifier {
     return [...finalList];
   }
 
-  List<StudioPackage> get studioPackage {
+  List<StudioPackage> get studioPackages {
     return [..._studioPackages];
+  }
+
+  List<StudioMetadata> get studioMetadataList {
+    return [..._studioMetadataList];
   }
 
   // WIDGET LIST GETTERS
@@ -264,6 +274,10 @@ class AppData with ChangeNotifier {
 
   List<Widget> get bookingList {
     return [..._bookingList];
+  }
+
+  List<Widget> get studioList {
+    return [..._studioList];
   }
 
   Future<void> updateSessionDetails(Session? session) async {
@@ -402,7 +416,8 @@ class AppData with ChangeNotifier {
   Future<void> fetchAndSetAppData() async {
     final lastUpdate =
         await LastUpdateClass().getLastUpdate(LastUpdate.appData);
-    final url = Uri.parse('$apiLink/data$lastUpdate');
+    // final url = Uri.parse('$apiLink/data$lastUpdate');
+    final url = Uri.parse('$apiLink/data');
 
     try {
       final response = await http.get(url, headers: {
@@ -425,11 +440,14 @@ class AppData with ChangeNotifier {
       final backdropCategoriesJson =
           extractedData['backdrop_categories'] as List;
       final cakeCategoriesJson = extractedData['cake_categories'] as List;
+      final studioPackagesJson = extractedData['studio_packages'] as List;
+      final studioMetadataJson = extractedData['studio_metadata'] as List;
 
       if (response.statusCode != 200) {
         await getLocalAppData();
         await generateHomePageWidgets();
         await generateBookingsPageWidgets();
+        await generateStudioPageWidgets();
         notifyListeners();
         return;
       }
@@ -470,11 +488,20 @@ class AppData with ChangeNotifier {
           .map((json) => CakeCategory.fromJson(json))
           .toList();
 
+      _studioPackages = studioPackagesJson
+          .map((json) => StudioPackage.fromJson(json))
+          .toList();
+
+      _studioMetadataList = studioMetadataJson
+          .map((json) => StudioMetadata.fromJson(json))
+          .toList();
+
       await LastUpdateClass().setLastUpdate(LastUpdate.appData);
       await syncLocalDatabase();
       await getLocalAppData();
       await generateHomePageWidgets();
       await generateBookingsPageWidgets();
+      await generateStudioPageWidgets();
       notifyListeners();
       return;
     } on TimeoutException catch (e) {
@@ -602,6 +629,15 @@ class AppData with ChangeNotifier {
         DBHelper.insert(Tables.studioPackages, item.toMap());
       }
     });
+
+    // STUDIO METADATA
+    _studioMetadataList.forEach((item) {
+      if (item.deletedAt != null) {
+        DBHelper.deleteById(Tables.studioMetadata, item.id ?? -1);
+      } else {
+        DBHelper.insert(Tables.studioMetadata, item.toMap());
+      }
+    });
   }
 
   Future<void> getLocalAppData() async {
@@ -622,6 +658,8 @@ class AppData with ChangeNotifier {
         await DBHelper.getData(Tables.cakeCategories);
     final studioPackagesDataList =
         await DBHelper.getData(Tables.studioPackages);
+    final studioMetadataDataList =
+        await DBHelper.getData(Tables.studioMetadata);
 
     // ONBOARDING
     if (onboardingDataList.isNotEmpty) {
@@ -747,6 +785,7 @@ class AppData with ChangeNotifier {
               mediaIds: item['mediaIds'],
               totalReviews: item['totalReviews'],
               rating: item['rating'],
+              subPackagesIds: item['subPackagesIds'],
             ),
           )
           .toList();
@@ -861,6 +900,24 @@ class AppData with ChangeNotifier {
           .toList();
     }
 
+    // STUDIO METADATA
+    if (studioMetadataDataList.isNotEmpty) {
+      _studioMetadataList = studioMetadataDataList
+          .map(
+            (item) => StudioMetadata(
+              id: item['id'],
+              title: item['title'],
+              description: item['description'],
+              image: item['image'],
+              status: item['status'],
+              category: item['category'],
+              updatedAt: item['updatedAt'],
+              deletedAt: item['deletedAt'],
+            ),
+          )
+          .toList();
+    }
+
     notifyListeners();
     //end of function
   }
@@ -934,6 +991,19 @@ class AppData with ChangeNotifier {
       _packages.forEach((element) {
         _bookingList.add(PackageContainer(element));
       });
+    }
+  }
+
+  Future<void> generateStudioPageWidgets() async {
+    print('homara klba');
+    if (_studioPackages.isNotEmpty) {
+      print('trash homara');
+      _studioPackages.forEach((element) {
+        print(element);
+        _studioList.add(StudioContainer(element));
+      });
+
+      print(_studioList);
     }
   }
 
