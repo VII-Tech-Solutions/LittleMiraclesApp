@@ -995,15 +995,10 @@ class AppData with ChangeNotifier {
   }
 
   Future<void> generateStudioPageWidgets() async {
-    print('homara klba');
     if (_studioPackages.isNotEmpty) {
-      print('trash homara');
       _studioPackages.forEach((element) {
-        print(element);
         _studioList.add(StudioContainer(element));
       });
-
-      print(_studioList);
     }
   }
 

@@ -9,9 +9,9 @@ import '../../providers/auth.dart';
 //WIDGETS
 //PAGES
 import '../home/homePage.dart';
-import '../../pages/booking/bookingPage.dart';
-import '../../pages/studio/studioPage.dart';
-import '../../playground/playgroundPage.dart';
+import '../booking/bookingMainPage.dart';
+import '../studio/studioMainPage.dart';
+import '../more/moreMainPage.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
   final GlobalKey? globalKey;
@@ -24,13 +24,11 @@ class CustomBottomNavigationBar extends StatefulWidget {
 
 class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    BookingPage(),
-    StudioPage(),
-    PlayrgoundPage()
+    BookingMainPage(),
+    StudioMainPage(),
+    MoreMainPage()
   ];
 
   void _onItemTapped(int index) {

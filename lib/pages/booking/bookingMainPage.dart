@@ -9,14 +9,14 @@ import '../../providers/appData.dart';
 import '../../widgets/appbars/mainPagesSliverAppBar.dart';
 //PAGES
 
-class BookingPage extends StatefulWidget {
-  const BookingPage({Key? key}) : super(key: key);
+class BookingMainPage extends StatefulWidget {
+  const BookingMainPage({Key? key}) : super(key: key);
 
   @override
-  _BookingPageState createState() => _BookingPageState();
+  _BookingMainPageState createState() => _BookingMainPageState();
 }
 
-class _BookingPageState extends State<BookingPage> {
+class _BookingMainPageState extends State<BookingMainPage> {
   @override
   Widget build(BuildContext context) {
     final _list = context.watch<AppData>().bookingList;

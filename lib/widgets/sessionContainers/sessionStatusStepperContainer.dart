@@ -1,7 +1,9 @@
 //PACKAGES
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:add_2_calendar/add_2_calendar.dart';
 //EXTENSIONS
 import '../../extensions/stringExtension.dart';
 //GLOBAL
@@ -118,7 +120,21 @@ class SessionStatusStepperContainer extends StatelessWidget {
                 ),
                 Expanded(
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      final dateAndTime = '${session?.date} ${session?.time}';
+
+                      DateTime formattedDate =
+                          DateFormat("yyyy-MM-dd h:mm a").parse(dateAndTime);
+
+                      final Event event = Event(
+                        title: session?.title ?? '',
+                        location: session?.locationText ?? '',
+                        startDate: formattedDate,
+                        endDate: formattedDate,
+                      );
+
+                      Add2Calendar.addEvent2Cal(event);
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [

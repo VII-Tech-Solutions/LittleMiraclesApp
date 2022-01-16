@@ -52,5 +52,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCalendarsUsageDescription</key>
+	<string>The app needs access to the calendar to save appointments.</string>
 </dict>
 </plist>

@@ -15,7 +15,7 @@ import '../texts/titleText.dart';
 import '../dialogs/showLoadingDialog.dart';
 import '../dialogs/showOkDialog.dart';
 //PAGES
-import '../../pages/booking/packageDetailsPage.dart';
+import '../../pages/studio/studioPackageDetailsPage.dart';
 
 class StudioContainer extends StatelessWidget {
   final StudioPackage? package;
@@ -25,28 +25,28 @@ class StudioContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // if (package?.id != null) {
-        //   ShowLoadingDialog(context);
-        //   context
-        //       .read<Bookings>()
-        //       .fetchAndSetPackageDetails(package!.id!)
-        //       .then((response) {
-        //     ShowLoadingDialog(context, dismiss: true);
-        //     if (response.statusCode == 200) {
-        //       Navigator.push(
-        //         context,
-        //         MaterialPageRoute(
-        //           builder: (context) => PackageDetailsPage(),
-        //         ),
-        //       );
-        //     } else {
-        //       ShowOkDialog(
-        //         context,
-        //         response.message ?? ErrorMessages.somethingWrong,
-        //       );
-        //     }
-        //   });
-        // }
+        if (package?.id != null) {
+          ShowLoadingDialog(context);
+          context
+              .read<Bookings>()
+              .fetchAndSetPackageDetails(package!.id!)
+              .then((response) {
+            ShowLoadingDialog(context, dismiss: true);
+            if (response.statusCode == 200) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => StudioPackageDetailsPage(),
+                ),
+              );
+            } else {
+              ShowOkDialog(
+                context,
+                response.message ?? ErrorMessages.somethingWrong,
+              );
+            }
+          });
+        }
       },
       child: AspectRatio(
         aspectRatio: 1 / 1,
