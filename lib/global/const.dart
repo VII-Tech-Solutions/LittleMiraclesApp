@@ -84,3 +84,12 @@ class StudioCategory {
   static const printType = 7;
   static const paperSize = 8;
 }
+
+class SocialIconAsset {
+  static const String instagram = 'assets/images/iconsSocialInstagram.svg';
+  static const String facebook = 'assets/images/iconsSocialFacebook.svg';
+  static const String snapchat = 'assets/images/iconsSocialSnapchat.svg';
+  static const String twitter = 'assets/images/iconsSocialTwitter.svg';
+  static const String youtube = 'assets/images/iconsSocialYoutube.svg';
+  static const String pinterest = 'assets/images/iconsSocialPinterest.svg';
+}
