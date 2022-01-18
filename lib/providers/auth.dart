@@ -27,7 +27,7 @@ class Auth with ChangeNotifier {
     Tables.backdrops,
     Tables.dailyTips,
     Tables.promotions,
-    Tables.workshops
+    Tables.workshops,
   ];
   String? _token;
   User? _user;
@@ -310,23 +310,22 @@ class Auth with ChangeNotifier {
       this.setFirstOpen();
 
       //remove user related data from local
-      _tables.forEach((table) {
-        DBHelper.deleteTable(table);
-      });
+      // _tables.forEach((table) {
+      //   DBHelper.deleteTable(table);
+      // });
 
-      final url = Uri.parse("$apiLink/logout");
-      await http.post(
-        url,
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          'Authorization': 'Bearer $_token'
-        },
-      );
+      // final url = Uri.parse("$apiLink/logout");
+      // await http.post(
+      //   url,
+      //   headers: {
+      //     "Content-Type": "application/x-www-form-urlencoded",
+      //     'Authorization': 'Bearer $_token'
+      //   },
+      // );
 
       _selectedIndex = 0;
 
-      // _firebaseMessaging.unsubscribeFromTopic('b4bh');
-      // _firebaseMessaging.unsubscribeFromTopic('events');
+      // _firebaseMessaging.unsubscribeFromTopic('topic name');
 
       notifyListeners();
     } catch (e) {

@@ -1,12 +1,15 @@
 //PACKAGES
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 //EXTENSIONS
 //GLOBAL
 import '../../global/colors.dart';
 import '../../global/const.dart';
 //MODELS
 //PROVIDERS
+import '../../providers/auth.dart';
+import '../../providers/appData.dart';
 //WIDGETS
 import '../../widgets/appbars/mainPagesSliverAppBar.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
@@ -175,23 +178,30 @@ class MoreMainPage extends StatelessWidget {
           hasScrollBody: false,
           child: Container(
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 30),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                FilledButtonWidget(
-                  onPress: () {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Splashscreen(),
-                      ),
-                      (Route<dynamic> route) => false,
-                    );
-                  },
-                  type: ButtonType.generalGrey,
-                  title: 'Log out',
-                )
-              ],
+            child: Visibility(
+              visible: context.read<Auth>().isAuth,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  FilledButtonWidget(
+                    onPress: () {
+                      context.read<AppData>().clearUserData().then(
+                            (_) => context.read<Auth>().logout().then(
+                                  (_) => Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Splashscreen(),
+                                    ),
+                                    (Route<dynamic> route) => false,
+                                  ),
+                                ),
+                          );
+                    },
+                    type: ButtonType.generalGrey,
+                    title: 'Log out',
+                  )
+                ],
+              ),
             ),
           ),
         ),

@@ -294,6 +294,11 @@ class AppData with ChangeNotifier {
     }
   }
 
+  Future<void> clearUserData() async {
+    _sessions.clear();
+    _sessionWidgetsList.clear();
+  }
+
   Future<void> fetchAndSetSessions({String? token}) async {
     final url = Uri.parse('$apiLink/sessions');
 
@@ -416,8 +421,7 @@ class AppData with ChangeNotifier {
   Future<void> fetchAndSetAppData() async {
     final lastUpdate =
         await LastUpdateClass().getLastUpdate(LastUpdate.appData);
-    // final url = Uri.parse('$apiLink/data$lastUpdate');
-    final url = Uri.parse('$apiLink/data');
+    final url = Uri.parse('$apiLink/data$lastUpdate');
 
     try {
       final response = await http.get(url, headers: {
