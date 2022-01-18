@@ -11,6 +11,7 @@ import '../../global/const.dart';
 import '../../widgets/appbars/mainPagesSliverAppBar.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
 //PAGES
+import '../../pages/general/splashscreen.dart';
 
 class MoreMainPage extends StatelessWidget {
   const MoreMainPage();
@@ -67,7 +68,17 @@ class MoreMainPage extends StatelessWidget {
           onTap: onPress,
           child: AspectRatio(
             aspectRatio: 1 / 1,
-            child: SvgPicture.asset(asset),
+            child: asset.contains('png')
+                ? Image.asset(
+                    asset,
+                    width: double.infinity,
+                    height: double.infinity,
+                  )
+                : SvgPicture.asset(
+                    asset,
+                    width: double.infinity,
+                    height: double.infinity,
+                  ),
           ),
         ),
       ),
@@ -113,13 +124,41 @@ class MoreMainPage extends StatelessWidget {
                         child: Row(
                           children: [
                             _socialMediaButton(
-                                () {}, SocialIconAsset.instagram),
-                            _socialMediaButton(() {}, SocialIconAsset.facebook),
-                            _socialMediaButton(() {}, SocialIconAsset.snapchat),
-                            _socialMediaButton(() {}, SocialIconAsset.twitter),
-                            _socialMediaButton(() {}, SocialIconAsset.youtube),
+                              () {
+                                print('instagram');
+                              },
+                              SocialIconAsset.instagram,
+                            ),
                             _socialMediaButton(
-                                () {}, SocialIconAsset.pinterest),
+                              () {
+                                print('facebook');
+                              },
+                              SocialIconAsset.facebook,
+                            ),
+                            _socialMediaButton(
+                              () {
+                                print('snapchat');
+                              },
+                              SocialIconAsset.snapchat,
+                            ),
+                            _socialMediaButton(
+                              () {
+                                print('twitter');
+                              },
+                              SocialIconAsset.twitter,
+                            ),
+                            _socialMediaButton(
+                              () {
+                                print('youtube');
+                              },
+                              SocialIconAsset.youtube,
+                            ),
+                            _socialMediaButton(
+                              () {
+                                print('pinterest');
+                              },
+                              SocialIconAsset.pinterest,
+                            ),
                           ],
                         ),
                       )
@@ -140,7 +179,15 @@ class MoreMainPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 FilledButtonWidget(
-                  onPress: () {},
+                  onPress: () {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Splashscreen(),
+                      ),
+                      (Route<dynamic> route) => false,
+                    );
+                  },
                   type: ButtonType.generalGrey,
                   title: 'Log out',
                 )

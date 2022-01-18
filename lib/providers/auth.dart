@@ -323,6 +323,8 @@ class Auth with ChangeNotifier {
         },
       );
 
+      _selectedIndex = 0;
+
       // _firebaseMessaging.unsubscribeFromTopic('b4bh');
       // _firebaseMessaging.unsubscribeFromTopic('events');
 
