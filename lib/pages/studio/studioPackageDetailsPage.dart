@@ -18,7 +18,6 @@ import '../../widgets/packageContainers/packageImageSectionContainer.dart';
 import '../../widgets/dialogs/showLoadingDialog.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
 //PAGES
-import '../../pages/booking/bookingSessionPage.dart';
 import '../../pages/booking/multiSessionPackage/multiSessionBookingPage.dart';
 
 class StudioPackageDetailsPage extends StatelessWidget {
@@ -83,7 +82,7 @@ class StudioPackageDetailsPage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => BookingSessionPage(package),
+                    builder: (context) => Scaffold(),
                   ),
                 );
               } else {

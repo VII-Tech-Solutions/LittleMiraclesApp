@@ -9,6 +9,7 @@ import '../../models/package.dart';
 //WIDGETS
 import '../texts/titleText.dart';
 //PAGES
+import '../../pages/booking/multiSessionPackage/subSessionBookingPage.dart';
 
 class SessionSelector extends StatelessWidget {
   final SubPackage subPackage;
@@ -17,7 +18,14 @@ class SessionSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SubSessionBookingPage(subPackage),
+          ),
+        );
+      },
       child: Container(
         margin: const EdgeInsets.fromLTRB(16, 10, 16, 0),
         padding: const EdgeInsets.symmetric(horizontal: 16),

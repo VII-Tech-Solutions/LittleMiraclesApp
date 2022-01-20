@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 //GLOBAL
 import '../../global/const.dart';
 //MODELS
-import '../../models/package.dart';
 import '../../models/question.dart';
 //PROVIDERS
 import '../../providers/bookings.dart';
@@ -25,8 +24,7 @@ import '../../widgets/packageContainers/packageBottomSectionContainer.dart';
 import '../../pages/booking/photographerPage.dart';
 
 class BookingSessionPage extends StatefulWidget {
-  final Package? package;
-  const BookingSessionPage(this.package);
+  const BookingSessionPage();
 
   @override
   State<BookingSessionPage> createState() => _BookingSessionPageState();

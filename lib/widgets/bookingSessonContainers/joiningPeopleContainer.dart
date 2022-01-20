@@ -14,7 +14,7 @@ import '../../widgets/bookingSessonContainers/labeledCheckbox.dart';
 //PAGES
 
 class JoiningPeopleContainer extends StatefulWidget {
-  const JoiningPeopleContainer({Key? key}) : super(key: key);
+  const JoiningPeopleContainer();
 
   @override
   State<JoiningPeopleContainer> createState() => _JoiningPeopleContainerState();

@@ -71,37 +71,33 @@ class PackageDetailsPage extends StatelessWidget {
       ),
       bottomNavigationBar: PackageBottomSectionContainer(onTap: () {
         final package = context.read<Bookings>().package;
-        if (package?.type == 1 || package?.type == 3) {
-          if (package?.id != null) {
-            ShowLoadingDialog(context);
-            context
-                .read<Bookings>()
-                .fetchAndSetAvailableDates()
-                .then((response) {
-              ShowLoadingDialog(context, dismiss: true);
-              if (response?.statusCode == 200) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BookingSessionPage(package),
-                  ),
-                );
-              } else {
-                ShowOkDialog(
-                  context,
-                  response?.message ?? ErrorMessages.somethingWrong,
-                );
-              }
-            });
+
+        ShowLoadingDialog(context);
+        context.read<Bookings>().fetchAndSetAvailableDates().then((response) {
+          ShowLoadingDialog(context, dismiss: true);
+          if (response?.statusCode == 200) {
+            if (package?.type == 1 || package?.type == 3) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BookingSessionPage(),
+                ),
+              );
+            } else {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MultiSessionBookingPage(),
+                ),
+              );
+            }
+          } else {
+            ShowOkDialog(
+              context,
+              response?.message ?? ErrorMessages.somethingWrong,
+            );
           }
-        } else {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => MultiSessionBookingPage(),
-            ),
-          );
-        }
+        });
       }),
     );
   }
