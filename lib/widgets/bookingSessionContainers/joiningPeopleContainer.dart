@@ -10,7 +10,7 @@ import '../../providers/auth.dart';
 import '../../providers/bookings.dart';
 //WIDGETS
 import '../../widgets/texts/titleText.dart';
-import '../../widgets/bookingSessonContainers/labeledCheckbox.dart';
+import './labeledCheckbox.dart';
 //PAGES
 
 class JoiningPeopleContainer extends StatefulWidget {

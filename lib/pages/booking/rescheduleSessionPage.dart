@@ -11,8 +11,8 @@ import '../../providers/bookings.dart';
 //WIDGETS
 import '../../widgets/appbars/appBarWithBack.dart';
 import '../../widgets/sessionContainers/sessionDetailsContainer.dart';
-import '../../widgets/bookingSessonContainers/calendarContainer.dart';
-import '../../widgets/bookingSessonContainers/availableTimeContainer.dart';
+import '../../widgets/bookingSessionContainers/calendarContainer.dart';
+import '../../widgets/bookingSessionContainers/availableTimeContainer.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/dialogs/showLoadingDialog.dart';
 import '../../widgets/dialogs/showOkDialog.dart';

@@ -11,7 +11,7 @@ import '../../../providers/bookings.dart';
 //WIDGETS
 import '../../../widgets/appbars/appBarWithBack.dart';
 import '../../../widgets/form/textQuestionWidget.dart';
-import '../../../widgets/bookingSessonContainers/sessionSelector.dart';
+import '../../../widgets/bookingSessionContainers/sessionSelector.dart';
 import '../../../widgets/packageContainers/packageBottomSectionContainer.dart';
 //PAGES
 

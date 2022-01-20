@@ -13,12 +13,12 @@ import '../../widgets/dialogs/showOkDialog.dart';
 import '../../widgets/dialogs/showLoadingDialog.dart';
 import '../../widgets/appbars/appBarWithBack.dart';
 import '../../widgets/form/textQuestionWidget.dart';
-import '../../widgets/bookingSessonContainers/cakeSelector.dart';
-import '../../widgets/bookingSessonContainers/backdropSelector.dart';
-import '../../widgets/bookingSessonContainers/calendarContainer.dart';
-import '../../widgets/bookingSessonContainers/availableLocationsContainer.dart';
-import '../../widgets/bookingSessonContainers/availableTimeContainer.dart';
-import '../../widgets/bookingSessonContainers/joiningPeopleContainer.dart';
+import '../../widgets/bookingSessionContainers/cakeSelector.dart';
+import '../../widgets/bookingSessionContainers/backdropSelector.dart';
+import '../../widgets/bookingSessionContainers/calendarContainer.dart';
+import '../../widgets/bookingSessionContainers/availableLocationsContainer.dart';
+import '../../widgets/bookingSessionContainers/availableTimeContainer.dart';
+import '../../widgets/bookingSessionContainers/joiningPeopleContainer.dart';
 import '../../widgets/packageContainers/packageBottomSectionContainer.dart';
 //PAGES
 import '../../pages/booking/photographerPage.dart';

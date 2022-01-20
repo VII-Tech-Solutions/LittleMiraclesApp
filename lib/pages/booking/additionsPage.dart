@@ -12,7 +12,7 @@ import '../../providers/bookings.dart';
 //WIDGETS
 import '../../widgets/appbars/appBarWithBack.dart';
 import '../../widgets/packageContainers/packageBottomSectionContainer.dart';
-import '../../widgets/bookingSessonContainers/selectionRow.dart';
+import '../../widgets/bookingSessionContainers/selectionRow.dart';
 //PAGES
 import './reviewAndPayPage.dart';
 
