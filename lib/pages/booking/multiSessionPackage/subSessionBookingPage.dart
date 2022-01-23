@@ -15,18 +15,14 @@ import '../../../providers/bookings.dart';
 import '../../../widgets/dialogs/showOkDialog.dart';
 import '../../../widgets/dialogs/showLoadingDialog.dart';
 import '../../../widgets/appbars/appBarWithBack.dart';
-import '../../../widgets/form/textQuestionWidget.dart';
 import '../../../widgets/bookingSessionContainers/MultiSession/multiSessionCakeSelector.dart';
-import '../../../widgets/bookingSessionContainers/backdropSelector.dart';
+import '../../../widgets/bookingSessionContainers/MultiSession/multiSessionBackdropSelector.dart';
 import '../../../widgets/bookingSessionContainers/calendarContainer.dart';
-import '../../../widgets/bookingSessionContainers/availableLocationsContainer.dart';
 import '../../../widgets/bookingSessionContainers/availableTimeContainer.dart';
 import '../../../widgets/bookingSessionContainers/joiningPeopleContainer.dart';
-import '../../../widgets/packageContainers/packageBottomSectionContainer.dart';
 import '../../../widgets/buttons/filledButtonWidget.dart';
 import '../../../widgets/texts/titleText.dart';
 //PAGES
-import '../../../pages/booking/photographerPage.dart';
 
 class SubSessionBookingPage extends StatefulWidget {
   final SubPackage? subPackage;
@@ -56,8 +52,10 @@ class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
   @override
   Widget build(BuildContext context) {
     final bookingsProvider = context.watch<Bookings>();
-    final cakesList =
-        bookingsProvider.getSubSessionBookingDetails(widget.subPackage!.id!);
+    final backdropsList = bookingsProvider.getSubSessionBookingDetails(
+        SubSessionBookingDetailsType.backdrop, widget.subPackage!.id!);
+    final cakesList = bookingsProvider.getSubSessionBookingDetails(
+        SubSessionBookingDetailsType.cake, widget.subPackage!.id!);
     return Scaffold(
       appBar: AppBarWithBack(
         title: widget.subPackage?.title ?? '',
@@ -100,13 +98,20 @@ class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
                       amendBookingBody(val);
                     },
                   ),
-                  BackdropSelector(),
-                  MultiSessionCakeSelector(widget.subPackage!, cakesList),
+                  MultiSessionBackdropSelector(
+                    widget.subPackage!,
+                    backdropsList,
+                  ),
+                  MultiSessionCakeSelector(
+                    widget.subPackage!,
+                    cakesList,
+                  ),
                 ],
               ),
             ),
             FilledButtonWidget(
               onPress: () {
+                _bookingBody.addAll({'backdrops': backdropsList});
                 _bookingBody.addAll({'cakes': cakesList});
                 print(_bookingBody);
               },
@@ -117,6 +122,44 @@ class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
           ],
         ),
       ),
+      // bottomNavigationBar: PackageBottomSectionContainer(
+      //   btnLabel: 'Next',
+      //   onTap: () {
+      //     final timings = context.read<Bookings>().availableTimings;
+      //     final bookingsBody = context.read<Bookings>().bookingsBody;
+      //     if (bookingsBody.containsKey('location_link') &&
+      //         bookingsBody['location_link'] == "") {
+      //       ShowOkDialog(context, 'Please add the location link to proceed');
+      //     } else if (!bookingsBody.containsKey('date')) {
+      //       ShowOkDialog(context, 'Please select a date to proceed');
+      //     } else if (!bookingsBody.containsKey('time') ||
+      //         !timings.contains(bookingsBody['time'])) {
+      //       ShowOkDialog(context, 'Please select a time to proceed');
+      //     } else if (!bookingsBody.containsKey('people')) {
+      //       ShowOkDialog(context, 'Please select people joining to proceed');
+      //     } else if (!bookingsBody.containsKey('backdrops')) {
+      //       ShowOkDialog(context, 'Please select a backdrop to proceed');
+      //     } else {
+      //       ShowLoadingDialog(context);
+      //       // context.read<Bookings>().bookASession().then((response) {
+      //       //   ShowLoadingDialog(context, dismiss: true);
+      //       //   if (response?.statusCode == 200) {
+      //       //     Navigator.push(
+      //       //       context,
+      //       //       MaterialPageRoute(
+      //       //         builder: (context) => PhotographerPage(),
+      //       //       ),
+      //       //     );
+      //       //   } else {
+      //       //     ShowOkDialog(
+      //       //       context,
+      //       //       response?.message ?? ErrorMessages.somethingWrong,
+      //       //     );
+      //       //   }
+      //       // });
+      //     }
+      //   },
+      // ),
     );
   }
 }

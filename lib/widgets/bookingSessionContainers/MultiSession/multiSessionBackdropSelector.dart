@@ -3,25 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 //EXTENSIONS
 //GLOBAL
-import '../../global/colors.dart';
+import '../../../global/colors.dart';
 //MODELS
+import '../../../models/package.dart';
 //PROVIDERS
-import '../../providers/bookings.dart';
-import '../../providers/appData.dart';
+import '../../../providers/bookings.dart';
+import '../../../providers/appData.dart';
 //WIDGETS
-import '../form/formTextField.dart';
-import '../general/cachedImageWidget.dart';
-import '../texts/titleText.dart';
+import '../../form/formTextField.dart';
+import '../../general/cachedImageWidget.dart';
+import '../../texts/titleText.dart';
 //PAGES
-import '../../pages/booking/backdropPage.dart';
+import '../../../pages/booking/backdropPage.dart';
 
-class BackdropSelector extends StatelessWidget {
-  const BackdropSelector();
+class MultiSessionBackdropSelector extends StatelessWidget {
+  final SubPackage subPackage;
+  final List<int> selectedBackdrops;
+  const MultiSessionBackdropSelector(this.subPackage, this.selectedBackdrops);
 
   @override
   Widget build(BuildContext context) {
-    final bookingsProvider = context.watch<Bookings>();
-    return bookingsProvider.selectedBackdrops.length > 0
+    return selectedBackdrops.length > 0
         ? Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: Column(
@@ -51,8 +53,7 @@ class BackdropSelector extends StatelessWidget {
                         child: Column(
                           children: context
                               .watch<AppData>()
-                              .getBackdropsByIds(
-                                  bookingsProvider.selectedBackdrops)
+                              .getBackdropsByIds(selectedBackdrops)
                               .map(
                                 (e) => Padding(
                                   padding:
@@ -90,7 +91,10 @@ class BackdropSelector extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => BackdropPage(),
+                              builder: (context) => BackdropPage(
+                                subPackage: subPackage,
+                                subSessionSelectedBackdrops: selectedBackdrops,
+                              ),
                             ),
                           );
                         },
@@ -109,14 +113,14 @@ class BackdropSelector extends StatelessWidget {
               ],
             ))
         : Visibility(
-            visible: bookingsProvider.package?.backdropAllowed != 0,
+            visible: subPackage.backdropAllowed != 0,
             child: FormTextFieldWidget(
               controller: TextEditingController(),
               customMargin:
                   const EdgeInsets.symmetric(horizontal: 0.0, vertical: 20),
-              title: bookingsProvider.package?.backdropAllowed == 1
+              title: subPackage.backdropAllowed == 1
                   ? 'Select Backdrop'
-                  : 'Select ${bookingsProvider.package?.backdropAllowed ?? ''} Backdrops',
+                  : 'Select ${subPackage.backdropAllowed ?? ''} Backdrops',
               hintStyle: TextStyle(
                 color: AppColors.black45515D,
                 fontSize: 12,
@@ -131,7 +135,10 @@ class BackdropSelector extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => BackdropPage(),
+                    builder: (context) => BackdropPage(
+                      subPackage: subPackage,
+                      subSessionSelectedBackdrops: selectedBackdrops,
+                    ),
                   ),
                 );
               },

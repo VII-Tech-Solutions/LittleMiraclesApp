@@ -46,11 +46,14 @@ class _CalendarContainerState extends State<CalendarContainer> {
       if (preSelectedDate != null) {
         if (preSelectedDate.isNotEmpty) {
           selectedDay = DateTime.parse(preSelectedDate);
+          provider.getAvailableTimings(preSelectedDate, withNotify: false);
         } else {
           selectedDay = DateTime.parse(firstDate);
+          provider.getAvailableTimings(firstDate, withNotify: false);
         }
       } else {
         selectedDay = DateTime.parse(firstDate);
+        provider.getAvailableTimings(firstDate, withNotify: false);
       }
 
       //handle the calendar data

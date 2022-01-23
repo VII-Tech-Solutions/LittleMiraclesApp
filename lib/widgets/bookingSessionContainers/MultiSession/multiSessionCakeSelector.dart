@@ -16,9 +16,9 @@ import '../../texts/titleText.dart';
 import '../../../pages/booking/cakePage.dart';
 
 class MultiSessionCakeSelector extends StatelessWidget {
-  final SubPackage package;
+  final SubPackage subPackage;
   final List<int> selectedCakes;
-  const MultiSessionCakeSelector(this.package, this.selectedCakes);
+  const MultiSessionCakeSelector(this.subPackage, this.selectedCakes);
 
   @override
   Widget build(BuildContext context) {
@@ -89,8 +89,8 @@ class MultiSessionCakeSelector extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder: (context) => CakePage(
-                              subPackage: package,
-                              subSessionSelectedCake: selectedCakes,
+                              subPackage: subPackage,
+                              subSessionSelectedCakes: selectedCakes,
                             ),
                           ),
                         );
@@ -110,14 +110,14 @@ class MultiSessionCakeSelector extends StatelessWidget {
             ],
           )
         : Visibility(
-            visible: package.cakeAllowed != 0,
+            visible: subPackage.cakeAllowed != 0,
             child: FormTextFieldWidget(
               controller: TextEditingController(),
               customMargin:
                   const EdgeInsets.symmetric(horizontal: 0.0, vertical: 0),
-              title: package.cakeAllowed == 1
+              title: subPackage.cakeAllowed == 1
                   ? 'Select Cake'
-                  : 'Select ${package.cakeAllowed ?? ''} Cakes',
+                  : 'Select ${subPackage.cakeAllowed ?? ''} Cakes',
               hintStyle: TextStyle(
                 color: AppColors.black45515D,
                 fontSize: 12,
@@ -133,8 +133,8 @@ class MultiSessionCakeSelector extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => CakePage(
-                      subPackage: package,
-                      subSessionSelectedCake: selectedCakes,
+                      subPackage: subPackage,
+                      subSessionSelectedCakes: selectedCakes,
                     ),
                   ),
                 );

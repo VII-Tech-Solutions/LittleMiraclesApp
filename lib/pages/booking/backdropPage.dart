@@ -5,8 +5,10 @@ import 'package:provider/provider.dart';
 //EXTENSIONS
 //GLOBAL
 import '../../global/colors.dart';
+import '../../global/const.dart';
 //MODELS
 import '../../models/question.dart';
+import '../../models/package.dart';
 //PROVIDERS
 import '../../providers/appData.dart';
 import '../../providers/bookings.dart';
@@ -18,7 +20,9 @@ import '../../widgets/form/textQuestionWidget.dart';
 //PAGES
 
 class BackdropPage extends StatefulWidget {
-  const BackdropPage({Key? key}) : super(key: key);
+  final SubPackage? subPackage;
+  final List<int>? subSessionSelectedBackdrops;
+  const BackdropPage({this.subPackage, this.subSessionSelectedBackdrops});
 
   @override
   _BackdropPageState createState() => _BackdropPageState();
@@ -30,7 +34,13 @@ class _BackdropPageState extends State<BackdropPage> {
 
   @override
   void initState() {
-    final selectedList = context.read<Bookings>().selectedBackdrops;
+    List<int> selectedList = [];
+
+    if (widget.subSessionSelectedBackdrops != null) {
+      selectedList = widget.subSessionSelectedBackdrops!;
+    } else {
+      selectedList = context.read<Bookings>().selectedBackdrops;
+    }
 
     if (selectedList.isNotEmpty) {
       setState(() {
@@ -64,7 +74,9 @@ class _BackdropPageState extends State<BackdropPage> {
   Widget build(BuildContext context) {
     final appDataProvider = context.watch<AppData>();
     final bookingsProvider = context.watch<Bookings>();
-    final allowedSelection = bookingsProvider.package!.backdropAllowed!;
+    final allowedSelection = widget.subPackage != null
+        ? widget.subPackage!.backdropAllowed!
+        : bookingsProvider.package!.backdropAllowed!;
 
     return Scaffold(
       appBar: AppBarWithBack(
@@ -90,30 +102,33 @@ class _BackdropPageState extends State<BackdropPage> {
                     children: appDataProvider
                         .getBackdropsByCategoryId(catId)
                         .map(
-                          (item) => SelectionRow(() {
-                            setState(() {
-                              if (_selectedItems.contains(item.id)) {
-                                _selectedItems.removeWhere(
-                                    (element) => element == item.id);
-                              } else {
-                                if (allowedSelection == 1) {
-                                  _selectedItems.clear();
-                                  _selectedItems.add(item.id!);
-                                } else if (allowedSelection > 1 &&
-                                    allowedSelection == _selectedItems.length) {
-                                  _selectedItems.removeAt(0);
-                                  _selectedItems.add(item.id!);
+                          (item) => SelectionRow(
+                            () {
+                              setState(() {
+                                if (_selectedItems.contains(item.id)) {
+                                  _selectedItems.removeWhere(
+                                      (element) => element == item.id);
                                 } else {
-                                  _selectedItems.add(item.id!);
+                                  if (allowedSelection == 1) {
+                                    _selectedItems.clear();
+                                    _selectedItems.add(item.id!);
+                                  } else if (allowedSelection > 1 &&
+                                      allowedSelection ==
+                                          _selectedItems.length) {
+                                    _selectedItems.removeAt(0);
+                                    _selectedItems.add(item.id!);
+                                  } else {
+                                    _selectedItems.add(item.id!);
+                                  }
                                 }
-                              }
-                            });
-                          },
-                              item.image,
-                              null,
-                              item.title,
-                              _selectedItems.contains(item.id),
-                              bookingsProvider.package!.backdropAllowed!),
+                              });
+                            },
+                            item.image,
+                            null,
+                            item.title,
+                            _selectedItems.contains(item.id),
+                            allowedSelection,
+                          ),
                         )
                         .toList(),
                   ),
@@ -161,8 +176,19 @@ class _BackdropPageState extends State<BackdropPage> {
         child: FilledButtonWidget(
           onPress: () {
             if (_selectedItems.isNotEmpty) {
-              bookingsProvider.assignSelectedBackdrops(
-                  _selectedItems, _customBackdrop);
+              if (widget.subPackage != null) {
+                Map<int, List<int>> backdropsMap = {
+                  widget.subPackage!.id!: _selectedItems,
+                };
+                print('I CAME HERE POTATO: $backdropsMap');
+                bookingsProvider.amendSubSessionBookingDetails(
+                  SubSessionBookingDetailsType.backdrop,
+                  backdropsMap,
+                );
+              } else {
+                bookingsProvider.assignSelectedBackdrops(
+                    _selectedItems, _customBackdrop);
+              }
               Navigator.pop(context);
             } else {
               ShowOkDialog(context, 'Please select a backrop to proceed');

@@ -20,8 +20,8 @@ import '../../widgets/form/textQuestionWidget.dart';
 
 class CakePage extends StatefulWidget {
   final SubPackage? subPackage;
-  final List<int>? subSessionSelectedCake;
-  const CakePage({this.subPackage, this.subSessionSelectedCake});
+  final List<int>? subSessionSelectedCakes;
+  const CakePage({this.subPackage, this.subSessionSelectedCakes});
 
   @override
   _CakePageState createState() => _CakePageState();
@@ -36,8 +36,8 @@ class _CakePageState extends State<CakePage> {
   void initState() {
     List<int> selectedList = [];
 
-    if (widget.subSessionSelectedCake != null) {
-      selectedList = widget.subSessionSelectedCake!;
+    if (widget.subSessionSelectedCakes != null) {
+      selectedList = widget.subSessionSelectedCakes!;
     } else {
       selectedList = context.read<Bookings>().selectedCakes;
     }
@@ -74,7 +74,9 @@ class _CakePageState extends State<CakePage> {
   Widget build(BuildContext context) {
     final appDataProvider = context.watch<AppData>();
     final bookingsProvider = context.watch<Bookings>();
-    final allowedSelection = bookingsProvider.package!.cakeAllowed!;
+    final allowedSelection = widget.subPackage != null
+        ? widget.subPackage!.cakeAllowed!
+        : bookingsProvider.package!.cakeAllowed!;
 
     return Scaffold(
       appBar: AppBarWithBack(
@@ -105,9 +107,7 @@ class _CakePageState extends State<CakePage> {
             ),
             'No Cake',
             _isClearSelected,
-            widget.subPackage != null
-                ? widget.subPackage!.cakeAllowed!
-                : bookingsProvider.package!.cakeAllowed!,
+            allowedSelection,
           ),
           ListView.builder(
             primary: false,
@@ -150,9 +150,7 @@ class _CakePageState extends State<CakePage> {
                             null,
                             item.title,
                             _selectedItems.contains(item.id),
-                            widget.subPackage != null
-                                ? widget.subPackage!.cakeAllowed!
-                                : bookingsProvider.package!.cakeAllowed!,
+                            allowedSelection,
                           ),
                         )
                         .toList(),
@@ -201,13 +199,13 @@ class _CakePageState extends State<CakePage> {
         child: FilledButtonWidget(
           onPress: () {
             if (widget.subPackage != null) {
-              Map<int, List<int>> cakeMaps = {
+              Map<int, List<int>> cakesMap = {
                 widget.subPackage!.id!: _selectedItems,
               };
-              print('I CAME HERE POTATO: $cakeMaps');
+              print('I CAME HERE POTATO: $cakesMap');
               bookingsProvider.amendSubSessionBookingDetails(
                 SubSessionBookingDetailsType.cake,
-                cakeMaps,
+                cakesMap,
               );
             } else {
               bookingsProvider.assignSelectedCakes(_selectedItems, _customCake);

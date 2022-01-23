@@ -40,6 +40,7 @@ class Bookings with ChangeNotifier {
   Session? _session;
   PromoCode? _promoCode;
   //multi session bookings details
+  Map<int, List<int>> _subSessionSelectedBackdrops = {};
   Map<int, List<int>> _subSessionSelectedCakes = {};
 
   //Session Details
@@ -55,6 +56,7 @@ class Bookings with ChangeNotifier {
     this._subPackages,
     this._selectedBackdrops,
     this._selectedCakes,
+    this._subSessionSelectedBackdrops,
     this._subSessionSelectedCakes,
     this._customBackrop,
     this._customCake,
@@ -93,6 +95,10 @@ class Bookings with ChangeNotifier {
 
   List<int> get selectedCakes {
     return [..._selectedCakes];
+  }
+
+  Map<int, List<int>> get subSessionSelectedBackdrops {
+    return _subSessionSelectedBackdrops;
   }
 
   Map<int, List<int>> get subSessionSelectedCakes {
@@ -135,7 +141,7 @@ class Bookings with ChangeNotifier {
     return _guidelineString;
   }
 
-  void getAvailableTimings(String date) {
+  void getAvailableTimings(String date, {bool withNotify = true}) {
     final list =
         _availableDates.where((element) => element.date == date).toList();
 
@@ -143,7 +149,7 @@ class Bookings with ChangeNotifier {
       _availableTimings = list.first.timings;
     }
 
-    notifyListeners();
+    if (withNotify == true) notifyListeners();
     return;
   }
 
@@ -171,6 +177,10 @@ class Bookings with ChangeNotifier {
       int dataType, Map<int, List<int>> data) async {
     switch (dataType) {
       case SubSessionBookingDetailsType.backdrop:
+        _subSessionSelectedBackdrops.addAll(data);
+
+        print(_subSessionSelectedBackdrops.length);
+        print(_subSessionSelectedBackdrops);
         break;
       case SubSessionBookingDetailsType.cake:
         _subSessionSelectedCakes.addAll(data);
@@ -184,10 +194,24 @@ class Bookings with ChangeNotifier {
     notifyListeners();
   }
 
-  List<int> getSubSessionBookingDetails(int packageId) {
+  List<int> getSubSessionBookingDetails(int dataType, int packageId) {
     List<int> list = [];
-    if (_subSessionSelectedCakes.containsKey(packageId)) {
-      list = _subSessionSelectedCakes[packageId] as List<int>;
+
+    switch (dataType) {
+      case SubSessionBookingDetailsType.backdrop:
+        if (_subSessionSelectedBackdrops.containsKey(packageId)) {
+          list = _subSessionSelectedBackdrops[packageId] as List<int>;
+        }
+        break;
+
+      case SubSessionBookingDetailsType.cake:
+        if (_subSessionSelectedCakes.containsKey(packageId)) {
+          list = _subSessionSelectedCakes[packageId] as List<int>;
+        }
+        break;
+
+      case SubSessionBookingDetailsType.photographer:
+        break;
     }
 
     return list;
