@@ -7,6 +7,7 @@ class AppColors {
   // Add your custom colors below
 
   static const Color transpernt00FFFFFF = Color(0x00FFFFFF);
+  static const Color whiteFFFFFFD9 = Color(0xFFFFFFFFD9);
   static const Color whiteF4F9FA = Color(0xFFF4F9FA);
   static const Color whiteFFFFFF = Color(0xFFFFFFFF);
   static const Color pinkFEF2F1 = Color(0xFFFEF2F1);

@@ -24,6 +24,7 @@ class AppBarWithBack extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       elevation: elevation ?? 0.0,
+      shadowColor: AppColors.whiteFFFFFFD9,
       automaticallyImplyLeading: false,
       leading: Padding(
         padding: EdgeInsets.only(left: 16.0),

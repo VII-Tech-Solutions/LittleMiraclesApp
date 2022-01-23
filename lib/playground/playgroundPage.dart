@@ -1,24 +1,14 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/pages/login/childrenPage.dart';
-import 'package:LMP0001_LittleMiraclesApp/pages/login/familyPage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 //EXTENSIONS
-import '../extensions/stringExtension.dart';
 //GLOBAL
-import '../global/colors.dart';
 //MODELS
-import '../models/package.dart';
-import '../../../models/question.dart';
 //PROVIDERS
-import '../providers/auth.dart';
-import '../providers/appData.dart';
 import '../providers/bookings.dart';
 //WIDGETS
 import '../widgets/texts/titleText.dart';
-import '../../../widgets/appbars/appBarWithBack.dart';
 import '../../../widgets/texts/titleText.dart';
-import '../../../widgets/form/textQuestionWidget.dart';
 //PAGES
 
 class PlayrgoundPage extends StatefulWidget {
@@ -29,9 +19,71 @@ class PlayrgoundPage extends StatefulWidget {
 }
 
 class _PlayrgoundPageState extends State<PlayrgoundPage> {
+  Map<int, List<int>> cakes = {
+    1: [1, 2],
+    2: [3, 5]
+  };
+
+  final something = {
+    "package_id": 5,
+    "date": "2021-12-30",
+    "time": "12:00 PM",
+    "payment_method": 1,
+    "comments": "",
+    "sub_sessions": [
+      {
+        "sub_package_id": 1,
+        "date": "2022-01-01",
+        "time": "12:00PM",
+        "include_me": true,
+        "people": [1, 2],
+        "backdrops": [1, 2],
+        "cakes": [1, 2],
+        "photographer": 1,
+        "custom_backdrop": null,
+        "custom_cake": null
+      },
+      {
+        "sub_package_id": 2,
+        "date": "2020-02-01",
+        "time": "12:00PM",
+        "include_me": true,
+        "people": [1, 2],
+        "backdrops": [1, 2],
+        "cakes": [1, 2],
+        "photographer": 1,
+        "custom_backdrop": null,
+        "custom_cake": null
+      },
+      {
+        "sub_package_id": 3,
+        "date": "2022-03-01",
+        "time": "12:00PM",
+        "include_me": true,
+        "people": [1, 2],
+        "backdrops": [1, 2],
+        "cakes": [1, 2],
+        "photographer": 1,
+        "custom_backdrop": null,
+        "custom_cake": null
+      },
+      {
+        "sub_package_id": 4,
+        "date": "2022-04-01",
+        "time": "12:00PM",
+        "include_me": true,
+        "people": [1, 2],
+        "backdrops": [1, 2],
+        "cakes": [1, 2],
+        "photographer": 1,
+        "custom_backdrop": null,
+        "custom_cake": null
+      }
+    ]
+  };
+
   @override
   Widget build(BuildContext context) {
-    final bookingsProvider = context.read<Bookings>();
     return Scaffold(
         appBar: AppBar(
           title: TitleText(
@@ -43,14 +95,36 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
           children: [
             InkWell(
               onTap: () {
-                final list = [1,2,3,4,5];
+                print(cakes);
 
-                
+                print(cakes.containsKey('2'));
+
+                print(cakes[1]);
+
+                cakes.addAll({
+                  2: [1, 3, 4]
+                });
               },
               child: Container(
                 width: double.infinity,
                 height: 100,
                 color: Colors.red,
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                print(something.containsKey('sub_sessions'));
+                final something2 =
+                    something['sub_sessions'] as List<Map<String, dynamic>>;
+
+                something2.forEach((element) {
+                  print(element);
+                });
+              },
+              child: Container(
+                width: double.infinity,
+                height: 100,
+                color: Colors.blue,
               ),
             )
           ],

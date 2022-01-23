@@ -14,4 +14,11 @@ extension DateTimeExtension on DateTime {
 
     return formattedDate;
   }
+
+  String tohhmma() {
+    var dateFormat = new DateFormat('hh:mm a');
+    final formattedDate = dateFormat.format(this);
+
+    return formattedDate;
+  }
 }

@@ -28,7 +28,9 @@ class ImageGridWidget extends StatelessWidget {
                 Container(
                   height: size * 0.414,
                   child: CachedImageWidget(
-                    media[0].url,
+                    // media[0].url,
+                    //TODO:: revert back to the old implementaion when the API/Admin is fixed
+                    'https://i.picsum.photos/id/807/200/200.jpg?hmac=Y8gayvNItiQYxP_Pd-2un9GH09XuyJdIZOQPw6K9QsI',
                     ImageShape.rectangle,
                     radius: 0.0,
                   ),
@@ -38,7 +40,9 @@ class ImageGridWidget extends StatelessWidget {
                 ),
                 Expanded(
                   child: CachedImageWidget(
-                    media[1].url,
+                    // media[1].url,
+                    //TODO:: revert back to the old implementaion when the API/Admin is fixed
+                    'https://i.picsum.photos/id/986/200/200.jpg?hmac=Rqj6CXpaNxwumR7JjJGP9zm2AX92QkYPfNgufdAlpkY',
                     ImageShape.square,
                     radius: 0.0,
                   ),
@@ -55,7 +59,9 @@ class ImageGridWidget extends StatelessWidget {
                 Container(
                   height: size * 0.592,
                   child: CachedImageWidget(
-                    media[2].url,
+                    // media[2].url,
+                    //TODO:: revert back to the old implementaion when the API/Admin is fixed
+                    'https://i.picsum.photos/id/538/200/200.jpg?hmac=oJRLJPsN8ZdWjPpKGEU-oqAZMBKa4JsTnuUSqgRbyP4',
                     ImageShape.square,
                     radius: 0.0,
                   ),
@@ -66,7 +72,9 @@ class ImageGridWidget extends StatelessWidget {
                 Expanded(
                   child: Container(
                     child: CachedImageWidget(
-                      media[3].url,
+                      // media[3].url,
+                      //TODO:: revert back to the old implementaion when the API/Admin is fixed
+                      'https://i.picsum.photos/id/396/200/200.jpg?hmac=1OjJQ2_7SRz0wUfAkBJnIpcCn8IbJrSE5o3zG3T3tJY',
                       ImageShape.square,
                       radius: 0.0,
                     ),

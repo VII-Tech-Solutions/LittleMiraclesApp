@@ -16,7 +16,7 @@ import '../../widgets/texts/titleText.dart';
 class CalendarContainer extends StatefulWidget {
   final bool isReschedule;
   final String? preSelectedDate;
-  final void Function(String?)? onChangeCallback;
+  final void Function(Map?)? onChangeCallback;
   const CalendarContainer({
     this.isReschedule = false,
     this.preSelectedDate = null,
@@ -55,7 +55,7 @@ class _CalendarContainerState extends State<CalendarContainer> {
 
       //handle the calendar data
       if (widget.onChangeCallback != null) {
-        widget.onChangeCallback!(firstDate);
+        widget.onChangeCallback!({'date': firstDate});
       } else {
         provider.amendBookingBody({'date': firstDate});
       }
@@ -117,7 +117,7 @@ class _CalendarContainerState extends State<CalendarContainer> {
                 provider.getAvailableTimings(formattedDate);
 
                 if (widget.onChangeCallback != null) {
-                  widget.onChangeCallback!(formattedDate);
+                  widget.onChangeCallback!({'date': formattedDate});
                 } else {
                   provider.amendBookingBody({'date': formattedDate});
                 }

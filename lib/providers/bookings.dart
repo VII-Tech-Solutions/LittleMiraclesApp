@@ -39,6 +39,8 @@ class Bookings with ChangeNotifier {
   List<dynamic>? _availableTimings = [];
   Session? _session;
   PromoCode? _promoCode;
+  //multi session bookings details
+  Map<int, List<int>> _subSessionSelectedCakes = {};
 
   //Session Details
   String _guidelineString = '';
@@ -53,6 +55,7 @@ class Bookings with ChangeNotifier {
     this._subPackages,
     this._selectedBackdrops,
     this._selectedCakes,
+    this._subSessionSelectedCakes,
     this._customBackrop,
     this._customCake,
     this._bookingBody,
@@ -90,6 +93,10 @@ class Bookings with ChangeNotifier {
 
   List<int> get selectedCakes {
     return [..._selectedCakes];
+  }
+
+  Map<int, List<int>> get subSessionSelectedCakes {
+    return _subSessionSelectedCakes;
   }
 
   String get customBackdrop {
@@ -158,6 +165,32 @@ class Bookings with ChangeNotifier {
     _bookingBody.addAll(data);
 
     print(jsonEncode(_bookingBody));
+  }
+
+  Future<void> amendSubSessionBookingDetails(
+      int dataType, Map<int, List<int>> data) async {
+    switch (dataType) {
+      case SubSessionBookingDetailsType.backdrop:
+        break;
+      case SubSessionBookingDetailsType.cake:
+        _subSessionSelectedCakes.addAll(data);
+
+        print(_subSessionSelectedCakes.length);
+        print(_subSessionSelectedCakes);
+        break;
+      case SubSessionBookingDetailsType.photographer:
+        break;
+    }
+    notifyListeners();
+  }
+
+  List<int> getSubSessionBookingDetails(int packageId) {
+    List<int> list = [];
+    if (_subSessionSelectedCakes.containsKey(packageId)) {
+      list = _subSessionSelectedCakes[packageId] as List<int>;
+    }
+
+    return list;
   }
 
   Future<void> removeKeyFromBookinBody(String key) async {

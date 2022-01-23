@@ -93,3 +93,9 @@ class SocialIconAsset {
   static const String youtube = 'assets/images/iconsSocialYoutube.svg';
   static const String pinterest = 'assets/images/iconsSocialPinterest.svg';
 }
+
+class SubSessionBookingDetailsType {
+  static const backdrop = 1;
+  static const cake = 2;
+  static const photographer = 3;
+}

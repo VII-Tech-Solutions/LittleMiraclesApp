@@ -15,6 +15,7 @@ import '../../widgets/appbars/mainPagesSliverAppBar.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
 //PAGES
 import '../../pages/general/splashscreen.dart';
+import '../../playground/playgroundPage.dart';
 
 class MoreMainPage extends StatelessWidget {
   const MoreMainPage();
@@ -99,7 +100,15 @@ class MoreMainPage extends StatelessWidget {
             (BuildContext context, int index) {
               return Column(
                 children: [
-                  _buttonWidget(() {}, 'Your Profile',
+                  _buttonWidget(() {
+                    //TODO:: remove later
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PlayrgoundPage(),
+                      ),
+                    );
+                  }, 'Your Profile',
                       'Change your account & family’s information'),
                   _buttonWidget(
                       () {}, 'Your Family', 'Change your family information'),

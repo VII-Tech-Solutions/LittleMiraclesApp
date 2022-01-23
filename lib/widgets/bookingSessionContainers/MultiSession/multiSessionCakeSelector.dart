@@ -3,25 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 //EXTENSIONS
 //GLOBAL
-import '../../global/colors.dart';
+import '../../../global/colors.dart';
 //MODELS
+import '../../../models/package.dart';
 //PROVIDERS
-import '../../providers/bookings.dart';
-import '../../providers/appData.dart';
+import '../../../providers/appData.dart';
 //WIDGETS
-import '../form/formTextField.dart';
-import '../general/cachedImageWidget.dart';
-import '../texts/titleText.dart';
+import '../../form/formTextField.dart';
+import '../../general/cachedImageWidget.dart';
+import '../../texts/titleText.dart';
 //PAGES
-import '../../pages/booking/cakePage.dart';
+import '../../../pages/booking/cakePage.dart';
 
-class CakeSelector extends StatelessWidget {
-  const CakeSelector();
+class MultiSessionCakeSelector extends StatelessWidget {
+  final SubPackage package;
+  final List<int> selectedCakes;
+  const MultiSessionCakeSelector(this.package, this.selectedCakes);
 
   @override
   Widget build(BuildContext context) {
-    final bookingsProvider = context.watch<Bookings>();
-    return bookingsProvider.selectedCakes.length > 0
+    return selectedCakes.length > 0
         ? Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +50,7 @@ class CakeSelector extends StatelessWidget {
                       child: Column(
                         children: context
                             .watch<AppData>()
-                            .getCakesByIds(bookingsProvider.selectedCakes)
+                            .getCakesByIds(selectedCakes)
                             .map(
                               (e) => Padding(
                                 padding:
@@ -87,7 +88,10 @@ class CakeSelector extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => CakePage(),
+                            builder: (context) => CakePage(
+                              subPackage: package,
+                              subSessionSelectedCake: selectedCakes,
+                            ),
                           ),
                         );
                       },
@@ -106,14 +110,14 @@ class CakeSelector extends StatelessWidget {
             ],
           )
         : Visibility(
-            visible: bookingsProvider.package?.cakeAllowed != 0,
+            visible: package.cakeAllowed != 0,
             child: FormTextFieldWidget(
               controller: TextEditingController(),
               customMargin:
                   const EdgeInsets.symmetric(horizontal: 0.0, vertical: 0),
-              title: bookingsProvider.package?.cakeAllowed == 1
+              title: package.cakeAllowed == 1
                   ? 'Select Cake'
-                  : 'Select ${bookingsProvider.package?.cakeAllowed ?? ''} Cakes',
+                  : 'Select ${package.cakeAllowed ?? ''} Cakes',
               hintStyle: TextStyle(
                 color: AppColors.black45515D,
                 fontSize: 12,
@@ -128,7 +132,10 @@ class CakeSelector extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CakePage(),
+                    builder: (context) => CakePage(
+                      subPackage: package,
+                      subSessionSelectedCake: selectedCakes,
+                    ),
                   ),
                 );
               },

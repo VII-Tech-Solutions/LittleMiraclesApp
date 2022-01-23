@@ -4,8 +4,10 @@ import 'package:provider/provider.dart';
 //EXTENSIONS
 //GLOBAL
 import '../../global/colors.dart';
+import '../../global/const.dart';
 //MODELS
 import '../../models/question.dart';
+import '../../models/package.dart';
 //PROVIDERS
 import '../../providers/appData.dart';
 import '../../providers/bookings.dart';
@@ -17,7 +19,9 @@ import '../../widgets/form/textQuestionWidget.dart';
 //PAGES
 
 class CakePage extends StatefulWidget {
-  const CakePage({Key? key}) : super(key: key);
+  final SubPackage? subPackage;
+  final List<int>? subSessionSelectedCake;
+  const CakePage({this.subPackage, this.subSessionSelectedCake});
 
   @override
   _CakePageState createState() => _CakePageState();
@@ -30,7 +34,13 @@ class _CakePageState extends State<CakePage> {
 
   @override
   void initState() {
-    final selectedList = context.read<Bookings>().selectedCakes;
+    List<int> selectedList = [];
+
+    if (widget.subSessionSelectedCake != null) {
+      selectedList = widget.subSessionSelectedCake!;
+    } else {
+      selectedList = context.read<Bookings>().selectedCakes;
+    }
 
     if (selectedList.isNotEmpty) {
       setState(() {
@@ -95,7 +105,9 @@ class _CakePageState extends State<CakePage> {
             ),
             'No Cake',
             _isClearSelected,
-            bookingsProvider.package!.cakeAllowed!,
+            widget.subPackage != null
+                ? widget.subPackage!.cakeAllowed!
+                : bookingsProvider.package!.cakeAllowed!,
           ),
           ListView.builder(
             primary: false,
@@ -112,31 +124,36 @@ class _CakePageState extends State<CakePage> {
                     children: appDataProvider
                         .getCakesByCategoryId(catId)
                         .map(
-                          (item) => SelectionRow(() {
-                            setState(() {
-                              _isClearSelected = false;
-                              if (_selectedItems.contains(item.id)) {
-                                _selectedItems.removeWhere(
-                                    (element) => element == item.id);
-                              } else {
-                                if (allowedSelection == 1) {
-                                  _selectedItems.clear();
-                                  _selectedItems.add(item.id!);
-                                } else if (allowedSelection > 1 &&
-                                    allowedSelection == _selectedItems.length) {
-                                  _selectedItems.removeAt(0);
-                                  _selectedItems.add(item.id!);
+                          (item) => SelectionRow(
+                            () {
+                              setState(() {
+                                _isClearSelected = false;
+                                if (_selectedItems.contains(item.id)) {
+                                  _selectedItems.removeWhere(
+                                      (element) => element == item.id);
                                 } else {
-                                  _selectedItems.add(item.id!);
+                                  if (allowedSelection == 1) {
+                                    _selectedItems.clear();
+                                    _selectedItems.add(item.id!);
+                                  } else if (allowedSelection > 1 &&
+                                      allowedSelection ==
+                                          _selectedItems.length) {
+                                    _selectedItems.removeAt(0);
+                                    _selectedItems.add(item.id!);
+                                  } else {
+                                    _selectedItems.add(item.id!);
+                                  }
                                 }
-                              }
-                            });
-                          },
-                              item.image,
-                              null,
-                              item.title,
-                              _selectedItems.contains(item.id),
-                              bookingsProvider.package!.cakeAllowed!),
+                              });
+                            },
+                            item.image,
+                            null,
+                            item.title,
+                            _selectedItems.contains(item.id),
+                            widget.subPackage != null
+                                ? widget.subPackage!.cakeAllowed!
+                                : bookingsProvider.package!.cakeAllowed!,
+                          ),
                         )
                         .toList(),
                   ),
@@ -183,7 +200,18 @@ class _CakePageState extends State<CakePage> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: FilledButtonWidget(
           onPress: () {
-            bookingsProvider.assignSelectedCakes(_selectedItems, _customCake);
+            if (widget.subPackage != null) {
+              Map<int, List<int>> cakeMaps = {
+                widget.subPackage!.id!: _selectedItems,
+              };
+              print('I CAME HERE POTATO: $cakeMaps');
+              bookingsProvider.amendSubSessionBookingDetails(
+                SubSessionBookingDetailsType.cake,
+                cakeMaps,
+              );
+            } else {
+              bookingsProvider.assignSelectedCakes(_selectedItems, _customCake);
+            }
             Navigator.pop(context);
           },
           title: 'Confirm Cake',

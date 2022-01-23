@@ -14,7 +14,10 @@ import './labeledCheckbox.dart';
 //PAGES
 
 class JoiningPeopleContainer extends StatefulWidget {
-  const JoiningPeopleContainer();
+  final void Function(Map?)? onChangeCallback;
+  const JoiningPeopleContainer({
+    this.onChangeCallback = null,
+  });
 
   @override
   State<JoiningPeopleContainer> createState() => _JoiningPeopleContainerState();
@@ -32,7 +35,11 @@ class _JoiningPeopleContainerState extends State<JoiningPeopleContainer> {
         _selectedPeople.add(id);
       }
     });
-    context.read<Bookings>().amendBookingBody({'people': _selectedPeople});
+    if (widget.onChangeCallback != null) {
+      widget.onChangeCallback!({'people': _selectedPeople});
+    } else {
+      context.read<Bookings>().amendBookingBody({'people': _selectedPeople});
+    }
   }
 
   @override
@@ -105,22 +112,25 @@ class _JoiningPeopleContainerState extends State<JoiningPeopleContainer> {
                 isUser: true,
                 isSelected: _userSelected == 1 ? true : false,
                 onTapCallback: (val) {
+                  final bookingsProvider = context.read<Bookings>();
                   setState(() {
                     if (_userSelected == 1) {
                       _userSelected = 0;
-                      context
-                          .read<Bookings>()
-                          .amendBookingBody({'include_me': false});
                     } else {
                       _userSelected = 1;
-                      context
-                          .read<Bookings>()
-                          .amendBookingBody({'include_me': true});
                     }
-                    context
-                        .read<Bookings>()
-                        .amendBookingBody({'people': _selectedPeople});
                   });
+
+                  if (widget.onChangeCallback != null) {
+                    widget.onChangeCallback!(
+                        {'include_me': _userSelected == 1 ? true : false});
+                    widget.onChangeCallback!({'people': _selectedPeople});
+                  } else {
+                    bookingsProvider.amendBookingBody(
+                        {'include_me': _userSelected == 1 ? true : false});
+                    bookingsProvider
+                        .amendBookingBody({'people': _selectedPeople});
+                  }
                 },
               ),
               Column(

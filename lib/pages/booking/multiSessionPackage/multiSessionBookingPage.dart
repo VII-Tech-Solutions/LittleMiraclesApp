@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 //EXTENSIONS
+import '../../../extensions/dateTimeExtension.dart';
 //GLOBAL
 import '../../../global/colors.dart';
 //MODELS
@@ -24,6 +25,27 @@ class MultiSessionBookingPage extends StatefulWidget {
 }
 
 class _MultiSessionBookingPageState extends State<MultiSessionBookingPage> {
+  Map _bookingBody = {};
+
+  @override
+  void initState() {
+    final provider = context.read<Bookings>();
+
+    _bookingBody.addAll({'package_id': provider.package?.id});
+
+    final date = DateTime.now().toyyyyMMdd();
+    final time = DateTime.now().tohhmma();
+
+    _bookingBody.addAll({
+      "date": date,
+      "time": time,
+    });
+
+    print(_bookingBody);
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final bookingsProvider = context.watch<Bookings>();
@@ -83,12 +105,12 @@ class _MultiSessionBookingPageState extends State<MultiSessionBookingPage> {
                     (val) {
                       if (val != null) {
                         if (val['answer'] != '') {
-                          bookingsProvider
-                              .amendBookingBody({'comments': val['answer']});
+                          _bookingBody.addAll({'comments': val['answer']});
                         } else {
-                          bookingsProvider.amendBookingBody({'comments': ''});
+                          _bookingBody.addAll({'comments': ''});
                         }
                       }
+                      print(_bookingBody);
                     },
                   ),
                 ],
