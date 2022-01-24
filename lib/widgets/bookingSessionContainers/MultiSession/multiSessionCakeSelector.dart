@@ -23,98 +23,100 @@ class MultiSessionCakeSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return selectedCakes.length > 0
-        ? Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TitleText(
-                title: 'Cake',
-                customPadding: const EdgeInsets.only(bottom: 10),
-              ),
-              Container(
-                width: double.infinity,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: AppColors.greyD0D3D6,
-                    width: 1,
-                  ),
-                  borderRadius: BorderRadius.circular(8),
+        ? Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TitleText(
+                  title: 'Cake',
+                  customPadding: const EdgeInsets.only(bottom: 10),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Column(
-                        children: context
-                            .watch<AppData>()
-                            .getCakesByIds(selectedCakes)
-                            .map(
-                              (e) => Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 5),
-                                child: Row(children: [
-                                  SizedBox(
-                                    height: 48,
-                                    width: 48,
-                                    child: CachedImageWidget(
-                                      e.image,
-                                      ImageShape.square,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16),
-                                      child: Text(
-                                        e.title ?? '',
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w800,
-                                            color: AppColors.black45515D),
+                Container(
+                  width: double.infinity,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: AppColors.greyD0D3D6,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          children: context
+                              .watch<AppData>()
+                              .getCakesByIds(selectedCakes)
+                              .map(
+                                (e) => Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 5),
+                                  child: Row(children: [
+                                    SizedBox(
+                                      height: 48,
+                                      width: 48,
+                                      child: CachedImageWidget(
+                                        e.image,
+                                        ImageShape.square,
                                       ),
                                     ),
-                                  ),
-                                ]),
-                              ),
-                            )
-                            .toList(),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => CakePage(
-                              subPackage: subPackage,
-                              subSessionSelectedCakes: selectedCakes,
-                            ),
-                          ),
-                        );
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 13.0),
-                        child: Icon(
-                          Icons.edit,
-                          size: 32,
-                          color: AppColors.black5C6671,
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16),
+                                        child: Text(
+                                          e.title ?? '',
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w800,
+                                              color: AppColors.black45515D),
+                                        ),
+                                      ),
+                                    ),
+                                  ]),
+                                ),
+                              )
+                              .toList(),
                         ),
                       ),
-                    )
-                  ],
-                ),
-              )
-            ],
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CakePage(
+                                subPackage: subPackage,
+                                subSessionSelectedCakes: selectedCakes,
+                              ),
+                            ),
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 13.0),
+                          child: Icon(
+                            Icons.edit,
+                            size: 32,
+                            color: AppColors.black5C6671,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           )
         : Visibility(
             visible: subPackage.cakeAllowed != 0,
             child: FormTextFieldWidget(
               controller: TextEditingController(),
-              customMargin:
-                  const EdgeInsets.symmetric(horizontal: 0.0, vertical: 0),
+              customMargin: const EdgeInsets.only(top: 20),
               title: subPackage.cakeAllowed == 1
                   ? 'Select Cake'
                   : 'Select ${subPackage.cakeAllowed ?? ''} Cakes',

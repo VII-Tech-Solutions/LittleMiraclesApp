@@ -42,6 +42,7 @@ class Bookings with ChangeNotifier {
   //multi session bookings details
   Map<int, List<int>> _subSessionSelectedBackdrops = {};
   Map<int, List<int>> _subSessionSelectedCakes = {};
+  Map<int, List<int>> _subSessionSelectedPhotographer = {};
 
   //Session Details
   String _guidelineString = '';
@@ -58,6 +59,7 @@ class Bookings with ChangeNotifier {
     this._selectedCakes,
     this._subSessionSelectedBackdrops,
     this._subSessionSelectedCakes,
+    this._subSessionSelectedPhotographer,
     this._customBackrop,
     this._customCake,
     this._bookingBody,
@@ -103,6 +105,10 @@ class Bookings with ChangeNotifier {
 
   Map<int, List<int>> get subSessionSelectedCakes {
     return _subSessionSelectedCakes;
+  }
+
+  Map<int, List<int>> get subSessionSelectedPhotographer {
+    return _subSessionSelectedPhotographer;
   }
 
   String get customBackdrop {
@@ -178,17 +184,21 @@ class Bookings with ChangeNotifier {
     switch (dataType) {
       case SubSessionBookingDetailsType.backdrop:
         _subSessionSelectedBackdrops.addAll(data);
-
         print(_subSessionSelectedBackdrops.length);
         print(_subSessionSelectedBackdrops);
         break;
+
       case SubSessionBookingDetailsType.cake:
         _subSessionSelectedCakes.addAll(data);
-
         print(_subSessionSelectedCakes.length);
         print(_subSessionSelectedCakes);
         break;
+
       case SubSessionBookingDetailsType.photographer:
+        _subSessionSelectedPhotographer.addAll(data);
+
+        print(_subSessionSelectedPhotographer.length);
+        print(_subSessionSelectedPhotographer);
         break;
     }
     notifyListeners();
@@ -211,6 +221,9 @@ class Bookings with ChangeNotifier {
         break;
 
       case SubSessionBookingDetailsType.photographer:
+        if (_subSessionSelectedPhotographer.containsKey(packageId)) {
+          list = _subSessionSelectedPhotographer[packageId] as List<int>;
+        }
         break;
     }
 

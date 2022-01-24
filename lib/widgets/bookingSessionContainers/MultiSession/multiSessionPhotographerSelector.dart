@@ -13,16 +13,17 @@ import '../../form/formTextField.dart';
 import '../../general/cachedImageWidget.dart';
 import '../../texts/titleText.dart';
 //PAGES
-import '../../../pages/booking/backdropPage.dart';
+import '../../../pages/booking/photographerPage.dart';
 
-class MultiSessionBackdropSelector extends StatelessWidget {
+class MultiSessionPhotographerSelector extends StatelessWidget {
   final SubPackage subPackage;
-  final List<int> selectedBackdrops;
-  const MultiSessionBackdropSelector(this.subPackage, this.selectedBackdrops);
+  final List<int> selectedPhotographers;
+  const MultiSessionPhotographerSelector(
+      this.subPackage, this.selectedPhotographers);
 
   @override
   Widget build(BuildContext context) {
-    return selectedBackdrops.length > 0
+    return selectedPhotographers.length > 0
         ? Padding(
             padding: const EdgeInsets.only(top: 20),
             child: Column(
@@ -30,7 +31,7 @@ class MultiSessionBackdropSelector extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TitleText(
-                  title: 'Backdrop',
+                  title: 'Photographer',
                   customPadding: const EdgeInsets.only(bottom: 10),
                 ),
                 Container(
@@ -52,7 +53,7 @@ class MultiSessionBackdropSelector extends StatelessWidget {
                         child: Column(
                           children: context
                               .watch<AppData>()
-                              .getBackdropsByIds(selectedBackdrops)
+                              .getPhotographersByIds(selectedPhotographers)
                               .map(
                                 (e) => Padding(
                                   padding:
@@ -71,7 +72,7 @@ class MultiSessionBackdropSelector extends StatelessWidget {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 16),
                                         child: Text(
-                                          e.title ?? '',
+                                          e.name ?? '',
                                           style: TextStyle(
                                               fontSize: 14,
                                               fontWeight: FontWeight.w800,
@@ -90,9 +91,10 @@ class MultiSessionBackdropSelector extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => BackdropPage(
+                              builder: (context) => PhotographerPage(
                                 subPackage: subPackage,
-                                subSessionSelectedBackdrops: selectedBackdrops,
+                                subSessionSelectedPhotographer:
+                                    selectedPhotographers,
                               ),
                             ),
                           );
@@ -110,37 +112,33 @@ class MultiSessionBackdropSelector extends StatelessWidget {
                   ),
                 )
               ],
-            ))
-        : Visibility(
-            visible: subPackage.backdropAllowed != 0,
-            child: FormTextFieldWidget(
-              controller: TextEditingController(),
-              customMargin: const EdgeInsets.only(top: 20),
-              title: subPackage.backdropAllowed == 1
-                  ? 'Select Backdrop'
-                  : 'Select ${subPackage.backdropAllowed ?? ''} Backdrops',
-              hintStyle: TextStyle(
-                color: AppColors.black45515D,
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-              ),
-              suffixIcon: Icon(
-                Icons.keyboard_arrow_right,
-                color: AppColors.black45515D,
-              ),
-              onTap: () {
-                FocusScope.of(context).requestFocus(new FocusNode());
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BackdropPage(
-                      subPackage: subPackage,
-                      subSessionSelectedBackdrops: selectedBackdrops,
-                    ),
-                  ),
-                );
-              },
             ),
+          )
+        : FormTextFieldWidget(
+            controller: TextEditingController(),
+            customMargin: const EdgeInsets.only(top: 20),
+            title: 'Select Photographer',
+            hintStyle: TextStyle(
+              color: AppColors.black45515D,
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+            ),
+            suffixIcon: Icon(
+              Icons.keyboard_arrow_right,
+              color: AppColors.black45515D,
+            ),
+            onTap: () {
+              FocusScope.of(context).requestFocus(new FocusNode());
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PhotographerPage(
+                    subPackage: subPackage,
+                    subSessionSelectedPhotographer: selectedPhotographers,
+                  ),
+                ),
+              );
+            },
           );
   }
 }

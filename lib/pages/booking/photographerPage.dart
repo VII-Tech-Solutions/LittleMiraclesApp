@@ -5,6 +5,7 @@ import 'package:provider/src/provider.dart';
 //GLOBAL
 import '../../global/const.dart';
 //MODELS
+import '../../models/package.dart';
 //PROVIDERS
 import '../../providers/appData.dart';
 import '../../providers/bookings.dart';
@@ -14,11 +15,15 @@ import '../../widgets/packageContainers/packageBottomSectionContainer.dart';
 import '../../widgets/bookingSessionContainers/selectionRow.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
 import '../../widgets/dialogs/showLoadingDialog.dart';
+import '../../widgets/buttons/filledButtonWidget.dart';
 //PAGES
 import './reviewAndPayPage.dart';
 
 class PhotographerPage extends StatefulWidget {
-  const PhotographerPage();
+  final SubPackage? subPackage;
+  final List<int>? subSessionSelectedPhotographer;
+  const PhotographerPage(
+      {this.subPackage, this.subSessionSelectedPhotographer});
 
   @override
   _PhotographerPageState createState() => _PhotographerPageState();
@@ -61,40 +66,61 @@ class _PhotographerPageState extends State<PhotographerPage> {
           );
         },
       ),
-      bottomNavigationBar: PackageBottomSectionContainer(
-        btnLabel: 'Next',
-        onTap: () {
-          if (_selectedItems.isEmpty) {
-            ShowOkDialog(context, 'Please select a photographer to proceed');
-          } else {
-            bookingsProvider
-                .amendBookingBody({'photographer': _selectedItems.first}).then(
-              (_) {
-                ShowLoadingDialog(context);
-                context.read<Bookings>().removePromoCode();
-                context.read<Bookings>().bookASession().then(
-                  (response) {
-                    ShowLoadingDialog(context, dismiss: true);
-                    if (response?.statusCode == 200) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ReviewAndPayPage(),
-                        ),
+      bottomNavigationBar: widget.subPackage != null
+          ? Container(
+              height: 80,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              child: FilledButtonWidget(
+                onPress: () {
+                  Map<int, List<int>> photographersMap = {
+                    widget.subPackage!.id!: _selectedItems,
+                  };
+                  print('I CAME HERE POTATO: $photographersMap');
+                  bookingsProvider.amendSubSessionBookingDetails(
+                    SubSessionBookingDetailsType.photographer,
+                    photographersMap,
+                  );
+                  Navigator.pop(context);
+                },
+                title: 'Confirm Photographer',
+                type: ButtonType.generalBlue,
+              ),
+            )
+          : PackageBottomSectionContainer(
+              btnLabel: 'Next',
+              onTap: () {
+                if (_selectedItems.isEmpty) {
+                  ShowOkDialog(
+                      context, 'Please select a photographer to proceed');
+                } else {
+                  bookingsProvider.amendBookingBody(
+                      {'photographer': _selectedItems.first}).then(
+                    (_) {
+                      ShowLoadingDialog(context);
+                      context.read<Bookings>().removePromoCode();
+                      context.read<Bookings>().bookASession().then(
+                        (response) {
+                          ShowLoadingDialog(context, dismiss: true);
+                          if (response?.statusCode == 200) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ReviewAndPayPage(),
+                              ),
+                            );
+                          } else {
+                            ShowOkDialog(
+                              context,
+                              response?.message ?? ErrorMessages.somethingWrong,
+                            );
+                          }
+                        },
                       );
-                    } else {
-                      ShowOkDialog(
-                        context,
-                        response?.message ?? ErrorMessages.somethingWrong,
-                      );
-                    }
-                  },
-                );
+                    },
+                  );
+                }
               },
-            );
-          }
-        },
-      ),
+            ),
     );
   }
 }

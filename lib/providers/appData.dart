@@ -220,7 +220,7 @@ class AppData with ChangeNotifier {
   }
 
   List<Backdrop> getBackdropsByIds(List<int> list) {
-    var finalList = [];
+    List<Backdrop> finalList = [];
     list.forEach((id) {
       final item = _backdrops.firstWhere((element) => element.id == id);
       finalList.add(item);
@@ -237,9 +237,18 @@ class AppData with ChangeNotifier {
   }
 
   List<Cake> getCakesByIds(List<int> list) {
-    var finalList = [];
+    List<Cake> finalList = [];
     list.forEach((id) {
       final item = _cakes.firstWhere((element) => element.id == id);
+      finalList.add(item);
+    });
+    return [...finalList];
+  }
+
+  List<Photographer> getPhotographersByIds(List<int> list) {
+    List<Photographer> finalList = [];
+    list.forEach((id) {
+      final item = _photographers.firstWhere((element) => element.id == id);
       finalList.add(item);
     });
     return [...finalList];

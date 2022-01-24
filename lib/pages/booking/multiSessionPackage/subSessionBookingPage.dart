@@ -17,6 +17,7 @@ import '../../../widgets/dialogs/showLoadingDialog.dart';
 import '../../../widgets/appbars/appBarWithBack.dart';
 import '../../../widgets/bookingSessionContainers/MultiSession/multiSessionCakeSelector.dart';
 import '../../../widgets/bookingSessionContainers/MultiSession/multiSessionBackdropSelector.dart';
+import '../../../widgets/bookingSessionContainers/MultiSession/multiSessionPhotographerSelector.dart';
 import '../../../widgets/bookingSessionContainers/calendarContainer.dart';
 import '../../../widgets/bookingSessionContainers/availableTimeContainer.dart';
 import '../../../widgets/bookingSessionContainers/joiningPeopleContainer.dart';
@@ -34,6 +35,8 @@ class SubSessionBookingPage extends StatefulWidget {
 
 class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
   Map _bookingBody = {};
+  String? _preselectedDate;
+  String? _preselectedTime;
 
   // @override
   // void deactivate() {
@@ -50,12 +53,19 @@ class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final bookingsProvider = context.watch<Bookings>();
     final backdropsList = bookingsProvider.getSubSessionBookingDetails(
         SubSessionBookingDetailsType.backdrop, widget.subPackage!.id!);
     final cakesList = bookingsProvider.getSubSessionBookingDetails(
         SubSessionBookingDetailsType.cake, widget.subPackage!.id!);
+    final photographersList = bookingsProvider.getSubSessionBookingDetails(
+        SubSessionBookingDetailsType.photographer, widget.subPackage!.id!);
     return Scaffold(
       appBar: AppBarWithBack(
         title: widget.subPackage?.title ?? '',
@@ -83,7 +93,7 @@ class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
               child: Column(
                 children: [
                   CalendarContainer(
-                    preSelectedDate: null,
+                    preSelectedDate: _preselectedDate,
                     onChangeCallback: (val) {
                       amendBookingBody(val);
                     },
@@ -106,6 +116,10 @@ class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
                     widget.subPackage!,
                     cakesList,
                   ),
+                  MultiSessionPhotographerSelector(
+                    widget.subPackage!,
+                    photographersList,
+                  ),
                 ],
               ),
             ),
@@ -113,6 +127,7 @@ class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
               onPress: () {
                 _bookingBody.addAll({'backdrops': backdropsList});
                 _bookingBody.addAll({'cakes': cakesList});
+                _bookingBody.addAll({'photographer': photographersList.first});
                 print(_bookingBody);
               },
               title: 'Confirm Session',

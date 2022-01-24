@@ -12,15 +12,27 @@ import '../../widgets/texts/titleText.dart';
 //PAGES
 
 class AvailableTimeContainer extends StatefulWidget {
+  final String? preSelectedTime;
   final void Function(Map?)? onChangeCallback;
-  const AvailableTimeContainer({this.onChangeCallback = null});
+  const AvailableTimeContainer({
+    this.preSelectedTime,
+    this.onChangeCallback = null,
+  });
 
   @override
   State<AvailableTimeContainer> createState() => _AvailableTimeContainerState();
 }
 
 class _AvailableTimeContainerState extends State<AvailableTimeContainer> {
-  String selectedTime = "";
+  String _selectedTime = "";
+
+  @override
+  void initState() {
+    if (widget.preSelectedTime != null) {
+      _selectedTime = widget.preSelectedTime!;
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,20 +71,20 @@ class _AvailableTimeContainerState extends State<AvailableTimeContainer> {
               return InkWell(
                 onTap: () {
                   setState(() {
-                    selectedTime = availableTimes[index];
+                    _selectedTime = availableTimes[index];
                     if (widget.onChangeCallback != null) {
-                      widget.onChangeCallback!({'time': selectedTime});
+                      widget.onChangeCallback!({'time': _selectedTime});
                     } else {
                       context
                           .read<Bookings>()
-                          .amendBookingBody({'time': selectedTime});
+                          .amendBookingBody({'time': _selectedTime});
                     }
                   });
                 },
                 child: Container(
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: selectedTime == availableTimes[index]
+                    color: _selectedTime == availableTimes[index]
                         ? AppColors.black45515D
                         : AppColors.greyF2F3F3,
                     borderRadius: BorderRadius.circular(24),
@@ -80,7 +92,7 @@ class _AvailableTimeContainerState extends State<AvailableTimeContainer> {
                   child: Text(
                     availableTimes[index],
                     style: TextStyle(
-                      color: selectedTime == availableTimes[index]
+                      color: _selectedTime == availableTimes[index]
                           ? Colors.white
                           : AppColors.black45515D,
                       fontSize: 12,
