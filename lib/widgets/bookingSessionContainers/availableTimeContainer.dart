@@ -13,7 +13,7 @@ import '../../widgets/texts/titleText.dart';
 
 class AvailableTimeContainer extends StatefulWidget {
   final String? preSelectedTime;
-  final void Function(Map?)? onChangeCallback;
+  final void Function(Map<String, dynamic>?)? onChangeCallback;
   const AvailableTimeContainer({
     this.preSelectedTime,
     this.onChangeCallback = null,

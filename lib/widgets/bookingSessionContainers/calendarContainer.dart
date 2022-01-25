@@ -16,7 +16,7 @@ import '../../widgets/texts/titleText.dart';
 class CalendarContainer extends StatefulWidget {
   final bool isReschedule;
   final String? preSelectedDate;
-  final void Function(Map?)? onChangeCallback;
+  final void Function(Map<String, dynamic>?)? onChangeCallback;
   const CalendarContainer({
     this.isReschedule = false,
     this.preSelectedDate = null,

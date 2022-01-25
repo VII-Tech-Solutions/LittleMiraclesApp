@@ -98,4 +98,5 @@ class SubSessionBookingDetailsType {
   static const backdrop = 1;
   static const cake = 2;
   static const photographer = 3;
+  static const subSession = 4;
 }

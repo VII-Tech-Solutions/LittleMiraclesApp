@@ -6,6 +6,7 @@ class Session {
   final int? userId;
   final int? familyId;
   final int? packageId;
+  final int? subPackageId;
   final String? customBackdrop;
   final String? customCake;
   final String? comments;
@@ -37,6 +38,7 @@ class Session {
     @required this.userId,
     @required this.familyId,
     @required this.packageId,
+    @required this.subPackageId,
     @required this.customBackdrop,
     @required this.customCake,
     @required this.comments,
@@ -70,6 +72,7 @@ class Session {
       'userId': userId ?? -1,
       'familyId': familyId ?? -1,
       'packageId': packageId ?? -1,
+      'subPackageId': subPackageId ?? -1,
       'customBackdrop': customBackdrop ?? "",
       'customCake': customCake ?? "",
       'comments': comments ?? "",
@@ -104,6 +107,7 @@ class Session {
       userId: json['user_id'] as int?,
       familyId: json['family_id'] as int?,
       packageId: json['package_id'] as int?,
+      subPackageId: json['sub_package_id'] as int?,
       customBackdrop: json['custom_backdrop'] as String?,
       customCake: json['custom_cake'] as String?,
       comments: json['comments'] as String?,

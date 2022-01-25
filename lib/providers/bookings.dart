@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:collection/collection.dart';
 //EXTENSIONS
 //GLOBAL
 import '../global/const.dart';
@@ -43,6 +44,8 @@ class Bookings with ChangeNotifier {
   Map<int, List<int>> _subSessionSelectedBackdrops = {};
   Map<int, List<int>> _subSessionSelectedCakes = {};
   Map<int, List<int>> _subSessionSelectedPhotographer = {};
+  Map<int, Map<String, dynamic>> _subSessionsTemporaryBooked = {};
+  List<Session> _subSessions = [];
 
   //Session Details
   String _guidelineString = '';
@@ -60,12 +63,14 @@ class Bookings with ChangeNotifier {
     this._subSessionSelectedBackdrops,
     this._subSessionSelectedCakes,
     this._subSessionSelectedPhotographer,
+    this._subSessionsTemporaryBooked,
     this._customBackrop,
     this._customCake,
     this._bookingBody,
     this._availableDates,
     this._availableTimings,
     this._session,
+    this._subSessions,
     this._promoCode,
     this._feedbackQuestions,
     this._guidelineString,
@@ -111,6 +116,10 @@ class Bookings with ChangeNotifier {
     return _subSessionSelectedPhotographer;
   }
 
+  Map<int, Map<String, dynamic>> get subSessionsTemporaryBooked {
+    return _subSessionsTemporaryBooked;
+  }
+
   String get customBackdrop {
     return _customBackrop;
   }
@@ -133,6 +142,10 @@ class Bookings with ChangeNotifier {
 
   Session? get session {
     return _session;
+  }
+
+  List<Session> get subSessions {
+    return _subSessions;
   }
 
   PromoCode? get promoCode {
@@ -160,6 +173,7 @@ class Bookings with ChangeNotifier {
   }
 
   void resetBookingsData() {
+    // single session
     _bookingBody = {};
     _selectedCakes = [];
     _customCake = '';
@@ -167,6 +181,13 @@ class Bookings with ChangeNotifier {
     _customBackrop = '';
     _availableDates = [];
     _availableTimings = [];
+
+    //multi sessions
+    _subSessionSelectedBackdrops = {};
+    _subSessionSelectedCakes = {};
+    _subSessionSelectedPhotographer = {};
+    _subSessionsTemporaryBooked = {};
+    _subSessions = [];
 
     print(jsonEncode(_bookingBody));
   }
@@ -179,8 +200,25 @@ class Bookings with ChangeNotifier {
     print(jsonEncode(_bookingBody));
   }
 
-  Future<void> amendSubSessionBookingDetails(
-      int dataType, Map<int, List<int>> data) async {
+  Future<void> amendMultiSessionBookingBody(Map? data) async {
+    _bookingBody.addAll({'package_id': _package?.id});
+
+    if (data != null) _bookingBody.addAll(data);
+
+    if (_subSessionsTemporaryBooked.isNotEmpty) {
+      List<Map<String, dynamic>> subSessionList = [];
+
+      _subSessionsTemporaryBooked.forEach((key, value) {
+        subSessionList.add(value);
+      });
+
+      _bookingBody.addAll({'sub_sessions': subSessionList});
+    }
+
+    print(jsonEncode(_bookingBody));
+  }
+
+  Future<void> amendSubSessionBookingDetails(int dataType, dynamic data) async {
     switch (dataType) {
       case SubSessionBookingDetailsType.backdrop:
         _subSessionSelectedBackdrops.addAll(data);
@@ -196,9 +234,14 @@ class Bookings with ChangeNotifier {
 
       case SubSessionBookingDetailsType.photographer:
         _subSessionSelectedPhotographer.addAll(data);
-
         print(_subSessionSelectedPhotographer.length);
         print(_subSessionSelectedPhotographer);
+        break;
+
+      case SubSessionBookingDetailsType.subSession:
+        _subSessionsTemporaryBooked.addAll(data);
+        print(_subSessionsTemporaryBooked.length);
+        print(_subSessionsTemporaryBooked);
         break;
     }
     notifyListeners();
@@ -228,6 +271,16 @@ class Bookings with ChangeNotifier {
     }
 
     return list;
+  }
+
+  Session? getSubSessionBySubPackageId(int? id) {
+    final item =
+        _subSessions.firstWhereOrNull((element) => element.subPackageId == id);
+
+    print('HOMARA SUBB SESSION HERE ${_subSessions.length}');
+    print('HOMARA ITEM SESSION HERE $item');
+
+    return item;
   }
 
   Future<void> removeKeyFromBookinBody(String key) async {
@@ -410,6 +463,68 @@ class Bookings with ChangeNotifier {
       print(sessionsList.length);
 
       _session = sessionsList.last;
+
+      notifyListeners();
+      return (ApiResponse(
+        statusCode: response.statusCode,
+        message: json.decode(response.body)['message'],
+      ));
+    } on TimeoutException catch (e) {
+      print('Exception Timeout:: $e');
+      return null;
+    } catch (e) {
+      print('catch error:: $e');
+      return null;
+    }
+  }
+
+  Future<ApiResponse?> bookMultiSessions() async {
+    final url = Uri.parse('$apiLink/multiple-sessions');
+
+    try {
+      var response = await http
+          .post(
+            url,
+            headers: {
+              'Content-Type': 'application/json',
+              'Platform': 'ios',
+              'App-Version': '0.0.1',
+              'Authorization': 'Bearer $authToken',
+            },
+            body: jsonEncode(_bookingBody),
+          )
+          .timeout(Duration(seconds: Timeout.value));
+
+      final result = json.decode(response.body);
+
+      print(response.statusCode);
+      print(response.body);
+
+      if (response.statusCode != 200) {
+        if ((response.statusCode >= 400 && response.statusCode <= 499) ||
+            response.statusCode == 503) {
+          return ApiResponse(
+              statusCode: response.statusCode,
+              message: result['message'].toString());
+        } else {
+          return null;
+        }
+      }
+
+      final sessionsJson = result['data']['sessions'] as List;
+      final subSessionsJson = result['data']['sub_sessions'] as List;
+
+      final sessionsList =
+          sessionsJson.map((json) => Session.fromJson(json)).toList();
+
+      final subSessionList =
+          subSessionsJson.map((json) => Session.fromJson(json)).toList();
+
+      print(sessionsList.first.id);
+      print(subSessionList.length);
+
+      _session = sessionsList.last;
+      _subSessions = subSessionList;
 
       notifyListeners();
       return (ApiResponse(

@@ -14,7 +14,7 @@ import './labeledCheckbox.dart';
 //PAGES
 
 class JoiningPeopleContainer extends StatefulWidget {
-  final void Function(Map?)? onChangeCallback;
+  final void Function(Map<String, dynamic>?)? onChangeCallback;
   const JoiningPeopleContainer({
     this.onChangeCallback = null,
   });

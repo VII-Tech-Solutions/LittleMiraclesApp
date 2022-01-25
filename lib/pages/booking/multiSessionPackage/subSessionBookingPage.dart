@@ -34,7 +34,7 @@ class SubSessionBookingPage extends StatefulWidget {
 }
 
 class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
-  Map _bookingBody = {};
+  Map<String, dynamic> _bookingBody = {};
   String? _preselectedDate;
   String? _preselectedTime;
 
@@ -44,7 +44,7 @@ class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
   //   super.deactivate();
   // }
 
-  Future<void> amendBookingBody(Map? data) async {
+  Future<void> amendBookingBody(Map<String, dynamic>? data) async {
     _bookingBody.addAll({'sub_package_id': widget.subPackage?.id});
 
     if (data != null) _bookingBody.addAll(data);
@@ -54,6 +54,7 @@ class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
 
   @override
   void initState() {
+    //fill preselected date and time
     super.initState();
   }
 
@@ -99,6 +100,7 @@ class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
                     },
                   ),
                   AvailableTimeContainer(
+                    preSelectedTime: _preselectedTime,
                     onChangeCallback: (val) {
                       amendBookingBody(val);
                     },
@@ -125,10 +127,48 @@ class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
             ),
             FilledButtonWidget(
               onPress: () {
-                _bookingBody.addAll({'backdrops': backdropsList});
-                _bookingBody.addAll({'cakes': cakesList});
-                _bookingBody.addAll({'photographer': photographersList.first});
-                print(_bookingBody);
+                if (backdropsList.isNotEmpty)
+                  _bookingBody.addAll({'backdrops': backdropsList});
+
+                if (cakesList.isNotEmpty)
+                  _bookingBody.addAll({'cakes': cakesList});
+
+                if (photographersList.isNotEmpty)
+                  _bookingBody
+                      .addAll({'photographer': photographersList.first});
+
+                // print(_bookingBody);
+
+                if (!_bookingBody.containsKey('date')) {
+                  ShowOkDialog(context, 'Please select a date to proceed');
+                } else if (!_bookingBody.containsKey('time')) {
+                  ShowOkDialog(context, 'Please select a time to proceed');
+                } else if (!_bookingBody.containsKey('people')) {
+                  ShowOkDialog(
+                      context, 'Please select people joining to proceed');
+                } else if (!_bookingBody.containsKey('backdrops')) {
+                  ShowOkDialog(context, 'Please select a backdrop to proceed');
+                } else if (!_bookingBody.containsKey('photographer')) {
+                  ShowOkDialog(
+                      context, 'Please select a photographer to proceed');
+                } else {
+                  bookingsProvider.amendSubSessionBookingDetails(
+                      SubSessionBookingDetailsType.subSession,
+                      {widget.subPackage!.id!: _bookingBody});
+                  bookingsProvider.amendMultiSessionBookingBody(null);
+                  ShowLoadingDialog(context);
+                  context.read<Bookings>().bookMultiSessions().then((response) {
+                    ShowLoadingDialog(context, dismiss: true);
+                    if (response?.statusCode == 200) {
+                      Navigator.pop(context);
+                    } else {
+                      ShowOkDialog(
+                        context,
+                        response?.message ?? ErrorMessages.somethingWrong,
+                      );
+                    }
+                  });
+                }
               },
               title: 'Confirm Session',
               type: ButtonType.generalBlue,

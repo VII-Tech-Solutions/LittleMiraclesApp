@@ -41,9 +41,15 @@ class _MultiSessionBookingPageState extends State<MultiSessionBookingPage> {
       "time": time,
     });
 
-    print(_bookingBody);
+    context.read<Bookings>().amendMultiSessionBookingBody(_bookingBody);
 
     super.initState();
+  }
+
+  @override
+  void deactivate() {
+    context.read<Bookings>().resetBookingsData();
+    super.deactivate();
   }
 
   @override
@@ -109,8 +115,10 @@ class _MultiSessionBookingPageState extends State<MultiSessionBookingPage> {
                         } else {
                           _bookingBody.addAll({'comments': ''});
                         }
+                        context
+                            .read<Bookings>()
+                            .amendMultiSessionBookingBody(_bookingBody);
                       }
-                      print(_bookingBody);
                     },
                   ),
                 ],

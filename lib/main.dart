@@ -80,18 +80,22 @@ class MyApp extends StatelessWidget {
             previousBookings == null
                 ? {}
                 : previousBookings.subSessionSelectedPhotographer,
+            previousBookings == null
+                ? {}
+                : previousBookings.subSessionsTemporaryBooked,
             previousBookings == null ? '' : previousBookings.customBackdrop,
             previousBookings == null ? '' : previousBookings.customCake,
             previousBookings == null ? {} : previousBookings.bookingsBody,
             previousBookings == null ? [] : previousBookings.availableDates,
             previousBookings == null ? [] : previousBookings.availableTimings,
             previousBookings == null ? null : previousBookings.session,
+            previousBookings == null ? [] : previousBookings.subSessions,
             previousBookings == null ? null : previousBookings.promoCode,
             previousBookings == null ? [] : previousBookings.feedbackQuestions,
             previousBookings == null ? '' : previousBookings.guidelineString,
           ),
           create: (context) => Bookings('', null, [], [], [], [], [], [], {},
-              {}, {}, '', '', {}, [], [], null, null, [], ''),
+              {}, {}, {}, '', '', {}, [], [], null, [], null, [], ''),
         ),
       ],
       child: MaterialApp(
@@ -114,12 +118,6 @@ class MyApp extends StatelessWidget {
           appBarTheme: AppBarTheme(
             centerTitle: true,
             backgroundColor: Colors.white,
-            //todo: implement it later
-            // titleTextStyle: TextStyle(
-            //   color: AppColors.blue00586F,
-            //   fontSize: 16,
-            //   fontWeight: FontWeight.bold,
-            // ),
           ),
           colorScheme:
               ColorScheme.fromSwatch().copyWith(secondary: Colors.white),
