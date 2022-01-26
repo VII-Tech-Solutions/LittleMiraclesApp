@@ -1,17 +1,21 @@
 //PACKAGES
 import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 //EXTENSIONS
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
+import '../../providers/bookings.dart';
 //WIDGETS
 //PAGES
 
 class PaymentContainer extends StatefulWidget {
+  final bool? isMultiSession;
   final void Function(String?)? onTapCallback;
-  const PaymentContainer({@required this.onTapCallback});
+  const PaymentContainer(
+      {@required this.isMultiSession, @required this.onTapCallback});
 
   @override
   _PaymentContainerState createState() => _PaymentContainerState();
@@ -26,6 +30,12 @@ class _PaymentContainerState extends State<PaymentContainer> {
         setState(() {
           _selectedPayment = id;
         });
+
+        final bookingsProvider = context.read<Bookings>();
+        widget.isMultiSession == true
+            ? bookingsProvider
+                .amendMultiSessionBookingBody({'payment_method': id})
+            : bookingsProvider.amendBookingBody({'payment_method': id});
 
         return widget.onTapCallback!(title);
       },

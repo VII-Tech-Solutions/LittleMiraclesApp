@@ -27,7 +27,8 @@ class GuidelinesButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible: session?.hasGuideline == true,
+      visible: session?.hasGuideline == true &&
+          (session?.subSessionsIds == null || session?.subSessionsIds == ''),
       child: FilledButtonWidget(
         onPress: () {
           if (session?.id != null) {

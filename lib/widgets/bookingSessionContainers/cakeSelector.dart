@@ -30,77 +30,77 @@ class CakeSelector extends StatelessWidget {
                 title: 'Cake',
                 customPadding: const EdgeInsets.only(bottom: 10),
               ),
-              Container(
-                width: double.infinity,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: AppColors.greyD0D3D6,
-                    width: 1,
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CakePage(),
+                    ),
+                  );
+                },
+                child: Container(
+                  width: double.infinity,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: AppColors.greyD0D3D6,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Column(
-                        children: context
-                            .watch<AppData>()
-                            .getCakesByIds(bookingsProvider.selectedCakes)
-                            .map(
-                              (e) => Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 5),
-                                child: Row(children: [
-                                  SizedBox(
-                                    height: 48,
-                                    width: 48,
-                                    child: CachedImageWidget(
-                                      e.image,
-                                      ImageShape.square,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16),
-                                      child: Text(
-                                        e.title ?? '',
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w800,
-                                            color: AppColors.black45515D),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          children: context
+                              .watch<AppData>()
+                              .getCakesByIds(bookingsProvider.selectedCakes)
+                              .map(
+                                (e) => Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 5),
+                                  child: Row(children: [
+                                    SizedBox(
+                                      height: 48,
+                                      width: 48,
+                                      child: CachedImageWidget(
+                                        e.image,
+                                        ImageShape.square,
                                       ),
                                     ),
-                                  ),
-                                ]),
-                              ),
-                            )
-                            .toList(),
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16),
+                                        child: Text(
+                                          e.title ?? '',
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w800,
+                                              color: AppColors.black45515D),
+                                        ),
+                                      ),
+                                    ),
+                                  ]),
+                                ),
+                              )
+                              .toList(),
+                        ),
                       ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => CakePage(),
-                          ),
-                        );
-                      },
-                      child: Padding(
+                      Padding(
                         padding: const EdgeInsets.only(top: 13.0),
                         child: Icon(
                           Icons.edit,
                           size: 32,
                           color: AppColors.black5C6671,
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               )
             ],

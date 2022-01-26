@@ -5,16 +5,20 @@ import 'package:provider/provider.dart';
 import '../../../extensions/dateTimeExtension.dart';
 //GLOBAL
 import '../../../global/colors.dart';
+import '../../../global/const.dart';
 //MODELS
 import '../../../models/question.dart';
 //PROVIDERS
 import '../../../providers/bookings.dart';
 //WIDGETS
+import '../../../widgets/dialogs/showOkDialog.dart';
+import '../../../widgets/dialogs/showLoadingDialog.dart';
 import '../../../widgets/appbars/appBarWithBack.dart';
 import '../../../widgets/form/textQuestionWidget.dart';
 import '../../../widgets/bookingSessionContainers/sessionSelector.dart';
 import '../../../widgets/packageContainers/packageBottomSectionContainer.dart';
 //PAGES
+import '../reviewAndPayPage.dart';
 
 class MultiSessionBookingPage extends StatefulWidget {
   const MultiSessionBookingPage({Key? key}) : super(key: key);
@@ -56,6 +60,7 @@ class _MultiSessionBookingPageState extends State<MultiSessionBookingPage> {
   Widget build(BuildContext context) {
     final bookingsProvider = context.watch<Bookings>();
     final subPackagesList = bookingsProvider.subPackages;
+    final subSessionsList = bookingsProvider.subSessions;
     return Scaffold(
       appBar: AppBarWithBack(
         title: 'Reserve your session',
@@ -85,7 +90,7 @@ class _MultiSessionBookingPageState extends State<MultiSessionBookingPage> {
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {
-                return SessionSelector(subPackagesList[index]);
+                return SessionSelector(subPackagesList[index], true);
               },
               childCount: subPackagesList.length,
             ),
@@ -130,7 +135,27 @@ class _MultiSessionBookingPageState extends State<MultiSessionBookingPage> {
       bottomNavigationBar: PackageBottomSectionContainer(
         btnLabel: 'Next',
         onTap: () {
-          //TODO:: go to payment review
+          if (subSessionsList.length == subPackagesList.length) {
+            ShowLoadingDialog(context);
+            context.read<Bookings>().bookMultiSessions().then((response) {
+              ShowLoadingDialog(context, dismiss: true);
+              if (response?.statusCode == 200) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ReviewAndPayPage(),
+                  ),
+                );
+              } else {
+                ShowOkDialog(
+                  context,
+                  response?.message ?? ErrorMessages.somethingWrong,
+                );
+              }
+            });
+          } else {
+            ShowOkDialog(context, 'Please reserve all sessions to proceed');
+          }
         },
       ),
     );

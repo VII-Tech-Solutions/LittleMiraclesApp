@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import '../../global/colors.dart';
 //MODELS
 import '../../models/package.dart';
-import '../../models/session.dart';
 //PROVIDERS
 import '../../providers/bookings.dart';
 //WIDGETS
@@ -17,7 +16,8 @@ import '../../pages/booking/multiSessionPackage/subSessionBookingPage.dart';
 
 class SessionSelector extends StatelessWidget {
   final SubPackage subPackage;
-  const SessionSelector(this.subPackage);
+  final bool canEdit;
+  const SessionSelector(this.subPackage, this.canEdit);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class SessionSelector extends StatelessWidget {
         context.watch<Bookings>().getSubSessionBySubPackageId(subPackage.id);
 
     return session != null
-        ? SubSessionDetailsContainer(session)
+        ? SubSessionDetailsContainer(subPackage, session, canEdit)
         : InkWell(
             onTap: () {
               Navigator.push(

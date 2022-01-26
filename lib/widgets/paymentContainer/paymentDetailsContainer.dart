@@ -10,6 +10,7 @@ import '../../global/colors.dart';
 import '../../providers/bookings.dart';
 //WIDGETS
 import '../general/benefitDetailsRow.dart';
+import '../../../widgets/bookingSessionContainers/sessionSelector.dart';
 //PAGES
 
 class PaymentDetailsContainer extends StatelessWidget {
@@ -26,6 +27,7 @@ class PaymentDetailsContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final package = context.watch<Bookings>().package;
+    final subPackagesList = context.watch<Bookings>().subPackages;
     final session = context.watch<Bookings>().session;
 
     return Padding(
@@ -44,72 +46,84 @@ class PaymentDetailsContainer extends StatelessWidget {
               ),
             ),
           ),
-          Visibility(
-            visible: session?.formattedDate != null,
-            child: BenefitDetailsRow(
-              '${session?.formattedDate}',
-              Icons.today_outlined,
-              false,
-            ),
-          ),
-          Visibility(
-            visible: session?.time != null,
-            child: BenefitDetailsRow(
-              '${session?.time}',
-              Icons.access_time,
-              false,
-            ),
-          ),
-          Visibility(
-            visible: package?.outdoorAllowed == true,
-            child: InkWell(
-              onTap: () {
-                if (session?.locationLink != null) {
-                  _launchURL('${session?.locationLink}');
-                }
-              },
-              child: BenefitDetailsRow(
-                '${session?.locationText}',
-                Icons.camera_outdoor,
-                false,
-                description: session?.locationLink,
-              ),
-            ),
-          ),
-          Visibility(
-            visible: session?.formattedPeople != null,
-            child: BenefitDetailsRow(
-              '${session?.formattedPeople}',
-              Icons.perm_identity_rounded,
-              false,
-            ),
-          ),
-          Visibility(
-            visible: session?.formattedBackdrop != null,
-            child: BenefitDetailsRow(
-              '${session?.formattedBackdrop}',
-              Icons.wallpaper,
-              false,
-            ),
-          ),
-          Visibility(
-            visible: session?.formattedCake != null,
-            child: BenefitDetailsRow(
-              '${session?.formattedCake}',
-              Icons.cake_outlined,
-              false,
-            ),
-          ),
-          Visibility(
-            visible: session?.photographerName != null,
-            child: BenefitDetailsRow(
-              '${session?.photographerName}',
-              Icons.photo_camera_outlined,
-              false,
-            ),
-          ),
+          subPackagesList.isNotEmpty
+              ? Column(
+                  children: subPackagesList
+                      .map((subPackage) => SessionSelector(subPackage, false))
+                      .toList(),
+                )
+              : Column(
+                  children: [
+                    Visibility(
+                      visible: session?.formattedDate != null,
+                      child: BenefitDetailsRow(
+                        '${session?.formattedDate}',
+                        Icons.today_outlined,
+                        false,
+                      ),
+                    ),
+                    Visibility(
+                      visible: session?.time != null,
+                      child: BenefitDetailsRow(
+                        '${session?.time}',
+                        Icons.access_time,
+                        false,
+                      ),
+                    ),
+                    Visibility(
+                      visible: package?.outdoorAllowed == true,
+                      child: InkWell(
+                        onTap: () {
+                          if (session?.locationLink != null) {
+                            _launchURL('${session?.locationLink}');
+                          }
+                        },
+                        child: BenefitDetailsRow(
+                          '${session?.locationText}',
+                          Icons.camera_outdoor,
+                          false,
+                          description: session?.locationLink,
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: session?.formattedPeople != null,
+                      child: BenefitDetailsRow(
+                        '${session?.formattedPeople}',
+                        Icons.perm_identity_rounded,
+                        false,
+                      ),
+                    ),
+                    Visibility(
+                      visible: session?.formattedBackdrop != null,
+                      child: BenefitDetailsRow(
+                        '${session?.formattedBackdrop}',
+                        Icons.wallpaper,
+                        false,
+                      ),
+                    ),
+                    Visibility(
+                      visible: session?.formattedCake != null,
+                      child: BenefitDetailsRow(
+                        '${session?.formattedCake}',
+                        Icons.cake_outlined,
+                        false,
+                      ),
+                    ),
+                    Visibility(
+                      visible: session?.photographerName != null,
+                      child: BenefitDetailsRow(
+                        '${session?.photographerName}',
+                        Icons.photo_camera_outlined,
+                        false,
+                      ),
+                    ),
+                  ],
+                ),
           Padding(
-            padding: const EdgeInsets.only(top: 17, bottom: 6),
+            padding: subPackagesList.isNotEmpty
+                ? EdgeInsets.only(top: 10, bottom: 6)
+                : EdgeInsets.only(top: 17, bottom: 6),
             child: Text(
               'Additional Comments:',
               style: TextStyle(
