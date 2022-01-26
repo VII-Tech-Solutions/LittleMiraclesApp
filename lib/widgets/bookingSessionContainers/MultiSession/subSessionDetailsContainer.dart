@@ -14,7 +14,7 @@ import '../../texts/titleText.dart';
 import '../../../pages/booking/multiSessionPackage/subSessionBookingPage.dart';
 
 class SubSessionDetailsContainer extends StatelessWidget {
-  final SubPackage subPackage;
+  final SubPackage? subPackage;
   final Session subSession;
   final bool canEdit;
   const SubSessionDetailsContainer(

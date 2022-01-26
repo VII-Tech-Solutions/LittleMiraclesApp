@@ -6,6 +6,7 @@ import '../../extensions/dateTimeExtension.dart';
 //GLOBAL
 import '../../global/const.dart';
 //MODELS
+import '../../models/session.dart';
 //PROVIDERS
 import '../../providers/appData.dart';
 import '../../providers/bookings.dart';
@@ -17,12 +18,15 @@ import '../dialogs/showOkDialog.dart';
 import '../../pages/booking/rescheduleSessionPage.dart';
 
 class SessionButtonContainer extends StatelessWidget {
-  const SessionButtonContainer();
+  final Session? subSession;
+  const SessionButtonContainer({this.subSession});
 
   bool canReschedule(BuildContext context) {
     bool canReschedule = false;
 
-    final date = context.read<AppData>().session?.date;
+    Session? session = subSession ?? context.read<AppData>().session;
+
+    final date = session?.date;
 
     if (date != null) {
       final sessionDate = DateTime.parse(date);

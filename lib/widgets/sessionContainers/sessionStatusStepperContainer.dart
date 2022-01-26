@@ -16,7 +16,8 @@ import '../../widgets/texts/titleText.dart';
 //PAGES
 
 class SessionStatusStepperContainer extends StatelessWidget {
-  const SessionStatusStepperContainer();
+  final bool isSubSession;
+  const SessionStatusStepperContainer({this.isSubSession = false});
 
   _launchURL(String? url) async {
     if (url != null) {
@@ -76,8 +77,12 @@ class SessionStatusStepperContainer extends StatelessWidget {
     return Container(
       height: 422,
       width: double.infinity,
-      padding: const EdgeInsets.only(left: 18, right: 20),
-      margin: EdgeInsets.only(top: session?.hasGuideline == true ? 20 : 30),
+      padding: isSubSession == true
+          ? null
+          : const EdgeInsets.only(left: 18, right: 20),
+      margin: isSubSession == true
+          ? null
+          : EdgeInsets.only(top: session?.hasGuideline == true ? 20 : 30),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -48,6 +48,7 @@ class AppData with ChangeNotifier {
   Session? _session;
   List<Onboarding> _onboardings = [];
   List<Session> _sessions = [];
+  List<Session> _subSessions = [];
   List<DailyTip> _dailyTips = [];
   List<Promotion> _promotions = [];
   List<Workshop> _workshops = [];
@@ -73,6 +74,7 @@ class AppData with ChangeNotifier {
     this._session,
     this._package,
     this._sessions,
+    this._subSessions,
     this._onboardings,
     this._dailyTips,
     this._promotions,
@@ -122,6 +124,22 @@ class AppData with ChangeNotifier {
         .sort((a, b) => b.date!.dateToInt()!.compareTo(a.date!.dateToInt()!));
 
     return [..._inProgressList, ..._completedList];
+  }
+
+  List<Session> get subSessions {
+    return [..._subSessions];
+  }
+
+  List<Session> getSubSessionsByIds(String? ids) {
+    List<Session> subSessionList = [];
+    List<int> idsList = [];
+
+    if (ids != null) idsList = ids.toIDsList();
+
+    subSessionList =
+        _subSessions.where((element) => idsList.contains(element.id)).toList();
+
+    return [...subSessionList];
   }
 
   int get getGiftsCount {
@@ -321,6 +339,8 @@ class AppData with ChangeNotifier {
 
       final sessionsJson =
           json.decode(response.body)['data']['sessions'] as List;
+      final subSessionsJson =
+          json.decode(response.body)['data']['sub_sessions'] as List;
 
       if (response.statusCode != 200) {
         notifyListeners();
@@ -328,6 +348,8 @@ class AppData with ChangeNotifier {
       }
 
       _sessions = sessionsJson.map((json) => Session.fromJson(json)).toList();
+      _subSessions =
+          subSessionsJson.map((json) => Session.fromJson(json)).toList();
 
       if (_sessions.isNotEmpty) {
         _sessionWidgetsList.clear();
