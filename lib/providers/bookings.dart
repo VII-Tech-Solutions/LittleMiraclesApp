@@ -273,12 +273,17 @@ class Bookings with ChangeNotifier {
     return list;
   }
 
+  Map<String, dynamic>? getTemporaryBookedSubSession(int? id) {
+    if (_subSessionsTemporaryBooked.containsKey(id)) {
+      return _subSessionsTemporaryBooked[id];
+    } else {
+      return null;
+    }
+  }
+
   Session? getSubSessionBySubPackageId(int? id) {
     final item =
         _subSessions.firstWhereOrNull((element) => element.subPackageId == id);
-
-    print('HOMARA SUBB SESSION HERE ${_subSessions.length}');
-    print('HOMARA ITEM SESSION HERE $item');
 
     return item;
   }

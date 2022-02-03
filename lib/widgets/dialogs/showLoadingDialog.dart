@@ -1,6 +1,5 @@
 //PACKAGES
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 //EXTENSIONS
 //GLOBAL
@@ -42,7 +41,7 @@ class ShowLoadingDialog {
       Navigator.pop(context);
     } else {
       showDialog(
-        barrierDismissible: true,
+        barrierDismissible: false,
         barrierColor: Colors.transparent,
         context: context,
         builder: (BuildContext context) {

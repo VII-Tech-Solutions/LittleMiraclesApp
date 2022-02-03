@@ -37,6 +37,8 @@ class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
   Map<String, dynamic> _bookingBody = {};
   String? _preselectedDate;
   String? _preselectedTime;
+  int _includeMe = 0;
+  List<int?> _selectedPeople = [];
 
   // @override
   // void deactivate() {
@@ -54,7 +56,17 @@ class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
 
   @override
   void initState() {
-    //fill preselected date and time
+    //fill preselected date and time and people
+    final bookingsProvider = context.read<Bookings>();
+
+    final map =
+        bookingsProvider.getTemporaryBookedSubSession(widget.subPackage?.id);
+
+    _preselectedDate = map?['date'];
+    _preselectedTime = map?['time'];
+    _includeMe = map?['include_me'] == true ? 1 : 0;
+    if (map?['people'] != null) _selectedPeople = map!['people'];
+
     super.initState();
   }
 
@@ -106,6 +118,8 @@ class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
                     },
                   ),
                   JoiningPeopleContainer(
+                    includeMe: _includeMe,
+                    selectedPeople: _selectedPeople,
                     onChangeCallback: (val) {
                       amendBookingBody(val);
                     },
@@ -136,8 +150,6 @@ class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
                 if (photographersList.isNotEmpty)
                   _bookingBody
                       .addAll({'photographer': photographersList.first});
-
-                // print(_bookingBody);
 
                 if (!_bookingBody.containsKey('date')) {
                   ShowOkDialog(context, 'Please select a date to proceed');

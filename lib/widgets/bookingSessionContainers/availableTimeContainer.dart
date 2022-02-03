@@ -31,6 +31,11 @@ class _AvailableTimeContainerState extends State<AvailableTimeContainer> {
     if (widget.preSelectedTime != null) {
       _selectedTime = widget.preSelectedTime!;
     }
+
+    if (widget.onChangeCallback != null) {
+      if (_selectedTime.isNotEmpty)
+        widget.onChangeCallback!({'time': _selectedTime});
+    }
     super.initState();
   }
 

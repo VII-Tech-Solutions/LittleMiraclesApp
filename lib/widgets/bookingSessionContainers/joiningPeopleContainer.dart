@@ -14,8 +14,12 @@ import './labeledCheckbox.dart';
 //PAGES
 
 class JoiningPeopleContainer extends StatefulWidget {
+  final int includeMe;
+  final List<int?>? selectedPeople;
   final void Function(Map<String, dynamic>?)? onChangeCallback;
   const JoiningPeopleContainer({
+    this.includeMe = 0,
+    this.selectedPeople,
     this.onChangeCallback = null,
   });
 
@@ -27,7 +31,7 @@ class _JoiningPeopleContainerState extends State<JoiningPeopleContainer> {
   int _userSelected = 0;
   List<int?> _selectedPeople = [];
 
-  void _selectPerson(int? id) {
+  void _selectPerson(int id) {
     setState(() {
       if (_selectedPeople.contains(id)) {
         _selectedPeople.removeWhere((element) => element == id);
@@ -40,6 +44,25 @@ class _JoiningPeopleContainerState extends State<JoiningPeopleContainer> {
     } else {
       context.read<Bookings>().amendBookingBody({'people': _selectedPeople});
     }
+  }
+
+  @override
+  void initState() {
+    setState(() {
+      _userSelected = widget.includeMe;
+      if (widget.selectedPeople != null)
+        _selectedPeople = widget.selectedPeople!;
+    });
+
+    if (widget.onChangeCallback != null) {
+      bool includeMeVal = _userSelected == 1 ? true : false;
+      widget.onChangeCallback!({'include_me': includeMeVal});
+      if (_selectedPeople.isNotEmpty)
+        widget.onChangeCallback!({'people': _selectedPeople});
+    } else {
+      context.read<Bookings>().amendBookingBody({'people': _selectedPeople});
+    }
+    super.initState();
   }
 
   @override
@@ -144,7 +167,7 @@ class _JoiningPeopleContainerState extends State<JoiningPeopleContainer> {
                         isUser: false,
                         isSelected: _selectedPeople.contains(e.id),
                         onTapCallback: (val) {
-                          _selectPerson(val);
+                          if (val != null) _selectPerson(val);
                         },
                       ),
                     )
