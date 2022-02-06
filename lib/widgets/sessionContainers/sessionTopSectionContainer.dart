@@ -61,11 +61,14 @@ class SessionTopSectionContainer extends StatelessWidget {
                 title: package?.tag ?? '',
                 type: TitleTextType.subContainerMainTitle,
               ),
-              TitleText(
-                customPadding: const EdgeInsets.all(0),
-                title: session?.date.toString().toSlashddMMMyyyy() ?? '',
-                type: TitleTextType.subContainerMainTitle,
-                weight: FontWeight.w800,
+              Visibility(
+                visible: session?.subSessionsIds == null,
+                child: TitleText(
+                  customPadding: const EdgeInsets.all(0),
+                  title: session?.date.toString().toSlashddMMMyyyy() ?? '',
+                  type: TitleTextType.subContainerMainTitle,
+                  weight: FontWeight.w800,
+                ),
               ),
             ],
           ),

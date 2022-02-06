@@ -14,7 +14,7 @@ import '../../widgets/paymentContainer/paymentDetailsContainer.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
 //PAGES
 import '../../pages/general/customBottomNavigationBar.dart';
-import '../../pages/home/sessions/upcomingSesionDetailsPage.dart';
+import '../home/sessions/upcomingSessionDetailsPage.dart';
 
 class SuccessPaymentPage extends StatelessWidget {
   final String? paymentMethod;

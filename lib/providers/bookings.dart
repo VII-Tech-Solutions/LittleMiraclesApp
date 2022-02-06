@@ -39,13 +39,13 @@ class Bookings with ChangeNotifier {
   List<AvailableDates> _availableDates = [];
   List<dynamic>? _availableTimings = [];
   Session? _session;
+  List<Session> _subSessions = [];
   PromoCode? _promoCode;
   //multi session bookings details
   Map<int, List<int>> _subSessionSelectedBackdrops = {};
   Map<int, List<int>> _subSessionSelectedCakes = {};
   Map<int, List<int>> _subSessionSelectedPhotographer = {};
   Map<int, Map<String, dynamic>> _subSessionsTemporaryBooked = {};
-  List<Session> _subSessions = [];
 
   //Session Details
   String _guidelineString = '';
@@ -599,7 +599,10 @@ class Bookings with ChangeNotifier {
   }
 
   Future<ApiResponse?> rescheduleASession(
-      int? sessionId, String date, String time) async {
+    int? sessionId,
+    String date,
+    String time,
+  ) async {
     final url = Uri.parse('$apiLink/sessions/$sessionId/reschedule');
 
     try {

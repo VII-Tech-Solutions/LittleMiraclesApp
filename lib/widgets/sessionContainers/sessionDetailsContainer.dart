@@ -6,6 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
+import '../../models/session.dart';
 //PROVIDERS
 import '../../providers/appData.dart';
 //WIDGETS
@@ -13,8 +14,9 @@ import '../general/benefitDetailsRow.dart';
 //PAGES
 
 class SessionDetailsContainer extends StatelessWidget {
+  final Session? subSession;
   final bool isReschedule;
-  const SessionDetailsContainer({this.isReschedule = false});
+  const SessionDetailsContainer({this.subSession, this.isReschedule = false});
 
   _launchURL(String url) async {
     if (await canLaunch(url)) {
@@ -27,7 +29,7 @@ class SessionDetailsContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final package = context.watch<AppData>().package;
-    final session = context.watch<AppData>().session;
+    final session = subSession ?? context.watch<AppData>().session;
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),

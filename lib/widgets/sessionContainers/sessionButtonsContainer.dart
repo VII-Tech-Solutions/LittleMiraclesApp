@@ -68,7 +68,9 @@ class SessionButtonContainer extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => RescheduleSessionPage(),
+                        builder: (context) => RescheduleSessionPage(
+                          subSession: subSession,
+                        ),
                       ),
                     );
                   } else {

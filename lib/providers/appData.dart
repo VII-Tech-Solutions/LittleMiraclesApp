@@ -307,13 +307,21 @@ class AppData with ChangeNotifier {
     return [..._studioList];
   }
 
-  Future<void> updateSessionDetails(Session? session) async {
+  Future<void> updateSessionDetails(Session? session, bool isSubSession) async {
     if (session != null) {
-      _session = session;
+      if (isSubSession) {
+        final index =
+            _subSessions.indexWhere((element) => element.id == session.id);
 
-      final index = _sessions.indexWhere((element) => element.id == session.id);
+        _subSessions[index] = session;
+      } else {
+        _session = session;
 
-      _sessions[index] = session;
+        final index =
+            _sessions.indexWhere((element) => element.id == session.id);
+
+        _sessions[index] = session;
+      }
 
       this.generateHomePageWidgets();
 

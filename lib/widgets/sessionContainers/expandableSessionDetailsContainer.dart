@@ -23,14 +23,22 @@ class ExpandableSessionDetailsContainer extends StatefulWidget {
 }
 
 class _ExpandableSessionDetailsContainerState
-    extends State<ExpandableSessionDetailsContainer> {
+    extends State<ExpandableSessionDetailsContainer>
+    with SingleTickerProviderStateMixin {
   bool isExpanded = false;
 
   late final double _collapsedHeight;
   late final double _expandedHeight;
 
+  late AnimationController _animationController;
+
   @override
   void initState() {
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 200),
+      vsync: this,
+    );
+
     double collapsedHeight = 19;
     double expandedHeight = 30;
 
@@ -53,6 +61,12 @@ class _ExpandableSessionDetailsContainerState
   }
 
   @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
@@ -67,6 +81,11 @@ class _ExpandableSessionDetailsContainerState
           ),
           InkWell(
             onTap: () {
+              if (!isExpanded) {
+                _animationController.forward();
+              } else {
+                _animationController.reverse();
+              }
               setState(() {
                 isExpanded = !isExpanded;
               });
@@ -146,11 +165,15 @@ class _ExpandableSessionDetailsContainerState
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 67),
-                    child: Icon(
-                      Icons.expand_less,
-                      size: 24,
-                      color: AppColors.black5C6671,
+                    padding: EdgeInsets.only(top: (_collapsedHeight / 2) - 19),
+                    child: RotationTransition(
+                      turns: Tween(begin: 0.0, end: 0.5)
+                          .animate(_animationController),
+                      child: Icon(
+                        Icons.expand_more,
+                        size: 24,
+                        color: AppColors.black5C6671,
+                      ),
                     ),
                   ),
                 ],

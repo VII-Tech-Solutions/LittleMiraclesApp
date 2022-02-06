@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 //GLOBAL
 import '../../global/const.dart';
 //MODELS
+import '../../models/session.dart';
 //PROVIDERS
 import '../../providers/appData.dart';
 import '../../providers/bookings.dart';
@@ -19,13 +20,16 @@ import '../../widgets/dialogs/showOkDialog.dart';
 //PAGES
 
 class RescheduleSessionPage extends StatelessWidget {
-  const RescheduleSessionPage();
+  final Session? subSession;
+  const RescheduleSessionPage({this.subSession});
 
   @override
   Widget build(BuildContext context) {
     var date;
     var time;
-    final sessionId = context.read<AppData>().session?.id;
+    final sessionId = subSession != null
+        ? subSession?.id
+        : context.read<AppData>().session?.id;
     return Scaffold(
       appBar: AppBarWithBack(
         title: 'Reschedule Session',
@@ -35,12 +39,12 @@ class RescheduleSessionPage extends StatelessWidget {
         padding: const EdgeInsets.only(top: 16, bottom: 30),
         child: Column(
           children: [
-            SessionDetailsContainer(isReschedule: true),
+            SessionDetailsContainer(subSession: subSession, isReschedule: true),
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
               child: CalendarContainer(
                 onChangeCallback: (val) {
-                  date = val;
+                  date = val?['date'];
                   print(date);
                 },
               ),
@@ -49,7 +53,7 @@ class RescheduleSessionPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: AvailableTimeContainer(
                 onChangeCallback: (val) {
-                  time = val;
+                  time = val?['time'];
                   print(time);
                 },
               ),
@@ -69,9 +73,11 @@ class RescheduleSessionPage extends StatelessWidget {
                   bookingsProvider
                       .rescheduleASession(sessionId, date, time)
                       .then((response) {
-                    final session = bookingsProvider.session;
+                    final Session? session = bookingsProvider.session;
 
-                    appDataProvider.updateSessionDetails(session).then((_) {
+                    appDataProvider
+                        .updateSessionDetails(session, subSession != null)
+                        .then((_) {
                       ShowLoadingDialog(context, dismiss: true);
                       if (response?.statusCode == 200) {
                         ShowOkDialog(

@@ -13,7 +13,7 @@ import '../../providers/appData.dart';
 //WIDGETS
 import '../general/cachedImageWidget.dart';
 //PAGES
-import '../../pages/home/sessions/upcomingSesionDetailsPage.dart';
+import '../../pages/home/sessions/upcomingSessionDetailsPage.dart';
 import '../../pages/home/sessions/completedSessionDetailsPage.dart';
 
 class HomeSessionContainer extends StatelessWidget {
@@ -36,6 +36,22 @@ class HomeSessionContainer extends StatelessWidget {
         value = 'Completed';
     }
     return value;
+  }
+
+  String _sessionDate(BuildContext context) {
+    if (session?.subSessionsIds != null) {
+      String date = '';
+      final subSessionsList =
+          context.read<AppData>().getSubSessionsByIds(session?.subSessionsIds);
+
+      if (subSessionsList.isNotEmpty) {
+        date = subSessionsList.first.date.toString().toSlashddMMMyyyy();
+      }
+
+      return date;
+    } else {
+      return session?.date.toString().toSlashddMMMyyyy() ?? '';
+    }
   }
 
   @override
@@ -94,7 +110,7 @@ class HomeSessionContainer extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    session?.date.toString().toSlashddMMMyyyy() ?? '',
+                    _sessionDate(context),
                     maxLines: 1,
                     style: TextStyle(
                       color: AppColors.black45515D,
@@ -123,25 +139,3 @@ class HomeSessionContainer extends StatelessWidget {
     );
   }
 }
-
-
-  // Text(
-                  //   // session?.title ?? '',
-                  //   ' something something something something sometinhg ',
-                  //   maxLines: 1,
-                  //   overflow: TextOverflow.ellipsis,
-                  //   style: TextStyle(
-                  //     color: AppColors.black45515D,
-                  //     fontWeight: FontWeight.w800,
-                  //     fontSize: 14.0,
-                  //   ),
-                  // ),
-                  // Text(
-                  //   session?.date.toString().toSlashddMMMyyyy() ?? '',
-                  //   maxLines: 1,
-                  //   style: TextStyle(
-                  //     color: AppColors.black45515D,
-                  //     fontWeight: FontWeight.w800,
-                  //     fontSize: 14.0,
-                  //   ),
-                  // ),
