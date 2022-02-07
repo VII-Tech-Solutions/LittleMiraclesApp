@@ -1,5 +1,4 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/widgets/sessionContainers/expandableSessionDetailsContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 //EXTENSIONS
@@ -14,6 +13,8 @@ import '../../../widgets/sessionContainers/sessionDetailsContainer.dart';
 import '../../../widgets/sessionContainers/sessionStatusStepperContainer.dart';
 import '../../../widgets/sessionContainers/sessionButtonsContainer.dart';
 import '../../../widgets/sessionContainers/guidelinesButtonWidget.dart';
+import '../../../widgets/sessionContainers/expandableSessionDetailsContainer.dart';
+import '../../../widgets/sessionContainers/completedSubSessionContainer.dart';
 //PAGES
 
 class UpcomingSessionDetailsPage extends StatelessWidget {
@@ -64,13 +65,15 @@ class UpcomingSessionDetailsPage extends StatelessWidget {
               ? SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (BuildContext context, int index) {
-                      return AnimatedContainer(
-                        duration: Duration(microseconds: 150),
-                        child: ExpandableSessionDetailsContainer(
-                            subSessionList[index]),
+                      return Column(
+                        children: subSessionList
+                            .map((subSession) => subSession.status == 5
+                                ? CompletedSubSessionContainer(subSession)
+                                : ExpandableSessionDetailsContainer(subSession))
+                            .toList(),
                       );
                     },
-                    childCount: subSessionList.length,
+                    childCount: 1,
                   ),
                 )
               : SliverList(
@@ -83,9 +86,7 @@ class UpcomingSessionDetailsPage extends StatelessWidget {
                 ),
           SliverPadding(
             padding: session?.subSessionsIds != null
-                ? const EdgeInsets.only(
-                    bottom: 30,
-                  )
+                ? const EdgeInsets.only(bottom: 30)
                 : EdgeInsets.zero,
           ),
         ],

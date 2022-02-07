@@ -159,7 +159,7 @@ class _ExpandableSessionDetailsContainerState
                           ),
                         ),
                         SizedBox(height: 30),
-                        SessionStatusStepperContainer(isSubSession: true),
+                        SessionStatusStepperContainer(subSession: widget.subSession),
                         SessionButtonContainer(subSession: widget.subSession),
                       ],
                     ),

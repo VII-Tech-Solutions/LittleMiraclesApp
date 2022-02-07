@@ -1,7 +1,7 @@
 //PACKAGES
 import 'package:flutter/material.dart';
-import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
 //EXTENSION
 import '../../../extensions/stringExtension.dart';
 //GLOBAL
@@ -64,14 +64,17 @@ class CompletedSessionDetailsPage extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    child: Text(
-                      session?.date.toString().toSlashddMMMyyyy() ?? '',
-                      maxLines: 1,
-                      textAlign: TextAlign.end,
-                      style: TextStyle(
-                        color: AppColors.black45515D,
-                        fontWeight: FontWeight.w800,
-                        fontSize: 14.0,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 5.0),
+                      child: Text(
+                        session?.date.toString().toSlashddMMMyyyy() ?? '',
+                        maxLines: 1,
+                        textAlign: TextAlign.end,
+                        style: TextStyle(
+                          color: AppColors.black45515D,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 14.0,
+                        ),
                       ),
                     ),
                   ),
@@ -92,7 +95,7 @@ class CompletedSessionDetailsPage extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.only(left: 0, top: 25, bottom: 25),
                 child: Swiper(
-                  itemHeight: size.height * 0.5,
+                  itemHeight: size.height * 0.6,
                   itemWidth: size.width * 0.8,
                   loop: true,
                   itemCount: images.length,

@@ -7,6 +7,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../../global/colors.dart';
 import '../../../global/const.dart';
 //MODELS
+import '../../models/session.dart';
 //PROVIDERS
 import '../../../providers/appData.dart';
 import '../../../providers/bookings.dart';
@@ -17,7 +18,8 @@ import '../../../widgets/dialogs/showLoadingDialog.dart';
 //PAGES
 
 class RateSessionContainer extends StatefulWidget {
-  const RateSessionContainer();
+  final Session? subSession;
+  const RateSessionContainer({this.subSession});
 
   @override
   State<RateSessionContainer> createState() => _RateSessionContainerState();
@@ -43,7 +45,8 @@ class _RateSessionContainerState extends State<RateSessionContainer> {
 
   @override
   Widget build(BuildContext context) {
-    final sessionId = context.watch<AppData>().session?.id;
+    final sessionId =
+        widget.subSession?.id ?? context.watch<AppData>().session?.id;
 
     return Container(
       height: 284,
@@ -105,6 +108,7 @@ class _RateSessionContainerState extends State<RateSessionContainer> {
                   itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
                   updateOnDrag: true,
                   glow: false,
+                  itemSize: widget.subSession != null ? 32 : 38,
                   itemBuilder: (context, _) => Icon(
                     Icons.star_rounded,
                     color: AppColors.yellowFFB400,

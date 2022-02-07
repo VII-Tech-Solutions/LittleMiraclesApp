@@ -9,6 +9,7 @@ import '../../extensions/stringExtension.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
+import '../../models/session.dart';
 //PROVIDERS
 import '../../providers/appData.dart';
 //WIDGETS
@@ -16,8 +17,8 @@ import '../../widgets/texts/titleText.dart';
 //PAGES
 
 class SessionStatusStepperContainer extends StatelessWidget {
-  final bool isSubSession;
-  const SessionStatusStepperContainer({this.isSubSession = false});
+  final Session? subSession;
+  const SessionStatusStepperContainer({this.subSession});
 
   _launchURL(String? url) async {
     if (url != null) {
@@ -73,14 +74,18 @@ class SessionStatusStepperContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final package = context.watch<AppData>().package;
-    final session = context.watch<AppData>().session;
+    final session = subSession ?? context.watch<AppData>().session;
+
+    print('TRASH POTATO SESSION ${session?.status}');
+    print('TRASH POTATO SESSION ${session?.date}');
+    print('TRASH POTATO SESSION ${session?.time}');
     return Container(
       height: 422,
       width: double.infinity,
-      padding: isSubSession == true
+      padding: subSession != null
           ? null
           : const EdgeInsets.only(left: 18, right: 20),
-      margin: isSubSession == true
+      margin: subSession != null
           ? null
           : EdgeInsets.only(top: session?.hasGuideline == true ? 20 : 30),
       child: Column(

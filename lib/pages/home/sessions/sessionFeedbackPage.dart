@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../global/colors.dart';
 import '../../../global/const.dart';
 //MODELS
+import '../../../models/session.dart';
 //PROVIDERS
 import '../../../providers/appData.dart';
 import '../../../providers/bookings.dart';
@@ -21,7 +22,8 @@ import '../../../widgets/buttons/filledButtonWidget.dart';
 //PAGES
 
 class SessionFeedbackPage extends StatefulWidget {
-  const SessionFeedbackPage();
+  final Session? subSession;
+  const SessionFeedbackPage({this.subSession});
 
   @override
   State<SessionFeedbackPage> createState() => _SessionFeedbackPageState();
@@ -164,7 +166,6 @@ class _SessionFeedbackPageState extends State<SessionFeedbackPage> {
                   childCount: 1,
                 ),
               ),
-
             ),
             SliverPadding(
               padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 16),
@@ -173,7 +174,8 @@ class _SessionFeedbackPageState extends State<SessionFeedbackPage> {
                   (BuildContext context, int index) {
                     return FilledButtonWidget(
                       onPress: () {
-                        final sessionId = context.read<AppData>().session?.id;
+                        final sessionId = widget.subSession?.id ??
+                            context.read<AppData>().session?.id;
                         if (context.read<Bookings>().feedbackQuestions.length ==
                             _answersList.length) {
                           ShowLoadingDialog(context);
