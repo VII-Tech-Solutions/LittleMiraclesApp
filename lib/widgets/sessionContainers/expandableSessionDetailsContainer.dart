@@ -1,6 +1,7 @@
 //PACKAGES
 import 'package:flutter/material.dart';
 //EXTENSIONS
+import '../../extensions/dateTimeExtension.dart';
 //GLOBAL
 import '../../../global/colors.dart';
 //MODELS
@@ -32,6 +33,25 @@ class _ExpandableSessionDetailsContainerState
 
   late AnimationController _animationController;
 
+  bool canReschedule() {
+    bool canReschedule = false;
+
+    final date = widget.subSession.date;
+
+    if (date != null) {
+      final sessionDate = DateTime.parse(date);
+      final currentDate = DateTime.parse(DateTime.now().toyyyyMMdd());
+
+      final difference = sessionDate.difference(currentDate).inDays;
+
+      if (difference > 2) {
+        canReschedule = true;
+      }
+    }
+
+    return canReschedule;
+  }
+
   @override
   void initState() {
     _animationController = AnimationController(
@@ -44,7 +64,7 @@ class _ExpandableSessionDetailsContainerState
 
     final subSession = widget.subSession;
     final double stepperHeight = 422;
-    final double buttonsHeight = 167;
+    final double buttonsHeight = canReschedule() == true ? 160 : 103;
 
     if (subSession.formattedDate != null) collapsedHeight += 37;
     if (subSession.time != null) collapsedHeight += 37;
@@ -159,7 +179,8 @@ class _ExpandableSessionDetailsContainerState
                           ),
                         ),
                         SizedBox(height: 30),
-                        SessionStatusStepperContainer(subSession: widget.subSession),
+                        SessionStatusStepperContainer(
+                            subSession: widget.subSession),
                         SessionButtonContainer(subSession: widget.subSession),
                       ],
                     ),

@@ -76,9 +76,6 @@ class SessionStatusStepperContainer extends StatelessWidget {
     final package = context.watch<AppData>().package;
     final session = subSession ?? context.watch<AppData>().session;
 
-    print('TRASH POTATO SESSION ${session?.status}');
-    print('TRASH POTATO SESSION ${session?.date}');
-    print('TRASH POTATO SESSION ${session?.time}');
     return Container(
       height: 422,
       width: double.infinity,
