@@ -15,6 +15,7 @@ import '../../providers/appData.dart';
 import '../../widgets/appbars/mainPagesSliverAppBar.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
 //PAGES
+import './editYourProfilePage.dart';
 import './aboutUsPage.dart';
 import './faqsPage.dart';
 import '../../pages/general/splashscreen.dart';
@@ -114,11 +115,10 @@ class MoreMainPage extends StatelessWidget {
               return Column(
                 children: [
                   _buttonWidget(() {
-                    //TODO:: remove later
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => PlayrgoundPage(),
+                        builder: (context) => EditYourProfilePage(),
                       ),
                     );
                   }, 'Your Profile',

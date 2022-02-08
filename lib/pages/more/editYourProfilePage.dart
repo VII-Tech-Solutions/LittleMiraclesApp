@@ -1,0 +1,308 @@
+//PACKAGES
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:country_code_picker/country_code_picker.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+//EXTENSION
+import '../../extensions/stringExtension.dart';
+//GLOBAL
+import '../../global/colors.dart';
+import '../../global/const.dart';
+import '../../global/globalHelpers.dart';
+//MODELS
+//PROVIDERS
+import '../../providers/auth.dart';
+//WIDGETS
+import '../../widgets/texts/titleText.dart';
+import '../../widgets/form/formTextField.dart';
+import '../../widgets/appbars/appBarWithBack.dart';
+import '../../widgets/buttons/filledButtonWidget.dart';
+import '../../widgets/dialogs/showOkDialog.dart';
+//PAGES
+
+class EditYourProfilePage extends StatefulWidget {
+  const EditYourProfilePage({Key? key}) : super(key: key);
+
+  @override
+  State<EditYourProfilePage> createState() => _EditYourProfilePageState();
+}
+
+class _EditYourProfilePageState extends State<EditYourProfilePage> {
+  final _formKey = GlobalKey<FormState>();
+  String _genderValue = '1';
+  String _countryCodeValue = '+973';
+
+  late final _firstNameController;
+  late final _lastNameController;
+  late final _birthdayController;
+  late final _phoneController;
+  late final _detailsController;
+
+  DateTime selectedDate = DateTime.now();
+  String _formattedDate = '';
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(1960, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate) {
+      selectedDate = picked;
+      _birthdayController.text =
+          'Birthday\t\t\t\t${DateFormatClass().toddMMyyyy('$picked')}';
+      _formattedDate = DateFormatClass().toyyyyMMdd('$picked');
+    }
+  }
+
+  @override
+  void initState() {
+    _firstNameController = TextEditingController();
+    _lastNameController = TextEditingController();
+    _birthdayController = TextEditingController();
+    _phoneController = TextEditingController();
+    _detailsController = TextEditingController();
+    context.read<Auth>().fetchRegistrationQuestions();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _birthdayController.dispose();
+    _phoneController.dispose();
+    _detailsController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final user = context.read<Auth>().user;
+    return Scaffold(
+      backgroundColor: AppColors.blueF4F9FA,
+      appBar: AppBarWithBack(
+        title: 'Your Profile',
+        weight: FontWeight.w800,
+      ),
+      body: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: CustomScrollView(
+          slivers: [
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  return Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 20, 16, 30),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: CachedNetworkImage(
+                            imageUrl: user?.avatar ?? "",
+                            height: 50,
+                            width: 50,
+                            placeholder: (context, url) => Container(
+                              color: AppColors.grey737C85,
+                              child: Icon(
+                                Icons.person_outline,
+                                color: Colors.white,
+                              ),
+                            ),
+                            errorWidget: (context, url, error) => Container(
+                              color: AppColors.grey737C85,
+                              child: Icon(
+                                Icons.person_outline,
+                                color: Colors.white,
+                              ),
+                            ),
+                            imageBuilder: (context, imageProvider) => Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: imageProvider,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        TitleText(
+                          customPadding: const EdgeInsets.only(top: 16),
+                          title: 'Account Information',
+                          type: TitleTextType.mainHomeTitle,
+                        ),
+                        Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              FormTextFieldWidget(
+                                title: 'First Name',
+                                controller: _firstNameController,
+                                customMargin: const EdgeInsets.only(top: 10),
+                              ),
+                              FormTextFieldWidget(
+                                title: 'Last Name',
+                                controller: _lastNameController,
+                                customMargin: const EdgeInsets.only(top: 10),
+                              ),
+                              Container(
+                                color: AppColors.whiteFFFFFF,
+                                margin: const EdgeInsets.only(top: 10),
+                                child: DropdownButtonFormField(
+                                  style: TextStyle(
+                                    color: AppColors.black45515D,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                  value: _genderValue,
+                                  items: <DropdownMenuItem<String>>[
+                                    DropdownMenuItem(
+                                        child: Text('Male'), value: '1'),
+                                    DropdownMenuItem(
+                                        child: Text('Female'), value: '2'),
+                                  ],
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _genderValue = value.toString();
+                                    });
+                                  },
+                                  icon: Icon(
+                                    Icons.expand_more,
+                                    color: AppColors.black45515D,
+                                  ),
+                                  hint: Text('Gender'),
+                                  decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.fromLTRB(
+                                        16.0, 11.0, 10.0, 11.0),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: AppColors.greyD0D3D6),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: AppColors.greyD0D3D6),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              FormTextFieldWidget(
+                                customMargin: const EdgeInsets.only(top: 10),
+                                controller: _birthdayController,
+                                title:
+                                    'Birthday\t\t\t\t${DateFormatClass().toddMMyyyy('$selectedDate')}',
+                                hintStyle: TextStyle(
+                                  color: AppColors.black45515D,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                                suffixIcon: Icon(
+                                  Icons.expand_more,
+                                  color: AppColors.black45515D,
+                                ),
+                                onTap: () {
+                                  _selectDate(context);
+                                  FocusScope.of(context).requestFocus(
+                                    new FocusNode(),
+                                  );
+                                },
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    width: 100,
+                                    margin:
+                                        const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                    decoration: BoxDecoration(
+                                        color: AppColors.whiteFFFFFF,
+                                        borderRadius: BorderRadius.circular(4),
+                                        border: Border.all(
+                                          color: AppColors.greyD0D3D6,
+                                          width: 1,
+                                        )),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        CountryCodePicker(
+                                          padding: EdgeInsets.zero,
+                                          favorite: ['+973'],
+                                          onChanged: (val) =>
+                                              _countryCodeValue = val.dialCode!,
+                                          showFlag: false,
+                                          showFlagDialog: true,
+                                          initialSelection: _countryCodeValue,
+                                          textStyle: TextStyle(
+                                            color: AppColors.black45515D,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        Icon(
+                                          Icons.expand_more,
+                                          color: AppColors.black45515D,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: FormTextFieldWidget(
+                                      controller: _phoneController,
+                                      title: '0000 0000',
+                                      customMargin: const EdgeInsets.only(
+                                          left: 10, top: 10),
+                                      inputType: TextInputType.phone,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                childCount: 1,
+              ),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: FilledButtonWidget(
+        margin: EdgeInsets.fromLTRB(16, 0, 16, 30),
+        onPress: () {
+          final isFormValid = _formKey.currentState?.validate();
+
+          if (isFormValid == true) {
+            Map userData = {
+              "user": {
+                "first_name": _firstNameController.text,
+                "last_name": _lastNameController.text,
+                "gender": _genderValue.toInt(),
+                "country_code": _countryCodeValue,
+                "phone_number": _phoneController.text,
+                "birth_date": _formattedDate,
+                "past_experience": _detailsController.text,
+              },
+            };
+
+            //TODO: call edit profile endpoint
+          } else {
+            ShowOkDialog(
+              context,
+              ErrorMessages.fillRequiredInfo,
+              title: "Oops",
+            );
+          }
+        },
+        type: ButtonType.generalBlue,
+        title: 'Save Changes',
+      ),
+    );
+  }
+}
