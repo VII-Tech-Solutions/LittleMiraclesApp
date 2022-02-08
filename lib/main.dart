@@ -58,9 +58,10 @@ class MyApp extends StatelessWidget {
             previousAppData == null ? [] : previousAppData.cakeCategories,
             previousAppData == null ? [] : previousAppData.studioPackages,
             previousAppData == null ? [] : previousAppData.studioMetadataList,
+            previousAppData == null ? [] : previousAppData.faqsList,
           ),
           create: (context) => AppData("", null, null, [], [], [], [], [], [],
-              [], [], [], [], [], [], [], [], [], [], [], [], [], []),
+              [], [], [], [], [], [], [], [], [], [], [], [], [], [], []),
         ),
         ChangeNotifierProxyProvider<Auth, Bookings>(
           update: (context, auth, previousBookings) => Bookings(

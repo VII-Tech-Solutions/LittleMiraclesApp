@@ -40,6 +40,7 @@ class Tables {
   static const String familyMembers = 'familyMembers';
   static const String studioPackages = 'studioPackages';
   static const String studioMetadata = 'studioMetadata';
+  static const String faqs = 'faqs';
 }
 
 class SectionType {

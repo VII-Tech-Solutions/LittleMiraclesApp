@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 //EXTENSIONS
 //GLOBAL
 import '../../global/colors.dart';
@@ -14,11 +15,23 @@ import '../../providers/appData.dart';
 import '../../widgets/appbars/mainPagesSliverAppBar.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
 //PAGES
+import './aboutUsPage.dart';
+import './faqsPage.dart';
 import '../../pages/general/splashscreen.dart';
 import '../../playground/playgroundPage.dart';
 
 class MoreMainPage extends StatelessWidget {
   const MoreMainPage();
+
+  _launchURL(String? url) async {
+    if (url != null) {
+      if (await canLaunch(url)) {
+        await launch(url);
+      } else {
+        throw 'Could not launch $url';
+      }
+    }
+  }
 
   Widget _buttonWidget(VoidCallback onPressed, String title, String subtitle) {
     return InkWell(
@@ -112,8 +125,22 @@ class MoreMainPage extends StatelessWidget {
                       'Change your account & family’s information'),
                   _buttonWidget(
                       () {}, 'Your Family', 'Change your family information'),
-                  _buttonWidget(() {}, 'FAQs', 'Frequently Asked Questions'),
-                  _buttonWidget(() {}, 'About Us',
+                  _buttonWidget(() {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FAQsPage(),
+                      ),
+                    );
+                  }, 'FAQs', 'Frequently Asked Questions'),
+                  _buttonWidget(() {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AboutUsPage(),
+                      ),
+                    );
+                  }, 'About Us',
                       'A little bit more about Little Miracles by Sherin'),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -137,37 +164,43 @@ class MoreMainPage extends StatelessWidget {
                           children: [
                             _socialMediaButton(
                               () {
-                                print('instagram');
+                                _launchURL(
+                                    'https://www.instagram.com/littlemiraclesbys/');
                               },
                               SocialIconAsset.instagram,
                             ),
                             _socialMediaButton(
                               () {
-                                print('facebook');
+                                _launchURL(
+                                    'https://www.facebook.com/littlemiraclesbys/');
                               },
                               SocialIconAsset.facebook,
                             ),
                             _socialMediaButton(
                               () {
-                                print('snapchat');
+                                _launchURL(
+                                    'https://www.snapchat.com/add/little.miracles');
                               },
                               SocialIconAsset.snapchat,
                             ),
                             _socialMediaButton(
                               () {
-                                print('twitter');
+                                _launchURL(
+                                    'https://twitter.com/littlemiracless');
                               },
                               SocialIconAsset.twitter,
                             ),
                             _socialMediaButton(
                               () {
-                                print('youtube');
+                                _launchURL(
+                                    'https://www.youtube.com/channel/UCK2M5iUpBDotM7qO329GHHQ');
                               },
                               SocialIconAsset.youtube,
                             ),
                             _socialMediaButton(
                               () {
-                                print('pinterest');
+                                _launchURL(
+                                    'https://www.pinterest.com/littlemiraclesbys/');
                               },
                               SocialIconAsset.pinterest,
                             ),

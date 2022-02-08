@@ -27,6 +27,7 @@ import '../models/cakeCategory.dart';
 import '../models/studioPackage.dart';
 import '../models/studioMetadata.dart';
 import '../models/apiResponse.dart';
+import '../models/faq.dart';
 //PROVIDERS
 //WIDGETS
 import '../widgets/texts/titleText.dart';
@@ -62,6 +63,7 @@ class AppData with ChangeNotifier {
   List<CakeCategory> _cakeCategories = [];
   List<StudioPackage> _studioPackages = [];
   List<StudioMetadata> _studioMetadataList = [];
+  List<FAQ> _faqsList = [];
 
   // MAIN PAGES WIDGETS LISTS
   List<Widget> _sessionWidgetsList = [];
@@ -93,6 +95,7 @@ class AppData with ChangeNotifier {
     this._cakeCategories,
     this._studioPackages,
     this._studioMetadataList,
+    this._faqsList,
   );
 
   Future<void> assignSessionById(int? id) async {
@@ -278,6 +281,10 @@ class AppData with ChangeNotifier {
 
   List<StudioMetadata> get studioMetadataList {
     return [..._studioMetadataList];
+  }
+
+  List<FAQ> get faqsList {
+    return [..._faqsList];
   }
 
   // WIDGET LIST GETTERS
@@ -485,6 +492,7 @@ class AppData with ChangeNotifier {
       final cakeCategoriesJson = extractedData['cake_categories'] as List;
       final studioPackagesJson = extractedData['studio_packages'] as List;
       final studioMetadataJson = extractedData['studio_metadata'] as List;
+      final faqsJson = extractedData['faqs'] as List;
 
       if (response.statusCode != 200) {
         await getLocalAppData();
@@ -538,6 +546,8 @@ class AppData with ChangeNotifier {
       _studioMetadataList = studioMetadataJson
           .map((json) => StudioMetadata.fromJson(json))
           .toList();
+
+      _faqsList = faqsJson.map((json) => FAQ.fromJson(json)).toList();
 
       await LastUpdateClass().setLastUpdate(LastUpdate.appData);
       await syncLocalDatabase();
@@ -681,6 +691,15 @@ class AppData with ChangeNotifier {
         DBHelper.insert(Tables.studioMetadata, item.toMap());
       }
     });
+
+    // FAQs
+    _faqsList.forEach((item) {
+      if (item.deletedAt != null) {
+        DBHelper.deleteById(Tables.faqs, item.id ?? -1);
+      } else {
+        DBHelper.insert(Tables.faqs, item.toMap());
+      }
+    });
   }
 
   Future<void> getLocalAppData() async {
@@ -703,6 +722,7 @@ class AppData with ChangeNotifier {
         await DBHelper.getData(Tables.studioPackages);
     final studioMetadataDataList =
         await DBHelper.getData(Tables.studioMetadata);
+    final faqsDataList = await DBHelper.getData(Tables.faqs);
 
     // ONBOARDING
     if (onboardingDataList.isNotEmpty) {
@@ -954,6 +974,22 @@ class AppData with ChangeNotifier {
               image: item['image'],
               status: item['status'],
               category: item['category'],
+              updatedAt: item['updatedAt'],
+              deletedAt: item['deletedAt'],
+            ),
+          )
+          .toList();
+    }
+
+    // FAQs
+    if (faqsDataList.isNotEmpty) {
+      _faqsList = faqsDataList
+          .map(
+            (item) => FAQ(
+              id: item['id'],
+              question: item['question'],
+              answer: item['answer'],
+              status: item['status'],
               updatedAt: item['updatedAt'],
               deletedAt: item['deletedAt'],
             ),

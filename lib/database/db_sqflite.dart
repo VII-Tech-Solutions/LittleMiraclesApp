@@ -46,6 +46,8 @@ class DBHelper {
             'CREATE TABLE studioMetadata(id INT PRIMARY KEY, title TEXT, description TEXT, image TEXT, status INTEGER, category INTEGER, updatedAt TEXT, deletedAt TEXT)');
         await db.execute(
             'CREATE TABLE sessions(id INT PRIMARY KEY, title TEXT, userId INTEGER, familyId INTEGER, packageId INTEGER, customBackdrop TEXT, customCake TEXT, comments TEXT, totalPrice TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT, date TEXT, time TEXT, includeMe INTEGER, locationText TEXT, locationLink TEXT, isOutdoor INTEGER, formattedDate TEXT, formattedPeople TEXT, formattedBackdrop TEXT, formattedCake TEXT, photographerName TEXT, hasGuideline INTEGER, benefitsIds TEXT, reviewsIds TEXT, mediaIds TEXT)');
+        await db.execute(
+            'CREATE TABLE faqs(id INT PRIMARY KEY, question TEXT, answer TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
       },
       version: 1,
       onUpgrade: (db, oldVersion, newVersion) async {
