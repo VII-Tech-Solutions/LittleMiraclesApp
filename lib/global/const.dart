@@ -41,6 +41,7 @@ class Tables {
   static const String studioPackages = 'studioPackages';
   static const String studioMetadata = 'studioMetadata';
   static const String faqs = 'faqs';
+  static const String sessions = 'sessions';
 }
 
 class SectionType {

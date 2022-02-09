@@ -8,7 +8,8 @@ import '../../global/colors.dart';
 //PAGES
 
 class AppBarWithLogo extends StatelessWidget with PreferredSizeWidget {
-  const AppBarWithLogo({Key? key}) : super(key: key);
+  final bool showLogo;
+  const AppBarWithLogo({this.showLogo = true});
 
   @override
   Size get preferredSize => Size.fromHeight(80);
@@ -32,9 +33,12 @@ class AppBarWithLogo extends StatelessWidget with PreferredSizeWidget {
           },
         ),
       ),
-      title: Image.asset(
-        'assets/images/logoNameColor.png',
-        width: MediaQuery.of(context).size.width * 0.555,
+      title: Visibility(
+        visible: showLogo,
+        child: Image.asset(
+          'assets/images/logoNameColor.png',
+          width: MediaQuery.of(context).size.width * 0.555,
+        ),
       ),
     );
   }

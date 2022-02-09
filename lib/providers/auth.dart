@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:collection/collection.dart';
 //GLOBAL
 import '../global/const.dart';
 import '../database/db_sqflite.dart';
@@ -21,13 +22,8 @@ import '../models/familyMember.dart';
 
 class Auth with ChangeNotifier {
   List<String> _tables = [
-    Tables.onboarding,
-    Tables.photographers,
-    Tables.cakes,
-    Tables.backdrops,
-    Tables.dailyTips,
-    Tables.promotions,
-    Tables.workshops,
+    Tables.sessions,
+    Tables.familyMembers,
   ];
   String? _token;
   User? _user;
@@ -61,8 +57,22 @@ class Auth with ChangeNotifier {
     return _user;
   }
 
+  FamilyMember? getParent() {
+    final partner =
+        _familyMembers.firstWhereOrNull((element) => element.relationship == 1);
+
+    return partner;
+  }
+
   List<FamilyMember> get familyMembers {
     return [..._familyMembers];
+  }
+
+  List<FamilyMember> getChildrenList() {
+    final list =
+        _familyMembers.where((element) => element.relationship == 2).toList();
+
+    return [...list];
   }
 
   List<Question>? get questions {
@@ -154,6 +164,8 @@ class Auth with ChangeNotifier {
                   birthDate: item['birthDate'],
                   relationship: item['relationship'],
                   status: item['status'],
+                  phoneNumber: item['phoneNumber'],
+                  countryCode: item['countryCode'],
                   updatedAt: item['updated_at'],
                   deletedAt: item['deleted_at'],
                 ),
@@ -310,9 +322,9 @@ class Auth with ChangeNotifier {
       this.setFirstOpen();
 
       //remove user related data from local
-      // _tables.forEach((table) {
-      //   DBHelper.deleteTable(table);
-      // });
+      _tables.forEach((table) {
+        DBHelper.deleteTable(table);
+      });
 
       // final url = Uri.parse("$apiLink/logout");
       // await http.post(

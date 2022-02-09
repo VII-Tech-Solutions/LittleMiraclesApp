@@ -7,6 +7,8 @@ class FamilyMember {
   final String? birthDate;
   final int? relationship;
   final int? status;
+  final String? phoneNumber;
+  final int? countryCode;
   final String? updatedAt;
   final String? deletedAt;
   FamilyMember({
@@ -18,6 +20,8 @@ class FamilyMember {
     required this.birthDate,
     required this.relationship,
     required this.status,
+    required this.phoneNumber,
+    required this.countryCode,
     required this.updatedAt,
     required this.deletedAt,
   });
@@ -32,6 +36,8 @@ class FamilyMember {
       'birthDate': birthDate ?? "",
       'relationship': relationship ?? -1,
       'status': status ?? -1,
+      'phoneNumber': phoneNumber ?? -1,
+      'countryCode': countryCode ?? -1,
       'updatedAt': updatedAt ?? "",
       'deletedAt': deletedAt ?? "",
     };
@@ -47,6 +53,8 @@ class FamilyMember {
       birthDate: json['birth_date'] as String?,
       relationship: json['relationship'] as int?,
       status: json['status'] as int?,
+      phoneNumber: json['phone_number'] as String?,
+      countryCode: json['country_code'] as int?,
       updatedAt: json['updated_at'] as String?,
       deletedAt: json['deleted_at'] as String?,
     );

@@ -16,6 +16,7 @@ import '../../widgets/appbars/mainPagesSliverAppBar.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
 //PAGES
 import './editYourProfilePage.dart';
+import './editYourFamilyChoicesPage.dart';
 import './aboutUsPage.dart';
 import './faqsPage.dart';
 import '../../pages/general/splashscreen.dart';
@@ -123,8 +124,14 @@ class MoreMainPage extends StatelessWidget {
                     );
                   }, 'Your Profile',
                       'Change your account & family’s information'),
-                  _buttonWidget(
-                      () {}, 'Your Family', 'Change your family information'),
+                  _buttonWidget(() {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EditYourFamilyChoucesPage(),
+                      ),
+                    );
+                  }, 'Your Family', 'Change your family information'),
                   _buttonWidget(() {
                     Navigator.push(
                       context,

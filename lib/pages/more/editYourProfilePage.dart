@@ -67,7 +67,7 @@ class _EditYourProfilePageState extends State<EditYourProfilePage> {
     if (user != null) {
       _firstNameController.text = user.firstName ?? '';
       _lastNameController.text = user.lastName ?? '';
-      _birthdayController.text = user.birthDate ?? '';
+      _birthdayController.text = 'Birthday\t\t\t\t${DateFormatClass().toddMMyyyy('${user.birthDate}')}';
       _formattedDate = user.birthDate ?? '';
       _phoneController.text = user.phoneNumber ?? '';
 
