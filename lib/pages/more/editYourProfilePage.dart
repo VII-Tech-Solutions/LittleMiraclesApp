@@ -1,6 +1,7 @@
 //PACKAGES
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 //EXTENSION
@@ -36,7 +37,6 @@ class _EditYourProfilePageState extends State<EditYourProfilePage> {
   late final _lastNameController;
   late final _birthdayController;
   late final _phoneController;
-  late final _detailsController;
 
   DateTime selectedDate = DateTime.now();
   String _formattedDate = '';
@@ -61,8 +61,20 @@ class _EditYourProfilePageState extends State<EditYourProfilePage> {
     _lastNameController = TextEditingController();
     _birthdayController = TextEditingController();
     _phoneController = TextEditingController();
-    _detailsController = TextEditingController();
-    context.read<Auth>().fetchRegistrationQuestions();
+
+    final user = context.read<Auth>().user;
+
+    if (user != null) {
+      _firstNameController.text = user.firstName ?? '';
+      _lastNameController.text = user.lastName ?? '';
+      _birthdayController.text = user.birthDate ?? '';
+      _formattedDate = user.birthDate ?? '';
+      _phoneController.text = user.phoneNumber ?? '';
+
+      _genderValue = user.gender.toString();
+      _countryCodeValue = '+${user.countryCode ?? ''}';
+    }
+
     super.initState();
   }
 
@@ -72,7 +84,6 @@ class _EditYourProfilePageState extends State<EditYourProfilePage> {
     _lastNameController.dispose();
     _birthdayController.dispose();
     _phoneController.dispose();
-    _detailsController.dispose();
     super.dispose();
   }
 
@@ -135,6 +146,7 @@ class _EditYourProfilePageState extends State<EditYourProfilePage> {
                         Form(
                           key: _formKey,
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               FormTextFieldWidget(
                                 title: 'First Name',
@@ -260,6 +272,18 @@ class _EditYourProfilePageState extends State<EditYourProfilePage> {
                                   ),
                                 ],
                               ),
+                              TitleText(
+                                title: 'You have signed in with:',
+                                type: TitleTextType.secondaryTitle,
+                                weight: FontWeight.w500,
+                                customPadding:
+                                    const EdgeInsets.only(top: 25, bottom: 10),
+                              ),
+                              SvgPicture.asset(
+                                'assets/images/iconsSocial${user?.provider?.firstLetterToUpper()}.svg',
+                                width: 34,
+                                height: 34,
+                              ),
                             ],
                           ),
                         ),
@@ -287,9 +311,10 @@ class _EditYourProfilePageState extends State<EditYourProfilePage> {
                 "country_code": _countryCodeValue,
                 "phone_number": _phoneController.text,
                 "birth_date": _formattedDate,
-                "past_experience": _detailsController.text,
               },
             };
+
+            print(userData);
 
             //TODO: call edit profile endpoint
           } else {
