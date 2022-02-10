@@ -1,18 +1,24 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/widgets/texts/titleText.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 //EXTENSIONS
 //GLOBAL
 import '../../global/colors.dart';
+import '../../global/const.dart';
 //MODELS
 //PROVIDERS
+import '../../providers/auth.dart';
 //WIDGETS
 import '../../widgets/appbars/appBarWithBack.dart';
+import '../../widgets/texts/titleText.dart';
+import '../../widgets/dialogs/showLoadingDialog.dart';
+import '../../widgets/dialogs/showOkDialog.dart';
 //PAGES
 import './editYourPartnerPage.dart';
+import './editYourFamilyInfoPage.dart';
 
-class EditYourFamilyChoucesPage extends StatelessWidget {
-  const EditYourFamilyChoucesPage();
+class EditYourFamilyChoicesPage extends StatelessWidget {
+  const EditYourFamilyChoicesPage();
 
   Widget _containerWidget(String title, VoidCallback function) {
     return InkWell(
@@ -68,7 +74,29 @@ class EditYourFamilyChoucesPage extends StatelessWidget {
               );
             }),
             _containerWidget('Your Children', () {}),
-            _containerWidget('Your Family', () {}),
+            _containerWidget('Your Family', () {
+              ShowLoadingDialog(context);
+              context
+                  .read<Auth>()
+                  .fetchRegistrationQuestions()
+                  .then((response) {
+                ShowLoadingDialog(context, dismiss: true);
+                if (response?.statusCode == 200) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EditYourFamilyInfoPage(),
+                    ),
+                  );
+                } else {
+                  ShowOkDialog(
+                    context,
+                    response?.message ?? ErrorMessages.somethingWrong,
+                    title: "Oops",
+                  );
+                }
+              });
+            }),
           ],
         ),
       ),

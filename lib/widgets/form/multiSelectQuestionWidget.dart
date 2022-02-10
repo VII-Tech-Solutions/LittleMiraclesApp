@@ -12,7 +12,12 @@ import '../texts/titleText.dart';
 class MultiSelectQuestionWidget extends StatefulWidget {
   final Question? question;
   final void Function(Map?) onTapCallback;
-  const MultiSelectQuestionWidget(this.question, this.onTapCallback);
+  final List<int>? initialSelections;
+  const MultiSelectQuestionWidget(
+    this.question,
+    this.onTapCallback, {
+    this.initialSelections,
+  });
 
   @override
   _MultiSelectQuestionWidgetState createState() =>
@@ -128,6 +133,17 @@ class _MultiSelectQuestionWidgetState extends State<MultiSelectQuestionWidget> {
     });
 
     return list;
+  }
+
+  @override
+  void initState() {
+    final initialSelections = widget.initialSelections;
+    if (initialSelections != null) {
+      setState(() {
+        selectedOptions = initialSelections;
+      });
+    }
+    super.initState();
   }
 
   @override

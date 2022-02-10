@@ -14,8 +14,13 @@ class TextQuestionWidget extends StatelessWidget {
   final Question? question;
   final void Function(Map?) onChangedCallback;
   final TextEditingController? textController;
-  const TextQuestionWidget(this.question, this.onChangedCallback,
-      {this.textController = null});
+  final String? initialValue;
+  const TextQuestionWidget(
+    this.question,
+    this.onChangedCallback, {
+    this.textController = null,
+    this.initialValue,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +38,7 @@ class TextQuestionWidget extends StatelessWidget {
           color: Colors.white,
           child: TextFormField(
             controller: textController,
+            initialValue: initialValue,
             onChanged: (val) {
               if (question?.id != null) {
                 return onChangedCallback({

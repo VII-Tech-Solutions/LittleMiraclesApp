@@ -41,7 +41,7 @@ class ShowLoadingDialog {
       Navigator.pop(context);
     } else {
       showDialog(
-        barrierDismissible: false,
+        barrierDismissible: false, //MARK:: always have it `false`
         barrierColor: Colors.transparent,
         context: context,
         builder: (BuildContext context) {

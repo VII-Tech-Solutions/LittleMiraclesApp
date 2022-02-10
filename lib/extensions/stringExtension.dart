@@ -61,7 +61,7 @@ extension StringExtension on String {
     return int.parse(formattedDate);
   }
 
-  List<int> toIDsList() {
+  List<int> toIntList() {
     List<int> list = [];
 
     //this is some weird shit, but it's working

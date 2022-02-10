@@ -1,6 +1,14 @@
+//PACKAGES
 import 'package:sqflite/sqflite.dart' as sql;
 import 'package:path/path.dart' as path;
 import 'package:sqflite/sqlite_api.dart';
+//EXTENSIONS
+//GLOBAL
+import '../global/const.dart';
+//MODELS
+//PROVIDERS
+//WIDGETS
+//PAGES
 
 class DBHelper {
   static Future<Database> database() async {
@@ -15,39 +23,41 @@ class DBHelper {
       path.join(dbPath, 'little_miracles.db'),
       onCreate: (db, version) async {
         await db.execute(
-            'CREATE TABLE onboardings(id INT PRIMARY KEY, updatedAt TEXT, deletedAt TEXT, title TEXT, content TEXT, image TEXT, orderNum INTEGER)');
+            'CREATE TABLE ${Tables.onboarding}(id INT PRIMARY KEY, updatedAt TEXT, deletedAt TEXT, title TEXT, content TEXT, image TEXT, orderNum INTEGER)');
         await db.execute(
-            'CREATE TABLE dailyTips(id INT PRIMARY KEY, status INTEGER, updatedAt TEXT, deletedAt TEXT, image TEXT, title TEXT, postedAt TEXT, content TEXT)');
+            'CREATE TABLE ${Tables.dailyTips}(id INT PRIMARY KEY, status INTEGER, updatedAt TEXT, deletedAt TEXT, image TEXT, title TEXT, postedAt TEXT, content TEXT)');
         await db.execute(
-            'CREATE TABLE promotions(id INT PRIMARY KEY, image TEXT, title TEXT, offer TEXT, type INTEGER, content TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT, postedAt TEXT, validUntil TEXT, promoCode TEXT)');
+            'CREATE TABLE ${Tables.promotions}(id INT PRIMARY KEY, image TEXT, title TEXT, offer TEXT, type INTEGER, content TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT, postedAt TEXT, validUntil TEXT, promoCode TEXT)');
         await db.execute(
-            'CREATE TABLE workshops(id INT PRIMARY KEY, image TEXT, title TEXT, price TEXT, content TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT, postedAt TEXT)');
+            'CREATE TABLE ${Tables.workshops}(id INT PRIMARY KEY, image TEXT, title TEXT, price TEXT, content TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT, postedAt TEXT)');
         await db.execute(
-            'CREATE TABLE sections(id INT PRIMARY KEY, image TEXT, title TEXT, content TEXT, status INTEGER, type INTEGER, actionText TEXT, goTo TEXT, updatedAt TEXT, deletedAt TEXT, isFeatured INTEGER)');
+            'CREATE TABLE ${Tables.sections}(id INT PRIMARY KEY, image TEXT, title TEXT, content TEXT, status INTEGER, type INTEGER, actionText TEXT, goTo TEXT, updatedAt TEXT, deletedAt TEXT, isFeatured INTEGER)');
         await db.execute(
-            'CREATE TABLE packages(id INT PRIMARY KEY, title TEXT, tag TEXT, image TEXT, price TEXT, isPopular INTEGER, type INTEGER, content TEXT, locationText TEXT, locationLink TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT, backdropAllowed INTEGER, cakeAllowed INTEGER, outdoorAllowed INTEGER, hasGuideline INTEGER, benefitsIds TEXT, subPackagesIds TEXT, reviewsIds TEXT, mediaIds TEXT, totalReviews INTEGER, rating REAL)');
+            'CREATE TABLE ${Tables.packages}(id INT PRIMARY KEY, title TEXT, tag TEXT, image TEXT, price TEXT, isPopular INTEGER, type INTEGER, content TEXT, locationText TEXT, locationLink TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT, backdropAllowed INTEGER, cakeAllowed INTEGER, outdoorAllowed INTEGER, hasGuideline INTEGER, benefitsIds TEXT, subPackagesIds TEXT, reviewsIds TEXT, mediaIds TEXT, totalReviews INTEGER, rating REAL)');
         await db.execute(
-            'CREATE TABLE backdrops(id INT PRIMARY KEY, title TEXT, categoryId INTEGER, image TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
+            'CREATE TABLE ${Tables.backdrops}(id INT PRIMARY KEY, title TEXT, categoryId INTEGER, image TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
         await db.execute(
-            'CREATE TABLE cakes(id INT PRIMARY KEY, title TEXT, categoryId INTEGER, image TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
+            'CREATE TABLE ${Tables.cakes}(id INT PRIMARY KEY, title TEXT, categoryId INTEGER, image TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
         await db.execute(
-            'CREATE TABLE photographers(id INT PRIMARY KEY, name TEXT, image TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
+            'CREATE TABLE ${Tables.photographers}(id INT PRIMARY KEY, name TEXT, image TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
         await db.execute(
-            'CREATE TABLE familyMembers(id INT PRIMARY KEY, familyId INTEGER, firstName TEXT, lastName TEXT, gender INTEGER, birthDate TEXT, relationship INTEGER, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
+            'CREATE TABLE ${Tables.familyMembers}(id INT PRIMARY KEY, familyId INTEGER, firstName TEXT, lastName TEXT, gender INTEGER, birthDate TEXT, relationship INTEGER, status INTEGER, phoneNumber TEXT, countryCode INTEGER, updatedAt TEXT, deletedAt TEXT)');
         await db.execute(
-            'CREATE TABLE paymentMethods(id INT PRIMARY KEY, title TEXT)');
+            'CREATE TABLE ${Tables.familyInfo}(id INT PRIMARY KEY, userId INTEGER, familyId INTEGER, questionId INTEGER, answer TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
         await db.execute(
-            'CREATE TABLE backdropCategories(id INT PRIMARY KEY, name TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
+            'CREATE TABLE ${Tables.paymentMethods}(id INT PRIMARY KEY, title TEXT)');
         await db.execute(
-            'CREATE TABLE cakeCategories(id INT PRIMARY KEY, name TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
+            'CREATE TABLE ${Tables.backdropCategories}(id INT PRIMARY KEY, name TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
         await db.execute(
-            'CREATE TABLE studioPackages(id INT PRIMARY KEY, title TEXT, image TEXT, startingPrice TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
+            'CREATE TABLE ${Tables.cakeCategories}(id INT PRIMARY KEY, name TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
         await db.execute(
-            'CREATE TABLE studioMetadata(id INT PRIMARY KEY, title TEXT, description TEXT, image TEXT, status INTEGER, category INTEGER, updatedAt TEXT, deletedAt TEXT)');
+            'CREATE TABLE ${Tables.studioPackages}(id INT PRIMARY KEY, title TEXT, image TEXT, startingPrice TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
         await db.execute(
-            'CREATE TABLE sessions(id INT PRIMARY KEY, title TEXT, userId INTEGER, familyId INTEGER, packageId INTEGER, customBackdrop TEXT, customCake TEXT, comments TEXT, totalPrice TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT, date TEXT, time TEXT, includeMe INTEGER, locationText TEXT, locationLink TEXT, isOutdoor INTEGER, formattedDate TEXT, formattedPeople TEXT, formattedBackdrop TEXT, formattedCake TEXT, photographerName TEXT, hasGuideline INTEGER, benefitsIds TEXT, reviewsIds TEXT, mediaIds TEXT)');
+            'CREATE TABLE ${Tables.studioMetadata}(id INT PRIMARY KEY, title TEXT, description TEXT, image TEXT, status INTEGER, category INTEGER, updatedAt TEXT, deletedAt TEXT)');
         await db.execute(
-            'CREATE TABLE faqs(id INT PRIMARY KEY, question TEXT, answer TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
+            'CREATE TABLE ${Tables.sessions}(id INT PRIMARY KEY, title TEXT, userId INTEGER, familyId INTEGER, packageId INTEGER, customBackdrop TEXT, customCake TEXT, comments TEXT, totalPrice TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT, date TEXT, time TEXT, includeMe INTEGER, locationText TEXT, locationLink TEXT, isOutdoor INTEGER, formattedDate TEXT, formattedPeople TEXT, formattedBackdrop TEXT, formattedCake TEXT, photographerName TEXT, hasGuideline INTEGER, benefitsIds TEXT, reviewsIds TEXT, mediaIds TEXT)');
+        await db.execute(
+            'CREATE TABLE ${Tables.faqs}(id INT PRIMARY KEY, question TEXT, answer TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
       },
       version: 1,
       onUpgrade: (db, oldVersion, newVersion) async {

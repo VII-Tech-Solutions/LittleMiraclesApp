@@ -137,7 +137,7 @@ class AppData with ChangeNotifier {
     List<Session> subSessionList = [];
     List<int> idsList = [];
 
-    if (ids != null) idsList = ids.toIDsList();
+    if (ids != null) idsList = ids.toIntList();
 
     subSessionList =
         _subSessions.where((element) => idsList.contains(element.id)).toList();

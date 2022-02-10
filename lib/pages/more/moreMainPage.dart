@@ -35,7 +35,7 @@ class MoreMainPage extends StatelessWidget {
     }
   }
 
-  Widget _buttonWidget(VoidCallback onPressed, String title, String subtitle) {
+  Widget _buttonWidget(String title, String subtitle, VoidCallback onPressed) {
     return InkWell(
       onTap: onPressed,
       child: Container(
@@ -104,6 +104,27 @@ class MoreMainPage extends StatelessWidget {
     );
   }
 
+  bool _isAuthenticated(BuildContext context) {
+    final isAuth = context.read<Auth>().isAuth;
+
+    print(isAuth);
+
+    if (isAuth == false) {
+      final snackBar = SnackBar(
+        behavior: SnackBarBehavior.floating,
+        content: Text('Please Login!'),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5),
+        ),
+      );
+
+      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+
+    return isAuth;
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
@@ -115,40 +136,58 @@ class MoreMainPage extends StatelessWidget {
             (BuildContext context, int index) {
               return Column(
                 children: [
-                  _buttonWidget(() {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => EditYourProfilePage(),
-                      ),
-                    );
-                  }, 'Your Profile',
-                      'Change your account & family’s information'),
-                  _buttonWidget(() {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => EditYourFamilyChoucesPage(),
-                      ),
-                    );
-                  }, 'Your Family', 'Change your family information'),
-                  _buttonWidget(() {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => FAQsPage(),
-                      ),
-                    );
-                  }, 'FAQs', 'Frequently Asked Questions'),
-                  _buttonWidget(() {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AboutUsPage(),
-                      ),
-                    );
-                  }, 'About Us',
-                      'A little bit more about Little Miracles by Sherin'),
+                  _buttonWidget(
+                    'Your Profile',
+                    'Change your account & family’s information',
+                    () {
+                      if (_isAuthenticated(context)) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EditYourProfilePage(),
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                  _buttonWidget(
+                    'Your Family',
+                    'Change your family information',
+                    () {
+                      if (_isAuthenticated(context)) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EditYourFamilyChoicesPage(),
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                  _buttonWidget(
+                    'FAQs',
+                    'Frequently Asked Questions',
+                    () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => FAQsPage(),
+                        ),
+                      );
+                    },
+                  ),
+                  _buttonWidget(
+                    'About Us',
+                    'A little bit more about Little Miracles by Sherin',
+                    () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AboutUsPage(),
+                        ),
+                      );
+                    },
+                  ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

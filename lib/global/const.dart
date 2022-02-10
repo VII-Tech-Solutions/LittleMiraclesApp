@@ -38,6 +38,7 @@ class Tables {
   static const String backdropCategories = 'backdropCategories';
   static const String cakeCategories = 'cakeCategories';
   static const String familyMembers = 'familyMembers';
+  static const String familyInfo = 'familyInfo';
   static const String studioPackages = 'studioPackages';
   static const String studioMetadata = 'studioMetadata';
   static const String faqs = 'faqs';

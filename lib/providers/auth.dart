@@ -16,6 +16,7 @@ import '../models/user.dart';
 import '../models/question.dart';
 import '../models/apiResponse.dart';
 import '../models/familyMember.dart';
+import '../models/familyInfo.dart';
 //PROVIDERS
 //WIDGETS
 //PAGES
@@ -28,6 +29,7 @@ class Auth with ChangeNotifier {
   String? _token;
   User? _user;
   List<FamilyMember> _familyMembers = [];
+  List<FamilyInfo> _familyInfoList = [];
   List<Question> _questions = [];
   bool? _isFirstOpen;
   String? _expiryDate;
@@ -73,6 +75,10 @@ class Auth with ChangeNotifier {
         _familyMembers.where((element) => element.relationship == 2).toList();
 
     return [...list];
+  }
+
+  List<FamilyInfo> get familyInfoList {
+    return [..._familyInfoList];
   }
 
   List<Question>? get questions {
@@ -124,6 +130,7 @@ class Auth with ChangeNotifier {
   Future<void> getToken({bool withNotify = false}) async {
     final prefs = await SharedPreferences.getInstance();
     final familyMembersDataList = await DBHelper.getData(Tables.familyMembers);
+    final familyInfoDataList = await DBHelper.getData(Tables.familyInfo);
     if (prefs.containsKey('userData') == true) {
       if (prefs.getString('userData') != null) {
         final extractedUserData = json.decode(prefs.getString('userData') ?? "")
@@ -172,6 +179,23 @@ class Auth with ChangeNotifier {
               )
               .toList();
         }
+
+        if (familyInfoDataList.isNotEmpty) {
+          _familyInfoList = familyInfoDataList
+              .map(
+                (item) => FamilyInfo(
+                  id: item['id'],
+                  userId: item['userId'],
+                  familyId: item['familyId'],
+                  questionId: item['questionId'],
+                  answer: item['answer'],
+                  status: item['status'],
+                  updatedAt: item['updated_at'],
+                  deletedAt: item['deleted_at'],
+                ),
+              )
+              .toList();
+        }
       }
     }
 
@@ -180,7 +204,7 @@ class Auth with ChangeNotifier {
     }
   }
 
-  Future<void> fetchRegistrationQuestions() async {
+  Future<ApiResponse?> fetchRegistrationQuestions() async {
     final url = Uri.parse('$apiLink/family-questions');
 
     try {
@@ -195,7 +219,7 @@ class Auth with ChangeNotifier {
           json.decode(response.body)['data']['questions'] as List;
 
       if (response.statusCode != 200) {
-        return;
+        return ApiResponse(statusCode: response.statusCode);
       }
 
       _questions =
@@ -204,7 +228,7 @@ class Auth with ChangeNotifier {
       print('questions fetched: ${_questions.length}');
 
       notifyListeners();
-      return;
+      return ApiResponse(statusCode: response.statusCode);
     } on TimeoutException catch (e) {
       print('Exception Timeout:: $e');
     } catch (e) {
@@ -249,6 +273,7 @@ class Auth with ChangeNotifier {
       User user = User.fromJson(result['data']['user']);
       FamilyMember partner = FamilyMember.fromJson(result['data']['partner']);
       final childrenJson = result['data']['children'] as List;
+      final familyInfoJson = result['data']['family_info'] as List;
       _user = user;
 
       prefs.setString(
@@ -285,11 +310,22 @@ class Auth with ChangeNotifier {
         ...childrenJson.map((json) => FamilyMember.fromJson(json)).toList()
       ];
 
+      _familyInfoList =
+          familyInfoJson.map((json) => FamilyInfo.fromJson(json)).toList();
+
       _familyMembers.forEach((item) {
         if (item.deletedAt != null) {
           DBHelper.deleteById(Tables.familyMembers, item.id ?? -1);
         } else {
           DBHelper.insert(Tables.familyMembers, item.toMap());
+        }
+      });
+
+      _familyInfoList.forEach((item) {
+        if (item.deletedAt != null) {
+          DBHelper.deleteById(Tables.familyInfo, item.id ?? -1);
+        } else {
+          DBHelper.insert(Tables.familyInfo, item.toMap());
         }
       });
 
@@ -392,6 +428,7 @@ class Auth with ChangeNotifier {
       }
 
       final childrenJson = result['data']['children'] as List;
+      final familyInfoJson = result['data']['family_info'] as List;
       _user = user;
 
       prefs.setString(
@@ -424,11 +461,22 @@ class Auth with ChangeNotifier {
         ...childrenJson.map((json) => FamilyMember.fromJson(json)).toList()
       ];
 
+      _familyInfoList =
+          familyInfoJson.map((json) => FamilyInfo.fromJson(json)).toList();
+
       _familyMembers.forEach((item) {
         if (item.deletedAt != null) {
           DBHelper.deleteById(Tables.familyMembers, item.id ?? -1);
         } else {
           DBHelper.insert(Tables.familyMembers, item.toMap());
+        }
+      });
+
+      _familyInfoList.forEach((item) {
+        if (item.deletedAt != null) {
+          DBHelper.deleteById(Tables.familyInfo, item.id ?? -1);
+        } else {
+          DBHelper.insert(Tables.familyInfo, item.toMap());
         }
       });
 
