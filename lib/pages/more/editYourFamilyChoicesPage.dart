@@ -15,6 +15,7 @@ import '../../widgets/dialogs/showLoadingDialog.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
 //PAGES
 import './editYourPartnerPage.dart';
+import './editYourChildrenPage.dart';
 import './editYourFamilyInfoPage.dart';
 
 class EditYourFamilyChoicesPage extends StatelessWidget {
@@ -73,7 +74,14 @@ class EditYourFamilyChoicesPage extends StatelessWidget {
                 ),
               );
             }),
-            _containerWidget('Your Children', () {}),
+            _containerWidget('Your Children', () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EditYourChildrenPage(),
+                ),
+              );
+            }),
             _containerWidget('Your Family', () {
               ShowLoadingDialog(context);
               context

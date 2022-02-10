@@ -9,6 +9,7 @@ class FamilyMember {
   final int? status;
   final String? phoneNumber;
   final int? countryCode;
+  final String? personality;
   final String? updatedAt;
   final String? deletedAt;
   FamilyMember({
@@ -22,6 +23,7 @@ class FamilyMember {
     required this.status,
     required this.phoneNumber,
     required this.countryCode,
+    required this.personality,
     required this.updatedAt,
     required this.deletedAt,
   });
@@ -38,6 +40,7 @@ class FamilyMember {
       'status': status ?? -1,
       'phoneNumber': phoneNumber ?? -1,
       'countryCode': countryCode ?? -1,
+      'personality': personality ?? "",
       'updatedAt': updatedAt ?? "",
       'deletedAt': deletedAt ?? "",
     };
@@ -55,6 +58,7 @@ class FamilyMember {
       status: json['status'] as int?,
       phoneNumber: json['phone_number'] as String?,
       countryCode: json['country_code'] as int?,
+      personality: json['personality'] as String?,
       updatedAt: json['updated_at'] as String?,
       deletedAt: json['deleted_at'] as String?,
     );

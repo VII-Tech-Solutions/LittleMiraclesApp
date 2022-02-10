@@ -67,15 +67,14 @@ class ChildrenForm extends StatelessWidget {
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
               ),
-              value: '1',
+              value:
+                  _genderController.text.isEmpty ? '1' : _genderController.text,
               items: <DropdownMenuItem<String>>[
                 DropdownMenuItem(child: Text('Male'), value: '1'),
                 DropdownMenuItem(child: Text('Female'), value: '2'),
               ],
               onChanged: (value) {
-                // setState(() {
                 _genderController.text = value.toString();
-                // });
               },
               icon: Icon(
                 Icons.expand_more,

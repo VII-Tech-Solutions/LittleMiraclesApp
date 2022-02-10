@@ -173,6 +173,7 @@ class Auth with ChangeNotifier {
                   status: item['status'],
                   phoneNumber: item['phoneNumber'],
                   countryCode: item['countryCode'],
+                  personality: item['personality'],
                   updatedAt: item['updated_at'],
                   deletedAt: item['deleted_at'],
                 ),
