@@ -77,7 +77,7 @@ class SessionStatus {
   static const int ready = 5;
 }
 
-class StudioCategory {
+class StudioMetaCategory {
   static const albumSize = 1;
   static const spreads = 2;
   static const paperType = 3;

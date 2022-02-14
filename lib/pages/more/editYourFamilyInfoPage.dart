@@ -73,10 +73,6 @@ class _EditYourFamilyInfoPageState extends State<EditYourFamilyInfoPage> {
       }
     });
 
-    _answersList.forEach((element) {
-      print('something $element');
-    });
-
     super.initState();
   }
 

@@ -6,19 +6,15 @@ import 'package:provider/provider.dart';
 import '../../global/const.dart';
 //MODELS
 //PROVIDERS
-import '../../providers/bookings.dart';
+import '../../providers/studio.dart';
 //WIDGETS
 import '../../widgets/buttons/iconButtonWidget.dart';
-import '../../widgets/packageContainers/packageMainTopSectionContainer.dart';
-import '../../widgets/packageContainers/packageDetailsSectionContainer.dart';
-import '../../widgets/packageContainers/packageLocationSectionContainer.dart';
-import '../../widgets/packageContainers/packageBottomSectionContainer.dart';
-import '../../widgets/packageContainers/packageRatingSectionContainer.dart';
-import '../../widgets/packageContainers/packageImageSectionContainer.dart';
-import '../../widgets/dialogs/showLoadingDialog.dart';
-import '../../widgets/dialogs/showOkDialog.dart';
+import '../../widgets/studioContainers/studioMainTopSectionContainer.dart';
+import '../../widgets/studioContainers/studioDetailsSectionContainer.dart';
+import '../../widgets/studioContainers/studioBottomSectionContainer.dart';
+import '../../widgets/studioContainers/studioImageSectionContainer.dart';
 //PAGES
-import '../../pages/booking/multiSessionPackage/multiSessionBookingPage.dart';
+import './studioSpecsSelectorPage.dart';
 
 class StudioPackageDetailsPage extends StatelessWidget {
   const StudioPackageDetailsPage();
@@ -26,10 +22,8 @@ class StudioPackageDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> _list = [
-      PackageDetailsSectionContainer(),
-      PackageLocationSectionContainer(),
-      PackageImageSectionContainer(),
-      PackageRatingSectionContainer(),
+      StudioDetailsSectionContainer(),
+      StudioImageSectionContainer(),
     ];
 
     return Scaffold(
@@ -52,7 +46,7 @@ class StudioPackageDetailsPage extends StatelessWidget {
             backgroundColor: Colors.white,
             expandedHeight: 375,
             flexibleSpace: FlexibleSpaceBar(
-              background: PackageMainTopSectionContainer(),
+              background: StudioMainTopSectionContainer(),
               stretchModes: [
                 StretchMode.zoomBackground,
               ],
@@ -68,39 +62,13 @@ class StudioPackageDetailsPage extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: PackageBottomSectionContainer(onTap: () {
-        final package = context.read<Bookings>().package;
-        if (package?.type == 1 || package?.type == 3) {
-          if (package?.id != null) {
-            ShowLoadingDialog(context);
-            context
-                .read<Bookings>()
-                .fetchAndSetAvailableDates()
-                .then((response) {
-              ShowLoadingDialog(context, dismiss: true);
-              if (response?.statusCode == 200) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Scaffold(),
-                  ),
-                );
-              } else {
-                ShowOkDialog(
-                  context,
-                  response?.message ?? ErrorMessages.somethingWrong,
-                );
-              }
-            });
-          }
-        } else {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => MultiSessionBookingPage(),
-            ),
-          );
-        }
+      bottomNavigationBar: StudioBottomSectionContainer(onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => StudioSpecsSelectorPage(),
+          ),
+        );
       }),
     );
   }

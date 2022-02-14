@@ -10,6 +10,7 @@ import 'package:country_code_picker/country_localizations.dart';
 import './providers/auth.dart';
 import './providers/appData.dart';
 import './providers/bookings.dart';
+import './providers/studio.dart';
 //WIDGETS
 //PAGES
 import './pages/general/splashscreen.dart';
@@ -98,6 +99,26 @@ class MyApp extends StatelessWidget {
           ),
           create: (context) => Bookings('', null, [], [], [], [], [], [], {},
               {}, {}, {}, '', '', {}, [], [], null, [], null, [], ''),
+        ),
+        ChangeNotifierProxyProvider<Auth, Studio>(
+          update: (context, auth, previousStudio) => Studio(
+            auth.token,
+            previousStudio == null ? null : previousStudio.studioPackage,
+            previousStudio == null ? [] : previousStudio.benefits,
+            previousStudio == null ? [] : previousStudio.packageMedia,
+            previousStudio == null ? [] : previousStudio.selectedAlbumSize,
+            previousStudio == null ? [] : previousStudio.selectedSpreads,
+            previousStudio == null ? [] : previousStudio.selectedPaperType,
+            previousStudio == null ? [] : previousStudio.selectedCoverType,
+            previousStudio == null ? [] : previousStudio.selectedCanvasSize,
+            previousStudio == null
+                ? []
+                : previousStudio.selectedCanvasThickness,
+            previousStudio == null ? [] : previousStudio.selectedPrintType,
+            previousStudio == null ? [] : previousStudio.selectedPhotoPaperSize,
+          ),
+          create: (context) =>
+              Studio('', null, [], [], [], [], [], [], [], [], [], []),
         ),
       ],
       child: MaterialApp(

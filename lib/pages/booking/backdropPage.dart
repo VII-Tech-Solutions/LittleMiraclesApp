@@ -1,5 +1,4 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/showOkDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 //EXTENSIONS
@@ -17,6 +16,7 @@ import '../../widgets/appbars/appBarWithBack.dart';
 import '../../widgets/bookingSessionContainers/selectionRow.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/form/textQuestionWidget.dart';
+import '../../widgets/dialogs/showOkDialog.dart';
 //PAGES
 
 class BackdropPage extends StatefulWidget {
@@ -180,7 +180,6 @@ class _BackdropPageState extends State<BackdropPage> {
                 Map<int, List<int>> backdropsMap = {
                   widget.subPackage!.id!: _selectedItems,
                 };
-                print('I CAME HERE POTATO: $backdropsMap');
                 bookingsProvider.amendSubSessionBookingDetails(
                   SubSessionBookingDetailsType.backdrop,
                   backdropsMap,

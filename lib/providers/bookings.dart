@@ -352,9 +352,6 @@ class Bookings with ChangeNotifier {
       _packageReviews =
           reviewsData.map((json) => Review.fromJson(json)).toList();
 
-      _packageReviews =
-          reviewsData.map((json) => Review.fromJson(json)).toList();
-
       _subPackages =
           subPackagesData.map((json) => SubPackage.fromJson(json)).toList();
 

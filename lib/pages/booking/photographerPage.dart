@@ -75,7 +75,6 @@ class _PhotographerPageState extends State<PhotographerPage> {
                   Map<int, List<int>> photographersMap = {
                     widget.subPackage!.id!: _selectedItems,
                   };
-                  print('I CAME HERE POTATO: $photographersMap');
                   bookingsProvider.amendSubSessionBookingDetails(
                     SubSessionBookingDetailsType.photographer,
                     photographersMap,

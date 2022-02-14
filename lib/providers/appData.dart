@@ -266,6 +266,25 @@ class AppData with ChangeNotifier {
     return [...finalList];
   }
 
+  List<StudioMetadata> getStudioMetadata(int category) {
+    return [
+      ..._studioMetadataList
+          .where((element) => element.category == category)
+          .toList()
+    ];
+  }
+
+  List<StudioMetadata> getSelectedStudioMetadataByIds(
+      List<int> list, int category) {
+    List<StudioMetadata> finalList = [];
+    list.forEach((id) {
+      final item = _studioMetadataList.firstWhere(
+          (element) => element.id == id && element.category == category);
+      finalList.add(item);
+    });
+    return [...finalList];
+  }
+
   List<Photographer> getPhotographersByIds(List<int> list) {
     List<Photographer> finalList = [];
     list.forEach((id) {

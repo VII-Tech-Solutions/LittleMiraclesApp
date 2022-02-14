@@ -202,7 +202,6 @@ class _CakePageState extends State<CakePage> {
               Map<int, List<int>> cakesMap = {
                 widget.subPackage!.id!: _selectedItems,
               };
-              print('I CAME HERE POTATO: $cakesMap');
               bookingsProvider.amendSubSessionBookingDetails(
                 SubSessionBookingDetailsType.cake,
                 cakesMap,

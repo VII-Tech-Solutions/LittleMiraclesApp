@@ -8,7 +8,7 @@ import '../../global/const.dart';
 //MODELS
 import '../../models/studioPackage.dart';
 //PROVIDERS
-import '../../providers/bookings.dart';
+import '../../providers/studio.dart';
 //WIDGETS
 import '../general/cachedImageWidget.dart';
 import '../texts/titleText.dart';
@@ -27,8 +27,10 @@ class StudioContainer extends StatelessWidget {
       onTap: () {
         if (package?.id != null) {
           ShowLoadingDialog(context);
+
+          context.read<Studio>().assignStudioPackage(package); //TODO:: remove later
           context
-              .read<Bookings>()
+              .read<Studio>()
               .fetchAndSetPackageDetails(package!.id!)
               .then((response) {
             ShowLoadingDialog(context, dismiss: true);
