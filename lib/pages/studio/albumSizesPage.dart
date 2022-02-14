@@ -25,7 +25,7 @@ class AlbumSizePage extends StatefulWidget {
 }
 
 class _AlbumSizePageState extends State<AlbumSizePage> {
-  List<int> _selectedItems = [];
+  // List<int> _selectedItems = [];
   StudioMetadata? _selectedItem;
 
   final _unselectedDecoration = BoxDecoration(
@@ -46,18 +46,17 @@ class _AlbumSizePageState extends State<AlbumSizePage> {
     ),
   );
 
-  @override
-  void initState() {
-    List<int> selectedList = [];
-    selectedList = context.read<Studio>().selectedAlbumSize;
+  // @override
+  // void initState() {
+  // final selectedAlbumSize = context.read<Studio>().selectedAlbumSize;
 
-    if (selectedList.isNotEmpty) {
-      setState(() {
-        _selectedItems = selectedList;
-      });
-    }
-    super.initState();
-  }
+  // if (selectedAlbumSize != null) {
+  //   setState(() {
+  //     _selectedItems.add(selectedAlbumSize.id!);
+  //   });
+  // }
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -111,11 +110,10 @@ class _AlbumSizePageState extends State<AlbumSizePage> {
                     (item) => InkWell(
                       onTap: () {
                         setState(() {
-                          if (_selectedItems.contains(item.id)) {
-                            _selectedItems.clear();
+                          if (_selectedItem?.id == item.id) {
+                            _selectedItem = null;
                           } else {
-                            _selectedItems.clear();
-                            _selectedItems.add(item.id!);
+                            _selectedItem = item;
                           }
                         });
                       },
@@ -127,7 +125,7 @@ class _AlbumSizePageState extends State<AlbumSizePage> {
                             height: double.infinity,
                             margin: const EdgeInsets.all(6),
                             padding: const EdgeInsets.all(10),
-                            decoration: _selectedItems.contains(item.id) == true
+                            decoration: _selectedItem?.id == item.id
                                 ? _selectedDecoration
                                 : _unselectedDecoration,
                             child: Column(
@@ -151,7 +149,7 @@ class _AlbumSizePageState extends State<AlbumSizePage> {
                             ),
                           ),
                           Visibility(
-                            visible: _selectedItems.contains(item.id) == true,
+                            visible: _selectedItem?.id == item.id,
                             child: Container(
                               width: 20,
                               height: 20,
@@ -212,10 +210,9 @@ class _AlbumSizePageState extends State<AlbumSizePage> {
       bottomNavigationBar: StudioBottomSectionContainer(
           btnLabel: 'Confirm Size',
           onTap: () {
-            if (_selectedItems.isNotEmpty) {
-              // studioProvider.assignSelectedBackdrops(
-              //     _selectedItems, _customBackdrop);
-
+            if (_selectedItem != null) {
+              context.read<Studio>().assignSelectedSpec(
+                  StudioMetaCategory.albumSize, _selectedItem);
               Navigator.pop(context);
             } else {
               ShowOkDialog(context, 'Please select an album size to proceed');

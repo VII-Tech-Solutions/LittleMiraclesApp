@@ -31,15 +31,17 @@ class AlbumSizeSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final studioProvider = context.watch<Studio>();
-    return studioProvider.selectedAlbumSize.length > 0
+    final selectedAlbumSize = context.watch<Studio>().selectedAlbumSize;
+    return selectedAlbumSize != null
         ? Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TitleText(
                 title: 'Album Size',
-                customPadding: const EdgeInsets.only(bottom: 10),
+                customPadding: const EdgeInsets.only(bottom: 10, top: 20),
+                type: TitleTextType.subTitleBlack,
+                weight: FontWeight.w800,
               ),
               InkWell(
                 onTap: () => _goToItemsPage(context),
@@ -59,43 +61,31 @@ class AlbumSizeSelector extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                        child: Column(
-                          children: context
-                              .watch<AppData>()
-                              .getSelectedStudioMetadataByIds(
-                                studioProvider.selectedAlbumSize,
-                                StudioMetaCategory.albumSize,
-                              )
-                              .map(
-                                (e) => Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 5),
-                                  child: Row(children: [
-                                    SizedBox(
-                                      height: 48,
-                                      width: 48,
-                                      child: CachedImageWidget(
-                                        e.image,
-                                        ImageShape.square,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16),
-                                        child: Text(
-                                          e.title ?? '',
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w800,
-                                              color: AppColors.black45515D),
-                                        ),
-                                      ),
-                                    ),
-                                  ]),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5),
+                          child: Row(children: [
+                            SizedBox(
+                              height: 48,
+                              width: 48,
+                              child: CachedImageWidget(
+                                selectedAlbumSize.image,
+                                ImageShape.square,
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
+                                child: Text(
+                                  selectedAlbumSize.title ?? '',
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w800,
+                                      color: AppColors.black45515D),
                                 ),
-                              )
-                              .toList(),
+                              ),
+                            ),
+                          ]),
                         ),
                       ),
                       Padding(

@@ -103,22 +103,24 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProxyProvider<Auth, Studio>(
           update: (context, auth, previousStudio) => Studio(
             auth.token,
-            previousStudio == null ? null : previousStudio.studioPackage,
             previousStudio == null ? [] : previousStudio.benefits,
             previousStudio == null ? [] : previousStudio.packageMedia,
-            previousStudio == null ? [] : previousStudio.selectedAlbumSize,
-            previousStudio == null ? [] : previousStudio.selectedSpreads,
-            previousStudio == null ? [] : previousStudio.selectedPaperType,
-            previousStudio == null ? [] : previousStudio.selectedCoverType,
-            previousStudio == null ? [] : previousStudio.selectedCanvasSize,
+            previousStudio == null ? null : previousStudio.studioPackage,
+            previousStudio == null ? null : previousStudio.selectedAlbumSize,
+            previousStudio == null ? null : previousStudio.selectedSpreads,
+            previousStudio == null ? null : previousStudio.selectedPaperType,
+            previousStudio == null ? null : previousStudio.selectedCoverType,
+            previousStudio == null ? null : previousStudio.selectedCanvasSize,
             previousStudio == null
-                ? []
+                ? null
                 : previousStudio.selectedCanvasThickness,
-            previousStudio == null ? [] : previousStudio.selectedPrintType,
-            previousStudio == null ? [] : previousStudio.selectedPhotoPaperSize,
+            previousStudio == null ? null : previousStudio.selectedPrintType,
+            previousStudio == null
+                ? null
+                : previousStudio.selectedPhotoPaperSize,
           ),
-          create: (context) =>
-              Studio('', null, [], [], [], [], [], [], [], [], [], []),
+          create: (context) => Studio(
+              '', [], [], null, null, null, null, null, null, null, null, null),
         ),
       ],
       child: MaterialApp(

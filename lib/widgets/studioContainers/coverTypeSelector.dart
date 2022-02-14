@@ -31,8 +31,8 @@ class CoverTypeSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final studioProvider = context.watch<Studio>();
-    return studioProvider.selectedCoverType.length > 0
+    final selectedCoverType = context.watch<Studio>().selectedCoverType;
+    return selectedCoverType != null
         ? Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,43 +59,31 @@ class CoverTypeSelector extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                        child: Column(
-                          children: context
-                              .watch<AppData>()
-                              .getSelectedStudioMetadataByIds(
-                                studioProvider.selectedCoverType,
-                                StudioMetaCategory.albumSize,
-                              )
-                              .map(
-                                (e) => Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 5),
-                                  child: Row(children: [
-                                    SizedBox(
-                                      height: 48,
-                                      width: 48,
-                                      child: CachedImageWidget(
-                                        e.image,
-                                        ImageShape.square,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16),
-                                        child: Text(
-                                          e.title ?? '',
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w800,
-                                              color: AppColors.black45515D),
-                                        ),
-                                      ),
-                                    ),
-                                  ]),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5),
+                          child: Row(children: [
+                            SizedBox(
+                              height: 48,
+                              width: 48,
+                              child: CachedImageWidget(
+                                selectedCoverType.image,
+                                ImageShape.square,
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
+                                child: Text(
+                                  selectedCoverType.title ?? '',
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w800,
+                                      color: AppColors.black45515D),
                                 ),
-                              )
-                              .toList(),
+                              ),
+                            ),
+                          ]),
                         ),
                       ),
                       Padding(

@@ -3,7 +3,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:collection/collection.dart';
 //EXTENSIONS
 //GLOBAL
 import '../global/const.dart';
@@ -13,9 +12,8 @@ import '../models/apiResponse.dart';
 import '../models/studioPackage.dart';
 import '../models/benefit.dart';
 import '../models/media.dart';
-import '../models/availableDates.dart';
-import '../models/session.dart';
 import '../models/promoCode.dart';
+import '../models/studioMetadata.dart';
 //PROVIDERS
 //WIDGETS
 //PAGES
@@ -28,14 +26,14 @@ class Studio with ChangeNotifier {
 
   //bookings details
   Map _bookingBody = {};
-  List<int> _selectedAlbumSize = [];
-  List<int> _selectedSpreads = [];
-  List<int> _selectedPaperType = [];
-  List<int> _selectedCoverType = [];
-  List<int> _selectedCanvasSize = [];
-  List<int> _selectedCanvasThickness = [];
-  List<int> _selectedPrintType = [];
-  List<int> _selectedPhotoPaperSize = [];
+  StudioMetadata? _selectedAlbumSize;
+  StudioMetadata? _selectedSpreads;
+  StudioMetadata? _selectedPaperType;
+  StudioMetadata? _selectedCoverType;
+  StudioMetadata? _selectedCanvasSize;
+  StudioMetadata? _selectedCanvasThickness;
+  StudioMetadata? _selectedPrintType;
+  StudioMetadata? _selectedPhotoPaperSize;
 
   PromoCode? _promoCode;
   //multi session bookings details
@@ -48,9 +46,9 @@ class Studio with ChangeNotifier {
 
   Studio(
     this.authToken,
-    this._studioPackage,
     this._benefits,
     this._studioPackageMedia,
+    this._studioPackage,
     this._selectedAlbumSize,
     this._selectedSpreads,
     this._selectedPaperType,
@@ -73,47 +71,77 @@ class Studio with ChangeNotifier {
     return [..._studioPackageMedia];
   }
 
-  List<int> get selectedAlbumSize {
-    return [..._selectedAlbumSize];
+  StudioMetadata? get selectedAlbumSize {
+    return _selectedAlbumSize;
   }
 
-  List<int> get selectedSpreads {
-    return [..._selectedSpreads];
+  StudioMetadata? get selectedSpreads {
+    return _selectedSpreads;
   }
 
-  List<int> get selectedPaperType {
-    return [..._selectedPaperType];
+  StudioMetadata? get selectedPaperType {
+    return _selectedPaperType;
   }
 
-  List<int> get selectedCoverType {
-    return [..._selectedCoverType];
+  StudioMetadata? get selectedCoverType {
+    return _selectedCoverType;
   }
 
-  List<int> get selectedCanvasSize {
-    return [..._selectedCanvasSize];
+  StudioMetadata? get selectedCanvasSize {
+    return _selectedCanvasSize;
   }
 
-  List<int> get selectedCanvasThickness {
-    return [..._selectedCanvasThickness];
+  StudioMetadata? get selectedCanvasThickness {
+    return _selectedCanvasThickness;
   }
 
-  List<int> get selectedPrintType {
-    return [..._selectedPrintType];
+  StudioMetadata? get selectedPrintType {
+    return _selectedPrintType;
   }
 
-  List<int> get selectedPhotoPaperSize {
-    return [..._selectedPhotoPaperSize];
+  StudioMetadata? get selectedPhotoPaperSize {
+    return _selectedPhotoPaperSize;
   }
 
-  // void assignSelectedAlbumSize(selectedValue) {
-  //   _selectedBackdrops = selectedList;
+  void assignSelectedSpec(int category, StudioMetadata? data) {
+    switch (category) {
+      case StudioMetaCategory.albumSize:
+        _selectedAlbumSize = data;
+        break;
+      case StudioMetaCategory.spreads:
+        _selectedSpreads = data;
+        break;
+      case StudioMetaCategory.paperType:
+        _selectedPaperType = data;
+        break;
+      case StudioMetaCategory.coverType:
+        _selectedCoverType = data;
+        break;
+      case StudioMetaCategory.canvasThickness:
+        _selectedCanvasThickness = data;
+        break;
+      case StudioMetaCategory.canvasSize:
+        _selectedCanvasSize = data;
+        break;
+      case StudioMetaCategory.printType:
+        _selectedPrintType = data;
+        break;
+      case StudioMetaCategory.paperSize:
+        _selectedPhotoPaperSize = data;
+        break;
+      default:
+    }
 
-  //   amendBookingBody({
-  //     'album_size': _selectedBackdrops,
-  //     'custom_backdrop': _customBackrop,
-  //   });
-  //   notifyListeners();
-  // }
+    notifyListeners();
+  }
+
+  Future<void> amendBookingBody(Map data) async {
+    _bookingBody.addAll({'package_id': _studioPackage?.id});
+
+    _bookingBody.addAll(data);
+
+    print(jsonEncode(_bookingBody));
+  }
 
   //TODO:: this is temporary until the API provides the get studio package details endpoint
   Future<void> assignStudioPackage(StudioPackage? package) async {

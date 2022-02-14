@@ -31,8 +31,8 @@ class PaperTypeSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final studioProvider = context.watch<Studio>();
-    return studioProvider.selectedPaperType.length > 0
+    final selectedPaperType = context.watch<Studio>().selectedPaperType;
+    return selectedPaperType != null
         ? Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,43 +59,31 @@ class PaperTypeSelector extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                        child: Column(
-                          children: context
-                              .watch<AppData>()
-                              .getSelectedStudioMetadataByIds(
-                                studioProvider.selectedPaperType,
-                                StudioMetaCategory.albumSize,
-                              )
-                              .map(
-                                (e) => Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 5),
-                                  child: Row(children: [
-                                    SizedBox(
-                                      height: 48,
-                                      width: 48,
-                                      child: CachedImageWidget(
-                                        e.image,
-                                        ImageShape.square,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16),
-                                        child: Text(
-                                          e.title ?? '',
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w800,
-                                              color: AppColors.black45515D),
-                                        ),
-                                      ),
-                                    ),
-                                  ]),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5),
+                          child: Row(children: [
+                            SizedBox(
+                              height: 48,
+                              width: 48,
+                              child: CachedImageWidget(
+                                selectedPaperType.image,
+                                ImageShape.square,
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
+                                child: Text(
+                                  selectedPaperType.title ?? '',
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w800,
+                                      color: AppColors.black45515D),
                                 ),
-                              )
-                              .toList(),
+                              ),
+                            ),
+                          ]),
                         ),
                       ),
                       Padding(
