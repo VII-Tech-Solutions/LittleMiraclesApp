@@ -11,6 +11,7 @@ import '../database/db_sqflite.dart';
 import '../global/globalHelpers.dart';
 import '../global/globalEnvironment.dart';
 //MODELS
+import '../models/gift.dart';
 import '../models/session.dart';
 import '../models/section.dart';
 import '../models/package.dart';
@@ -64,6 +65,7 @@ class AppData with ChangeNotifier {
   List<StudioPackage> _studioPackages = [];
   List<StudioMetadata> _studioMetadataList = [];
   List<FAQ> _faqsList = [];
+  List<Gift> _giftList = [];
 
   // MAIN PAGES WIDGETS LISTS
   List<Widget> _sessionWidgetsList = [];
@@ -96,6 +98,7 @@ class AppData with ChangeNotifier {
     this._studioPackages,
     this._studioMetadataList,
     this._faqsList,
+    this._giftList,
   );
 
   Future<void> assignSessionById(int? id) async {
@@ -179,6 +182,22 @@ class AppData with ChangeNotifier {
 
   List<Section> get sections {
     return [..._sections];
+  }
+
+  List<Gift> get gifts {
+    return [..._giftList];
+  }
+
+  List<Gift> get availGifts {
+    return [
+      ..._giftList.where((element) => element.sessionId == null).toList()
+    ];
+  }
+
+  List<Gift> get prevGifts {
+    return [
+      ..._giftList.where((element) => element.sessionId != null).toList()
+    ];
   }
 
   Section? get helloSection {
@@ -467,6 +486,9 @@ class AppData with ChangeNotifier {
           return null;
         }
       }
+
+      final giftsJson = result['data']['gifts'] as List;
+      _giftList = giftsJson.map((json) => Gift.fromJson(json)).toList();
 
       notifyListeners();
       return (ApiResponse(
