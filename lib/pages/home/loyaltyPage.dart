@@ -10,10 +10,11 @@ import '../../../global/colors.dart';
 import '../../../widgets/buttons/iconButtonWidget.dart';
 import '../../widgets/general/cachedImageWidget.dart';
 import '../../widgets/texts/titleText.dart';
+import '../../widgets/dialogs/giftDialog.dart';
 //PAGES
 
 class LoyaltyPage extends StatelessWidget {
-  const LoyaltyPage({Key? key}) : super(key: key);
+  const LoyaltyPage();
 
   SliverAppBar _appBar(BuildContext context) {
     return SliverAppBar(
@@ -75,65 +76,72 @@ class LoyaltyPage extends StatelessWidget {
     );
   }
 
-  Widget _giftContainer({bool isPrevious = false}) {
-    return ShaderMask(
-      blendMode: isPrevious ? BlendMode.modulate : BlendMode.dst,
-      shaderCallback: (Rect bounds) {
-        return LinearGradient(
-          colors: [
-            Colors.white.withOpacity(0.7),
-            Colors.white.withOpacity(0.7),
-          ],
-        ).createShader(bounds);
-      },
-      child: Container(
-        height: 292,
-        padding: const EdgeInsets.fromLTRB(16, 16, 16, 18),
-        margin: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-        decoration: BoxDecoration(
-          color: AppColors.blueE8F3F5,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: double.infinity,
-              height: 177,
-              child: CachedImageWidget(
-                'https://i.picsum.photos/id/519/500/300.jpg?hmac=83TIFVeExRO0IX7DY_pC9kSeIVFF-hhXAtqQXCSB-os',
-                ImageShape.rectangle,
+  Widget _giftContainer(BuildContext context, {bool isPrevious = false}) {
+    return InkWell(
+      onTap: isPrevious == true
+          ? null
+          : () {
+              giftDialog(context);
+            },
+      child: ShaderMask(
+        blendMode: isPrevious ? BlendMode.modulate : BlendMode.dst,
+        shaderCallback: (Rect bounds) {
+          return LinearGradient(
+            colors: [
+              Colors.white.withOpacity(0.7),
+              Colors.white.withOpacity(0.7),
+            ],
+          ).createShader(bounds);
+        },
+        child: Container(
+          height: 292,
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 18),
+          margin: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+          decoration: BoxDecoration(
+            color: AppColors.blueE8F3F5,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: double.infinity,
+                height: 177,
+                child: CachedImageWidget(
+                  'https://i.picsum.photos/id/519/500/300.jpg?hmac=83TIFVeExRO0IX7DY_pC9kSeIVFF-hhXAtqQXCSB-os',
+                  ImageShape.rectangle,
+                ),
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TitleText(
-                  title: 'Mini Session',
-                  customPadding: null,
-                  type: TitleTextType.secondaryTitle,
-                  weight: FontWeight.w800,
-                ),
-                TitleText(
-                  title: 'MINIME123',
-                  customPadding: null,
-                  type: TitleTextType.secondaryTitle,
-                  weight: FontWeight.w600,
-                ),
-              ],
-            ),
-            TitleText(
-              title: 'Available',
-              customPadding: null,
-              type: TitleTextType.secondaryTitle,
-            ),
-            TitleText(
-              title: '*This gift is valid until 21/12/2021',
-              customPadding: null,
-              type: TitleTextType.secondaryTitle,
-            ),
-          ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TitleText(
+                    title: 'Mini Session',
+                    customPadding: null,
+                    type: TitleTextType.secondaryTitle,
+                    weight: FontWeight.w800,
+                  ),
+                  TitleText(
+                    title: 'MINIME123',
+                    customPadding: null,
+                    type: TitleTextType.secondaryTitle,
+                    weight: FontWeight.w600,
+                  ),
+                ],
+              ),
+              TitleText(
+                title: 'Available',
+                customPadding: null,
+                type: TitleTextType.secondaryTitle,
+              ),
+              TitleText(
+                title: '*This gift is valid until 21/12/2021',
+                customPadding: null,
+                type: TitleTextType.secondaryTitle,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -170,7 +178,7 @@ class LoyaltyPage extends StatelessWidget {
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
-                  return _giftContainer();
+                  return _giftContainer(context);
                 },
                 childCount: 1,
               ),
@@ -195,7 +203,7 @@ class LoyaltyPage extends StatelessWidget {
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
-                  return _giftContainer(isPrevious: true);
+                  return _giftContainer(context, isPrevious: true);
                 },
                 childCount: 3,
               ),
