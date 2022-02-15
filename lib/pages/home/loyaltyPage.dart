@@ -147,26 +147,21 @@ class LoyaltyPage extends StatelessWidget {
           _appBar(context),
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TitleText(
-                        title: 'Congratulations!',
-                        customPadding: const EdgeInsets.only(top: 16),
-                      ),
-                      TitleText(
-                        title:
-                            'You have completed 5 sessions with us and this calls for a celebration! 🥳 Please enter the promo code at check out:',
-                        customPadding: const EdgeInsets.only(top: 3),
-                        type: TitleTextType.secondaryTitle,
-                      ),
-                    ],
-                  );
-                },
-                childCount: 1,
+            sliver: SliverToBoxAdapter(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TitleText(
+                    title: 'Congratulations!',
+                    customPadding: const EdgeInsets.only(top: 16),
+                  ),
+                  TitleText(
+                    title:
+                        'You have completed 5 sessions with us and this calls for a celebration! 🥳 Please enter the promo code at check out:',
+                    customPadding: const EdgeInsets.only(top: 3),
+                    type: TitleTextType.secondaryTitle,
+                  ),
+                ],
               ),
             ),
           ),

@@ -457,9 +457,6 @@ class AppData with ChangeNotifier {
 
       final result = json.decode(response.body);
 
-      print(response.statusCode);
-      print(response.body);
-
       if (response.statusCode != 200) {
         if ((response.statusCode >= 400 && response.statusCode <= 499) ||
             response.statusCode == 503) {
@@ -1085,6 +1082,7 @@ class AppData with ChangeNotifier {
   }
 
   Future<void> generateBookingsPageWidgets() async {
+    _bookingList.clear();
     if (_packages.isNotEmpty) {
       _packages.forEach((element) {
         _bookingList.add(PackageContainer(element));
@@ -1093,6 +1091,7 @@ class AppData with ChangeNotifier {
   }
 
   Future<void> generateStudioPageWidgets() async {
+    _studioList.clear();
     if (_studioPackages.isNotEmpty) {
       _studioPackages.forEach((element) {
         _studioList.add(StudioContainer(element));

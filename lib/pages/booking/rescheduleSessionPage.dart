@@ -45,7 +45,6 @@ class RescheduleSessionPage extends StatelessWidget {
               child: CalendarContainer(
                 onChangeCallback: (val) {
                   date = val?['date'];
-                  print(date);
                 },
               ),
             ),
@@ -54,7 +53,6 @@ class RescheduleSessionPage extends StatelessWidget {
               child: AvailableTimeContainer(
                 onChangeCallback: (val) {
                   time = val?['time'];
-                  print(time);
                 },
               ),
             ),
@@ -62,8 +60,6 @@ class RescheduleSessionPage extends StatelessWidget {
               onPress: () {
                 final appDataProvider = context.read<AppData>();
                 final bookingsProvider = context.read<Bookings>();
-                print(date);
-                print(time);
                 if (date == null) {
                   ShowOkDialog(context, 'Please select a date to proceed');
                 } else if (time == null) {

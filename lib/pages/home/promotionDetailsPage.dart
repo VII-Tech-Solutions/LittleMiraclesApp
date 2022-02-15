@@ -96,17 +96,13 @@ class PromotionDetails extends StatelessWidget {
                 ),
               ),
               FilledButtonWidget(
-                margin: EdgeInsets.only(
-                  top: 30.0,
-                  bottom: 49.0,
-                ),
                 onPress: () {
                   final snackBar = SnackBar(
                     behavior: SnackBarBehavior.floating,
                     elevation: 2,
                     duration: Duration(seconds: 2),
                     content: Padding(
-                      padding: EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 20.0),
+                      padding: const EdgeInsets.all(10),
                       child: Text(
                         'Promo Code Copied',
                         style: TextStyle(
@@ -116,7 +112,6 @@ class PromotionDetails extends StatelessWidget {
                       ),
                     ),
                     backgroundColor: AppColors.black2D3B48,
-                    width: 343,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
@@ -126,6 +121,7 @@ class PromotionDetails extends StatelessWidget {
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },
+                margin: const EdgeInsets.only(top: 30.0, bottom: 49.0),
                 type: ButtonType.generalBlue,
                 title: 'Copy Promo Code',
               ),

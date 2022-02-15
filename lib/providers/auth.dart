@@ -226,8 +226,6 @@ class Auth with ChangeNotifier {
       _questions =
           extractedData.map((json) => Question.fromJson(json)).toList();
 
-      print('questions fetched: ${_questions.length}');
-
       notifyListeners();
       return ApiResponse(statusCode: response.statusCode);
     } on TimeoutException catch (e) {
@@ -256,9 +254,6 @@ class Auth with ChangeNotifier {
           .timeout(Duration(seconds: Timeout.value));
 
       final result = json.decode(response.body);
-
-      print(response.statusCode);
-      print(response.body);
 
       if (response.statusCode != 200) {
         if ((response.statusCode >= 400 && response.statusCode <= 499) ||
@@ -401,9 +396,6 @@ class Auth with ChangeNotifier {
           .timeout(Duration(seconds: Timeout.value));
 
       final result = json.decode(response.body);
-
-      print(response.statusCode);
-      print(response.body);
 
       if (response.statusCode != 200) {
         if ((response.statusCode >= 400 && response.statusCode <= 499) ||

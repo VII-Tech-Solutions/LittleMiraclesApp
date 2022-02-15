@@ -222,26 +222,18 @@ class Bookings with ChangeNotifier {
     switch (dataType) {
       case SubSessionBookingDetailsType.backdrop:
         _subSessionSelectedBackdrops.addAll(data);
-        print(_subSessionSelectedBackdrops.length);
-        print(_subSessionSelectedBackdrops);
         break;
 
       case SubSessionBookingDetailsType.cake:
         _subSessionSelectedCakes.addAll(data);
-        print(_subSessionSelectedCakes.length);
-        print(_subSessionSelectedCakes);
         break;
 
       case SubSessionBookingDetailsType.photographer:
         _subSessionSelectedPhotographer.addAll(data);
-        print(_subSessionSelectedPhotographer.length);
-        print(_subSessionSelectedPhotographer);
         break;
 
       case SubSessionBookingDetailsType.subSession:
         _subSessionsTemporaryBooked.addAll(data);
-        print(_subSessionsTemporaryBooked.length);
-        print(_subSessionsTemporaryBooked);
         break;
     }
     notifyListeners();
@@ -442,9 +434,6 @@ class Bookings with ChangeNotifier {
 
       final result = json.decode(response.body);
 
-      print(response.statusCode);
-      print(response.body);
-
       if (response.statusCode != 200) {
         if ((response.statusCode >= 400 && response.statusCode <= 499) ||
             response.statusCode == 503) {
@@ -460,9 +449,6 @@ class Bookings with ChangeNotifier {
 
       final sessionsList =
           sessionsJson.map((json) => Session.fromJson(json)).toList();
-
-      print(sessionsList.first.id);
-      print(sessionsList.length);
 
       _session = sessionsList.last;
 
@@ -499,9 +485,6 @@ class Bookings with ChangeNotifier {
 
       final result = json.decode(response.body);
 
-      print(response.statusCode);
-      print(response.body);
-
       if (response.statusCode != 200) {
         if ((response.statusCode >= 400 && response.statusCode <= 499) ||
             response.statusCode == 503) {
@@ -521,9 +504,6 @@ class Bookings with ChangeNotifier {
 
       final subSessionList =
           subSessionsJson.map((json) => Session.fromJson(json)).toList();
-
-      print(sessionsList.first.id);
-      print(subSessionList.length);
 
       _session = sessionsList.last;
       _subSessions = subSessionList;
@@ -560,9 +540,6 @@ class Bookings with ChangeNotifier {
           .timeout(Duration(seconds: Timeout.value));
 
       final result = json.decode(response.body);
-
-      print(response.statusCode);
-      print(response.body);
 
       if (response.statusCode != 200) {
         if ((response.statusCode >= 400 && response.statusCode <= 499) ||
@@ -619,9 +596,6 @@ class Bookings with ChangeNotifier {
 
       final result = json.decode(response.body);
 
-      print(response.statusCode);
-      print(response.body);
-
       if (response.statusCode != 200) {
         if ((response.statusCode >= 400 && response.statusCode <= 499) ||
             response.statusCode == 503) {
@@ -671,9 +645,6 @@ class Bookings with ChangeNotifier {
       ).timeout(Duration(seconds: Timeout.value));
 
       final result = json.decode(response.body);
-
-      print(response.statusCode);
-      print(response.body);
 
       if (response.statusCode != 200) {
         if ((response.statusCode >= 400 && response.statusCode <= 499) ||
@@ -774,8 +745,6 @@ class Bookings with ChangeNotifier {
       _feedbackQuestions =
           extractedData.map((json) => Question.fromJson(json)).toList();
 
-      print('questions fetched: ${_feedbackQuestions.length}');
-
       notifyListeners();
       return (ApiResponse(
         statusCode: response.statusCode,
@@ -792,8 +761,6 @@ class Bookings with ChangeNotifier {
       int? sessionId, dynamic feedbackQuestions) async {
     final url = Uri.parse('$apiLink/sessions/$sessionId/feedback');
 
-    print(jsonEncode(feedbackQuestions));
-
     try {
       final response = await http
           .post(
@@ -809,8 +776,6 @@ class Bookings with ChangeNotifier {
           .timeout(Duration(seconds: Timeout.value));
 
       final result = json.decode(response.body);
-
-      print(result);
 
       if (response.statusCode != 200) {
         if ((response.statusCode >= 400 && response.statusCode <= 499) ||
@@ -839,10 +804,6 @@ class Bookings with ChangeNotifier {
       int? sessionId, dynamic rate, String comment) async {
     final url = Uri.parse('$apiLink/sessions/$sessionId/review');
 
-    print(session?.id);
-    print(rate);
-    print(comment);
-
     try {
       final response = await http.post(
         url,
@@ -859,8 +820,6 @@ class Bookings with ChangeNotifier {
       ).timeout(Duration(seconds: Timeout.value));
 
       final result = json.decode(response.body);
-
-      print(result);
 
       if (response.statusCode != 200) {
         if ((response.statusCode >= 400 && response.statusCode <= 499) ||

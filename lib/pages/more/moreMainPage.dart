@@ -107,7 +107,6 @@ class MoreMainPage extends StatelessWidget {
   bool _isAuthenticated(BuildContext context) {
     final isAuth = context.read<Auth>().isAuth;
 
-    print(isAuth);
 
     if (isAuth == false) {
       final snackBar = SnackBar(

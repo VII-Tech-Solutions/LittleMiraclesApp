@@ -132,12 +132,6 @@ class _PlayrgoundPageState extends State<PlayrgoundPage> {
             ),
             InkWell(
               onTap: () {
-                // print(something.containsKey('sub_sessions'));
-                // final something2 =
-                //     something['sub_sessions'] as List<Map<String, dynamic>>;
-
-                print(_subSessionsTemporaryBooked);
-
                 _subSessionsTemporaryBooked.addAll({
                   1: {
                     'sub_package_id': 1,
