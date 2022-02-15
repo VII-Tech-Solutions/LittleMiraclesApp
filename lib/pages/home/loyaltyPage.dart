@@ -14,10 +14,11 @@ import '../../providers/appData.dart';
 import '../../../widgets/buttons/iconButtonWidget.dart';
 import '../../widgets/general/cachedImageWidget.dart';
 import '../../widgets/texts/titleText.dart';
+import '../../widgets/dialogs/giftDialog.dart';
 //PAGES
 
 class LoyaltyPage extends StatelessWidget {
-  const LoyaltyPage({Key? key}) : super(key: key);
+  const LoyaltyPage();
 
   SliverAppBar _appBar(BuildContext context) {
     return SliverAppBar(

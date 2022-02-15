@@ -66,7 +66,9 @@ class HomeSessionContainer extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CompletedSessionDetailsPage(),
+                  builder: (context) => session?.subSessionsIds != null
+                      ? UpcomingSessionDetailsPage()
+                      : CompletedSessionDetailsPage(),
                 ),
               );
             } else {
