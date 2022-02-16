@@ -12,7 +12,8 @@ import '../../widgets/buttons/filledButtonWidget.dart';
 
 class PaymentBottomContainer extends StatelessWidget {
   final VoidCallback? onTapCallback;
-  const PaymentBottomContainer({@required this.onTapCallback});
+  String? title;
+  PaymentBottomContainer({@required this.onTapCallback, this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +59,7 @@ class PaymentBottomContainer extends StatelessWidget {
                 customWidth: 200,
                 onPress: onTapCallback,
                 type: ButtonType.generalBlue,
-                title: 'Confirm & Pay',
+                title: title,
               ),
             ],
           ),

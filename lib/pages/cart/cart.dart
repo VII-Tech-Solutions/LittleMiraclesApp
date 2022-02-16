@@ -117,7 +117,10 @@ class Cart extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: PaymentBottomContainer(onTapCallback: () {}),
+      bottomNavigationBar: PaymentBottomContainer(
+        onTapCallback: () {},
+        title: 'Continue to Checkout',
+      ),
     );
   }
 }
