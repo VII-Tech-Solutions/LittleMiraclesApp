@@ -59,6 +59,10 @@ class Studio with ChangeNotifier {
     this._selectedPhotoPaperSize,
   );
 
+  PromoCode? get promoCode {
+    return _promoCode;
+  }
+
   StudioPackage? get studioPackage {
     return _studioPackage;
   }
@@ -102,6 +106,32 @@ class Studio with ChangeNotifier {
   StudioMetadata? get selectedPhotoPaperSize {
     return _selectedPhotoPaperSize;
   }
+
+  Future<void> applyPromoCode(String code) async {
+    try {
+      _promoCode = PromoCode(
+        code: code,
+        message: 'eat potato',
+        originalPrice: '80.0',
+        discountPrice: '80.0',
+        totalPrice: '0.0',
+      );
+
+      notifyListeners();
+    } on TimeoutException catch (e) {
+      print('Exception Timeout:: $e');
+      return null;
+    } catch (e) {
+      print('catch error:: $e');
+      return null;
+    }
+  } //TODO:: implement function
+
+  Future<void> removePromoCode() async {
+    _promoCode = null;
+
+    notifyListeners();
+  } //TODO:: implement function
 
   void assignSelectedSpec(int category, StudioMetadata? data) {
     switch (category) {

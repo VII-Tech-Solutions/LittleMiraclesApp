@@ -1,14 +1,16 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/global/colors.dart';
-import 'package:LMP0001_LittleMiraclesApp/widgets/paymentContainer/paymentBottomContainer.dart';
-import 'package:LMP0001_LittleMiraclesApp/widgets/paymentContainer/promoCodeContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 //EXTENSIONS
 //GLOBAL
+import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
+import '../../providers/studio.dart';
 //WIDGETS
+import '../../widgets/paymentContainer/studioPaymentBottomContainer.dart';
+import '../../widgets/paymentContainer/studioPromoCodeContainer.dart';
 import '../../widgets/containers/cartItem.dart';
 import '../../widgets/appbars/appBarWithBack.dart';
 //PAGES
@@ -18,6 +20,7 @@ class Cart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final promoCode = context.watch<Studio>().promoCode;
     return Scaffold(
       appBar: AppBarWithBack(
         title: 'Shopping Cart',
@@ -34,24 +37,23 @@ class Cart extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.38,
-                    child: ListView(
-                      children: [
-                        CartItem(),
-                        CartItem(),
-                        CartItem(),
-                      ],
-                    ),
-                  ),
+                  CartItem(),
+                  CartItem(),
+                  CartItem(),
+                  CartItem(),
+                  CartItem(),
+                  CartItem(),
                 ],
               ),
             ),
-            Divider(
-              height: 1,
-              thickness: 1,
+            Padding(
+              padding: const EdgeInsets.only(top: 14.5),
+              child: Divider(
+                height: 1,
+                thickness: 1,
+              ),
             ),
-            PromoCodeContainer(),
+            StudioPromoCodeContainer(),
             Divider(
               height: 1,
               thickness: 1,
@@ -114,12 +116,56 @@ class Cart extends StatelessWidget {
                 ],
               ),
             ),
+            Visibility(
+              visible: promoCode != null,
+              child: Column(
+                children: [
+                  Divider(
+                    indent: 17,
+                    endIndent: 17,
+                    height: 1,
+                    thickness: 1,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 14.9, 20, 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Promo code',
+                          style: TextStyle(
+                            fontFamily: GoogleFonts.manrope().fontFamily,
+                            fontWeight: FontWeight.w800,
+                            fontSize: 14,
+                            color: AppColors.black45515D,
+                          ),
+                        ),
+                        Text(
+                          '-BD ${promoCode?.discountPrice ?? 0}',
+                          style: TextStyle(
+                            fontFamily: GoogleFonts.manrope().fontFamily,
+                            fontWeight: FontWeight.w800,
+                            fontSize: 14,
+                            color: AppColors.black45515D,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    height: 1,
+                    thickness: 1,
+                  ),
+                ],
+              ),
+            )
+
+            //TODO:: ADD THE PAYMENT SECTION
           ],
         ),
       ),
-      bottomNavigationBar: PaymentBottomContainer(
+      bottomNavigationBar: StudioPaymentBottomContainer(
         onTapCallback: () {},
-        title: 'Continue to Checkout',
       ),
     );
   }
