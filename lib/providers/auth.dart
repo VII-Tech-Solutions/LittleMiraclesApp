@@ -412,6 +412,194 @@ class Auth with ChangeNotifier {
     }
   }
 
+  Future<ApiResponse?> updatePartner(Map jsonBody) async {
+    final url = Uri.parse('$apiLink/partner');
+
+    try {
+      var response = await http
+          .put(
+            url,
+            headers: {
+              'Content-Type': 'application/json',
+              'Platform': 'ios',
+              'App-Version': '0.0.1',
+              'Authorization': 'Bearer $token',
+            },
+            body: jsonEncode(jsonBody),
+          )
+          .timeout(Duration(seconds: Timeout.value));
+
+      final result = json.decode(response.body);
+
+      if (response.statusCode != 200) {
+        if ((response.statusCode >= 400 && response.statusCode <= 499) ||
+            response.statusCode == 503) {
+          return ApiResponse(
+              statusCode: response.statusCode,
+              message: result['message'].toString());
+        } else {
+          return null;
+        }
+      }
+
+      FamilyMember partner = FamilyMember.fromJson(result['data']['partner']);
+
+      final index =
+          _familyMembers.indexWhere((element) => element.id == partner.id);
+
+      if (partner.id != null && index != -1) {
+        _familyMembers[index] = partner;
+      }
+
+      _familyMembers.forEach((item) {
+        if (item.deletedAt != null) {
+          DBHelper.deleteById(Tables.familyMembers, item.id ?? -1);
+        } else {
+          DBHelper.insert(Tables.familyMembers, item.toMap());
+        }
+      });
+
+      notifyListeners();
+      return (ApiResponse(
+        statusCode: response.statusCode,
+        message: json.decode(response.body)['message'],
+      ));
+    } on TimeoutException catch (e) {
+      print('Exception Timeout:: $e');
+      return null;
+    } catch (e) {
+      print('catch error:: $e');
+      return null;
+    }
+  }
+
+  Future<ApiResponse?> updateChildren(List jsonBody) async {
+    final url = Uri.parse('$apiLink/children');
+
+    try {
+      var response = await http
+          .put(
+            url,
+            headers: {
+              'Content-Type': 'application/json',
+              'Platform': 'ios',
+              'App-Version': '0.0.1',
+              'Authorization': 'Bearer $token',
+            },
+            body: jsonEncode(jsonBody),
+          )
+          .timeout(Duration(seconds: Timeout.value));
+
+      final result = json.decode(response.body);
+
+      if (response.statusCode != 200) {
+        if ((response.statusCode >= 400 && response.statusCode <= 499) ||
+            response.statusCode == 503) {
+          return ApiResponse(
+              statusCode: response.statusCode,
+              message: result['message'].toString());
+        } else {
+          return null;
+        }
+      }
+
+      final childrenJson = result['data']['children'] as List;
+
+      if (childrenJson.isNotEmpty) {
+        _familyMembers.removeWhere((element) => element.relationship == 2);
+        DBHelper.deleteByColumnIntVal(Tables.familyMembers, 'relationship', 2);
+
+        _familyMembers = [
+          ..._familyMembers,
+          ...childrenJson.map((json) => FamilyMember.fromJson(json)).toList()
+        ];
+
+        _familyMembers.forEach((item) {
+          if (item.deletedAt != null) {
+            DBHelper.deleteById(Tables.familyMembers, item.id ?? -1);
+          } else {
+            DBHelper.insert(Tables.familyMembers, item.toMap());
+          }
+        });
+      }
+
+      notifyListeners();
+      return (ApiResponse(
+        statusCode: response.statusCode,
+        message: json.decode(response.body)['message'],
+      ));
+    } on TimeoutException catch (e) {
+      print('Exception Timeout:: $e');
+      return null;
+    } catch (e) {
+      print('catch error:: $e');
+      return null;
+    }
+  }
+
+  Future<ApiResponse?> updateFamilyInfo(List jsonBody) async {
+    final url = Uri.parse('$apiLink/family');
+
+    try {
+      var response = await http
+          .put(
+            url,
+            headers: {
+              'Content-Type': 'application/json',
+              'Platform': 'ios',
+              'App-Version': '0.0.1',
+              'Authorization': 'Bearer $token',
+            },
+            body: jsonEncode(jsonBody),
+          )
+          .timeout(Duration(seconds: Timeout.value));
+
+      print(response.statusCode);
+      print(response.body);
+
+      final result = json.decode(response.body);
+
+      if (response.statusCode != 200) {
+        if ((response.statusCode >= 400 && response.statusCode <= 499) ||
+            response.statusCode == 503) {
+          return ApiResponse(
+              statusCode: response.statusCode,
+              message: result['message'].toString());
+        } else {
+          return null;
+        }
+      }
+
+      final familyInfoJson = result['data']['family'] as List;
+
+      _familyInfoList =
+          familyInfoJson.map((json) => FamilyInfo.fromJson(json)).toList();
+
+      if (_familyInfoList.isNotEmpty) {
+        DBHelper.deleteTable(Tables.familyInfo);
+        _familyInfoList.forEach((item) {
+          if (item.deletedAt != null) {
+            DBHelper.deleteById(Tables.familyInfo, item.id ?? -1);
+          } else {
+            DBHelper.insert(Tables.familyInfo, item.toMap());
+          }
+        });
+      }
+
+      notifyListeners();
+      return (ApiResponse(
+        statusCode: response.statusCode,
+        message: json.decode(response.body)['message'],
+      ));
+    } on TimeoutException catch (e) {
+      print('Exception Timeout:: $e');
+      return null;
+    } catch (e) {
+      print('catch error:: $e');
+      return null;
+    }
+  }
+
   Future<void> changePassword() async {}
 
   Future<void> forgotPasswordRequest() async {}
@@ -485,7 +673,6 @@ class Auth with ChangeNotifier {
       _expiryDate = result['data']['expires'];
       User user = User.fromJson(result['data']['user']);
 
-      //TODO:: this is just a temporary solution, until the API is fixed.
       if (user.status == 1) {
         FamilyMember partner = FamilyMember.fromJson(result['data']['partner']);
         if (partner.id != null) {

@@ -15,9 +15,9 @@ import '../../widgets/texts/titleText.dart';
 import '../../widgets/appbars/appBarWithLogo.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
+import '../../widgets/dialogs/showLoadingDialog.dart';
 import '../../widgets/form/childrenForm.dart';
 //PAGES
-import '../../pages/login/familyPage.dart';
 
 class EditYourChildrenPage extends StatefulWidget {
   const EditYourChildrenPage();
@@ -166,11 +166,30 @@ class _EditYourChildrenPageState extends State<EditYourChildrenPage> {
                   }
 
                   if (isFormValid == true) {
-                    Map childrenData = {"children": childrenList};
+                    List childrenData = childrenList;
 
-                    print(childrenData);
-
-                    //TODO:: INTEGRATE WITH THE API
+                    ShowLoadingDialog(context);
+                    context
+                        .read<Auth>()
+                        .updateChildren(childrenData)
+                        .then((response) {
+                      ShowLoadingDialog(context, dismiss: true);
+                      if (response?.statusCode == 200) {
+                        ShowOkDialog(
+                          context,
+                          response?.message ??
+                              'Children info updated succefully',
+                          title: 'Yaaay',
+                          popWithAction: true,
+                        );
+                      } else {
+                        ShowOkDialog(
+                          context,
+                          response?.message ?? ErrorMessages.somethingWrong,
+                          title: 'Oops',
+                        );
+                      }
+                    });
                   } else {
                     ShowOkDialog(
                       context,
@@ -180,7 +199,7 @@ class _EditYourChildrenPageState extends State<EditYourChildrenPage> {
                   }
                 },
                 type: ButtonType.generalBlue,
-                title: 'Next: Family Info',
+                title: 'Save Changes',
               ),
             ],
           ),

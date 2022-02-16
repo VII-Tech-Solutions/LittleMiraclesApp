@@ -103,7 +103,6 @@ class FreeGiftContainer extends StatelessWidget {
             child: FilledButtonWidget(
               onPress: () {
                 ShowLoadingDialog(context);
-                // TODO:: call fetch and set gifts
                 context.read<AppData>().claimFreeGiftRequest().then((response) {
                   ShowLoadingDialog(context, dismiss: true);
                   if (response?.statusCode == 200) {

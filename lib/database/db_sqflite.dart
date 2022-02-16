@@ -41,7 +41,7 @@ class DBHelper {
         await db.execute(
             'CREATE TABLE ${Tables.photographers}(id INT PRIMARY KEY, name TEXT, image TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
         await db.execute(
-            'CREATE TABLE ${Tables.familyMembers}(id INT PRIMARY KEY, familyId INTEGER, firstName TEXT, lastName TEXT, gender INTEGER, birthDate TEXT, relationship INTEGER, status INTEGER, phoneNumber TEXT, countryCode INTEGER, personality TEXT, updatedAt TEXT, deletedAt TEXT)');
+            'CREATE TABLE ${Tables.familyMembers}(id INT PRIMARY KEY, familyId INTEGER, firstName TEXT, lastName TEXT, gender INTEGER, birthDate TEXT, relationship INTEGER, status INTEGER, phoneNumber TEXT, countryCode TEXT, personality TEXT, updatedAt TEXT, deletedAt TEXT)');
         await db.execute(
             'CREATE TABLE ${Tables.familyInfo}(id INT PRIMARY KEY, userId INTEGER, familyId INTEGER, questionId INTEGER, answer TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
         await db.execute(
@@ -177,6 +177,12 @@ class DBHelper {
   static Future<int> deleteById(String table, int id) async {
     final db = await DBHelper.database();
     return db.delete(table, where: 'id = ?', whereArgs: [id]);
+  }
+
+  static Future<int> deleteByColumnIntVal(
+      String table, String column, int val) async {
+    final db = await DBHelper.database();
+    return db.delete(table, where: '$column = ?', whereArgs: [val]);
   }
 
   static Future<int> deleteAllForUser(String table, String where) async {
