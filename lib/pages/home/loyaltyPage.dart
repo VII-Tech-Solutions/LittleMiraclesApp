@@ -17,8 +17,15 @@ import '../../widgets/texts/titleText.dart';
 import '../../widgets/dialogs/giftDialog.dart';
 //PAGES
 
-class LoyaltyPage extends StatelessWidget {
+class LoyaltyPage extends StatefulWidget {
   const LoyaltyPage();
+
+  @override
+  State<LoyaltyPage> createState() => _LoyaltyPageState();
+}
+
+class _LoyaltyPageState extends State<LoyaltyPage> {
+  String? copiedPromo;
 
   SliverAppBar _appBar(BuildContext context) {
     return SliverAppBar(
@@ -133,11 +140,28 @@ class LoyaltyPage extends StatelessWidget {
               customPadding: null,
               type: TitleTextType.secondaryTitle,
             ),
-            TitleText(
-              title:
-                  '*This gift is valid until ${gift.validUntil.toString().toSlashddMMMyyyy()}',
-              customPadding: null,
-              type: TitleTextType.secondaryTitle,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TitleText(
+                  title:
+                      '*This gift is valid until ${gift.validUntil.toString().toSlashddMMMyyyy()}',
+                  customPadding: null,
+                  type: TitleTextType.secondaryTitle,
+                ),
+                Visibility(
+                  visible: gift.promoCode == copiedPromo,
+                  child: Text(
+                    'Copied',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontFamily: GoogleFonts.manrope().fontFamily,
+                      fontWeight: FontWeight.w800,
+                      color: AppColors.green22D896,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -178,7 +202,23 @@ class LoyaltyPage extends StatelessWidget {
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
-                  return _giftContainer(availGifts[index]);
+                  return GestureDetector(
+                      onTap: () => giftDialog(
+                            context,
+                            availGifts[index].promoCode,
+                            availGifts[index].title,
+                            availGifts[index]
+                                .validUntil
+                                .toString()
+                                .toSlashddMMMyyyy(),
+                            (val) {
+                              print(val);
+                              setState(() {
+                                copiedPromo = val;
+                              });
+                            },
+                          ),
+                      child: _giftContainer(availGifts[index]));
                 },
                 childCount: availGifts.length,
               ),

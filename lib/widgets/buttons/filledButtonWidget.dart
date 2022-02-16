@@ -24,16 +24,17 @@ class FilledButtonWidget extends StatelessWidget {
   final IconData? icon;
   final String? assetName;
   final double? customWidth;
-  const FilledButtonWidget({
-    @required this.onPress,
-    @required this.type,
-    this.isEnabled = true,
-    this.title,
-    this.margin,
-    this.icon,
-    this.assetName,
-    this.customWidth = double.infinity,
-  });
+  final double? height;
+  const FilledButtonWidget(
+      {@required this.onPress,
+      @required this.type,
+      this.isEnabled = true,
+      this.title,
+      this.margin,
+      this.icon,
+      this.assetName,
+      this.customWidth = double.infinity,
+      this.height = 48});
 
   Color? _buildButtonStyle() {
     switch (type) {
@@ -143,13 +144,13 @@ class FilledButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: margin,
-      height: 48,
+      height: height,
       width: customWidth,
       child: InkWell(
         onTap: isEnabled ? onPress : null,
         child: Container(
           width: double.infinity,
-          height: 48,
+          height: height,
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: _buildButtonStyle(),
