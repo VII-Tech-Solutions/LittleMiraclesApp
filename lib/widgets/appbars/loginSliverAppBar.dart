@@ -13,6 +13,7 @@ import '../buttons/filledButtonWidget.dart';
 import '../buttons/iconButtonWidget.dart';
 //PAGES
 import '../../pages/login/loginPage.dart';
+import '../../pages/cart/cart.dart';
 
 class LoginSliverAppBar extends StatelessWidget {
   const LoginSliverAppBar();
@@ -70,7 +71,12 @@ class LoginSliverAppBar extends StatelessWidget {
                     children: [
                       IconButtonWidget(
                           onPress: () {
-                            print('go to cart');
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Cart(),
+                              ),
+                            );
                           },
                           icon: Icons.shopping_cart),
                       SizedBox(width: 16),
