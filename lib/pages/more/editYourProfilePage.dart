@@ -19,6 +19,7 @@ import '../../widgets/form/formTextField.dart';
 import '../../widgets/appbars/appBarWithBack.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
+import '../../widgets/dialogs/showLoadingDialog.dart';
 //PAGES
 
 class EditYourProfilePage extends StatefulWidget {
@@ -67,7 +68,8 @@ class _EditYourProfilePageState extends State<EditYourProfilePage> {
     if (user != null) {
       _firstNameController.text = user.firstName ?? '';
       _lastNameController.text = user.lastName ?? '';
-      _birthdayController.text = 'Birthday\t\t\t\t${DateFormatClass().toddMMyyyy('${user.birthDate}')}';
+      _birthdayController.text =
+          'Birthday\t\t\t\t${DateFormatClass().toddMMyyyy('${user.birthDate}')}';
       _formattedDate = user.birthDate ?? '';
       _phoneController.text = user.phoneNumber ?? '';
 
@@ -304,25 +306,32 @@ class _EditYourProfilePageState extends State<EditYourProfilePage> {
 
           if (isFormValid == true) {
             Map userData = {
-              "user": {
-                "first_name": _firstNameController.text,
-                "last_name": _lastNameController.text,
-                "gender": _genderValue.toInt(),
-                "country_code": _countryCodeValue,
-                "phone_number": _phoneController.text,
-                "birth_date": _formattedDate,
-              },
+              "first_name": _firstNameController.text,
+              "last_name": _lastNameController.text,
+              "gender": _genderValue.toInt(),
+              "country_code": _countryCodeValue,
+              "phone_number": _phoneController.text,
+              "birth_date": _formattedDate,
             };
 
-            print(userData);
-
-            //TODO: call edit profile endpoint
-          } else {
-            ShowOkDialog(
-              context,
-              ErrorMessages.fillRequiredInfo,
-              title: "Oops",
-            );
+            ShowLoadingDialog(context);
+            context.read<Auth>().updateProfile(userData).then((response) {
+              ShowLoadingDialog(context, dismiss: true);
+              if (response?.statusCode == 200) {
+                ShowOkDialog(
+                  context,
+                  response?.message ?? 'Profile updated succefully',
+                  title: 'Yaaay',
+                  popWithAction: true,
+                );
+              } else {
+                ShowOkDialog(
+                  context,
+                  response?.message ?? ErrorMessages.somethingWrong,
+                  title: 'Oops',
+                );
+              }
+            });
           }
         },
         type: ButtonType.generalBlue,
