@@ -6,6 +6,7 @@ import 'package:country_code_picker/country_code_picker.dart';
 import '../../extensions/stringExtension.dart';
 //GLOBAL
 import '../../global/colors.dart';
+import '../../global/const.dart';
 import '../../global/globalHelpers.dart';
 //MODELS
 //PROVIDERS
@@ -15,6 +16,8 @@ import '../../widgets/texts/titleText.dart';
 import '../../widgets/form/formTextField.dart';
 import '../../widgets/appbars/appBarWithLogo.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
+import '../../widgets/dialogs/showOkDialog.dart';
+import '../../widgets/dialogs/showLoadingDialog.dart';
 //PAGES
 import '../../pages/login/childrenPage.dart';
 
@@ -70,7 +73,7 @@ class _EditYourPartnerPageState extends State<EditYourPartnerPage> {
       _phoneController.text = partner.phoneNumber ?? '';
 
       _genderValue = partner.gender.toString();
-      _countryCodeValue = '+${partner.countryCode ?? ''}';
+      _countryCodeValue = '${partner.countryCode ?? ''}';
     }
     super.initState();
   }
@@ -225,20 +228,37 @@ class _EditYourPartnerPageState extends State<EditYourPartnerPage> {
 
                         if (isFormValid == true) {
                           Map partnerData = {
-                            "partner": {
-                              "first_name": _firstNameController.text,
-                              "last_name": _lastNameController.text,
-                              "gender": _genderValue.toInt(),
-                              "country_code": _countryCodeValue,
-                              "phone_number": _phoneController.text,
-                              "birth_date": _formattedDate,
-                            },
+                            "first_name": _firstNameController.text,
+                            "last_name": _lastNameController.text,
+                            "gender": _genderValue.toInt(),
+                            "country_code": _countryCodeValue,
+                            "phone_number": _phoneController.text,
+                            "birth_date": _formattedDate,
                           };
 
-                          print(partnerData);
-
-                          //TODO:: call the endpoint and return back
-
+                          ShowLoadingDialog(context);
+                          context
+                              .read<Auth>()
+                              .updatePartner(partnerData)
+                              .then((response) {
+                            ShowLoadingDialog(context, dismiss: true);
+                            if (response?.statusCode == 200) {
+                              ShowOkDialog(
+                                context,
+                                response?.message ??
+                                    'Partner info updated succefully',
+                                title: 'Yaaay',
+                                popWithAction: true,
+                              );
+                            } else {
+                              ShowOkDialog(
+                                context,
+                                response?.message ??
+                                    ErrorMessages.somethingWrong,
+                                title: 'Oops',
+                              );
+                            }
+                          });
                         }
                       },
                       type: ButtonType.generalBlue,

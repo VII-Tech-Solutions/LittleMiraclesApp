@@ -113,32 +113,31 @@ class _EditYourFamilyInfoPageState extends State<EditYourFamilyInfoPage> {
                 onPress: () {
                   if (context.read<Auth>().questions?.length ==
                       _answersList.length) {
-                    Map familyData = {"family": _answersList};
+                    List familyData = _answersList;
 
                     print(familyData);
 
-                    //TODO:: call the API endpoint
-
-                    // ShowLoadingDialog(context);
-
-                    // context.read<Auth>().register().then((response) {
-                    //   ShowLoadingDialog(context, dismiss: true);
-                    //   if (response?.statusCode == 200) {
-                    //     Navigator.pushAndRemoveUntil(
-                    //       context,
-                    //       MaterialPageRoute(
-                    //         builder: (context) => CustomBottomNavigationBar(),
-                    //       ),
-                    //       (Route<dynamic> route) => false,
-                    //     );
-                    //   } else {
-                    //     ShowOkDialog(
-                    //       context,
-                    //       response?.message ?? ErrorMessages.somethingWrong,
-                    //       title: "Oops",
-                    //     );
-                    //   }
-                    // });
+                    ShowLoadingDialog(context);
+                    context
+                        .read<Auth>()
+                        .updateFamilyInfo(familyData)
+                        .then((response) {
+                      ShowLoadingDialog(context, dismiss: true);
+                      if (response?.statusCode == 200) {
+                        ShowOkDialog(
+                          context,
+                          response?.message ?? 'Family info updated succefully',
+                          title: 'Yaaay',
+                          popWithAction: true,
+                        );
+                      } else {
+                        ShowOkDialog(
+                          context,
+                          response?.message ?? ErrorMessages.somethingWrong,
+                          title: "Oops",
+                        );
+                      }
+                    });
                   } else {
                     ShowOkDialog(
                       context,
