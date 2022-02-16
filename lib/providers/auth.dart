@@ -473,6 +473,70 @@ class Auth with ChangeNotifier {
     }
   }
 
+  Future<ApiResponse?> updateChildren(List jsonBody) async {
+    final url = Uri.parse('$apiLink/children');
+
+    try {
+      var response = await http
+          .put(
+            url,
+            headers: {
+              'Content-Type': 'application/json',
+              'Platform': 'ios',
+              'App-Version': '0.0.1',
+              'Authorization': 'Bearer $token',
+            },
+            body: jsonEncode(jsonBody),
+          )
+          .timeout(Duration(seconds: Timeout.value));
+
+      final result = json.decode(response.body);
+
+      if (response.statusCode != 200) {
+        if ((response.statusCode >= 400 && response.statusCode <= 499) ||
+            response.statusCode == 503) {
+          return ApiResponse(
+              statusCode: response.statusCode,
+              message: result['message'].toString());
+        } else {
+          return null;
+        }
+      }
+
+      final childrenJson = result['data']['children'] as List;
+
+      if (childrenJson.isNotEmpty) {
+        _familyMembers.removeWhere((element) => element.relationship == 2);
+        DBHelper.deleteByColumnIntVal(Tables.familyMembers, 'relationship', 2);
+
+        _familyMembers = [
+          ..._familyMembers,
+          ...childrenJson.map((json) => FamilyMember.fromJson(json)).toList()
+        ];
+
+        _familyMembers.forEach((item) {
+          if (item.deletedAt != null) {
+            DBHelper.deleteById(Tables.familyMembers, item.id ?? -1);
+          } else {
+            DBHelper.insert(Tables.familyMembers, item.toMap());
+          }
+        });
+      }
+
+      notifyListeners();
+      return (ApiResponse(
+        statusCode: response.statusCode,
+        message: json.decode(response.body)['message'],
+      ));
+    } on TimeoutException catch (e) {
+      print('Exception Timeout:: $e');
+      return null;
+    } catch (e) {
+      print('catch error:: $e');
+      return null;
+    }
+  }
+
   Future<ApiResponse?> updateFamilyInfo(List jsonBody) async {
     final url = Uri.parse('$apiLink/family');
 

@@ -179,6 +179,12 @@ class DBHelper {
     return db.delete(table, where: 'id = ?', whereArgs: [id]);
   }
 
+  static Future<int> deleteByColumnIntVal(
+      String table, String column, int val) async {
+    final db = await DBHelper.database();
+    return db.delete(table, where: '$column = ?', whereArgs: [val]);
+  }
+
   static Future<int> deleteAllForUser(String table, String where) async {
     final db = await DBHelper.database();
     return db.delete(table, where: where);
