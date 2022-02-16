@@ -20,7 +20,6 @@ import './editYourFamilyChoicesPage.dart';
 import './aboutUsPage.dart';
 import './faqsPage.dart';
 import '../../pages/general/splashscreen.dart';
-import '../../playground/playgroundPage.dart';
 
 class MoreMainPage extends StatelessWidget {
   const MoreMainPage();
@@ -106,7 +105,6 @@ class MoreMainPage extends StatelessWidget {
 
   bool _isAuthenticated(BuildContext context) {
     final isAuth = context.read<Auth>().isAuth;
-
 
     if (isAuth == false) {
       final snackBar = SnackBar(

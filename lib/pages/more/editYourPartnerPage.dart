@@ -19,7 +19,6 @@ import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
 import '../../widgets/dialogs/showLoadingDialog.dart';
 //PAGES
-import '../../pages/login/childrenPage.dart';
 
 class EditYourPartnerPage extends StatefulWidget {
   const EditYourPartnerPage({Key? key}) : super(key: key);

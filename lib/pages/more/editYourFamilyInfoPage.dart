@@ -20,7 +20,6 @@ import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
 import '../../widgets/dialogs/showLoadingDialog.dart';
 //PAGES
-import '../general/customBottomNavigationBar.dart';
 
 class EditYourFamilyInfoPage extends StatefulWidget {
   const EditYourFamilyInfoPage();

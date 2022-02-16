@@ -8,7 +8,6 @@ import '../../../global/const.dart';
 import '../../../global/colors.dart';
 //MODELS
 import '../../../models/package.dart';
-import '../../../models/question.dart';
 //PROVIDERS
 import '../../../providers/bookings.dart';
 //WIDGETS
@@ -39,12 +38,6 @@ class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
   String? _preselectedTime;
   int _includeMe = 0;
   List<int?> _selectedPeople = [];
-
-  // @override
-  // void deactivate() {
-  //   context.read<Bookings>().resetBookingsData();
-  //   super.deactivate();
-  // }
 
   Future<void> amendBookingBody(Map<String, dynamic>? data) async {
     _bookingBody.addAll({'sub_package_id': widget.subPackage?.id});
@@ -189,44 +182,6 @@ class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
           ],
         ),
       ),
-      // bottomNavigationBar: PackageBottomSectionContainer(
-      //   btnLabel: 'Next',
-      //   onTap: () {
-      //     final timings = context.read<Bookings>().availableTimings;
-      //     final bookingsBody = context.read<Bookings>().bookingsBody;
-      //     if (bookingsBody.containsKey('location_link') &&
-      //         bookingsBody['location_link'] == "") {
-      //       ShowOkDialog(context, 'Please add the location link to proceed');
-      //     } else if (!bookingsBody.containsKey('date')) {
-      //       ShowOkDialog(context, 'Please select a date to proceed');
-      //     } else if (!bookingsBody.containsKey('time') ||
-      //         !timings.contains(bookingsBody['time'])) {
-      //       ShowOkDialog(context, 'Please select a time to proceed');
-      //     } else if (!bookingsBody.containsKey('people')) {
-      //       ShowOkDialog(context, 'Please select people joining to proceed');
-      //     } else if (!bookingsBody.containsKey('backdrops')) {
-      //       ShowOkDialog(context, 'Please select a backdrop to proceed');
-      //     } else {
-      //       ShowLoadingDialog(context);
-      //       // context.read<Bookings>().bookASession().then((response) {
-      //       //   ShowLoadingDialog(context, dismiss: true);
-      //       //   if (response?.statusCode == 200) {
-      //       //     Navigator.push(
-      //       //       context,
-      //       //       MaterialPageRoute(
-      //       //         builder: (context) => PhotographerPage(),
-      //       //       ),
-      //       //     );
-      //       //   } else {
-      //       //     ShowOkDialog(
-      //       //       context,
-      //       //       response?.message ?? ErrorMessages.somethingWrong,
-      //       //     );
-      //       //   }
-      //       // });
-      //     }
-      //   },
-      // ),
     );
   }
 }

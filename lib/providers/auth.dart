@@ -673,7 +673,6 @@ class Auth with ChangeNotifier {
       _expiryDate = result['data']['expires'];
       User user = User.fromJson(result['data']['user']);
 
-      //TODO:: this is just a temporary solution, until the API is fixed.
       if (user.status == 1) {
         FamilyMember partner = FamilyMember.fromJson(result['data']['partner']);
         if (partner.id != null) {
