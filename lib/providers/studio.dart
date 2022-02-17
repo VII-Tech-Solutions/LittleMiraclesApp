@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 //GLOBAL
 import '../global/const.dart';
 import '../global/globalEnvironment.dart';
+import '../global/globalHelpers.dart';
 //MODELS
 import '../models/apiResponse.dart';
 import '../models/studioPackage.dart';
@@ -222,8 +223,8 @@ class Studio with ChangeNotifier {
     try {
       final response = await http.get(url, headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Platform': 'ios',
-        'App-Version': '0.0.1',
+        'Platform': '${await AppInfo().versionInfo()}',
+        'App-Version': '${await AppInfo().versionInfo()}',
       }).timeout(Duration(seconds: Timeout.value));
 
       final extractedData = json.decode(response.body)['data'];

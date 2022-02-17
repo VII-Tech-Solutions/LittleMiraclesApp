@@ -8,6 +8,7 @@ import 'package:collection/collection.dart';
 //GLOBAL
 import '../global/const.dart';
 import '../global/globalEnvironment.dart';
+import '../global/globalHelpers.dart';
 //MODELS
 import '../models/apiResponse.dart';
 import '../models/package.dart';
@@ -314,8 +315,8 @@ class Bookings with ChangeNotifier {
     try {
       final response = await http.get(url, headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Platform': 'ios',
-        'App-Version': '0.0.1',
+        'Platform': '${await AppInfo().versionInfo()}',
+        'App-Version': '${await AppInfo().versionInfo()}',
       }).timeout(Duration(seconds: Timeout.value));
 
       final extractedData = json.decode(response.body)['data'];
@@ -374,8 +375,8 @@ class Bookings with ChangeNotifier {
     try {
       final response = await http.get(url, headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Platform': 'ios',
-        'App-Version': '0.0.1',
+        'Platform': '${await AppInfo().versionInfo()}',
+        'App-Version': '${await AppInfo().versionInfo()}',
       }).timeout(Duration(seconds: Timeout.value));
 
       final extractedData = json.decode(response.body)['data']['dates'] as List;
@@ -685,8 +686,8 @@ class Bookings with ChangeNotifier {
     try {
       final response = await http.get(url, headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Platform': 'ios',
-        'App-Version': '0.0.1',
+        'Platform': '${await AppInfo().versionInfo()}',
+        'App-Version': '${await AppInfo().versionInfo()}',
         'Authorization': 'Bearer $authToken',
       }).timeout(Duration(seconds: Timeout.value));
 
@@ -723,8 +724,8 @@ class Bookings with ChangeNotifier {
     try {
       final response = await http.get(url, headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Platform': 'ios',
-        'App-Version': '0.0.1',
+        'Platform': '${await AppInfo().versionInfo()}',
+        'App-Version': '${await AppInfo().versionInfo()}',
         'Authorization': 'Bearer $authToken',
       }).timeout(Duration(seconds: Timeout.value));
 

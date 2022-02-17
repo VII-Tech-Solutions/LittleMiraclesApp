@@ -1,9 +1,12 @@
 //PACKAGES
 import 'dart:math';
+import 'dart:io' as io;
 import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 //GLOBAL
 //MODELS
 //PROVIDERS
@@ -25,6 +28,18 @@ class GlobalHelpers {
         width: double.infinity,
       ),
     );
+  }
+}
+
+class AppInfo {
+  Future<String> platformInfo() async {
+    final PackageInfo info = await PackageInfo.fromPlatform();
+    return io.Platform.isAndroid ? 'Android' : 'iOS';
+  }
+
+  Future<String> versionInfo() async {
+    final PackageInfo info = await PackageInfo.fromPlatform();
+    return info.version.toString();
   }
 }
 

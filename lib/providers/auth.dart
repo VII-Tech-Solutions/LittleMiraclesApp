@@ -10,6 +10,7 @@ import 'package:collection/collection.dart';
 import '../global/const.dart';
 import '../database/db_sqflite.dart';
 import '../global/globalEnvironment.dart';
+import '../global/globalHelpers.dart';
 //MODELS
 import '../models/ssoData.dart';
 import '../models/user.dart';
@@ -211,8 +212,8 @@ class Auth with ChangeNotifier {
     try {
       final response = await http.get(url, headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Platform': 'ios',
-        'App-Version': '0.0.1',
+        'Platform': '${await AppInfo().versionInfo()}',
+        'App-Version': '${await AppInfo().versionInfo()}',
         'Authorization': 'Bearer $token',
       }).timeout(Duration(seconds: Timeout.value));
 

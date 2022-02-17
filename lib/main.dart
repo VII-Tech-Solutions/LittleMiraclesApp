@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:country_code_picker/country_localizations.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 //GLOBAL
 //MODELS
 //PROVIDERS
@@ -16,6 +17,7 @@ import './providers/studio.dart';
 import './pages/general/splashscreen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 

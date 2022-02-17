@@ -385,8 +385,8 @@ class AppData with ChangeNotifier {
     try {
       final response = await http.get(url, headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Platform': 'ios',
-        'App-Version': '0.0.1',
+        'Platform': '${await AppInfo().versionInfo()}',
+        'App-Version': '${await AppInfo().versionInfo()}',
         'Authorization': 'Bearer ${token ?? authToken}',
       }).timeout(Duration(seconds: Timeout.value));
 
@@ -433,8 +433,8 @@ class AppData with ChangeNotifier {
     try {
       final response = await http.post(url, headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Platform': 'ios',
-        'App-Version': '0.0.1',
+        'Platform': '${await AppInfo().versionInfo()}',
+        'App-Version': '${await AppInfo().versionInfo()}',
         'Authorization': 'Bearer $authToken',
       }).timeout(Duration(seconds: Timeout.value));
 
@@ -469,8 +469,8 @@ class AppData with ChangeNotifier {
     try {
       final response = await http.get(url, headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Platform': 'ios',
-        'App-Version': '0.0.1',
+        'Platform': '${await AppInfo().versionInfo()}',
+        'App-Version': '${await AppInfo().versionInfo()}',
         'Authorization': 'Bearer $authToken',
       }).timeout(Duration(seconds: Timeout.value));
 
@@ -510,8 +510,8 @@ class AppData with ChangeNotifier {
     try {
       final response = await http.get(url, headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Platform': 'ios',
-        'App-Version': '0.0.1',
+        'Platform': '${await AppInfo().versionInfo()}',
+        'App-Version': '${await AppInfo().versionInfo()}',
       }).timeout(Duration(seconds: Timeout.value));
 
       final extractedData = json.decode(response.body)['data'];
