@@ -212,7 +212,7 @@ class Auth with ChangeNotifier {
     try {
       final response = await http.get(url, headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Platform': '${await AppInfo().versionInfo()}',
+        'Platform': '${await AppInfo().platformInfo()}',
         'App-Version': '${await AppInfo().versionInfo()}',
         'Authorization': 'Bearer $token',
       }).timeout(Duration(seconds: Timeout.value));
@@ -246,8 +246,8 @@ class Auth with ChangeNotifier {
             url,
             headers: {
               'Content-Type': 'application/json',
-              'Platform': 'ios',
-              'App-Version': '0.0.1',
+              'Platform': '${await AppInfo().platformInfo()}',
+              'App-Version': '${await AppInfo().versionInfo()}',
               'Authorization': 'Bearer $token',
             },
             body: jsonEncode(_registrationBody),
@@ -350,8 +350,8 @@ class Auth with ChangeNotifier {
             url,
             headers: {
               'Content-Type': 'application/json',
-              'Platform': 'ios',
-              'App-Version': '0.0.1',
+              'Platform': '${await AppInfo().platformInfo()}',
+              'App-Version': '${await AppInfo().versionInfo()}',
               'Authorization': 'Bearer $token',
             },
             body: jsonEncode(jsonBody),
@@ -422,8 +422,8 @@ class Auth with ChangeNotifier {
             url,
             headers: {
               'Content-Type': 'application/json',
-              'Platform': 'ios',
-              'App-Version': '0.0.1',
+              'Platform': '${await AppInfo().platformInfo()}',
+              'App-Version': '${await AppInfo().versionInfo()}',
               'Authorization': 'Bearer $token',
             },
             body: jsonEncode(jsonBody),
@@ -483,8 +483,8 @@ class Auth with ChangeNotifier {
             url,
             headers: {
               'Content-Type': 'application/json',
-              'Platform': 'ios',
-              'App-Version': '0.0.1',
+              'Platform': '${await AppInfo().platformInfo()}',
+              'App-Version': '${await AppInfo().versionInfo()}',
               'Authorization': 'Bearer $token',
             },
             body: jsonEncode(jsonBody),
@@ -547,8 +547,8 @@ class Auth with ChangeNotifier {
             url,
             headers: {
               'Content-Type': 'application/json',
-              'Platform': 'ios',
-              'App-Version': '0.0.1',
+              'Platform': '${await AppInfo().platformInfo()}',
+              'App-Version': '${await AppInfo().versionInfo()}',
               'Authorization': 'Bearer $token',
             },
             body: jsonEncode(jsonBody),
@@ -649,8 +649,8 @@ class Auth with ChangeNotifier {
           .post(
             url,
             headers: {
-              'Platform': 'ios',
-              'App-Version': '0.0.1',
+              'Platform': '${await AppInfo().platformInfo()}',
+              'App-Version': '${await AppInfo().versionInfo()}',
               "Content-Type": "application/x-www-form-urlencoded",
             },
             body: body,

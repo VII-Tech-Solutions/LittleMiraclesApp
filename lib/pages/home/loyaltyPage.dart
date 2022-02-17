@@ -177,28 +177,33 @@ class _LoyaltyPageState extends State<LoyaltyPage> {
       body: CustomScrollView(
         slivers: <Widget>[
           _appBar(context),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            sliver: SliverToBoxAdapter(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TitleText(
-                    title: 'Congratulations!',
-                    customPadding: const EdgeInsets.only(top: 16),
-                  ),
-                  TitleText(
-                    title:
-                        'You have completed 5 sessions with us and this calls for a celebration! 🥳 Please enter the promo code at check out:',
-                    customPadding: const EdgeInsets.only(top: 3),
-                    type: TitleTextType.secondaryTitle,
-                  ),
-                ],
+          SliverToBoxAdapter(
+            child: Visibility(
+              visible: availGifts.isNotEmpty,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TitleText(
+                      title: 'Congratulations!',
+                      customPadding: const EdgeInsets.only(top: 16),
+                    ),
+                    TitleText(
+                      title:
+                          'You have completed 5 sessions with us and this calls for a celebration! 🥳 Please enter the promo code at check out:',
+                      customPadding: const EdgeInsets.only(top: 3),
+                      type: TitleTextType.secondaryTitle,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
           SliverPadding(
-            padding: const EdgeInsets.only(bottom: 30),
+            padding: availGifts.isNotEmpty
+                ? const EdgeInsets.only(bottom: 30)
+                : EdgeInsets.zero,
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
@@ -224,7 +229,6 @@ class _LoyaltyPageState extends State<LoyaltyPage> {
               ),
             ),
           ),
-
           SliverToBoxAdapter(
             child: Visibility(
               visible: prevGifts.isNotEmpty,
@@ -234,20 +238,6 @@ class _LoyaltyPageState extends State<LoyaltyPage> {
               ),
             ),
           ),
-          // SliverPadding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 16),
-          //   sliver: SliverList(
-          //     delegate: SliverChildBuilderDelegate(
-          //       (BuildContext context, int index) {
-          //         return TitleText(
-          //           title: 'Previous Gifts',
-          //           customPadding: const EdgeInsets.only(top: 16),
-          //         );
-          //       },
-          //       childCount: prevGifts.length ,
-          //     ),
-          //   ),
-          // ),
           SliverPadding(
             padding: const EdgeInsets.only(bottom: 30),
             sliver: SliverList(

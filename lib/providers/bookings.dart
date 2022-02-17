@@ -315,7 +315,7 @@ class Bookings with ChangeNotifier {
     try {
       final response = await http.get(url, headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Platform': '${await AppInfo().versionInfo()}',
+        'Platform': '${await AppInfo().platformInfo()}',
         'App-Version': '${await AppInfo().versionInfo()}',
       }).timeout(Duration(seconds: Timeout.value));
 
@@ -375,7 +375,7 @@ class Bookings with ChangeNotifier {
     try {
       final response = await http.get(url, headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Platform': '${await AppInfo().versionInfo()}',
+        'Platform': '${await AppInfo().platformInfo()}',
         'App-Version': '${await AppInfo().versionInfo()}',
       }).timeout(Duration(seconds: Timeout.value));
 
@@ -425,8 +425,8 @@ class Bookings with ChangeNotifier {
             url,
             headers: {
               'Content-Type': 'application/json',
-              'Platform': 'ios',
-              'App-Version': '0.0.1',
+              'Platform': '${await AppInfo().platformInfo()}',
+              'App-Version': '${await AppInfo().versionInfo()}',
               'Authorization': 'Bearer $authToken',
             },
             body: jsonEncode(_bookingBody),
@@ -476,8 +476,8 @@ class Bookings with ChangeNotifier {
             url,
             headers: {
               'Content-Type': 'application/json',
-              'Platform': 'ios',
-              'App-Version': '0.0.1',
+              'Platform': '${await AppInfo().platformInfo()}',
+              'App-Version': '${await AppInfo().versionInfo()}',
               'Authorization': 'Bearer $authToken',
             },
             body: jsonEncode(_bookingBody),
@@ -531,12 +531,14 @@ class Bookings with ChangeNotifier {
           .post(
             url,
             headers: {
-              'Content-Type': 'application/json',
-              'Platform': 'ios',
-              'App-Version': '0.0.1',
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'Platform': '${await AppInfo().platformInfo()}',
+              'App-Version': '${await AppInfo().versionInfo()}',
               'Authorization': 'Bearer $authToken',
             },
-            body: jsonEncode(_bookingBody),
+            body: _promoCode?.code != null
+                ? {'promo_code': _promoCode?.code}
+                : null,
           )
           .timeout(Duration(seconds: Timeout.value));
 
@@ -558,6 +560,8 @@ class Bookings with ChangeNotifier {
       final sessionObject = Session.fromJson(sessionsJson);
 
       _session = sessionObject;
+
+      _promoCode = null;
 
       notifyListeners();
       return (ApiResponse(
@@ -585,8 +589,8 @@ class Bookings with ChangeNotifier {
         url,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
-          'Platform': 'ios',
-          'App-Version': '0.0.1',
+          'Platform': '${await AppInfo().platformInfo()}',
+          'App-Version': '${await AppInfo().versionInfo()}',
           'Authorization': 'Bearer $authToken',
         },
         body: {
@@ -636,8 +640,8 @@ class Bookings with ChangeNotifier {
         url,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
-          'Platform': 'ios',
-          'App-Version': '0.0.1',
+          'Platform': '${await AppInfo().platformInfo()}',
+          'App-Version': '${await AppInfo().versionInfo()}',
           'Authorization': 'Bearer $authToken',
         },
         body: {
@@ -686,7 +690,7 @@ class Bookings with ChangeNotifier {
     try {
       final response = await http.get(url, headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Platform': '${await AppInfo().versionInfo()}',
+        'Platform': '${await AppInfo().platformInfo()}',
         'App-Version': '${await AppInfo().versionInfo()}',
         'Authorization': 'Bearer $authToken',
       }).timeout(Duration(seconds: Timeout.value));
@@ -724,7 +728,7 @@ class Bookings with ChangeNotifier {
     try {
       final response = await http.get(url, headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Platform': '${await AppInfo().versionInfo()}',
+        'Platform': '${await AppInfo().platformInfo()}',
         'App-Version': '${await AppInfo().versionInfo()}',
         'Authorization': 'Bearer $authToken',
       }).timeout(Duration(seconds: Timeout.value));
@@ -768,8 +772,8 @@ class Bookings with ChangeNotifier {
             url,
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
-              'Platform': 'ios',
-              'App-Version': '0.0.1',
+              'Platform': '${await AppInfo().platformInfo()}',
+              'App-Version': '${await AppInfo().versionInfo()}',
               'Authorization': 'Bearer $authToken',
             },
             body: jsonEncode(feedbackQuestions),
@@ -810,8 +814,8 @@ class Bookings with ChangeNotifier {
         url,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
-          'Platform': 'ios',
-          'App-Version': '0.0.1',
+          'Platform': '${await AppInfo().platformInfo()}',
+          'App-Version': '${await AppInfo().versionInfo()}',
           'Authorization': 'Bearer $authToken',
         },
         body: {

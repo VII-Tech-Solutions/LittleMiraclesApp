@@ -223,7 +223,7 @@ class Studio with ChangeNotifier {
     try {
       final response = await http.get(url, headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Platform': '${await AppInfo().versionInfo()}',
+        'Platform': '${await AppInfo().platformInfo()}',
         'App-Version': '${await AppInfo().versionInfo()}',
       }).timeout(Duration(seconds: Timeout.value));
 
