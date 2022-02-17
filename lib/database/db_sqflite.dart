@@ -51,7 +51,7 @@ class DBHelper {
         await db.execute(
             'CREATE TABLE ${Tables.cakeCategories}(id INT PRIMARY KEY, name TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
         await db.execute(
-            'CREATE TABLE ${Tables.studioPackages}(id INT PRIMARY KEY, title TEXT, image TEXT, startingPrice TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
+            'CREATE TABLE ${Tables.studioPackages}(id INT PRIMARY KEY, title TEXT, image TEXT, startingPrice TEXT, status INTEGER, type INTEGER, benefitIds TEXT, mediaIds TEXT, updatedAt TEXT, deletedAt TEXT)');
         await db.execute(
             'CREATE TABLE ${Tables.studioMetadata}(id INT PRIMARY KEY, title TEXT, description TEXT, image TEXT, status INTEGER, category INTEGER, updatedAt TEXT, deletedAt TEXT)');
         await db.execute(

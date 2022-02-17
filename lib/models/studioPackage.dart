@@ -6,6 +6,9 @@ class StudioPackage {
   final String? image;
   final String? startingPrice;
   final int? status;
+  final int? type;
+  final String? benefitIds;
+  final String? mediaIds;
   final String? updatedAt;
   final String? deletedAt;
 
@@ -15,6 +18,9 @@ class StudioPackage {
     @required this.image,
     @required this.startingPrice,
     @required this.status,
+    @required this.type,
+    @required this.benefitIds,
+    @required this.mediaIds,
     @required this.updatedAt,
     @required this.deletedAt,
   });
@@ -26,6 +32,9 @@ class StudioPackage {
       'image': image ?? "",
       'startingPrice': startingPrice ?? "",
       'status': status ?? -1,
+      'type': type ?? -1,
+      'benefitIds': benefitIds ?? "",
+      'mediaIds': mediaIds ?? "",
       'updatedAt': updatedAt ?? "",
       'deletedAt': deletedAt ?? "",
     };
@@ -38,6 +47,9 @@ class StudioPackage {
       image: json['image'] as String?,
       startingPrice: json['starting_price'] as String?,
       status: json['status'] as int?,
+      type: json['type'] as int?,
+      benefitIds: json['benefits_ids'] as String?,
+      mediaIds: json['media_ids'] as String?,
       updatedAt: json['updated_at'] as String?,
       deletedAt: json['deleted_at'] as String?,
     );

@@ -64,12 +64,15 @@ class AlbumSizeSelector extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 5),
                           child: Row(children: [
-                            SizedBox(
+                            Container(
                               height: 48,
                               width: 48,
-                              child: CachedImageWidget(
-                                selectedAlbumSize.image,
-                                ImageShape.square,
+                              decoration: BoxDecoration(
+                                  color: AppColors.greyE8E9EB,
+                                  borderRadius: BorderRadius.circular(8)),
+                              child: Icon(
+                                Icons.crop_square_rounded,
+                                size: 38,
                               ),
                             ),
                             Expanded(

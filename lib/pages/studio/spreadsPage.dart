@@ -17,14 +17,14 @@ import '../../widgets/studioContainers/studioBottomSectionContainer.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
 //PAGES
 
-class AlbumSizePage extends StatefulWidget {
-  const AlbumSizePage();
+class SpreadsPage extends StatefulWidget {
+  const SpreadsPage();
 
   @override
-  _AlbumSizePageState createState() => _AlbumSizePageState();
+  _SpreadsPageState createState() => _SpreadsPageState();
 }
 
-class _AlbumSizePageState extends State<AlbumSizePage> {
+class _SpreadsPageState extends State<SpreadsPage> {
   // List<int> _selectedItems = [];
   StudioMetadata? _selectedItem;
 
@@ -48,7 +48,7 @@ class _AlbumSizePageState extends State<AlbumSizePage> {
 
   @override
   void initState() {
-    _selectedItem = context.read<Studio>().selectedAlbumSize;
+    _selectedItem = context.read<Studio>().selectedSpreads;
 
     super.initState();
   }
@@ -59,47 +59,18 @@ class _AlbumSizePageState extends State<AlbumSizePage> {
 
     return Scaffold(
       appBar: AppBarWithBack(
-        title: 'Album Size',
+        title: 'Spreads',
         weight: FontWeight.w800,
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
+        padding: const EdgeInsets.fromLTRB(10, 16, 10, 0),
         child: CustomScrollView(
           slivers: [
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 6),
-                child: RichText(
-                  textAlign: TextAlign.start,
-                  text: TextSpan(
-                    text: 'Album Size ',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontFamily: GoogleFonts.manrope().fontFamily,
-                      fontWeight: FontWeight.w800,
-                      color: AppColors.black45515D,
-                    ),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: '(inches)',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontFamily: GoogleFonts.manrope().fontFamily,
-                          fontWeight: FontWeight.normal,
-                          color: AppColors.black45515D,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SliverPadding(padding: const EdgeInsets.only(top: 4)),
             SliverGrid.count(
               crossAxisCount: 3,
-              childAspectRatio: 107 / 115,
+              childAspectRatio: 1 / 1,
               children: appDataProvider
-                  .getStudioMetadata(StudioMetaCategory.albumSize)
+                  .getStudioMetadata(StudioMetaCategory.spreads)
                   .map(
                     (item) => InkWell(
                       onTap: () {
@@ -123,22 +94,25 @@ class _AlbumSizePageState extends State<AlbumSizePage> {
                                 ? _selectedDecoration
                                 : _unselectedDecoration,
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Expanded(
-                                  child: AspectRatio(
-                                    aspectRatio: 1 / 1,
-                                    child: Container(
-                                        //TODO:: add the image
-                                        ),
-                                  ),
-                                ),
                                 Text(
                                   item.title ?? '',
                                   style: TextStyle(
                                     color: AppColors.black45515D,
                                     fontWeight: FontWeight.w800,
+                                    fontSize: 18,
                                   ),
-                                )
+                                ),
+                                Text(
+                                  item.description ?? '',
+                                  style: TextStyle(
+                                    color: AppColors.black45515D,
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 12,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -164,39 +138,6 @@ class _AlbumSizePageState extends State<AlbumSizePage> {
                     ),
                   )
                   .toList(),
-
-              //  List.generate(
-              //   5,
-              //   (index) => Container(
-              //     padding: const EdgeInsets.all(10),
-              //     decoration: BoxDecoration(
-              //       borderRadius: BorderRadius.circular(8),
-              //       border: Border.all(
-              //         color: AppColors.greyD0D3D6,
-              //         width: 1,
-              //       ),
-              //     ),
-              //     child: Column(
-              //       children: [
-              //         Expanded(
-              //           child: AspectRatio(
-              //             aspectRatio: 1 / 1,
-              //             child: Container(
-              //               color: Colors.red,
-              //             ),
-              //           ),
-              //         ),
-              //         Text(
-              //           '16x24',
-              //           style: TextStyle(
-              //             color: AppColors.black45515D,
-              //             fontWeight: FontWeight.w800,
-              //           ),
-              //         )
-              //       ],
-              //     ),
-              //   ),
-              // ),
             )
           ],
         ),
@@ -206,10 +147,10 @@ class _AlbumSizePageState extends State<AlbumSizePage> {
           onTap: () {
             if (_selectedItem != null) {
               context.read<Studio>().assignSelectedSpec(
-                  StudioMetaCategory.albumSize, _selectedItem);
+                  StudioMetaCategory.spreads, _selectedItem);
               Navigator.pop(context);
             } else {
-              ShowOkDialog(context, 'Please select an album size to proceed');
+              ShowOkDialog(context, 'Please select spreads to proceed');
             }
           }),
     );

@@ -1,9 +1,7 @@
 //PACKAGES
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 //EXTENSIONS
 //GLOBAL
-import '../../global/const.dart';
 //MODELS
 //PROVIDERS
 import '../../providers/studio.dart';

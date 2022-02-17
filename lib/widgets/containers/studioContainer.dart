@@ -27,8 +27,6 @@ class StudioContainer extends StatelessWidget {
       onTap: () {
         if (package?.id != null) {
           ShowLoadingDialog(context);
-
-          context.read<Studio>().assignStudioPackage(package); //TODO:: remove later
           context
               .read<Studio>()
               .fetchAndSetPackageDetails(package!.id!)

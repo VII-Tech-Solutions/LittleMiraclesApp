@@ -14,6 +14,7 @@ import '../form/formTextField.dart';
 import '../general/cachedImageWidget.dart';
 import '../texts/titleText.dart';
 //PAGES
+import '../../pages/studio/spreadsPage.dart';
 
 class SpreadsSelector extends StatelessWidget {
   const SpreadsSelector();
@@ -24,7 +25,7 @@ class SpreadsSelector extends StatelessWidget {
       context,
       MaterialPageRoute(
         //TODO:: go to album size page
-        builder: (context) => Scaffold(),
+        builder: (context) => SpreadsPage(),
       ),
     );
   }
@@ -39,7 +40,9 @@ class SpreadsSelector extends StatelessWidget {
             children: [
               TitleText(
                 title: 'Spreads (Pages Count)',
-                customPadding: const EdgeInsets.only(bottom: 10),
+                customPadding: const EdgeInsets.only(bottom: 10, top: 20),
+                type: TitleTextType.subTitleBlack,
+                weight: FontWeight.w800,
               ),
               InkWell(
                 onTap: () => _goToItemsPage(context),
@@ -63,12 +66,15 @@ class SpreadsSelector extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 5),
                           child: Row(
                             children: [
-                              SizedBox(
+                              Container(
                                 height: 48,
                                 width: 48,
-                                child: CachedImageWidget(
-                                  selectedSpreads.image,
-                                  ImageShape.square,
+                                decoration: BoxDecoration(
+                                    color: AppColors.greyE8E9EB,
+                                    borderRadius: BorderRadius.circular(8)),
+                                child: Icon(
+                                  Icons.import_contacts_rounded,
+                                  size: 38,
                                 ),
                               ),
                               Expanded(
@@ -76,11 +82,12 @@ class SpreadsSelector extends StatelessWidget {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 16),
                                   child: Text(
-                                    selectedSpreads.title ?? '',
+                                    '${selectedSpreads.title ?? ''} ${selectedSpreads.description ?? ''}',
                                     style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w800,
-                                        color: AppColors.black45515D),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w800,
+                                      color: AppColors.black45515D,
+                                    ),
                                   ),
                                 ),
                               ),

@@ -174,29 +174,36 @@ class Studio with ChangeNotifier {
     switch (category) {
       case StudioMetaCategory.albumSize:
         _selectedAlbumSize = data;
+        amendBookingBody({'album_size': _selectedAlbumSize?.id});
         break;
       case StudioMetaCategory.spreads:
         _selectedSpreads = data;
+        amendBookingBody({'spreads': _selectedSpreads?.id});
         break;
       case StudioMetaCategory.paperType:
         _selectedPaperType = data;
+        amendBookingBody({'paper_type': _selectedPaperType?.id});
         break;
       case StudioMetaCategory.coverType:
         _selectedCoverType = data;
+        amendBookingBody({'cover_type': _selectedCoverType?.id});
         break;
       case StudioMetaCategory.canvasThickness:
         _selectedCanvasThickness = data;
+        amendBookingBody({'canvas_thickness': _selectedCanvasThickness?.id});
         break;
       case StudioMetaCategory.canvasSize:
         _selectedCanvasSize = data;
+        amendBookingBody({'canvas_size': _selectedCanvasSize?.id});
         break;
       case StudioMetaCategory.printType:
         _selectedPrintType = data;
+        amendBookingBody({'print_type': _selectedPrintType?.id});
         break;
       case StudioMetaCategory.paperSize:
         _selectedPhotoPaperSize = data;
+        amendBookingBody({'paper_size': _selectedPhotoPaperSize?.id});
         break;
-      default:
     }
 
     notifyListeners();
@@ -210,15 +217,8 @@ class Studio with ChangeNotifier {
     print(jsonEncode(_bookingBody));
   }
 
-  //TODO:: this is temporary until the API provides the get studio package details endpoint
-  Future<void> assignStudioPackage(StudioPackage? package) async {
-    _studioPackage = package;
-
-    notifyListeners();
-  }
-
   Future<ApiResponse> fetchAndSetPackageDetails(int id) async {
-    final url = Uri.parse('$apiLink/packages/$id');
+    final url = Uri.parse('$apiLink/studio/$id');
 
     try {
       final response = await http.get(url, headers: {
@@ -228,7 +228,7 @@ class Studio with ChangeNotifier {
       }).timeout(Duration(seconds: Timeout.value));
 
       final extractedData = json.decode(response.body)['data'];
-      final packagesData = extractedData['packages'] as List;
+      final packagesData = extractedData['studio_packages'] as List;
       final benefitsData = extractedData['benefits'] as List;
       final mediaData = extractedData['media'] as List;
 
@@ -240,9 +240,9 @@ class Studio with ChangeNotifier {
         ));
       }
 
-      // final packagesList =
-      //     packagesData.map((json) => StudioPackage.fromJson(json)).toList();
-      // _studioPackage = packagesList.first;
+      final packagesList =
+          packagesData.map((json) => StudioPackage.fromJson(json)).toList();
+      _studioPackage = packagesList.first;
 
       _benefits = benefitsData.map((json) => Benefit.fromJson(json)).toList();
 

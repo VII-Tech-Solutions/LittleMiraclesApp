@@ -62,71 +62,74 @@ class _StudioSpecsSelectorPageState extends State<StudioSpecsSelectorPage> {
       PaperTypeSelector(),
       CoverTypeSelector(),
     ];
-    return Scaffold(
-      appBar: AppBarWithBack(
-        title: 'Album Specs',
-        weight: FontWeight.w800,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        child: CustomScrollView(
-          slivers: [
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return _selectorWidgets[index];
-                },
-                childCount: _selectorWidgets.length,
-              ),
-            ),
-            SliverFillRemaining(
-              fillOverscroll: false,
-              hasScrollBody: false,
-              child: Container(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextQuestionWidget(
-                      Question(
-                        id: 1,
-                        question: 'Additional Comments:',
-                        updatedAt: null,
-                        deletedAt: null,
-                        options: null,
-                        order: null,
-                        questionType: null,
-                      ),
-                      (val) {
-                        if (val != null) {
-                          if (val['answer'] != '') {
-                            _bookingBody.addAll({'comments': val['answer']});
-                          } else {
-                            _bookingBody.addAll({'comments': ''});
-                          }
-                          // context
-                          //     .read<Bookings>()
-                          //     .amendMultiSessionBookingBody(_bookingBody);
-                        }
-                      },
-                    ),
-                  ],
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        appBar: AppBarWithBack(
+          title: 'Album Specs',
+          weight: FontWeight.w800,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          child: CustomScrollView(
+            slivers: [
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                    return _selectorWidgets[index];
+                  },
+                  childCount: _selectorWidgets.length,
                 ),
               ),
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: StudioBottomSectionContainer(
-          btnLabel: 'Next',
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Scaffold(),
+              SliverFillRemaining(
+                fillOverscroll: false,
+                hasScrollBody: false,
+                child: Container(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextQuestionWidget(
+                        Question(
+                          id: 1,
+                          question: 'Additional Comments:',
+                          updatedAt: null,
+                          deletedAt: null,
+                          options: null,
+                          order: null,
+                          questionType: null,
+                        ),
+                        (val) {
+                          if (val != null) {
+                            if (val['answer'] != '') {
+                              _bookingBody.addAll({'comments': val['answer']});
+                            } else {
+                              _bookingBody.addAll({'comments': ''});
+                            }
+                            // context
+                            //     .read<Bookings>()
+                            //     .amendMultiSessionBookingBody(_bookingBody);
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            );
-          }),
+            ],
+          ),
+        ),
+        bottomNavigationBar: StudioBottomSectionContainer(
+            btnLabel: 'Next',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Scaffold(),
+                ),
+              );
+            }),
+      ),
     );
   }
 }

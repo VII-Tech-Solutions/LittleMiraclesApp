@@ -1,20 +1,18 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 //EXTENSIONS
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
-import '../../models/question.dart';
 //PROVIDERS
+import '../../providers/studio.dart';
 //WIDGETS
 import '../texts/titleText.dart';
 //PAGES
 
 class AlbumTitleTextField extends StatelessWidget {
-  // final void Function(Map?) onChangedCallback;
-  const AlbumTitleTextField(
-    // this.onChangedCallback
-    );
+  const AlbumTitleTextField();
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +30,7 @@ class AlbumTitleTextField extends StatelessWidget {
           color: Colors.white,
           child: TextFormField(
             onChanged: (val) {
-              // return onChangedCallback({
-              //   'album_title': '$val',
-              // });
+              context.read<Studio>().amendBookingBody({'album_title': val});
             },
             style: TextStyle(fontSize: 12),
             keyboardType: TextInputType.text,

@@ -88,6 +88,12 @@ class StudioMetaCategory {
   static const paperSize = 8;
 }
 
+class StudioPackageTypes {
+  static const photoAlbum = 1;
+  static const canvasPrint = 2;
+  static const photoPaper = 3;
+}
+
 class SocialIconAsset {
   static const String instagram = 'assets/images/iconsSocialInstagram.png';
   static const String facebook = 'assets/images/iconsSocialFacebook.svg';

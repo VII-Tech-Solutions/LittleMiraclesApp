@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 //GLOBAL
 import '../../global/colors.dart';
+import '../../global/const.dart';
 //MODELS
 //PROVIDERS
 import '../../providers/studio.dart';
@@ -14,6 +15,27 @@ import '../../pages/booking/imageExamplePage.dart';
 
 class StudioImageSectionContainer extends StatelessWidget {
   const StudioImageSectionContainer();
+
+  String _getTitleText(BuildContext context) {
+    String string = '';
+    final package = context.read<Studio>().studioPackage;
+
+    switch (package?.type) {
+      case StudioPackageTypes.photoAlbum:
+        string = 'Album';
+        break;
+      case StudioPackageTypes.canvasPrint:
+        string = 'Canvas';
+        break;
+      case StudioPackageTypes.photoPaper:
+        string = 'Paper';
+        break;
+      default:
+        string = '';
+    }
+
+    return string;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +58,7 @@ class StudioImageSectionContainer extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 20, 16, 10),
                 child: Text(
-                  'Image Prints', //TODO:: change this to match the studio type
+                  'Latest ${_getTitleText(context)} Prints',
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 14,

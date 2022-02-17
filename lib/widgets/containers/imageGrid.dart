@@ -28,9 +28,7 @@ class ImageGridWidget extends StatelessWidget {
                 Container(
                   height: size * 0.414,
                   child: CachedImageWidget(
-                    // media[0].url,
-                    //TODO:: revert back to the old implementaion when the API/Admin is fixed
-                    'https://i.picsum.photos/id/807/200/200.jpg?hmac=Y8gayvNItiQYxP_Pd-2un9GH09XuyJdIZOQPw6K9QsI',
+                    media[0].url,
                     ImageShape.rectangle,
                     radius: 0.0,
                   ),
@@ -40,9 +38,7 @@ class ImageGridWidget extends StatelessWidget {
                 ),
                 Expanded(
                   child: CachedImageWidget(
-                    // media[1].url,
-                    //TODO:: revert back to the old implementaion when the API/Admin is fixed
-                    'https://i.picsum.photos/id/986/200/200.jpg?hmac=Rqj6CXpaNxwumR7JjJGP9zm2AX92QkYPfNgufdAlpkY',
+                    media[1].url,
                     ImageShape.square,
                     radius: 0.0,
                   ),
@@ -59,9 +55,7 @@ class ImageGridWidget extends StatelessWidget {
                 Container(
                   height: size * 0.592,
                   child: CachedImageWidget(
-                    // media[2].url,
-                    //TODO:: revert back to the old implementaion when the API/Admin is fixed
-                    'https://i.picsum.photos/id/538/200/200.jpg?hmac=oJRLJPsN8ZdWjPpKGEU-oqAZMBKa4JsTnuUSqgRbyP4',
+                    media[2].url,
                     ImageShape.square,
                     radius: 0.0,
                   ),
@@ -72,9 +66,7 @@ class ImageGridWidget extends StatelessWidget {
                 Expanded(
                   child: Container(
                     child: CachedImageWidget(
-                      // media[3].url,
-                      //TODO:: revert back to the old implementaion when the API/Admin is fixed
-                      'https://i.picsum.photos/id/396/200/200.jpg?hmac=1OjJQ2_7SRz0wUfAkBJnIpcCn8IbJrSE5o3zG3T3tJY',
+                      media[3].url,
                       ImageShape.square,
                       radius: 0.0,
                     ),
