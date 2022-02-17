@@ -1,11 +1,13 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 //EXTENSIONS
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
 import '../../models/question.dart';
 //PROVIDERS
+import '../../providers/studio.dart';
 //WIDGETS
 import '../../widgets/appbars/appBarWithBack.dart';
 import '../../widgets/form/textQuestionWidget.dart';
@@ -49,7 +51,7 @@ class _StudioSpecsSelectorPageState extends State<StudioSpecsSelectorPage> {
 
   @override
   void deactivate() {
-    // context.read<Bookings>().resetBookingsData();
+    context.read<Studio>().resetBookingsData();
     super.deactivate();
   }
 

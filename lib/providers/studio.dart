@@ -217,6 +217,21 @@ class Studio with ChangeNotifier {
     print(jsonEncode(_bookingBody));
   }
 
+  void resetBookingsData() {
+    // single session
+    _bookingBody = {};
+    _selectedAlbumSize = null;
+    _selectedSpreads = null;
+    _selectedPaperType = null;
+    _selectedCoverType = null;
+    _selectedCanvasSize = null;
+    _selectedCanvasThickness = null;
+    _selectedPrintType = null;
+    _selectedPhotoPaperSize = null;
+
+    print(jsonEncode(_bookingBody));
+  }
+
   Future<ApiResponse> fetchAndSetPackageDetails(int id) async {
     final url = Uri.parse('$apiLink/studio/$id');
 
