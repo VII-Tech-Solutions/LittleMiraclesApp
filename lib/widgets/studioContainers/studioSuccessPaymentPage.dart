@@ -130,6 +130,7 @@ class StudioSuccessPaymentPage extends StatelessWidget {
         child: FilledButtonWidget(
           onPress: () {
             Navigator.pop(context);
+            Navigator.pop(context);
           },
           title: 'Go Back',
           type: ButtonType.generalBlue,

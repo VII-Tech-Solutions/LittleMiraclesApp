@@ -9,6 +9,7 @@ import '../../global/colors.dart';
 //PROVIDERS
 import '../../providers/studio.dart';
 //WIDGETS
+import '../../widgets/dialogs/showOkDialog.dart';
 import '../../widgets/studioContainers/studioPaymentBottomContainer.dart';
 import '../../widgets/studioContainers/studioPromoCodeContainer.dart';
 import '../../widgets/studioContainers/studioPaymentContainer.dart';
@@ -26,6 +27,10 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
+  bool _isAgreementChecked = false;
+  String? _selectedPayment = null;
+  final _scrollController = new ScrollController();
+
   @override
   Widget build(BuildContext context) {
     final promoCode = context.watch<Studio>().promoCode;
@@ -36,6 +41,7 @@ class _CartState extends State<Cart> {
         weight: FontWeight.bold,
       ),
       body: SingleChildScrollView(
+        controller: _scrollController,
         child: Column(
           children: [
             Padding(
@@ -173,20 +179,25 @@ class _CartState extends State<Cart> {
                 ],
               ),
             ),
-            StudioPaymentContainer(isMultiSession: true, onTapCallback: (_) {}),
-            PaymentAgreement(onTapCallback: (_) {})
+            StudioPaymentContainer(
+                isMultiSession: true,
+                onTapCallback: (val) => _selectedPayment = val),
+            PaymentAgreement(onTapCallback: (val) => _isAgreementChecked = val)
             //TODO:: implement functionality
           ],
         ),
       ),
       bottomNavigationBar: StudioPaymentBottomContainer(
         onTapCallback: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => StudioSuccessPaymentPage('paymentMethod'),
-            ),
-          );
+          if (_selectedPayment == null) {
+            ShowOkDialog(context, 'Please select a payment method');
+          } else if (_isAgreementChecked == false) {
+            _scrollController.animateTo(
+              _scrollController.position.maxScrollExtent,
+              duration: Duration(seconds: 1),
+              curve: Curves.fastOutSlowIn,
+            );
+          }
         },
       ),
     );
