@@ -7,7 +7,7 @@ import '../../global/colors.dart';
 //PROVIDERS
 import '../../providers/studio.dart';
 //WIDGETS
-import '../../widgets/buttons/filledButtonWidget.dart';
+import '../buttons/filledButtonWidget.dart';
 //PAGES
 
 class StudioPaymentBottomContainer extends StatelessWidget {

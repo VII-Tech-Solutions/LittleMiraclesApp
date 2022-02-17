@@ -10,9 +10,9 @@ import '../../global/const.dart';
 //PROVIDERS
 import '../../providers/bookings.dart';
 //WIDGETS
-import '../../widgets/buttons/filledButtonWidget.dart';
-import '../../widgets/dialogs/showOkDialog.dart';
-import '../../widgets/dialogs/showLoadingDialog.dart';
+import '../buttons/filledButtonWidget.dart';
+import '../dialogs/showOkDialog.dart';
+import '../dialogs/showLoadingDialog.dart';
 //PAGES
 
 class StudioPromoCodeContainer extends StatefulWidget {

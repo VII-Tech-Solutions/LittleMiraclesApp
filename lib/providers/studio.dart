@@ -14,6 +14,7 @@ import '../models/benefit.dart';
 import '../models/media.dart';
 import '../models/promoCode.dart';
 import '../models/studioMetadata.dart';
+import '../models/cartItem.dart';
 //PROVIDERS
 //WIDGETS
 //PAGES
@@ -23,6 +24,32 @@ class Studio with ChangeNotifier {
   StudioPackage? _studioPackage;
   List<Benefit> _benefits = [];
   List<Media> _studioPackageMedia = [];
+  List<CartItem> _cartItems = [
+    CartItem(
+      description: '12th January 2022',
+      title: 'Twinkle Portrait Studio Session',
+      id: 2,
+      image:
+          'https://i.picsum.photos/id/773/200/300.jpg?hmac=nhH4e4UtqcS6I0hy7eCr9waIFzMYNaMkzety6PQnOHM',
+      price: '133',
+    ),
+    CartItem(
+      description: '9th January 2022',
+      title: 'Mini Session',
+      id: 1,
+      image:
+          'https://i.picsum.photos/id/773/200/300.jpg?hmac=nhH4e4UtqcS6I0hy7eCr9waIFzMYNaMkzety6PQnOHM',
+      price: '96',
+    ),
+    CartItem(
+      description: '8th January 2022',
+      title: 'Twinkle Portrait Studio Session',
+      id: 0,
+      image:
+          'https://i.picsum.photos/id/773/200/300.jpg?hmac=nhH4e4UtqcS6I0hy7eCr9waIFzMYNaMkzety6PQnOHM',
+      price: '123',
+    ),
+  ];
 
   //bookings details
   Map _bookingBody = {};
@@ -65,6 +92,10 @@ class Studio with ChangeNotifier {
 
   StudioPackage? get studioPackage {
     return _studioPackage;
+  }
+
+  List<CartItem> get cartItems {
+    return [..._cartItems];
   }
 
   List<Benefit> get benefits {
@@ -132,6 +163,11 @@ class Studio with ChangeNotifier {
 
     notifyListeners();
   } //TODO:: implement function
+
+  void removeCartItem(int? id) {
+    _cartItems.removeWhere((element) => element.id == id);
+    notifyListeners();
+  }
 
   void assignSelectedSpec(int category, StudioMetadata? data) {
     switch (category) {

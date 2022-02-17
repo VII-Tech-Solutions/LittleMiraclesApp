@@ -9,18 +9,27 @@ import '../../global/colors.dart';
 //PROVIDERS
 import '../../providers/studio.dart';
 //WIDGETS
-import '../../widgets/paymentContainer/studioPaymentBottomContainer.dart';
-import '../../widgets/paymentContainer/studioPromoCodeContainer.dart';
-import '../../widgets/containers/cartItem.dart';
+import '../../widgets/studioContainers/studioPaymentBottomContainer.dart';
+import '../../widgets/studioContainers/studioPromoCodeContainer.dart';
+import '../../widgets/studioContainers/studioPaymentContainer.dart';
+import '../../widgets/containers/cartItemContainer.dart';
 import '../../widgets/appbars/appBarWithBack.dart';
+import '../../widgets/paymentContainer/paymentAgreement.dart';
+import '../../widgets/studioContainers/studioSuccessPaymentPage.dart';
 //PAGES
 
-class Cart extends StatelessWidget {
+class Cart extends StatefulWidget {
   const Cart({Key? key}) : super(key: key);
 
   @override
+  State<Cart> createState() => _CartState();
+}
+
+class _CartState extends State<Cart> {
+  @override
   Widget build(BuildContext context) {
     final promoCode = context.watch<Studio>().promoCode;
+    final cartItems = context.watch<Studio>().cartItems;
     return Scaffold(
       appBar: AppBarWithBack(
         title: 'Shopping Cart',
@@ -36,14 +45,19 @@ class Cart extends StatelessWidget {
                 right: 16,
               ),
               child: Column(
-                children: [
-                  CartItem(),
-                  CartItem(),
-                  CartItem(),
-                  CartItem(),
-                  CartItem(),
-                  CartItem(),
-                ],
+                children: cartItems
+                    .map(
+                      (e) => CartItemContainer(
+                        description: e.description,
+                        image: e.image,
+                        price: e.price,
+                        title: e.title,
+                        onTapCallback: () {
+                          context.read<Studio>().removeCartItem(e.id);
+                        },
+                      ),
+                    )
+                    .toList(),
               ),
             ),
             Padding(
@@ -158,14 +172,22 @@ class Cart extends StatelessWidget {
                   ),
                 ],
               ),
-            )
-
-            //TODO:: ADD THE PAYMENT SECTION
+            ),
+            StudioPaymentContainer(isMultiSession: true, onTapCallback: (_) {}),
+            PaymentAgreement(onTapCallback: (_) {})
+            //TODO:: implement functionality
           ],
         ),
       ),
       bottomNavigationBar: StudioPaymentBottomContainer(
-        onTapCallback: () {},
+        onTapCallback: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => StudioSuccessPaymentPage('paymentMethod'),
+            ),
+          );
+        },
       ),
     );
   }

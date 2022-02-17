@@ -1,19 +1,38 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/global/colors.dart';
-import 'package:LMP0001_LittleMiraclesApp/models/media.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 //EXTENSIONS
 //GLOBAL
+import '../../global/colors.dart';
 //MODELS
+import '../../models/media.dart';
 //PROVIDERS
 //WIDGETS
 import '../../widgets/general/cachedImageWidget.dart';
 
 //PAGES
-class CartItem extends StatelessWidget {
-  const CartItem({Key? key}) : super(key: key);
+class CartItemContainer extends StatefulWidget {
+  final String? image;
+  final String? title;
+  final String? description;
+  final String? price;
+  final VoidCallback? onTapCallback;
+  // final int? id;
+  const CartItemContainer({
+    Key? key,
+    @required this.image,
+    @required this.description,
+    @required this.price,
+    @required this.title,
+    this.onTapCallback,
+    // @required this.id,
+  }) : super(key: key);
 
+  @override
+  State<CartItemContainer> createState() => _CartItemContainerState();
+}
+
+class _CartItemContainerState extends State<CartItemContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,7 +47,7 @@ class CartItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 16, 10, 16),
+        padding: const EdgeInsets.fromLTRB(16, 16, 0, 16),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -36,7 +55,8 @@ class CartItem extends StatelessWidget {
               width: 68,
               height: 68,
               child: CachedImageWidget(
-                'https://i.picsum.photos/id/37/200/300.jpg?hmac=H-M0-zyAOZnQIHrggRUcDCS_roK8MHKI1OtEgZA72yk', //TODO:: Replace url
+                widget.image,
+                // 'https://i.picsum.photos/id/37/200/300.jpg?hmac=H-M0-zyAOZnQIHrggRUcDCS_roK8MHKI1OtEgZA72yk', //TODO:: Replace url
                 ImageShape.square,
               ),
             ),
@@ -50,7 +70,7 @@ class CartItem extends StatelessWidget {
                   children: [
                     RichText(
                       text: TextSpan(
-                          text: 'Twinkle Portrait Studio session\n',
+                          text: '${widget.title}\n',
                           style: TextStyle(
                             fontFamily: GoogleFonts.manrope().fontFamily,
                             fontWeight: FontWeight.w800,
@@ -59,7 +79,7 @@ class CartItem extends StatelessWidget {
                           ),
                           children: [
                             TextSpan(
-                              text: '8th January 2022',
+                              text: widget.description,
                               style: TextStyle(
                                 fontFamily: GoogleFonts.manrope().fontFamily,
                                 fontWeight: FontWeight.w600,
@@ -70,7 +90,7 @@ class CartItem extends StatelessWidget {
                           ]),
                     ),
                     Text(
-                      'BD 160',
+                      'BD ${widget.price}',
                       style: TextStyle(
                         fontFamily: GoogleFonts.manrope().fontFamily,
                         fontWeight: FontWeight.w600,
@@ -82,9 +102,9 @@ class CartItem extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              child: Icon(Icons.close),
+            IconButton(
+              icon: Icon(Icons.close),
+              onPressed: widget.onTapCallback,
             )
           ],
         ),
