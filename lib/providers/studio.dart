@@ -92,6 +92,10 @@ class Studio with ChangeNotifier {
     return _promoCode;
   }
 
+  Map get studioBody {
+    return _bookingBody;
+  }
+
   StudioPackage? get studioPackage {
     return _studioPackage;
   }
@@ -149,7 +153,6 @@ class Studio with ChangeNotifier {
     }
 
     // if (_selectedAlbumSize != null) {
-
 
     //   price += _selectedAlbumSize!.price.toString().toDouble();
     // }

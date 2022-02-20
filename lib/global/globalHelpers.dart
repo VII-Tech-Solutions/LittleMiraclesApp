@@ -14,13 +14,13 @@ import 'package:device_info_plus/device_info_plus.dart';
 //PAGES
 
 class GlobalHelpers {
-  static Widget randomPlaceholder(String shape) {
+  static Widget randomPlaceholder(String shape, {BorderRadius? borderRadius}) {
     List<String> list = ['blue', 'pink', 'grey'];
     int max = 3;
     String colorName = list[Random().nextInt(max)];
 
     return ClipRRect(
-      borderRadius: BorderRadius.circular(8.0),
+      borderRadius: borderRadius ?? BorderRadius.circular(8.0),
       child: Image.asset(
         'assets/images/placeholder_${shape}_$colorName.png',
         fit: BoxFit.cover,

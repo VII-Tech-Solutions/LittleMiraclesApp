@@ -1,0 +1,37 @@
+//PACKAGES
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/src/provider.dart';
+//EXTENSIONS
+//GLOBAL
+import '../../global/colors.dart';
+//MODELS
+//PROVIDERS
+import '../../providers/appData.dart';
+//WIDGETS
+import '../../widgets/appbars/appBarWithBack.dart';
+import '../../widgets/containers/photoSelectionContainer.dart';
+//PAGES
+
+class PhotoSelection extends StatelessWidget {
+  const PhotoSelection({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final sessions = context.watch<AppData>().completedSessions;
+    return Scaffold(
+      appBar: AppBarWithBack(
+        title: 'Photo Selection',
+        weight: FontWeight.w800,
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 10),
+          child: Column(
+            children: sessions.map((e) => PhotoSelectionContainer(e)).toList(),
+          ),
+        ),
+      ),
+    );
+  }
+}

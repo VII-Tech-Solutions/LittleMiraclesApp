@@ -49,6 +49,19 @@ extension StringExtension on String {
     }
   }
 
+  String toddMMMMyyyy() {
+    if (this.isNotEmpty) {
+      var dateTimeString = this;
+      final dateTime = DateTime.parse(dateTimeString);
+
+      final format = DateFormat('dd MMMM yyyy');
+      final formattedDate = format.format(dateTime);
+      return formattedDate;
+    } else {
+      return "";
+    }
+  }
+
   String toSlashddMMMyyyy() {
     if (this.isNotEmpty) {
       var dateTimeString = this;

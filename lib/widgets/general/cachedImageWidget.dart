@@ -19,24 +19,27 @@ class CachedImageWidget extends StatelessWidget {
   final ImageShape imageShape;
   final double? radius;
   final BoxFit? customBoxFit;
+  final BorderRadius? borderRadius;
   const CachedImageWidget(
     this.url,
     this.imageShape, {
     this.radius = 8.0,
     this.customBoxFit = BoxFit.cover,
+    this.borderRadius,
   });
 
   @override
   Widget build(BuildContext context) {
     final placeholder = GlobalHelpers.randomPlaceholder(
-        imageShape == ImageShape.rectangle ? 'r' : 's');
+        imageShape == ImageShape.rectangle ? 'r' : 's',
+        borderRadius: borderRadius);
     return CachedNetworkImage(
       imageUrl: url ?? '',
       placeholder: (context, url) => placeholder,
       errorWidget: (context, url, error) => placeholder,
       imageBuilder: (context, imageProvider) => Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(radius ?? 0.0),
+          borderRadius: borderRadius ?? BorderRadius.circular(radius ?? 0.0),
           color: AppColors.blue8DC4CB,
           image: DecorationImage(
             image: imageProvider,

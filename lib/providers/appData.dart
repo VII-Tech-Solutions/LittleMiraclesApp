@@ -29,6 +29,7 @@ import '../models/studioPackage.dart';
 import '../models/studioMetadata.dart';
 import '../models/apiResponse.dart';
 import '../models/faq.dart';
+import '../models/media.dart';
 //PROVIDERS
 //WIDGETS
 import '../widgets/texts/titleText.dart';
@@ -50,6 +51,7 @@ class AppData with ChangeNotifier {
   Session? _session;
   List<Onboarding> _onboardings = [];
   List<Session> _sessions = [];
+  List<Media> _sessionsMedia = [];
   List<Session> _subSessions = [];
   List<DailyTip> _dailyTips = [];
   List<Promotion> _promotions = [];
@@ -78,6 +80,7 @@ class AppData with ChangeNotifier {
     this._session,
     this._package,
     this._sessions,
+    this._sessionsMedia,
     this._subSessions,
     this._onboardings,
     this._dailyTips,
@@ -101,6 +104,19 @@ class AppData with ChangeNotifier {
     this._giftList,
   );
 
+  List<Media> getSessionMedia(String? mediaIdsString) {
+    List<Media> mediaList = [];
+    List<int> mediaIdsList = [];
+
+    if (mediaIdsString != null) mediaIdsList = mediaIdsString.toIntList();
+
+    mediaList = _sessionsMedia
+        .where((element) => mediaIdsList.contains(element.id))
+        .toList();
+
+    return mediaList;
+  }
+
   Future<void> assignSessionById(int? id) async {
     _session = await _sessions.firstWhere((element) => element.id == id);
     _package = await _packages
@@ -114,6 +130,16 @@ class AppData with ChangeNotifier {
 
   Package? get package {
     return _package;
+  }
+
+  List<Session> get completedSessions {
+    List<Session> _completedList =
+        _sessions.where((element) => element.status == 5).toList();
+
+    _completedList
+        .sort((a, b) => b.date!.dateToInt()!.compareTo(a.date!.dateToInt()!));
+
+    return [..._completedList];
   }
 
   List<Session> get sessions {
@@ -134,6 +160,10 @@ class AppData with ChangeNotifier {
 
   List<Session> get subSessions {
     return [..._subSessions];
+  }
+
+  List<Media> get sessionMedia {
+    return [..._sessionsMedia];
   }
 
   List<Session> getSubSessionsByIds(String? ids) {
@@ -394,6 +424,7 @@ class AppData with ChangeNotifier {
           json.decode(response.body)['data']['sessions'] as List;
       final subSessionsJson =
           json.decode(response.body)['data']['sub_sessions'] as List;
+      final mediaJson = json.decode(response.body)['data']['media'] as List;
 
       if (response.statusCode != 200) {
         notifyListeners();
@@ -403,6 +434,7 @@ class AppData with ChangeNotifier {
       _sessions = sessionsJson.map((json) => Session.fromJson(json)).toList();
       _subSessions =
           subSessionsJson.map((json) => Session.fromJson(json)).toList();
+      _sessionsMedia = mediaJson.map((json) => Media.fromJson(json)).toList();
 
       if (_sessions.isNotEmpty) {
         _sessionWidgetsList.clear();

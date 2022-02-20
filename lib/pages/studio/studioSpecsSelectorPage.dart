@@ -1,4 +1,5 @@
 //PACKAGES
+import 'package:LMP0001_LittleMiraclesApp/providers/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 //EXTENSIONS
@@ -10,6 +11,7 @@ import '../../models/question.dart';
 //PROVIDERS
 import '../../providers/studio.dart';
 //WIDGETS
+import '../../widgets/dialogs/showOkDialog.dart';
 import '../../widgets/appbars/appBarWithBack.dart';
 import '../../widgets/form/textQuestionWidget.dart';
 import '../../widgets/studioContainers/studioBottomSectionContainer.dart';
@@ -19,6 +21,7 @@ import '../../widgets/studioContainers/spreadsSelector.dart';
 import '../../widgets/studioContainers/paperTypeSelector.dart';
 import '../../widgets/studioContainers/coverTypeSelector.dart';
 //PAGES
+import 'photoSelection.dart';
 
 class StudioSpecsSelectorPage extends StatefulWidget {
   const StudioSpecsSelectorPage();
@@ -140,12 +143,34 @@ class _StudioSpecsSelectorPageState extends State<StudioSpecsSelectorPage> {
         bottomNavigationBar: StudioBottomSectionContainer(
             btnLabel: 'Next',
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Scaffold(),
-                ),
-              );
+              final bookingsBody = context.read<Studio>().studioBody;
+              final auth = context.read<Auth>().isAuth;
+              if (auth == true) {
+                if (!bookingsBody.containsKey('album_title') ||
+                    bookingsBody['album_title'] == "") {
+                  ShowOkDialog(
+                      context, 'Please add the album title to proceed');
+                } else if (!bookingsBody.containsKey('album_size')) {
+                  ShowOkDialog(
+                      context, 'Please select an album size to proceed');
+                } else if (!bookingsBody.containsKey('spreads')) {
+                  ShowOkDialog(
+                      context, 'Please select an album size to proceed');
+                } else if (!bookingsBody.containsKey('paper_type')) {
+                  ShowOkDialog(
+                      context, 'Please select a paper type to proceed');
+                } else if (!bookingsBody.containsKey('cover_type')) {
+                  ShowOkDialog(
+                      context, 'Please select a cover type to proceed');
+                } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PhotoSelection(),
+                    ),
+                  );
+                }
+              }
             }),
       ),
     );
