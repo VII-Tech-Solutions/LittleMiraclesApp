@@ -25,7 +25,6 @@ class AlbumSizePage extends StatefulWidget {
 }
 
 class _AlbumSizePageState extends State<AlbumSizePage> {
-  // List<int> _selectedItems = [];
   StudioMetadata? _selectedItem;
 
   final _unselectedDecoration = BoxDecoration(
@@ -164,44 +163,12 @@ class _AlbumSizePageState extends State<AlbumSizePage> {
                     ),
                   )
                   .toList(),
-
-              //  List.generate(
-              //   5,
-              //   (index) => Container(
-              //     padding: const EdgeInsets.all(10),
-              //     decoration: BoxDecoration(
-              //       borderRadius: BorderRadius.circular(8),
-              //       border: Border.all(
-              //         color: AppColors.greyD0D3D6,
-              //         width: 1,
-              //       ),
-              //     ),
-              //     child: Column(
-              //       children: [
-              //         Expanded(
-              //           child: AspectRatio(
-              //             aspectRatio: 1 / 1,
-              //             child: Container(
-              //               color: Colors.red,
-              //             ),
-              //           ),
-              //         ),
-              //         Text(
-              //           '16x24',
-              //           style: TextStyle(
-              //             color: AppColors.black45515D,
-              //             fontWeight: FontWeight.w800,
-              //           ),
-              //         )
-              //       ],
-              //     ),
-              //   ),
-              // ),
             )
           ],
         ),
       ),
       bottomNavigationBar: StudioBottomSectionContainer(
+          title: 'Album Size ${_selectedItem?.title ?? ''}',
           btnLabel: 'Confirm Size',
           onTap: () {
             if (_selectedItem != null) {

@@ -143,7 +143,7 @@ class _SpreadsPageState extends State<SpreadsPage> {
         ),
       ),
       bottomNavigationBar: StudioBottomSectionContainer(
-          btnLabel: 'Confirm Size',
+          btnLabel: 'Confirm Spreads',
           onTap: () {
             if (_selectedItem != null) {
               context.read<Studio>().assignSelectedSpec(

@@ -14,6 +14,7 @@ import '../form/formTextField.dart';
 import '../general/cachedImageWidget.dart';
 import '../texts/titleText.dart';
 //PAGES
+import '../../pages/studio/paperTypePage.dart';
 
 class PaperTypeSelector extends StatelessWidget {
   const PaperTypeSelector();
@@ -23,8 +24,7 @@ class PaperTypeSelector extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        //TODO:: go to album size page
-        builder: (context) => Scaffold(),
+        builder: (context) => PaperTypePage(),
       ),
     );
   }
@@ -39,7 +39,9 @@ class PaperTypeSelector extends StatelessWidget {
             children: [
               TitleText(
                 title: 'Paper Type',
-                customPadding: const EdgeInsets.only(bottom: 10),
+                customPadding: const EdgeInsets.only(bottom: 10, top: 20),
+                type: TitleTextType.subTitleBlack,
+                weight: FontWeight.w800,
               ),
               InkWell(
                 onTap: () => _goToItemsPage(context),
@@ -77,9 +79,10 @@ class PaperTypeSelector extends StatelessWidget {
                                 child: Text(
                                   selectedPaperType.title ?? '',
                                   style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w800,
-                                      color: AppColors.black45515D),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w800,
+                                    color: AppColors.black45515D,
+                                  ),
                                 ),
                               ),
                             ),

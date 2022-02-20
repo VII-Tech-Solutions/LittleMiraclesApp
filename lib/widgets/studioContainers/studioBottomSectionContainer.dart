@@ -7,13 +7,14 @@ import '../../global/colors.dart';
 //PROVIDERS
 import '../../providers/studio.dart';
 //WIDGETS
-import '../../widgets/buttons/filledButtonWidget.dart';
 //PAGES
 
 class StudioBottomSectionContainer extends StatelessWidget {
+  final String? title;
   final String? btnLabel;
   final VoidCallback? onTap;
   const StudioBottomSectionContainer({
+    this.title,
     this.btnLabel,
     this.onTap,
   });
@@ -21,6 +22,7 @@ class StudioBottomSectionContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final package = context.watch<Studio>().studioPackage;
+    final price = context.watch<Studio>().packagePriceWithSpecs;
     return Container(
       height: 100,
       width: double.infinity,
@@ -36,7 +38,7 @@ class StudioBottomSectionContainer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  package?.title ?? '',
+                  title ?? package?.title ?? '',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -45,7 +47,9 @@ class StudioBottomSectionContainer extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Starting BD ${package?.startingPrice ?? ''}',
+                  price != null
+                      ? 'BD $price'
+                      : 'Starting BD ${package?.startingPrice ?? ''}',
                   style: TextStyle(
                     color: AppColors.black45515D,
                     fontSize: 12,
@@ -55,12 +59,29 @@ class StudioBottomSectionContainer extends StatelessWidget {
               ],
             ),
           ),
-          FilledButtonWidget(
-            customWidth: 128,
-            onPress: onTap,
-            type: ButtonType.generalBlue,
-            title: btnLabel ?? 'Buy Now',
-          ),
+          InkWell(
+            onTap: onTap,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minWidth: 100),
+              child: Container(
+                height: 38,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: AppColors.blue8DC4CB,
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: Text(
+                  btnLabel ?? 'Buy Now',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );

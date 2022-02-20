@@ -4,14 +4,11 @@ import 'package:provider/provider.dart';
 //EXTENSIONS
 //GLOBAL
 import '../../global/colors.dart';
-import '../../global/const.dart';
 //MODELS
 //PROVIDERS
 import '../../providers/studio.dart';
-import '../../providers/appData.dart';
 //WIDGETS
 import '../form/formTextField.dart';
-import '../general/cachedImageWidget.dart';
 import '../texts/titleText.dart';
 //PAGES
 import '../../pages/studio/albumSizesPage.dart';
@@ -82,9 +79,10 @@ class AlbumSizeSelector extends StatelessWidget {
                                 child: Text(
                                   selectedAlbumSize.title ?? '',
                                   style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w800,
-                                      color: AppColors.black45515D),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w800,
+                                    color: AppColors.black45515D,
+                                  ),
                                 ),
                               ),
                             ),

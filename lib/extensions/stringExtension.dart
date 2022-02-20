@@ -29,6 +29,13 @@ extension StringExtension on String {
     return int.parse(this);
   }
 
+  double toDouble() {
+    if (this.isEmpty) {
+      return 1;
+    }
+    return double.parse(this);
+  }
+
   String toddMMMyyyy() {
     if (this.isNotEmpty) {
       var dateTimeString = this;

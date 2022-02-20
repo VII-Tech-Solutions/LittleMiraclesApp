@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 //EXTENSIONS
+import '../extensions/stringExtension.dart';
 //GLOBAL
 import '../global/const.dart';
 import '../global/globalEnvironment.dart';
@@ -137,6 +138,44 @@ class Studio with ChangeNotifier {
 
   StudioMetadata? get selectedPhotoPaperSize {
     return _selectedPhotoPaperSize;
+  }
+
+  double? get packagePriceWithSpecs {
+    double price = 0.0;
+    final initialPrice = _studioPackage?.startingPrice.toString().toDouble();
+
+    if (initialPrice != null) {
+      price = initialPrice;
+    }
+
+    // if (_selectedAlbumSize != null) {
+
+
+    //   price += _selectedAlbumSize!.price.toString().toDouble();
+    // }
+    // if (_selectedSpreads != null) {
+    //   price += _selectedAlbumSize!.price.toString().toDouble();
+    // }
+    // if (_selectedPaperType != null) {
+    //   price += _selectedAlbumSize!.price.toString().toDouble();
+    // }
+    // if (_selectedCoverType != null) {
+    //   price += _selectedAlbumSize!.price.toString().toDouble();
+    // }
+    // if (_selectedCanvasSize != null) {
+    //   price += _selectedAlbumSize!.price.toString().toDouble();
+    // }
+    // if (_selectedCanvasThickness != null) {
+    //   price += _selectedAlbumSize!.price.toString().toDouble();
+    // }
+    // if (_selectedPrintType != null) {
+    //   price += _selectedAlbumSize!.price.toString().toDouble();
+    // }
+    // if (_selectedPhotoPaperSize != null) {
+    //   price += _selectedAlbumSize!.price.toString().toDouble();
+    // }
+
+    return price == initialPrice ? null : price;
   }
 
   Future<void> applyPromoCode(String code) async {

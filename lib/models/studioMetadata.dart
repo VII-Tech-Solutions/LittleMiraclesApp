@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 class StudioMetadata {
   final int? id;
   final String? title;
+  final String? price;
   final String? description;
   final String? image;
   final int? status;
@@ -13,6 +14,7 @@ class StudioMetadata {
   StudioMetadata({
     @required this.id,
     @required this.title,
+    @required this.price,
     @required this.description,
     @required this.image,
     @required this.status,
@@ -25,6 +27,7 @@ class StudioMetadata {
     return {
       'id': id ?? -1,
       'title': title ?? "",
+      'price': price ?? "",
       'description': description ?? "",
       'image': image ?? "",
       'status': status ?? -1,
@@ -38,6 +41,7 @@ class StudioMetadata {
     return StudioMetadata(
       id: json['id'] as int?,
       title: json['title'] as String?,
+      price: json['price'] as String?,
       description: json['description'] as String?,
       image: json['image'] as String?,
       status: json['status'] as int?,

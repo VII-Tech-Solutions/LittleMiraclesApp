@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 //EXTENSIONS
 //GLOBAL
 import '../../global/colors.dart';
+import '../../global/const.dart';
 //MODELS
 import '../../models/question.dart';
 //PROVIDERS
@@ -28,11 +29,25 @@ class StudioSpecsSelectorPage extends StatefulWidget {
 }
 
 class _StudioSpecsSelectorPageState extends State<StudioSpecsSelectorPage> {
+  String appBarTitle = '';
   Map _bookingBody = {};
 
   @override
   void initState() {
-    // final provider = context.read<Bookings>();
+    final studioPackage = context.read<Studio>().studioPackage;
+
+    switch (studioPackage?.type) {
+      case StudioPackageTypes.photoAlbum:
+        appBarTitle = 'Album Specs';
+        break;
+      case StudioPackageTypes.canvasPrint:
+        appBarTitle = 'Canvas Specs';
+        break;
+      case StudioPackageTypes.photoPaper:
+        appBarTitle = 'Photo Paper Specs';
+        break;
+      default:
+    }
 
     // _bookingBody.addAll({'package_id': provider.package?.id});
 
@@ -68,7 +83,7 @@ class _StudioSpecsSelectorPageState extends State<StudioSpecsSelectorPage> {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         appBar: AppBarWithBack(
-          title: 'Album Specs',
+          title: appBarTitle,
           weight: FontWeight.w800,
         ),
         body: Padding(
@@ -88,6 +103,7 @@ class _StudioSpecsSelectorPageState extends State<StudioSpecsSelectorPage> {
                 hasScrollBody: false,
                 child: Container(
                   padding: const EdgeInsets.only(bottom: 20),
+                  margin: const EdgeInsets.only(top: 20),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [

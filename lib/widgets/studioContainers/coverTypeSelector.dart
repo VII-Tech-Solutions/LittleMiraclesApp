@@ -14,6 +14,7 @@ import '../form/formTextField.dart';
 import '../general/cachedImageWidget.dart';
 import '../texts/titleText.dart';
 //PAGES
+import '../../pages/studio/coverTypePage.dart';
 
 class CoverTypeSelector extends StatelessWidget {
   const CoverTypeSelector();
@@ -23,8 +24,7 @@ class CoverTypeSelector extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        //TODO:: go to album size page
-        builder: (context) => Scaffold(),
+        builder: (context) => CoverTypePage(),
       ),
     );
   }
@@ -39,7 +39,9 @@ class CoverTypeSelector extends StatelessWidget {
             children: [
               TitleText(
                 title: 'Cover Type',
-                customPadding: const EdgeInsets.only(bottom: 10),
+                customPadding: const EdgeInsets.only(bottom: 10, top: 20),
+                type: TitleTextType.subTitleBlack,
+                weight: FontWeight.w800,
               ),
               InkWell(
                 onTap: () => _goToItemsPage(context),
