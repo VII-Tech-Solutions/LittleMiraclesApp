@@ -80,16 +80,14 @@ class StudioPackageDetailsPage extends StatelessWidget {
             ),
           ),
           SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 10, bottom: 16),
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.1479,
-                width: MediaQuery.of(context).size.width * 0.64,
-                child: ListView(
-                  padding: const EdgeInsets.only(right: 16),
-                  scrollDirection: Axis.horizontal,
-                  children: _recommendedBookingList,
-                ),
+            child: Container(
+              height: MediaQuery.of(context).size.width * 0.64 / 2,
+              width: MediaQuery.of(context).size.width * 0.64,
+              margin: const EdgeInsets.only(bottom: 16),
+              child: ListView(
+                padding: const EdgeInsets.only(left: 10, right: 16),
+                scrollDirection: Axis.horizontal,
+                children: _recommendedBookingList,
               ),
             ),
           ),
@@ -106,14 +104,16 @@ class StudioPackageDetailsPage extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: StudioBottomSectionContainer(onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => StudioSpecsSelectorPage(),
-          ),
-        );
-      }),
+      bottomNavigationBar: StudioBottomSectionContainer(
+          canShowEditedPrice: false,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => StudioSpecsSelectorPage(),
+              ),
+            );
+          }),
     );
   }
 }

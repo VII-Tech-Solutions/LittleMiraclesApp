@@ -12,10 +12,12 @@ import '../../providers/studio.dart';
 class StudioBottomSectionContainer extends StatelessWidget {
   final String? title;
   final String? btnLabel;
+  final bool? canShowEditedPrice;
   final VoidCallback? onTap;
   const StudioBottomSectionContainer({
     this.title,
     this.btnLabel,
+    this.canShowEditedPrice = true,
     this.onTap,
   });
 
@@ -47,7 +49,7 @@ class StudioBottomSectionContainer extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  price != null
+                  price != null && canShowEditedPrice == true
                       ? 'BD $price'
                       : 'Starting BD ${package?.startingPrice ?? ''}',
                   style: TextStyle(

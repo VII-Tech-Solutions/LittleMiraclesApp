@@ -24,14 +24,20 @@ class PhotoSelection extends StatelessWidget {
         title: 'Photo Selection',
         weight: FontWeight.w800,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 10),
-          child: Column(
-            children: sessions.map((e) => PhotoSelectionContainer(e)).toList(),
-          ),
-        ),
-      ),
+      body: sessions.isEmpty
+          ? SafeArea(
+              child: Center(
+                // TODO:: get the design and set the style
+                child: Text("You don't have any completed sessions yet."),
+              ),
+            )
+          : SingleChildScrollView(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 36),
+              child: Column(
+                children:
+                    sessions.map((e) => PhotoSelectionContainer(e)).toList(),
+              ),
+            ),
     );
   }
 }

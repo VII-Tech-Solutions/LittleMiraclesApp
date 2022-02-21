@@ -17,14 +17,14 @@ import '../../widgets/studioContainers/studioBottomSectionContainer.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
 //PAGES
 
-class AlbumSizePage extends StatefulWidget {
-  const AlbumSizePage();
+class PhotoPaperSizePage extends StatefulWidget {
+  const PhotoPaperSizePage();
 
   @override
-  _AlbumSizePageState createState() => _AlbumSizePageState();
+  _PhotoPaperSizePageState createState() => _PhotoPaperSizePageState();
 }
 
-class _AlbumSizePageState extends State<AlbumSizePage> {
+class _PhotoPaperSizePageState extends State<PhotoPaperSizePage> {
   StudioMetadata? _selectedItem;
 
   final _unselectedDecoration = BoxDecoration(
@@ -47,7 +47,7 @@ class _AlbumSizePageState extends State<AlbumSizePage> {
 
   @override
   void initState() {
-    _selectedItem = context.read<Studio>().selectedAlbumSize;
+    _selectedItem = context.read<Studio>().selectedPhotoPaperSize;
 
     super.initState();
   }
@@ -58,7 +58,7 @@ class _AlbumSizePageState extends State<AlbumSizePage> {
 
     return Scaffold(
       appBar: AppBarWithBack(
-        title: 'Album Size',
+        title: 'Photo Paper Size',
         weight: FontWeight.w800,
       ),
       body: Padding(
@@ -71,7 +71,7 @@ class _AlbumSizePageState extends State<AlbumSizePage> {
                 child: RichText(
                   textAlign: TextAlign.start,
                   text: TextSpan(
-                    text: 'Album Size ',
+                    text: 'Print Size ',
                     style: TextStyle(
                       fontSize: 18,
                       fontFamily: GoogleFonts.manrope().fontFamily,
@@ -98,7 +98,7 @@ class _AlbumSizePageState extends State<AlbumSizePage> {
               crossAxisCount: 3,
               childAspectRatio: 107 / 115,
               children: appDataProvider
-                  .getStudioMetadata(StudioMetaCategory.albumSize)
+                  .getStudioMetadata(StudioMetaCategory.paperSize)
                   .map(
                     (item) => InkWell(
                       onTap: () {
@@ -164,20 +164,21 @@ class _AlbumSizePageState extends State<AlbumSizePage> {
                     ),
                   )
                   .toList(),
-            )
+            ),
+            SliverPadding(padding: const EdgeInsets.only(bottom: 30)),
           ],
         ),
       ),
       bottomNavigationBar: StudioBottomSectionContainer(
-          title: 'Album Size ${_selectedItem?.title ?? ''}',
+          title: 'Paper Size ${_selectedItem?.title ?? ''}',
           btnLabel: 'Confirm Size',
           onTap: () {
             if (_selectedItem != null) {
               context.read<Studio>().assignSelectedSpec(
-                  StudioMetaCategory.albumSize, _selectedItem);
+                  StudioMetaCategory.paperSize, _selectedItem);
               Navigator.pop(context);
             } else {
-              ShowOkDialog(context, 'Please select an album size to proceed');
+              ShowOkDialog(context, 'Please select a paper size to proceed');
             }
           }),
     );

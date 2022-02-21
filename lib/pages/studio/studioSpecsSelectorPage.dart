@@ -1,16 +1,14 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/providers/auth.dart';
-import 'package:LMP0001_LittleMiraclesApp/widgets/studioContainers/canvasSizeSelector.dart';
-import 'package:LMP0001_LittleMiraclesApp/widgets/studioContainers/canvasThicknessSelector.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 //EXTENSIONS
 //GLOBAL
-import '../../global/colors.dart';
 import '../../global/const.dart';
 //MODELS
 import '../../models/question.dart';
+import '../../models/studioPackage.dart';
 //PROVIDERS
+import '../../providers/auth.dart';
 import '../../providers/studio.dart';
 //WIDGETS
 import '../../widgets/dialogs/showOkDialog.dart';
@@ -22,6 +20,11 @@ import '../../widgets/studioContainers/albumSizeSelector.dart';
 import '../../widgets/studioContainers/spreadsSelector.dart';
 import '../../widgets/studioContainers/paperTypeSelector.dart';
 import '../../widgets/studioContainers/coverTypeSelector.dart';
+import '../../widgets/studioContainers/canvasSizeSelector.dart';
+import '../../widgets/studioContainers/canvasThicknessSelector.dart';
+import '../../widgets/studioContainers/printTypeSelector.dart';
+import '../../widgets/studioContainers/quantitySelector.dart';
+import '../../widgets/studioContainers/photoPaperSizeSelector.dart';
 //PAGES
 import 'photoSelection.dart';
 
@@ -36,14 +39,16 @@ class StudioSpecsSelectorPage extends StatefulWidget {
 class _StudioSpecsSelectorPageState extends State<StudioSpecsSelectorPage> {
   String appBarTitle = '';
   Map _bookingBody = {};
-  late final studioPackage;
+  late final StudioPackage? studioPackage;
+  late final int? packageType;
 
   @override
   void initState() {
     studioPackage = context.read<Studio>().studioPackage;
+    packageType = studioPackage?.type;
 
     switch (studioPackage?.type) {
-      case StudioPackageTypes.photoAlbum:
+      case StudioPackageTypes.album:
         appBarTitle = 'Album Specs';
         break;
       case StudioPackageTypes.canvasPrint:
@@ -79,33 +84,60 @@ class _StudioSpecsSelectorPageState extends State<StudioSpecsSelectorPage> {
   @override
   Widget build(BuildContext context) {
     List<Widget> _selectorWidgets = [
+      // CANVAS
       Visibility(
-        visible: studioPackage?.type == StudioPackageTypes.canvasPrint,
+        visible: packageType == StudioPackageTypes.canvasPrint,
         child: CanvasSizeSelector(),
       ),
+      // CANVAS
       Visibility(
-        visible: studioPackage?.type == StudioPackageTypes.canvasPrint,
+        visible: packageType == StudioPackageTypes.canvasPrint,
         child: CanvasThicknessSelector(),
       ),
-      // Visibility(
-      //   visible: studioPackage?.type == StudioPackageTypes.canvasPrint,
-      //   child: CanvasQuantitySelector(),
-      // ),
+      // PHOTO
       Visibility(
-          visible: studioPackage?.type == StudioPackageTypes.photoAlbum,
-          child: AlbumTitleTextField()),
+        visible: packageType == StudioPackageTypes.photoPaper,
+        child: PrintTypeSelector(),
+      ),
+      // ALBUM
       Visibility(
-          visible: studioPackage?.type == StudioPackageTypes.photoAlbum,
-          child: AlbumSizeSelector()),
+        visible: packageType == StudioPackageTypes.album,
+        child: AlbumTitleTextField(),
+      ),
+      // ALBUM
       Visibility(
-          visible: studioPackage?.type == StudioPackageTypes.photoAlbum,
-          child: SpreadsSelector()),
+        visible: packageType == StudioPackageTypes.album,
+        child: AlbumSizeSelector(),
+      ),
+      // ALBUM
       Visibility(
-          visible: studioPackage?.type == StudioPackageTypes.photoAlbum,
-          child: PaperTypeSelector()),
+        visible: packageType == StudioPackageTypes.album,
+        child: SpreadsSelector(),
+      ),
+      // PHOTO
       Visibility(
-          visible: studioPackage?.type == StudioPackageTypes.photoAlbum,
-          child: CoverTypeSelector()),
+        visible: packageType == StudioPackageTypes.photoPaper,
+        child: PhotoPaperSizeSelector(),
+      ),
+      // ALBUM or PHOTO
+      Visibility(
+        visible: packageType == StudioPackageTypes.album ||
+            packageType == StudioPackageTypes.photoPaper,
+        child: PaperTypeSelector(
+          packageType: packageType,
+        ),
+      ),
+      // ALBUM
+      Visibility(
+        visible: packageType == StudioPackageTypes.album,
+        child: CoverTypeSelector(),
+      ),
+      // CANVAS or PHOTO
+      Visibility(
+        visible: packageType == StudioPackageTypes.canvasPrint ||
+            packageType == StudioPackageTypes.photoPaper,
+        child: QuantitySelector(),
+      ),
     ];
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -168,38 +200,62 @@ class _StudioSpecsSelectorPageState extends State<StudioSpecsSelectorPage> {
         bottomNavigationBar: StudioBottomSectionContainer(
             btnLabel: 'Next',
             onTap: () {
-              final bookingsBody = context.read<Studio>().studioBody;
               final auth = context.read<Auth>().isAuth;
               if (auth == true) {
-                if (!bookingsBody.containsKey('album_title') ||
-                    bookingsBody['album_title'] == "") {
-                  ShowOkDialog(
-                      context, 'Please add the album title to proceed');
-                } else if (!bookingsBody.containsKey('album_size')) {
-                  ShowOkDialog(
-                      context, 'Please select an album size to proceed');
-                } else if (!bookingsBody.containsKey('spreads')) {
-                  ShowOkDialog(
-                      context, 'Please select an album size to proceed');
-                } else if (!bookingsBody.containsKey('paper_type')) {
-                  ShowOkDialog(
-                      context, 'Please select a paper type to proceed');
-                } else if (!bookingsBody.containsKey('cover_type')) {
-                  ShowOkDialog(
-                      context, 'Please select a cover type to proceed');
-                } else {
+                if (_isFormValid())
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => PhotoSelection(),
                     ),
                   );
-                }
               } else {
                 ShowOkDialog(context, 'You need to be logged in to proceed');
               }
             }),
       ),
     );
+  }
+
+  bool _isFormValid() {
+    bool isValid = true;
+    final bookingsBody = context.read<Studio>().studioBody;
+    switch (packageType) {
+      case StudioPackageTypes.album:
+        if (!bookingsBody.containsKey('album_title') ||
+            bookingsBody['album_title'] == "") {
+          isValid = false;
+          ShowOkDialog(context, 'Please add the album title to proceed');
+        } else if (!bookingsBody.containsKey('album_size')) {
+          isValid = false;
+          ShowOkDialog(context, 'Please select an album size to proceed');
+        } else if (!bookingsBody.containsKey('spreads')) {
+          isValid = false;
+          ShowOkDialog(context, 'Please select an album size to proceed');
+        } else if (!bookingsBody.containsKey('paper_type')) {
+          isValid = false;
+          ShowOkDialog(context, 'Please select a paper type to proceed');
+        } else if (!bookingsBody.containsKey('cover_type')) {
+          isValid = false;
+          ShowOkDialog(context, 'Please select a cover type to proceed');
+        }
+        break;
+      case StudioPackageTypes.canvasPrint:
+        break;
+      case StudioPackageTypes.photoPaper:
+        if (!bookingsBody.containsKey('print_type')) {
+          isValid = false;
+          ShowOkDialog(context, 'Please select a print type to proceed');
+        } else if (!bookingsBody.containsKey('paper_size')) {
+          isValid = false;
+          ShowOkDialog(context, 'Please select a paper size to proceed');
+        } else if (!bookingsBody.containsKey('paper_type')) {
+          isValid = false;
+          ShowOkDialog(context, 'Please select a paper type to proceed');
+        }
+        break;
+    }
+
+    return isValid;
   }
 }

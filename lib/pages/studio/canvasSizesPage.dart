@@ -133,6 +133,7 @@ class _CanvasSizePageState extends State<CanvasSizePage> {
                                 ),
                                 Text(
                                   item.title ?? '',
+                                  textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: AppColors.black45515D,
                                     fontWeight: FontWeight.w800,
@@ -176,7 +177,7 @@ class _CanvasSizePageState extends State<CanvasSizePage> {
                   StudioMetaCategory.canvasSize, _selectedItem);
               Navigator.pop(context);
             } else {
-              ShowOkDialog(context, 'Please select an Canvas size to proceed');
+              ShowOkDialog(context, 'Please select canvas size to proceed');
             }
           }),
     );

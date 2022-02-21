@@ -8,7 +8,6 @@ import '../../global/const.dart';
 //MODELS
 //PROVIDERS
 import '../../providers/studio.dart';
-import '../../providers/appData.dart';
 //WIDGETS
 import '../form/formTextField.dart';
 import '../general/cachedImageWidget.dart';
@@ -17,7 +16,8 @@ import '../texts/titleText.dart';
 import '../../pages/studio/paperTypePage.dart';
 
 class PaperTypeSelector extends StatelessWidget {
-  const PaperTypeSelector();
+  final int? packageType;
+  const PaperTypeSelector({this.packageType});
 
   void _goToItemsPage(BuildContext context) {
     FocusScope.of(context).requestFocus(new FocusNode());
@@ -104,11 +104,12 @@ class PaperTypeSelector extends StatelessWidget {
             ],
           )
         : Visibility(
-            //TODO:: check based on studio type when the API returns it later.
             visible: true,
             child: FormTextFieldWidget(
               controller: TextEditingController(),
-              customMargin: const EdgeInsets.only(top: 20),
+              customMargin: packageType == StudioPackageTypes.photoPaper
+                  ? const EdgeInsets.only(top: 10)
+                  : const EdgeInsets.only(top: 20),
               title: 'Paper Type',
               hintStyle: TextStyle(
                 color: AppColors.black45515D,

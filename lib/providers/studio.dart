@@ -64,6 +64,7 @@ class Studio with ChangeNotifier {
   StudioMetadata? _selectedCanvasThickness;
   StudioMetadata? _selectedPrintType;
   StudioMetadata? _selectedPhotoPaperSize;
+  int _quantity = 1;
 
   PromoCode? _promoCode;
   //multi session bookings details
@@ -149,6 +150,10 @@ class Studio with ChangeNotifier {
     return _selectedPhotoPaperSize;
   }
 
+  int get quantity {
+    return _quantity;
+  }
+
   double? get packagePriceWithSpecs {
     double price = 0.0;
     final initialPrice = _studioPackage?.startingPrice.toString().toDouble();
@@ -157,33 +162,34 @@ class Studio with ChangeNotifier {
       price = initialPrice;
     }
 
-    // if (_selectedAlbumSize != null) {
+    if (_selectedAlbumSize != null) {
+      price += _selectedAlbumSize!.price.toString().toDouble();
+    }
+    if (_selectedSpreads != null) {
+      price += _selectedSpreads!.price.toString().toDouble();
+    }
+    if (_selectedPaperType != null) {
+      price += _selectedPaperType!.price.toString().toDouble();
+    }
+    if (_selectedCoverType != null) {
+      price += _selectedCoverType!.price.toString().toDouble();
+    }
+    if (_selectedCanvasSize != null) {
+      price += _selectedCanvasSize!.price.toString().toDouble();
+    }
+    if (_selectedCanvasThickness != null) {
+      price += _selectedCanvasThickness!.price.toString().toDouble();
+    }
+    if (_selectedPrintType != null) {
+      price += _selectedPrintType!.price.toString().toDouble();
+    }
+    if (_selectedPhotoPaperSize != null) {
+      price += _selectedPhotoPaperSize!.price.toString().toDouble();
+    }
 
-    //   price += _selectedAlbumSize!.price.toString().toDouble();
-    // }
-    // if (_selectedSpreads != null) {
-    //   price += _selectedAlbumSize!.price.toString().toDouble();
-    // }
-    // if (_selectedPaperType != null) {
-    //   price += _selectedAlbumSize!.price.toString().toDouble();
-    // }
-    // if (_selectedCoverType != null) {
-    //   price += _selectedAlbumSize!.price.toString().toDouble();
-    // }
-    // if (_selectedCanvasSize != null) {
-    //   price += _selectedAlbumSize!.price.toString().toDouble();
-    // }
-    // if (_selectedCanvasThickness != null) {
-    //   price += _selectedAlbumSize!.price.toString().toDouble();
-    // }
-    // if (_selectedPrintType != null) {
-    //   price += _selectedAlbumSize!.price.toString().toDouble();
-    // }
-    // if (_selectedPhotoPaperSize != null) {
-    //   price += _selectedAlbumSize!.price.toString().toDouble();
-    // }
+    final finalPrice = price * quantity;
 
-    return price == initialPrice ? null : price;
+    return finalPrice == initialPrice ? null : finalPrice;
   }
 
   List<Media> getSessionMedia(String? mediaIdsString) {
@@ -288,6 +294,11 @@ class Studio with ChangeNotifier {
     notifyListeners();
   }
 
+  void assignQuantity(int val) {
+    _quantity = val;
+    notifyListeners();
+  }
+
   Future<void> amendBookingBody(Map data) async {
     _bookingBody.addAll({'package_id': _studioPackage?.id});
 
@@ -307,6 +318,7 @@ class Studio with ChangeNotifier {
     _selectedCanvasThickness = null;
     _selectedPrintType = null;
     _selectedPhotoPaperSize = null;
+    _quantity = 1;
 
     print(jsonEncode(_bookingBody));
   }

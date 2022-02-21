@@ -21,7 +21,7 @@ class StudioImageSectionContainer extends StatelessWidget {
     final package = context.read<Studio>().studioPackage;
 
     switch (package?.type) {
-      case StudioPackageTypes.photoAlbum:
+      case StudioPackageTypes.album:
         string = 'Album';
         break;
       case StudioPackageTypes.canvasPrint:

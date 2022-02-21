@@ -14,15 +14,14 @@ import '../../providers/studio.dart';
 //WIDGETS
 //PAGES
 
-class CanvasThicknessSelector extends StatefulWidget {
-  CanvasThicknessSelector({Key? key}) : super(key: key);
+class PrintTypeSelector extends StatefulWidget {
+  PrintTypeSelector({Key? key}) : super(key: key);
 
   @override
-  State<CanvasThicknessSelector> createState() =>
-      _CanvasThicknessSelectorState();
+  State<PrintTypeSelector> createState() => _PrintTypeSelectorState();
 }
 
-class _CanvasThicknessSelectorState extends State<CanvasThicknessSelector> {
+class _PrintTypeSelectorState extends State<PrintTypeSelector> {
   StudioMetadata? _selectedItem;
 
   final BoxDecoration unselectedOptionsStyle = const BoxDecoration().copyWith(
@@ -49,11 +48,11 @@ class _CanvasThicknessSelectorState extends State<CanvasThicknessSelector> {
       children: [
         Padding(
           padding: const EdgeInsets.only(
-            top: 30,
+            top: 0,
             bottom: 5,
           ),
           child: Text(
-            'Canvas Thickness',
+            'Print Type',
             style: TextStyle(
               color: AppColors.black45515D,
               fontFamily: GoogleFonts.manrope().fontFamily,
@@ -65,13 +64,13 @@ class _CanvasThicknessSelectorState extends State<CanvasThicknessSelector> {
         Column(
           children: context
               .read<AppData>()
-              .getStudioMetadata(StudioMetaCategory.canvasThickness)
+              .getStudioMetadata(StudioMetaCategory.printType)
               .map(
                 (item) => InkWell(
                   onTap: () => setState(() {
                     _selectedItem = item;
                     context.read<Studio>().assignSelectedSpec(
-                        StudioMetaCategory.canvasThickness, _selectedItem);
+                        StudioMetaCategory.printType, _selectedItem);
                   }),
                   child: AnimatedContainer(
                     height: 40,

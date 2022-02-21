@@ -1,6 +1,5 @@
 //PACKAGES
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 //EXTENSIONS
 //GLOBAL
@@ -12,32 +11,32 @@ import '../../providers/studio.dart';
 import '../form/formTextField.dart';
 import '../texts/titleText.dart';
 //PAGES
-import '../../pages/studio/canvasSizesPage.dart';
+import '../../pages/studio/photoPaperSizePage.dart';
 
-class CanvasSizeSelector extends StatelessWidget {
-  const CanvasSizeSelector();
+class PhotoPaperSizeSelector extends StatelessWidget {
+  const PhotoPaperSizeSelector();
 
   void _goToItemsPage(BuildContext context) {
     FocusScope.of(context).requestFocus(new FocusNode());
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => CanvasSizePage(),
+        builder: (context) => PhotoPaperSizePage(),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final selectedCanvasSize = context.watch<Studio>().selectedCanvasSize;
-    return selectedCanvasSize != null
+    final selectedPhotoPaperSize = context.watch<Studio>().selectedPhotoPaperSize;
+    return selectedPhotoPaperSize != null
         ? Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TitleText(
-                title: 'Canvas Size',
-                customPadding: const EdgeInsets.only(bottom: 10),
+                title: 'Photo Paper Size',
+                customPadding: const EdgeInsets.only(bottom: 10, top: 20),
                 type: TitleTextType.subTitleBlack,
                 weight: FontWeight.w800,
               ),
@@ -78,7 +77,7 @@ class CanvasSizeSelector extends StatelessWidget {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 16),
                                 child: Text(
-                                  selectedCanvasSize.title ?? '',
+                                  selectedPhotoPaperSize.title ?? '',
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w800,
@@ -105,40 +104,21 @@ class CanvasSizeSelector extends StatelessWidget {
             ],
           )
         : Visibility(
-            //TODO:: check based on studio type when the API returns it later.
             visible: true,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 15),
-                  child: Text(
-                    'Canvas Size',
-                    style: TextStyle(
-                      color: AppColors.black45515D,
-                      fontFamily: GoogleFonts.manrope().fontFamily,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
-                FormTextFieldWidget(
-                  controller: TextEditingController(),
-                  customMargin: const EdgeInsets.only(top: 10),
-                  title: 'Canvas Size',
-                  hintStyle: TextStyle(
-                    color: AppColors.black45515D,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                  ),
-                  suffixIcon: Icon(
-                    Icons.keyboard_arrow_right,
-                    color: AppColors.black45515D,
-                  ),
-                  onTap: () => _goToItemsPage(context),
-                ),
-              ],
+            child: FormTextFieldWidget(
+              controller: TextEditingController(),
+              customMargin: const EdgeInsets.only(top: 30),
+              title: 'Photo Paper Size',
+              hintStyle: TextStyle(
+                color: AppColors.black45515D,
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+              ),
+              suffixIcon: Icon(
+                Icons.keyboard_arrow_right,
+                color: AppColors.black45515D,
+              ),
+              onTap: () => _goToItemsPage(context),
             ),
           );
   }

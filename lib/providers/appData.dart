@@ -1077,6 +1077,9 @@ class AppData with ChangeNotifier {
               image: item['image'],
               startingPrice: item['startingPrice'],
               status: item['status'],
+              benefitIds: item['benefitIds'],
+              mediaIds: item['mediaIds'],
+              type: item['type'],
               updatedAt: item['updatedAt'],
               deletedAt: item['deletedAt'],
             ),
@@ -1091,6 +1094,7 @@ class AppData with ChangeNotifier {
             (item) => StudioMetadata(
               id: item['id'],
               title: item['title'],
+              price: item['price'],
               description: item['description'],
               image: item['image'],
               status: item['status'],

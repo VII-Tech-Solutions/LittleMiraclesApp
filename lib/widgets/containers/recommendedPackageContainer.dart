@@ -54,7 +54,7 @@ class RecommendedPackageContainer extends StatelessWidget {
         child: Stack(
           children: [
             Container(
-              height: MediaQuery.of(context).size.height * 0.1479,
+              height: MediaQuery.of(context).size.width * 0.64 / 2,
               width: MediaQuery.of(context).size.width * 0.64,
               child: CachedImageWidget(
                 package?.image ?? '',
@@ -62,7 +62,7 @@ class RecommendedPackageContainer extends StatelessWidget {
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.height * 0.1479,
+              height: MediaQuery.of(context).size.width * 0.64 / 2,
               width: MediaQuery.of(context).size.width * 0.64,
               padding: EdgeInsets.only(left: 16, bottom: 16),
               decoration: BoxDecoration(

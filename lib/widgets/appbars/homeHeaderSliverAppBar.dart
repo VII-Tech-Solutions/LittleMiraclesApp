@@ -26,10 +26,10 @@ class HomeHeaderSliverAppBar extends StatelessWidget {
       snap: false,
       floating: false,
       stretch: false,
-      toolbarHeight: statusBarHeight - 25,
+      toolbarHeight: 0,
       backgroundColor: Colors.white,
       expandedHeight: helloSection == null || isAuth
-          ? statusBarHeight - 25
+          ? 0
           : size.height * 0.7 - kBottomNavigationBarHeight,
       elevation: 0,
       flexibleSpace: FlexibleSpaceBar(

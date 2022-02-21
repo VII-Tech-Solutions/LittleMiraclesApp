@@ -89,7 +89,7 @@ class StudioMetaCategory {
 }
 
 class StudioPackageTypes {
-  static const photoAlbum = 1;
+  static const album = 1;
   static const canvasPrint = 2;
   static const photoPaper = 3;
 }
