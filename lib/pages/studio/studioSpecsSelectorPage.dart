@@ -115,7 +115,7 @@ class _StudioSpecsSelectorPageState extends State<StudioSpecsSelectorPage> {
           weight: FontWeight.w800,
         ),
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
           child: CustomScrollView(
             slivers: [
               SliverList(
@@ -195,6 +195,8 @@ class _StudioSpecsSelectorPageState extends State<StudioSpecsSelectorPage> {
                     ),
                   );
                 }
+              } else {
+                ShowOkDialog(context, 'You need to be logged in to proceed');
               }
             }),
       ),

@@ -24,6 +24,7 @@ class HtmlDescriptionText extends StatelessWidget {
             fontSize: FontSize(14),
             margin: EdgeInsets.zero,
             padding: EdgeInsets.zero,
+            lineHeight: LineHeight.number(1.4)
           ),
         },
         onLinkTap: (String? url, RenderContext context,
