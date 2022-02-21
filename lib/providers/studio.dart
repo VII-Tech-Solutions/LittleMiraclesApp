@@ -25,6 +25,7 @@ class Studio with ChangeNotifier {
   String authToken;
   StudioPackage? _studioPackage;
   List<Benefit> _benefits = [];
+  List<Media> _selectedMedia = [];
   List<Media> _studioPackageMedia = [];
   List<CartItem> _cartItems = [
     CartItem(
@@ -90,6 +91,10 @@ class Studio with ChangeNotifier {
 
   PromoCode? get promoCode {
     return _promoCode;
+  }
+
+  List<Media> get selectedMedia {
+    return [..._selectedMedia];
   }
 
   Map get studioBody {
@@ -179,6 +184,38 @@ class Studio with ChangeNotifier {
     // }
 
     return price == initialPrice ? null : price;
+  }
+
+  List<Media> getSessionMedia(String? mediaIdsString) {
+    List<Media> mediaList = [];
+    List<int> mediaIdsList = [];
+
+    if (mediaIdsString != null) mediaIdsList = mediaIdsString.toIntList();
+
+    mediaList = _selectedMedia
+        .where((element) => mediaIdsList.contains(element.id))
+        .toList();
+
+    return mediaList;
+  }
+
+  void assignSelectedSessionMedia(
+    List<Media> list,
+    // int? sessionId,
+  ) {
+    // 1: delete all media form the list
+    // _sessionsMedia.removeWhere((element) = element.)
+    _selectedMedia.forEach((element) {
+      if (_selectedMedia.contains(element) && !list.contains(element))
+        _selectedMedia.remove(element); // TODO:: FIX AFTER API FIX
+    });
+
+    // 2: assign to selected media list
+    list.forEach((element) {
+      if (!_selectedMedia.contains(element)) _selectedMedia.add(element);
+    });
+    print('list: $list');
+    print('_selectedMedia: $_selectedMedia');
   }
 
   Future<void> applyPromoCode(String code) async {

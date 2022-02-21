@@ -29,12 +29,18 @@ class PhotoSelectionContainer extends StatelessWidget {
     late final img1;
     late final img2;
     late final img3;
+    List<int> indices = [];
 
-    final length = imagesList.length;
-    if (length > 2) {
-      img1 = imagesList[_random.nextInt(imagesList.length)].url;
-      img2 = imagesList[_random.nextInt(imagesList.length)].url;
-      img3 = imagesList[_random.nextInt(imagesList.length)].url;
+    if (imagesList.length > 2) {
+      do {
+        final value = _random.nextInt(imagesList.length);
+        if (!indices.contains(value)) indices.add(value);
+      } while (indices.length < 3);
+
+      final length = indices.length;
+      img1 = imagesList[indices[0]].url;
+      img2 = imagesList[indices[1]].url;
+      img3 = imagesList[indices[2]].url;
     } else {
       img1 = img2 = img3 = '';
     }
@@ -146,7 +152,7 @@ class PhotoSelectionContainer extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '${imagesList.length}',
+                      '${imagesList.length} Images',
                       style: TextStyle(
                         color: AppColors.black737C85,
                         fontFamily: GoogleFonts.manrope().fontFamily,

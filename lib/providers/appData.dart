@@ -1,6 +1,8 @@
 //PACKAGES
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
+import 'package:LMP0001_LittleMiraclesApp/widgets/containers/recommendedPackageContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 //EXTENSION
@@ -68,11 +70,42 @@ class AppData with ChangeNotifier {
   List<StudioMetadata> _studioMetadataList = [];
   List<FAQ> _faqsList = [];
   List<Gift> _giftList = [];
+  List<Media?> _selectedMedia = [];
+  int _selectionCount = 0;
+
+  void incrementSelectionCount() {
+    _selectionCount = _selectionCount + 1;
+    notifyListeners();
+  }
+
+  void decrementSelectionCount() {
+    _selectionCount = _selectionCount - 1;
+    notifyListeners();
+  }
+
+  void addToSelection(Media? media) {
+    _selectedMedia.add(media);
+    notifyListeners();
+  }
+
+  void removefromSelection(Media? media) {
+    _selectedMedia.remove(media);
+    notifyListeners();
+  }
+
+  List<Media?> get selectedMedia {
+    return [..._selectedMedia];
+  }
+
+  int get selectionCount {
+    return _selectionCount;
+  }
 
   // MAIN PAGES WIDGETS LISTS
   List<Widget> _sessionWidgetsList = [];
   List<Widget> _homeList = [];
   List<Widget> _bookingList = [];
+  List<Widget> _recommendedBookingList = [];
   List<Widget> _studioList = [];
 
   AppData(
@@ -90,6 +123,7 @@ class AppData with ChangeNotifier {
     this._sessionWidgetsList,
     this._homeList,
     this._bookingList,
+    this._recommendedBookingList,
     this._studioList,
     this._packages,
     this._backdrops,
@@ -376,6 +410,23 @@ class AppData with ChangeNotifier {
 
   List<Widget> get bookingList {
     return [..._bookingList];
+  }
+
+  List<Widget> get recommendedBookingList {
+    final _random = new Random();
+    List<int> indices = [];
+    List<Widget> suggest = [];
+
+    if (_recommendedBookingList.length > 2) {
+      do {
+        final value = _random.nextInt(_recommendedBookingList.length);
+        if (!indices.contains(value)) indices.add(value);
+      } while (indices.length < 3);
+      indices.forEach((element) {
+        suggest.add(_recommendedBookingList[element]);
+      });
+    }
+    return [...suggest];
   }
 
   List<Widget> get studioList {
@@ -1137,9 +1188,11 @@ class AppData with ChangeNotifier {
 
   Future<void> generateBookingsPageWidgets() async {
     _bookingList.clear();
+    _recommendedBookingList.clear();
     if (_packages.isNotEmpty) {
       _packages.forEach((element) {
         _bookingList.add(PackageContainer(element));
+        _recommendedBookingList.add(RecommendedPackageContainer(element));
       });
     }
   }

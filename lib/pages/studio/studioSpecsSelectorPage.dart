@@ -1,5 +1,7 @@
 //PACKAGES
 import 'package:LMP0001_LittleMiraclesApp/providers/auth.dart';
+import 'package:LMP0001_LittleMiraclesApp/widgets/studioContainers/canvasSizeSelector.dart';
+import 'package:LMP0001_LittleMiraclesApp/widgets/studioContainers/canvasThicknessSelector.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 //EXTENSIONS
@@ -34,10 +36,11 @@ class StudioSpecsSelectorPage extends StatefulWidget {
 class _StudioSpecsSelectorPageState extends State<StudioSpecsSelectorPage> {
   String appBarTitle = '';
   Map _bookingBody = {};
+  late final studioPackage;
 
   @override
   void initState() {
-    final studioPackage = context.read<Studio>().studioPackage;
+    studioPackage = context.read<Studio>().studioPackage;
 
     switch (studioPackage?.type) {
       case StudioPackageTypes.photoAlbum:
@@ -76,11 +79,33 @@ class _StudioSpecsSelectorPageState extends State<StudioSpecsSelectorPage> {
   @override
   Widget build(BuildContext context) {
     List<Widget> _selectorWidgets = [
-      AlbumTitleTextField(),
-      AlbumSizeSelector(),
-      SpreadsSelector(),
-      PaperTypeSelector(),
-      CoverTypeSelector(),
+      Visibility(
+        visible: studioPackage?.type == StudioPackageTypes.canvasPrint,
+        child: CanvasSizeSelector(),
+      ),
+      Visibility(
+        visible: studioPackage?.type == StudioPackageTypes.canvasPrint,
+        child: CanvasThicknessSelector(),
+      ),
+      // Visibility(
+      //   visible: studioPackage?.type == StudioPackageTypes.canvasPrint,
+      //   child: CanvasQuantitySelector(),
+      // ),
+      Visibility(
+          visible: studioPackage?.type == StudioPackageTypes.photoAlbum,
+          child: AlbumTitleTextField()),
+      Visibility(
+          visible: studioPackage?.type == StudioPackageTypes.photoAlbum,
+          child: AlbumSizeSelector()),
+      Visibility(
+          visible: studioPackage?.type == StudioPackageTypes.photoAlbum,
+          child: SpreadsSelector()),
+      Visibility(
+          visible: studioPackage?.type == StudioPackageTypes.photoAlbum,
+          child: PaperTypeSelector()),
+      Visibility(
+          visible: studioPackage?.type == StudioPackageTypes.photoAlbum,
+          child: CoverTypeSelector()),
     ];
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
