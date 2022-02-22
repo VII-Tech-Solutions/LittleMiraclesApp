@@ -1,4 +1,7 @@
 //PACKAGES
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:country_code_picker/country_code_picker.dart';
@@ -41,16 +44,38 @@ class _EditYourPartnerPageState extends State<EditYourPartnerPage> {
   String _formattedDate = '';
 
   Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
+    if (Platform.isIOS) {
+      showCupertinoModalPopup(
+        builder: (context) => Container(
+          height: MediaQuery.of(context).copyWith().size.height * 0.25,
+          color: Colors.white,
+          child: CupertinoDatePicker(
+            onDateTimeChanged: (val) {
+              setState(() {
+                selectedDate = val;
+                _birthdayController.text =
+                    'Birthday\t\t\t\t${DateFormatClass().toddMMyyyy('$val')}';
+                _formattedDate = DateFormatClass().toyyyyMMdd('$val');
+              });
+            },
+            mode: CupertinoDatePickerMode.date,
+            maximumYear: DateTime.now().year,
+          ),
+        ),
         context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(1960, 8),
-        lastDate: DateTime(2101));
-    if (picked != null && picked != selectedDate) {
-      selectedDate = picked;
-      _birthdayController.text =
-          'Birthday\t\t\t\t${DateFormatClass().toddMMyyyy('$picked')}';
-      _formattedDate = DateFormatClass().toyyyyMMdd('$picked');
+      );
+    } else {
+      DateTime? picked = await showDatePicker(
+          context: context,
+          initialDate: selectedDate,
+          firstDate: DateTime(1960, 8),
+          lastDate: DateTime(2101));
+      if (picked != null && picked != selectedDate) {
+        selectedDate = picked;
+        _birthdayController.text =
+            'Birthday\t\t\t\t${DateFormatClass().toddMMyyyy('$picked')}';
+        _formattedDate = DateFormatClass().toyyyyMMdd('$picked');
+      }
     }
   }
 

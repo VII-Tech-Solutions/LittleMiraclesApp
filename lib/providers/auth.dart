@@ -253,7 +253,6 @@ class Auth with ChangeNotifier {
             body: jsonEncode(_registrationBody),
           )
           .timeout(Duration(seconds: Timeout.value));
-
       final result = json.decode(response.body);
 
       if (response.statusCode != 200) {
@@ -268,7 +267,26 @@ class Auth with ChangeNotifier {
       }
 
       User user = User.fromJson(result['data']['user']);
-      FamilyMember partner = FamilyMember.fromJson(result['data']['partner']);
+      FamilyMember? partner;
+      print('$result');
+      if (partner != null)
+        partner = FamilyMember.fromJson(result['data']['partner']);
+      else
+        partner = FamilyMember(
+            id: null,
+            familyId: null,
+            firstName: null,
+            lastName: null,
+            gender: null,
+            birthDate: null,
+            relationship: null,
+            status: null,
+            phoneNumber: null,
+            countryCode: null,
+            personality: null,
+            updatedAt: null,
+            deletedAt: null);
+
       final childrenJson = result['data']['children'] as List;
       final familyInfoJson = result['data']['family_info'] as List;
       _user = user;
@@ -309,7 +327,6 @@ class Auth with ChangeNotifier {
 
       _familyInfoList =
           familyInfoJson.map((json) => FamilyInfo.fromJson(json)).toList();
-
       _familyMembers.forEach((item) {
         if (item.deletedAt != null) {
           DBHelper.deleteById(Tables.familyMembers, item.id ?? -1);

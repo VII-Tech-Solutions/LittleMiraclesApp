@@ -1,4 +1,7 @@
 //PACKAGES
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 //EXTENSIONS
 //GLOBAL
@@ -11,7 +14,7 @@ import '../../widgets/form/formTextField.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
 //PAGES
 
-class ChildrenForm extends StatelessWidget {
+class ChildrenForm extends StatefulWidget {
   final GlobalKey<FormState> _formKey;
   final TextEditingController _firstNameController;
   final TextEditingController _lastNameController;
@@ -31,15 +34,47 @@ class ChildrenForm extends StatelessWidget {
     this._onAddMorePressed,
   );
 
-  Future<void> _selectDate(BuildContext context, DateTime selectedDate) async {
-    final DateTime? picked = await showDatePicker(
+  @override
+  State<ChildrenForm> createState() => _ChildrenFormState();
+}
+
+class _ChildrenFormState extends State<ChildrenForm> {
+  DateTime selectedDate = DateTime.now();
+  String _formattedDate = '';
+
+  Future<void> _selectDate(BuildContext context) async {
+    if (Platform.isIOS) {
+      showCupertinoModalPopup(
+        builder: (context) => Container(
+          height: MediaQuery.of(context).copyWith().size.height * 0.25,
+          color: Colors.white,
+          child: CupertinoDatePicker(
+            onDateTimeChanged: (val) {
+              setState(() {
+                selectedDate = val;
+                widget._birthdayController.text =
+                    'Birthday\t\t\t\t${DateFormatClass().toddMMyyyy('$val')}';
+                _formattedDate = DateFormatClass().toyyyyMMdd('$val');
+              });
+            },
+            mode: CupertinoDatePickerMode.date,
+            maximumYear: DateTime.now().year,
+          ),
+        ),
         context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(1960, 8),
-        lastDate: DateTime(2101));
-    if (picked != null) {
-      _birthdayController.text =
-          'Birthday\t\t\t\t${DateFormatClass().toddMMyyyy('${picked}')}';
+      );
+    } else {
+      DateTime? picked = await showDatePicker(
+          context: context,
+          initialDate: selectedDate,
+          firstDate: DateTime(1960, 8),
+          lastDate: DateTime(2101));
+      if (picked != null && picked != selectedDate) {
+        selectedDate = picked;
+        widget._birthdayController.text =
+            'Birthday\t\t\t\t${DateFormatClass().toddMMyyyy('$picked')}';
+        _formattedDate = DateFormatClass().toyyyyMMdd('$picked');
+      }
     }
   }
 
@@ -47,16 +82,16 @@ class ChildrenForm extends StatelessWidget {
   Widget build(BuildContext context) {
     DateTime selectedDate = DateTime.now();
     return Form(
-      key: _formKey,
+      key: widget._formKey,
       child: Column(
         children: [
           FormTextFieldWidget(
             title: 'First Name',
-            controller: _firstNameController,
+            controller: widget._firstNameController,
           ),
           FormTextFieldWidget(
             title: 'Last Name',
-            controller: _lastNameController,
+            controller: widget._lastNameController,
           ),
           Container(
             color: AppColors.whiteFFFFFF,
@@ -67,14 +102,15 @@ class ChildrenForm extends StatelessWidget {
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
               ),
-              value:
-                  _genderController.text.isEmpty ? '1' : _genderController.text,
+              value: widget._genderController.text.isEmpty
+                  ? '1'
+                  : widget._genderController.text,
               items: <DropdownMenuItem<String>>[
                 DropdownMenuItem(child: Text('Male'), value: '1'),
                 DropdownMenuItem(child: Text('Female'), value: '2'),
               ],
               onChanged: (value) {
-                _genderController.text = value.toString();
+                widget._genderController.text = value.toString();
               },
               icon: Icon(
                 Icons.expand_more,
@@ -94,7 +130,7 @@ class ChildrenForm extends StatelessWidget {
             ),
           ),
           FormTextFieldWidget(
-            controller: _birthdayController,
+            controller: widget._birthdayController,
             title:
                 'Birthday\t\t\t\t${DateFormatClass().toddMMyyyy('${DateTime.now()}')}',
             hintStyle: TextStyle(
@@ -107,25 +143,25 @@ class ChildrenForm extends StatelessWidget {
               color: AppColors.black45515D,
             ),
             onTap: () {
-              _selectDate(context, selectedDate);
+              _selectDate(context);
               FocusScope.of(context).requestFocus(
                 new FocusNode(),
               );
             },
           ),
           FormTextFieldWidget(
-            controller: _detailsController,
+            controller: widget._detailsController,
             title: 'Description of Their Personalities',
             maxLines: 8,
           ),
-          _isLast
+          widget._isLast
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     FilledButtonWidget(
                       margin: EdgeInsets.only(right: 30.0),
                       customWidth: 128,
-                      onPress: _onAddMorePressed,
+                      onPress: widget._onAddMorePressed,
                       type: ButtonType.generalGrey,
                       title: 'Add more',
                     ),

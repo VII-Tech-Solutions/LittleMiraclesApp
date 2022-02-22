@@ -100,6 +100,9 @@ class _FamilyPageState extends State<FamilyPage> {
 
                     context.read<Auth>().register().then((response) {
                       ShowLoadingDialog(context, dismiss: true);
+                      print('resp:$response');
+                      print(response?.message);
+                      print(response?.statusCode);
                       if (response?.statusCode == 200) {
                         Navigator.pushAndRemoveUntil(
                           context,

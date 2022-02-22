@@ -1,4 +1,6 @@
 //PACKAGES
+import 'package:LMP0001_LittleMiraclesApp/pages/general/customBottomNavigationBar.dart';
+import 'package:LMP0001_LittleMiraclesApp/pages/home/homePage.dart';
 import 'package:flutter/material.dart';
 //GLOBAL
 import '../../global/colors.dart';
@@ -31,10 +33,13 @@ class AppBarWithBackAndPop extends StatelessWidget with PreferredSizeWidget {
         child: MaterialButton(
           elevation: 0,
           onPressed: () {
-            int count = 0;
-            Navigator.popUntil(context, (route) {
-              return count++ == 4;
-            });
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CustomBottomNavigationBar(),
+              ),
+              (Route<dynamic> route) => false,
+            );
           },
           color: AppColors.greyF2F3F3,
           child: Icon(

@@ -56,7 +56,7 @@ class PromotionContainer extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    promotion?.offer ?? '',
+                    '${promotion?.offer ?? ''}% Off',
                     maxLines: 1,
                     style: TextStyle(
                       color: AppColors.black45515D,
