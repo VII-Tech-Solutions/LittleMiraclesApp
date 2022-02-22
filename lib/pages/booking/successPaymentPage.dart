@@ -130,6 +130,15 @@ class SuccessPaymentPage extends StatelessWidget {
         child: FilledButtonWidget(
           onPress: () {
             context.read<AppData>().assignSessionById(session?.id).then((_) {
+              context.read<Auth>().setSelectedIndex(0);
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CustomBottomNavigationBar(),
+                ),
+                (Route<dynamic> route) => false,
+              );
+
               Navigator.push(
                 context,
                 MaterialPageRoute(

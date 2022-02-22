@@ -48,11 +48,12 @@ class SessionButtonContainer extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(16, 46, 16, 25),
       child: Column(
         children: [
-          FilledButtonWidget(
-            onPress: () {},
-            title: 'Send a message',
-            type: ButtonType.generalGrey,
-          ),
+          //TODO:: uncomment when the chat is ready
+          // FilledButtonWidget(
+          //   onPress: () {},
+          //   title: 'Send a message',
+          //   type: ButtonType.generalGrey,
+          // ),
           SizedBox(height: 10),
           Visibility(
             visible: canReschedule(context),
