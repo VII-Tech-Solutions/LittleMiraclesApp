@@ -1,4 +1,5 @@
 //PACKAGES
+import 'package:LMP0001_LittleMiraclesApp/pages/home/sessions/bookAppointmentPage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
@@ -26,16 +27,10 @@ class CompletedSessionDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final images = [
-      'https://i.picsum.photos/id/504/200/300.jpg?hmac=mycti8qYrnGcag5zUhsVOq7hQwb__R-Zf--aBJAH_ec',
-      'https://i.picsum.photos/id/384/200/300.jpg?hmac=XxaMr3mI-4OhEVSNwfLw4oqF4Je819ACxZKz52AzXvQ',
-      'https://i.picsum.photos/id/66/200/300.jpg?hmac=zvcP8mVCNIMoM5f8iC-xSgDhR1VklmBY2SON28P4TOo',
-      'https://i.picsum.photos/id/603/200/300.jpg?hmac=7egn04uCRc_cYvj1RxmKD8W1ySpBC3Ut8GFrvACb4x0',
-    ];
-
     final size = MediaQuery.of(context).size;
 
     final session = context.watch<AppData>().session;
+    final images = context.watch<AppData>().getSessionMedia(session?.mediaIds);
 
     return Scaffold(
       appBar: AppBarWithBack(elevation: 0.0),
@@ -92,34 +87,40 @@ class CompletedSessionDetailsPage extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.only(left: 0, top: 25, bottom: 25),
-                child: Swiper(
-                  itemHeight: size.height * 0.6,
-                  itemWidth: size.width * 0.8,
-                  loop: true,
-                  itemCount: images.length,
-                  scrollDirection: Axis.horizontal,
-                  layout: SwiperLayout.STACK,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      margin:
-                          EdgeInsets.symmetric(vertical: size.height * 0.0135),
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.15),
-                            blurRadius: 6,
-                            offset: Offset(-5, 0),
-                          ),
-                        ],
-                      ),
-                      child: CachedImageWidget(
-                        images[index],
-                        ImageShape.square,
-                      ),
-                    );
-                  },
+              Visibility(
+                visible: images.isNotEmpty,
+                replacement: SizedBox(
+                  height: 20,
+                ),
+                child: Container(
+                  padding: const EdgeInsets.only(left: 0, top: 25, bottom: 25),
+                  child: Swiper(
+                    itemHeight: size.height * 0.6,
+                    itemWidth: size.width * 0.8,
+                    loop: true,
+                    itemCount: images.length,
+                    scrollDirection: Axis.horizontal,
+                    layout: SwiperLayout.STACK,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        margin: EdgeInsets.symmetric(
+                            vertical: size.height * 0.0135),
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.15),
+                              blurRadius: 6,
+                              offset: Offset(-5, 0),
+                            ),
+                          ],
+                        ),
+                        child: CachedImageWidget(
+                          images[index].url,
+                          ImageShape.square,
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
               Text(
@@ -130,11 +131,46 @@ class CompletedSessionDetailsPage extends StatelessWidget {
                   fontSize: 14.0,
                 ),
               ),
-              FilledButtonWidget(
-                onPress: () {},
-                title: 'Book an Appointment',
-                type: ButtonType.generalGrey,
-                margin: const EdgeInsets.symmetric(vertical: 20.0),
+              Visibility(
+                visible: session?.bookingText == null,
+                replacement: Padding(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: Text(
+                    session?.bookingText ?? '',
+                    style: TextStyle(
+                      color: AppColors.blue8DC4CB,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ),
+                child: FilledButtonWidget(
+                  onPress: () {
+                    ShowLoadingDialog(context);
+                    context
+                        .read<Bookings>()
+                        .fetchAndSetAvailableDates()
+                        .then((response) {
+                      ShowLoadingDialog(context, dismiss: true);
+                      if (response?.statusCode == 200) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BookAppointmentPage(),
+                          ),
+                        );
+                      } else {
+                        ShowOkDialog(
+                          context,
+                          response?.message ?? ErrorMessages.somethingWrong,
+                        );
+                      }
+                    });
+                  },
+                  title: 'Book an Appointment',
+                  type: ButtonType.generalGrey,
+                  margin: const EdgeInsets.symmetric(vertical: 20.0),
+                ),
               ),
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 30.0),

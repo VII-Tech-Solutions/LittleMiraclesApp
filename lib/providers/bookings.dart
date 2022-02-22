@@ -632,6 +632,61 @@ class Bookings with ChangeNotifier {
     }
   }
 
+  Future<ApiResponse?> bookAnAppointment(
+    int? sessionId,
+    String date,
+    String time,
+  ) async {
+    final url = Uri.parse('$apiLink/sessions/$sessionId/appointment');
+
+    try {
+      var response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Platform': '${await AppInfo().platformInfo()}',
+          'App-Version': '${await AppInfo().versionInfo()}',
+          'Authorization': 'Bearer $authToken',
+        },
+        body: {
+          'date': date,
+          'time': time,
+        },
+      ).timeout(Duration(seconds: Timeout.value));
+
+      final result = json.decode(response.body);
+
+      if (response.statusCode != 200) {
+        if ((response.statusCode >= 400 && response.statusCode <= 499) ||
+            response.statusCode == 503) {
+          return ApiResponse(
+              statusCode: response.statusCode,
+              message: result['message'].toString());
+        } else {
+          return null;
+        }
+      }
+
+      final sessionsJson = result['data']['sessions'] as dynamic;
+
+      final sessionObject = Session.fromJson(sessionsJson);
+
+      _session = sessionObject;
+
+      notifyListeners();
+      return (ApiResponse(
+        statusCode: response.statusCode,
+        message: json.decode(response.body)['message'],
+      ));
+    } on TimeoutException catch (e) {
+      print('Exception Timeout:: $e');
+      return null;
+    } catch (e) {
+      print('catch error:: $e');
+      return null;
+    }
+  }
+
   Future<ApiResponse?> applyPromoCode(String code) async {
     final url = Uri.parse('$apiLink/sessions/${_session?.id}/promotion');
 

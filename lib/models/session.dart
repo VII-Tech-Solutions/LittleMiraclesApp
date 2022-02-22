@@ -32,6 +32,7 @@ class Session {
   final String? mediaIds;
   final String? featuredImage;
   final String? subSessionsIds;
+  final String? bookingText;
 
   Session({
     @required this.id,
@@ -65,6 +66,7 @@ class Session {
     @required this.mediaIds,
     @required this.featuredImage,
     @required this.subSessionsIds,
+    @required this.bookingText,
   });
 
   Map<String, Object> toMap() {
@@ -136,6 +138,7 @@ class Session {
       mediaIds: json['media_ids'] as String?,
       featuredImage: json['featured_image'] as String?,
       subSessionsIds: json['sub_sessions_ids'] as String?,
+      bookingText: json['booking_text'] as String?,
     );
   }
 }

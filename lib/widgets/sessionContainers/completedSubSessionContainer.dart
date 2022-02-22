@@ -10,6 +10,7 @@ import '../../../global/const.dart';
 //MODELS
 import '../../models/session.dart';
 //PROVIDERS
+import '../../../providers/appData.dart';
 import '../../../providers/bookings.dart';
 //WIDGETS
 import '../../../widgets/buttons/filledButtonWidget.dart';
@@ -19,6 +20,7 @@ import '../../../widgets/dialogs/showLoadingDialog.dart';
 import '../../../widgets/dialogs/showOkDialog.dart';
 //PAGES
 import '../../pages/home/sessions/sessionFeedbackPage.dart';
+import '../../pages/home/sessions/bookAppointmentPage.dart';
 
 class CompletedSubSessionContainer extends StatelessWidget {
   final Session? subSession;
@@ -26,12 +28,8 @@ class CompletedSubSessionContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final images = [
-      'https://i.picsum.photos/id/504/200/300.jpg?hmac=mycti8qYrnGcag5zUhsVOq7hQwb__R-Zf--aBJAH_ec',
-      'https://i.picsum.photos/id/384/200/300.jpg?hmac=XxaMr3mI-4OhEVSNwfLw4oqF4Je819ACxZKz52AzXvQ',
-      'https://i.picsum.photos/id/66/200/300.jpg?hmac=zvcP8mVCNIMoM5f8iC-xSgDhR1VklmBY2SON28P4TOo',
-      'https://i.picsum.photos/id/603/200/300.jpg?hmac=7egn04uCRc_cYvj1RxmKD8W1ySpBC3Ut8GFrvACb4x0',
-    ];
+    final images =
+        context.watch<AppData>().getSessionMedia(subSession?.mediaIds);
     final size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -96,34 +94,40 @@ class CompletedSubSessionContainer extends StatelessWidget {
                   )),
               child: Column(
                 children: [
-                  Container(
-                    margin: const EdgeInsets.only(top: 16, bottom: 10),
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Swiper(
-                      itemHeight: size.height * 0.6,
-                      itemWidth: size.width * 0.75,
-                      loop: true,
-                      itemCount: images.length,
-                      scrollDirection: Axis.horizontal,
-                      layout: SwiperLayout.STACK,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          margin: const EdgeInsets.symmetric(vertical: 10),
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.15),
-                                blurRadius: 6,
-                                offset: Offset(-5, 3),
-                              ),
-                            ],
-                          ),
-                          child: CachedImageWidget(
-                            images[index],
-                            ImageShape.square,
-                          ),
-                        );
-                      },
+                  Visibility(
+                    visible: images.isNotEmpty,
+                    replacement: SizedBox(
+                      height: 20,
+                    ),
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 16, bottom: 10),
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Swiper(
+                        itemHeight: size.height * 0.6,
+                        itemWidth: size.width * 0.75,
+                        loop: true,
+                        itemCount: images.length,
+                        scrollDirection: Axis.horizontal,
+                        layout: SwiperLayout.STACK,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+                            margin: const EdgeInsets.symmetric(vertical: 10),
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.15),
+                                  blurRadius: 6,
+                                  offset: Offset(-5, 3),
+                                ),
+                              ],
+                            ),
+                            child: CachedImageWidget(
+                              images[index].url,
+                              ImageShape.square,
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
                   Padding(
@@ -138,11 +142,49 @@ class CompletedSubSessionContainer extends StatelessWidget {
                             fontSize: 14.0,
                           ),
                         ),
-                        FilledButtonWidget(
-                          onPress: () {},
-                          title: 'Book an Appointment',
-                          type: ButtonType.generalGrey,
-                          margin: const EdgeInsets.symmetric(vertical: 20.0),
+                        Visibility(
+                          visible: subSession?.bookingText == null,
+                          replacement: Padding(
+                            padding: const EdgeInsets.only(top: 30),
+                            child: Text(
+                              subSession?.bookingText ?? '',
+                              style: TextStyle(
+                                color: AppColors.blue8DC4CB,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                          ),
+                          child: FilledButtonWidget(
+                            onPress: () {
+                              ShowLoadingDialog(context);
+                              context
+                                  .read<Bookings>()
+                                  .fetchAndSetAvailableDates()
+                                  .then((response) {
+                                ShowLoadingDialog(context, dismiss: true);
+                                if (response?.statusCode == 200) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => BookAppointmentPage(
+                                        subSession: subSession,
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  ShowOkDialog(
+                                    context,
+                                    response?.message ??
+                                        ErrorMessages.somethingWrong,
+                                  );
+                                }
+                              });
+                            },
+                            title: 'Book an Appointment',
+                            type: ButtonType.generalGrey,
+                            margin: const EdgeInsets.symmetric(vertical: 20.0),
+                          ),
                         ),
                         Container(
                           margin: const EdgeInsets.symmetric(vertical: 30.0),
