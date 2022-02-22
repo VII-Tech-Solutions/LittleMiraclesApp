@@ -90,7 +90,7 @@ class _AvailableTimeContainerState extends State<AvailableTimeContainer> {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: _selectedTime == availableTimes[index]
-                        ? AppColors.black45515D
+                        ? AppColors.black2D3B48
                         : AppColors.greyF2F3F3,
                     borderRadius: BorderRadius.circular(24),
                   ),

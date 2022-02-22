@@ -1,25 +1,29 @@
+import 'package:LMP0001_LittleMiraclesApp/models/media.dart';
 import 'package:flutter/material.dart';
 
 class CartItem {
   final int? id;
   final String? title;
   final String? description;
-  final String? price;
-  final String? image;
+  final String price;
+  final String? displayImage;
+  final List<Media>? imageList;
 
-  CartItem(
-      {@required this.id,
-      @required this.title,
-      @required this.description,
-      @required this.price,
-      @required this.image});
+  CartItem({
+    @required this.id,
+    @required this.title,
+    @required this.description,
+    required this.price,
+    @required this.displayImage,
+    @required this.imageList,
+  });
 
   Map<String, Object> toMap() {
     return {
       'id': id ?? -1,
       'title': title ?? "",
       'description': description ?? -1,
-      'price': price ?? "",
+      'price': price,
     };
   }
 
@@ -28,8 +32,9 @@ class CartItem {
       id: json['id'] as int?,
       title: json['title'] as String?,
       description: json['description'] as String?,
-      price: json['price'] as String?,
-      image: json['image'] as String?,
+      price: json['price'] as String,
+      displayImage: json['image'] as String?,
+      imageList: json['image_list'] as List<Media>?,
     );
   }
 }

@@ -1,6 +1,7 @@
 //PACKAGES
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 //EXTENSIONS
@@ -28,30 +29,30 @@ class Studio with ChangeNotifier {
   List<Media> _selectedMedia = [];
   List<Media> _studioPackageMedia = [];
   List<CartItem> _cartItems = [
-    CartItem(
-      description: '12th January 2022',
-      title: 'Twinkle Portrait Studio Session',
-      id: 2,
-      image:
-          'https://i.picsum.photos/id/773/200/300.jpg?hmac=nhH4e4UtqcS6I0hy7eCr9waIFzMYNaMkzety6PQnOHM',
-      price: '133',
-    ),
-    CartItem(
-      description: '9th January 2022',
-      title: 'Mini Session',
-      id: 1,
-      image:
-          'https://i.picsum.photos/id/773/200/300.jpg?hmac=nhH4e4UtqcS6I0hy7eCr9waIFzMYNaMkzety6PQnOHM',
-      price: '96',
-    ),
-    CartItem(
-      description: '8th January 2022',
-      title: 'Twinkle Portrait Studio Session',
-      id: 0,
-      image:
-          'https://i.picsum.photos/id/773/200/300.jpg?hmac=nhH4e4UtqcS6I0hy7eCr9waIFzMYNaMkzety6PQnOHM',
-      price: '123',
-    ),
+    // CartItem(
+    //   description: '12th January 2022',
+    //   title: 'Twinkle Portrait Studio Session',
+    //   id: 2,
+    //   image:
+    //       'https://i.picsum.photos/id/773/200/300.jpg?hmac=nhH4e4UtqcS6I0hy7eCr9waIFzMYNaMkzety6PQnOHM',
+    //   price: '133',
+    // ),
+    // CartItem(
+    //   description: '9th January 2022',
+    //   title: 'Mini Session',
+    //   id: 1,
+    //   image:
+    //       'https://i.picsum.photos/id/773/200/300.jpg?hmac=nhH4e4UtqcS6I0hy7eCr9waIFzMYNaMkzety6PQnOHM',
+    //   price: '96',
+    // ),
+    // CartItem(
+    //   description: '8th January 2022',
+    //   title: 'Twinkle Portrait Studio Session',
+    //   id: 0,
+    //   image:
+    //       'https://i.picsum.photos/id/773/200/300.jpg?hmac=nhH4e4UtqcS6I0hy7eCr9waIFzMYNaMkzety6PQnOHM',
+    //   price: '123',
+    // ),
   ];
 
   //bookings details
@@ -205,6 +206,35 @@ class Studio with ChangeNotifier {
     return mediaList;
   }
 
+  List<int> indices = [];
+  void addCartItem(
+    String itemTitle,
+    String? description,
+    String price,
+    String? displayImage,
+    List<Media> imageList,
+  ) {
+    int? id;
+    do {
+      final value = Random().nextInt(999999);
+      if (!indices.contains(value)) {
+        indices.add(value);
+        id = value;
+      }
+    } while (id == null);
+
+    _cartItems.add(
+      CartItem(
+        id: id,
+        title: itemTitle,
+        description: description,
+        price: price,
+        displayImage: displayImage,
+        imageList: imageList,
+      ),
+    );
+  }
+
   void assignSelectedSessionMedia(
     List<Media> list,
     int? sessionId,
@@ -226,7 +256,7 @@ class Studio with ChangeNotifier {
     try {
       _promoCode = PromoCode(
         code: code,
-        message: 'eat potato',
+        message: 'potato',
         originalPrice: '80.0',
         discountPrice: '80.0',
         totalPrice: '0.0',

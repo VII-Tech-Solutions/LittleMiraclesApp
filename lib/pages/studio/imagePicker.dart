@@ -48,9 +48,20 @@ class _ImagePickerState extends State<ImagePicker> {
   Widget build(BuildContext context) {
     final media =
         context.watch<AppData>().getSessionMedia(widget._session.mediaIds);
+    final studio = context.watch<Studio>();
+    final int? count;
+    if (studio.studioBody.containsKey('spreads')) {
+      print('not quantity');
+      count = int.tryParse(studio.selectedSpreads?.description
+              ?.replaceAll(RegExp(r'[^0-9\.]'), '') ??
+          '');
+    } else {
+      count = studio.quantity;
+    }
+
     return Scaffold(
       appBar: AppBarWithClose(
-          'Select up to 20 Images', Colors.white.withOpacity(0.85)),
+          'Select up to $count Images', Colors.white.withOpacity(0.85)),
       body: SingleChildScrollView(
         child: GridView.builder(
           shrinkWrap: true,

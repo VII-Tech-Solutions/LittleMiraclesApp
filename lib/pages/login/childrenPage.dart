@@ -135,7 +135,8 @@ class _ChildrenPageState extends State<ChildrenPage> {
                     childrenList.add({
                       "first_name": _firstNameControllersList[i].text,
                       "last_name": _lastNameControllersList[i].text,
-                      "gender": _genderControllersList[i].text.toString().toInt(),
+                      "gender":
+                          _genderControllersList[i].text.toString().toInt(),
                       "birth_date": _birthdayControllersList[i].text.apiDob(),
                       "personality": _detailsControllersList[i].text,
                     });
@@ -162,6 +163,19 @@ class _ChildrenPageState extends State<ChildrenPage> {
                 },
                 type: ButtonType.generalBlue,
                 title: 'Next: Family Info',
+              ),
+              FilledButtonWidget(
+                margin: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 25.0),
+                onPress: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FamilyPage(),
+                    ),
+                  );
+                },
+                type: ButtonType.generalBlue,
+                title: 'Skip',
               ),
             ],
           ),

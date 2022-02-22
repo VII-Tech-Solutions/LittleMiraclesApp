@@ -236,6 +236,19 @@ class _PartnerPageState extends State<PartnerPage> {
                       type: ButtonType.generalBlue,
                       title: 'Next: Children\'s Info',
                     ),
+                    FilledButtonWidget(
+                      margin: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 25.0),
+                      onPress: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChildrenPage(),
+                          ),
+                        );
+                      },
+                      type: ButtonType.generalBlue,
+                      title: 'Skip',
+                    ), //TODO: Pending feedback, may need a change
                   ],
                 ),
               ),

@@ -231,7 +231,7 @@ class _StudioSpecsSelectorPageState extends State<StudioSpecsSelectorPage> {
           ShowOkDialog(context, 'Please select an album size to proceed');
         } else if (!bookingsBody.containsKey('spreads')) {
           isValid = false;
-          ShowOkDialog(context, 'Please select an album size to proceed');
+          ShowOkDialog(context, 'Please select an spreads to proceed');
         } else if (!bookingsBody.containsKey('paper_type')) {
           isValid = false;
           ShowOkDialog(context, 'Please select a paper type to proceed');

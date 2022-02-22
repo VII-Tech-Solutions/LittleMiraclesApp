@@ -1,4 +1,9 @@
 //PACKAGES
+import 'dart:math';
+
+import 'package:LMP0001_LittleMiraclesApp/pages/cart/cart.dart';
+import 'package:LMP0001_LittleMiraclesApp/providers/studio.dart';
+import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/showOkDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 //EXTENSIONS
@@ -19,6 +24,16 @@ class PhotoSelection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sessions = context.watch<AppData>().completedSessions;
+    final studio = context.watch<Studio>();
+    final int? count;
+    if (studio.studioBody.containsKey('spreads')) {
+      print('not quantity');
+      count = int.tryParse(studio.selectedSpreads?.description
+              ?.replaceAll(RegExp(r'[^0-9\.]'), '') ??
+          '');
+    } else {
+      count = studio.quantity;
+    }
     return Scaffold(
       appBar: AppBarWithBack(
         title: 'Photo Selection',
@@ -41,7 +56,47 @@ class PhotoSelection extends StatelessWidget {
       bottomNavigationBar: StudioBottomSectionContainer(
         btnLabel: 'Add to Cart',
         showSlectedImages: true,
-        onTap: () {},
+        onTap: () {
+          final content = context.read<Studio>();
+          if (content.selectedMedia.length > 0 &&
+              content.selectedMedia.length <= count!) {
+            String description = '';
+            if (content.studioPackage?.id == 1) {
+              description =
+                  " ${content.selectedAlbumSize?.title}, ${content.selectedSpreads?.title}, ${content.selectedPaperType?.title}, ${content.selectedCoverType?.title}";
+              print(
+                  'id: ${content.studioBody['package_id']}, desc: $description');
+            } else if (content.studioPackage?.id == 2) {
+              description =
+                  " ${content.selectedCanvasSize?.title}, ${content.selectedCanvasThickness?.title}, ${content.quantity}";
+              print(
+                  'id: ${content.studioBody['package_id']}, desc: $description');
+            } else if (content.studioPackage?.id == 3) {
+              description =
+                  " ${content.selectedPrintType?.title}, ${content.selectedPhotoPaperSize?.title}, ${content.selectedPhotoPaperSize?.title}, ${content.selectedPaperType?.title}, ${content.quantity}";
+              print(
+                  'id: ${content.studioBody['package_id']}, desc: $description');
+            }
+
+            content.addCartItem(
+              content.studioPackage?.title ?? '',
+              description,
+              content.packagePriceWithSpecs.toString(),
+              content.studioPackage?.image ?? '',
+              content.selectedMedia,
+            );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Cart(),
+              ),
+            );
+          } else if (content.selectedMedia.length <= 0) {
+            ShowOkDialog(context, 'Please select at least one image');
+          } else if (content.selectedMedia.length > count!) {
+            ShowOkDialog(context, 'Please remove some images');
+          }
+        },
       ),
     );
   }

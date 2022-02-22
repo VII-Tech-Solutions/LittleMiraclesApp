@@ -12,7 +12,11 @@ import '../buttons/filledButtonWidget.dart';
 
 class StudioPaymentBottomContainer extends StatelessWidget {
   final VoidCallback? onTapCallback;
-  const StudioPaymentBottomContainer({@required this.onTapCallback});
+  final double? total;
+  const StudioPaymentBottomContainer({
+    @required this.onTapCallback,
+    @required this.total,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +51,7 @@ class StudioPaymentBottomContainer extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  'BD 349.65',
+                  'BD $total',
                   // 'BD ${promoCode?.totalPrice ?? package?.price ?? ''}',
                   style: TextStyle(
                     color: AppColors.black45515D,

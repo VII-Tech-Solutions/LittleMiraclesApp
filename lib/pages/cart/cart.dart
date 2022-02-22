@@ -14,7 +14,7 @@ import '../../widgets/studioContainers/studioPaymentBottomContainer.dart';
 import '../../widgets/studioContainers/studioPromoCodeContainer.dart';
 import '../../widgets/studioContainers/studioPaymentContainer.dart';
 import '../../widgets/containers/cartItemContainer.dart';
-import '../../widgets/appbars/appBarWithBack.dart';
+import '../../widgets/appbars/appBarWithBackandPop.dart';
 import '../../widgets/paymentContainer/paymentAgreement.dart';
 import '../../widgets/studioContainers/studioSuccessPaymentPage.dart';
 //PAGES
@@ -33,10 +33,13 @@ class _CartState extends State<Cart> {
 
   @override
   Widget build(BuildContext context) {
+    double _subtotal = 0;
+    double _vat = 0;
+    double _total = 0;
     final promoCode = context.watch<Studio>().promoCode;
     final cartItems = context.watch<Studio>().cartItems;
     return Scaffold(
-      appBar: AppBarWithBack(
+      appBar: AppBarWithBackAndPop(
         title: 'Shopping Cart',
         weight: FontWeight.bold,
       ),
@@ -51,19 +54,24 @@ class _CartState extends State<Cart> {
                 right: 16,
               ),
               child: Column(
-                children: cartItems
-                    .map(
-                      (e) => CartItemContainer(
-                        description: e.description,
-                        image: e.image,
-                        price: e.price,
-                        title: e.title,
-                        onTapCallback: () {
-                          context.read<Studio>().removeCartItem(e.id);
-                        },
-                      ),
-                    )
-                    .toList(),
+                children: cartItems.map(
+                  (e) {
+                    _subtotal = _subtotal + double.parse(e.price);
+                    _vat = _subtotal * 0.05;
+                    _total = _subtotal +
+                        _vat -
+                        double.parse(promoCode?.discountPrice ?? '0.00');
+                    return CartItemContainer(
+                      description: e.description,
+                      image: e.displayImage,
+                      price: e.price,
+                      title: e.title,
+                      onTapCallback: () {
+                        context.read<Studio>().removeCartItem(e.id);
+                      },
+                    );
+                  },
+                ).toList(),
               ),
             ),
             Padding(
@@ -93,7 +101,7 @@ class _CartState extends State<Cart> {
                     ),
                   ),
                   Text(
-                    'BD 333',
+                    'BD $_subtotal',
                     style: TextStyle(
                       fontFamily: GoogleFonts.manrope().fontFamily,
                       fontWeight: FontWeight.w800,
@@ -125,7 +133,7 @@ class _CartState extends State<Cart> {
                     ),
                   ),
                   Text(
-                    '+BD 16.65',
+                    '+BD ${_vat.toStringAsFixed(1)}',
                     style: TextStyle(
                       fontFamily: GoogleFonts.manrope().fontFamily,
                       fontWeight: FontWeight.w800,
@@ -188,6 +196,7 @@ class _CartState extends State<Cart> {
         ),
       ),
       bottomNavigationBar: StudioPaymentBottomContainer(
+        total: _total,
         onTapCallback: () {
           if (_selectedPayment == null) {
             ShowOkDialog(context, 'Please select a payment method');
