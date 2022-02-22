@@ -8,6 +8,7 @@ import '../../global/colors.dart';
 //WIDGETS
 import '../buttons/iconButtonWidget.dart';
 //PAGES
+import 'package:LMP0001_LittleMiraclesApp/pages/cart/cart.dart';
 
 class MainPagesSliverAppBar extends StatelessWidget {
   final String titleFirst;
@@ -59,7 +60,12 @@ class MainPagesSliverAppBar extends StatelessWidget {
                     children: [
                       IconButtonWidget(
                           onPress: () {
-                            print('go to cart');
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Cart(),
+                              ),
+                            );
                           },
                           icon: Icons.shopping_cart),
                       SizedBox(width: 16),

@@ -192,7 +192,7 @@ class Studio with ChangeNotifier {
     return finalPrice == initialPrice ? null : finalPrice;
   }
 
-  List<Media> getSessionMedia(String? mediaIdsString) {
+  List<Media> getSessionSelectedMedia(String? mediaIdsString) {
     List<Media> mediaList = [];
     List<int> mediaIdsList = [];
 
@@ -207,19 +207,17 @@ class Studio with ChangeNotifier {
 
   void assignSelectedSessionMedia(
     List<Media> list,
-    // int? sessionId,
+    int? sessionId,
   ) {
     // 1: delete all media form the list
-    // _sessionsMedia.removeWhere((element) = element.)
-    _selectedMedia.forEach((element) {
-      if (_selectedMedia.contains(element) && !list.contains(element))
-        _selectedMedia.remove(element); // TODO:: FIX AFTER API FIX
-    });
+    _selectedMedia.removeWhere((element) => element.sessionId == sessionId);
 
     // 2: assign to selected media list
-    list.forEach((element) {
-      if (!_selectedMedia.contains(element)) _selectedMedia.add(element);
-    });
+
+    _selectedMedia = [..._selectedMedia, ...list];
+
+    notifyListeners();
+
     print('list: $list');
     print('_selectedMedia: $_selectedMedia');
   }
@@ -318,6 +316,7 @@ class Studio with ChangeNotifier {
     _selectedCanvasThickness = null;
     _selectedPrintType = null;
     _selectedPhotoPaperSize = null;
+    _selectedMedia = [];
     _quantity = 1;
 
     print(jsonEncode(_bookingBody));

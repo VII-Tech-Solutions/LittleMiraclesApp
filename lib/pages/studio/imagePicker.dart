@@ -33,10 +33,13 @@ class _ImagePickerState extends State<ImagePicker> {
 
   @override
   void initState() {
-    print(context.read<Studio>().getSessionMedia(widget._session.mediaIds));
+    print(context
+        .read<Studio>()
+        .getSessionSelectedMedia(widget._session.mediaIds));
     setState(() {
-      temporaryList =
-          context.read<Studio>().getSessionMedia(widget._session.mediaIds);
+      temporaryList = context
+          .read<Studio>()
+          .getSessionSelectedMedia(widget._session.mediaIds);
     });
     super.initState();
   }
@@ -82,7 +85,9 @@ class _ImagePickerState extends State<ImagePicker> {
       bottomNavigationBar: ImagePickerBottomContainer(
         onTap: () {
           //add tempory list into the list in the provider
-          context.read<Studio>().assignSelectedSessionMedia(temporaryList);
+          context
+              .read<Studio>()
+              .assignSelectedSessionMedia(temporaryList, widget._session.id);
           //call this function `assignSelectedSessionMedia` and give it the temporary list
           Navigator.pop(context);
         },

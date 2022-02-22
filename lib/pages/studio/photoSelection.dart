@@ -1,6 +1,5 @@
 //PACKAGES
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/src/provider.dart';
 //EXTENSIONS
 //GLOBAL
@@ -11,6 +10,7 @@ import '../../providers/appData.dart';
 //WIDGETS
 import '../../widgets/appbars/appBarWithBack.dart';
 import '../../widgets/containers/photoSelectionContainer.dart';
+import '../../widgets/studioContainers/studioBottomSectionContainer.dart';
 //PAGES
 
 class PhotoSelection extends StatelessWidget {
@@ -38,6 +38,11 @@ class PhotoSelection extends StatelessWidget {
                     sessions.map((e) => PhotoSelectionContainer(e)).toList(),
               ),
             ),
+      bottomNavigationBar: StudioBottomSectionContainer(
+        btnLabel: 'Add to Cart',
+        showSlectedImages: true,
+        onTap: () {},
+      ),
     );
   }
 }

@@ -241,6 +241,13 @@ class _StudioSpecsSelectorPageState extends State<StudioSpecsSelectorPage> {
         }
         break;
       case StudioPackageTypes.canvasPrint:
+        if (!bookingsBody.containsKey('canvas_size')) {
+          isValid = false;
+          ShowOkDialog(context, 'Please select canvas size to proceed');
+        } else if (!bookingsBody.containsKey('canvas_thickness')) {
+          isValid = false;
+          ShowOkDialog(context, 'Please select canvas thickness to proceed');
+        }
         break;
       case StudioPackageTypes.photoPaper:
         if (!bookingsBody.containsKey('print_type')) {
