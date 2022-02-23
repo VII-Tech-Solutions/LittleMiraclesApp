@@ -42,7 +42,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
   late final _phoneController;
   late final _detailsController;
 
-  DateTime selectedDate = DateTime.now();
+  DateTime? selectedDate;
   String _formattedDate = '';
 
   Future<void> _selectDate(BuildContext context) async {
@@ -69,7 +69,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
     } else {
       DateTime? picked = await showDatePicker(
           context: context,
-          initialDate: selectedDate,
+          initialDate: DateTime.now(),
           firstDate: DateTime(1960, 8),
           lastDate: DateTime.now());
       if (picked != null && picked != selectedDate) {
@@ -104,6 +104,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    // formattedDate'Birthday\t\t\t\t${DateFormatClass().toddMMyyyy('$selectedDate')}';
     return Scaffold(
       backgroundColor: AppColors.blueF4F9FA,
       appBar: AppBarWithLogo(),
@@ -169,8 +170,9 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                     ),
                     FormTextFieldWidget(
                       controller: _birthdayController,
-                      title:
-                          'Birthday\t\t\t\t${DateFormatClass().toddMMyyyy('$selectedDate')}',
+                      title: _birthdayController.text == null
+                          ? _birthdayController.text
+                          : 'Birthday\t\t\t\t',
                       hintStyle: TextStyle(
                         color: AppColors.black45515D,
                         fontSize: 12,

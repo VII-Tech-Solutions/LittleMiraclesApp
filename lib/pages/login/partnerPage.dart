@@ -38,7 +38,7 @@ class _PartnerPageState extends State<PartnerPage> {
   late final _birthdayController;
   late final _phoneController;
 
-  DateTime selectedDate = DateTime.now();
+  DateTime? selectedDate;
   String _formattedDate = '';
 
   Future<void> _selectDate(BuildContext context) async {
@@ -65,7 +65,7 @@ class _PartnerPageState extends State<PartnerPage> {
     } else {
       DateTime? picked = await showDatePicker(
           context: context,
-          initialDate: selectedDate,
+          initialDate: DateTime.now(),
           firstDate: DateTime(1960, 8),
           lastDate: DateTime.now());
       if (picked != null && picked != selectedDate) {
@@ -161,8 +161,9 @@ class _PartnerPageState extends State<PartnerPage> {
                     ),
                     FormTextFieldWidget(
                       controller: _birthdayController,
-                      title:
-                          'Birthday\t\t\t\t${DateFormatClass().toddMMyyyy('$selectedDate')}',
+                      title: _birthdayController.text == null
+                          ? _birthdayController.text
+                          : 'Birthday\t\t\t\t',
                       hintStyle: TextStyle(
                         color: AppColors.black45515D,
                         fontSize: 12,
