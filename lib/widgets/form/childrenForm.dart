@@ -73,7 +73,7 @@ class _ChildrenFormState extends State<ChildrenForm> {
           context: context,
           initialDate: selectedDate,
           firstDate: DateTime(1960, 8),
-          lastDate: DateTime(2101));
+          lastDate: DateTime.now());
       if (picked != null && picked != selectedDate) {
         selectedDate = picked;
         widget._birthdayController.text =

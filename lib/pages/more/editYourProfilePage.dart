@@ -71,7 +71,7 @@ class _EditYourProfilePageState extends State<EditYourProfilePage> {
           context: context,
           initialDate: selectedDate,
           firstDate: DateTime(1960, 8),
-          lastDate: DateTime(2101));
+          lastDate: DateTime.now());
       if (picked != null && picked != selectedDate) {
         selectedDate = picked;
         _birthdayController.text =
