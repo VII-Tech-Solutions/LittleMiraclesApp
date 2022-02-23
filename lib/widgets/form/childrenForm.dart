@@ -86,129 +86,133 @@ class _ChildrenFormState extends State<ChildrenForm> {
   @override
   Widget build(BuildContext context) {
     DateTime selectedDate = DateTime.now();
-    return Form(
-      key: widget._formKey,
-      child: Column(
-        children: [
-          FormTextFieldWidget(
-            title: 'First Name',
-            controller: widget._firstNameController,
-          ),
-          FormTextFieldWidget(
-            title: 'Last Name',
-            controller: widget._lastNameController,
-          ),
-          Container(
-            color: AppColors.whiteFFFFFF,
-            margin: const EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
-            child: DropdownButtonFormField(
-              style: TextStyle(
-                color: AppColors.black45515D,
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
+    return Column(
+      children: [
+        Form(
+          key: widget._formKey,
+          child: Column(
+            children: [
+              FormTextFieldWidget(
+                title: 'First Name',
+                controller: widget._firstNameController,
               ),
-              value: widget._genderController.text.isEmpty
-                  ? '1'
-                  : widget._genderController.text,
-              items: <DropdownMenuItem<String>>[
-                DropdownMenuItem(child: Text('Male'), value: '1'),
-                DropdownMenuItem(child: Text('Female'), value: '2'),
-              ],
-              onChanged: (value) {
-                widget._genderController.text = value.toString();
-              },
-              icon: Icon(
-                Icons.expand_more,
-                color: AppColors.black45515D,
+              FormTextFieldWidget(
+                title: 'Last Name',
+                controller: widget._lastNameController,
               ),
-              hint: Text('Gender'),
-              decoration: InputDecoration(
-                contentPadding:
-                    const EdgeInsets.fromLTRB(16.0, 11.0, 10.0, 11.0),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.greyD0D3D6),
+              Container(
+                color: AppColors.whiteFFFFFF,
+                margin: const EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
+                child: DropdownButtonFormField(
+                  style: TextStyle(
+                    color: AppColors.black45515D,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                  ),
+                  value: widget._genderController.text.isEmpty
+                      ? '1'
+                      : widget._genderController.text,
+                  items: <DropdownMenuItem<String>>[
+                    DropdownMenuItem(child: Text('Male'), value: '1'),
+                    DropdownMenuItem(child: Text('Female'), value: '2'),
+                  ],
+                  onChanged: (value) {
+                    widget._genderController.text = value.toString();
+                  },
+                  icon: Icon(
+                    Icons.expand_more,
+                    color: AppColors.black45515D,
+                  ),
+                  hint: Text('Gender'),
+                  decoration: InputDecoration(
+                    contentPadding:
+                        const EdgeInsets.fromLTRB(16.0, 11.0, 10.0, 11.0),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.greyD0D3D6),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.greyD0D3D6),
+                    ),
+                  ),
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.greyD0D3D6),
-                ),
               ),
-            ),
+              FormTextFieldWidget(
+                controller: widget._birthdayController,
+                title:
+                    'Birthday\t\t\t\t${DateFormatClass().toddMMyyyy('${DateTime.now()}')}',
+                hintStyle: TextStyle(
+                  color: AppColors.black45515D,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                ),
+                suffixIcon: Icon(
+                  Icons.expand_more,
+                  color: AppColors.black45515D,
+                ),
+                onTap: () {
+                  _selectDate(context);
+                  FocusScope.of(context).requestFocus(
+                    new FocusNode(),
+                  );
+                },
+              ),
+            ],
           ),
-          FormTextFieldWidget(
-            controller: widget._birthdayController,
-            title:
-                'Birthday\t\t\t\t${DateFormatClass().toddMMyyyy('${DateTime.now()}')}',
-            hintStyle: TextStyle(
-              color: AppColors.black45515D,
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-            ),
-            suffixIcon: Icon(
-              Icons.expand_more,
-              color: AppColors.black45515D,
-            ),
-            onTap: () {
-              _selectDate(context);
-              FocusScope.of(context).requestFocus(
-                new FocusNode(),
-              );
-            },
-          ),
-          FormTextFieldWidget(
-            controller: widget._detailsController,
-            title: 'Description of Their Personalities',
-            maxLines: 8,
-          ),
-          widget._isLast
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Visibility(
-                      visible: widget._showRemove,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 30),
-                        child: TextButton(
-                          style: TextButton.styleFrom(
-                              splashFactory: NoSplash.splashFactory),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.close,
+        ),
+        FormTextFieldWidget(
+          controller: widget._detailsController,
+          title: 'Description of Their Personalities',
+          maxLines: 8,
+        ),
+        widget._isLast
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Visibility(
+                    visible: widget._showRemove,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 30),
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                            splashFactory: NoSplash.splashFactory),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.close,
+                              color: AppColors.blue8DC4CB,
+                              size: 20,
+                            ),
+                            Text(
+                              'Remove',
+                              style: TextStyle(
+                                fontFamily: GoogleFonts.manrope().fontFamily,
                                 color: AppColors.blue8DC4CB,
-                                size: 20,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 11,
                               ),
-                              Text(
-                                'Remove',
-                                style: TextStyle(
-                                  fontFamily: GoogleFonts.manrope().fontFamily,
-                                  color: AppColors.blue8DC4CB,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 11,
-                                ),
-                              ),
-                            ],
-                          ),
-                          onPressed: widget._removeOnPressed,
+                            ),
+                          ],
                         ),
+                        onPressed: widget._removeOnPressed,
                       ),
                     ),
-                    FilledButtonWidget(
-                      margin: EdgeInsets.only(right: 30.0),
-                      customWidth: 128,
-                      onPress: widget._onAddMorePressed,
-                      type: ButtonType.generalGrey,
-                      title: 'Add more',
-                    ),
-                  ],
-                )
-              : Container(
-                  height: 1.5,
-                  width: double.infinity,
-                  color: AppColors.greyD0D3D6,
-                  margin: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                ),
-        ],
-      ),
+                  ),
+                  FilledButtonWidget(
+                    margin: EdgeInsets.only(right: 30.0),
+                    customWidth: 128,
+                    onPress: widget._onAddMorePressed,
+                    type: ButtonType.generalGrey,
+                    title: 'Add more',
+                  ),
+                ],
+              )
+            : Container(
+                height: 1.5,
+                width: double.infinity,
+                color: AppColors.greyD0D3D6,
+                margin: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+              ),
+      ],
     );
   }
 }

@@ -90,8 +90,16 @@ class _FamilyPageState extends State<FamilyPage> {
               FilledButtonWidget(
                 margin: const EdgeInsets.only(top: 30.0, bottom: 25.0),
                 onPress: () {
+                  bool adComs = false;
+                  context.read<Auth>().questions?.forEach((element) {
+                    if (element.question == 'Additional Comments:')
+                      adComs = true;
+                    else
+                      adComs = false;
+                  });
                   if (context.read<Auth>().questions?.length ==
-                      _answersList.length) {
+                          _answersList.length ||
+                      adComs) {
                     Map familyData = {"family": _answersList};
 
                     context.read<Auth>().amendRegistrationBody(familyData);

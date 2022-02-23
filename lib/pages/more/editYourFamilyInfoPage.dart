@@ -110,8 +110,16 @@ class _EditYourFamilyInfoPageState extends State<EditYourFamilyInfoPage> {
               FilledButtonWidget(
                 margin: const EdgeInsets.only(top: 30.0, bottom: 25.0),
                 onPress: () {
+                  bool adComs = false;
+                  context.read<Auth>().questions?.forEach((element) {
+                    if (element.question == 'Additional Comments:')
+                      adComs = true;
+                    else
+                      adComs = false;
+                  });
                   if (context.read<Auth>().questions?.length ==
-                      _answersList.length) {
+                          _answersList.length ||
+                      adComs == true) {
                     List familyData = _answersList;
 
                     print(familyData);

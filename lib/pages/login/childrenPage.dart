@@ -150,42 +150,38 @@ class _ChildrenPageState extends State<ChildrenPage> {
 
                   List<Map> childrenList = [];
 
-                  for (var i = 0; i < _formKeysList.length; i++) {
-                    childrenList.add({
-                      "first_name": _firstNameControllersList[i].text,
-                      "last_name": _lastNameControllersList[i].text,
-                      "gender":
-                          _genderControllersList[i].text.toString().toInt(),
-                      "birth_date": _birthdayControllersList[i].text.apiDob(),
-                      "personality": _detailsControllersList[i].text,
-                    });
+                  try {
+                    for (var i = 0; i < _formKeysList.length; i++) {
+                      childrenList.add({
+                        "first_name": _firstNameControllersList[i].text,
+                        "last_name": _lastNameControllersList[i].text,
+                        "gender":
+                            _genderControllersList[i].text.toString().toInt(),
+                        "birth_date": _birthdayControllersList[i].text.apiDob(),
+                        "personality": _detailsControllersList[i].text,
+                      });
+                    }
+                  } catch (e) {
+                    print('Error : $e');
                   }
-
+                  Map childrenData;
                   if (isFormValid == true) {
-                    Map childrenData = {"children": childrenList};
-
-                    context.read<Auth>().amendRegistrationBody(childrenData);
-
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => FamilyPage(),
-                      ),
-                    );
+                    print('child form is empty');
+                    childrenData = {"children": childrenList};
                   } else {
-                    ShowOkDialog(
-                      context,
-                      ErrorMessages.fillRequiredInfo,
-                      title: "Oops",
-                    );
+                    childrenData = {
+                      "children": {
+                        "first_name": '',
+                        "last_name": '',
+                        "gender": 0,
+                        "birth_date": '',
+                        "personality": '',
+                      }
+                    };
                   }
-                },
-                type: ButtonType.generalBlue,
-                title: 'Next: Family Info',
-              ),
-              FilledButtonWidget(
-                margin: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 25.0),
-                onPress: () {
+
+                  context.read<Auth>().amendRegistrationBody(childrenData);
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -194,7 +190,7 @@ class _ChildrenPageState extends State<ChildrenPage> {
                   );
                 },
                 type: ButtonType.generalBlue,
-                title: 'Skip',
+                title: 'Next: Family Info',
               ),
             ],
           ),

@@ -233,9 +233,9 @@ class _PartnerPageState extends State<PartnerPage> {
                       margin: EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 25.0),
                       onPress: () {
                         final isFormValid = _formKey.currentState?.validate();
-
+                        Map partnerData;
                         if (isFormValid == true) {
-                          Map partnerData = {
+                          partnerData = {
                             "partner": {
                               "first_name": _firstNameController.text,
                               "last_name": _lastNameController.text,
@@ -245,25 +245,19 @@ class _PartnerPageState extends State<PartnerPage> {
                               "birth_date": _formattedDate,
                             },
                           };
-
-                          context
-                              .read<Auth>()
-                              .amendRegistrationBody(partnerData);
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ChildrenPage(),
-                            ),
-                          );
+                        } else {
+                          partnerData = {
+                            "partner": {
+                              "first_name": '',
+                              "last_name": '',
+                              "gender": '',
+                              "country_code": '',
+                              "phone_number": '',
+                              "birth_date": '',
+                            },
+                          };
                         }
-                      },
-                      type: ButtonType.generalBlue,
-                      title: 'Next: Children\'s Info',
-                    ),
-                    FilledButtonWidget(
-                      margin: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 25.0),
-                      onPress: () {
+                        context.read<Auth>().amendRegistrationBody(partnerData);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -272,8 +266,8 @@ class _PartnerPageState extends State<PartnerPage> {
                         );
                       },
                       type: ButtonType.generalBlue,
-                      title: 'Skip',
-                    ), //TODO: Pending feedback, may need a change
+                      title: 'Next: Children\'s Info',
+                    ),
                   ],
                 ),
               ),
