@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 //EXTENSIONS
 //GLOBAL
 import '../../global/colors.dart';
@@ -22,7 +23,9 @@ class ChildrenForm extends StatefulWidget {
   final TextEditingController _birthdayController;
   final TextEditingController _detailsController;
   final bool _isLast;
+  final bool _showRemove;
   final VoidCallback? _onAddMorePressed;
+  final VoidCallback? _removeOnPressed;
   const ChildrenForm(
     this._formKey,
     this._firstNameController,
@@ -31,7 +34,9 @@ class ChildrenForm extends StatefulWidget {
     this._birthdayController,
     this._detailsController,
     this._isLast,
+    this._showRemove,
     this._onAddMorePressed,
+    this._removeOnPressed,
   );
 
   @override
@@ -156,8 +161,37 @@ class _ChildrenFormState extends State<ChildrenForm> {
           ),
           widget._isLast
               ? Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    Visibility(
+                      visible: widget._showRemove,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 30),
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                              splashFactory: NoSplash.splashFactory),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.close,
+                                color: AppColors.blue8DC4CB,
+                                size: 20,
+                              ),
+                              Text(
+                                'Remove',
+                                style: TextStyle(
+                                  fontFamily: GoogleFonts.manrope().fontFamily,
+                                  color: AppColors.blue8DC4CB,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 11,
+                                ),
+                              ),
+                            ],
+                          ),
+                          onPressed: widget._removeOnPressed,
+                        ),
+                      ),
+                    ),
                     FilledButtonWidget(
                       margin: EdgeInsets.only(right: 30.0),
                       customWidth: 128,

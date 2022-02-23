@@ -107,6 +107,22 @@ class _EditYourChildrenPageState extends State<EditYourChildrenPage> {
     );
   }
 
+  void _removeAChild() {
+    setState(() {
+      _formKeysList.removeLast();
+      _firstNameControllersList.removeLast();
+      _lastNameControllersList.removeLast();
+      _genderControllersList.removeLast();
+      _birthdayControllersList.removeLast();
+      _personalityControllersList.removeLast();
+    });
+    _scrollController.animateTo(
+      _scrollController.position.extentBefore,
+      duration: Duration(seconds: 1),
+      curve: Curves.fastOutSlowIn,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -137,7 +153,10 @@ class _EditYourChildrenPageState extends State<EditYourChildrenPage> {
                       _birthdayControllersList[index],
                       _personalityControllersList[index],
                       index + 1 == _formKeysList.length,
+                      index + 1 == _formKeysList.length &&
+                          _formKeysList.length != 1,
                       _addAChild,
+                      _removeAChild,
                     );
                   }),
               FilledButtonWidget(
