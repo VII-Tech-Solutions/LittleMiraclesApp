@@ -26,6 +26,7 @@ class ChildrenForm extends StatefulWidget {
   final bool _showRemove;
   final VoidCallback? _onAddMorePressed;
   final VoidCallback? _removeOnPressed;
+  final bool showDiv;
   const ChildrenForm(
     this._formKey,
     this._firstNameController,
@@ -36,8 +37,9 @@ class ChildrenForm extends StatefulWidget {
     this._isLast,
     this._showRemove,
     this._onAddMorePressed,
-    this._removeOnPressed,
-  );
+    this._removeOnPressed, {
+    this.showDiv = true,
+  });
 
   @override
   State<ChildrenForm> createState() => _ChildrenFormState();
@@ -206,11 +208,17 @@ class _ChildrenFormState extends State<ChildrenForm> {
                   ),
                 ],
               )
-            : Container(
-                height: 1.5,
-                width: double.infinity,
-                color: AppColors.greyD0D3D6,
-                margin: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+            : Visibility(
+                visible: widget.showDiv == true,
+                maintainSize: true,
+                maintainAnimation: true,
+                maintainState: true,
+                child: Container(
+                  height: 1.5,
+                  width: double.infinity,
+                  color: AppColors.greyD0D3D6,
+                  margin: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                ),
               ),
       ],
     );

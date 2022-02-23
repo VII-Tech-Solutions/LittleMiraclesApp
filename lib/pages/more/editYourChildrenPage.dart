@@ -1,5 +1,6 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 //EXTENSIONS
 import '../../extensions/stringExtension.dart';
@@ -145,18 +146,45 @@ class _EditYourChildrenPageState extends State<EditYourChildrenPage> {
                   itemCount: _formKeysList.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return ChildrenForm(
-                      _formKeysList[index],
-                      _firstNameControllersList[index],
-                      _lastNameControllersList[index],
-                      _genderControllersList[index],
-                      _birthdayControllersList[index],
-                      _personalityControllersList[index],
-                      index + 1 == _formKeysList.length,
-                      index + 1 == _formKeysList.length &&
-                          _formKeysList.length != 1,
-                      _addAChild,
-                      _removeAChild,
+                    String suffix = '';
+                    if (index + 1 == 1) {
+                      suffix = 'st';
+                    } else if (index + 1 == 2) {
+                      suffix = 'nd';
+                    } else if (index + 1 == 3) {
+                      suffix = 'rd';
+                    } else if (index + 1 >= 4) {
+                      suffix = 'th';
+                    }
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 30, bottom: 2),
+                          child: Text(
+                            '${index + 1}$suffix Child',
+                            style: TextStyle(
+                                fontFamily: GoogleFonts.manrope().fontFamily,
+                                fontSize: 18,
+                                color: AppColors.black45515D,
+                                fontWeight: FontWeight.w800),
+                          ),
+                        ),
+                        ChildrenForm(
+                          _formKeysList[index],
+                          _firstNameControllersList[index],
+                          _lastNameControllersList[index],
+                          _genderControllersList[index],
+                          _birthdayControllersList[index],
+                          _personalityControllersList[index],
+                          index + 1 == _formKeysList.length,
+                          index + 1 == _formKeysList.length &&
+                              _formKeysList.length != 1,
+                          _addAChild,
+                          _removeAChild,
+                          showDiv: false,
+                        ),
+                      ],
                     );
                   }),
               FilledButtonWidget(
