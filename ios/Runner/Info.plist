@@ -52,6 +52,8 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>The app needs access to Gallery to save images</string>
 	<key>NSCalendarsUsageDescription</key>
 	<string>The app needs access to the calendar to save appointments.</string>
 </dict>
