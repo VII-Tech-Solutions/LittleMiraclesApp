@@ -5,7 +5,9 @@ import 'dart:typed_data';
 import 'package:LMP0001_LittleMiraclesApp/global/colors.dart';
 import 'package:LMP0001_LittleMiraclesApp/models/media.dart';
 import 'package:LMP0001_LittleMiraclesApp/pages/photoeditor/photoeditor.dart';
+import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/dialogHelper.dart';
 import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/showLoadingDialog.dart';
+import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/showOkDialog.dart';
 import 'package:LMP0001_LittleMiraclesApp/widgets/general/cachedImageWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:gallery_saver/gallery_saver.dart';
@@ -15,6 +17,7 @@ import 'package:network_to_file_image/network_to_file_image.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 //EXTENSIONS
@@ -92,30 +95,52 @@ class _ViewCompletedSessionPhotosState
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   InkWell(
-                    onTap: () {
-                      GallerySaver.saveImage(widget.image.url!).then((success) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            behavior: SnackBarBehavior.floating,
-                            elevation: 2,
-                            duration: Duration(seconds: 2),
-                            content: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Text(
-                                'Image Saved',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w800,
+                    onTap: () async {
+                      var status = await Permission.photos.status;
+                      print(status);
+                      if (status.isLimited)
+                        status = await Permission.photos.request();
+
+                      if (status.isGranted) {
+                        ShowLoadingDialog(context);
+                        GallerySaver.saveImage(widget.image.url!)
+                            .then((success) {
+                          ShowLoadingDialog(context, dismiss: true);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              behavior: SnackBarBehavior.floating,
+                              elevation: 2,
+                              duration: Duration(seconds: 2),
+                              content: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Text(
+                                  success == false
+                                      ? 'Something went wrong'
+                                      : 'Image Saved',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w800,
+                                  ),
                                 ),
                               ),
+                              backgroundColor: AppColors.black2D3B48,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
                             ),
-                            backgroundColor: AppColors.black2D3B48,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                          ),
-                        );
-                      });
+                          );
+                        });
+                      } else if (status.isDenied ||
+                          status.isRestricted ||
+                          status.isPermanentlyDenied) {
+                        DialogHelper.confirmActionWithCancel(context,
+                                confirmText: 'Ok',
+                                cancelText: 'Cancel',
+                                title: 'Please Allow Access to Photos')
+                            .then((value) {
+                          if (value == true) openAppSettings();
+                        });
+                      }
                     },
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -138,7 +163,7 @@ class _ViewCompletedSessionPhotosState
                   ),
                   InkWell(
                     onTap: () async {
-                      print('Share');
+                      ShowLoadingDialog(context);
                       await screenshotController
                           .capture(delay: const Duration(milliseconds: 10))
                           .then((image) async {
@@ -147,6 +172,7 @@ class _ViewCompletedSessionPhotosState
                         final imagePath =
                             await File('${directory.path}/image.png').create();
                         await imagePath.writeAsBytes(image!);
+                        ShowLoadingDialog(context, dismiss: true);
 
                         /// Share Plugin
                         await Share.shareFiles([imagePath.path]);
