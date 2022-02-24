@@ -424,6 +424,8 @@ List<String> getSmileys() {
   emoji = '🧚‍♂️️️️️️️️️️️‍‍';
   emojis.add(emoji);
 
+  emoji = '❤️';
+  emojis.add(emoji);
   emoji = '👼️️️️️️️️️️️‍‍';
   emojis.add(emoji);
   emoji = '🤰‍‍';

@@ -289,8 +289,10 @@ class PhotoEditScreenState extends State<PhotoEditScreen> {
     mIsContrastSliderVisible = false;
     setState(() {});
 
-    appStore.setLoading(true);
-    await 300.milliseconds.delay;
+    // appStore.setLoading(true);
+    // ShowLoadingDialog(context);
+    // await 300.milliseconds.delay;
+    // ShowLoadingDialog(context, dismiss: true);
 
     String? emoji = await showModalBottomSheet(
         context: context, builder: (_) => EmojiPickerBottomSheet());
@@ -320,8 +322,9 @@ class PhotoEditScreenState extends State<PhotoEditScreen> {
     mIsContrastSliderVisible = false;
     setState(() {});
 
-    appStore.setLoading(true);
-    await 300.milliseconds.delay;
+    // ShowLoadingDialog(context);
+    // await 300.milliseconds.delay;
+    // ShowLoadingDialog(context, dismiss: true);
 
     String? sticker = await showModalBottomSheet(
         context: context, builder: (_) => StickerPickerBottomSheet());
@@ -929,7 +932,7 @@ class PhotoEditScreenState extends State<PhotoEditScreen> {
                             scrollDirection: Axis.horizontal,
                             children: [
                               BottomBarItemWidget(
-                                  title: 'Eraser',
+                                  title: 'Clear All',
                                   icons: Icon(FontAwesomeIcons.eraser).icon,
                                   onTap: () => onEraserClick()),
                               BottomBarItemWidget(
