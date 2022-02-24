@@ -20,7 +20,6 @@ class PromotionDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(promotion?.createdAt);
     return Scaffold(
       appBar: AppBarWithBack(
         title: 'Promotion',
