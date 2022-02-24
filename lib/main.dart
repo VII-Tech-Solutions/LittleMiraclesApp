@@ -1,4 +1,5 @@
 //PACKAGES
+import 'package:LMP0001_LittleMiraclesApp/pages/photoeditor/photoeditor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +16,9 @@ import './providers/studio.dart';
 //WIDGETS
 //PAGES
 import './pages/general/splashscreen.dart';
+import 'store/AppStore.dart';
+
+AppStore appStore = AppStore();
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -181,7 +185,7 @@ class MyApp extends StatelessWidget {
           colorScheme:
               ColorScheme.fromSwatch().copyWith(secondary: Colors.white),
         ),
-        home: Splashscreen(),
+        home: PhotoEditScreen(),
       ),
     );
   }
