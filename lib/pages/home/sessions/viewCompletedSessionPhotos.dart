@@ -4,11 +4,17 @@ import 'dart:typed_data';
 
 import 'package:LMP0001_LittleMiraclesApp/global/colors.dart';
 import 'package:LMP0001_LittleMiraclesApp/models/media.dart';
+import 'package:LMP0001_LittleMiraclesApp/pages/photoeditor/photoeditor.dart';
+import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/showLoadingDialog.dart';
 import 'package:LMP0001_LittleMiraclesApp/widgets/general/cachedImageWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nb_utils/src/extensions/widget_extensions.dart';
+import 'package:network_to_file_image/network_to_file_image.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:http/http.dart' as http;
+import 'package:path/path.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 //EXTENSIONS
@@ -166,7 +172,27 @@ class _ViewCompletedSessionPhotosState
                     ),
                   ),
                   InkWell(
-                    onTap: () {
+                    onTap: () async {
+                      ShowLoadingDialog(context);
+                      Future<File> _fileFromImageUrl() async {
+                        final response =
+                            await http.get(Uri.parse(widget.image.url!));
+
+                        final documentDirectory =
+                            await getApplicationDocumentsDirectory();
+
+                        final file =
+                            File(join(documentDirectory.path, 'image.png'));
+
+                        file.writeAsBytesSync(response.bodyBytes);
+
+                        return file;
+                      }
+
+                      PhotoEditScreen(file: await _fileFromImageUrl())
+                          .launch(context, isNewTask: false)
+                          .then((value) =>
+                              ShowLoadingDialog(context, dismiss: true));
                       print('Effects');
                     },
                     child: Column(

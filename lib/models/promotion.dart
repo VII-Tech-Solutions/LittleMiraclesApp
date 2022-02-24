@@ -11,10 +11,12 @@ class Promotion {
   final String? updatedAt;
   final String? deletedAt;
   final String? postedAt;
+  final String? createdAt;
   final String? validUntil;
   final String? promoCode;
 
   Promotion({
+    @required this.createdAt,
     @required this.id,
     @required this.image,
     @required this.title,
@@ -43,6 +45,7 @@ class Promotion {
       'postedAt': postedAt ?? "",
       'validUntil': validUntil ?? "",
       'promoCode': promoCode ?? "",
+      'createdAt': createdAt ?? ""
     };
   }
 
@@ -60,6 +63,7 @@ class Promotion {
       postedAt: json['posted_at'] as String?,
       validUntil: json['valid_until'] as String?,
       promoCode: json['promo_code'] as String?,
+      createdAt: json['created_at'] as String?,
     );
   }
 }

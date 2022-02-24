@@ -46,7 +46,7 @@ class PromotionDetails extends StatelessWidget {
               ),
             ),
             Text(
-              DateFormatClass().toddMMyyyy('${promotion?.postedAt}'),
+              DateFormatClass().toddMMyyyy('${promotion?.createdAt}'),
               style: TextStyle(
                 color: AppColors.black45515D,
                 fontWeight: FontWeight.w600,

@@ -1,7 +1,7 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/pages/photoeditor/photoeditor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:country_code_picker/country_localizations.dart';
@@ -20,8 +20,10 @@ import 'store/AppStore.dart';
 
 AppStore appStore = AppStore();
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await initialize();
   runApp(const MyApp());
 }
 
@@ -162,6 +164,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        navigatorKey: navigatorKey,
         supportedLocales: [
           Locale("en"),
         ],
@@ -185,7 +188,7 @@ class MyApp extends StatelessWidget {
           colorScheme:
               ColorScheme.fromSwatch().copyWith(secondary: Colors.white),
         ),
-        home: PhotoEditScreen(),
+        home: Splashscreen(),
       ),
     );
   }
