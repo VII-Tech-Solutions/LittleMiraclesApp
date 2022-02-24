@@ -885,19 +885,19 @@ class AppData with ChangeNotifier {
       _promotions = promotionsDataList
           .map(
             (item) => Promotion(
-              id: item['id'],
-              image: item['image'],
-              title: item['title'],
-              offer: item['offer'],
-              type: item['type'],
-              content: item['content'],
-              status: item['status'],
-              updatedAt: item['updatedAt'],
-              deletedAt: item['deletedAt'],
-              postedAt: item['postedAt'],
-              validUntil: item['validUntil'],
-              promoCode: item['promoCode'],
-            ),
+                id: item['id'],
+                image: item['image'],
+                title: item['title'],
+                offer: item['offer'],
+                type: item['type'],
+                content: item['content'],
+                status: item['status'],
+                updatedAt: item['updatedAt'],
+                deletedAt: item['deletedAt'],
+                postedAt: item['postedAt'],
+                validUntil: item['validUntil'],
+                promoCode: item['promoCode'],
+                createdAt: item['createdAt']),
           )
           .toList();
     }

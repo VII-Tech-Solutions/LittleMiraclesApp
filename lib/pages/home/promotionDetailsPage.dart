@@ -20,6 +20,7 @@ class PromotionDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(promotion?.createdAt);
     return Scaffold(
       appBar: AppBarWithBack(
         title: 'Promotion',
@@ -46,7 +47,7 @@ class PromotionDetails extends StatelessWidget {
               ),
             ),
             Text(
-              DateFormatClass().toddMMyyyy('${promotion?.createdAt}'),
+              DateFormatClass().toddMMyyyy(promotion!.createdAt!),
               style: TextStyle(
                 color: AppColors.black45515D,
                 fontWeight: FontWeight.w600,
