@@ -1,4 +1,5 @@
 //PACKAGES
+import 'package:LMP0001_LittleMiraclesApp/pages/home/sessions/viewCompletedSessionPhotos.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
@@ -110,20 +111,31 @@ class CompletedSubSessionContainer extends StatelessWidget {
                         scrollDirection: Axis.horizontal,
                         layout: SwiperLayout.STACK,
                         itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            margin: const EdgeInsets.symmetric(vertical: 10),
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.15),
-                                  blurRadius: 6,
-                                  offset: Offset(-5, 3),
+                          return InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      ViewCompletedSessionPhotos(images[index]),
                                 ),
-                              ],
-                            ),
-                            child: CachedImageWidget(
-                              images[index].url,
-                              ImageShape.square,
+                              );
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.symmetric(vertical: 10),
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.15),
+                                    blurRadius: 6,
+                                    offset: Offset(-5, 3),
+                                  ),
+                                ],
+                              ),
+                              child: CachedImageWidget(
+                                images[index].url,
+                                ImageShape.square,
+                              ),
                             ),
                           );
                         },
