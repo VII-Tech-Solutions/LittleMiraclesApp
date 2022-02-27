@@ -56,7 +56,6 @@ class _CartItemContainerState extends State<CartItemContainer> {
               height: 68,
               child: CachedImageWidget(
                 widget.image,
-                // 'https://i.picsum.photos/id/37/200/300.jpg?hmac=H-M0-zyAOZnQIHrggRUcDCS_roK8MHKI1OtEgZA72yk', //TODO:: Replace url
                 ImageShape.square,
               ),
             ),

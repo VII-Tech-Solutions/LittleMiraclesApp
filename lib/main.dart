@@ -158,9 +158,10 @@ class MyApp extends StatelessWidget {
             previousStudio == null
                 ? null
                 : previousStudio.selectedPhotoPaperSize,
+            previousStudio == null ? [] : previousStudio.cartItems,
           ),
-          create: (context) => Studio(
-              '', [], [], null, null, null, null, null, null, null, null, null),
+          create: (context) => Studio('', [], [], null, null, null, null, null,
+              null, null, null, null, []),
         ),
       ],
       child: MaterialApp(

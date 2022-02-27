@@ -26,6 +26,7 @@ class Auth with ChangeNotifier {
   List<String> _tables = [
     Tables.sessions,
     Tables.familyMembers,
+    Tables.cartItems,
   ];
   String? _token;
   User? _user;

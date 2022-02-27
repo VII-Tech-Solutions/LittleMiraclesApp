@@ -5,17 +5,19 @@ class CartItem {
   final int? id;
   final String? title;
   final String? description;
-  final String price;
+  final String? price;
   final String? displayImage;
-  final List<Media>? imageList;
+  final String? mediaIds;
+  // final List<Media>? imageList;
 
   CartItem({
     @required this.id,
     @required this.title,
     @required this.description,
-    required this.price,
+    @required this.price,
     @required this.displayImage,
-    @required this.imageList,
+    // @required this.imageList,
+    @required this.mediaIds,
   });
 
   Map<String, Object> toMap() {
@@ -23,18 +25,19 @@ class CartItem {
       'id': id ?? -1,
       'title': title ?? "",
       'description': description ?? -1,
-      'price': price,
+      'price': price ?? '',
+      'displayImage': displayImage ?? '',
+      'mediaIds': mediaIds ?? '',
     };
   }
 
-  factory CartItem.fromJson(dynamic json) {
-    return CartItem(
-      id: json['id'] as int?,
-      title: json['title'] as String?,
-      description: json['description'] as String?,
-      price: json['price'] as String,
-      displayImage: json['image'] as String?,
-      imageList: json['image_list'] as List<Media>?,
-    );
-  }
+  // factory CartItem.fromJson(dynamic json) {
+  //   return CartItem(
+  //     id: json['id'] as int?,
+  //     title: json['title'] as String?,
+  //     description: json['description'] as String?,
+  //     price: json['price'] as String,
+  //     displayImage: json['image'] as String?,
+  //   );
+  // }
 }

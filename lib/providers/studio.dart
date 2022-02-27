@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
+import 'package:LMP0001_LittleMiraclesApp/database/db_sqflite.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 //EXTENSIONS
@@ -28,32 +29,7 @@ class Studio with ChangeNotifier {
   List<Benefit> _benefits = [];
   List<Media> _selectedMedia = [];
   List<Media> _studioPackageMedia = [];
-  List<CartItem> _cartItems = [
-    // CartItem(
-    //   description: '12th January 2022',
-    //   title: 'Twinkle Portrait Studio Session',
-    //   id: 2,
-    //   image:
-    //       'https://i.picsum.photos/id/773/200/300.jpg?hmac=nhH4e4UtqcS6I0hy7eCr9waIFzMYNaMkzety6PQnOHM',
-    //   price: '133',
-    // ),
-    // CartItem(
-    //   description: '9th January 2022',
-    //   title: 'Mini Session',
-    //   id: 1,
-    //   image:
-    //       'https://i.picsum.photos/id/773/200/300.jpg?hmac=nhH4e4UtqcS6I0hy7eCr9waIFzMYNaMkzety6PQnOHM',
-    //   price: '96',
-    // ),
-    // CartItem(
-    //   description: '8th January 2022',
-    //   title: 'Twinkle Portrait Studio Session',
-    //   id: 0,
-    //   image:
-    //       'https://i.picsum.photos/id/773/200/300.jpg?hmac=nhH4e4UtqcS6I0hy7eCr9waIFzMYNaMkzety6PQnOHM',
-    //   price: '123',
-    // ),
-  ];
+  List<CartItem> _cartItems = [];
 
   //bookings details
   Map _bookingBody = {};
@@ -89,6 +65,7 @@ class Studio with ChangeNotifier {
     this._selectedCanvasThickness,
     this._selectedPrintType,
     this._selectedPhotoPaperSize,
+    this._cartItems,
   );
 
   PromoCode? get promoCode {
@@ -206,7 +183,7 @@ class Studio with ChangeNotifier {
     return mediaList;
   }
 
-  List<int> indices = [];
+  // List<int> indices = [];
   void addCartItem(
     String itemTitle,
     String? description,
@@ -214,14 +191,24 @@ class Studio with ChangeNotifier {
     String? displayImage,
     List<Media> imageList,
   ) {
-    int? id;
-    do {
-      final value = Random().nextInt(999999);
-      if (!indices.contains(value)) {
-        indices.add(value);
-        id = value;
-      }
-    } while (id == null);
+    String mediaIds = '';
+    imageList.forEach((element) {
+      mediaIds = '$mediaIds,${element.id.toString()}';
+    });
+    mediaIds = mediaIds.replaceFirst(',', '');
+    int id = 0;
+    if (_cartItems.isNotEmpty) {
+      id = _cartItems.last.id! + 1;
+    } else {
+      id = 1;
+    }
+    // do {
+    //   final value = Random().nextInt(999999);
+    //   if (!indices.contains(value)) {
+    //     indices.add(value);
+    //     id = value;
+    //   }
+    // } while (id == null);
 
     _cartItems.add(
       CartItem(
@@ -230,9 +217,33 @@ class Studio with ChangeNotifier {
         description: description,
         price: price,
         displayImage: displayImage,
-        imageList: imageList,
+        mediaIds: mediaIds,
       ),
     );
+    _cartItems.forEach((e) {
+      DBHelper.insert(Tables.cartItems, e.toMap());
+    });
+  }
+
+  Future<void> getCartItemsDB() async {
+    final cartItemsDBList = await DBHelper.getData(Tables.cartItems);
+    print(cartItemsDBList);
+    if (cartItemsDBList.isNotEmpty) {
+      _cartItems = cartItemsDBList
+          .map(
+            (e) => CartItem(
+              id: e['id'],
+              title: e['title'],
+              description: e['description'],
+              price: e['price'],
+              displayImage: e['displayImage'],
+              mediaIds: e['mediaIds'],
+            ),
+          )
+          .toList();
+    }
+    notifyListeners();
+    print(_cartItems);
   }
 
   void assignSelectedSessionMedia(
@@ -280,6 +291,7 @@ class Studio with ChangeNotifier {
 
   void removeCartItem(int? id) {
     _cartItems.removeWhere((element) => element.id == id);
+    DBHelper.deleteById(Tables.cartItems, id!);
     notifyListeners();
   }
 

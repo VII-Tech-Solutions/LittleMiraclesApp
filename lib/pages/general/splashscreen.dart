@@ -1,4 +1,5 @@
 //PACKAGES
+import 'package:LMP0001_LittleMiraclesApp/providers/studio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 //GLOBAL
@@ -33,6 +34,7 @@ class _SplashscreenState extends State<Splashscreen> {
     if (_isInit) {
       final authProvider = context.watch<Auth>();
       final appDataProvider = context.read<AppData>();
+      final cartItems = context.watch<Studio>();
 
       authProvider.getToken().then((_) {
         if (authProvider.isAuth) {
@@ -40,6 +42,7 @@ class _SplashscreenState extends State<Splashscreen> {
           appDataProvider.fetchAndSetSessions(token: token).then(
                 (value) => appDataProvider
                     .fetchAndSetAppData()
+                    .then((_) => cartItems.getCartItemsDB())
                     .then((_) => authProvider.getToken(withNotify: true).then(
                           (_) => Navigator.pushReplacement(
                             context,

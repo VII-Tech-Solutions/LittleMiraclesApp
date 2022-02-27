@@ -36,8 +36,10 @@ class _CartState extends State<Cart> {
     double _subtotal = 0;
     double _vat = 0;
     double _total = 0;
+    // context.read<Studio>().getCartItemsDB();
     final promoCode = context.watch<Studio>().promoCode;
     final cartItems = context.watch<Studio>().cartItems;
+    print(cartItems);
     return Scaffold(
       appBar: AppBarWithBackAndPop(
         title: 'Shopping Cart',
@@ -56,7 +58,7 @@ class _CartState extends State<Cart> {
               child: Column(
                 children: cartItems.map(
                   (e) {
-                    _subtotal = _subtotal + double.parse(e.price);
+                    _subtotal = _subtotal + double.parse(e.price.toString());
                     _vat = _subtotal * 0.05;
                     _total = _subtotal +
                         _vat -

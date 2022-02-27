@@ -43,6 +43,7 @@ class Tables {
   static const String studioMetadata = 'studioMetadata';
   static const String faqs = 'faqs';
   static const String sessions = 'sessions';
+  static const String cartItems = 'cartItems';
 }
 
 class SectionType {
