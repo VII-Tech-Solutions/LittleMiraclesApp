@@ -1,4 +1,5 @@
 //PACKAGES
+import 'package:LMP0001_LittleMiraclesApp/pages/chat.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 //GLOBAL
@@ -71,6 +72,12 @@ class MainPagesSliverAppBar extends StatelessWidget {
                       SizedBox(width: 16),
                       IconButtonWidget(
                           onPress: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Chat(),
+                              ),
+                            );
                             print('go to chat');
                           },
                           icon: Icons.forum),

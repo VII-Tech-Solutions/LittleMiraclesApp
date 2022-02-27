@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:country_code_picker/country_localizations.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 //GLOBAL
 //MODELS
 //PROVIDERS
@@ -22,7 +24,10 @@ AppStore appStore = AppStore();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await Firebase.initializeApp(
+    name: 'LMP',
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await initialize();
   runApp(const MyApp());
 }
