@@ -1,11 +1,13 @@
 //PACKAGES
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:collection/collection.dart';
+import 'package:snapkit/snapkit.dart';
 //GLOBAL
 import '../global/const.dart';
 import '../database/db_sqflite.dart';
@@ -39,6 +41,8 @@ class Auth with ChangeNotifier {
 
   //test
   int _selectedIndex = 0;
+
+  Snapkit snapkit = new Snapkit();
 
   int get selectedIndex {
     return _selectedIndex;
@@ -790,6 +794,36 @@ class Auth with ChangeNotifier {
 
         return socialLogin(body, SSOType.google, withNotifyListeners: false);
       }
+    } catch (error) {
+      print(error);
+      return null;
+    }
+  }
+
+  Future<ApiResponse?> signInWithSnapchat({bool isLogout = false}) async {
+    if (isLogout == true) {
+      //sign out the user to trigger the right login behaviour
+      await snapkit.logout();
+
+      return null;
+    }
+
+    try {
+      dynamic body;
+      await snapkit.login().then(
+        (user) {
+          return body = {
+            'id': user.externalId,
+            'name': user.displayName,
+            // 'email': value,
+            'photo_url': user.bitmojiUrl,
+            'provider': SSOType.snapchat,
+          };
+        },
+      );
+      return socialLogin(body, SSOType.snapchat, withNotifyListeners: false);
+    } on PlatformException catch (exception) {
+      print(exception);
     } catch (error) {
       print(error);
       return null;

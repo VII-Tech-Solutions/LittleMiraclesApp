@@ -47,17 +47,17 @@ class LoginPage extends StatelessWidget {
         break;
       case SSOType.facebook:
         {
-          // result = await authProvider.signInWithGoogle();
+          // result = await authProvider.signInWithFacebook();
         }
         break;
       case SSOType.snapchat:
         {
-          // result = await authProvider.signInWithFacebook();
+          result = await authProvider.signInWithSnapchat();
         }
         break;
       case SSOType.apple:
         {
-          // result = await authProvider.signInWithTwitter();
+          // result = await authProvider.signInWithApple();
         }
         break;
     }
@@ -223,9 +223,12 @@ class LoginPage extends StatelessWidget {
               ),
               ButtonWithIconWidget(
                 onPress: () {
-                  final val = context.read<Auth>().user?.providerId;
+                  // _socialLogin(
+                  //     context, SSOType.snapchat, authProvider, appDataProvider);  //TODO:: Uncomment this
 
-                  print(val);
+                  // final val = context.read<Auth>().user?.providerId;
+
+                  // print(val);
 
                   // ShowLoadingDialog(context);
                   // Navigator.push(
