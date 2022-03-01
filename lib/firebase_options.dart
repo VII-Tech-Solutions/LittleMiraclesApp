@@ -49,12 +49,13 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyC9KtONUC1mlcHV3L4-NH1TBHTPc6iF6bs',
+    apiKey: 'AIzaSyCY_bAQaefvp2C4-qO80Wjp5JlDt6nAU8M',
     appId: '1:970217973487:ios:935a943dec36d6ea1d1d1a',
     messagingSenderId: '970217973487',
     projectId: 'little-miracles-app',
     storageBucket: 'little-miracles-app.appspot.com',
-    iosClientId: '970217973487-tp7i2ihrugrnch743vfdg3u1fum423u4.apps.googleusercontent.com',
+    iosClientId:
+        '970217973487-tp7i2ihrugrnch743vfdg3u1fum423u4.apps.googleusercontent.com',
     iosBundleId: 'com.littlemiracles',
   );
 }

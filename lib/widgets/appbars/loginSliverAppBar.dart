@@ -1,8 +1,16 @@
 //PACKAGES
 import 'package:LMP0001_LittleMiraclesApp/pages/chat.dart';
+import 'package:LMP0001_LittleMiraclesApp/pages/chat/chat.dart';
+import 'package:LMP0001_LittleMiraclesApp/pages/chat/rooms.dart';
+import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/showLoadingDialog.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
@@ -23,6 +31,8 @@ class LoginSliverAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final isAuth = context.read<Auth>().isAuth;
     final user = context.read<Auth>().user;
+    FirebaseApp app = Firebase.app('LMP');
+    FirebaseAuth auth = FirebaseAuth.instanceFor(app: app);
     return SliverAppBar(
       pinned: true,
       snap: false,
@@ -82,13 +92,31 @@ class LoginSliverAppBar extends StatelessWidget {
                           icon: Icons.shopping_cart),
                       SizedBox(width: 16),
                       IconButtonWidget(
-                          onPress: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Chat(),
+                          onPress: () async {
+                            FirebaseAuth auth =
+                                FirebaseAuth.instanceFor(app: Firebase.apps[1]);
+                            UserCredential firebaseUser =
+                                await auth.signInAnonymously();
+                            ShowLoadingDialog(context);
+                            await FirebaseChatCore.instance
+                                .createUserInFirestore(
+                              types.User(
+                                firstName: user?.firstName,
+                                id: firebaseUser.user!
+                                    .uid, // UID from Firebase Authentication
+                                imageUrl: user?.avatar,
+                                lastName: user?.lastName,
                               ),
-                            );
+                            )
+                                .then((_) {
+                              ShowLoadingDialog(context, dismiss: true);
+                              return Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => RoomsPage(),
+                                ),
+                              );
+                            });
                             print('go to chat');
                           },
                           icon: Icons.forum),

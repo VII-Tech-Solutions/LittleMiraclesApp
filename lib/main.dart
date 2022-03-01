@@ -1,6 +1,7 @@
 //PACKAGES
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,6 +30,9 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await initialize();
+  FirebaseChatCore.instance.setConfig(
+    FirebaseChatCoreConfig('LMP', 'rooms', 'users'),
+  );
   runApp(const MyApp());
 }
 
