@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
-import '../../Global/colors.dart';
 import 'chat.dart';
+import 'login.dart';
 import 'users.dart';
 import 'util.dart';
 
@@ -30,9 +30,7 @@ class _RoomsPageState extends State<RoomsPage> {
   void initializeFlutterFire() async {
     try {
       await Firebase.initializeApp();
-      FirebaseAuth.instanceFor(app: Firebase.apps[1])
-          .authStateChanges()
-          .listen((User? user) {
+      FirebaseAuth.instance.authStateChanges().listen((User? user) {
         setState(() {
           _user = user;
         });
@@ -45,6 +43,10 @@ class _RoomsPageState extends State<RoomsPage> {
         _error = true;
       });
     }
+  }
+
+  void logout() async {
+    await FirebaseAuth.instance.signOut();
   }
 
   Widget _buildAvatar(types.Room room) {
@@ -90,29 +92,12 @@ class _RoomsPageState extends State<RoomsPage> {
     if (!_initialized) {
       return Container();
     }
+
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 16.0),
-          child: MaterialButton(
-            elevation: 0,
-            onPressed: () {
-              Navigator.maybePop(context);
-            },
-            color: AppColors.greyF2F3F3,
-            child: Icon(
-              Icons.arrow_back,
-              color: AppColors.black45515D,
-              size: 24,
-            ),
-            padding: EdgeInsets.all(8.0),
-            shape: CircleBorder(),
-          ),
-        ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.add, color: Colors.black),
+            icon: const Icon(Icons.add),
             onPressed: _user == null
                 ? null
                 : () {
@@ -125,61 +110,83 @@ class _RoomsPageState extends State<RoomsPage> {
                   },
           ),
         ],
-        title: const Text(
-          'Rooms',
-          style: TextStyle(
-            color: AppColors.black45515D,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+        leading: IconButton(
+          icon: const Icon(Icons.logout),
+          onPressed: _user == null ? null : logout,
         ),
+        systemOverlayStyle: SystemUiOverlayStyle.light,
+        title: const Text('Rooms'),
       ),
-      body: StreamBuilder<List<types.Room>>(
-        stream: FirebaseChatCore.instance.rooms(),
-        initialData: const [],
-        builder: (context, snapshot) {
-          if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Container(
+      body: _user == null
+          ? Container(
               alignment: Alignment.center,
               margin: const EdgeInsets.only(
                 bottom: 200,
               ),
-              child: const Text('No rooms'),
-            );
-          }
-
-          return ListView.builder(
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              final room = snapshot.data![index];
-
-              return GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ChatPage(
-                        room: room,
-                      ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Not authenticated'),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          fullscreenDialog: true,
+                          builder: (context) => const LoginPage(),
+                        ),
+                      );
+                    },
+                    child: const Text('Login'),
+                  ),
+                ],
+              ),
+            )
+          : StreamBuilder<List<types.Room>>(
+              stream: FirebaseChatCore.instance.rooms(),
+              initialData: const [],
+              builder: (context, snapshot) {
+                if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return Container(
+                    alignment: Alignment.center,
+                    margin: const EdgeInsets.only(
+                      bottom: 200,
                     ),
+                    child: const Text('No rooms'),
                   );
-                },
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
-                  child: Row(
-                    children: [
-                      _buildAvatar(room),
-                      Text(room.name ?? ''),
-                    ],
-                  ),
-                ),
-              );
-            },
-          );
-        },
-      ),
+                }
+
+                return ListView.builder(
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    final room = snapshot.data![index];
+
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => ChatPage(
+                              room: room,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 8,
+                        ),
+                        child: Row(
+                          children: [
+                            _buildAvatar(room),
+                            Text(room.name ?? ''),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
     );
   }
 }
