@@ -1,4 +1,6 @@
 //PACKAGES
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -272,14 +274,18 @@ class MoreMainPage extends StatelessWidget {
                     onPress: () {
                       context.read<AppData>().clearUserData().then(
                             (_) => context.read<Auth>().logout().then(
-                                  (_) => Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => Splashscreen(),
-                                    ),
-                                    (Route<dynamic> route) => false,
+                              (_) {
+                                FirebaseAuth.instanceFor(app: Firebase.apps[1])
+                                    .signOut();
+                                return Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Splashscreen(),
                                   ),
-                                ),
+                                  (Route<dynamic> route) => false,
+                                );
+                              },
+                            ),
                           );
                     },
                     type: ButtonType.generalGrey,

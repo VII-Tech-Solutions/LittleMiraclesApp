@@ -27,6 +27,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  flutter_facebook_auth: ^4.1.1
   bubble: ^1.2.1
   flutter_chat_ui:
     path: flutter_chat_ui-1.5.5

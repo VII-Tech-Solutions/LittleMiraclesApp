@@ -8,6 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:collection/collection.dart';
 import 'package:snapkit/snapkit.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 //GLOBAL
 import '../global/const.dart';
 import '../database/db_sqflite.dart';
@@ -680,7 +681,6 @@ class Auth with ChangeNotifier {
           .timeout(Duration(seconds: Timeout.value));
 
       final result = json.decode(response.body);
-
       if (response.statusCode != 200) {
         if ((response.statusCode >= 400 && response.statusCode <= 499) ||
             response.statusCode == 503) {
@@ -695,10 +695,10 @@ class Auth with ChangeNotifier {
       _token = result['data']['token'];
       _expiryDate = result['data']['expires'];
       User user = User.fromJson(result['data']['user']);
-
       if (user.status == 1) {
-        FamilyMember partner = FamilyMember.fromJson(result['data']['partner']);
-        if (partner.id != null) {
+        final partnerJson = result['data']['partner'];
+        if (partnerJson != null) {
+          FamilyMember partner = FamilyMember.fromJson(partnerJson);
           _familyMembers.add(partner);
         }
       }
@@ -706,7 +706,6 @@ class Auth with ChangeNotifier {
       final childrenJson = result['data']['children'] as List;
       final familyInfoJson = result['data']['family_info'] as List;
       _user = user;
-
       prefs.setString(
           'userData',
           json.encode({
@@ -761,7 +760,7 @@ class Auth with ChangeNotifier {
       }
       return ApiResponse(statusCode: response.statusCode, message: '');
     } catch (e) {
-      print('catch error:: $e');
+      print('this is the error catch error:: $e');
       return null;
     }
   }
@@ -800,6 +799,56 @@ class Auth with ChangeNotifier {
     }
   }
 
+  Future<ApiResponse?> signInWithFacebook({bool isLogout = false}) async {
+    try {
+      Map<String, dynamic> _userData;
+      // ignore: unused_local_variable
+      AccessToken? _accessToken;
+
+      if (isLogout == true) {
+        await FacebookAuth.instance.logOut();
+        return null;
+      }
+
+      await FacebookAuth.instance.logOut();
+
+      LoginResult result = await FacebookAuth.instance.login(
+        permissions: ['email', 'public_profile'],
+      );
+
+      if (result.status == LoginStatus.success) {
+        _userData = await FacebookAuth.instance.getUserData();
+        _accessToken = result.accessToken;
+        // ignore: unnecessary_null_comparison
+        if (_userData != null) {
+          dynamic body = {
+            'id': _userData['id'],
+            'name': _userData['name'],
+            'email': _userData['email'] ?? '',
+            'photo_url': _userData['picture']['data']['url'],
+            'provider': SSOType.facebook,
+          };
+
+          return socialLogin(body, SSOType.facebook);
+        } else if (result.status == LoginStatus.failed) {
+          print('Facebook Login Failed');
+          return null;
+        } else if (result.status == LoginStatus.operationInProgress) {
+          print('Facebook Login Is In Progress');
+          return null;
+        } else if (result.status == LoginStatus.cancelled) {
+          print('Facebook Login Cancelled');
+          return null;
+        }
+      }
+    } catch (e, s) {
+      // print in the logs the unknown errors
+      print(e);
+      print(s);
+      return null;
+    }
+  }
+
   Future<ApiResponse?> signInWithSnapchat({bool isLogout = false}) async {
     if (isLogout == true) {
       //sign out the user to trigger the right login behaviour
@@ -821,6 +870,7 @@ class Auth with ChangeNotifier {
           };
         },
       );
+      print(body);
       return socialLogin(body, SSOType.snapchat, withNotifyListeners: false);
     } on PlatformException catch (exception) {
       print(exception);

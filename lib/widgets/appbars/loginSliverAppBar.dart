@@ -95,17 +95,16 @@ class LoginSliverAppBar extends StatelessWidget {
                           onPress: () async {
                             FirebaseAuth auth =
                                 FirebaseAuth.instanceFor(app: Firebase.apps[1]);
-                            UserCredential firebaseUser =
-                                await auth.signInAnonymously();
+                            await auth.signInAnonymously();
                             ShowLoadingDialog(context);
                             await FirebaseChatCore.instance
                                 .createUserInFirestore(
                               types.User(
                                 firstName: user?.firstName,
-                                id: firebaseUser.user!
-                                    .uid, // UID from Firebase Authentication
-                                imageUrl: user?.avatar,
-                                lastName: user?.lastName,
+                                id: user!.id
+                                    .toString(), // UID from Firebase Authentication
+                                imageUrl: user.avatar,
+                                lastName: user.lastName,
                               ),
                             )
                                 .then((_) {
