@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../Global/colors.dart';
 import 'chat.dart';
 import 'users.dart';
@@ -70,7 +71,7 @@ class _RoomsPageState extends State<RoomsPage> {
       child: CircleAvatar(
         backgroundColor: hasImage ? Colors.transparent : color,
         backgroundImage: hasImage ? NetworkImage(room.imageUrl!) : null,
-        radius: 20,
+        radius: 30,
         child: !hasImage
             ? Text(
                 name.isEmpty ? '' : name[0].toUpperCase(),
@@ -141,9 +142,6 @@ class _RoomsPageState extends State<RoomsPage> {
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return Container(
               alignment: Alignment.center,
-              margin: const EdgeInsets.only(
-                bottom: 200,
-              ),
               child: const Text('No rooms'),
             );
           }
@@ -164,6 +162,15 @@ class _RoomsPageState extends State<RoomsPage> {
                   );
                 },
                 child: Container(
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.height * 0.09852217,
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                    color: Colors.black,
+                  )),
+                  margin: const EdgeInsets.only(
+                    top: 10,
+                  ),
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
                     vertical: 8,
@@ -171,7 +178,14 @@ class _RoomsPageState extends State<RoomsPage> {
                   child: Row(
                     children: [
                       _buildAvatar(room),
-                      Text(room.name ?? ''),
+                      Text(
+                        room.name ?? '',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontFamily: GoogleFonts.manrope().fontFamily,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ],
                   ),
                 ),

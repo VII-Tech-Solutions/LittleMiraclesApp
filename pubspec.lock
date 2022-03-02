@@ -394,9 +394,9 @@ packages:
   flutter_chat_ui:
     dependency: "direct main"
     description:
-      name: flutter_chat_ui
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "flutter_chat_ui-1.5.5"
+      relative: true
+    source: path
     version: "1.5.5"
   flutter_firebase_chat_core:
     dependency: "direct main"
