@@ -119,12 +119,7 @@ class _InputState extends State<Input> {
           child: Container(
             decoration:
                 InheritedChatTheme.of(context).theme.inputContainerDecoration,
-            padding: EdgeInsets.fromLTRB(
-              16,
-              8,
-              16,
-              (MediaQuery.of(context).size.height * 0.05172414),
-            ),
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
             child: Row(
               children: [
                 if (widget.onAttachmentPressed != null) _leftWidgetBuilder(),

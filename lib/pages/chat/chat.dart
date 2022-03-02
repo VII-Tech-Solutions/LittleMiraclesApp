@@ -254,6 +254,11 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: Container(
+        height: MediaQuery.of(context).padding.bottom,
+        width: double.infinity,
+        color: const Color(0xebf8f8f8),
+      ),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         leading: Padding(
