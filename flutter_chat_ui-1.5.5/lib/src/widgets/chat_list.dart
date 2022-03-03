@@ -127,7 +127,7 @@ class _ChatListState extends State<ChatList>
 
   Widget _newMessageBuilder(int index, Animation<double> animation) {
     try {
-      final Object item = _oldData[index];
+      final item = _oldData[index];
 
       return SizeTransition(
         axisAlignment: -1,
@@ -170,7 +170,7 @@ class _ChatListState extends State<ChatList>
             Future.delayed(const Duration(milliseconds: 100), () {
               if (_scrollController.hasClients) {
                 _scrollController.animateTo(
-                  _scrollController.position.minScrollExtent,
+                  0,
                   duration: const Duration(milliseconds: 200),
                   curve: Curves.easeInQuad,
                 );
@@ -263,7 +263,6 @@ class _ChatListState extends State<ChatList>
               ),
             ),
           ),
-          _appBar(context),
         ],
       ),
     );

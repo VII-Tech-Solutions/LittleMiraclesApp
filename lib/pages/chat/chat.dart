@@ -259,34 +259,35 @@ class _ChatPageState extends State<ChatPage> {
         width: double.infinity,
         color: const Color(0xebf8f8f8),
       ),
-      // appBar: AppBar(
-      //   automaticallyImplyLeading: false,
-      //   leading: Padding(
-      //     padding: EdgeInsets.only(left: 16.0),
-      //     child: MaterialButton(
-      //       elevation: 0,
-      //       onPressed: () {
-      //         Navigator.maybePop(context);
-      //       },
-      //       color: AppColors.greyF2F3F3,
-      //       child: Icon(
-      //         Icons.arrow_back,
-      //         color: AppColors.black45515D,
-      //         size: 24,
-      //       ),
-      //       padding: EdgeInsets.all(8.0),
-      //       shape: CircleBorder(),
-      //     ),
-      //   ),
-      //   title: const Text(
-      //     'Chat',
-      //     style: TextStyle(
-      //       color: AppColors.black45515D,
-      //       fontSize: 18,
-      //       fontWeight: FontWeight.bold,
-      //     ),
-      //   ),
-      // ),
+      appBar: AppBar(
+        elevation: 0.5,
+        automaticallyImplyLeading: false,
+        leading: Padding(
+          padding: EdgeInsets.only(left: 16.0),
+          child: MaterialButton(
+            elevation: 0,
+            onPressed: () {
+              Navigator.maybePop(context);
+            },
+            color: AppColors.greyF2F3F3,
+            child: Icon(
+              Icons.arrow_back,
+              color: AppColors.black45515D,
+              size: 24,
+            ),
+            padding: EdgeInsets.all(8.0),
+            shape: CircleBorder(),
+          ),
+        ),
+        title: const Text(
+          'Chat',
+          style: TextStyle(
+            color: AppColors.black45515D,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       body: Container(
         height: MediaQuery.of(context).size.height,
         child: StreamBuilder<types.Room>(
