@@ -53,6 +53,7 @@ class LoginPage extends StatelessWidget {
       case SSOType.snapchat:
         {
           result = await authProvider.signInWithSnapchat();
+          print(result);
         }
         break;
       case SSOType.apple:

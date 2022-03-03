@@ -679,6 +679,8 @@ class Auth with ChangeNotifier {
             body: body,
           )
           .timeout(Duration(seconds: Timeout.value));
+      print('hello: ${response.statusCode}');
+      print('homara: ${response.body}');
 
       final result = json.decode(response.body);
       if (response.statusCode != 200) {
@@ -859,8 +861,10 @@ class Auth with ChangeNotifier {
 
     try {
       dynamic body;
+      print('homara');
       await snapkit.login().then(
         (user) {
+          print(user);
           return body = {
             'id': user.externalId,
             'name': user.displayName,
