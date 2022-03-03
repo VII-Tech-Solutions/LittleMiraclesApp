@@ -31,7 +31,7 @@ class ShowLoadingDialog {
             child: LoadingIndicator(
               indicatorType: Indicator.circleStrokeSpin,
               colors: [Colors.black],
-              strokeWidth: 6.0,
+              strokeWidth: 3.0,
             ),
           ),
         ],
