@@ -1,4 +1,5 @@
 //PACKAGES
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -122,15 +123,23 @@ class _AlbumSizePageState extends State<AlbumSizePage> {
                                 ? _selectedDecoration
                                 : _unselectedDecoration,
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Expanded(
-                                  child: AspectRatio(
-                                    aspectRatio: 1 / 1,
-                                    child: Container(
-                                        //TODO:: add the image
-                                        ),
+                                Flexible(
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(4),
+                                    child: CachedNetworkImage(
+                                      imageUrl: item.image ?? '',
+                                      alignment: Alignment.topCenter,
+                                      color: _selectedItem?.id == item.id
+                                          ? AppColors.blueBBDCE0
+                                          : AppColors.greyE8E9EB,
+                                      errorWidget: (context, _, child) =>
+                                          SizedBox(),
+                                    ),
                                   ),
                                 ),
+                                SizedBox(height: 8),
                                 Text(
                                   item.title ?? '',
                                   textAlign: TextAlign.center,
