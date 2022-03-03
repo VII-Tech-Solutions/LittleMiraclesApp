@@ -1,15 +1,24 @@
 //PACKAGES
 import 'package:LMP0001_LittleMiraclesApp/pages/chat.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 //GLOBAL
 import '../../global/colors.dart';
 //MODELS
 //PROVIDERS
 //WIDGETS
+import '../../pages/chat/rooms.dart';
+import '../../providers/auth.dart';
 import '../buttons/iconButtonWidget.dart';
 //PAGES
 import 'package:LMP0001_LittleMiraclesApp/pages/cart/cart.dart';
+
+import '../dialogs/showLoadingDialog.dart';
 
 class MainPagesSliverAppBar extends StatelessWidget {
   final String titleFirst;
@@ -18,6 +27,7 @@ class MainPagesSliverAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = context.read<Auth>().user;
     return SliverAppBar(
       pinned: true,
       snap: false,
@@ -71,13 +81,48 @@ class MainPagesSliverAppBar extends StatelessWidget {
                           icon: Icons.shopping_cart),
                       SizedBox(width: 16),
                       IconButtonWidget(
-                          onPress: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Chat(),
+                          onPress: () async {
+                            UserCredential? u;
+                            ShowLoadingDialog(context);
+                            FirebaseAuth auth =
+                                FirebaseAuth.instanceFor(app: Firebase.apps[1]);
+                            try {
+                              u = await auth.createUserWithEmailAndPassword(
+                                  email: '${user?.id}@lms.com',
+                                  password: '${user!.id! * 5 * 200 + 100000}');
+                            } on FirebaseAuthException catch (e) {
+                              if (e.code == 'weak-password') {
+                                print('The password provided is too weak.');
+                              } else if (e.code == 'email-already-in-use') {
+                                u = await auth.signInWithEmailAndPassword(
+                                    email: '${user?.id}@lms.com',
+                                    password:
+                                        '${user!.id! * 5 * 200 + 100000}');
+                                print(
+                                    'The account already exists for that email.');
+                              }
+                            } catch (e) {
+                              print(e);
+                            }
+                            await FirebaseChatCore.instance
+                                .createUserInFirestore(
+                              types.User(
+                                firstName: user?.firstName,
+                                id: u?.user!.uid ??
+                                    '', // UID from Firebase Authentication
+                                imageUrl: user?.avatar,
+                                lastName: user?.lastName,
                               ),
-                            );
+                            )
+                                .then((_) {
+                              ShowLoadingDialog(context, dismiss: true);
+                              return Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => RoomsPage(),
+                                ),
+                              );
+                            });
                             print('go to chat');
                           },
                           icon: Icons.forum),

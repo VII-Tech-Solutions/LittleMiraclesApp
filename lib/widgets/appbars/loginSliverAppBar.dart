@@ -31,8 +31,6 @@ class LoginSliverAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final isAuth = context.read<Auth>().isAuth;
     final user = context.read<Auth>().user;
-    FirebaseApp app = Firebase.app('LMP');
-    FirebaseAuth auth = FirebaseAuth.instanceFor(app: app);
     return SliverAppBar(
       pinned: true,
       snap: false,
@@ -93,17 +91,34 @@ class LoginSliverAppBar extends StatelessWidget {
                       SizedBox(width: 16),
                       IconButtonWidget(
                           onPress: () async {
+                            UserCredential? u;
+                            ShowLoadingDialog(context);
                             FirebaseAuth auth =
                                 FirebaseAuth.instanceFor(app: Firebase.apps[1]);
-                            UserCredential firebaseUser =
-                                await auth.signInAnonymously();
-                            ShowLoadingDialog(context);
+                            try {
+                              u = await auth.createUserWithEmailAndPassword(
+                                  email: '${user?.id}@lms.com',
+                                  password: '${user!.id! * 5 * 200 + 100000}');
+                            } on FirebaseAuthException catch (e) {
+                              if (e.code == 'weak-password') {
+                                print('The password provided is too weak.');
+                              } else if (e.code == 'email-already-in-use') {
+                                u = await auth.signInWithEmailAndPassword(
+                                    email: '${user?.id}@lms.com',
+                                    password:
+                                        '${user!.id! * 5 * 200 + 100000}');
+                                print(
+                                    'The account already exists for that email.');
+                              }
+                            } catch (e) {
+                              print(e);
+                            }
                             await FirebaseChatCore.instance
                                 .createUserInFirestore(
                               types.User(
                                 firstName: user?.firstName,
-                                id: firebaseUser.user!
-                                    .uid, // UID from Firebase Authentication
+                                id: u?.user!.uid ??
+                                    '', // UID from Firebase Authentication
                                 imageUrl: user?.avatar,
                                 lastName: user?.lastName,
                               ),
