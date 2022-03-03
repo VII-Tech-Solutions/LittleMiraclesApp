@@ -35,6 +35,7 @@
 			<array>
 				<string>com.googleusercontent.apps.222688104462-hr92jk1uh63ble23lvi87n0j605l8b65</string>
 				<string>fb2187850391367377</string>
+                <string>lms</string>
 			</array>
 		</dict>
 	</array>
@@ -58,7 +59,7 @@
 	<key>SCSDKClientId</key>
 	<string>fb4891ff-1f08-436d-ad52-927c6e63df78</string>
 	<key>SCSDKRedirectUrl</key>
-	<string>LMS://snapchat/oauth2</string>
+	<string>lms://snapchat/oauth2</string>
 	<key>SCSDKScopes</key>
 	<array>
 		<string>https://auth.snapchat.com/oauth2/api/user.bitmoji.avatar</string>
@@ -85,10 +86,6 @@
 		<string>fb-messenger-share-api</string>
 		<string>fbauth2</string>
 		<string>fbshareextension</string>
-	</array>
-	<key>CFBundleURLSchemes</key>
-	<array>
-		<string>LMS</string>
 	</array>
 	<key>FacebookAppID</key>
 	<string>2187850391367377</string>
