@@ -292,34 +292,37 @@ class _ChatState extends State<Chat> {
   }
 
   Widget _imageGalleryBuilder() {
-    return Dismissible(
-      key: const Key('photo_view_gallery'),
-      direction: DismissDirection.down,
-      onDismissed: (direction) => _onCloseGalleryPressed(),
-      child: Stack(
-        children: [
-          PhotoViewGallery.builder(
-            backgroundDecoration: const BoxDecoration(color: Color(0xFFf8f8f8)),
-            builder: (BuildContext context, int index) =>
-                PhotoViewGalleryPageOptions(
-              imageProvider: Conditional().getProvider(_gallery[index].uri),
+    return SafeArea(
+      child: Dismissible(
+        key: const Key('photo_view_gallery'),
+        direction: DismissDirection.down,
+        onDismissed: (direction) => _onCloseGalleryPressed(),
+        child: Stack(
+          children: [
+            PhotoViewGallery.builder(
+              backgroundDecoration:
+                  const BoxDecoration(color: Color(0xFFf8f8f8)),
+              builder: (BuildContext context, int index) =>
+                  PhotoViewGalleryPageOptions(
+                imageProvider: Conditional().getProvider(_gallery[index].uri),
+              ),
+              itemCount: _gallery.length,
+              loadingBuilder: (context, event) =>
+                  _imageGalleryLoadingBuilder(context, event),
+              onPageChanged: _onPageChanged,
+              pageController: PageController(initialPage: _imageViewIndex),
+              scrollPhysics: const ClampingScrollPhysics(),
             ),
-            itemCount: _gallery.length,
-            loadingBuilder: (context, event) =>
-                _imageGalleryLoadingBuilder(context, event),
-            onPageChanged: _onPageChanged,
-            pageController: PageController(initialPage: _imageViewIndex),
-            scrollPhysics: const ClampingScrollPhysics(),
-          ),
-          Positioned(
-            right: 16,
-            top: 56,
-            child: CloseButton(
-              color: Colors.white,
-              onPressed: _onCloseGalleryPressed,
+            Positioned(
+              right: 16,
+              top: 56,
+              child: CloseButton(
+                color: Colors.white,
+                onPressed: _onCloseGalleryPressed,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
