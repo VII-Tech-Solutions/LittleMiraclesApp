@@ -11,6 +11,7 @@ import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:mime/mime.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
@@ -214,6 +215,7 @@ class _ChatPageState extends State<ChatPage> {
               stream: FirebaseChatCore.instance.messages(snapshot.data!),
               builder: (context, snapshot) {
                 return Chat(
+                  timeFormat: DateFormat("h:mm a"),
                   showUserAvatars: true,
                   isAttachmentUploading: _isAttachmentUploading,
                   messages: snapshot.data ?? [],
