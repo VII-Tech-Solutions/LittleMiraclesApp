@@ -13,11 +13,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
-import 'package:LMP0001_LittleMiraclesApp/pages/chat.dart';
-import 'package:LMP0001_LittleMiraclesApp/pages/chat/chat.dart';
-import 'package:LMP0001_LittleMiraclesApp/pages/chat/rooms.dart';
-import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/showLoadingDialog.dart';
+import '../../pages/chat/chat.dart';
+import '../../pages/chat/rooms.dart';
+import '../dialogs/showLoadingDialog.dart';
 import '../../global/colors.dart';
+import '../../pages/booking/rateDialog.dart';
 import '../../pages/cart/cart.dart';
 import '../../pages/login/loginPage.dart';
 import '../../providers/auth.dart';

@@ -143,9 +143,10 @@ class MyApp extends StatelessWidget {
             previousBookings == null ? null : previousBookings.promoCode,
             previousBookings == null ? [] : previousBookings.feedbackQuestions,
             previousBookings == null ? '' : previousBookings.guidelineString,
+            previousBookings == null ? false : previousBookings.showAppRateDiag,
           ),
           create: (context) => Bookings('', null, [], [], [], [], [], [], {},
-              {}, {}, {}, '', '', {}, [], [], null, [], null, [], ''),
+              {}, {}, {}, '', '', {}, [], [], null, [], null, [], '', false),
         ),
         ChangeNotifierProxyProvider<Auth, Studio>(
           update: (context, auth, previousStudio) => Studio(

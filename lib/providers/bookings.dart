@@ -55,34 +55,39 @@ class Bookings with ChangeNotifier {
   //Session Details
   String _guidelineString = '';
   List<Question> _feedbackQuestions = [];
+  bool _appRate = false;
 
   Bookings(
-    this.authToken,
-    this._package,
-    this._benefits,
-    this._packageMedia,
-    this._packageReviews,
-    this._subPackages,
-    this._selectedBackdrops,
-    this._selectedCakes,
-    this._subSessionSelectedBackdrops,
-    this._subSessionSelectedCakes,
-    this._subSessionSelectedPhotographer,
-    this._subSessionsTemporaryBooked,
-    this._customBackrop,
-    this._customCake,
-    this._bookingBody,
-    this._availableDates,
-    this._availableTimings,
-    this._session,
-    this._subSessions,
-    this._promoCode,
-    this._feedbackQuestions,
-    this._guidelineString,
-  );
+      this.authToken,
+      this._package,
+      this._benefits,
+      this._packageMedia,
+      this._packageReviews,
+      this._subPackages,
+      this._selectedBackdrops,
+      this._selectedCakes,
+      this._subSessionSelectedBackdrops,
+      this._subSessionSelectedCakes,
+      this._subSessionSelectedPhotographer,
+      this._subSessionsTemporaryBooked,
+      this._customBackrop,
+      this._customCake,
+      this._bookingBody,
+      this._availableDates,
+      this._availableTimings,
+      this._session,
+      this._subSessions,
+      this._promoCode,
+      this._feedbackQuestions,
+      this._guidelineString,
+      this._appRate);
 
   Package? get package {
     return _package;
+  }
+
+  bool get showAppRateDiag {
+    return _appRate;
   }
 
   List<Benefit> get benefits {
@@ -175,6 +180,12 @@ class Bookings with ChangeNotifier {
 
     if (withNotify == true) notifyListeners();
     return;
+  }
+
+  void showAppRate() {
+    if (_appRate == false) {
+      _appRate = true;
+    }
   }
 
   void resetBookingsData() {

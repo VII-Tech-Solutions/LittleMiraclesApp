@@ -12,8 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
-import 'package:LMP0001_LittleMiraclesApp/pages/cart/cart.dart';
-import 'package:LMP0001_LittleMiraclesApp/pages/chat.dart';
+import '../../pages/cart/cart.dart';
 import '../../global/colors.dart';
 import '../../pages/chat/rooms.dart';
 import '../../providers/auth.dart';

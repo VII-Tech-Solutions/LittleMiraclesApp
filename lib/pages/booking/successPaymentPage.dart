@@ -27,6 +27,7 @@ class SuccessPaymentPage extends StatelessWidget {
     final package = context.watch<Bookings>().package;
     final session = context.watch<Bookings>().session;
     final promoCode = context.watch<Bookings>().promoCode;
+    context.read<Bookings>().showAppRate();
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
