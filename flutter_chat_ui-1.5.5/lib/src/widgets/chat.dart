@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/src/widgets/inherited_l10n.dart';
 import 'package:intl/intl.dart';
@@ -298,6 +299,7 @@ class _ChatState extends State<Chat> {
       child: Stack(
         children: [
           PhotoViewGallery.builder(
+            backgroundDecoration: const BoxDecoration(color: Color(0xFFf8f8f8)),
             builder: (BuildContext context, int index) =>
                 PhotoViewGalleryPageOptions(
               imageProvider: Conditional().getProvider(_gallery[index].uri),

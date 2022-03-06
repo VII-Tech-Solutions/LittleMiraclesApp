@@ -31,7 +31,6 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   bool _isAttachmentUploading = false;
-  TextEditingController _inputController = TextEditingController();
   void _handleAtachmentPressed() {
     showModalBottomSheet<void>(
       context: context,
@@ -148,7 +147,12 @@ class _ChatPageState extends State<ChatPage> {
     }
   }
 
+  bool bottomNav = true;
   void _handleMessageTap(BuildContext context, types.Message message) async {
+    setState(() {
+      bottomNav = false;
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+    });
     if (message is types.FileMessage) {
       var localPath = message.uri;
 
@@ -191,66 +195,6 @@ class _ChatPageState extends State<ChatPage> {
     });
   }
 
-  SliverAppBar _appBar(BuildContext context) {
-    return SliverAppBar(
-      pinned: true,
-      centerTitle: false,
-      automaticallyImplyLeading: false,
-      elevation: 0,
-      title: IconButtonWidget(
-        onPress: () {
-          Navigator.maybePop(context);
-        },
-        icon: Icons.arrow_back,
-      ),
-      stretch: true,
-      backgroundColor: Colors.white,
-      expandedHeight: 242,
-      flexibleSpace: FlexibleSpaceBar(
-        background: Container(
-          alignment: Alignment.bottomCenter,
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 37),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [
-                AppColors.yellowFFFBF0,
-                AppColors.yellowFFB400,
-              ],
-            ),
-          ),
-          child: RichText(
-            textAlign: TextAlign.start,
-            text: TextSpan(
-              text: 'We got a special ',
-              style: TextStyle(
-                fontSize: 36,
-                fontFamily: GoogleFonts.manrope().fontFamily,
-                fontWeight: FontWeight.w300,
-                color: AppColors.black45515D,
-              ),
-              children: <TextSpan>[
-                TextSpan(
-                  text: 'gift for you 🎁',
-                  style: TextStyle(
-                    fontSize: 36,
-                    fontFamily: GoogleFonts.manrope().fontFamily,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.black45515D,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        stretchModes: [
-          StretchMode.zoomBackground,
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -258,35 +202,6 @@ class _ChatPageState extends State<ChatPage> {
         height: MediaQuery.of(context).padding.bottom,
         width: double.infinity,
         color: const Color(0xebf8f8f8),
-      ),
-      appBar: AppBar(
-        elevation: 0.5,
-        automaticallyImplyLeading: false,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 16.0),
-          child: MaterialButton(
-            elevation: 0,
-            onPressed: () {
-              Navigator.maybePop(context);
-            },
-            color: AppColors.greyF2F3F3,
-            child: Icon(
-              Icons.arrow_back,
-              color: AppColors.black45515D,
-              size: 24,
-            ),
-            padding: EdgeInsets.all(8.0),
-            shape: CircleBorder(),
-          ),
-        ),
-        title: const Text(
-          'Chat',
-          style: TextStyle(
-            color: AppColors.black45515D,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,

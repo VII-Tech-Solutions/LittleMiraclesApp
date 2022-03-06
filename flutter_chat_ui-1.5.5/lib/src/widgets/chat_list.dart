@@ -1,9 +1,9 @@
 import 'package:diffutil_dart/diffutil.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:google_fonts/google_fonts.dart';
 import '../global/colors.dart';
-import 'iconButtonWidget.dart';
 import 'inherited_chat_theme.dart';
 import 'inherited_user.dart';
 
@@ -57,19 +57,35 @@ class _ChatListState extends State<ChatList>
       GlobalKey<SliverAnimatedListState>();
   late List<Object> _oldData = List.from(widget.items);
   final _scrollController = ScrollController();
-
+  // final _autoScrollController = AutoScrollController();
   late final AnimationController _controller = AnimationController(vsync: this);
 
   late final Animation<double> _animation = CurvedAnimation(
     curve: Curves.easeOutQuad,
     parent: _controller,
   );
-
+  bool _showAppBar = true;
   @override
   void initState() {
     super.initState();
-
+    _scrollController.addListener(_scrollListener);
     didUpdateWidget(widget);
+  }
+
+  void _scrollListener() {
+    if (_scrollController.offset <=
+            _scrollController.position.maxScrollExtent - 200 &&
+        _showAppBar == false) {
+      setState(() {
+        _showAppBar = true;
+      });
+    } else if (_scrollController.offset >=
+            _scrollController.position.maxScrollExtent - 200 &&
+        _showAppBar == true) {
+      setState(() {
+        _showAppBar = false;
+      });
+    }
   }
 
   @override
@@ -84,6 +100,7 @@ class _ChatListState extends State<ChatList>
     super.dispose();
 
     _controller.dispose();
+    _scrollController.removeListener(_scrollListener);
     _scrollController.dispose();
   }
 
@@ -216,54 +233,85 @@ class _ChatListState extends State<ChatList>
 
         return false;
       },
-      child: CustomScrollView(
-        controller: _scrollController,
-        physics: widget.scrollPhysics,
-        reverse: true,
-        slivers: [
-          SliverPadding(
-            padding: const EdgeInsets.only(bottom: 4),
-            sliver: SliverAnimatedList(
-              initialItemCount: widget.items.length,
-              key: _listKey,
-              itemBuilder: (_, index, animation) =>
-                  _newMessageBuilder(index, animation),
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          elevation: 0,
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.transparent,
+          systemOverlayStyle: SystemUiOverlayStyle.dark,
+          flexibleSpace: AnimatedContainer(
+            color: _showAppBar ? Colors.white : Colors.white.withOpacity(0),
+            duration: const Duration(milliseconds: 150),
+          ),
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 16.0),
+            child: MaterialButton(
+              elevation: 0,
+              onPressed: () {
+                Navigator.maybePop(context);
+              },
+              color: AppColors.greyF2F3F3,
+              child: const Icon(
+                Icons.arrow_back,
+                color: AppColors.black45515D,
+                size: 24,
+              ),
+              padding: const EdgeInsets.all(8.0),
+              shape: const CircleBorder(),
             ),
           ),
-          SliverPadding(
-            padding: const EdgeInsets.only(
-              top: 16,
+        ),
+        body: CustomScrollView(
+          controller: _scrollController,
+          physics: const ClampingScrollPhysics(),
+          reverse: true,
+          slivers: [
+            SliverPadding(
+              padding: const EdgeInsets.only(bottom: 4),
+              sliver: SliverAnimatedList(
+                initialItemCount: widget.items.length,
+                key: _listKey,
+                itemBuilder: (_, index, animation) =>
+                    _newMessageBuilder(index, animation),
+              ),
             ),
-            sliver: SliverToBoxAdapter(
-              child: SizeTransition(
-                axisAlignment: 1,
-                sizeFactor: _animation,
-                child: Center(
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: 32,
-                    width: 32,
-                    child: SizedBox(
-                      height: 16,
-                      width: 16,
-                      child: _isNextPageLoading
-                          ? CircularProgressIndicator(
-                              backgroundColor: Colors.transparent,
-                              strokeWidth: 1.5,
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                InheritedChatTheme.of(context)
-                                    .theme
-                                    .primaryColor,
-                              ),
-                            )
-                          : null,
+            SliverPadding(
+              padding: const EdgeInsets.only(
+                top: 16,
+              ),
+              sliver: SliverToBoxAdapter(
+                child: SizeTransition(
+                  axisAlignment: 1,
+                  sizeFactor: _animation,
+                  child: Center(
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 32,
+                      width: 32,
+                      child: SizedBox(
+                        height: 16,
+                        width: 16,
+                        child: _isNextPageLoading
+                            ? CircularProgressIndicator(
+                                backgroundColor: Colors.transparent,
+                                strokeWidth: 1.5,
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  InheritedChatTheme.of(context)
+                                      .theme
+                                      .primaryColor,
+                                ),
+                              )
+                            : null,
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+            _appBar(context),
+          ],
+        ),
       ),
     );
   }
@@ -272,18 +320,14 @@ class _ChatListState extends State<ChatList>
 SliverAppBar _appBar(BuildContext context) {
   return SliverAppBar(
     pinned: true,
+    snap: false,
+    floating: true,
     centerTitle: false,
     automaticallyImplyLeading: false,
     elevation: 0,
-    title: IconButtonWidget(
-      onPress: () {
-        Navigator.maybePop(context);
-      },
-      icon: Icons.arrow_back,
-    ),
     stretch: true,
     backgroundColor: Colors.white,
-    expandedHeight: 242,
+    expandedHeight: 200,
     flexibleSpace: FlexibleSpaceBar(
       background: Container(
         alignment: Alignment.bottomCenter,
@@ -293,32 +337,35 @@ SliverAppBar _appBar(BuildContext context) {
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
             colors: [
-              AppColors.yellowFFFBF0,
-              AppColors.yellowFFB400,
+              AppColors.blueE8F3F5,
+              AppColors.blue8DC4CB,
             ],
           ),
         ),
-        child: RichText(
-          textAlign: TextAlign.start,
-          text: TextSpan(
-            text: 'We got a special ',
-            style: TextStyle(
-              fontSize: 36,
-              fontFamily: GoogleFonts.manrope().fontFamily,
-              fontWeight: FontWeight.w300,
-              color: AppColors.black45515D,
-            ),
-            children: <TextSpan>[
-              TextSpan(
-                text: 'gift for you 🎁',
-                style: TextStyle(
-                  fontSize: 36,
-                  fontFamily: GoogleFonts.manrope().fontFamily,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.black45515D,
-                ),
+        child: Align(
+          alignment: Alignment.bottomLeft,
+          child: RichText(
+            textAlign: TextAlign.start,
+            text: TextSpan(
+              text: 'Let\'s ',
+              style: TextStyle(
+                fontSize: 36,
+                fontFamily: GoogleFonts.manrope().fontFamily,
+                fontWeight: FontWeight.w300,
+                color: AppColors.black45515D,
               ),
-            ],
+              children: <TextSpan>[
+                TextSpan(
+                  text: 'chat 🤗',
+                  style: TextStyle(
+                    fontSize: 36,
+                    fontFamily: GoogleFonts.manrope().fontFamily,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.black45515D,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
