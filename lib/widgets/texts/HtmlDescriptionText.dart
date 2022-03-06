@@ -1,13 +1,14 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_html/flutter_html.dart';
 import 'package:url_launcher/url_launcher.dart';
-//GLOBAL
+
+// Project imports:
 import '../../Global/colors.dart';
-//MODELS
-//PROVIDERS
-//WIDGETS
-//PAGES
 
 class HtmlDescriptionText extends StatelessWidget {
   final String? text;
@@ -20,12 +21,11 @@ class HtmlDescriptionText extends StatelessWidget {
         shrinkWrap: true,
         style: {
           "body": Style(
-            color: AppColors.black45515D,
-            fontSize: FontSize(14),
-            margin: EdgeInsets.zero,
-            padding: EdgeInsets.zero,
-            lineHeight: LineHeight.number(1.4)
-          ),
+              color: AppColors.black45515D,
+              fontSize: FontSize(14),
+              margin: EdgeInsets.zero,
+              padding: EdgeInsets.zero,
+              lineHeight: LineHeight.number(1.4)),
         },
         onLinkTap: (String? url, RenderContext context,
             Map<String, String> attributes, element) async {

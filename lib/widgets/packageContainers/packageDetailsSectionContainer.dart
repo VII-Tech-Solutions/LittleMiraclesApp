@@ -1,16 +1,18 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
+
+// Project imports:
 import '../../extensions/stringExtension.dart';
-//GLOBAL
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
 import '../../providers/bookings.dart';
-//WIDGETS
 import '../general/benefitDetailsRow.dart';
-//PAGES
+
+//EXTENSIONS
 
 class PackageDetailsSectionContainer extends StatelessWidget {
   const PackageDetailsSectionContainer();

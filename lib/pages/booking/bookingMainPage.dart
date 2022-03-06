@@ -1,13 +1,14 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//GLOBAL
-//MODELS
-//PROVIDERS
+
+// Project imports:
 import '../../providers/appData.dart';
-//WIDGETS
 import '../../widgets/appbars/mainPagesSliverAppBar.dart';
-//PAGES
 
 class BookingMainPage extends StatefulWidget {
   const BookingMainPage({Key? key}) : super(key: key);

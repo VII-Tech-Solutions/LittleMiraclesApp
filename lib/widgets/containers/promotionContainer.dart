@@ -1,14 +1,13 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
 import '../../models/promotion.dart';
-//PROVIDERS
-//WIDGETS
-import '../../widgets/general/cachedImageWidget.dart';
-//PAGES
 import '../../pages/home/promotionDetailsPage.dart';
+import '../../widgets/general/cachedImageWidget.dart';
 
 class PromotionContainer extends StatelessWidget {
   final Promotion? promotion;

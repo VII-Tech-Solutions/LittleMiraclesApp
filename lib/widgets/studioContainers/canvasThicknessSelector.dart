@@ -1,18 +1,20 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
 import '../../global/const.dart';
-//MODELS
 import '../../models/studioMetadata.dart';
-//PROVIDERS
 import '../../providers/appData.dart';
 import '../../providers/studio.dart';
-//WIDGETS
-//PAGES
+
+//EXTENSIONS
 
 class CanvasThicknessSelector extends StatefulWidget {
   CanvasThicknessSelector({Key? key}) : super(key: key);

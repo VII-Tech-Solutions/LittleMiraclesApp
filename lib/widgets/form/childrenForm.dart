@@ -1,19 +1,22 @@
 //PACKAGES
+
+// Dart imports:
 import 'dart:io';
 
+// Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:google_fonts/google_fonts.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
 import '../../global/globalHelpers.dart';
-//MODELS
-//PROVIDERS
-//WIDGETS
-import '../../widgets/form/formTextField.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
-//PAGES
+import '../../widgets/form/formTextField.dart';
+
+//EXTENSIONS
 
 class ChildrenForm extends StatefulWidget {
   final GlobalKey<FormState> _formKey;

@@ -1,21 +1,23 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-//EXTENSIONS
-import '../../extensions/stringExtension.dart';
-//GLOBAL
+
+// Project imports:
 import '../../../global/colors.dart';
-//MODELS
-import '../../models/gift.dart';
-//PROVIDERS
-import '../../providers/appData.dart';
-//WIDGETS
 import '../../../widgets/buttons/iconButtonWidget.dart';
+import '../../extensions/stringExtension.dart';
+import '../../models/gift.dart';
+import '../../providers/appData.dart';
+import '../../widgets/dialogs/giftDialog.dart';
 import '../../widgets/general/cachedImageWidget.dart';
 import '../../widgets/texts/titleText.dart';
-import '../../widgets/dialogs/giftDialog.dart';
-//PAGES
+
+//EXTENSIONS
 
 class LoyaltyPage extends StatefulWidget {
   const LoyaltyPage();

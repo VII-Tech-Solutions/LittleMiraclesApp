@@ -1,28 +1,31 @@
 //PACKAGES
+
+// Dart imports:
 import 'dart:io';
 
+// Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
+// Package imports:
 import 'package:country_code_picker/country_code_picker.dart';
-//EXTENSION
+import 'package:provider/provider.dart';
+
+// Project imports:
 import '../../extensions/stringExtension.dart';
-//GLOBAL
 import '../../global/colors.dart';
 import '../../global/const.dart';
 import '../../global/globalHelpers.dart';
-//MODELS
-//PROVIDERS
+import '../../pages/login/partnerPage.dart';
 import '../../providers/auth.dart';
-//WIDGETS
-import '../../widgets/texts/titleText.dart';
-import '../../widgets/form/formTextField.dart';
 import '../../widgets/appbars/appBarWithLogo.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/containers/registrationAccountTypeContainer.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
-//PAGES
-import '../../pages/login/partnerPage.dart';
+import '../../widgets/form/formTextField.dart';
+import '../../widgets/texts/titleText.dart';
+
+//EXTENSION
 
 class CompleteProfilePage extends StatefulWidget {
   const CompleteProfilePage({Key? key}) : super(key: key);

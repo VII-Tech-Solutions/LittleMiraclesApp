@@ -1,13 +1,13 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
-//EXTENSIONS
-//GLOBAL
-//MODELS
-//PROVIDERS
-//WIDGETS
-import './filledButtonWidget.dart';
-//PAGES
+
+// Project imports:
 import '../../pages/home/sessions/allSessionsPage.dart';
+import './filledButtonWidget.dart';
+
+//EXTENSIONS
 
 class ViewAllSessionsButton extends StatelessWidget {
   const ViewAllSessionsButton({Key? key}) : super(key: key);

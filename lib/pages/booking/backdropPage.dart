@@ -1,23 +1,25 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
 import '../../global/const.dart';
-//MODELS
-import '../../models/question.dart';
 import '../../models/package.dart';
-//PROVIDERS
+import '../../models/question.dart';
 import '../../providers/appData.dart';
 import '../../providers/bookings.dart';
-//WIDGETS
 import '../../widgets/appbars/appBarWithBack.dart';
 import '../../widgets/bookingSessionContainers/selectionRow.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
-import '../../widgets/form/textQuestionWidget.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
-//PAGES
+import '../../widgets/form/textQuestionWidget.dart';
+
+//EXTENSIONS
 
 class BackdropPage extends StatefulWidget {
   final SubPackage? subPackage;

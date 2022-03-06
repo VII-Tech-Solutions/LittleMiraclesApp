@@ -1,26 +1,29 @@
 //PACKAGES
+
+// Dart imports:
 import 'dart:io' show Platform;
+
+// Flutter imports:
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
 import '../../global/const.dart';
-//MODELS
 import '../../models/apiResponse.dart';
-//PROVIDERS
-import '../../providers/auth.dart';
-import '../../providers/appData.dart';
-//WIDGETS
-import '../../widgets/texts/titleText.dart';
-import '../../widgets/buttons/buttonWithIconWidget.dart';
-import '../../widgets/buttons/iconButtonWidget.dart';
-import '../../widgets/dialogs/showOkDialog.dart';
-import '../../widgets/dialogs/showLoadingDialog.dart';
-//PAGES
 import '../../pages/general/customBottomNavigationBar.dart';
 import '../../pages/login/completeProfilePage.dart';
+import '../../providers/appData.dart';
+import '../../providers/auth.dart';
+import '../../widgets/buttons/buttonWithIconWidget.dart';
+import '../../widgets/buttons/iconButtonWidget.dart';
+import '../../widgets/dialogs/showLoadingDialog.dart';
+import '../../widgets/dialogs/showOkDialog.dart';
+import '../../widgets/texts/titleText.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);

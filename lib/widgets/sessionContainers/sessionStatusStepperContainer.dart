@@ -1,20 +1,22 @@
 //PACKAGES
-import 'package:intl/intl.dart';
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:add_2_calendar/add_2_calendar.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:add_2_calendar/add_2_calendar.dart';
-//EXTENSIONS
+
+// Project imports:
 import '../../extensions/stringExtension.dart';
-//GLOBAL
 import '../../global/colors.dart';
-//MODELS
 import '../../models/session.dart';
-//PROVIDERS
 import '../../providers/appData.dart';
-//WIDGETS
 import '../../widgets/texts/titleText.dart';
-//PAGES
+
+//EXTENSIONS
 
 class SessionStatusStepperContainer extends StatelessWidget {
   final Session? subSession;

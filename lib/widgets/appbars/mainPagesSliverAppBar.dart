@@ -1,23 +1,23 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/pages/chat.dart';
+
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-//GLOBAL
+
+// Project imports:
+import 'package:LMP0001_LittleMiraclesApp/pages/cart/cart.dart';
+import 'package:LMP0001_LittleMiraclesApp/pages/chat.dart';
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
-//WIDGETS
 import '../../pages/chat/rooms.dart';
 import '../../providers/auth.dart';
 import '../buttons/iconButtonWidget.dart';
-//PAGES
-import 'package:LMP0001_LittleMiraclesApp/pages/cart/cart.dart';
-
 import '../dialogs/showLoadingDialog.dart';
 
 class MainPagesSliverAppBar extends StatelessWidget {

@@ -1,6 +1,11 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nb_utils/nb_utils.dart';
+
+// Project imports:
 import '../models/StackedWidgetModel.dart';
 
 class PositionedTextViewWidget extends StatefulWidget {

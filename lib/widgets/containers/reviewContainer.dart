@@ -1,15 +1,15 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
-//EXTENSIONS
+
+// Project imports:
 import '../../extensions/stringExtension.dart';
-//GLOBAL
 import '../../global/colors.dart';
-//MODELS
 import '../../models/review.dart';
-//PROVIDERS
-//WIDGETS
 import '../general/cachedImageWidget.dart';
-//PAGES
+
+//EXTENSIONS
 
 class ReviewContainer extends StatelessWidget {
   final Review review;

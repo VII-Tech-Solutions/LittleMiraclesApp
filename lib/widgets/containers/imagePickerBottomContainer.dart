@@ -1,16 +1,17 @@
 //PACKAGES
+
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:provider/provider.dart';
+
+// Project imports:
 import 'package:LMP0001_LittleMiraclesApp/models/media.dart';
 import 'package:LMP0001_LittleMiraclesApp/providers/appData.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-//GLOBAL
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
 import '../../providers/bookings.dart';
-//WIDGETS
 import '../../widgets/buttons/filledButtonWidget.dart';
-//PAGES
 
 class ImagePickerBottomContainer extends StatelessWidget {
   final VoidCallback? onTap;

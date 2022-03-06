@@ -1,15 +1,15 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
-//WIDGETS
-import '../../widgets/form/formTextField.dart';
-//PAGES
 import '../../pages/booking/backdropPage.dart';
 import '../../pages/booking/cakePage.dart';
+import '../../widgets/form/formTextField.dart';
+
+//EXTENSIONS
 
 class BottomContainer extends StatelessWidget {
   const BottomContainer();

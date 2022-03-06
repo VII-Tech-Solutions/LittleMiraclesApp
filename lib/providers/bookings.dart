@@ -1,27 +1,31 @@
 //PACKAGES
+
+// Dart imports:
 import 'dart:async';
 import 'dart:convert';
+
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+
+// Package imports:
 import 'package:collection/collection.dart';
-//EXTENSIONS
-//GLOBAL
+import 'package:http/http.dart' as http;
+
+// Project imports:
 import '../global/const.dart';
 import '../global/globalEnvironment.dart';
 import '../global/globalHelpers.dart';
-//MODELS
 import '../models/apiResponse.dart';
-import '../models/package.dart';
+import '../models/availableDates.dart';
 import '../models/benefit.dart';
 import '../models/media.dart';
-import '../models/review.dart';
-import '../models/availableDates.dart';
-import '../models/session.dart';
+import '../models/package.dart';
 import '../models/promoCode.dart';
 import '../models/question.dart';
-//PROVIDERS
-//WIDGETS
-//PAGES
+import '../models/review.dart';
+import '../models/session.dart';
+
+//EXTENSIONS
 
 class Bookings with ChangeNotifier {
   String authToken;

@@ -1,10 +1,14 @@
+// Dart imports:
 import 'dart:io';
-import 'package:LMP0001_LittleMiraclesApp/models/media.dart';
+
+// Flutter imports:
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+// Package imports:
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
@@ -15,6 +19,9 @@ import 'package:intl/intl.dart';
 import 'package:mime/mime.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
+
+// Project imports:
+import 'package:LMP0001_LittleMiraclesApp/models/media.dart';
 import '../../Global/colors.dart';
 import '../../widgets/buttons/iconButtonWidget.dart';
 

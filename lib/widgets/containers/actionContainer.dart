@@ -1,17 +1,18 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
 import '../../global/const.dart';
-//MODELS
 import '../../models/section.dart';
-//PROVIDERS
-import '../../providers/auth.dart';
-//WIDGETS
-import '../../widgets/general/cachedImageWidget.dart';
-//PAGES
 import '../../pages/login/loginPage.dart';
+import '../../providers/auth.dart';
+import '../../widgets/general/cachedImageWidget.dart';
 
 class ActionContainer extends StatelessWidget {
   final Section section;

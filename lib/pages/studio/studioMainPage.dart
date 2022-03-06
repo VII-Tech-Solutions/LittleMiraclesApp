@@ -1,13 +1,14 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//GLOBAL
-//MODELS
-//PROVIDERS
+
+// Project imports:
 import '../../providers/appData.dart';
-//WIDGETS
 import '../../widgets/appbars/mainPagesSliverAppBar.dart';
-//PAGES
 
 class StudioMainPage extends StatefulWidget {
   const StudioMainPage({Key? key}) : super(key: key);

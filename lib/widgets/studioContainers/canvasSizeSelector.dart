@@ -1,18 +1,20 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
+import '../../pages/studio/canvasSizesPage.dart';
 import '../../providers/studio.dart';
-//WIDGETS
 import '../form/formTextField.dart';
 import '../texts/titleText.dart';
-//PAGES
-import '../../pages/studio/canvasSizesPage.dart';
+
+//EXTENSIONS
 
 class CanvasSizeSelector extends StatelessWidget {
   const CanvasSizeSelector();

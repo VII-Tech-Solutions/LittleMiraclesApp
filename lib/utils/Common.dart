@@ -1,8 +1,12 @@
+// Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:nb_utils/nb_utils.dart';
-import '../../main.dart';
 
+// Package imports:
+import 'package:nb_utils/nb_utils.dart';
+
+// Project imports:
+import '../../main.dart';
 import 'Constants.dart';
 
 extension IntExt on int {

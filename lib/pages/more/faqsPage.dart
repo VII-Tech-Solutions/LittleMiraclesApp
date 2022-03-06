@@ -1,16 +1,18 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
 import '../../models/faq.dart';
-//PROVIDERS
 import '../../providers/appData.dart';
-//WIDGETS
 import '../../widgets/appbars/appBarWithBack.dart';
-//PAGES
+
+//EXTENSIONS
 
 class FAQsPage extends StatefulWidget {
   const FAQsPage();

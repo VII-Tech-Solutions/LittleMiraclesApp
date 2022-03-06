@@ -1,24 +1,26 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
+
+// Project imports:
 import '../../../extensions/dateTimeExtension.dart';
-//GLOBAL
 import '../../../global/colors.dart';
 import '../../../global/const.dart';
-//MODELS
 import '../../../models/question.dart';
-//PROVIDERS
 import '../../../providers/bookings.dart';
-//WIDGETS
-import '../../../widgets/dialogs/showOkDialog.dart';
-import '../../../widgets/dialogs/showLoadingDialog.dart';
 import '../../../widgets/appbars/appBarWithBack.dart';
-import '../../../widgets/form/textQuestionWidget.dart';
 import '../../../widgets/bookingSessionContainers/sessionSelector.dart';
+import '../../../widgets/dialogs/showLoadingDialog.dart';
+import '../../../widgets/dialogs/showOkDialog.dart';
+import '../../../widgets/form/textQuestionWidget.dart';
 import '../../../widgets/packageContainers/packageBottomSectionContainer.dart';
-//PAGES
 import '../reviewAndPayPage.dart';
+
+//EXTENSIONS
 
 class MultiSessionBookingPage extends StatefulWidget {
   const MultiSessionBookingPage({Key? key}) : super(key: key);

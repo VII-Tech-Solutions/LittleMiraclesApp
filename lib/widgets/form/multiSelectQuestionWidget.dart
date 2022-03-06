@@ -1,13 +1,12 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
 import '../../models/question.dart';
-//PROVIDERS
-//WIDGETS
 import '../texts/titleText.dart';
-//PAGES
 
 class MultiSelectQuestionWidget extends StatefulWidget {
   final Question? question;

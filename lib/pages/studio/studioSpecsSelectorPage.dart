@@ -1,32 +1,34 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/const.dart';
-//MODELS
 import '../../models/question.dart';
 import '../../models/studioPackage.dart';
-//PROVIDERS
 import '../../providers/auth.dart';
 import '../../providers/studio.dart';
-//WIDGETS
-import '../../widgets/dialogs/showOkDialog.dart';
 import '../../widgets/appbars/appBarWithBack.dart';
+import '../../widgets/dialogs/showOkDialog.dart';
 import '../../widgets/form/textQuestionWidget.dart';
-import '../../widgets/studioContainers/studioBottomSectionContainer.dart';
-import '../../widgets/studioContainers/albumTitleTextField.dart';
 import '../../widgets/studioContainers/albumSizeSelector.dart';
-import '../../widgets/studioContainers/spreadsSelector.dart';
-import '../../widgets/studioContainers/paperTypeSelector.dart';
-import '../../widgets/studioContainers/coverTypeSelector.dart';
+import '../../widgets/studioContainers/albumTitleTextField.dart';
 import '../../widgets/studioContainers/canvasSizeSelector.dart';
 import '../../widgets/studioContainers/canvasThicknessSelector.dart';
+import '../../widgets/studioContainers/coverTypeSelector.dart';
+import '../../widgets/studioContainers/paperTypeSelector.dart';
+import '../../widgets/studioContainers/photoPaperSizeSelector.dart';
 import '../../widgets/studioContainers/printTypeSelector.dart';
 import '../../widgets/studioContainers/quantitySelector.dart';
-import '../../widgets/studioContainers/photoPaperSizeSelector.dart';
-//PAGES
+import '../../widgets/studioContainers/spreadsSelector.dart';
+import '../../widgets/studioContainers/studioBottomSectionContainer.dart';
 import 'photoSelection.dart';
+
+//EXTENSIONS
 
 class StudioSpecsSelectorPage extends StatefulWidget {
   const StudioSpecsSelectorPage();

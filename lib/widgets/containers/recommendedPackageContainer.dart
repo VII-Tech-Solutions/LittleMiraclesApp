@@ -1,22 +1,24 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
 import '../../global/const.dart';
-//MODELS
 import '../../models/package.dart';
-//PROVIDERS
+import '../../pages/booking/packageDetailsPage.dart';
 import '../../providers/bookings.dart';
-//WIDGETS
-import '../general/cachedImageWidget.dart';
-import '../texts/titleText.dart';
 import '../dialogs/showLoadingDialog.dart';
 import '../dialogs/showOkDialog.dart';
-//PAGES
-import '../../pages/booking/packageDetailsPage.dart';
+import '../general/cachedImageWidget.dart';
+import '../texts/titleText.dart';
+
+//EXTENSIONS
 
 class RecommendedPackageContainer extends StatelessWidget {
   final Package? package;

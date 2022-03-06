@@ -1,17 +1,19 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSION
+
+// Project imports:
 import '../../extensions/stringExtension.dart';
-//GLOBAL
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
 import '../../providers/appData.dart';
-//WIDGETS
 import '../../widgets/general/cachedImageWidget.dart';
 import '../../widgets/texts/titleText.dart';
-//PAGES
+
+//EXTENSION
 
 class SessionTopSectionContainer extends StatelessWidget {
   const SessionTopSectionContainer();

@@ -1,13 +1,13 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
-//WIDGETS
-//PAGES
+
+//EXTENSIONS
 
 class LabeledCheckbox extends StatelessWidget {
   final int? id;

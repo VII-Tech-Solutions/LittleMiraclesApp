@@ -1,23 +1,25 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/src/provider.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/const.dart';
-//MODELS
 import '../../models/package.dart';
-//PROVIDERS
 import '../../providers/appData.dart';
 import '../../providers/bookings.dart';
-//WIDGETS
 import '../../widgets/appbars/appBarWithBack.dart';
-import '../../widgets/packageContainers/packageBottomSectionContainer.dart';
 import '../../widgets/bookingSessionContainers/selectionRow.dart';
-import '../../widgets/dialogs/showOkDialog.dart';
-import '../../widgets/dialogs/showLoadingDialog.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
-//PAGES
+import '../../widgets/dialogs/showLoadingDialog.dart';
+import '../../widgets/dialogs/showOkDialog.dart';
+import '../../widgets/packageContainers/packageBottomSectionContainer.dart';
 import './reviewAndPayPage.dart';
+
+//EXTENSIONS
 
 class PhotographerPage extends StatefulWidget {
   final SubPackage? subPackage;

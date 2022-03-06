@@ -1,16 +1,16 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:google_fonts/google_fonts.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
 import '../../models/media.dart';
-//PROVIDERS
-//WIDGETS
 import '../../widgets/general/cachedImageWidget.dart';
 
-//PAGES
 class CartItemContainer extends StatefulWidget {
   final String? image;
   final String? title;

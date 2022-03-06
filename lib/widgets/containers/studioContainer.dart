@@ -1,21 +1,23 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
 import '../../global/const.dart';
-//MODELS
 import '../../models/studioPackage.dart';
-//PROVIDERS
+import '../../pages/studio/studioPackageDetailsPage.dart';
 import '../../providers/studio.dart';
-//WIDGETS
-import '../general/cachedImageWidget.dart';
-import '../texts/titleText.dart';
 import '../dialogs/showLoadingDialog.dart';
 import '../dialogs/showOkDialog.dart';
-//PAGES
-import '../../pages/studio/studioPackageDetailsPage.dart';
+import '../general/cachedImageWidget.dart';
+import '../texts/titleText.dart';
+
+//EXTENSIONS
 
 class StudioContainer extends StatelessWidget {
   final StudioPackage? package;

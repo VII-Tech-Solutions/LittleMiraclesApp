@@ -1,6 +1,11 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+
+// Package imports:
 import 'package:nb_utils/nb_utils.dart';
+
+// Project imports:
 import '../utils/Colors.dart';
 
 class AppLogoWidget extends StatelessWidget {

@@ -1,20 +1,22 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSION
+
+// Project imports:
 import '../../extensions/stringExtension.dart';
-//GLOBAL
 import '../../global/colors.dart';
 import '../../global/const.dart';
-//MODELS
 import '../../models/session.dart';
-//PROVIDERS
-import '../../providers/appData.dart';
-//WIDGETS
-import '../general/cachedImageWidget.dart';
-//PAGES
-import '../../pages/home/sessions/upcomingSessionDetailsPage.dart';
 import '../../pages/home/sessions/completedSessionDetailsPage.dart';
+import '../../pages/home/sessions/upcomingSessionDetailsPage.dart';
+import '../../providers/appData.dart';
+import '../general/cachedImageWidget.dart';
+
+//EXTENSION
 
 class HomeSessionContainer extends StatelessWidget {
   final Session? session;

@@ -1,15 +1,19 @@
 //PACKAGES
+
+// Dart imports:
 import 'dart:io' show Platform;
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
 import '../../providers/studio.dart';
-//WIDGETS
-//PAGES
+
+//EXTENSIONS
 
 class StudioPaymentContainer extends StatefulWidget {
   final bool? isMultiSession;

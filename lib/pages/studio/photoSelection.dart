@@ -1,22 +1,25 @@
 //PACKAGES
+
+// Dart imports:
 import 'dart:math';
 
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:provider/src/provider.dart';
+
+// Project imports:
 import 'package:LMP0001_LittleMiraclesApp/pages/cart/cart.dart';
 import 'package:LMP0001_LittleMiraclesApp/providers/studio.dart';
 import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/showOkDialog.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/src/provider.dart';
-//EXTENSIONS
-//GLOBAL
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
 import '../../providers/appData.dart';
-//WIDGETS
 import '../../widgets/appbars/appBarWithBack.dart';
 import '../../widgets/containers/photoSelectionContainer.dart';
 import '../../widgets/studioContainers/studioBottomSectionContainer.dart';
-//PAGES
+
+//EXTENSIONS
 
 class PhotoSelection extends StatelessWidget {
   const PhotoSelection({Key? key}) : super(key: key);

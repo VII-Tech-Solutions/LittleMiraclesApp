@@ -1,14 +1,15 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
 import '../../providers/studio.dart';
-//WIDGETS
 import '../../widgets/general/cachedImageWidget.dart';
-//PAGES
 
 class StudioBottomSectionContainer extends StatelessWidget {
   final String? title;

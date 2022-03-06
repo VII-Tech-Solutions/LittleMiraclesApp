@@ -1,25 +1,27 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
+// Package imports:
 import 'package:collection/collection.dart';
-//EXTENSION
+import 'package:provider/provider.dart';
+
+// Project imports:
 import '../../extensions/stringExtension.dart';
-//GLOBAL
 import '../../global/colors.dart';
 import '../../global/const.dart';
-//MODELS
 import '../../models/familyInfo.dart';
-//PROVIDERS
 import '../../providers/auth.dart';
-//WIDGETS
-import '../../widgets/texts/titleText.dart';
 import '../../widgets/appbars/appBarWithLogo.dart';
+import '../../widgets/buttons/filledButtonWidget.dart';
+import '../../widgets/dialogs/showLoadingDialog.dart';
+import '../../widgets/dialogs/showOkDialog.dart';
 import '../../widgets/form/multiSelectQuestionWidget.dart';
 import '../../widgets/form/textQuestionWidget.dart';
-import '../../widgets/buttons/filledButtonWidget.dart';
-import '../../widgets/dialogs/showOkDialog.dart';
-import '../../widgets/dialogs/showLoadingDialog.dart';
-//PAGES
+import '../../widgets/texts/titleText.dart';
+
+//EXTENSION
 
 class EditYourFamilyInfoPage extends StatefulWidget {
   const EditYourFamilyInfoPage();

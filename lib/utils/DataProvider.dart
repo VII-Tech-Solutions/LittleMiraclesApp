@@ -1,5 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:google_fonts/google_fonts.dart';
+
+// Project imports:
 import '../models/CollegeMakerModel.dart';
 import '../models/ColorFilterModel.dart';
 import '../models/FontData.dart';

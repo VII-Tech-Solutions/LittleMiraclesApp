@@ -1,14 +1,16 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:url_launcher/url_launcher.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
-//WIDGETS
-//PAGES
+
+//EXTENSIONS
 
 class PaymentAgreement extends StatefulWidget {
   final void Function(bool)? onTapCallback;

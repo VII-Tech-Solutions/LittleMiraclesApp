@@ -1,51 +1,55 @@
 //PACKAGES
+
+// Dart imports:
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
-import 'package:LMP0001_LittleMiraclesApp/widgets/containers/recommendedPackageContainer.dart';
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:http/http.dart' as http;
-//EXTENSION
-import '../extensions/stringExtension.dart';
-//GLOBAL
-import '../global/const.dart';
+
+// Project imports:
+import 'package:LMP0001_LittleMiraclesApp/widgets/containers/recommendedPackageContainer.dart';
 import '../database/db_sqflite.dart';
-import '../global/globalHelpers.dart';
+import '../extensions/stringExtension.dart';
+import '../global/const.dart';
 import '../global/globalEnvironment.dart';
-//MODELS
-import '../models/gift.dart';
-import '../models/session.dart';
-import '../models/section.dart';
-import '../models/package.dart';
-import '../models/dailyTip.dart';
-import '../models/workshop.dart';
-import '../models/promotion.dart';
-import '../models/onboarding.dart';
-import '../models/backdrop.dart';
-import '../models/cake.dart';
-import '../models/photographer.dart';
-import '../models/paymentMethod.dart';
-import '../models/backdropCategory.dart';
-import '../models/cakeCategory.dart';
-import '../models/studioPackage.dart';
-import '../models/studioMetadata.dart';
+import '../global/globalHelpers.dart';
 import '../models/apiResponse.dart';
+import '../models/backdrop.dart';
+import '../models/backdropCategory.dart';
+import '../models/cake.dart';
+import '../models/cakeCategory.dart';
+import '../models/dailyTip.dart';
 import '../models/faq.dart';
+import '../models/gift.dart';
 import '../models/media.dart';
-//PROVIDERS
-//WIDGETS
-import '../widgets/texts/titleText.dart';
-import '../widgets/containers/tipContainer.dart';
+import '../models/onboarding.dart';
+import '../models/package.dart';
+import '../models/paymentMethod.dart';
+import '../models/photographer.dart';
+import '../models/promotion.dart';
+import '../models/section.dart';
+import '../models/session.dart';
+import '../models/studioMetadata.dart';
+import '../models/studioPackage.dart';
+import '../models/workshop.dart';
+import '../widgets/buttons/viewAllSessionsButton.dart';
 import '../widgets/containers/actionContainer.dart';
 import '../widgets/containers/packageContainer.dart';
-import '../widgets/containers/workshopContainer.dart';
-import '../widgets/containers/promotionContainer.dart';
 import '../widgets/containers/popularPackageContainer.dart';
+import '../widgets/containers/promotionContainer.dart';
 import '../widgets/containers/studioContainer.dart';
-import '../widgets/buttons/viewAllSessionsButton.dart';
-import '../widgets/loggedUserContainers/homeSessionContainer.dart';
+import '../widgets/containers/tipContainer.dart';
+import '../widgets/containers/workshopContainer.dart';
 import '../widgets/loggedUserContainers/freeGiftContainer.dart';
-//PAGES
+import '../widgets/loggedUserContainers/homeSessionContainer.dart';
+import '../widgets/texts/titleText.dart';
+
+//EXTENSION
 
 class AppData with ChangeNotifier {
   String authToken;

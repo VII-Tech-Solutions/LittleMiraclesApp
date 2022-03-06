@@ -1,15 +1,14 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
 import '../../global/globalHelpers.dart';
-//MODELS
 import '../../models/workshop.dart';
-//PROVIDERS
-//WIDGETS
-import '../general/cachedImageWidget.dart';
-//PAGES
 import '../../pages/home/workshopDetailsPage.dart';
+import '../general/cachedImageWidget.dart';
 
 class WorkshopContainer extends StatelessWidget {
   final Workshop? workshop;

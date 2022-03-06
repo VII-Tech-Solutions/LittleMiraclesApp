@@ -1,25 +1,27 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/const.dart';
-//MODELS
-//PROVIDERS
-import '../../providers/bookings.dart';
-//WIDGETS
-import '../../widgets/buttons/iconButtonWidget.dart';
-import '../../widgets/packageContainers/packageMainTopSectionContainer.dart';
-import '../../widgets/packageContainers/packageDetailsSectionContainer.dart';
-import '../../widgets/packageContainers/packageLocationSectionContainer.dart';
-import '../../widgets/packageContainers/packageBottomSectionContainer.dart';
-import '../../widgets/packageContainers/packageRatingSectionContainer.dart';
-import '../../widgets/packageContainers/packageImageSectionContainer.dart';
-import '../../widgets/dialogs/showLoadingDialog.dart';
-import '../../widgets/dialogs/showOkDialog.dart';
-//PAGES
 import '../../pages/booking/bookingSessionPage.dart';
 import '../../pages/booking/multiSessionPackage/multiSessionBookingPage.dart';
+import '../../providers/bookings.dart';
+import '../../widgets/buttons/iconButtonWidget.dart';
+import '../../widgets/dialogs/showLoadingDialog.dart';
+import '../../widgets/dialogs/showOkDialog.dart';
+import '../../widgets/packageContainers/packageBottomSectionContainer.dart';
+import '../../widgets/packageContainers/packageDetailsSectionContainer.dart';
+import '../../widgets/packageContainers/packageImageSectionContainer.dart';
+import '../../widgets/packageContainers/packageLocationSectionContainer.dart';
+import '../../widgets/packageContainers/packageMainTopSectionContainer.dart';
+import '../../widgets/packageContainers/packageRatingSectionContainer.dart';
+
+//EXTENSIONS
 
 class PackageDetailsPage extends StatelessWidget {
   const PackageDetailsPage();

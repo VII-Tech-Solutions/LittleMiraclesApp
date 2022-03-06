@@ -1,17 +1,19 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
 import '../../providers/auth.dart';
 import '../../providers/bookings.dart';
-//WIDGETS
 import '../../widgets/texts/titleText.dart';
 import './labeledCheckbox.dart';
-//PAGES
+
+//EXTENSIONS
 
 class JoiningPeopleContainer extends StatefulWidget {
   final int includeMe;

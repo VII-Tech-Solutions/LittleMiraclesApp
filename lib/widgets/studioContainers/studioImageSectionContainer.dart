@@ -1,17 +1,18 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
 import '../../global/const.dart';
-//MODELS
-//PROVIDERS
+import '../../pages/booking/imageExamplePage.dart';
 import '../../providers/studio.dart';
-//WIDGETS
 import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/containers/imageGrid.dart';
-//PAGES
-import '../../pages/booking/imageExamplePage.dart';
 
 class StudioImageSectionContainer extends StatelessWidget {
   const StudioImageSectionContainer();

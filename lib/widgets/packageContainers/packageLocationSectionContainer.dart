@@ -1,15 +1,17 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
+import 'package:url_launcher/url_launcher.dart';
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
 import '../../providers/bookings.dart';
-//WIDGETS
-//PAGES
+
+//EXTENSIONS
 
 class PackageLocationSectionContainer extends StatelessWidget {
   const PackageLocationSectionContainer();

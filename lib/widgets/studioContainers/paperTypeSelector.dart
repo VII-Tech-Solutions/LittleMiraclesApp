@@ -1,19 +1,21 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
 import '../../global/const.dart';
-//MODELS
-//PROVIDERS
+import '../../pages/studio/paperTypePage.dart';
 import '../../providers/studio.dart';
-//WIDGETS
 import '../form/formTextField.dart';
 import '../general/cachedImageWidget.dart';
 import '../texts/titleText.dart';
-//PAGES
-import '../../pages/studio/paperTypePage.dart';
+
+//EXTENSIONS
 
 class PaperTypeSelector extends StatelessWidget {
   final int? packageType;

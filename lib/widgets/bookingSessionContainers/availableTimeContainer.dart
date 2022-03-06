@@ -1,15 +1,17 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
 import '../../providers/bookings.dart';
-//WIDGETS
 import '../../widgets/texts/titleText.dart';
-//PAGES
+
+//EXTENSIONS
 
 class AvailableTimeContainer extends StatefulWidget {
   final String? preSelectedTime;

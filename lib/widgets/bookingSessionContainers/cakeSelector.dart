@@ -1,19 +1,21 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
-import '../../providers/bookings.dart';
+import '../../pages/booking/cakePage.dart';
 import '../../providers/appData.dart';
-//WIDGETS
+import '../../providers/bookings.dart';
 import '../form/formTextField.dart';
 import '../general/cachedImageWidget.dart';
 import '../texts/titleText.dart';
-//PAGES
-import '../../pages/booking/cakePage.dart';
+
+//EXTENSIONS
 
 class CakeSelector extends StatelessWidget {
   const CakeSelector();

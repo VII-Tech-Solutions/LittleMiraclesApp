@@ -1,5 +1,8 @@
-import 'package:LMP0001_LittleMiraclesApp/models/media.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:LMP0001_LittleMiraclesApp/models/media.dart';
 
 class CartItem {
   final int? id;

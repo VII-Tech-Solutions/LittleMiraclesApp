@@ -1,18 +1,18 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
-//EXTENSIONS
-import '../../extensions/dateTimeExtension.dart';
-//GLOBAL
+
+// Project imports:
 import '../../../global/colors.dart';
-//MODELS
 import '../../../models/session.dart';
-//PROVIDERS
-//WIDGETS
+import '../../extensions/dateTimeExtension.dart';
 import '../general/benefitDetailsRow.dart';
 import '../texts/titleText.dart';
-import './sessionStatusStepperContainer.dart';
 import './sessionButtonsContainer.dart';
-//PAGES
+import './sessionStatusStepperContainer.dart';
+
+//EXTENSIONS
 
 class ExpandableSessionDetailsContainer extends StatefulWidget {
   final Session subSession;

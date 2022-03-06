@@ -1,12 +1,16 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nb_utils/nb_utils.dart';
+
+// Project imports:
 import '../models/FontData.dart';
 import '../models/StackedWidgetModel.dart';
 import '../utils/Colors.dart';
 import '../utils/Constants.dart';
 import '../utils/DataProvider.dart';
-
 import 'ColorSelectorBottomSheet.dart';
 
 // ignore: must_be_immutable

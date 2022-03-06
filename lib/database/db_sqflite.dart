@@ -1,14 +1,14 @@
 //PACKAGES
-import 'package:sqflite/sqflite.dart' as sql;
+
+// Package imports:
 import 'package:path/path.dart' as path;
+import 'package:sqflite/sqflite.dart' as sql;
 import 'package:sqflite/sqlite_api.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../global/const.dart';
-//MODELS
-//PROVIDERS
-//WIDGETS
-//PAGES
+
+//EXTENSIONS
 
 class DBHelper {
   static Future<Database> database() async {

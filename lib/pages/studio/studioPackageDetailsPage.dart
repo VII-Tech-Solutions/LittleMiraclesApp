@@ -1,24 +1,26 @@
 //PACKAGES
+
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/src/provider.dart';
+
+// Project imports:
 import 'package:LMP0001_LittleMiraclesApp/global/colors.dart';
 import 'package:LMP0001_LittleMiraclesApp/providers/appData.dart';
 import 'package:LMP0001_LittleMiraclesApp/providers/auth.dart';
 import 'package:LMP0001_LittleMiraclesApp/widgets/buttons/filledButtonWidget.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/src/provider.dart';
-//EXTENSIONS
-//GLOBAL
-//MODELS
-//PROVIDERS
 import '../../providers/studio.dart';
-//WIDGETS
 import '../../widgets/buttons/iconButtonWidget.dart';
-import '../../widgets/studioContainers/studioMainTopSectionContainer.dart';
-import '../../widgets/studioContainers/studioDetailsSectionContainer.dart';
 import '../../widgets/studioContainers/studioBottomSectionContainer.dart';
+import '../../widgets/studioContainers/studioDetailsSectionContainer.dart';
 import '../../widgets/studioContainers/studioImageSectionContainer.dart';
-//PAGES
+import '../../widgets/studioContainers/studioMainTopSectionContainer.dart';
 import './studioSpecsSelectorPage.dart';
+
+//EXTENSIONS
 
 class StudioPackageDetailsPage extends StatelessWidget {
   const StudioPackageDetailsPage();

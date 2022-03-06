@@ -1,17 +1,18 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
+// Package imports:
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-//GLOBAL
+import 'package:provider/provider.dart';
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
+import '../../pages/general/reviewsPage.dart';
 import '../../providers/bookings.dart';
-//WIDGETS
 import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/containers/reviewContainer.dart';
-//PAGES
-import '../../pages/general/reviewsPage.dart';
 
 class PackageRatingSectionContainer extends StatelessWidget {
   const PackageRatingSectionContainer();

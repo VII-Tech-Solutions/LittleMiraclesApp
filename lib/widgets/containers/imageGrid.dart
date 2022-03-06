@@ -1,13 +1,13 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
-//EXTENSIONS
-//GLOBAL
-//MODELS
+
+// Project imports:
 import '../../models/media.dart';
-//PROVIDERS
-//WIDGETS
 import '../../widgets/general/cachedImageWidget.dart';
-//PAGES
+
+//EXTENSIONS
 
 class ImageGridWidget extends StatelessWidget {
   final List<Media> media;

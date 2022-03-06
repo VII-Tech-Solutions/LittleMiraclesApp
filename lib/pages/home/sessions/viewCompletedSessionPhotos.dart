@@ -1,7 +1,25 @@
 //PACKAGES
+
+// Dart imports:
 import 'dart:io';
 import 'dart:typed_data';
 
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:gallery_saver/gallery_saver.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+import 'package:nb_utils/src/extensions/widget_extensions.dart';
+import 'package:network_to_file_image/network_to_file_image.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:share_plus/share_plus.dart';
+
+// Project imports:
 import 'package:LMP0001_LittleMiraclesApp/global/colors.dart';
 import 'package:LMP0001_LittleMiraclesApp/models/media.dart';
 import 'package:LMP0001_LittleMiraclesApp/pages/photoeditor/photoeditor.dart';
@@ -9,23 +27,8 @@ import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/dialogHelper.dart';
 import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/showLoadingDialog.dart';
 import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/showOkDialog.dart';
 import 'package:LMP0001_LittleMiraclesApp/widgets/general/cachedImageWidget.dart';
-import 'package:flutter/material.dart';
-import 'package:gallery_saver/gallery_saver.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:nb_utils/src/extensions/widget_extensions.dart';
-import 'package:network_to_file_image/network_to_file_image.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:http/http.dart' as http;
-import 'package:path/path.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:screenshot/screenshot.dart';
-import 'package:share_plus/share_plus.dart';
+
 //EXTENSIONS
-//GLOBAL
-//MODELS
-//PROVIDERS
-//WIDGETS
-//PAGES
 
 class ViewCompletedSessionPhotos extends StatefulWidget {
   final Media image;

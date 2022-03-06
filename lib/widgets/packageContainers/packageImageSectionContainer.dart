@@ -1,16 +1,17 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
+import '../../pages/booking/imageExamplePage.dart';
 import '../../providers/bookings.dart';
-//WIDGETS
 import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/containers/imageGrid.dart';
-//PAGES
-import '../../pages/booking/imageExamplePage.dart';
 
 class PackageImageSectionContainer extends StatelessWidget {
   const PackageImageSectionContainer();

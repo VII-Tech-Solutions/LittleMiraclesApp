@@ -1,19 +1,20 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
 import '../../global/const.dart';
-//MODELS
 import '../../models/package.dart';
-//PROVIDERS
+import '../../pages/booking/packageDetailsPage.dart';
 import '../../providers/bookings.dart';
-//WIDGETS
-import '../general/cachedImageWidget.dart';
 import '../dialogs/showLoadingDialog.dart';
 import '../dialogs/showOkDialog.dart';
-//PAGES
-import '../../pages/booking/packageDetailsPage.dart';
+import '../general/cachedImageWidget.dart';
 
 class PopularPackageContainer extends StatelessWidget {
   final Package? package;

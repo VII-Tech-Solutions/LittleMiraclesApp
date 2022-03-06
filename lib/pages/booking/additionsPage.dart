@@ -1,20 +1,22 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:provider/src/provider.dart';
+
+// Package imports:
 import 'package:google_fonts/google_fonts.dart';
-//EXTENSIONS
-//GLOBAL
+import 'package:provider/src/provider.dart';
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
 import '../../providers/appData.dart';
 import '../../providers/bookings.dart';
-//WIDGETS
 import '../../widgets/appbars/appBarWithBack.dart';
-import '../../widgets/packageContainers/packageBottomSectionContainer.dart';
 import '../../widgets/bookingSessionContainers/selectionRow.dart';
-//PAGES
+import '../../widgets/packageContainers/packageBottomSectionContainer.dart';
 import './reviewAndPayPage.dart';
+
+//EXTENSIONS
 
 class AdditionsPage extends StatefulWidget {
   const AdditionsPage({Key? key}) : super(key: key);

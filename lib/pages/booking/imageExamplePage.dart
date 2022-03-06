@@ -1,16 +1,18 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:cached_network_image/cached_network_image.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
 import '../../global/globalHelpers.dart';
-//MODELS
 import '../../models/media.dart';
-//PROVIDERS
-//WIDGETS
 import '../../widgets/appbars/appBarWithClose.dart';
-//PAGES
+
+//EXTENSIONS
 
 class ImageExamplePage extends StatelessWidget {
   final List<Media> media;

@@ -1,23 +1,25 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
 import '../../providers/studio.dart';
-//WIDGETS
-import '../../widgets/dialogs/showOkDialog.dart';
-import '../../widgets/studioContainers/studioPaymentBottomContainer.dart';
-import '../../widgets/studioContainers/studioPromoCodeContainer.dart';
-import '../../widgets/studioContainers/studioPaymentContainer.dart';
-import '../../widgets/containers/cartItemContainer.dart';
 import '../../widgets/appbars/appBarWithBackandPop.dart';
+import '../../widgets/containers/cartItemContainer.dart';
+import '../../widgets/dialogs/showOkDialog.dart';
 import '../../widgets/paymentContainer/paymentAgreement.dart';
+import '../../widgets/studioContainers/studioPaymentBottomContainer.dart';
+import '../../widgets/studioContainers/studioPaymentContainer.dart';
+import '../../widgets/studioContainers/studioPromoCodeContainer.dart';
 import '../../widgets/studioContainers/studioSuccessPaymentPage.dart';
-//PAGES
+
+//EXTENSIONS
 
 class Cart extends StatefulWidget {
   const Cart({Key? key}) : super(key: key);

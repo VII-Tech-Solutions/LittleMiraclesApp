@@ -1,22 +1,24 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
+
+// Project imports:
 import '../../extensions/stringExtension.dart';
-//GLOBAL
 import '../../global/colors.dart';
 import '../../global/const.dart';
-//MODELS
-//PROVIDERS
+import '../../pages/login/familyPage.dart';
 import '../../providers/auth.dart';
-//WIDGETS
-import '../../widgets/texts/titleText.dart';
 import '../../widgets/appbars/appBarWithLogo.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
 import '../../widgets/form/childrenForm.dart';
-//PAGES
-import '../../pages/login/familyPage.dart';
+import '../../widgets/texts/titleText.dart';
+
+//EXTENSIONS
 
 class ChildrenPage extends StatefulWidget {
   const ChildrenPage({Key? key}) : super(key: key);

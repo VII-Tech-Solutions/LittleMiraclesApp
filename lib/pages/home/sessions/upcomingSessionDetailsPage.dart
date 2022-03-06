@@ -1,21 +1,23 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
-//MODELS
-//PROVIDERS
+
+// Project imports:
 import '../../../providers/appData.dart';
-//WIDGETS
 import '../../../widgets/buttons/iconButtonWidget.dart';
-import '../../../widgets/sessionContainers/sessionTopSectionContainer.dart';
+import '../../../widgets/sessionContainers/completedSubSessionContainer.dart';
+import '../../../widgets/sessionContainers/expandableSessionDetailsContainer.dart';
+import '../../../widgets/sessionContainers/guidelinesButtonWidget.dart';
+import '../../../widgets/sessionContainers/sessionButtonsContainer.dart';
 import '../../../widgets/sessionContainers/sessionDetailsContainer.dart';
 import '../../../widgets/sessionContainers/sessionStatusStepperContainer.dart';
-import '../../../widgets/sessionContainers/sessionButtonsContainer.dart';
-import '../../../widgets/sessionContainers/guidelinesButtonWidget.dart';
-import '../../../widgets/sessionContainers/expandableSessionDetailsContainer.dart';
-import '../../../widgets/sessionContainers/completedSubSessionContainer.dart';
-//PAGES
+import '../../../widgets/sessionContainers/sessionTopSectionContainer.dart';
+
+//EXTENSIONS
 
 class UpcomingSessionDetailsPage extends StatelessWidget {
   const UpcomingSessionDetailsPage();

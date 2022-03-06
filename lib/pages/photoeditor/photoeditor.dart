@@ -1,21 +1,29 @@
+// Dart imports:
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
 
-import 'package:LMP0001_LittleMiraclesApp/global/colors.dart';
-import 'package:LMP0001_LittleMiraclesApp/pages/general/customBottomNavigationBar.dart';
-import 'package:LMP0001_LittleMiraclesApp/pages/home/sessions/allSessionsPage.dart';
-import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/dialogHelper.dart';
-import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/showLoadingDialog.dart';
-import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/showOkDialog.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import 'package:screenshot/screenshot.dart';
+
+// Project imports:
+import 'package:LMP0001_LittleMiraclesApp/global/colors.dart';
+import 'package:LMP0001_LittleMiraclesApp/pages/general/customBottomNavigationBar.dart';
+import 'package:LMP0001_LittleMiraclesApp/pages/home/sessions/allSessionsPage.dart';
+import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/dialogHelper.dart';
+import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/showLoadingDialog.dart';
+import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/showOkDialog.dart';
 import '../../components/BlurSelectorBottomSheet.dart';
 import '../../components/BottomBarItemWidget.dart';
 import '../../components/ColorSelectorBottomSheet.dart';
@@ -27,15 +35,13 @@ import '../../components/SignatureWidget.dart';
 import '../../components/StackedWidgetComponent.dart';
 import '../../components/StickerPickerBottomSheet.dart';
 import '../../components/TextEditorDialog.dart';
+import '../../main.dart';
 import '../../models/ColorFilterModel.dart';
 import '../../models/StackedWidgetModel.dart';
 import '../../services/FileService.dart';
 import '../../utils/Colors.dart';
 import '../../utils/Constants.dart';
 import '../../utils/SignatureLibWidget.dart';
-import 'package:screenshot/screenshot.dart';
-import 'package:path/path.dart' as p;
-import '../../main.dart';
 
 class PhotoEditScreen extends StatefulWidget {
   static String tag = '/PhotoEditScreen';

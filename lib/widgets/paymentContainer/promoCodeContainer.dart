@@ -1,18 +1,20 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
 import '../../global/const.dart';
-//MODELS
-//PROVIDERS
 import '../../providers/bookings.dart';
-//WIDGETS
 import '../../widgets/buttons/filledButtonWidget.dart';
-import '../../widgets/dialogs/showOkDialog.dart';
 import '../../widgets/dialogs/showLoadingDialog.dart';
-//PAGES
+import '../../widgets/dialogs/showOkDialog.dart';
+
+//EXTENSIONS
 
 class PromoCodeContainer extends StatefulWidget {
   const PromoCodeContainer();

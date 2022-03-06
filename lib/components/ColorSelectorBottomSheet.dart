@@ -1,5 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:nb_utils/nb_utils.dart';
+
+// Project imports:
 import '../utils/Colors.dart';
 
 class ColorSelectorBottomSheet extends StatelessWidget {

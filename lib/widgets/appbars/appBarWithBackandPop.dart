@@ -1,13 +1,12 @@
 //PACKAGES
+
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:LMP0001_LittleMiraclesApp/pages/general/customBottomNavigationBar.dart';
 import 'package:LMP0001_LittleMiraclesApp/pages/home/homePage.dart';
-import 'package:flutter/material.dart';
-//GLOBAL
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
-//WIDGETS
-//PAGES
 
 class AppBarWithBackAndPop extends StatelessWidget with PreferredSizeWidget {
   final String? title;

@@ -1,17 +1,19 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
+import '../../pages/studio/photoPaperSizePage.dart';
 import '../../providers/studio.dart';
-//WIDGETS
 import '../form/formTextField.dart';
 import '../texts/titleText.dart';
-//PAGES
-import '../../pages/studio/photoPaperSizePage.dart';
+
+//EXTENSIONS
 
 class PhotoPaperSizeSelector extends StatelessWidget {
   const PhotoPaperSizeSelector();
@@ -28,7 +30,8 @@ class PhotoPaperSizeSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selectedPhotoPaperSize = context.watch<Studio>().selectedPhotoPaperSize;
+    final selectedPhotoPaperSize =
+        context.watch<Studio>().selectedPhotoPaperSize;
     return selectedPhotoPaperSize != null
         ? Column(
             mainAxisAlignment: MainAxisAlignment.start,

@@ -1,25 +1,27 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
+// Package imports:
 import 'package:google_fonts/google_fonts.dart';
-//EXTENSIONS
-//GLOBAL
+import 'package:provider/provider.dart';
+
+// Project imports:
 import '../../../global/colors.dart';
 import '../../../global/const.dart';
-//MODELS
 import '../../../models/session.dart';
-//PROVIDERS
 import '../../../providers/appData.dart';
 import '../../../providers/bookings.dart';
-//WIDGETS
-import '../../../widgets/buttons/iconButtonWidget.dart';
-import '../../../widgets/form/multiSelectQuestionWidget.dart';
-import '../../../widgets/form/textQuestionWidget.dart';
-import '../../../widgets/form/polarQuestionWidget.dart';
-import '../../../widgets/dialogs/showOkDialog.dart';
-import '../../../widgets/dialogs/showLoadingDialog.dart';
 import '../../../widgets/buttons/filledButtonWidget.dart';
-//PAGES
+import '../../../widgets/buttons/iconButtonWidget.dart';
+import '../../../widgets/dialogs/showLoadingDialog.dart';
+import '../../../widgets/dialogs/showOkDialog.dart';
+import '../../../widgets/form/multiSelectQuestionWidget.dart';
+import '../../../widgets/form/polarQuestionWidget.dart';
+import '../../../widgets/form/textQuestionWidget.dart';
+
+//EXTENSIONS
 
 class SessionFeedbackPage extends StatefulWidget {
   final Session? subSession;

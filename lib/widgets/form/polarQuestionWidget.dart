@@ -1,13 +1,12 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
 import '../../models/question.dart';
-//PROVIDERS
-//WIDGETS
 import '../texts/titleText.dart';
-//PAGES
 
 class PolarQuestionWidget extends StatefulWidget {
   final Question? question;
@@ -53,8 +52,8 @@ class _PolarQuestionWidgetState extends State<PolarQuestionWidget> {
               // if (this.selectedOptions.contains(optionId) == true) {
               //   this.selectedOptions.removeWhere((i) => i == optionId);
               // } else {
-                this.selectedOptions.clear();
-                this.selectedOptions.add(optionId);
+              this.selectedOptions.clear();
+              this.selectedOptions.add(optionId);
               // }
 
               var answer = '';
@@ -102,8 +101,8 @@ class _PolarQuestionWidgetState extends State<PolarQuestionWidget> {
                       // if (this.selectedOptions.contains(optionId) == true) {
                       //   this.selectedOptions.removeWhere((i) => i == optionId);
                       // } else {
-                        this.selectedOptions.clear;
-                        this.selectedOptions.add(optionId);
+                      this.selectedOptions.clear;
+                      this.selectedOptions.add(optionId);
                       // }
                     });
                   },

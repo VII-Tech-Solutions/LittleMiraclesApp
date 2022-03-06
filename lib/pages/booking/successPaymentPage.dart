@@ -1,20 +1,22 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
-import '../../providers/auth.dart';
-import '../../providers/appData.dart';
-import '../../providers/bookings.dart';
-//WIDGETS
-import '../../widgets/paymentContainer/paymentDetailsContainer.dart';
-import '../../widgets/buttons/filledButtonWidget.dart';
-//PAGES
 import '../../pages/general/customBottomNavigationBar.dart';
+import '../../providers/appData.dart';
+import '../../providers/auth.dart';
+import '../../providers/bookings.dart';
+import '../../widgets/buttons/filledButtonWidget.dart';
+import '../../widgets/paymentContainer/paymentDetailsContainer.dart';
 import '../home/sessions/upcomingSessionDetailsPage.dart';
+
+//EXTENSIONS
 
 class SuccessPaymentPage extends StatelessWidget {
   final String? paymentMethod;

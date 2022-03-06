@@ -1,17 +1,18 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
 import '../../models/onboarding.dart';
-//PROVIDERS
-import '../../providers/auth.dart';
 import '../../providers/appData.dart';
-//WIDGETS
+import '../../providers/auth.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
-//PAGES
 import './customBottomNavigationBar.dart';
 
 class OnboardingPage extends StatefulWidget {

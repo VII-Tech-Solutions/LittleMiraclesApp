@@ -1,11 +1,9 @@
 //PACKAGES
+
+// Package imports:
 import 'package:intl/intl.dart';
+
 //EXTENSIONS
-//GLOBAL
-//MODELS
-//PROVIDERS
-//WIDGETS
-//PAGES
 
 extension StringExtension on String {
   String firstLetterToUpper() {

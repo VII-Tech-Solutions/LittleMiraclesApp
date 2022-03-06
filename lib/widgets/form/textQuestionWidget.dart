@@ -1,14 +1,14 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
 import '../../models/question.dart';
-//PROVIDERS
-//WIDGETS
 import '../texts/titleText.dart';
-//PAGES
+
+//EXTENSIONS
 
 class TextQuestionWidget extends StatelessWidget {
   final Question? question;

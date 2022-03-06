@@ -1,17 +1,19 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-//EXTENSIONS
-//GLOBAL
-import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
-import '../../providers/bookings.dart';
-//WIDGETS
-import '../general/benefitDetailsRow.dart';
+
+// Project imports:
 import '../../../widgets/bookingSessionContainers/sessionSelector.dart';
-//PAGES
+import '../../global/colors.dart';
+import '../../providers/bookings.dart';
+import '../general/benefitDetailsRow.dart';
+
+//EXTENSIONS
 
 class PaymentDetailsContainer extends StatelessWidget {
   const PaymentDetailsContainer();

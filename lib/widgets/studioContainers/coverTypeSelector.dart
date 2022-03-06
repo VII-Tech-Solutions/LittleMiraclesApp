@@ -1,20 +1,22 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
 import '../../global/const.dart';
-//MODELS
-//PROVIDERS
-import '../../providers/studio.dart';
+import '../../pages/studio/coverTypePage.dart';
 import '../../providers/appData.dart';
-//WIDGETS
+import '../../providers/studio.dart';
 import '../form/formTextField.dart';
 import '../general/cachedImageWidget.dart';
 import '../texts/titleText.dart';
-//PAGES
-import '../../pages/studio/coverTypePage.dart';
+
+//EXTENSIONS
 
 class CoverTypeSelector extends StatelessWidget {
   const CoverTypeSelector();

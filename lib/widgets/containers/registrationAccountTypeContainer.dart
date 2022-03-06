@@ -1,17 +1,19 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-//EXTENSION
+
+// Project imports:
 import '../../extensions/stringExtension.dart';
-//GLOBAL
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
 import '../../providers/auth.dart';
-//WIDGETS
-//PAGES
+
+//EXTENSION
 
 class RegistrationAccountTypeContainer extends StatelessWidget {
   const RegistrationAccountTypeContainer();

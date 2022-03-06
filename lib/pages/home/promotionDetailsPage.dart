@@ -1,18 +1,17 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
 import '../../global/globalHelpers.dart';
-//MODELS
 import '../../models/promotion.dart';
-//PROVIDERS
-//WIDGETS
-import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/appbars/appBarWithBack.dart';
-import '../../widgets/texts/HtmlDescriptionText.dart';
+import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/general/cachedImageWidget.dart';
-//PAGES
+import '../../widgets/texts/HtmlDescriptionText.dart';
 
 class PromotionDetails extends StatelessWidget {
   final Promotion? promotion;

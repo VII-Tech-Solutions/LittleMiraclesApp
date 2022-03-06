@@ -1,19 +1,21 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../../global/colors.dart';
-//MODELS
 import '../../../models/package.dart';
-//PROVIDERS
+import '../../../pages/booking/backdropPage.dart';
 import '../../../providers/appData.dart';
-//WIDGETS
 import '../../form/formTextField.dart';
 import '../../general/cachedImageWidget.dart';
 import '../../texts/titleText.dart';
-//PAGES
-import '../../../pages/booking/backdropPage.dart';
+
+//EXTENSIONS
 
 class MultiSessionBackdropSelector extends StatelessWidget {
   final SubPackage subPackage;

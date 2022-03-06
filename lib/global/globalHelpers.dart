@@ -1,17 +1,18 @@
 //PACKAGES
-import 'dart:math';
-import 'dart:io' as io;
+
+// Dart imports:
 import 'dart:convert';
-import 'package:intl/intl.dart';
+import 'dart:io' as io;
+import 'dart:math';
+
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:package_info_plus/package_info_plus.dart';
+
+// Package imports:
 import 'package:device_info_plus/device_info_plus.dart';
-//GLOBAL
-//MODELS
-//PROVIDERS
-//WIDGETS
-//PAGES
+import 'package:intl/intl.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class GlobalHelpers {
   static Widget randomPlaceholder(String shape, {BorderRadius? borderRadius}) {

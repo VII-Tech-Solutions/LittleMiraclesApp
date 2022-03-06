@@ -1,25 +1,28 @@
 //PACKAGES
+
+// Dart imports:
 import 'dart:io';
 
+// Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
+// Package imports:
 import 'package:country_code_picker/country_code_picker.dart';
-//EXTENSIONS
+import 'package:provider/provider.dart';
+
+// Project imports:
 import '../../extensions/stringExtension.dart';
-//GLOBAL
 import '../../global/colors.dart';
 import '../../global/globalHelpers.dart';
-//MODELS
-//PROVIDERS
+import '../../pages/login/childrenPage.dart';
 import '../../providers/auth.dart';
-//WIDGETS
-import '../../widgets/texts/titleText.dart';
-import '../../widgets/form/formTextField.dart';
 import '../../widgets/appbars/appBarWithLogo.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
-//PAGES
-import '../../pages/login/childrenPage.dart';
+import '../../widgets/form/formTextField.dart';
+import '../../widgets/texts/titleText.dart';
+
+//EXTENSIONS
 
 class PartnerPage extends StatefulWidget {
   const PartnerPage({Key? key}) : super(key: key);

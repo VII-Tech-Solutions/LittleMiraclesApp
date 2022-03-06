@@ -1,27 +1,29 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/pages/home/sessions/viewCompletedSessionPhotos.dart';
+
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
+// Package imports:
 import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
-//EXTENSION
+import 'package:provider/provider.dart';
+
+// Project imports:
+import 'package:LMP0001_LittleMiraclesApp/pages/home/sessions/viewCompletedSessionPhotos.dart';
 import '../../../extensions/stringExtension.dart';
-//GLOBAL
 import '../../../global/colors.dart';
 import '../../../global/const.dart';
-//MODELS
-import '../../models/session.dart';
-//PROVIDERS
 import '../../../providers/appData.dart';
 import '../../../providers/bookings.dart';
-//WIDGETS
 import '../../../widgets/buttons/filledButtonWidget.dart';
 import '../../../widgets/containers/rateSessionContainer.dart';
-import '../../../widgets/general/cachedImageWidget.dart';
 import '../../../widgets/dialogs/showLoadingDialog.dart';
 import '../../../widgets/dialogs/showOkDialog.dart';
-//PAGES
-import '../../pages/home/sessions/sessionFeedbackPage.dart';
+import '../../../widgets/general/cachedImageWidget.dart';
+import '../../models/session.dart';
 import '../../pages/home/sessions/bookAppointmentPage.dart';
+import '../../pages/home/sessions/sessionFeedbackPage.dart';
+
+//EXTENSION
 
 class CompletedSubSessionContainer extends StatelessWidget {
   final Session? subSession;

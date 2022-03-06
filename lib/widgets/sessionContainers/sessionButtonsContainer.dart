@@ -1,21 +1,23 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
+
+// Project imports:
 import '../../extensions/dateTimeExtension.dart';
-//GLOBAL
 import '../../global/const.dart';
-//MODELS
 import '../../models/session.dart';
-//PROVIDERS
+import '../../pages/booking/rescheduleSessionPage.dart';
 import '../../providers/appData.dart';
 import '../../providers/bookings.dart';
-//WIDGETS
 import '../buttons/filledButtonWidget.dart';
 import '../dialogs/showLoadingDialog.dart';
 import '../dialogs/showOkDialog.dart';
-//PAGES
-import '../../pages/booking/rescheduleSessionPage.dart';
+
+//EXTENSIONS
 
 class SessionButtonContainer extends StatelessWidget {
   final Session? subSession;

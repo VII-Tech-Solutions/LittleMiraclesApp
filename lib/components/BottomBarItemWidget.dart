@@ -1,9 +1,13 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:nb_utils/nb_utils.dart';
+
+// Project imports:
+import '../main.dart';
 import '../utils/Colors.dart';
 import '../utils/Images.dart';
-
-import '../main.dart';
 
 class BottomBarItemWidget extends StatelessWidget {
   final Color? color;

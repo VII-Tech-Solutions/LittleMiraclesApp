@@ -1,29 +1,32 @@
 //PACKAGES
+
+// Dart imports:
 import 'dart:async';
 import 'dart:convert';
-import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
+
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/services.dart';
+
+// Package imports:
 import 'package:collection/collection.dart';
-import 'package:snapkit/snapkit.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-//GLOBAL
-import '../global/const.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:snapkit/snapkit.dart';
+
+// Project imports:
 import '../database/db_sqflite.dart';
+import '../global/const.dart';
 import '../global/globalEnvironment.dart';
 import '../global/globalHelpers.dart';
-//MODELS
+import '../models/apiResponse.dart';
+import '../models/familyInfo.dart';
+import '../models/familyMember.dart';
+import '../models/question.dart';
 import '../models/ssoData.dart';
 import '../models/user.dart';
-import '../models/question.dart';
-import '../models/apiResponse.dart';
-import '../models/familyMember.dart';
-import '../models/familyInfo.dart';
-//PROVIDERS
-//WIDGETS
-//PAGES
 
 class Auth with ChangeNotifier {
   List<String> _tables = [

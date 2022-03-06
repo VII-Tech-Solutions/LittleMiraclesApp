@@ -1,17 +1,17 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../../global/colors.dart';
-//MODELS
 import '../../../models/package.dart';
 import '../../../models/session.dart';
-//PROVIDERS
-//WIDGETS
+import '../../../pages/booking/multiSessionPackage/subSessionBookingPage.dart';
 import '../../general/benefitDetailsRow.dart';
 import '../../texts/titleText.dart';
-//PAGES
-import '../../../pages/booking/multiSessionPackage/subSessionBookingPage.dart';
+
+//EXTENSIONS
 
 class SubSessionDetailsContainer extends StatelessWidget {
   final SubPackage? subPackage;

@@ -1,16 +1,18 @@
 //PACKAGES
+
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:google_fonts/google_fonts.dart';
+
+// Project imports:
 import 'package:LMP0001_LittleMiraclesApp/global/colors.dart';
 import 'package:LMP0001_LittleMiraclesApp/widgets/appbars/appBarWithBack.dart';
 import 'package:LMP0001_LittleMiraclesApp/widgets/buttons/iconButtonWidget.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 //EXTENSIONS
-//GLOBAL
-//MODELS
-//PROVIDERS
-//WIDGETS
-//PAGES
+
 class Chat extends StatefulWidget {
   const Chat({Key? key}) : super(key: key);
 

@@ -1,26 +1,28 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
 import '../../global/const.dart';
-//MODELS
-//PROVIDERS
+import '../../pages/booking/successPaymentPage.dart';
 import '../../providers/appData.dart';
 import '../../providers/bookings.dart';
-//WIDGETS
 import '../../widgets/appbars/appBarWithBack.dart';
+import '../../widgets/dialogs/showLoadingDialog.dart';
+import '../../widgets/dialogs/showOkDialog.dart';
+import '../../widgets/paymentContainer/paymentAgreement.dart';
+import '../../widgets/paymentContainer/paymentBottomContainer.dart';
+import '../../widgets/paymentContainer/paymentContainer.dart';
 import '../../widgets/paymentContainer/paymentDetailsContainer.dart';
 import '../../widgets/paymentContainer/promoCodeContainer.dart';
-import '../../widgets/paymentContainer/paymentContainer.dart';
-import '../../widgets/paymentContainer/paymentBottomContainer.dart';
-import '../../widgets/paymentContainer/paymentAgreement.dart';
-import '../../widgets/dialogs/showOkDialog.dart';
-import '../../widgets/dialogs/showLoadingDialog.dart';
 import '../../widgets/sessionContainers/guidelinesButtonWidget.dart';
-//PAGES
-import '../../pages/booking/successPaymentPage.dart';
+
+//EXTENSIONS
 
 class ReviewAndPayPage extends StatefulWidget {
   const ReviewAndPayPage();

@@ -1,14 +1,13 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
 import '../../models/dailyTip.dart';
-//WIDGETS
-import '../general/cachedImageWidget.dart';
-//PAGES
 import '../../pages/home/dailyTipDetailsPage.dart';
+import '../general/cachedImageWidget.dart';
 
 class TipContainer extends StatelessWidget {
   final DailyTip? dailyTip;

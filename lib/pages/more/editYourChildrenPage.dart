@@ -1,24 +1,26 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-//EXTENSIONS
+
+// Project imports:
 import '../../extensions/stringExtension.dart';
-//GLOBAL
 import '../../global/colors.dart';
 import '../../global/const.dart';
 import '../../global/globalHelpers.dart';
-//MODELS
-//PROVIDERS
 import '../../providers/auth.dart';
-//WIDGETS
-import '../../widgets/texts/titleText.dart';
 import '../../widgets/appbars/appBarWithLogo.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
-import '../../widgets/dialogs/showOkDialog.dart';
 import '../../widgets/dialogs/showLoadingDialog.dart';
+import '../../widgets/dialogs/showOkDialog.dart';
 import '../../widgets/form/childrenForm.dart';
-//PAGES
+import '../../widgets/texts/titleText.dart';
+
+//EXTENSIONS
 
 class EditYourChildrenPage extends StatefulWidget {
   const EditYourChildrenPage();

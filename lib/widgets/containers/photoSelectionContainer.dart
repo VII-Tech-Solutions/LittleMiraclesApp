@@ -1,21 +1,25 @@
 //PACKAGES
+
+// Dart imports:
 import 'dart:math';
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/src/provider.dart';
-//EXTENSIONS
+
+// Project imports:
+import 'package:LMP0001_LittleMiraclesApp/pages/studio/imagePicker.dart';
 import '../../extensions/stringExtension.dart';
-//GLOBAL
 import '../../global/colors.dart';
-//MODELS
 import '../../models/session.dart';
-//PROVIDERS
 import '../../providers/appData.dart';
 import '../../providers/studio.dart';
-//WIDGETS
 import '../general/cachedImageWidget.dart';
-//PAGES
-import 'package:LMP0001_LittleMiraclesApp/pages/studio/imagePicker.dart';
+
+//EXTENSIONS
 
 class PhotoSelectionContainer extends StatelessWidget {
   final Session session;

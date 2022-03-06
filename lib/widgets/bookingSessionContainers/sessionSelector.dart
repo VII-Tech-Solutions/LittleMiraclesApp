@@ -1,18 +1,20 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
 import '../../models/package.dart';
-//PROVIDERS
-import '../../providers/bookings.dart';
-//WIDGETS
-import '../texts/titleText.dart';
-import '../../widgets/bookingSessionContainers/MultiSession/subSessionDetailsContainer.dart';
-//PAGES
 import '../../pages/booking/multiSessionPackage/subSessionBookingPage.dart';
+import '../../providers/bookings.dart';
+import '../../widgets/bookingSessionContainers/MultiSession/subSessionDetailsContainer.dart';
+import '../texts/titleText.dart';
+
+//EXTENSIONS
 
 class SessionSelector extends StatelessWidget {
   final SubPackage subPackage;

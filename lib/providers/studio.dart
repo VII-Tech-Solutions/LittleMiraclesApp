@@ -1,27 +1,31 @@
 //PACKAGES
+
+// Dart imports:
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
-import 'package:LMP0001_LittleMiraclesApp/database/db_sqflite.dart';
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:http/http.dart' as http;
-//EXTENSIONS
+
+// Project imports:
+import 'package:LMP0001_LittleMiraclesApp/database/db_sqflite.dart';
 import '../extensions/stringExtension.dart';
-//GLOBAL
 import '../global/const.dart';
 import '../global/globalEnvironment.dart';
 import '../global/globalHelpers.dart';
-//MODELS
 import '../models/apiResponse.dart';
-import '../models/studioPackage.dart';
 import '../models/benefit.dart';
+import '../models/cartItem.dart';
 import '../models/media.dart';
 import '../models/promoCode.dart';
 import '../models/studioMetadata.dart';
-import '../models/cartItem.dart';
-//PROVIDERS
-//WIDGETS
-//PAGES
+import '../models/studioPackage.dart';
+
+//EXTENSIONS
 
 class Studio with ChangeNotifier {
   String authToken;

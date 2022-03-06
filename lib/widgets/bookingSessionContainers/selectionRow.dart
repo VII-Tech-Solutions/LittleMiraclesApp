@@ -1,13 +1,13 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
-//WIDGETS
 import '../../widgets/general/cachedImageWidget.dart';
-//PAGES
+
+//EXTENSIONS
 
 class SelectionRow extends StatelessWidget {
   final VoidCallback onTap;

@@ -1,20 +1,22 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
 import '../../global/const.dart';
-//MODELS
-//PROVIDERS
+import '../../pages/home/loyaltyPage.dart';
 import '../../providers/appData.dart';
-//WIDGETS
-import '../../widgets/texts/titleText.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/dialogs/showLoadingDialog.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
-//PAGES
-import '../../pages/home/loyaltyPage.dart';
+import '../../widgets/texts/titleText.dart';
+
+//EXTENSIONS
 
 class FreeGiftContainer extends StatelessWidget {
   const FreeGiftContainer();

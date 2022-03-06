@@ -1,28 +1,32 @@
 //PACKAGES
+
+// Dart imports:
 import 'dart:convert';
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
-import '../../../global/const.dart';
+
+// Project imports:
 import '../../../global/colors.dart';
-//MODELS
+import '../../../global/const.dart';
 import '../../../models/package.dart';
-//PROVIDERS
 import '../../../providers/bookings.dart';
-//WIDGETS
-import '../../../widgets/dialogs/showOkDialog.dart';
-import '../../../widgets/dialogs/showLoadingDialog.dart';
 import '../../../widgets/appbars/appBarWithBack.dart';
-import '../../../widgets/bookingSessionContainers/MultiSession/multiSessionCakeSelector.dart';
 import '../../../widgets/bookingSessionContainers/MultiSession/multiSessionBackdropSelector.dart';
+import '../../../widgets/bookingSessionContainers/MultiSession/multiSessionCakeSelector.dart';
 import '../../../widgets/bookingSessionContainers/MultiSession/multiSessionPhotographerSelector.dart';
-import '../../../widgets/bookingSessionContainers/calendarContainer.dart';
 import '../../../widgets/bookingSessionContainers/availableTimeContainer.dart';
+import '../../../widgets/bookingSessionContainers/calendarContainer.dart';
 import '../../../widgets/bookingSessionContainers/joiningPeopleContainer.dart';
 import '../../../widgets/buttons/filledButtonWidget.dart';
+import '../../../widgets/dialogs/showLoadingDialog.dart';
+import '../../../widgets/dialogs/showOkDialog.dart';
 import '../../../widgets/texts/titleText.dart';
-//PAGES
+
+//EXTENSIONS
 
 class SubSessionBookingPage extends StatefulWidget {
   final SubPackage? subPackage;

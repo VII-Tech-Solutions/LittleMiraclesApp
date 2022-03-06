@@ -1,19 +1,21 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/providers/studio.dart';
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
+import 'package:LMP0001_LittleMiraclesApp/providers/studio.dart';
 import '../../global/colors.dart';
 import '../../global/const.dart';
-//MODELS
-//PROVIDERS
 import '../../providers/bookings.dart';
-//WIDGETS
 import '../buttons/filledButtonWidget.dart';
-import '../dialogs/showOkDialog.dart';
 import '../dialogs/showLoadingDialog.dart';
-//PAGES
+import '../dialogs/showOkDialog.dart';
+
+//EXTENSIONS
 
 class StudioPromoCodeContainer extends StatefulWidget {
   const StudioPromoCodeContainer();

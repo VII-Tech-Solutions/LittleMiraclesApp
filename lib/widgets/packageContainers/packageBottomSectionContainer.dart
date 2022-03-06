@@ -1,14 +1,15 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
 import '../../providers/bookings.dart';
-//WIDGETS
 import '../../widgets/buttons/filledButtonWidget.dart';
-//PAGES
 
 class PackageBottomSectionContainer extends StatelessWidget {
   final String? btnLabel;

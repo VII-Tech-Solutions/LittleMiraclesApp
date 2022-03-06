@@ -1,21 +1,23 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
 import '../../global/const.dart';
-//MODELS
 import '../../models/studioMetadata.dart';
-//PROVIDERS
 import '../../providers/appData.dart';
 import '../../providers/studio.dart';
-//WIDGETS
 import '../../widgets/appbars/appBarWithBack.dart';
-import '../../widgets/dialogs/showOkDialog.dart';
 import '../../widgets/bookingSessionContainers/selectionRow.dart';
+import '../../widgets/dialogs/showOkDialog.dart';
 import '../../widgets/studioContainers/studioBottomSectionContainer.dart';
-//PAGES
+
+//EXTENSIONS
 
 class CoverTypePage extends StatefulWidget {
   const CoverTypePage();

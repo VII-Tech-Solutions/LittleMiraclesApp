@@ -1,8 +1,12 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:nb_utils/nb_utils.dart';
-import '../utils/DataProvider.dart';
 
+// Package imports:
+import 'package:nb_utils/nb_utils.dart';
+
+// Project imports:
 import '../main.dart';
+import '../utils/DataProvider.dart';
 
 class EmojiPickerBottomSheet extends StatefulWidget {
   static String tag = '/EmojiPickerBottomSheet';

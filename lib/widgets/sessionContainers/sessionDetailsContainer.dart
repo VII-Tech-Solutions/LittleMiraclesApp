@@ -1,17 +1,19 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
 import '../../models/session.dart';
-//PROVIDERS
 import '../../providers/appData.dart';
-//WIDGETS
 import '../general/benefitDetailsRow.dart';
-//PAGES
+
+//EXTENSIONS
 
 class SessionDetailsContainer extends StatelessWidget {
   final Session? subSession;

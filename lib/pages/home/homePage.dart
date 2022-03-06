@@ -1,16 +1,19 @@
 //PACKAGES
+
+// Dart imports:
 import 'dart:ui' as ui;
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//GLOBAL
-//MODELS
-//PROVIDERS
-import '../../providers/auth.dart';
+
+// Project imports:
 import '../../providers/appData.dart';
-//WIDGETS
+import '../../providers/auth.dart';
 import '../../widgets/appbars/homeHeaderSliverAppBar.dart';
 import '../../widgets/appbars/loginSliverAppBar.dart';
-//PAGES
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

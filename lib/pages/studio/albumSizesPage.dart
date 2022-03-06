@@ -1,22 +1,24 @@
 //PACKAGES
-import 'package:cached_network_image/cached_network_image.dart';
+
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
+// Package imports:
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:google_fonts/google_fonts.dart';
-//EXTENSIONS
-//GLOBAL
+import 'package:provider/provider.dart';
+
+// Project imports:
 import '../../global/colors.dart';
 import '../../global/const.dart';
-//MODELS
 import '../../models/studioMetadata.dart';
-//PROVIDERS
 import '../../providers/appData.dart';
 import '../../providers/studio.dart';
-//WIDGETS
 import '../../widgets/appbars/appBarWithBack.dart';
-import '../../widgets/studioContainers/studioBottomSectionContainer.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
-//PAGES
+import '../../widgets/studioContainers/studioBottomSectionContainer.dart';
+
+//EXTENSIONS
 
 class AlbumSizePage extends StatefulWidget {
   const AlbumSizePage();

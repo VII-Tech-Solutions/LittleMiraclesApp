@@ -1,23 +1,25 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/const.dart';
-//MODELS
 import '../../models/session.dart';
-//PROVIDERS
 import '../../providers/appData.dart';
 import '../../providers/bookings.dart';
-//WIDGETS
 import '../../widgets/appbars/appBarWithBack.dart';
-import '../../widgets/sessionContainers/sessionDetailsContainer.dart';
-import '../../widgets/bookingSessionContainers/calendarContainer.dart';
 import '../../widgets/bookingSessionContainers/availableTimeContainer.dart';
+import '../../widgets/bookingSessionContainers/calendarContainer.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/dialogs/showLoadingDialog.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
-//PAGES
+import '../../widgets/sessionContainers/sessionDetailsContainer.dart';
+
+//EXTENSIONS
 
 class RescheduleSessionPage extends StatelessWidget {
   final Session? subSession;

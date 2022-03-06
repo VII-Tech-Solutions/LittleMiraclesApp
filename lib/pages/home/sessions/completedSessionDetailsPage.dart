@@ -1,27 +1,29 @@
 //PACKAGES
+
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
+import 'package:provider/provider.dart';
+
+// Project imports:
 import 'package:LMP0001_LittleMiraclesApp/pages/home/sessions/bookAppointmentPage.dart';
 import 'package:LMP0001_LittleMiraclesApp/pages/home/sessions/viewCompletedSessionPhotos.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
-//EXTENSION
 import '../../../extensions/stringExtension.dart';
-//GLOBAL
 import '../../../global/colors.dart';
 import '../../../global/const.dart';
-//MODELS
-//PROVIDERS
 import '../../../providers/appData.dart';
 import '../../../providers/bookings.dart';
-//WIDGETS
 import '../../../widgets/appbars/appBarWithBack.dart';
 import '../../../widgets/buttons/filledButtonWidget.dart';
 import '../../../widgets/containers/rateSessionContainer.dart';
-import '../../../widgets/general/cachedImageWidget.dart';
 import '../../../widgets/dialogs/showLoadingDialog.dart';
 import '../../../widgets/dialogs/showOkDialog.dart';
-//PAGES
+import '../../../widgets/general/cachedImageWidget.dart';
 import './sessionFeedbackPage.dart';
+
+//EXTENSION
 
 class CompletedSessionDetailsPage extends StatelessWidget {
   const CompletedSessionDetailsPage();

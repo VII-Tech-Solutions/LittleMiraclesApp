@@ -1,21 +1,23 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
+// Package imports:
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-//EXTENSIONS
-//GLOBAL
-import '../../global/colors.dart';
+import 'package:provider/provider.dart';
+
+// Project imports:
 import '../../../global/const.dart';
-//MODELS
-import '../../models/session.dart';
-//PROVIDERS
 import '../../../providers/appData.dart';
 import '../../../providers/bookings.dart';
-//WIDGETS
-import '../../widgets/buttons/filledButtonWidget.dart';
-import '../../../widgets/dialogs/showOkDialog.dart';
 import '../../../widgets/dialogs/showLoadingDialog.dart';
-//PAGES
+import '../../../widgets/dialogs/showOkDialog.dart';
+import '../../global/colors.dart';
+import '../../models/session.dart';
+import '../../widgets/buttons/filledButtonWidget.dart';
+
+//EXTENSIONS
 
 class RateSessionContainer extends StatefulWidget {
   final Session? subSession;

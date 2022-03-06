@@ -1,27 +1,29 @@
 //PACKAGES
+
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
 import '../../global/const.dart';
-//MODELS
-//PROVIDERS
-import '../../providers/auth.dart';
+import '../../pages/general/splashscreen.dart';
 import '../../providers/appData.dart';
-//WIDGETS
+import '../../providers/auth.dart';
 import '../../widgets/appbars/mainPagesSliverAppBar.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
-//PAGES
-import './editYourProfilePage.dart';
-import './editYourFamilyChoicesPage.dart';
 import './aboutUsPage.dart';
+import './editYourFamilyChoicesPage.dart';
+import './editYourProfilePage.dart';
 import './faqsPage.dart';
-import '../../pages/general/splashscreen.dart';
+
+//EXTENSIONS
 
 class MoreMainPage extends StatelessWidget {
   const MoreMainPage();

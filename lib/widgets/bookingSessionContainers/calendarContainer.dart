@@ -1,17 +1,16 @@
-//PACKAGES
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-//EXTENSIONS
+
+// Project imports:
 import '../../extensions/dateTimeExtension.dart';
-//GLOBAL
 import '../../global/colors.dart';
-//MODELS
-import '../../providers/bookings.dart';
 import '../../models/availableDates.dart';
-//WIDGETS
+import '../../providers/bookings.dart';
 import '../../widgets/texts/titleText.dart';
-//PAGES
 
 class CalendarContainer extends StatefulWidget {
   final bool isReschedule;

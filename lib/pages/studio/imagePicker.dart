@@ -1,24 +1,24 @@
 //PACKAGES
-import 'package:LMP0001_LittleMiraclesApp/providers/studio.dart';
+
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:collection/collection.dart';
+import 'package:provider/src/provider.dart';
+
+// Project imports:
 import 'package:LMP0001_LittleMiraclesApp/models/session.dart';
 import 'package:LMP0001_LittleMiraclesApp/providers/auth.dart';
+import 'package:LMP0001_LittleMiraclesApp/providers/studio.dart';
 import 'package:LMP0001_LittleMiraclesApp/widgets/containers/imagePickerBottomContainer.dart';
 import 'package:LMP0001_LittleMiraclesApp/widgets/packageContainers/packageBottomSectionContainer.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/src/provider.dart';
-//EXTENSIONS
-//GLOBAL
 import '../../global/colors.dart';
-//MODELS
 import '../../models/media.dart';
-//PROVIDERS
 import '../../providers/appData.dart';
-//WIDGETS
 import '../../widgets/appbars/appBarWithClose.dart';
 import '../../widgets/containers/imagePickerContainer.dart';
 
-//PAGES
 class ImagePicker extends StatefulWidget {
   final Session _session;
   const ImagePicker(this._session, {Key? key}) : super(key: key);

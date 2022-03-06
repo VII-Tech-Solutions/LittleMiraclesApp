@@ -1,12 +1,12 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
-//WIDGETS
-//PAGES
+
+//EXTENSIONS
 
 class AppBarWithClose extends StatelessWidget with PreferredSizeWidget {
   final String? title;

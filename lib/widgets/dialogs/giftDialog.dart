@@ -1,15 +1,17 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+// Package imports:
 import 'package:google_fonts/google_fonts.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
-//WIDGETS
 import '../../widgets/buttons/filledButtonWidget.dart';
-//PAGES
+
+//EXTENSIONS
 
 class giftDialog {
   final BuildContext context;

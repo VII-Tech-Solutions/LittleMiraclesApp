@@ -1,17 +1,18 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
 import '../../providers/auth.dart';
-//WIDGETS
-//PAGES
-import '../home/homePage.dart';
 import '../booking/bookingMainPage.dart';
-import '../studio/studioMainPage.dart';
+import '../home/homePage.dart';
 import '../more/moreMainPage.dart';
+import '../studio/studioMainPage.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
   final GlobalKey? globalKey;

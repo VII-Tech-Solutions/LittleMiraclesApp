@@ -1,9 +1,13 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:nb_utils/nb_utils.dart';
-import '../utils/Constants.dart';
 import 'package:photo_view/photo_view.dart';
 
+// Project imports:
 import '../main.dart';
+import '../utils/Constants.dart';
 
 class CollegeMakerLayoutWidget extends StatefulWidget {
   final List<int>? columnCountList;

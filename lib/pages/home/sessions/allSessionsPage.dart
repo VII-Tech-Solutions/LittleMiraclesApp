@@ -1,15 +1,17 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
-//MODELS
-//PROVIDERS
+
+// Project imports:
 import '../../../providers/appData.dart';
-//WIDGETS
 import '../../../widgets/appbars/appBarWithBack.dart';
 import '../../../widgets/loggedUserContainers/homeSessionContainer.dart';
-//PAGES
+
+//EXTENSIONS
 
 class AllSessionPage extends StatelessWidget {
   const AllSessionPage({Key? key}) : super(key: key);

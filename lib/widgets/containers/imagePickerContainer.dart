@@ -1,17 +1,19 @@
 //PACKAGES
+
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:provider/src/provider.dart';
+
+// Project imports:
 import 'package:LMP0001_LittleMiraclesApp/global/colors.dart';
 import 'package:LMP0001_LittleMiraclesApp/models/media.dart';
 import 'package:LMP0001_LittleMiraclesApp/models/session.dart';
 import 'package:LMP0001_LittleMiraclesApp/providers/appData.dart';
 import 'package:LMP0001_LittleMiraclesApp/widgets/general/cachedImageWidget.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/src/provider.dart';
+
 //EXTENSIONS
-//GLOBAL
-//MODELS
-//PROVIDERS
-//WIDGETS
-//PAGES
 
 class ImagePickerContainer extends StatelessWidget {
   final Media? media;

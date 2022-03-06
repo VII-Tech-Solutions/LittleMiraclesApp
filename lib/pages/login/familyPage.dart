@@ -1,21 +1,22 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
 import '../../global/const.dart';
-//MODELS
-//PROVIDERS
 import '../../providers/auth.dart';
-//WIDGETS
-import '../../widgets/texts/titleText.dart';
 import '../../widgets/appbars/appBarWithLogo.dart';
+import '../../widgets/buttons/filledButtonWidget.dart';
+import '../../widgets/dialogs/showLoadingDialog.dart';
+import '../../widgets/dialogs/showOkDialog.dart';
 import '../../widgets/form/multiSelectQuestionWidget.dart';
 import '../../widgets/form/textQuestionWidget.dart';
-import '../../widgets/buttons/filledButtonWidget.dart';
-import '../../widgets/dialogs/showOkDialog.dart';
-import '../../widgets/dialogs/showLoadingDialog.dart';
-//PAGES
+import '../../widgets/texts/titleText.dart';
 import '../general/customBottomNavigationBar.dart';
 
 class FamilyPage extends StatefulWidget {

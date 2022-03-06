@@ -1,11 +1,9 @@
 //PACKAGES
+
+// Package imports:
 import 'package:intl/intl.dart';
+
 //EXTENSIONS
-//GLOBAL
-//MODELS
-//PROVIDERS
-//WIDGETS
-//PAGES
 
 extension DateTimeExtension on DateTime {
   String toyyyyMMdd() {

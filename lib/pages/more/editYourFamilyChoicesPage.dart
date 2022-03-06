@@ -1,22 +1,24 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
 import '../../global/const.dart';
-//MODELS
-//PROVIDERS
 import '../../providers/auth.dart';
-//WIDGETS
 import '../../widgets/appbars/appBarWithBack.dart';
-import '../../widgets/texts/titleText.dart';
 import '../../widgets/dialogs/showLoadingDialog.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
-//PAGES
-import './editYourPartnerPage.dart';
+import '../../widgets/texts/titleText.dart';
 import './editYourChildrenPage.dart';
 import './editYourFamilyInfoPage.dart';
+import './editYourPartnerPage.dart';
+
+//EXTENSIONS
 
 class EditYourFamilyChoicesPage extends StatelessWidget {
   const EditYourFamilyChoicesPage();

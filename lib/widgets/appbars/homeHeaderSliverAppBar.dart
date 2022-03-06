@@ -1,16 +1,17 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+// Package imports:
 import 'package:cached_network_image/cached_network_image.dart';
-//GLOBAL
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
-import '../../providers/auth.dart';
 import '../../providers/appData.dart';
-//WIDGETS
-//PAGES
+import '../../providers/auth.dart';
 
 class HomeHeaderSliverAppBar extends StatelessWidget {
   const HomeHeaderSliverAppBar({Key? key}) : super(key: key);

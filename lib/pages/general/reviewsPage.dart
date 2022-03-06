@@ -1,16 +1,18 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
-//PROVIDERS
 import '../../providers/bookings.dart';
-//WIDGETS
 import '../../widgets/appbars/appBarWithClose.dart';
 import '../../widgets/containers/reviewContainer.dart';
-//PAGES
+
+//EXTENSIONS
 
 class ReviewsPage extends StatefulWidget {
   const ReviewsPage();

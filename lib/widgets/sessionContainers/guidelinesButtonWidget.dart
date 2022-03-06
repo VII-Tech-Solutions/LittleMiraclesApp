@@ -1,20 +1,22 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
-//EXTENSIONS
-//GLOBAL
-import '../../global/const.dart';
+
+// Project imports:
 import '../../global/colors.dart';
-//MODELS
+import '../../global/const.dart';
 import '../../models/session.dart';
-//PROVIDERS
 import '../../providers/bookings.dart';
-//WIDGETS
+import '../../widgets/appbars/appBarWithClose.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/dialogs/showLoadingDialog.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
-import '../../widgets/appbars/appBarWithClose.dart';
-//PAGES
+
+//EXTENSIONS
 
 class GuidelinesButtonWidget extends StatelessWidget {
   final Session? session;

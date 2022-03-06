@@ -1,24 +1,25 @@
 //PACKAGES
+
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
-import 'package:nb_utils/nb_utils.dart';
-import 'package:provider/provider.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+// Package imports:
 import 'package:country_code_picker/country_localizations.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
-//GLOBAL
-//MODELS
-//PROVIDERS
-import './providers/auth.dart';
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:provider/provider.dart';
+
+// Project imports:
+import './pages/general/splashscreen.dart';
 import './providers/appData.dart';
+import './providers/auth.dart';
 import './providers/bookings.dart';
 import './providers/studio.dart';
-//WIDGETS
-//PAGES
-import './pages/general/splashscreen.dart';
+import 'firebase_options.dart';
 import 'store/AppStore.dart';
 
 AppStore appStore = AppStore();
