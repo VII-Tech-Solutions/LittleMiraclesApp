@@ -192,7 +192,8 @@ class Message extends StatelessWidget {
                           message.type == types.MessageType.image
                       ? Colors.white
                       : const Color(0xFFe8f3f5),
-                  border: !currentUserIsAuthor
+                  border: !currentUserIsAuthor &&
+                          message.type != types.MessageType.image
                       ? Border.all(
                           color: const Color(0xFFd0d3d6),
                           width: 1,
