@@ -28,6 +28,7 @@ class MainPagesSliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = context.read<Auth>().user;
+    final isAuth = context.read<Auth>().isAuth;
     return SliverAppBar(
       pinned: true,
       snap: false,
@@ -86,23 +87,28 @@ class MainPagesSliverAppBar extends StatelessWidget {
                             ShowLoadingDialog(context);
                             FirebaseAuth auth =
                                 FirebaseAuth.instanceFor(app: Firebase.apps[1]);
-                            try {
-                              u = await auth.createUserWithEmailAndPassword(
-                                  email: '${user?.id}@lms.com',
-                                  password: '${user!.id! * 5 * 200 + 100000}');
-                            } on FirebaseAuthException catch (e) {
-                              if (e.code == 'weak-password') {
-                                print('The password provided is too weak.');
-                              } else if (e.code == 'email-already-in-use') {
-                                u = await auth.signInWithEmailAndPassword(
+                            if (isAuth == true) {
+                              try {
+                                u = await auth.createUserWithEmailAndPassword(
                                     email: '${user?.id}@lms.com',
                                     password:
                                         '${user!.id! * 5 * 200 + 100000}');
-                                print(
-                                    'The account already exists for that email.');
+                              } on FirebaseAuthException catch (e) {
+                                if (e.code == 'weak-password') {
+                                  print('The password provided is too weak.');
+                                } else if (e.code == 'email-already-in-use') {
+                                  u = await auth.signInWithEmailAndPassword(
+                                      email: '${user?.id}@lms.com',
+                                      password:
+                                          '${user!.id! * 5 * 200 + 100000}');
+                                  print(
+                                      'The account already exists for that email.');
+                                }
+                              } catch (e) {
+                                print(e);
                               }
-                            } catch (e) {
-                              print(e);
+                            } else {
+                              u = await auth.signInAnonymously();
                             }
                             await FirebaseChatCore.instance
                                 .createUserInFirestore(
