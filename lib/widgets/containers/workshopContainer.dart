@@ -70,7 +70,7 @@ class WorkshopContainer extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 4.0),
               child: Text(
-                DateFormatClass().toddMMyyyy('${workshop?.postedAt}'),
+                DateFormatClass().toyMMMMd('${workshop?.postedAt}'),
                 maxLines: 1,
                 style: TextStyle(
                   color: AppColors.black45515D,

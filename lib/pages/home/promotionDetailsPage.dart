@@ -21,7 +21,7 @@ class PromotionDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWithBack(
-        title: 'Promotion',
+        title: 'Promotions',
         weight: FontWeight.w800,
       ),
       body: SingleChildScrollView(
