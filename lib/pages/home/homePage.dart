@@ -35,6 +35,7 @@ class _HomePageState extends State<HomePage> {
         if (context.read<Bookings>().showAppRateDiag == true) {
           print('object');
           showDialog(
+            barrierDismissible: true,
             context: context,
             builder: (_) {
               return AlertDialog(

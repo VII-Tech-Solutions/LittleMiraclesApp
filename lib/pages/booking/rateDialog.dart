@@ -87,10 +87,12 @@ class RateDialog extends StatelessWidget {
               ),
               FilledButtonWidget(
                 onPress: () async {
+                  print(context.read<Bookings>().showAppRateDiag);
                   if (await inAppReview.isAvailable() &&
                       sessionLength <= 1 &&
                       context.read<Bookings>().showAppRateDiag == true) {
                     inAppReview.requestReview();
+                    Navigator.pop(context);
                   }
                 },
                 type: ButtonType.generalBlue,
@@ -101,7 +103,10 @@ class RateDialog extends StatelessWidget {
                   top: MediaQuery.of(context).size.height * (10 / 812),
                 ),
                 child: FilledButtonWidget(
-                  onPress: () {},
+                  onPress: () {
+                    inAppReview.openStoreListing(appStoreId: '...');
+                    Navigator.pop(context);
+                  },
                   type: ButtonType.generalGrey,
                   title: 'No, Share feedback',
                 ),

@@ -872,7 +872,7 @@ class Auth with ChangeNotifier {
             'id': user.externalId,
             'name': user.displayName,
             // 'email': value,
-            'photo_url': user.bitmojiUrl,
+            'photo_url': user.bitmojiUrl ?? '',
             'provider': SSOType.snapchat,
           };
         },
