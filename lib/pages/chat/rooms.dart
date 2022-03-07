@@ -36,9 +36,7 @@ class _RoomsPageState extends State<RoomsPage> {
   void initializeFlutterFire() async {
     try {
       await Firebase.initializeApp();
-      FirebaseAuth.instanceFor(app: Firebase.apps[1])
-          .authStateChanges()
-          .listen((User? user) {
+      FirebaseAuth.instance.authStateChanges().listen((User? user) {
         setState(() {
           _user = user;
         });

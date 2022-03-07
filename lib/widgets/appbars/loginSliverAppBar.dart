@@ -94,8 +94,7 @@ class LoginSliverAppBar extends StatelessWidget {
                           onPress: () async {
                             UserCredential? u;
                             ShowLoadingDialog(context);
-                            FirebaseAuth auth =
-                                FirebaseAuth.instanceFor(app: Firebase.apps[1]);
+                            FirebaseAuth auth = FirebaseAuth.instance;
                             if (isAuth == true) {
                               try {
                                 u = await auth.createUserWithEmailAndPassword(

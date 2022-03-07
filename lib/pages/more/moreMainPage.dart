@@ -277,8 +277,7 @@ class MoreMainPage extends StatelessWidget {
                       context.read<AppData>().clearUserData().then(
                             (_) => context.read<Auth>().logout().then(
                               (_) {
-                                FirebaseAuth.instanceFor(app: Firebase.apps[1])
-                                    .signOut();
+                                FirebaseAuth.instance.signOut();
                                 return Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(

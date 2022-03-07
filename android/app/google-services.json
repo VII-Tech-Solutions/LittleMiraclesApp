@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "970217973487",
+    "project_id": "little-miracles-app",
+    "storage_bucket": "little-miracles-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:970217973487:android:feb2662a2007c0361d1d1a",
+        "android_client_info": {
+          "package_name": "com.littlemiraclesbys"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "970217973487-ffkfkclprsrka4iav1qlp20mvr0120ri.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.littlemiraclesbys",
+            "certificate_hash": "40ee62dddb11d90c68acb5c4948d961521fe7147"
+          }
+        },
+        {
+          "client_id": "970217973487-d1e64ijid51vsdhhv91hilufq1nhm20u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCY_bAQaefvp2C4-qO80Wjp5JlDt6nAU8M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "970217973487-d1e64ijid51vsdhhv91hilufq1nhm20u.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "970217973487-tp7i2ihrugrnch743vfdg3u1fum423u4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.littlemiracles"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
