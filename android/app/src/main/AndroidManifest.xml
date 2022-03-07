@@ -1,73 +1,67 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.littlemiraclesbys">
-  <uses-permission android:name="android.permission.INTERNET" />
-  <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
-  <uses-permission android:name="android.permission.WRITE_CALENDAR" />
-  <uses-permission android:name="android.permission.READ_CALENDAR" />
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-  <queries>
-    <provider android:authorities="com.facebook.katana.provider.PlatformProvider" />
-    <!-- opens https URLs -->
-    <intent>
-      <action android:name="android.intent.action.VIEW" />
-      <data android:scheme="https" />
-    </intent>
-    <!-- makes calls -->
-    <intent>
-      <action android:name="android.intent.action.DIAL" />
-      <data android:scheme="tel" />
-    </intent>
-    <!--  emails -->
-    <intent>
-      <action android:name="android.intent.action.SEND" />
-      <data android:mimeType="*/*" />
-    </intent>
-    <!-- calendar -->
-    <intent>
-      <action android:name="android.intent.action.INSERT" />
-      <data android:mimeType="vnd.android.cursor.item/event" />
-    </intent>
-  </queries>
-  <application android:label="Little Miracles" android:icon="@mipmap/ic_launcher">
-    <meta-data android:name="com.snapchat.kit.sdk.clientId" android:value="YOUR_CLIENT_ID" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <queries>
+        <provider android:authorities="com.facebook.katana.provider.PlatformProvider" />
+        <!-- opens https URLs -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+        <!-- makes calls -->
+        <intent>
+            <action android:name="android.intent.action.DIAL" />
+            <data android:scheme="tel" />
+        </intent>
+        <!--  emails -->
+        <intent>
+            <action android:name="android.intent.action.SEND" />
+            <data android:mimeType="*/*" />
+        </intent>
+        <!-- calendar -->
+        <intent>
+            <action android:name="android.intent.action.INSERT" />
+            <data android:mimeType="vnd.android.cursor.item/event" />
+        </intent>
+    </queries>
+    <application android:label="test" android:name="${applicationName}" android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.snapchat.kit.sdk.clientId" android:value="fb4891ff-1f08-436d-ad52-927c6e63df78" />
 
-    <meta-data android:name="com.snapchat.kit.sdk.redirectUrl" android:value="yourapp://snapchat/oauth2" />
+        <meta-data android:name="com.snapchat.kit.sdk.redirectUrl" android:value="lms://snapchat/oauth2" />
 
-    <meta-data android:name="com.snapchat.kit.sdk.scopes" android:resource="@array/snap_connect_scopes" />
+        <meta-data android:name="com.snapchat.kit.sdk.scopes" android:resource="@array/snap_connect_scopes" />
 
-    <activity android:name="com.snapchat.kit.sdk.SnapKitActivity" android:launchMode="singleTask">
+        <activity android:name="com.snapchat.kit.sdk.SnapKitActivity" android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW" />
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
-
-        <!-- Change this to match your redirect URL -->
-        <data android:scheme="yourapp" android:host="snapchat" android:path="/oauth2" />
-      </intent-filter>
-    </activity>
-    <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
-    <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
-    <activity android:name=".MainActivity" android:launchMode="singleTop" android:theme="@style/LaunchTheme" android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode" android:hardwareAccelerated="true" android:windowSoftInputMode="adjustResize">
-      <!-- Specifies an Android theme to apply to this Activity as soon as
+                <!-- Change this to match your redirect URL -->
+                <data android:scheme="lms" android:host="snapchat" android:path="/oauth2" />
+            </intent-filter>
+        </activity>
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
+        <activity android:name=".MainActivity" android:exported="true" android:launchMode="singleTop" android:theme="@style/LaunchTheme" android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode" android:hardwareAccelerated="true" android:windowSoftInputMode="adjustResize">
+            <!-- Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user
                  while the Flutter UI initializes. After that, this theme continues
                  to determine the Window background behind the Flutter UI. -->
-      <meta-data android:name="io.flutter.embedding.android.NormalTheme" android:resource="@style/NormalTheme" />
-      <!-- Displays an Android View that continues showing the launch screen
-                 Drawable until Flutter paints its first frame, then this splash
-                 screen fades out. A splash screen is useful to avoid any visual
-                 gap between the end of Android's launch screen and the painting of
-                 Flutter's first frame. -->
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
-        <category android:name="android.intent.category.LAUNCHER"/>
-      </intent-filter>
-    </activity>
-    <!-- Don't delete the meta-data below.
+            <meta-data android:name="io.flutter.embedding.android.NormalTheme" android:resource="@style/NormalTheme" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
-    <meta-data android:name="flutterEmbedding" android:value="2" />
-  </application>
-  <queries>
-    <package android:name="com.snapchat.android" />
-  </queries>
+        <meta-data android:name="flutterEmbedding" android:value="2" />
+    </application>
+    <queries>
+        <package android:name="com.snapchat.android" />
+    </queries>
 </manifest>
