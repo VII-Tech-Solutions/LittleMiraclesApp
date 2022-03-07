@@ -24,6 +24,9 @@ class _BookingMainPageState extends State<BookingMainPage> {
     return CustomScrollView(
       slivers: <Widget>[
         MainPagesSliverAppBar('Photo', 'Sessions 📸'),
+        SliverPadding(
+          padding: EdgeInsets.only(top: 8),
+        ),
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (BuildContext context, int index) {

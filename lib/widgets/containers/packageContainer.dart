@@ -53,7 +53,7 @@ class PackageContainer extends StatelessWidget {
       child: AspectRatio(
         aspectRatio: 1 / 1,
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Stack(
             children: [
               Container(

@@ -34,8 +34,8 @@ class MainPagesSliverAppBar extends StatelessWidget {
       floating: false,
       stretch: false,
       backgroundColor: Colors.white,
-      expandedHeight: 100,
-      collapsedHeight: 100,
+      expandedHeight: MediaQuery.of(context).size.height * (56 / 812),
+      collapsedHeight: MediaQuery.of(context).size.height * (56 / 812),
       flexibleSpace: FlexibleSpaceBar(
         background: Padding(
           padding: const EdgeInsets.fromLTRB(16, 60, 16, 4),
