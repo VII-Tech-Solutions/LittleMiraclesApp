@@ -15,9 +15,10 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-         maven {
+        maven {
             url "https://storage.googleapis.com/snap-kit-build/maven"
-         }
+        }
+    }
 }
 
 rootProject.buildDir = '../build'
