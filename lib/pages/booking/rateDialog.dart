@@ -87,9 +87,8 @@ class RateDialog extends StatelessWidget {
               ),
               FilledButtonWidget(
                 onPress: () async {
-                  print(context.read<Bookings>().showAppRateDiag);
                   if (await inAppReview.isAvailable() &&
-                      sessionLength <= 1 &&
+                      sessionLength >= 1 &&
                       context.read<Bookings>().showAppRateDiag == true) {
                     inAppReview.requestReview();
                     Navigator.pop(context);
@@ -104,7 +103,8 @@ class RateDialog extends StatelessWidget {
                 ),
                 child: FilledButtonWidget(
                   onPress: () {
-                    inAppReview.openStoreListing(appStoreId: '...');
+                    inAppReview.openStoreListing(
+                        appStoreId: '...'); //TODO:: Chnage AppID
                     Navigator.pop(context);
                   },
                   type: ButtonType.generalGrey,
