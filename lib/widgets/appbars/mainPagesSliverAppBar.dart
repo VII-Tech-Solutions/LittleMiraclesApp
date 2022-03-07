@@ -128,7 +128,6 @@ class MainPagesSliverAppBar extends StatelessWidget {
                                 ),
                               );
                             });
-                            print('go to chat');
                           },
                           icon: Icons.forum),
                     ],
