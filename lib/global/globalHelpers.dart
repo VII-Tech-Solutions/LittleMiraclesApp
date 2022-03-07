@@ -111,4 +111,22 @@ class DateFormatClass {
       return "";
     }
   }
+
+  String toyMMMMd(String date) {
+    if (date.isNotEmpty) {
+      var dateTimeString = date;
+      final dateTime = DateTime.parse(dateTimeString);
+      var suffix = "th";
+      var digit = dateTime.day % 10;
+      if ((digit > 0 && digit < 4) &&
+          (dateTime.day < 11 || dateTime.day > 13)) {
+        suffix = ["st", "nd", "rd"][digit - 1];
+      }
+      final format = DateFormat("d'$suffix', MMMM yyyy");
+      final formattedDate = format.format(dateTime);
+      return formattedDate;
+    } else {
+      return "";
+    }
+  }
 }

@@ -1,9 +1,14 @@
-import 'package:LMP0001_LittleMiraclesApp/widgets/buttons/filledButtonWidget.dart';
-import 'package:LMP0001_LittleMiraclesApp/widgets/buttons/iconButtonWidget.dart';
+import 'package:LMP0001_LittleMiraclesApp/providers/appData.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:in_app_review/in_app_review.dart';
+
+import 'package:LMP0001_LittleMiraclesApp/widgets/buttons/filledButtonWidget.dart';
+import 'package:LMP0001_LittleMiraclesApp/widgets/buttons/iconButtonWidget.dart';
+import 'package:provider/provider.dart';
 
 import '../../Global/colors.dart';
+import '../../providers/bookings.dart';
 
 // showDialog(
 //   context: context,
@@ -22,6 +27,8 @@ class RateDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sessionLength = context.watch<AppData>().sessions.length;
+    final InAppReview inAppReview = InAppReview.instance;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -79,7 +86,13 @@ class RateDialog extends StatelessWidget {
                 ),
               ),
               FilledButtonWidget(
-                onPress: () {},
+                onPress: () async {
+                  if (await inAppReview.isAvailable() &&
+                      sessionLength <= 1 &&
+                      context.read<Bookings>().showAppRateDiag == true) {
+                    inAppReview.requestReview();
+                  }
+                },
                 type: ButtonType.generalBlue,
                 title: 'Love It! ♥️',
               ),
