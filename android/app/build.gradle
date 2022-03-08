@@ -64,7 +64,7 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation([
+    implementation ([
         'com.snapchat.kit.sdk:creative:1.13.0',
         'com.snapchat.kit.sdk:login:1.13.0',
         'com.snapchat.kit.sdk:bitmoji:1.13.0',
