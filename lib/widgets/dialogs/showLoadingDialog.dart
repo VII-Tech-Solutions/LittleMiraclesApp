@@ -1,6 +1,7 @@
 //PACKAGES
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/global/const.dart';
 import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/showOkDialog.dart';
 import 'package:flutter/material.dart';
 
@@ -15,8 +16,10 @@ import '../../global/colors.dart';
 class ShowLoadingDialog {
   final BuildContext context;
   bool dismiss;
+  bool withTimeout;
 
-  ShowLoadingDialog(this.context, {this.dismiss = false}) {
+  ShowLoadingDialog(this.context,
+      {this.dismiss = false, this.withTimeout = false}) {
     AlertDialog alert = AlertDialog(
       elevation: 0,
       backgroundColor: Colors.transparent,
@@ -53,8 +56,10 @@ class ShowLoadingDialog {
       ).timeout(
         Duration(seconds: 10),
         onTimeout: () {
-          Navigator.pop(context);
-          ShowOkDialog(context, 'Something went wrong!');
+          if (withTimeout == true) {
+            Navigator.pop(context);
+            ShowOkDialog(context, ErrorMessages.somethingWrong);
+          }
         },
       );
     }
