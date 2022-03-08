@@ -2,8 +2,10 @@
 
 // Dart imports:
 import 'dart:io' show Platform;
+import 'dart:math';
 
 // Flutter imports:
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -35,6 +37,16 @@ class LoginPage extends StatelessWidget {
       throw 'Could not launch $url';
     }
   }
+
+  // String generateRandomString(int uid) {
+  //   const _chars =
+  //       'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890!@#\$%&~';
+  //   List
+  //   for (int i = 0; i < uid; i++) {
+
+  //   }
+  //   return List.generate(uid, (index) => _chars[0]).join();
+  // }
 
   Future<void> _socialLogin(BuildContext context, String socialType,
       Auth authProvider, AppData appDataProvider) async {
@@ -93,6 +105,29 @@ class LoginPage extends StatelessWidget {
             }
           });
         });
+        try {
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: '${user?.id}@lms.com',
+            password: '${user!.id! * 5 * 200 + 100000}',
+          );
+        } on FirebaseAuthException catch (e) {
+          if (e.code == 'weak-password') {
+            print('The password provided is too weak.');
+          } else if (e.code == 'email-already-in-use') {
+            await FirebaseAuth.instance.signInWithEmailAndPassword(
+                email: '${user?.id}@lms.com',
+                password: '${user!.id! * 5 * 200 + 100000}');
+            print('The account already exists for that email.');
+          }
+        } catch (e) {
+          print(e);
+        }
+        // Future<void> _firebaseAuth() async {
+        //   var credential = EmailAuthProvider.credential(
+        //       email: '${_auth.user?.id}@lms.com',
+        //       password: generateRandomString(18));
+        //   FirebaseAuth.instance.currentUser?.linkWithCredential(credential);
+        // }
       } else {
         ShowLoadingDialog(context, dismiss: true);
         ShowOkDialog(context, ErrorMessages.somethingWrong);

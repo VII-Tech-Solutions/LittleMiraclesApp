@@ -30,9 +30,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await initialize();
-  // FirebaseChatCore.instance.setConfig(
-  //   FirebaseChatCoreConfig('LMP', 'rooms', 'users'),
-  // );
   runApp(const MyApp());
 }
 
