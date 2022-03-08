@@ -131,8 +131,7 @@ class _ChatPageState extends State<ChatPage> {
       final name = result.name;
 
       try {
-        final reference =
-            FirebaseStorage.instanceFor(app: Firebase.apps[1]).ref(name);
+        final reference = FirebaseStorage.instance.ref(name);
         await reference.putFile(file);
         final uri = await reference.getDownloadURL();
 
