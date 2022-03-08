@@ -1,6 +1,7 @@
 //PACKAGES
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/showOkDialog.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -48,6 +49,12 @@ class ShowLoadingDialog {
         context: context,
         builder: (BuildContext context) {
           return alert;
+        },
+      ).timeout(
+        Duration(seconds: 10),
+        onTimeout: () {
+          Navigator.pop(context);
+          ShowOkDialog(context, 'Something went wrong!');
         },
       );
     }

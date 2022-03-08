@@ -65,10 +65,6 @@ class LoginPage extends StatelessWidget {
         }
         break;
     }
-    Future.delayed(Duration(seconds: 3)).then((value) => ShowLoadingDialog(
-          context,
-          dismiss: true,
-        ));
 
     if (result != null) {
       final user = authProvider.user;
