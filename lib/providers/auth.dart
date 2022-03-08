@@ -646,6 +646,12 @@ class Auth with ChangeNotifier {
         DBHelper.deleteTable(table);
       });
 
+      _user = null;
+      _familyMembers = [];
+      _familyInfoList = [];
+      _questions = [];
+      _registrationBody = {};
+
       // final url = Uri.parse("$apiLink/logout");
       // await http.post(
       //   url,
