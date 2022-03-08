@@ -374,7 +374,7 @@ class _ChatState extends State<Chat> {
               right: 16,
               top: 56,
               child: CloseButton(
-                color: Colors.white,
+                color: AppColors.greyF2F3F3,
                 onPressed: _onCloseGalleryPressed,
               ),
             ),

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:diffutil_dart/diffutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -76,16 +78,16 @@ class _ChatListState extends State<ChatList>
     if (_scrollController.offset <=
             _scrollController.position.maxScrollExtent - 148 &&
         _showAppBar == false &&
-        !(_scrollController.position.maxScrollExtent >
-            MediaQuery.of(context).size.height)) {
+        (_scrollController.position.maxScrollExtent <
+            window.physicalSize.height)) {
       setState(() {
         _showAppBar = true;
       });
     } else if (_scrollController.offset >=
             _scrollController.position.maxScrollExtent - 148 &&
         _showAppBar == true &&
-        !(_scrollController.position.maxScrollExtent >
-            MediaQuery.of(context).size.height)) {
+        (_scrollController.position.maxScrollExtent <
+            window.physicalSize.height)) {
       setState(() {
         _showAppBar = false;
       });
