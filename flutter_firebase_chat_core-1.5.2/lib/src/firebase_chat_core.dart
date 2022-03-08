@@ -9,9 +9,7 @@ import 'util.dart';
 /// FirebaseChatCore.instance to aceess methods.
 class FirebaseChatCore {
   FirebaseChatCore._privateConstructor() {
-    FirebaseAuth.instanceFor(app: Firebase.apps[1])
-        .authStateChanges()
-        .listen((User? user) {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
       firebaseUser = user;
     });
   }
@@ -26,8 +24,7 @@ class FirebaseChatCore {
 
   /// Current logged in user in Firebase. Does not update automatically.
   /// Use [FirebaseAuth.authStateChanges] to listen to the state changes.
-  User? firebaseUser =
-      FirebaseAuth.instanceFor(app: Firebase.apps[1]).currentUser;
+  User? firebaseUser = FirebaseAuth.instance.currentUser;
 
   /// Singleton instance
   static final FirebaseChatCore instance =

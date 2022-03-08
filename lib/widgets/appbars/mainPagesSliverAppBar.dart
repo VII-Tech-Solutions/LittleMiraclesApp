@@ -34,8 +34,8 @@ class MainPagesSliverAppBar extends StatelessWidget {
       floating: false,
       stretch: false,
       backgroundColor: Colors.white,
-      expandedHeight: MediaQuery.of(context).size.height * (56 / 812),
-      collapsedHeight: MediaQuery.of(context).size.height * (56 / 812),
+      expandedHeight: MediaQuery.of(context).size.height * (125 / 812),
+      collapsedHeight: MediaQuery.of(context).size.height * (125 / 812),
       flexibleSpace: FlexibleSpaceBar(
         background: Padding(
           padding: const EdgeInsets.fromLTRB(16, 60, 16, 4),
@@ -82,38 +82,37 @@ class MainPagesSliverAppBar extends StatelessWidget {
                       SizedBox(width: 16),
                       IconButtonWidget(
                           onPress: () async {
-                            UserCredential? u;
-                            ShowLoadingDialog(context);
-                            FirebaseAuth auth =
-                                FirebaseAuth.instanceFor(app: Firebase.apps[1]);
-                            if (isAuth == true) {
-                              try {
-                                u = await auth.createUserWithEmailAndPassword(
-                                    email: '${user?.id}@lms.com',
-                                    password:
-                                        '${user!.id! * 5 * 200 + 100000}');
-                              } on FirebaseAuthException catch (e) {
-                                if (e.code == 'weak-password') {
-                                  print('The password provided is too weak.');
-                                } else if (e.code == 'email-already-in-use') {
-                                  u = await auth.signInWithEmailAndPassword(
-                                      email: '${user?.id}@lms.com',
-                                      password:
-                                          '${user!.id! * 5 * 200 + 100000}');
-                                  print(
-                                      'The account already exists for that email.');
-                                }
-                              } catch (e) {
-                                print(e);
-                              }
-                            } else {
-                              u = await auth.signInAnonymously();
-                            }
+                            // UserCredential? u;
+                            // ShowLoadingDialog(context);
+                            // FirebaseAuth auth = FirebaseAuth.instance;
+                            // if (isAuth == true) {
+                            //   try {
+                            //     u = await auth.createUserWithEmailAndPassword(
+                            //         email: '${user?.id}@lms.com',
+                            //         password:
+                            //             '${user!.id! * 5 * 200 + 100000}');
+                            //   } on FirebaseAuthException catch (e) {
+                            //     if (e.code == 'weak-password') {
+                            //       print('The password provided is too weak.');
+                            //     } else if (e.code == 'email-already-in-use') {
+                            //       u = await auth.signInWithEmailAndPassword(
+                            //           email: '${user?.id}@lms.com',
+                            //           password:
+                            //               '${user!.id! * 5 * 200 + 100000}');
+                            //       print(
+                            //           'The account already exists for that email.');
+                            //     }
+                            //   } catch (e) {
+                            //     print(e);
+                            //   }
+                            // } else {
+                            //   u = await auth.signInAnonymously();
+                            // }
                             await FirebaseChatCore.instance
                                 .createUserInFirestore(
                               types.User(
                                 firstName: user?.firstName,
-                                id: u?.user!.uid ??
+                                id: FirebaseAuth.instance.currentUser?.uid ??
                                     '', // UID from Firebase Authentication
                                 imageUrl: user?.avatar,
                                 lastName: user?.lastName,

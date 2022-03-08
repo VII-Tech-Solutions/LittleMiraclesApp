@@ -27,7 +27,7 @@
             <data android:mimeType="vnd.android.cursor.item/event" />
         </intent>
     </queries>
-    <application android:label="test" android:name="${applicationName}" android:icon="@mipmap/ic_launcher">
+    <application android:label="Little Miracles" android:name="${applicationName}" android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.snapchat.kit.sdk.clientId" android:value="fb4891ff-1f08-436d-ad52-927c6e63df78" />
 
         <meta-data android:name="com.snapchat.kit.sdk.redirectUrl" android:value="lms://snapchat/oauth2" />

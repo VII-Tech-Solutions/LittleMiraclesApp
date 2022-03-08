@@ -27,13 +27,9 @@ AppStore appStore = AppStore();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    name: 'LMP',
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await initialize();
-  FirebaseChatCore.instance.setConfig(
-    FirebaseChatCoreConfig('LMP', 'rooms', 'users'),
-  );
   runApp(const MyApp());
 }
 

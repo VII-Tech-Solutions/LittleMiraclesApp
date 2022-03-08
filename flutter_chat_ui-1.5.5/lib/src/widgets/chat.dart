@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/src/widgets/inherited_l10n.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
 import '../chat_l10n.dart';
 import '../chat_theme.dart';
 import '../conditional/conditional.dart';
+import '../global/colors.dart';
 import '../models/date_header.dart';
 import '../models/emoji_enlargement_behavior.dart';
 import '../models/message_spacer.dart';
@@ -279,14 +281,69 @@ class _ChatState extends State<Chat> {
   Widget _emptyStateBuilder() {
     return widget.emptyState ??
         Container(
-          alignment: Alignment.center,
-          margin: const EdgeInsets.symmetric(
-            horizontal: 24,
+          height: 242,
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 37),
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [
+                AppColors.blueE8F3F5,
+                AppColors.blue8DC4CB,
+              ],
+            ),
           ),
-          child: Text(
-            widget.l10n.emptyChatPlaceholder,
-            style: widget.theme.emptyChatPlaceholderTextStyle,
-            textAlign: TextAlign.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              InkWell(
+                onTap: () {
+                  Navigator.maybePop(context);
+                },
+                child: SafeArea(
+                  child: Container(
+                    height: 40,
+                    width: 40,
+                    alignment: Alignment.center,
+                    child: const Icon(
+                      Icons.arrow_back,
+                      color: AppColors.black45515D,
+                    ),
+                    decoration: const BoxDecoration(
+                      color: AppColors.greyF2F3F3,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: RichText(
+                  textAlign: TextAlign.start,
+                  text: TextSpan(
+                    text: 'Let\'s ',
+                    style: TextStyle(
+                      fontSize: 36,
+                      fontFamily: GoogleFonts.manrope().fontFamily,
+                      fontWeight: FontWeight.w300,
+                      color: AppColors.black45515D,
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: 'chat 🤗',
+                        style: TextStyle(
+                          fontSize: 36,
+                          fontFamily: GoogleFonts.manrope().fontFamily,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.black45515D,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         );
   }
@@ -317,7 +374,7 @@ class _ChatState extends State<Chat> {
               right: 16,
               top: 56,
               child: CloseButton(
-                color: Colors.white,
+                color: AppColors.greyF2F3F3,
                 onPressed: _onCloseGalleryPressed,
               ),
             ),
@@ -445,8 +502,15 @@ class _ChatState extends State<Chat> {
                   children: [
                     Flexible(
                       child: widget.messages.isEmpty
-                          ? SizedBox.expand(
-                              child: _emptyStateBuilder(),
+                          ? Column(
+                              children: [
+                                SizedBox(
+                                  child: _emptyStateBuilder(),
+                                ),
+                                Expanded(
+                                  child: Container(),
+                                )
+                              ],
                             )
                           : GestureDetector(
                               onTap: () {

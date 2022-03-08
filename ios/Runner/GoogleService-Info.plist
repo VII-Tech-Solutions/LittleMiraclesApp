@@ -3,23 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>222688104462-hr92jk1uh63ble23lvi87n0j605l8b65.apps.googleusercontent.com</string>
+	<string>970217973487-tp7i2ihrugrnch743vfdg3u1fum423u4.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.222688104462-hr92jk1uh63ble23lvi87n0j605l8b65</string>
+	<string>com.googleusercontent.apps.970217973487-tp7i2ihrugrnch743vfdg3u1fum423u4</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>222688104462-kbi1dsa2odcadp172mf8j8adlt0rg8hm.apps.googleusercontent.com</string>
+	<string>970217973487-ffkfkclprsrka4iav1qlp20mvr0120ri.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCA5-6Qx4IrIZgfooYBub4puMixsqSrxEA</string>
+	<string>AIzaSyC9KtONUC1mlcHV3L4-NH1TBHTPc6iF6bs</string>
 	<key>GCM_SENDER_ID</key>
-	<string>222688104462</string>
+	<string>970217973487</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.littlemiracles</string>
 	<key>PROJECT_ID</key>
-	<string>little-miracles-cfab1</string>
+	<string>little-miracles-app</string>
 	<key>STORAGE_BUCKET</key>
-	<string>little-miracles-cfab1.appspot.com</string>
+	<string>little-miracles-app.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:222688104462:ios:982da6d4a0274c35046c5f</string>
+	<string>1:970217973487:ios:935a943dec36d6ea1d1d1a</string>
 </dict>
 </plist>
