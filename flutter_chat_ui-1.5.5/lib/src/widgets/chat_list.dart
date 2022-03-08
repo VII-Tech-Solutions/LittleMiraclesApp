@@ -64,7 +64,7 @@ class _ChatListState extends State<ChatList>
     curve: Curves.easeOutQuad,
     parent: _controller,
   );
-  bool _showAppBar = true;
+  bool _showAppBar = false;
   @override
   void initState() {
     super.initState();
@@ -74,14 +74,18 @@ class _ChatListState extends State<ChatList>
 
   void _scrollListener() {
     if (_scrollController.offset <=
-            _scrollController.position.maxScrollExtent - 200 &&
-        _showAppBar == false) {
+            _scrollController.position.maxScrollExtent - 148 &&
+        _showAppBar == false &&
+        !(_scrollController.position.maxScrollExtent >
+            MediaQuery.of(context).size.height)) {
       setState(() {
         _showAppBar = true;
       });
     } else if (_scrollController.offset >=
-            _scrollController.position.maxScrollExtent - 200 &&
-        _showAppBar == true) {
+            _scrollController.position.maxScrollExtent - 148 &&
+        _showAppBar == true &&
+        !(_scrollController.position.maxScrollExtent >
+            MediaQuery.of(context).size.height)) {
       setState(() {
         _showAppBar = false;
       });
@@ -309,7 +313,7 @@ class _ChatListState extends State<ChatList>
                 ),
               ),
             ),
-            _appBar(context),
+            _appBarNew(context),
           ],
         ),
       ),
@@ -317,60 +321,53 @@ class _ChatListState extends State<ChatList>
   }
 }
 
-SliverAppBar _appBar(BuildContext context) {
-  return SliverAppBar(
-    pinned: true,
-    snap: false,
-    floating: true,
-    centerTitle: false,
-    automaticallyImplyLeading: false,
-    elevation: 0,
-    stretch: true,
-    backgroundColor: Colors.white,
-    expandedHeight: 200,
-    flexibleSpace: FlexibleSpaceBar(
-      background: Container(
-        alignment: Alignment.bottomCenter,
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 37),
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [
-              AppColors.blueE8F3F5,
-              AppColors.blue8DC4CB,
-            ],
-          ),
-        ),
-        child: Align(
-          alignment: Alignment.bottomLeft,
-          child: RichText(
-            textAlign: TextAlign.start,
-            text: TextSpan(
-              text: 'Let\'s ',
-              style: TextStyle(
-                fontSize: 36,
-                fontFamily: GoogleFonts.manrope().fontFamily,
-                fontWeight: FontWeight.w300,
-                color: AppColors.black45515D,
-              ),
-              children: <TextSpan>[
-                TextSpan(
-                  text: 'chat 🤗',
-                  style: TextStyle(
-                    fontSize: 36,
-                    fontFamily: GoogleFonts.manrope().fontFamily,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.black45515D,
-                  ),
-                ),
+SliverFillRemaining _appBarNew(BuildContext context) {
+  return SliverFillRemaining(
+    fillOverscroll: false,
+    hasScrollBody: false,
+    child: Column(
+      children: [
+        Container(
+          height: 242,
+          alignment: Alignment.bottomCenter,
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 37),
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [
+                AppColors.blueE8F3F5,
+                AppColors.blue8DC4CB,
               ],
             ),
           ),
+          child: Align(
+            alignment: Alignment.bottomLeft,
+            child: RichText(
+              textAlign: TextAlign.start,
+              text: TextSpan(
+                text: 'Let\'s ',
+                style: TextStyle(
+                  fontSize: 36,
+                  fontFamily: GoogleFonts.manrope().fontFamily,
+                  fontWeight: FontWeight.w300,
+                  color: AppColors.black45515D,
+                ),
+                children: <TextSpan>[
+                  TextSpan(
+                    text: 'chat 🤗',
+                    style: TextStyle(
+                      fontSize: 36,
+                      fontFamily: GoogleFonts.manrope().fontFamily,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.black45515D,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
-      ),
-      stretchModes: const [
-        StretchMode.zoomBackground,
       ],
     ),
   );
