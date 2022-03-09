@@ -93,34 +93,6 @@ class LoginSliverAppBar extends StatelessWidget {
                       IconButtonWidget(
                           onPress: () {
                             if (isAuth == true) {
-                              // UserCredential? u;
-                              ShowLoadingDialog(context);
-                              // FirebaseAuth auth = FirebaseAuth.instance;
-                              // if (isAuth == true) {
-                              //   try {
-                              //     u = await auth.createUserWithEmailAndPassword(
-                              //         email: '${user?.id}@lms.com',
-                              //         password:
-                              //             '${user!.id! * 5 * 200 + 100000}');
-                              //   } on FirebaseAuthException catch (e) {
-                              //     if (e.code == 'weak-password') {
-                              //       print('The password provided is too weak.');
-                              //     } else if (e.code == 'email-already-in-use') {
-                              //       u = await auth.signInWithEmailAndPassword(
-                              //           email: '${user?.id}@lms.com',
-                              //           password:
-                              //               '${user!.id! * 5 * 200 + 100000}');
-                              //       print(
-                              //           'The account already exists for that email.');
-                              //     }
-                              //   } catch (e) {
-                              //     print(e);
-                              //   }
-                              // } else {
-                              //   u = await auth.signInAnonymously();
-                              // }
-
-                              ShowLoadingDialog(context, dismiss: true);
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

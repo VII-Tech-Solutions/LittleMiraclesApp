@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import '../../global/const.dart';
 import '../../models/question.dart';
 import '../../pages/booking/photographerPage.dart';
+import '../../providers/auth.dart';
 import '../../providers/bookings.dart';
 import '../../widgets/appbars/appBarWithBack.dart';
 import '../../widgets/bookingSessionContainers/availableLocationsContainer.dart';
@@ -57,7 +58,10 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
               AvailableLocationContainer(),
               CalendarContainer(),
               AvailableTimeContainer(),
-              JoiningPeopleContainer(),
+              Visibility(
+                visible: context.read<Auth>().isAuth == true,
+                child: JoiningPeopleContainer(),
+              ),
               BackdropSelector(),
               CakeSelector(),
               TextQuestionWidget(
@@ -89,38 +93,42 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
       bottomNavigationBar: PackageBottomSectionContainer(
         btnLabel: 'Next',
         onTap: () {
-          final timings = context.read<Bookings>().availableTimings;
-          final bookingsBody = context.read<Bookings>().bookingsBody;
-          if (bookingsBody.containsKey('location_link') &&
-              bookingsBody['location_link'] == "") {
-            ShowOkDialog(context, 'Please add the location link to proceed');
-          } else if (!bookingsBody.containsKey('date')) {
-            ShowOkDialog(context, 'Please select a date to proceed');
-          } else if (!bookingsBody.containsKey('time') ||
-              !timings.contains(bookingsBody['time'])) {
-            ShowOkDialog(context, 'Please select a time to proceed');
-          } else if (!bookingsBody.containsKey('people')) {
-            ShowOkDialog(context, 'Please select people joining to proceed');
-          } else if (!bookingsBody.containsKey('backdrops')) {
-            ShowOkDialog(context, 'Please select a backdrop to proceed');
+          if (context.read<Auth>().isAuth == true) {
+            final timings = context.read<Bookings>().availableTimings;
+            final bookingsBody = context.read<Bookings>().bookingsBody;
+            if (bookingsBody.containsKey('location_link') &&
+                bookingsBody['location_link'] == "") {
+              ShowOkDialog(context, 'Please add the location link to proceed');
+            } else if (!bookingsBody.containsKey('date')) {
+              ShowOkDialog(context, 'Please select a date to proceed');
+            } else if (!bookingsBody.containsKey('time') ||
+                !timings.contains(bookingsBody['time'])) {
+              ShowOkDialog(context, 'Please select a time to proceed');
+            } else if (!bookingsBody.containsKey('people')) {
+              ShowOkDialog(context, 'Please select people joining to proceed');
+            } else if (!bookingsBody.containsKey('backdrops')) {
+              ShowOkDialog(context, 'Please select a backdrop to proceed');
+            } else {
+              ShowLoadingDialog(context);
+              context.read<Bookings>().bookASession().then((response) {
+                ShowLoadingDialog(context, dismiss: true);
+                if (response?.statusCode == 200) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PhotographerPage(),
+                    ),
+                  );
+                } else {
+                  ShowOkDialog(
+                    context,
+                    response?.message ?? ErrorMessages.somethingWrong,
+                  );
+                }
+              });
+            }
           } else {
-            ShowLoadingDialog(context);
-            context.read<Bookings>().bookASession().then((response) {
-              ShowLoadingDialog(context, dismiss: true);
-              if (response?.statusCode == 200) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PhotographerPage(),
-                  ),
-                );
-              } else {
-                ShowOkDialog(
-                  context,
-                  response?.message ?? ErrorMessages.somethingWrong,
-                );
-              }
-            });
+            ShowOkDialog(context, 'Please login!');
           }
         },
       ),
