@@ -1,7 +1,13 @@
 //PACKAGES
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/pages/general/splashscreen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
 // Package imports:
 import 'package:provider/provider.dart';
@@ -24,6 +30,7 @@ class CustomBottomNavigationBar extends StatefulWidget {
 }
 
 class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
+  bool _called = false;
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions = <Widget>[
     HomePage(),
@@ -36,6 +43,62 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     setState(() {
       context.read<Auth>().setSelectedIndex(index);
     });
+  }
+
+  Future<void> _firestoreInit() async {
+    final user = context.read<Auth>().user;
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: '${user?.id}@lms.com',
+        password: '${user!.id! * 5 * 200 + 100000}',
+      );
+      await FirebaseChatCore.instance.createUserInFirestore(
+        types.User(
+          firstName: user.firstName,
+          id: FirebaseAuth.instance.currentUser?.uid ??
+              '', // UID from Firebase Authentication
+          imageUrl: user.avatar,
+          lastName: user.lastName,
+        ),
+      );
+      // _initFCM();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+            email: '${user?.id}@lms.com',
+            password: '${user!.id! * 5 * 200 + 100000}');
+        print('The account already exists for that email.');
+        await FirebaseChatCore.instance
+            .getFirebaseFirestore()
+            .collection('users')
+            .doc(FirebaseAuth.instance.currentUser?.uid)
+            .set({
+          'id': FirebaseAuth.instance.currentUser?.uid,
+          'firstName': user.firstName,
+          'imageUrl': user.avatar,
+          'lastName': user.lastName,
+          'lastSeen': FieldValue.serverTimestamp(),
+          'updatedAt': FieldValue.serverTimestamp(),
+        });
+      }
+      // _initFCM();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (_called == false) {
+      _firestoreInit();
+      print('init');
+      setState(() {
+        _called = true;
+      });
+    }
+    super.didChangeDependencies();
   }
 
   @override

@@ -8,10 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
 // Project imports:
 import '../../pages/chat/chat.dart';
@@ -93,52 +93,32 @@ class LoginSliverAppBar extends StatelessWidget {
                       SizedBox(width: 16),
                       IconButtonWidget(
                           onPress: () async {
+                            ShowLoadingDialog(context);
                             if (isAuth == true) {
-                              // UserCredential? u;
-                              ShowLoadingDialog(context);
-                              // FirebaseAuth auth = FirebaseAuth.instance;
-                              // if (isAuth == true) {
-                              //   try {
-                              //     u = await auth.createUserWithEmailAndPassword(
-                              //         email: '${user?.id}@lms.com',
-                              //         password:
-                              //             '${user!.id! * 5 * 200 + 100000}');
-                              //   } on FirebaseAuthException catch (e) {
-                              //     if (e.code == 'weak-password') {
-                              //       print('The password provided is too weak.');
-                              //     } else if (e.code == 'email-already-in-use') {
-                              //       u = await auth.signInWithEmailAndPassword(
-                              //           email: '${user?.id}@lms.com',
-                              //           password:
-                              //               '${user!.id! * 5 * 200 + 100000}');
-                              //       print(
-                              //           'The account already exists for that email.');
-                              //     }
-                              //   } catch (e) {
-                              //     print(e);
-                              //   }
-                              // } else {
-                              //   u = await auth.signInAnonymously();
-                              // }
-                              await FirebaseChatCore.instance
-                                  .createUserInFirestore(
-                                types.User(
-                                  firstName: user?.firstName,
-                                  id: FirebaseAuth.instance.currentUser?.uid ??
-                                      '', // UID from Firebase Authentication
-                                  imageUrl: user?.avatar,
-                                  lastName: user?.lastName,
-                                ),
-                              )
-                                  .then((_) {
-                                ShowLoadingDialog(context, dismiss: true);
-                                return Navigator.push(
+                              if (await FirebaseAuth
+                                      .instance.currentUser?.uid ==
+                                  'o61U7RotNGb8ICAtjz3mShxsD802') {
+                                Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => RoomsPage(),
                                   ),
+                                ).then((_) =>
+                                    ShowLoadingDialog(context, dismiss: true));
+                              } else {
+                                final supportRoom =
+                                    await FirebaseChatCore.instance.createRoom(
+                                  types.User(
+                                      id: 'o61U7RotNGb8ICAtjz3mShxsD802'),
                                 );
-                              });
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => ChatPage(room: supportRoom),
+                                  ),
+                                ).then((value) =>
+                                    ShowLoadingDialog(context, dismiss: true));
+                              }
                             } else {
                               ShowOkDialog(context, 'Please login!');
                             }

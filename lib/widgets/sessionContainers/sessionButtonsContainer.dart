@@ -1,17 +1,22 @@
 //PACKAGES
 
 // Flutter imports:
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 
 // Package imports:
 import 'package:provider/provider.dart';
-
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 // Project imports:
 import '../../extensions/dateTimeExtension.dart';
 import '../../global/const.dart';
 import '../../models/session.dart';
 import '../../pages/booking/rescheduleSessionPage.dart';
+import '../../pages/chat/chat.dart';
+import '../../pages/chat/rooms.dart';
 import '../../providers/appData.dart';
+import '../../providers/auth.dart';
 import '../../providers/bookings.dart';
 import '../buttons/filledButtonWidget.dart';
 import '../dialogs/showLoadingDialog.dart';
@@ -46,16 +51,41 @@ class SessionButtonContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isAuth = context.read<Auth>().isAuth;
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 46, 16, 25),
       child: Column(
         children: [
-          //TODO:: uncomment when the chat is ready
-          // FilledButtonWidget(
-          //   onPress: () {},
-          //   title: 'Send a message',
-          //   type: ButtonType.generalGrey,
-          // ),
+          FilledButtonWidget(
+            onPress: () async {
+              if (isAuth == true) {
+                if (await FirebaseAuth.instance.currentUser?.uid ==
+                    'o61U7RotNGb8ICAtjz3mShxsD802') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => RoomsPage(),
+                    ),
+                  ).then((_) => ShowLoadingDialog(context, dismiss: true));
+                } else {
+                  final supportRoom =
+                      await FirebaseChatCore.instance.createRoom(
+                    types.User(id: 'o61U7RotNGb8ICAtjz3mShxsD802'),
+                  );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ChatPage(room: supportRoom),
+                    ),
+                  ).then((value) => ShowLoadingDialog(context, dismiss: true));
+                }
+              } else {
+                ShowOkDialog(context, 'Please login!');
+              }
+            },
+            title: 'Send a message',
+            type: ButtonType.generalGrey,
+          ),
           SizedBox(height: 10),
           Visibility(
             visible: canReschedule(context),

@@ -14,10 +14,12 @@ import 'package:provider/provider.dart';
 // Project imports:
 import '../../pages/cart/cart.dart';
 import '../../global/colors.dart';
+import '../../pages/chat/chat.dart';
 import '../../pages/chat/rooms.dart';
 import '../../providers/auth.dart';
 import '../buttons/iconButtonWidget.dart';
 import '../dialogs/showLoadingDialog.dart';
+import '../dialogs/showOkDialog.dart';
 
 class MainPagesSliverAppBar extends StatelessWidget {
   final String titleFirst;
@@ -82,51 +84,35 @@ class MainPagesSliverAppBar extends StatelessWidget {
                       SizedBox(width: 16),
                       IconButtonWidget(
                           onPress: () async {
-                            // UserCredential? u;
-                            // ShowLoadingDialog(context);
-                            // FirebaseAuth auth = FirebaseAuth.instance;
-                            // if (isAuth == true) {
-                            //   try {
-                            //     u = await auth.createUserWithEmailAndPassword(
-                            //         email: '${user?.id}@lms.com',
-                            //         password:
-                            //             '${user!.id! * 5 * 200 + 100000}');
-                            //   } on FirebaseAuthException catch (e) {
-                            //     if (e.code == 'weak-password') {
-                            //       print('The password provided is too weak.');
-                            //     } else if (e.code == 'email-already-in-use') {
-                            //       u = await auth.signInWithEmailAndPassword(
-                            //           email: '${user?.id}@lms.com',
-                            //           password:
-                            //               '${user!.id! * 5 * 200 + 100000}');
-                            //       print(
-                            //           'The account already exists for that email.');
-                            //     }
-                            //   } catch (e) {
-                            //     print(e);
-                            //   }
-                            // } else {
-                            //   u = await auth.signInAnonymously();
-                            // }
-                            await FirebaseChatCore.instance
-                                .createUserInFirestore(
-                              types.User(
-                                firstName: user?.firstName,
-                                id: FirebaseAuth.instance.currentUser?.uid ??
-                                    '', // UID from Firebase Authentication
-                                imageUrl: user?.avatar,
-                                lastName: user?.lastName,
-                              ),
-                            )
-                                .then((_) {
-                              ShowLoadingDialog(context, dismiss: true);
-                              return Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => RoomsPage(),
-                                ),
-                              );
-                            });
+                            ShowLoadingDialog(context);
+                            if (isAuth == true) {
+                              if (await FirebaseAuth
+                                      .instance.currentUser?.uid ==
+                                  'o61U7RotNGb8ICAtjz3mShxsD802') {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => RoomsPage(),
+                                  ),
+                                ).then((_) =>
+                                    ShowLoadingDialog(context, dismiss: true));
+                              } else {
+                                final supportRoom =
+                                    await FirebaseChatCore.instance.createRoom(
+                                  types.User(
+                                      id: 'o61U7RotNGb8ICAtjz3mShxsD802'),
+                                );
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => ChatPage(room: supportRoom),
+                                  ),
+                                ).then((value) =>
+                                    ShowLoadingDialog(context, dismiss: true));
+                              }
+                            } else {
+                              ShowOkDialog(context, 'Please login!');
+                            }
                           },
                           icon: Icons.forum),
                     ],
