@@ -43,7 +43,7 @@ Future<void> saveTokenToDatabase(String token) async {
   print(userId);
 
   await FirebaseFirestore.instance.collection('users').doc(userId).update({
-    'tokens': FieldValue.arrayUnion([token]),
+    'tokens': token,
   });
 }
 

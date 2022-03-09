@@ -17,9 +17,14 @@ class ShowLoadingDialog {
   final BuildContext context;
   bool dismiss;
   bool withTimeout;
+  bool showError;
 
-  ShowLoadingDialog(this.context,
-      {this.dismiss = false, this.withTimeout = false}) {
+  ShowLoadingDialog(
+    this.context, {
+    this.dismiss = false,
+    this.withTimeout = false,
+    this.showError = false,
+  }) {
     AlertDialog alert = AlertDialog(
       elevation: 0,
       backgroundColor: Colors.transparent,
@@ -58,7 +63,8 @@ class ShowLoadingDialog {
         onTimeout: () {
           if (withTimeout == true) {
             Navigator.pop(context);
-            ShowOkDialog(context, ErrorMessages.somethingWrong);
+            if (showError == true)
+              ShowOkDialog(context, ErrorMessages.somethingWrong);
           }
         },
       );

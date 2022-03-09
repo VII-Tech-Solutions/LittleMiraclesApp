@@ -11,6 +11,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
 // Project imports:
 import '../../pages/chat/chat.dart';
@@ -91,14 +92,33 @@ class LoginSliverAppBar extends StatelessWidget {
                           icon: Icons.shopping_cart),
                       SizedBox(width: 16),
                       IconButtonWidget(
-                          onPress: () {
+                          onPress: () async {
+                            ShowLoadingDialog(context);
                             if (isAuth == true) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => RoomsPage(),
-                                ),
-                              );
+                              if (await FirebaseAuth
+                                      .instance.currentUser?.uid ==
+                                  'o61U7RotNGb8ICAtjz3mShxsD802') {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => RoomsPage(),
+                                  ),
+                                ).then((_) =>
+                                    ShowLoadingDialog(context, dismiss: true));
+                              } else {
+                                final supportRoom =
+                                    await FirebaseChatCore.instance.createRoom(
+                                  types.User(
+                                      id: 'o61U7RotNGb8ICAtjz3mShxsD802'),
+                                );
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => ChatPage(room: supportRoom),
+                                  ),
+                                ).then((value) =>
+                                    ShowLoadingDialog(context, dismiss: true));
+                              }
                             } else {
                               ShowOkDialog(context, 'Please login!');
                             }

@@ -102,7 +102,7 @@ class _RoomsPageState extends State<RoomsPage> {
           child: MaterialButton(
             elevation: 0,
             onPressed: () {
-              Navigator.maybePop(context);
+              Navigator.pop(context);
             },
             color: AppColors.greyF2F3F3,
             child: Icon(
@@ -114,21 +114,21 @@ class _RoomsPageState extends State<RoomsPage> {
             shape: CircleBorder(),
           ),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.add, color: Colors.black),
-            onPressed: _user == null
-                ? null
-                : () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        fullscreenDialog: true,
-                        builder: (context) => const UsersPage(),
-                      ),
-                    );
-                  },
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     icon: const Icon(Icons.add, color: Colors.black),
+        //     onPressed: _user == null
+        //         ? null
+        //         : () {
+        //             Navigator.of(context).push(
+        //               MaterialPageRoute(
+        //                 fullscreenDialog: true,
+        //                 builder: (context) => const UsersPage(),
+        //               ),
+        //             );
+        //           },
+        //   ),
+        // ],
         title: const Text(
           'Rooms',
           style: TextStyle(

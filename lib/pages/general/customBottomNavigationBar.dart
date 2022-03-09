@@ -2,6 +2,7 @@
 
 // Flutter imports:
 import 'package:LMP0001_LittleMiraclesApp/pages/general/splashscreen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -69,6 +70,18 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             email: '${user?.id}@lms.com',
             password: '${user!.id! * 5 * 200 + 100000}');
         print('The account already exists for that email.');
+        await FirebaseChatCore.instance
+            .getFirebaseFirestore()
+            .collection('users')
+            .doc(FirebaseAuth.instance.currentUser?.uid)
+            .set({
+          'id': FirebaseAuth.instance.currentUser?.uid,
+          'firstName': user.firstName,
+          'imageUrl': user.avatar,
+          'lastName': user.lastName,
+          'lastSeen': FieldValue.serverTimestamp(),
+          'updatedAt': FieldValue.serverTimestamp(),
+        });
       }
       // _initFCM();
     } catch (e) {

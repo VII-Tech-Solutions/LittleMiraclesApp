@@ -110,7 +110,7 @@ class LoginPage extends StatelessWidget {
       Auth authProvider, AppData appDataProvider) async {
     ApiResponse? result;
 
-    ShowLoadingDialog(context);
+    ShowLoadingDialog(context, withTimeout: true, showError: true);
 
     switch (socialType) {
       case SSOType.google:
