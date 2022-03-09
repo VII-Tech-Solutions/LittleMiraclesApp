@@ -180,8 +180,7 @@ class _EditYourChildrenPageState extends State<EditYourChildrenPage> {
                           _birthdayControllersList[index],
                           _personalityControllersList[index],
                           index + 1 == _formKeysList.length,
-                          index + 1 == _formKeysList.length &&
-                              _formKeysList.length != 1,
+                          index + 1 == _formKeysList.length,
                           _addAChild,
                           _removeAChild,
                           showDiv: false,
@@ -189,6 +188,19 @@ class _EditYourChildrenPageState extends State<EditYourChildrenPage> {
                       ],
                     );
                   }),
+              Align(
+                alignment: Alignment.centerRight,
+                child: Visibility(
+                  visible: _formKeysList.length == 0,
+                  child: FilledButtonWidget(
+                    margin: EdgeInsets.only(right: 30.0),
+                    customWidth: 128,
+                    onPress: _addAChild,
+                    type: ButtonType.generalGrey,
+                    title: 'Add Child',
+                  ),
+                ),
+              ),
               FilledButtonWidget(
                 margin: EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 25.0),
                 onPress: () {
