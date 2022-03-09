@@ -108,25 +108,14 @@ class MainPagesSliverAppBar extends StatelessWidget {
                             // } else {
                             //   u = await auth.signInAnonymously();
                             // }
-                            await FirebaseChatCore.instance
-                                .createUserInFirestore(
-                              types.User(
-                                firstName: user?.firstName,
-                                id: FirebaseAuth.instance.currentUser?.uid ??
-                                    '', // UID from Firebase Authentication
-                                imageUrl: user?.avatar,
-                                lastName: user?.lastName,
+
+                            ShowLoadingDialog(context, dismiss: true);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => RoomsPage(),
                               ),
-                            )
-                                .then((_) {
-                              ShowLoadingDialog(context, dismiss: true);
-                              return Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => RoomsPage(),
-                                ),
-                              );
-                            });
+                            );
                           },
                           icon: Icons.forum),
                     ],

@@ -5,9 +5,12 @@ import 'dart:io' show Platform;
 import 'dart:math';
 
 // Flutter imports:
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 // Package imports:
 import 'package:provider/provider.dart';
@@ -47,6 +50,61 @@ class LoginPage extends StatelessWidget {
   //   }
   //   return List.generate(uid, (index) => _chars[0]).join();
   // }
+
+  // Future<void> saveTokenToDatabase(String token) async {
+  //   // Assume user is logged in for this example
+  //   String? userId = FirebaseAuth.instance.currentUser?.uid;
+
+  //   await FirebaseFirestore.instance.collection('users').doc(userId).update({
+  //     'tokens': FieldValue.arrayUnion([token]),
+  //   });
+  // }
+
+  // NotificationSettings? _iosSettings;
+  // AndroidNotificationChannel? channel;
+  // Future<void> _initFCM() async {
+  //   // Get the token each time the application loads
+  //   String? token = await FirebaseMessaging.instance.getToken();
+
+  //   // Save the initial token to the database
+  //   await saveTokenToDatabase(token!);
+
+  //   // Any time the token refreshes, store this in the database too.
+  //   FirebaseMessaging.instance.onTokenRefresh.listen(saveTokenToDatabase);
+  //   print(token);
+  //   _iosSettings = await messaging.requestPermission(
+  //     alert: true,
+  //     announcement: false,
+  //     badge: true,
+  //     carPlay: false,
+  //     criticalAlert: false,
+  //     provisional: false,
+  //     sound: true,
+  //   );
+  //   await FirebaseMessaging.instance
+  //       .setForegroundNotificationPresentationOptions(
+  //     alert: true, // Required to display a heads up notification
+  //     badge: true,
+  //     sound: true,
+  //   );
+
+  //   channel = AndroidNotificationChannel(
+  //     'high_importance_channel', // id
+  //     'High Importance Notifications', // title
+  //     description:
+  //         'This channel is used for important notifications.', // description
+  //     importance: Importance.max,
+  //   );
+
+  //   await flutterLocalNotificationsPlugin
+  //       .resolvePlatformSpecificImplementation<
+  //           AndroidFlutterLocalNotificationsPlugin>()
+  //       ?.createNotificationChannel(channel!);
+  // }
+
+  // FirebaseMessaging messaging = FirebaseMessaging.instance;
+  // final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+  //     FlutterLocalNotificationsPlugin();
 
   Future<void> _socialLogin(BuildContext context, String socialType,
       Auth authProvider, AppData appDataProvider) async {
@@ -105,29 +163,13 @@ class LoginPage extends StatelessWidget {
             }
           });
         });
-        try {
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-            email: '${user?.id}@lms.com',
-            password: '${user!.id! * 5 * 200 + 100000}',
-          );
-        } on FirebaseAuthException catch (e) {
-          if (e.code == 'weak-password') {
-            print('The password provided is too weak.');
-          } else if (e.code == 'email-already-in-use') {
-            await FirebaseAuth.instance.signInWithEmailAndPassword(
-                email: '${user?.id}@lms.com',
-                password: '${user!.id! * 5 * 200 + 100000}');
-            print('The account already exists for that email.');
-          }
-        } catch (e) {
-          print(e);
-        }
         // Future<void> _firebaseAuth() async {
         //   var credential = EmailAuthProvider.credential(
         //       email: '${_auth.user?.id}@lms.com',
         //       password: generateRandomString(18));
         //   FirebaseAuth.instance.currentUser?.linkWithCredential(credential);
         // }
+
       } else {
         ShowLoadingDialog(context, dismiss: true);
         ShowOkDialog(context, ErrorMessages.somethingWrong);

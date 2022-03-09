@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -92,7 +91,7 @@ class LoginSliverAppBar extends StatelessWidget {
                           icon: Icons.shopping_cart),
                       SizedBox(width: 16),
                       IconButtonWidget(
-                          onPress: () async {
+                          onPress: () {
                             if (isAuth == true) {
                               // UserCredential? u;
                               ShowLoadingDialog(context);
@@ -120,25 +119,14 @@ class LoginSliverAppBar extends StatelessWidget {
                               // } else {
                               //   u = await auth.signInAnonymously();
                               // }
-                              await FirebaseChatCore.instance
-                                  .createUserInFirestore(
-                                types.User(
-                                  firstName: user?.firstName,
-                                  id: FirebaseAuth.instance.currentUser?.uid ??
-                                      '', // UID from Firebase Authentication
-                                  imageUrl: user?.avatar,
-                                  lastName: user?.lastName,
+
+                              ShowLoadingDialog(context, dismiss: true);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => RoomsPage(),
                                 ),
-                              )
-                                  .then((_) {
-                                ShowLoadingDialog(context, dismiss: true);
-                                return Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => RoomsPage(),
-                                  ),
-                                );
-                              });
+                              );
                             } else {
                               ShowOkDialog(context, 'Please login!');
                             }
