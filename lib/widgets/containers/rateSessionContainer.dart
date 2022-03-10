@@ -163,6 +163,8 @@ class _RateSessionContainerState extends State<RateSessionContainer> {
                       response?.message ?? 'Thanks for your review.',
                       title: "Yaaay",
                     );
+                    _textController.clear();
+                    _userRating.text = '4';
                   } else {
                     ShowOkDialog(
                       context,
