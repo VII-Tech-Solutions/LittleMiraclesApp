@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/providers/chatProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -6,13 +7,14 @@ import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:badges/badges.dart';
+import 'package:provider/provider.dart';
 // Project imports:
 import '../../Global/colors.dart';
 import 'chat.dart';
-import 'users.dart';
 import 'util.dart';
 
 class RoomsPage extends StatefulWidget {
@@ -30,12 +32,14 @@ class _RoomsPageState extends State<RoomsPage> {
   @override
   void initState() {
     initializeFlutterFire();
+    Future.delayed(Duration(milliseconds: 100))
+        .then((_) => context.read<ChatData>().readDB());
     super.initState();
   }
 
   void initializeFlutterFire() async {
     try {
-      await Firebase.initializeApp();
+      // await Firebase.initializeApp();
       FirebaseAuth.instance.authStateChanges().listen((User? user) {
         setState(() {
           _user = user;
@@ -66,7 +70,8 @@ class _RoomsPageState extends State<RoomsPage> {
       }
     }
 
-    final hasImage = room.imageUrl != null;
+    final hasImage =
+        room.imageUrl != null && !room.imageUrl!.contains('bitmoji');
     final name = room.name ?? '';
 
     return Container(
@@ -114,21 +119,6 @@ class _RoomsPageState extends State<RoomsPage> {
             shape: CircleBorder(),
           ),
         ),
-        // actions: [
-        //   IconButton(
-        //     icon: const Icon(Icons.add, color: Colors.black),
-        //     onPressed: _user == null
-        //         ? null
-        //         : () {
-        //             Navigator.of(context).push(
-        //               MaterialPageRoute(
-        //                 fullscreenDialog: true,
-        //                 builder: (context) => const UsersPage(),
-        //               ),
-        //             );
-        //           },
-        //   ),
-        // ],
         title: const Text(
           'Rooms',
           style: TextStyle(
@@ -139,7 +129,7 @@ class _RoomsPageState extends State<RoomsPage> {
         ),
       ),
       body: StreamBuilder<List<types.Room>>(
-        stream: FirebaseChatCore.instance.rooms(),
+        stream: FirebaseChatCore.instance.rooms(orderByUpdatedAt: true),
         initialData: const [],
         builder: (context, snapshot) {
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
@@ -148,14 +138,21 @@ class _RoomsPageState extends State<RoomsPage> {
               child: const Text('No rooms'),
             );
           }
-
+          // snapshot.data!.forEach((element) {
+          //   if (!context
+          //       .read<ChatData>()
+          //       .getLastSeen
+          //       .containsKey('${element.id}'))
+          //     context.read<ChatData>().updateStatus(element.id, 0);
+          // });
+          context.read<ChatData>().addToDB();
           return ListView.builder(
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
               final room = snapshot.data![index];
-
               return GestureDetector(
                 onTap: () {
+                  // showBadge = false;
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => ChatPage(
@@ -166,7 +163,7 @@ class _RoomsPageState extends State<RoomsPage> {
                 },
                 child: Container(
                   width: double.infinity,
-                  height: MediaQuery.of(context).size.height * 0.09852217,
+                  height: MediaQuery.of(context).size.height * 0.11,
                   decoration: BoxDecoration(
                       border: Border.all(
                     color: Colors.black,
@@ -179,16 +176,56 @@ class _RoomsPageState extends State<RoomsPage> {
                     vertical: 8,
                   ),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _buildAvatar(room),
-                      Text(
-                        room.name ?? '',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontFamily: GoogleFonts.manrope().fontFamily,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Row(
+                        children: [
+                          _buildAvatar(room),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                room.name ?? '',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontFamily:
+                                        GoogleFonts.manrope().fontFamily,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.black45515D),
+                              ),
+                              Align(
+                                alignment: Alignment.bottomLeft,
+                                child: StreamBuilder<List<types.Message>>(
+                                  initialData: const [],
+                                  stream: FirebaseChatCore.instance
+                                      .messages(snapshot.data![index]),
+                                  builder: (context, snapshot) {
+                                    try {
+                                      return Text(
+                                        snapshot.data![index].toJson()['text'],
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontFamily: GoogleFonts.manrope()
+                                                .fontFamily,
+                                            fontWeight: FontWeight.normal,
+                                            color: AppColors.grey5C6671),
+                                      );
+                                    } catch (e) {
+                                      return SizedBox();
+                                    }
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
+                      Badge(
+                        showBadge: context
+                            .watch<ChatData>()
+                            .showBadge(room.updatedAt, room.id),
+                      )
                     ],
                   ),
                 ),

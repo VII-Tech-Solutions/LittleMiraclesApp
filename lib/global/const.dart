@@ -44,6 +44,7 @@ class Tables {
   static const String faqs = 'faqs';
   static const String sessions = 'sessions';
   static const String cartItems = 'cartItems';
+  static const String lastSeen = 'lastSeen';
 }
 
 class SectionType {

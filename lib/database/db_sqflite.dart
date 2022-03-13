@@ -60,6 +60,8 @@ class DBHelper {
             'CREATE TABLE ${Tables.faqs}(id INT PRIMARY KEY, question TEXT, answer TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
         await db.execute(
             'CREATE TABLE ${Tables.cartItems}(id INT PRIMARY KEY, title TEXT, description TEXT, price TEXT, displayImage TEXT, mediaIds TEXT)');
+        await db.execute(
+            'CREATE TABLE ${Tables.lastSeen}(roomId TEXT PRIMARY KEY, timeStampMS INTEGER)');
       },
       version: 1,
       onUpgrade: (db, oldVersion, newVersion) async {
@@ -94,6 +96,11 @@ class DBHelper {
   static Future<List<Map<String, dynamic>>> getData(String table) async {
     final db = await DBHelper.database();
     return db.query(table, where: 'id>=0');
+  }
+
+  static Future<List<Map<String, dynamic>>> getChatData(String table) async {
+    final db = await DBHelper.database();
+    return db.query(table, where: 'roomId');
   }
 
   static Future<List<Map<String, dynamic>>> getStudentPosts(

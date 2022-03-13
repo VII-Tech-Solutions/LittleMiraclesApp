@@ -66,7 +66,7 @@ class _ChatListState extends State<ChatList>
     curve: Curves.easeOutQuad,
     parent: _controller,
   );
-  bool _showAppBar = false;
+  bool _showAppBar = true;
   @override
   void initState() {
     super.initState();
@@ -209,6 +209,10 @@ class _ChatListState extends State<ChatList>
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(const Duration(milliseconds: 50)).then((_) =>
+        _scrollController.position.maxScrollExtent <= window.physicalSize.height
+            ? _showAppBar = false
+            : _showAppBar = true);
     return NotificationListener<ScrollNotification>(
       onNotification: (notification) {
         if (widget.onEndReached == null || widget.isLastPage == true) {
@@ -248,7 +252,7 @@ class _ChatListState extends State<ChatList>
           systemOverlayStyle: SystemUiOverlayStyle.dark,
           flexibleSpace: AnimatedContainer(
             color: _showAppBar ? Colors.white : Colors.white.withOpacity(0),
-            duration: const Duration(milliseconds: 150),
+            duration: const Duration(milliseconds: 100),
           ),
           leading: Padding(
             padding: const EdgeInsets.only(left: 16.0),

@@ -111,7 +111,8 @@ class MainPagesSliverAppBar extends StatelessWidget {
                                     ShowLoadingDialog(context, dismiss: true));
                               }
                             } else {
-                              ShowOkDialog(context, 'Please login!');
+                              ShowOkDialog(context, 'Please login!',
+                                  popToFirst: true);
                             }
                           },
                           icon: Icons.forum),

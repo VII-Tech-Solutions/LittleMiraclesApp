@@ -2,6 +2,8 @@
 import 'dart:io';
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/providers/chatProvider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -22,6 +24,7 @@ import 'package:path_provider/path_provider.dart';
 
 // Project imports:
 import 'package:LMP0001_LittleMiraclesApp/models/media.dart';
+import 'package:provider/provider.dart';
 import '../../Global/colors.dart';
 import '../../widgets/buttons/iconButtonWidget.dart';
 
@@ -191,15 +194,26 @@ class _ChatPageState extends State<ChatPage> {
 
   void _handleSendPressed(types.PartialText message) {
     FirebaseChatCore.instance.sendMessage(
+      // types.PartialText(text: message.text, metadata: {'status': false}),
       message,
       widget.room.id,
+      // TODO :: fire FCM when user in the room is inactive?
     );
+    FirebaseChatCore.instance.updateRoom(widget.room);
   }
 
   void _setAttachmentUploading(bool uploading) {
     setState(() {
       _isAttachmentUploading = uploading;
     });
+  }
+
+  @override
+  void initState() {
+    Future.delayed(Duration(milliseconds: 700)).then((_) => context
+        .read<ChatData>()
+        .updateStatus(widget.room.id, DateTime.now().millisecondsSinceEpoch));
+    super.initState();
   }
 
   @override
@@ -229,6 +243,7 @@ class _ChatPageState extends State<ChatPage> {
                   onMessageTap: _handleMessageTap,
                   onPreviewDataFetched: _handlePreviewDataFetched,
                   onSendPressed: _handleSendPressed,
+                  onEndReachedThreshold: 0.75,
                   user: types.User(
                     id: FirebaseChatCore.instance.firebaseUser?.uid ?? '',
                   ),
@@ -241,7 +256,6 @@ class _ChatPageState extends State<ChatPage> {
     );
   }
 }
-
 
 // Container(
 //                   padding: EdgeInsets.only(
