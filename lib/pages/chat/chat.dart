@@ -1,4 +1,6 @@
 // Dart imports:
+import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 // Flutter imports:
@@ -27,6 +29,10 @@ import 'package:path_provider/path_provider.dart';
 import 'package:LMP0001_LittleMiraclesApp/models/media.dart';
 import 'package:provider/provider.dart';
 import '../../Global/colors.dart';
+import '../../global/const.dart';
+import '../../global/globalEnvironment.dart';
+import '../../global/globalHelpers.dart';
+import '../../providers/auth.dart';
 import '../../widgets/buttons/iconButtonWidget.dart';
 
 class ChatPage extends StatefulWidget {
@@ -193,7 +199,7 @@ class _ChatPageState extends State<ChatPage> {
     FirebaseChatCore.instance.updateMessage(updatedMessage, widget.room.id);
   }
 
-  void _handleSendPressed(types.PartialText message) {
+  void _handleSendPressed(types.PartialText message) async {
     FirebaseChatCore.instance.sendMessage(
       message,
       widget.room.id,
@@ -203,6 +209,47 @@ class _ChatPageState extends State<ChatPage> {
     Future.delayed(Duration(milliseconds: 100)).then((_) => context
         .read<ChatData>()
         .updateStatus(widget.room.id, DateTime.now().millisecondsSinceEpoch));
+    final url = Uri.parse('$apiLink/chat');
+    final auth = context.read<Auth>();
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Platform': '${await AppInfo().platformInfo()}',
+          'App-Version': '${await AppInfo().versionInfo()}',
+          'Authorization': 'Bearer ${auth.token}',
+        },
+        body: {
+          'title':
+              'Message from ${auth.user!.firstName} ${auth.user?.lastName}',
+          'message': '${message.text}',
+          'topic':
+              'user_${auth.user!.id}', //TODO:: Double check if this is sender id or receiver id with ahmed
+          'room_id': widget.room.id,
+          'family_id': '${auth.user!.familyId}'
+        },
+      ).timeout(Duration(seconds: Timeout.value));
+
+      final result = json.decode(response.body);
+
+      if (response.statusCode != 200) {
+        if ((response.statusCode >= 400 && response.statusCode <= 499) ||
+            response.statusCode == 503) {
+          print(
+              'statusCode: ${response.statusCode} message: ${result['message'].toString()}');
+        } else {
+          return null;
+        }
+      }
+      print(
+          'not in if statement: statusCode: ${response.statusCode} message: ${result['message'].toString()}');
+    } on TimeoutException catch (e) {
+      print('Exception Timeout:: $e');
+    } catch (e) {
+      print('catch error:: $e');
+    }
   }
 
   void _setAttachmentUploading(bool uploading) {
