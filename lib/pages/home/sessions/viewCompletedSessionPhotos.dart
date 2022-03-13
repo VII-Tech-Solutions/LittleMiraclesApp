@@ -46,6 +46,7 @@ class _ViewCompletedSessionPhotosState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.greyE8E9EB,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
