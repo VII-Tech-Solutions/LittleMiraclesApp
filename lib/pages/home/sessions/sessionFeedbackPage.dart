@@ -210,7 +210,7 @@ class _SessionFeedbackPageState extends State<SessionFeedbackPage> {
                         }
                       },
                       type: ButtonType.generalBlue,
-                      title: 'Confirm',
+                      title: 'Send your feedback',
                     );
                   },
                   childCount: 1,

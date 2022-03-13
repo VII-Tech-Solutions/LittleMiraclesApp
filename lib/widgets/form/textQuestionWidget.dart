@@ -75,7 +75,9 @@ class TextQuestionWidget extends StatelessWidget {
               errorBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.red),
               ),
-              hintText: 'Your Message',
+              hintText: question!.question == 'Name'
+                  ? 'Enter your full name here'
+                  : 'Your Message',
               hintStyle: const TextStyle(color: AppColors.greyD0D3D6),
             ),
           ),
