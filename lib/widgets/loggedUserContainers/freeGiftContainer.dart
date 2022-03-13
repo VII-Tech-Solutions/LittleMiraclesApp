@@ -106,20 +106,22 @@ class FreeGiftContainer extends StatelessWidget {
               onPress: () {
                 ShowLoadingDialog(context);
                 context.read<AppData>().claimFreeGiftRequest().then((response) {
-                  ShowLoadingDialog(context, dismiss: true);
-                  if (response?.statusCode == 200) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LoyaltyPage(),
-                      ),
-                    );
-                  } else {
-                    ShowOkDialog(
-                      context,
-                      response?.message ?? ErrorMessages.somethingWrong,
-                    );
-                  }
+                  context.read<AppData>().fetchAndSetGifts().then((_) {
+                    ShowLoadingDialog(context, dismiss: true);
+                    if (response?.statusCode == 200) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoyaltyPage(),
+                        ),
+                      );
+                    } else {
+                      ShowOkDialog(
+                        context,
+                        response?.message ?? ErrorMessages.somethingWrong,
+                      );
+                    }
+                  });
                 });
               },
               type: ButtonType.outlinedYellow,
@@ -133,7 +135,6 @@ class FreeGiftContainer extends StatelessWidget {
               onTap: () {
                 ShowLoadingDialog(context);
                 context.read<AppData>().fetchAndSetGifts().then((response) {
-                  print(response?.message);
                   ShowLoadingDialog(context, dismiss: true);
                   if (response?.statusCode == 200) {
                     Navigator.push(
