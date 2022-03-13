@@ -95,9 +95,9 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
       _firestoreInit();
       if (context.read<Auth>().isAuth == true) {
         FirebaseMessaging.instance
-            .subscribeToTopic('${context.read<Auth>().user!.id}');
+            .subscribeToTopic('user_${context.read<Auth>().user!.id}');
         FirebaseMessaging.instance
-            .subscribeToTopic('${context.read<Auth>().user!.familyId}');
+            .subscribeToTopic('family_${context.read<Auth>().user!.familyId}');
       }
       setState(() {
         _called = true;

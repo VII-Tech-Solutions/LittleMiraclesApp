@@ -280,9 +280,9 @@ class MoreMainPage extends StatelessWidget {
                               (_) {
                                 FirebaseAuth.instance.signOut();
                                 FirebaseMessaging.instance.unsubscribeFromTopic(
-                                    '${context.read<Auth>().user!.id}');
+                                    'user_${context.read<Auth>().user!.id}');
                                 FirebaseMessaging.instance.unsubscribeFromTopic(
-                                    '${context.read<Auth>().user!.familyId}');
+                                    'family_${context.read<Auth>().user!.familyId}');
                                 return Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
