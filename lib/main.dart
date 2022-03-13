@@ -74,6 +74,8 @@ Future<void> _initFCM() async {
     badge: true,
     sound: true,
   );
+  messaging.subscribeToTopic('lms');
+  messaging.subscribeToTopic('staging');
 }
 
 FirebaseMessaging messaging = FirebaseMessaging.instance;

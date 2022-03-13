@@ -1,6 +1,7 @@
 //PACKAGES
 
 // Flutter imports:
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -278,6 +279,10 @@ class MoreMainPage extends StatelessWidget {
                             (_) => context.read<Auth>().logout().then(
                               (_) {
                                 FirebaseAuth.instance.signOut();
+                                FirebaseMessaging.instance.unsubscribeFromTopic(
+                                    '${context.read<Auth>().user!.id}');
+                                FirebaseMessaging.instance.unsubscribeFromTopic(
+                                    '${context.read<Auth>().user!.familyId}');
                                 return Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
