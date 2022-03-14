@@ -29,6 +29,7 @@ class _RoomsPageState extends State<RoomsPage> {
   bool _error = false;
   bool _initialized = false;
   User? _user;
+  bool _badge = false;
 
   @override
   void initState() {
@@ -151,6 +152,9 @@ class _RoomsPageState extends State<RoomsPage> {
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
               final room = snapshot.data![index];
+              _badge =
+                  context.watch<ChatData>().showBadge(room.updatedAt, room.id);
+
               return GestureDetector(
                 onTap: () {
                   // showBadge = false;
@@ -211,11 +215,12 @@ class _RoomsPageState extends State<RoomsPage> {
                                         snapshot.data![0].toJson()['text'],
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
-                                            fontSize: 12,
-                                            fontFamily: GoogleFonts.manrope()
-                                                .fontFamily,
-                                            fontWeight: FontWeight.normal,
-                                            color: AppColors.grey5C6671),
+                                          fontSize: 12,
+                                          fontFamily:
+                                              GoogleFonts.manrope().fontFamily,
+                                          fontWeight: FontWeight.normal,
+                                          color: AppColors.grey5C6671,
+                                        ),
                                       );
                                     } catch (e) {
                                       return SizedBox();
@@ -227,11 +232,7 @@ class _RoomsPageState extends State<RoomsPage> {
                           ),
                         ],
                       ),
-                      Badge(
-                        showBadge: context
-                            .watch<ChatData>()
-                            .showBadge(room.updatedAt, room.id),
-                      )
+                      Badge(showBadge: _badge)
                     ],
                   ),
                 ),

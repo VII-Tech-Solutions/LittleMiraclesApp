@@ -109,6 +109,7 @@ class FreeGiftContainer extends StatelessWidget {
                   context.read<AppData>().fetchAndSetGifts().then((_) {
                     ShowLoadingDialog(context, dismiss: true);
                     if (response?.statusCode == 200) {
+                      context.read<AppData>().fetchAndSetSessions();
                       Navigator.push(
                         context,
                         MaterialPageRoute(
