@@ -203,7 +203,6 @@ class _ChatPageState extends State<ChatPage> {
     FirebaseChatCore.instance.sendMessage(
       message,
       widget.room.id,
-      // TODO :: fire FCM when user in the room is inactive?
     );
     FirebaseChatCore.instance.updateRoom(widget.room);
     Future.delayed(Duration(milliseconds: 100)).then((_) => context
@@ -225,10 +224,9 @@ class _ChatPageState extends State<ChatPage> {
           'title':
               'Message from ${auth.user!.firstName} ${auth.user?.lastName}',
           'message': '${message.text}',
-          'topic':
-              'user_${auth.user!.id}', //TODO:: Double check if this is sender id or receiver id with ahmed
+          'topic': 'user_${auth.user!.id}', //TODO:: receiver user id
           'room_id': widget.room.id,
-          'family_id': '${auth.user!.familyId}'
+          'family_id': '${auth.user!.familyId}' //TODO:: receiver family id
         },
       ).timeout(Duration(seconds: Timeout.value));
 
@@ -264,6 +262,14 @@ class _ChatPageState extends State<ChatPage> {
         .read<ChatData>()
         .updateStatus(widget.room.id, DateTime.now().millisecondsSinceEpoch));
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    context
+        .read<ChatData>()
+        .updateStatus(widget.room.id, DateTime.now().millisecondsSinceEpoch);
+    super.didChangeDependencies();
   }
 
   @override

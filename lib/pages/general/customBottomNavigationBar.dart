@@ -59,6 +59,11 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
               '', // UID from Firebase Authentication
           imageUrl: user.avatar,
           lastName: user.lastName,
+          lastSeen: DateTime.now().millisecondsSinceEpoch,
+          metadata: {
+            'user_id': user.id,
+            'family_id': user.familyId,
+          },
         ),
       );
       // _initFCM();
@@ -81,6 +86,10 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           'lastName': user.lastName,
           'lastSeen': FieldValue.serverTimestamp(),
           'updatedAt': FieldValue.serverTimestamp(),
+          'metadata': {
+            'user_id': user.id,
+            'family_id': user.familyId,
+          },
         });
       }
       // _initFCM();
