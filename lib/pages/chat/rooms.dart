@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/global/colors.dart';
 import 'package:LMP0001_LittleMiraclesApp/providers/chatProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,7 +14,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:badges/badges.dart';
 import 'package:provider/provider.dart';
 // Project imports:
-import '../../Global/colors.dart';
+import '../../global/colors.dart';
 import 'chat.dart';
 import 'util.dart';
 
@@ -120,7 +121,7 @@ class _RoomsPageState extends State<RoomsPage> {
           ),
         ),
         title: const Text(
-          'Rooms',
+          'Chats',
           style: TextStyle(
             color: AppColors.black45515D,
             fontSize: 18,
@@ -165,12 +166,14 @@ class _RoomsPageState extends State<RoomsPage> {
                   width: double.infinity,
                   height: MediaQuery.of(context).size.height * 0.11,
                   decoration: BoxDecoration(
-                      border: Border.all(
-                    color: Colors.black,
-                  )),
-                  margin: const EdgeInsets.only(
-                    top: 10,
+                    // color: AppColors.blueE8F3F5,
+                    border: Border.all(
+                      color: Colors.black,
+                    ),
                   ),
+                  // margin: const EdgeInsets.only(
+                  //   top: 5,
+                  // ),
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
                     vertical: 8,

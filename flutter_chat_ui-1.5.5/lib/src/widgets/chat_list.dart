@@ -95,6 +95,13 @@ class _ChatListState extends State<ChatList>
   }
 
   @override
+  void didChangeDependencies() {
+    Future.delayed(const Duration(milliseconds: 100))
+        .then((_) => _scrollListener());
+    super.didChangeDependencies();
+  }
+
+  @override
   void didUpdateWidget(covariant ChatList oldWidget) {
     super.didUpdateWidget(oldWidget);
 
@@ -209,10 +216,13 @@ class _ChatListState extends State<ChatList>
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(milliseconds: 50)).then((_) =>
-        _scrollController.position.maxScrollExtent <= window.physicalSize.height
-            ? _showAppBar = false
-            : _showAppBar = true);
+    // Future.delayed(const Duration(milliseconds: 50)).then((_) {
+    //   return _scrollController.position.maxScrollExtent <=
+    //               window.physicalSize.height &&
+    //           _showAppBar == false
+    //       ? _showAppBar = true
+    //       : _showAppBar = false;
+    // });
     return NotificationListener<ScrollNotification>(
       onNotification: (notification) {
         if (widget.onEndReached == null || widget.isLastPage == true) {
