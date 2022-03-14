@@ -131,7 +131,7 @@ class TextMessage extends StatelessWidget {
               : enlargeEmojis
                   ? theme.receivedEmojiMessageTextStyle
                   : theme.receivedMessageBodyTextStyle,
-          textWidthBasis: TextWidthBasis.longestLine,
+          textWidthBasis: TextWidthBasis.parent,
         ),
       ],
     );
