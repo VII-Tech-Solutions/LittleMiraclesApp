@@ -101,9 +101,26 @@ class _PolarQuestionWidgetState extends State<PolarQuestionWidget> {
                       // if (this.selectedOptions.contains(optionId) == true) {
                       //   this.selectedOptions.removeWhere((i) => i == optionId);
                       // } else {
-                      this.selectedOptions.clear;
+                      this.selectedOptions.clear();
                       this.selectedOptions.add(optionId);
                       // }
+
+                      var answer = '';
+
+                      for (var i = 0; i < this.selectedOptions.length; i++) {
+                        if (i + 1 == this.selectedOptions.length) {
+                          answer += '${this.selectedOptions[i]}';
+                        } else {
+                          answer += '${this.selectedOptions[i]}, ';
+                        }
+                      }
+
+                      if (widget.question?.id != null) {
+                        return widget.onTapCallback({
+                          'question_id': widget.question?.id,
+                          'answer': answer,
+                        });
+                      }
                     });
                   },
                 ),
