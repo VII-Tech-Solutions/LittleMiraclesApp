@@ -164,7 +164,6 @@ class _RateSessionContainerState extends State<RateSessionContainer> {
                       title: "Yaaay",
                     );
                     _textController.clear();
-                    _userRating.text = '4';
                   } else {
                     ShowOkDialog(
                       context,
