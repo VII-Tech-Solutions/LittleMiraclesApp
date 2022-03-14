@@ -203,7 +203,7 @@ class _RoomsPageState extends State<RoomsPage> {
                                   builder: (context, snapshot) {
                                     try {
                                       return Text(
-                                        snapshot.data![index].toJson()['text'],
+                                        snapshot.data![0].toJson()['text'],
                                         style: TextStyle(
                                             fontSize: 12,
                                             fontFamily: GoogleFonts.manrope()
