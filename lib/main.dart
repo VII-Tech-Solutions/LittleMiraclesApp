@@ -27,6 +27,7 @@ import './providers/bookings.dart';
 import './providers/studio.dart';
 import 'firebase_options.dart';
 import 'store/AppStore.dart';
+import 'package:LMP0001_LittleMiraclesApp/global/globalHelpers.dart' as global;
 
 AppStore appStore = AppStore();
 
@@ -52,14 +53,14 @@ NotificationSettings? _iosSettings;
 late final AndroidNotificationChannel channel;
 Future<void> _initFCM() async {
   // Get the token each time the application loads
-  String? token = await FirebaseMessaging.instance.getToken();
+  // String? token = await FirebaseMessaging.instance.getToken();
 
-  // Save the initial token to the database
-  await saveTokenToDatabase(token!);
+  // // Save the initial token to the database
+  // await saveTokenToDatabase(token!);
 
-  // Any time the token refreshes, store this in the database too.
-  FirebaseMessaging.instance.onTokenRefresh.listen(saveTokenToDatabase);
-  print(token);
+  // // Any time the token refreshes, store this in the database too.
+  // FirebaseMessaging.instance.onTokenRefresh.listen(saveTokenToDatabase);
+  // print(token);
   _iosSettings = await messaging.requestPermission(
     alert: true,
     announcement: false,
@@ -108,59 +109,16 @@ void main() async {
       .resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
-  FirebaseAuth.instance.authStateChanges().listen((User? user) {
-    if (user != null) {
-      // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      //   RemoteNotification? notification = message.notification;
-      //   AndroidNotification? android = message.notification?.android;
-      //   // If `onMessage` is triggered with a notification, construct our own
-      //   // local notification to show to users using the created channel.
-      //   if (notification != null && android != null) {
-      //     flutterLocalNotificationsPlugin.show(
-      //       notification.hashCode,
-      //       notification.title,
-      //       notification.body,
-      //       NotificationDetails(
-      //         android: AndroidNotificationDetails(
-      //           channel.id,
-      //           channel.name,
-      //           channelDescription: channel.description,
-      //           icon: android.smallIcon,
-      //           playSound: true,
-      //           enableVibration: true,
-      //           color: AppColors.blue8DC4CB,
-      //           importance: Importance.max,
-      //           priority: Priority.max,
-      //         ),
-      //         iOS: IOSNotificationDetails(
-      //           presentSound: true,
-      //           presentAlert: true,
-      //           presentBadge: true,
-      //         ),
-      //       ),
-      //     );
-      //   }
-      //   print('Got a message whilst in the foreground!');
-      //   print('Message data: ${message.data}');
-
-      //   if (message.notification != null) {
-      //     print(
-      //         'Message also contained a notification: ${message.notification}');
-      //   }
-      // });
-      _initFCM();
-      FirebaseMessaging.onBackgroundMessage(
-          _firebaseMessagingBackgroundHandler);
-    } else {
-      print('User is currently signed out!');
-    }
-  });
+  _initFCM();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     RemoteNotification? notification = message.notification;
     AndroidNotification? android = message.notification?.android;
     // If `onMessage` is triggered with a notification, construct our own
     // local notification to show to users using the created channel.
-    if (notification != null && android != null) {
+    if (notification != null &&
+        android != null &&
+        global.roomId != message.data['room_id']) {
       flutterLocalNotificationsPlugin.show(
         notification.hashCode,
         notification.title,

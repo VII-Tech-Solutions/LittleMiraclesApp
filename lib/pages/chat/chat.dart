@@ -34,6 +34,7 @@ import '../../global/globalEnvironment.dart';
 import '../../global/globalHelpers.dart';
 import '../../providers/auth.dart';
 import '../../widgets/buttons/iconButtonWidget.dart';
+import 'package:LMP0001_LittleMiraclesApp/global/globalHelpers.dart' as global;
 
 class ChatPage extends StatefulWidget {
   const ChatPage({
@@ -205,7 +206,7 @@ class _ChatPageState extends State<ChatPage> {
       widget.room.id,
     );
     FirebaseChatCore.instance.updateRoom(widget.room);
-    Future.delayed(Duration(milliseconds: 100)).then((_) => context
+    Future.delayed(Duration(milliseconds: 500)).then((_) => context
         .read<ChatData>()
         .updateStatus(widget.room.id, DateTime.now().millisecondsSinceEpoch));
     final url = Uri.parse('$apiLink/chat');
@@ -273,10 +274,20 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   void initState() {
-    Future.delayed(Duration(milliseconds: 700)).then((_) => context
+    global.roomId = widget.room.id;
+    Future.delayed(Duration(milliseconds: 500)).then((_) => context
         .read<ChatData>()
         .updateStatus(widget.room.id, DateTime.now().millisecondsSinceEpoch));
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    global.roomId = null;
+    context
+        .read<ChatData>()
+        .updateStatus(widget.room.id, DateTime.now().millisecondsSinceEpoch);
+    super.dispose();
   }
 
   @override
