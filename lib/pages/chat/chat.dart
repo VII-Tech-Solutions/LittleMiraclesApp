@@ -281,9 +281,9 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   void didChangeDependencies() {
-    context
+    Future.delayed(Duration(milliseconds: 500)).then((_) => context
         .read<ChatData>()
-        .updateStatus(widget.room.id, DateTime.now().millisecondsSinceEpoch);
+        .updateStatus(widget.room.id, DateTime.now().millisecondsSinceEpoch));
     super.didChangeDependencies();
   }
 

@@ -42,7 +42,7 @@ class ChatData with ChangeNotifier {
   }
 
   bool showBadge(int? timestamp, String id) {
-    if (timestamp != null && _lastSeen[id] != null) if (timestamp >=
+    if (timestamp != null && _lastSeen[id] != null) if (timestamp >
         _lastSeen[id]!) return true;
     return false;
   }
