@@ -210,7 +210,22 @@ class _ChatPageState extends State<ChatPage> {
         .updateStatus(widget.room.id, DateTime.now().millisecondsSinceEpoch));
     final url = Uri.parse('$apiLink/chat');
     final auth = context.read<Auth>();
-
+    final otherUserDoc = await FirebaseFirestore.instance
+        .collection('rooms')
+        .doc(widget.room.id)
+        .get();
+    final arrayOfIds = otherUserDoc.data()!['userIds'];
+    String receiverId;
+    if (arrayOfIds[0] == FirebaseAuth.instance.currentUser!.uid)
+      receiverId = arrayOfIds[1];
+    else
+      receiverId = arrayOfIds[0];
+    final otherUserData = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(receiverId)
+        .get();
+    final recieverFamilyId = otherUserData.data()!['metadata']['family_id'];
+    final recieverUserId = otherUserData.data()!['metadata']['user_id'];
     try {
       final response = await http.post(
         url,
@@ -224,9 +239,9 @@ class _ChatPageState extends State<ChatPage> {
           'title':
               'Message from ${auth.user!.firstName} ${auth.user?.lastName}',
           'message': '${message.text}',
-          'topic': 'user_${auth.user!.id}', //TODO:: receiver user id
+          'topic': 'user_${recieverUserId}',
           'room_id': widget.room.id,
-          'family_id': '${auth.user!.familyId}' //TODO:: receiver family id
+          'family_id': '${recieverFamilyId}'
         },
       ).timeout(Duration(seconds: Timeout.value));
 
