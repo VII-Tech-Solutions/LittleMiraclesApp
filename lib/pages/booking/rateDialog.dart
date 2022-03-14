@@ -40,7 +40,7 @@ class RateDialog extends StatelessWidget {
             top: 10,
           ),
           padding: const EdgeInsets.all(30),
-          height: MediaQuery.of(context).size.height * (365 / 812),
+          height: MediaQuery.of(context).size.height * (395 / 812),
           width: MediaQuery.of(context).size.width * (343 / 375),
           decoration: BoxDecoration(
             color: AppColors.whiteFFFFFF,
