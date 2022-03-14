@@ -49,7 +49,7 @@ class TextQuestionWidget extends StatelessWidget {
             },
             style: TextStyle(fontSize: 12),
             keyboardType: TextInputType.text,
-            maxLines: 3,
+            maxLines: question!.question == 'Name' ? 1 : 3,
             textInputAction: TextInputAction.done,
             validator: (value) {
               if (value == null || value.isEmpty) {
