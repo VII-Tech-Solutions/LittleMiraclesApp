@@ -197,7 +197,9 @@ class _RoomsPageState extends State<RoomsPage> {
                                     fontWeight: FontWeight.bold,
                                     color: AppColors.black45515D),
                               ),
-                              Align(
+                              Container(
+                                width: MediaQuery.of(context).size.width *
+                                    (200 / 375),
                                 alignment: Alignment.bottomLeft,
                                 child: StreamBuilder<List<types.Message>>(
                                   initialData: const [],
@@ -207,6 +209,7 @@ class _RoomsPageState extends State<RoomsPage> {
                                     try {
                                       return Text(
                                         snapshot.data![0].toJson()['text'],
+                                        overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             fontSize: 12,
                                             fontFamily: GoogleFonts.manrope()
