@@ -36,16 +36,16 @@ class RateDialog extends StatelessWidget {
         IconButtonWidget(
             onPress: (() {
               context.read<Bookings>().hideAppRate();
-
               Navigator.pop(context);
             }),
             icon: Icons.close),
         Container(
-          margin: const EdgeInsets.only(
-            top: 10,
-            bottom: 30,
+          margin: EdgeInsets.only(
+            top: MediaQuery.of(context).size.height * (10 / 812),
+            bottom: MediaQuery.of(context).size.height * (30 / 812),
           ),
-          padding: const EdgeInsets.all(30),
+          padding:
+              EdgeInsets.all(MediaQuery.of(context).size.height * (30 / 812)),
           height: MediaQuery.of(context).size.height * (365 / 812),
           width: MediaQuery.of(context).size.width * (343 / 375),
           decoration: BoxDecoration(
@@ -53,72 +53,81 @@ class RateDialog extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      text: "Rate the Little Miracles by Sherin App ",
-                      style: TextStyle(
-                        fontFamily: GoogleFonts.manrope().fontFamily,
-                        fontSize: 24,
-                        fontWeight: FontWeight.w800,
-                        color: AppColors.black45515D,
-                      ),
+              Column(
+                children: [
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: "Rate the Little Miracles by Sherin App ",
+                          style: TextStyle(
+                            fontFamily: GoogleFonts.manrope().fontFamily,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w800,
+                            color: AppColors.black45515D,
+                          ),
+                        ),
+                        WidgetSpan(
+                          child: Image(
+                            image: AssetImage('assets/images/applogo.png'),
+                            height:
+                                MediaQuery.of(context).size.height * (30 / 812),
+                            width:
+                                MediaQuery.of(context).size.width * (30 / 375),
+                          ),
+                        ),
+                      ],
                     ),
-                    WidgetSpan(
-                      child: Image(
-                        image: AssetImage('assets/images/applogo.png'),
-                        height: MediaQuery.of(context).size.height * (30 / 812),
-                        width: MediaQuery.of(context).size.width * (30 / 375),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * (30 / 812),
-                  bottom: MediaQuery.of(context).size.height * (60 / 812),
-                ),
-                child: Text(
-                  "Your feedback helps us improve your experience. Are you enjoying the Little Miracles by Sherin App?",
-                  style: TextStyle(
-                    fontFamily: GoogleFonts.manrope().fontFamily,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.black45515D,
                   ),
-                ),
+                  SizedBox(
+                      height: MediaQuery.of(context).size.height * (30 / 812)),
+                  Text(
+                    "Your feedback helps us improve your experience. Are you enjoying the Little Miracles by Sherin App?",
+                    style: TextStyle(
+                      fontFamily: GoogleFonts.manrope().fontFamily,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.black45515D,
+                    ),
+                  ),
+                ],
               ),
-              FilledButtonWidget(
-                onPress: () async {
-                  if (await inAppReview.isAvailable() &&
-                      sessionLength >= 1 &&
-                      context.read<Bookings>().showAppRateDiag == true) {
-                    inAppReview.requestReview();
-                    Navigator.pop(context);
-                    context.read<Bookings>().hideAppRate();
-                  }
-                },
-                type: ButtonType.generalBlue,
-                title: 'Love It! ♥️',
+              Column(
+                children: [
+                  FilledButtonWidget(
+                    height: MediaQuery.of(context).size.height * (42 / 812),
+                    onPress: () async {
+                      if (await inAppReview.isAvailable() &&
+                          sessionLength >= 1 &&
+                          context.read<Bookings>().showAppRateDiag == true) {
+                        inAppReview.requestReview();
+                        Navigator.pop(context);
+                        context.read<Bookings>().hideAppRate();
+                      }
+                    },
+                    type: ButtonType.generalBlue,
+                    title: 'Love It! ♥️',
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 10,
+                    ),
+                    child: FilledButtonWidget(
+                      height: MediaQuery.of(context).size.height * (42 / 812),
+                      onPress: () {
+                        inAppReview.openStoreListing(
+                            appStoreId: '...'); //TODO:: Chnage AppID
+                        context.read<Bookings>().hideAppRate();
+                        Navigator.pop(context);
+                      },
+                      type: ButtonType.generalGrey,
+                      title: 'No, Share feedback',
+                    ),
+                  ),
+                ],
               ),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * (10 / 812),
-                ),
-                child: FilledButtonWidget(
-                  onPress: () {
-                    inAppReview.openStoreListing(
-                        appStoreId: '...'); //TODO:: Chnage AppID
-                    Navigator.pop(context);
-                    context.read<Bookings>().hideAppRate();
-                  },
-                  type: ButtonType.generalGrey,
-                  title: 'No, Share feedback',
-                ),
-              )
             ],
           ),
         ),
