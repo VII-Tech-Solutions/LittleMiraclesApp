@@ -63,8 +63,9 @@ class ShowLoadingDialog {
         onTimeout: () {
           if (withTimeout == true) {
             Navigator.pop(context);
-            if (showError == true)
+            if (showError == true) {
               ShowOkDialog(context, ErrorMessages.somethingWrong);
+            }
           }
         },
       );

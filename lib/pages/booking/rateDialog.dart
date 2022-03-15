@@ -34,13 +34,19 @@ class RateDialog extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         IconButtonWidget(
-            onPress: (() => Navigator.pop(context)), icon: Icons.close),
+            onPress: (() {
+              context.read<Bookings>().hideAppRate();
+
+              Navigator.pop(context);
+            }),
+            icon: Icons.close),
         Container(
           margin: const EdgeInsets.only(
             top: 10,
+            bottom: 30,
           ),
           padding: const EdgeInsets.all(30),
-          height: MediaQuery.of(context).size.height * (395 / 812),
+          height: MediaQuery.of(context).size.height * (365 / 812),
           width: MediaQuery.of(context).size.width * (343 / 375),
           decoration: BoxDecoration(
             color: AppColors.whiteFFFFFF,
@@ -63,7 +69,7 @@ class RateDialog extends StatelessWidget {
                     WidgetSpan(
                       child: Image(
                         image: AssetImage('assets/images/applogo.png'),
-                        height: MediaQuery.of(context).size.height * (32 / 812),
+                        height: MediaQuery.of(context).size.height * (30 / 812),
                         width: MediaQuery.of(context).size.width * (30 / 375),
                       ),
                     ),
@@ -92,6 +98,7 @@ class RateDialog extends StatelessWidget {
                       context.read<Bookings>().showAppRateDiag == true) {
                     inAppReview.requestReview();
                     Navigator.pop(context);
+                    context.read<Bookings>().hideAppRate();
                   }
                 },
                 type: ButtonType.generalBlue,
@@ -106,6 +113,7 @@ class RateDialog extends StatelessWidget {
                     inAppReview.openStoreListing(
                         appStoreId: '...'); //TODO:: Chnage AppID
                     Navigator.pop(context);
+                    context.read<Bookings>().hideAppRate();
                   },
                   type: ButtonType.generalGrey,
                   title: 'No, Share feedback',

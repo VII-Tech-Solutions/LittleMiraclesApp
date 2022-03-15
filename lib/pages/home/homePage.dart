@@ -33,7 +33,6 @@ class _HomePageState extends State<HomePage> {
     ).then(
       (value) {
         if (context.read<Bookings>().showAppRateDiag == true) {
-          print('object');
           showDialog(
             barrierDismissible: true,
             context: context,
@@ -53,11 +52,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final isAuth = context.read<Auth>().isAuth;
-    final helloSection = context.read<AppData>().helloSection;
-    final size = MediaQuery.of(context).size;
-    final statusBarHeight = MediaQuery.of(context).padding.top;
-    final statusBarHeights = MediaQueryData.fromWindow(ui.window).padding.top;
+    // final isAuth = context.read<Auth>().isAuth;
+    // final helloSection = context.read<AppData>().helloSection;
+    // final size = MediaQuery.of(context).size;
+    // final statusBarHeight = MediaQuery.of(context).padding.top;
+    // final statusBarHeights = MediaQueryData.fromWindow(ui.window).padding.top;
     final _list = context.watch<AppData>().sessionsAndHomeList;
     return CustomScrollView(
       slivers: <Widget>[

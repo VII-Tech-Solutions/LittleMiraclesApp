@@ -188,6 +188,12 @@ class Bookings with ChangeNotifier {
     }
   }
 
+  void hideAppRate() {
+    if (_appRate == true) {
+      _appRate = false;
+    }
+  }
+
   void resetBookingsData() {
     // single session
     _bookingBody = {};

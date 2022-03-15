@@ -110,42 +110,53 @@ class LoginPage extends StatelessWidget {
       Auth authProvider, AppData appDataProvider) async {
     ApiResponse? result;
 
-    ShowLoadingDialog(context, withTimeout: true, showError: true);
+    ShowLoadingDialog(context);
 
     switch (socialType) {
       case SSOType.google:
         {
           result = await authProvider.signInWithGoogle();
+          // ShowLoadingDialog(context, dismiss: true);
         }
         break;
       case SSOType.facebook:
         {
           result = await authProvider.signInWithFacebook();
+          // ShowLoadingDialog(context, dismiss: true);
         }
         break;
       case SSOType.snapchat:
         {
-          result = await authProvider.signInWithSnapchat();
-          print(result);
+          result = await authProvider.signInWithSnapchat().timeout(
+            Duration(seconds: Timeout.value),
+            onTimeout: () {
+              return null;
+            },
+          );
+          //
         }
         break;
       case SSOType.apple:
         {
           // result = await authProvider.signInWithApple();
+          // ShowLoadingDialog(context, dismiss: true);
         }
         break;
     }
 
     if (result != null) {
-      final user = authProvider.user;
-
       if (authProvider.token.isNotEmpty) {
         final token = authProvider.token;
         await appDataProvider.fetchAndSetSessions(token: token).then((_) {
           appDataProvider.fetchAndSetAppData().then((_) {
-            authProvider.getToken(withNotify: true);
+            authProvider.getToken(withNotify: false);
             ShowLoadingDialog(context, dismiss: true);
-            if (user?.status == 1) {
+            if (authProvider.user?.status == 1) {
+              authProvider.getToken(withNotify: true);
+              FirebaseMessaging.instance
+                  .subscribeToTopic('user_${context.read<Auth>().user!.id}');
+              FirebaseMessaging.instance.subscribeToTopic(
+                  'family_${context.read<Auth>().user!.familyId}');
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(

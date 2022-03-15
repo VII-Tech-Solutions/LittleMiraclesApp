@@ -510,7 +510,7 @@ class AppData with ChangeNotifier {
     } on TimeoutException catch (e) {
       print('Exception Timeout:: $e');
     } catch (e) {
-      print('catch error:: $e');
+      print('catch error1:: $e');
     }
   }
 
@@ -546,7 +546,7 @@ class AppData with ChangeNotifier {
     } on TimeoutException catch (e) {
       print('Exception Timeout:: $e');
     } catch (e) {
-      print('catch error:: $e');
+      print('catch error2:: $e');
     }
   }
 
@@ -585,7 +585,7 @@ class AppData with ChangeNotifier {
     } on TimeoutException catch (e) {
       print('Exception Timeout:: $e');
     } catch (e) {
-      print('catch error:: $e');
+      print('catch error3:: $e');
     }
   }
 
@@ -685,7 +685,7 @@ class AppData with ChangeNotifier {
     } on TimeoutException catch (e) {
       print('Exception Timeout:: $e');
     } catch (e) {
-      print('catch error:: $e');
+      print('catch error4:: $e');
     }
   }
 

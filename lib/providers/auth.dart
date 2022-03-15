@@ -884,6 +884,7 @@ class Auth with ChangeNotifier {
       return socialLogin(body, SSOType.snapchat, withNotifyListeners: false);
     } on PlatformException catch (exception) {
       print(exception);
+      return null;
     } catch (error) {
       print(error);
       return null;
