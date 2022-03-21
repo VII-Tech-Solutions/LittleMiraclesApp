@@ -35,7 +35,10 @@ class UpcomingSessionDetailsPage extends StatelessWidget {
         margin: const EdgeInsets.fromLTRB(16, 20, 16, 0),
       ),
       SessionStatusStepperContainer(),
-      SessionButtonContainer(),
+      // SessionButtonContainer(),
+      SizedBox(
+        height: 78,
+      )
     ];
     return Scaffold(
       extendBodyBehindAppBar: true,
