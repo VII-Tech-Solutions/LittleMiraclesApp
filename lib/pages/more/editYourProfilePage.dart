@@ -294,6 +294,7 @@ class _EditYourProfilePageState extends State<EditYourProfilePage> {
                                   Expanded(
                                     child: FormTextFieldWidget(
                                       controller: _phoneController,
+                                      maxLines: 1,
                                       title: '0000 0000',
                                       customMargin: const EdgeInsets.only(
                                           left: 10, top: 10),

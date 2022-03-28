@@ -124,6 +124,7 @@ class _FamilyPageState extends State<FamilyPage> {
                         .then((value) =>
                             context.read<AppData>().fetchAndSetAppData())
                         .then((response) {
+                          context.read<Auth>().getToken(withNotify: false);
                           ShowLoadingDialog(context, dismiss: true);
                           context.read<Auth>().getToken(withNotify: true);
                           print('resp:$resp');

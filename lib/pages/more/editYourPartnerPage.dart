@@ -240,6 +240,7 @@ class _EditYourPartnerPageState extends State<EditYourPartnerPage> {
                         Expanded(
                           child: FormTextFieldWidget(
                             controller: _phoneController,
+                            maxLines: 1,
                             title: '0000 0000',
                             customMargin: const EdgeInsets.fromLTRB(
                                 10.0, 10.0, 30.0, 10.0),

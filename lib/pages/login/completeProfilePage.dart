@@ -233,6 +233,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                         ),
                         Expanded(
                           child: FormTextFieldWidget(
+                            maxLines: 1,
                             controller: _phoneController,
                             title: '0000 0000',
                             customMargin: const EdgeInsets.fromLTRB(

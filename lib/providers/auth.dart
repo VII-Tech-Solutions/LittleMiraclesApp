@@ -70,6 +70,7 @@ class Auth with ChangeNotifier {
   }
 
   FamilyMember? getParent() {
+    print(_familyMembers);
     final partner =
         _familyMembers.firstWhereOrNull((element) => element.relationship == 1);
 
@@ -279,7 +280,7 @@ class Auth with ChangeNotifier {
       FamilyMember? partner;
       print('result: $result');
       print("hello: ${result['data']['partner']}");
-      if (result['data']['partner'] == []) {
+      if (result['data']['partner'] != []) {
         partner = FamilyMember.fromJson(result['data']['partner']);
       } else
         partner = FamilyMember(
@@ -707,7 +708,7 @@ class Auth with ChangeNotifier {
       User user = User.fromJson(result['data']['user']);
       if (user.status == 1) {
         final partnerJson = result['data']['partner'];
-        if (partnerJson != null) {
+        if (partnerJson != null && partnerJson != []) {
           FamilyMember partner = FamilyMember.fromJson(partnerJson);
           _familyMembers.add(partner);
         }
