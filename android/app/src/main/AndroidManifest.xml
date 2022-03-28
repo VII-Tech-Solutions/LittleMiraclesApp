@@ -32,7 +32,7 @@
         <meta-data android:name="com.snapchat.kit.sdk.redirectUrl" android:value="lms://snapchat/oauth2" />
         <meta-data android:name="com.snapchat.kit.sdk.scopes" android:resource="@array/snap_connect_scopes" />
         <meta-data android:name="com.google.firebase.messaging.default_notification_channel_id" android:value="high_importance_channel" />
-        <activity android:name="com.snapchat.kit.sdk.SnapKitActivity" android:launchMode="singleTask">
+        <activity android:name="com.snapchat.kit.sdk.SnapKitActivity" android:launchMode="singleTask"  android:exported="true">
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
