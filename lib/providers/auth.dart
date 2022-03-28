@@ -277,10 +277,11 @@ class Auth with ChangeNotifier {
 
       User user = User.fromJson(result['data']['user']);
       FamilyMember? partner;
-      print('$result');
-      if (partner != null)
+      print('result: $result');
+      print("hello: ${result['data']['partner']}");
+      if (result['data']['partner'] == []) {
         partner = FamilyMember.fromJson(result['data']['partner']);
-      else
+      } else
         partner = FamilyMember(
             id: null,
             familyId: null,
@@ -360,8 +361,8 @@ class Auth with ChangeNotifier {
     } on TimeoutException catch (e) {
       print('Exception Timeout:: $e');
       return null;
-    } catch (e) {
-      print('catch error:: $e');
+    } catch (e, stacktrace) {
+      debugPrintStack(stackTrace: stacktrace, label: 'catch error here:: $e');
       return null;
     }
   }

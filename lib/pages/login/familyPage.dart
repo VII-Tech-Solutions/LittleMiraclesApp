@@ -1,6 +1,8 @@
 //PACKAGES
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/models/apiResponse.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -9,6 +11,7 @@ import 'package:provider/provider.dart';
 // Project imports:
 import '../../global/colors.dart';
 import '../../global/const.dart';
+import '../../providers/appData.dart';
 import '../../providers/auth.dart';
 import '../../widgets/appbars/appBarWithLogo.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
@@ -106,28 +109,43 @@ class _FamilyPageState extends State<FamilyPage> {
                     context.read<Auth>().amendRegistrationBody(familyData);
 
                     ShowLoadingDialog(context);
-
-                    context.read<Auth>().register().then((response) {
-                      ShowLoadingDialog(context, dismiss: true);
-                      print('resp:$response');
-                      print(response?.message);
-                      print(response?.statusCode);
-                      if (response?.statusCode == 200) {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => CustomBottomNavigationBar(),
-                          ),
-                          (Route<dynamic> route) => false,
-                        );
-                      } else {
-                        ShowOkDialog(
-                          context,
-                          response?.message ?? ErrorMessages.somethingWrong,
-                          title: "Oops",
-                        );
-                      }
-                    });
+                    ApiResponse? resp;
+                    context
+                        .read<Auth>()
+                        .register()
+                        .then((value) {
+                          FirebaseMessaging.instance.subscribeToTopic(
+                              'user_${context.read<Auth>().user!.id}');
+                          FirebaseMessaging.instance.subscribeToTopic(
+                              'family_${context.read<Auth>().user!.familyId}');
+                          context.read<AppData>().fetchAndSetSessions();
+                          return resp = value;
+                        })
+                        .then((value) =>
+                            context.read<AppData>().fetchAndSetAppData())
+                        .then((response) {
+                          ShowLoadingDialog(context, dismiss: true);
+                          context.read<Auth>().getToken(withNotify: true);
+                          print('resp:$resp');
+                          print(resp?.message);
+                          print(resp?.statusCode);
+                          if (resp?.statusCode == 200) {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    CustomBottomNavigationBar(),
+                              ),
+                              (Route<dynamic> route) => false,
+                            );
+                          } else {
+                            ShowOkDialog(
+                              context,
+                              resp?.message ?? ErrorMessages.somethingWrong,
+                              title: "Oops",
+                            );
+                          }
+                        });
                   } else {
                     ShowOkDialog(
                       context,
