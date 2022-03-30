@@ -5,6 +5,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 // Flutter imports:
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -76,10 +77,30 @@ class _ViewCompletedSessionPhotosState
               child: Container(
                 width: double.infinity,
                 height: MediaQuery.of(context).size.height * 0.44248768,
-                child: CachedImageWidget(
-                  widget.image.url,
-                  ImageShape.square,
-                  borderRadius: BorderRadius.zero,
+                child: CachedNetworkImage(
+                  imageUrl: widget.image.url ?? '',
+                  placeholder: (context, url) => Image.asset(
+                    'assets/images/placeholder_s_blue.png',
+                    fit: BoxFit.contain,
+                    height: double.infinity,
+                    width: double.infinity,
+                  ),
+                  errorWidget: (context, url, error) => Image.asset(
+                    'assets/images/placeholder_s_blue.png',
+                    fit: BoxFit.cover,
+                    height: double.infinity,
+                    width: double.infinity,
+                  ),
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.0),
+                      color: Colors.transparent,
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
