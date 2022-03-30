@@ -30,6 +30,7 @@ class _RoomsPageState extends State<RoomsPage> {
   bool _initialized = false;
   User? _user;
   bool _badge = false;
+  String authorId = '';
 
   @override
   void initState() {
@@ -211,6 +212,8 @@ class _RoomsPageState extends State<RoomsPage> {
                                       .messages(snapshot.data![index]),
                                   builder: (context, snapshot) {
                                     try {
+                                      authorId = snapshot.data![0]
+                                          .toJson()['author']['id'];
                                       return Text(
                                         snapshot.data![0].toJson()['text'],
                                         overflow: TextOverflow.ellipsis,
@@ -232,7 +235,10 @@ class _RoomsPageState extends State<RoomsPage> {
                           ),
                         ],
                       ),
-                      Badge(showBadge: _badge)
+                      Badge(
+                          showBadge: _badge &&
+                              authorId !=
+                                  FirebaseAuth.instance.currentUser?.uid)
                     ],
                   ),
                 ),

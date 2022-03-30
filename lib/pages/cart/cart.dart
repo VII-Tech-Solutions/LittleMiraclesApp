@@ -60,11 +60,11 @@ class _CartState extends State<Cart> {
               child: Column(
                 children: cartItems.map(
                   (e) {
-                    _subtotal = _subtotal + double.parse(e.price.toString());
-                    _vat = _subtotal * 0.05;
-                    _total = _subtotal +
-                        _vat -
+                    _subtotal = _subtotal +
+                        double.parse(e.price.toString()) -
                         double.parse(promoCode?.discountPrice ?? '0.00');
+                    _vat = _subtotal * 0.05;
+                    _total = _subtotal + _vat;
                     return CartItemContainer(
                       description: e.description,
                       image: e.displayImage,
@@ -200,7 +200,7 @@ class _CartState extends State<Cart> {
         ),
       ),
       bottomNavigationBar: StudioPaymentBottomContainer(
-        total: _total,
+        total: double.parse(_total.toStringAsFixed(3)),
         onTapCallback: () {
           if (_selectedPayment == null) {
             ShowOkDialog(context, 'Please select a payment method');
