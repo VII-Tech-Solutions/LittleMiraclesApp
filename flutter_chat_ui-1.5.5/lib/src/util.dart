@@ -135,8 +135,8 @@ List<Object> calculateChatMessages(
           shouldShowName = true;
         }
       }
-
-      if (message.type == types.MessageType.text && shouldShowName) {
+      //&& shouldShowName removed to show anme after every message
+      if (message.type == types.MessageType.text) {
         showName = true;
         shouldShowName = false;
       }

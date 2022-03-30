@@ -319,6 +319,7 @@ class _ChatPageState extends State<ChatPage> {
                 return Chat(
                   timeFormat: DateFormat("h:mm a"),
                   showUserAvatars: true,
+                  showUserNames: true,
                   isAttachmentUploading: _isAttachmentUploading,
                   messages: snapshot.data ?? [],
                   onAttachmentPressed: _handleImageSelection,

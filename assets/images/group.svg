@@ -1,0 +1,8 @@
+<svg width="42" height="42" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" fill-rule="evenodd">
+        <path d="M9 1h24a8 8 0 0 1 8 8v24a8 8 0 0 1-8 8H9a8 8 0 0 1-8-8V9a8 8 0 0 1 8-8z" stroke="#D0D3D6" fill="#E8F3F5" stroke-dasharray="0,0"/>
+        <text font-family="MaterialIconsRound-Regular, Material Icons Round" font-size="24" fill="#8DC4CB" transform="translate(1 1)">
+                    <tspan x="8" y="32">face</tspan>
+                </text>
+    </g>
+</svg>

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:google_fonts/google_fonts.dart';
 
 import '../models/emoji_enlargement_behavior.dart';
 import '../util.dart';
@@ -135,7 +136,7 @@ class Message extends StatelessWidget {
 
     return showAvatar
         ? Container(
-            margin: const EdgeInsets.only(right: 8),
+            margin: const EdgeInsets.only(right: 8, bottom: 15),
             child: GestureDetector(
               onTap: () => onAvatarTap?.call(message.author),
               child: CircleAvatar(
@@ -167,44 +168,67 @@ class Message extends StatelessWidget {
     bool currentUserIsAuthor,
     bool enlargeEmojis,
   ) {
-    return bubbleBuilder != null
-        ? bubbleBuilder!(
-            _messageBuilder(),
-            message: message,
-            nextMessageInGroup: roundBorder,
-          )
-        : enlargeEmojis && hideBackgroundOnEmojiMessages
-            ? _messageBuilder()
-            : Container(
-                decoration: BoxDecoration(
-                  borderRadius: !currentUserIsAuthor
-                      ? const BorderRadius.only(
-                          topLeft: Radius.circular(16),
-                          topRight: Radius.circular(16),
-                          bottomRight: Radius.circular(16),
-                        )
-                      : const BorderRadius.only(
-                          topLeft: Radius.circular(16),
-                          topRight: Radius.circular(16),
-                          bottomLeft: Radius.circular(16),
-                        ),
-                  color: !currentUserIsAuthor ||
-                          message.type == types.MessageType.image
-                      ? Colors.white
-                      : const Color(0xFFe8f3f5),
-                  border: !currentUserIsAuthor &&
-                          message.type != types.MessageType.image
-                      ? Border.all(
-                          color: const Color(0xFFd0d3d6),
-                          width: 1,
-                        )
-                      : null,
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
-                  child: _messageBuilder(),
-                ),
-              );
+    final theme = InheritedChatTheme.of(context).theme;
+    final color =
+        getUserAvatarNameColor(message.author, theme.userAvatarNameColors);
+    final name = getUserName(message.author);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        bubbleBuilder != null
+            ? bubbleBuilder!(
+                _messageBuilder(),
+                message: message,
+                nextMessageInGroup: roundBorder,
+              )
+            : enlargeEmojis && hideBackgroundOnEmojiMessages
+                ? _messageBuilder()
+                : Container(
+                    decoration: BoxDecoration(
+                      borderRadius: !currentUserIsAuthor
+                          ? const BorderRadius.only(
+                              topLeft: Radius.circular(16),
+                              topRight: Radius.circular(16),
+                              bottomRight: Radius.circular(16),
+                            )
+                          : const BorderRadius.only(
+                              topLeft: Radius.circular(16),
+                              topRight: Radius.circular(16),
+                              bottomLeft: Radius.circular(16),
+                            ),
+                      color: !currentUserIsAuthor ||
+                              message.type == types.MessageType.image
+                          ? Colors.white
+                          : const Color(0xFFe8f3f5),
+                      border: !currentUserIsAuthor &&
+                              message.type != types.MessageType.image
+                          ? Border.all(
+                              color: const Color(0xFFd0d3d6),
+                              width: 1,
+                            )
+                          : null,
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: _messageBuilder(),
+                    ),
+                  ),
+        if (showName)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 15.5, top: 8),
+            child: Text(
+              name,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: GoogleFonts.roboto().fontFamily,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w500),
+            ),
+          ),
+      ],
+    );
   }
 
   Widget _messageBuilder() {

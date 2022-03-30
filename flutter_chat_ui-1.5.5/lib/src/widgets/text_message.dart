@@ -107,16 +107,6 @@ class TextMessage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (showName)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 6),
-            child: Text(
-              name,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: theme.userNameTextStyle.copyWith(color: color),
-            ),
-          ),
         SelectableText(
           message.text,
           style: user.id == message.author.id
@@ -154,7 +144,6 @@ class TextMessage extends StatelessWidget {
         return _linkPreview(_user, _width, context);
       }
     }
-
     return Container(
       margin: EdgeInsets.symmetric(
         horizontal: _enlargeEmojis && hideBackgroundOnEmojiMessages
