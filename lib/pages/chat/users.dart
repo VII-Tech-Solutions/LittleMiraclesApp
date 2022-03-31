@@ -9,6 +9,7 @@ import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 
 // Project imports:
 import '../../Global/colors.dart';
+import '../../widgets/dialogs/showLoadingDialog.dart';
 import 'chat.dart';
 import 'util.dart';
 
@@ -16,16 +17,19 @@ class UsersPage extends StatelessWidget {
   const UsersPage({Key? key}) : super(key: key);
 
   void _handlePressed(types.User otherUser, BuildContext context) async {
+    ShowLoadingDialog(context);
     final room = await FirebaseChatCore.instance.createRoom(otherUser);
 
     Navigator.of(context).pop();
-    await Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => ChatPage(
-          room: room,
-        ),
-      ),
-    );
+    await Navigator.of(context)
+        .push(
+          MaterialPageRoute(
+            builder: (context) => ChatPage(
+              room: room,
+            ),
+          ),
+        )
+        .then((value) => ShowLoadingDialog(context, dismiss: true));
   }
 
   Widget _buildAvatar(types.User user) {
