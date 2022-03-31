@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:LMP0001_LittleMiraclesApp/widgets/appbars/appBarWithBack.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -36,21 +37,68 @@ class UsersPage extends StatelessWidget {
     final color = getUserAvatarNameColor(user);
     final hasImage = user.imageUrl != null;
     final name = getUserName(user);
-
-    return Container(
+    return AnimatedContainer(
       margin: const EdgeInsets.only(right: 16),
-      child: CircleAvatar(
-        backgroundColor: hasImage ? Colors.transparent : color,
-        backgroundImage: hasImage ? NetworkImage(user.imageUrl!) : null,
-        radius: 20,
-        child: !hasImage
-            ? Text(
-                name.isEmpty ? '' : name[0].toUpperCase(),
-                style: const TextStyle(color: Colors.white),
-              )
-            : null,
+      duration: Duration(milliseconds: 300),
+      height: 40,
+      width: 40,
+      decoration: BoxDecoration(
+        // your own shape
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: AppColors.greyD0D3D6),
+        shape: BoxShape.rectangle,
+      ),
+      child: CachedNetworkImage(
+        imageUrl: user.imageUrl ?? '',
+        imageBuilder: (context, imageProvider) => Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(7),
+            image: DecorationImage(
+              image: imageProvider,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        // fit: BoxFit.cover,
+        errorWidget: (context, url, _) {
+          return Image.asset(
+            'assets/images/chatPlaceHolder.png',
+            fit: BoxFit.cover,
+            height: 40,
+            width: 40,
+          );
+        },
       ),
     );
+
+    // return Container(
+    //   margin: const EdgeInsets.only(right: 16),
+    //   child: CircleAvatar(
+    //     backgroundColor: hasImage ? Colors.transparent : color,
+    //     backgroundImage: hasImage ? NetworkImage(room.imageUrl!) : null,
+    //     radius: 30,
+    //     child: !hasImage
+    //         ? Text(
+    //             name.isEmpty ? '' : name[0].toUpperCase(),
+    //             style: const TextStyle(color: Colors.white),
+    //           )
+    //         : null,
+    //   ),
+    // );
+    // return Container(
+    //   margin: const EdgeInsets.only(right: 16),
+    //   child: CircleAvatar(
+    //     backgroundColor: hasImage ? Colors.transparent : color,
+    //     backgroundImage: hasImage ? NetworkImage(user.imageUrl!) : null,
+    //     radius: 20,
+    //     child: !hasImage
+    //         ? Text(
+    //             name.isEmpty ? '' : name[0].toUpperCase(),
+    //             style: const TextStyle(color: Colors.white),
+    //           )
+    //         : null,
+    //   ),
+    // );
   }
 
   @override
@@ -87,15 +135,17 @@ class UsersPage extends StatelessWidget {
           //   snapshot.data![0] = snapshot.data![index];
           //   snapshot.data![index] = tempUser;
           // }
-          return ListView.builder(
+          return ListView.separated(
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
               final user = snapshot.data![index];
-              return GestureDetector(
+              return InkWell(
                 onTap: () {
                   _handlePressed(user, context);
                 },
                 child: Container(
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.height * 0.0887,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
                     vertical: 8,
@@ -107,6 +157,13 @@ class UsersPage extends StatelessWidget {
                     ],
                   ),
                 ),
+              );
+            },
+            separatorBuilder: (context, index) {
+              return Divider(
+                indent: 16,
+                endIndent: 16,
+                thickness: 1,
               );
             },
           );
