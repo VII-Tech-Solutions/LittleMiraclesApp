@@ -99,6 +99,8 @@ class LoginSliverAppBar extends StatelessWidget {
                                 ),
                               ).then((_) =>
                                   ShowLoadingDialog(context, dismiss: true));
+
+                              //**Support only chat setup */
                               // if (await FirebaseAuth
                               //         .instance.currentUser?.uid ==
                               //     'o61U7RotNGb8ICAtjz3mShxsD802') {
