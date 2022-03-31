@@ -61,6 +61,7 @@ class _CoverTypePageState extends State<CoverTypePage> {
           list[index].title,
           _selectedItem == list[index],
           1,
+          id: index,
         ),
       ),
       bottomNavigationBar: StudioBottomSectionContainer(

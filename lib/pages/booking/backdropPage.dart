@@ -130,6 +130,7 @@ class _BackdropPageState extends State<BackdropPage> {
                             item.title,
                             _selectedItems.contains(item.id),
                             allowedSelection,
+                            id: index,
                           ),
                         )
                         .toList(),

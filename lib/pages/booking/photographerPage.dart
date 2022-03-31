@@ -65,6 +65,7 @@ class _PhotographerPageState extends State<PhotographerPage> {
             photographers[index].name,
             _selectedItems.contains(photographers[index].id),
             1,
+            id: index,
           );
         },
       ),
