@@ -110,6 +110,7 @@ class _CakePageState extends State<CakePage> {
             'No Cake',
             _isClearSelected,
             allowedSelection,
+            id: 0,
           ),
           ListView.builder(
             primary: false,
@@ -153,6 +154,7 @@ class _CakePageState extends State<CakePage> {
                             item.title,
                             _selectedItems.contains(item.id),
                             allowedSelection,
+                            id: index,
                           ),
                         )
                         .toList(),

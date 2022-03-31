@@ -85,6 +85,7 @@ class _AdditionsPageState extends State<AdditionsPage> {
                 'Album',
                 _selectedItems.contains(index),
                 1,
+                id: index,
               );
             },
           ),
