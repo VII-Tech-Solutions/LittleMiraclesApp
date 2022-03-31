@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/widgets/appbars/appBarWithBack.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -51,33 +52,8 @@ class UsersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 16.0),
-          child: MaterialButton(
-            elevation: 0,
-            onPressed: () {
-              Navigator.maybePop(context);
-            },
-            color: AppColors.greyF2F3F3,
-            child: Icon(
-              Icons.arrow_back,
-              color: AppColors.black45515D,
-              size: 24,
-            ),
-            padding: EdgeInsets.all(8.0),
-            shape: CircleBorder(),
-          ),
-        ),
-        title: const Text(
-          'Users',
-          style: TextStyle(
-            color: AppColors.black45515D,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+      appBar: AppBarWithBack(
+        title: 'Users',
       ),
       body: StreamBuilder<List<types.User>>(
         stream: FirebaseChatCore.instance.users(),
@@ -92,12 +68,25 @@ class UsersPage extends StatelessWidget {
               child: const Text('No users'),
             );
           }
-
+          // int index = 0;
+          snapshot.data!.sort((a, b) => b.id.compareTo(a.id));
+          // snapshot.data!.forEach((e) {
+          //   if (e.id == 'o61U7RotNGb8ICAtjz3mShxsD802') {
+          //     final tempUser = snapshot.data![0];
+          //     snapshot.data![0] = snapshot.data![index];
+          //     snapshot.data![index] = tempUser;
+          //   }
+          //   index++;
+          // });
+          // if (user.id == 'o61U7RotNGb8ICAtjz3mShxsD802') {
+          //   final tempUser = snapshot.data![0];
+          //   snapshot.data![0] = snapshot.data![index];
+          //   snapshot.data![index] = tempUser;
+          // }
           return ListView.builder(
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
               final user = snapshot.data![index];
-
               return GestureDetector(
                 onTap: () {
                   _handlePressed(user, context);

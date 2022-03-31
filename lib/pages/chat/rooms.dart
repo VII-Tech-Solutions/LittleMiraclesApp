@@ -1,7 +1,9 @@
 // Flutter imports:
 import 'package:LMP0001_LittleMiraclesApp/global/colors.dart';
+import 'package:LMP0001_LittleMiraclesApp/pages/chat/users.dart';
 import 'package:LMP0001_LittleMiraclesApp/providers/chatProvider.dart';
 import 'package:LMP0001_LittleMiraclesApp/widgets/appbars/appBarWithBack.dart';
+import 'package:LMP0001_LittleMiraclesApp/widgets/appbars/appBarWithBackAndActions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -144,9 +146,37 @@ class _RoomsPageState extends State<RoomsPage> {
       return Container();
     }
     return Scaffold(
-      appBar: AppBarWithBack(
+      appBar: AppBarWithBackAndActions(
         title: "Chat",
         weight: FontWeight.bold,
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 16.0),
+            child: Container(
+              height: 40,
+              width: 40,
+              child: MaterialButton(
+                elevation: 0,
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      fullscreenDialog: true,
+                      builder: (context) => const UsersPage(),
+                    ),
+                  );
+                },
+                color: AppColors.greyF2F3F3,
+                child: Icon(
+                  Icons.add,
+                  color: AppColors.black45515D,
+                  size: 24,
+                ),
+                padding: EdgeInsets.all(8.0),
+                shape: CircleBorder(),
+              ),
+            ),
+          ),
+        ],
       ),
       body: StreamBuilder<List<types.Room>>(
         stream: FirebaseChatCore.instance.rooms(orderByUpdatedAt: true),
