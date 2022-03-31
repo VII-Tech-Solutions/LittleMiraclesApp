@@ -95,7 +95,7 @@ class _RoomsPageState extends State<RoomsPage> {
         shape: BoxShape.rectangle,
       ),
       child: CachedNetworkImage(
-        imageUrl: room.imageUrl!,
+        imageUrl: room.imageUrl ?? '',
         imageBuilder: (context, imageProvider) => Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(7),

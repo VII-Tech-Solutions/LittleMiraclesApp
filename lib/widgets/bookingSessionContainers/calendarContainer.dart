@@ -37,7 +37,6 @@ class _CalendarContainerState extends State<CalendarContainer> {
     _availableDate = provider.availableDates;
     final firstDate = provider.availableDates.first.date;
     final preSelectedDate = widget.preSelectedDate;
-
     if (firstDate != null) {
       firstDay = DateTime.parse(firstDate);
 
@@ -92,7 +91,7 @@ class _CalendarContainerState extends State<CalendarContainer> {
           child: TableCalendar(
             firstDay: firstDay,
             focusedDay: selectedDay,
-            lastDay: DateTime.utc(2030, 12, 31),
+            lastDay: DateTime.now().add(Duration(days: 365)),
             availableGestures: AvailableGestures.horizontalSwipe,
             rowHeight: 45,
             headerStyle: HeaderStyle(
