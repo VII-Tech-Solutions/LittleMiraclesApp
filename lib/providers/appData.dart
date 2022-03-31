@@ -184,8 +184,9 @@ class AppData with ChangeNotifier {
     List<Session> _inProgressList =
         _sessions.where((element) => element.status != 5).toList();
 
-    _inProgressList
-        .sort((a, b) => a.date!.dateToInt()!.compareTo(b.date!.dateToInt()!));
+    _inProgressList.sort((a, b) => b.date!
+        .dateToInt()!
+        .compareTo(a.date!.dateToInt()!)); // sort in descending order
 
     List<Session> _completedList =
         _sessions.where((element) => element.status == 5).toList();
@@ -499,7 +500,6 @@ class AppData with ChangeNotifier {
           customPadding:
               const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         ));
-
         this.sessions.forEach((element) {
           _sessionWidgetsList.add(HomeSessionContainer(element));
         });
