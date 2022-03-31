@@ -56,8 +56,12 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
           child: Column(
             children: [
               AvailableLocationContainer(),
-              CalendarContainer(),
-              AvailableTimeContainer(),
+              Visibility(
+                  visible: context.read<Bookings>().availableDates.isNotEmpty,
+                  child: CalendarContainer()),
+              Visibility(
+                  visible: context.read<Bookings>().availableTimings.isNotEmpty,
+                  child: AvailableTimeContainer()),
               Visibility(
                 visible: context.read<Auth>().isAuth == true,
                 child: JoiningPeopleContainer(),
