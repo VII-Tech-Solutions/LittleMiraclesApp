@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import '../models/emoji_enlargement_behavior.dart';
 import '../util.dart';
 import 'file_message.dart';
@@ -134,12 +134,35 @@ class Message extends StatelessWidget {
     final hasImage = message.author.imageUrl != null;
     final initials = getUserInitials(message.author);
 
-    return showAvatar
-        ? Container(
-            margin: const EdgeInsets.only(right: 8, bottom: 15),
-            child: GestureDetector(
-              onTap: () => onAvatarTap?.call(message.author),
-              child: CircleAvatar(
+    // return showAvatar
+    //     ?
+    return Container(
+      margin: const EdgeInsets.only(right: 8, bottom: 15),
+      child: GestureDetector(
+        onTap: () => onAvatarTap?.call(message.author),
+        child:
+            // CachedNetworkImage(
+            //   imageUrl: message.author.imageUrl ?? '',
+            //   imageBuilder: (context, imageProvider) => Container(
+            //     decoration: BoxDecoration(
+            //       borderRadius: BorderRadius.circular(7),
+            //       image: DecorationImage(
+            //         image: imageProvider,
+            //         fit: BoxFit.cover,
+            //       ),
+            //     ),
+            //   ),
+            //   // fit: BoxFit.cover,
+            //   errorWidget: (context, url, _) {
+            //     return Image.asset(
+            //       'assets/images/chatPlaceHolder.png',
+            //       fit: BoxFit.cover,
+            //       height: 32,
+            //       width: 32,
+            //     );
+            //   },
+            // ),
+            CircleAvatar(
                 backgroundColor: hasImage
                     ? InheritedChatTheme.of(context)
                         .theme
@@ -149,17 +172,14 @@ class Message extends StatelessWidget {
                     hasImage ? NetworkImage(message.author.imageUrl!) : null,
                 radius: 16,
                 child: !hasImage
-                    ? Text(
-                        initials,
-                        style: InheritedChatTheme.of(context)
-                            .theme
-                            .userAvatarTextStyle,
+                    ? Image.asset(
+                        'assets/images/chatPlaceHolder.png',
+                        fit: BoxFit.cover,
                       )
-                    : null,
-              ),
-            ),
-          )
-        : const SizedBox(width: 40);
+                    : null),
+      ),
+    );
+    // : const SizedBox(width: 40);
   }
 
   Widget _bubbleBuilder(
