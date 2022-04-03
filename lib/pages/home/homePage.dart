@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     Future.delayed(
-      Duration(seconds: 1),
+      Duration(seconds: 5),
     ).then(
       (value) {
         if (context.read<Bookings>().showAppRateDiag == true) {
