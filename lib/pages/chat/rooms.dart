@@ -353,7 +353,12 @@ class _RoomsPageState extends State<RoomsPage> {
                                     showBadge: _badge &&
                                         _authorId !=
                                             FirebaseAuth
-                                                .instance.currentUser?.uid,
+                                                .instance.currentUser?.uid &&
+                                        snapshot.data![index]
+                                                .toJson()['createdAt'] >
+                                            context
+                                                .read<ChatData>()
+                                                .lastSeen(room.id),
                                     badgeColor: AppColors.redED0006,
                                     stackFit: StackFit.passthrough,
                                   ),
