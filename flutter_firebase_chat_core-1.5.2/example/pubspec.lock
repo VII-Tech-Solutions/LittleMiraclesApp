@@ -42,7 +42,7 @@ packages:
       name: cloud_firestore
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.10"
+    version: "3.1.6"
   cloud_firestore_platform_interface:
     dependency: transitive
     description:
@@ -147,7 +147,7 @@ packages:
       name: firebase_auth
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.3.19"
+    version: "3.3.5"
   firebase_auth_platform_interface:
     dependency: transitive
     description:
@@ -168,7 +168,7 @@ packages:
       name: firebase_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.13.1"
+    version: "1.11.0"
   firebase_core_platform_interface:
     dependency: transitive
     description:
@@ -215,7 +215,7 @@ packages:
       name: flutter_chat_types
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.3.1"
+    version: "3.2.2"
   flutter_chat_ui:
     dependency: "direct main"
     description:
@@ -236,7 +236,7 @@ packages:
       name: flutter_link_previewer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.6.3"
+    version: "2.6.2"
   flutter_linkify:
     dependency: transitive
     description:
