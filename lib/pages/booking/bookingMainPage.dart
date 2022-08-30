@@ -1,6 +1,7 @@
 //PACKAGES
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/widgets/appbars/emptySliverAppBar.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -23,6 +24,7 @@ class _BookingMainPageState extends State<BookingMainPage> {
     final _list = context.watch<AppData>().bookingList;
     return CustomScrollView(
       slivers: <Widget>[
+        EmptySliverAppBar(),
         MainPagesSliverAppBar('Photo', 'Sessions 📸'),
         SliverPadding(
           padding: EdgeInsets.only(top: 8),

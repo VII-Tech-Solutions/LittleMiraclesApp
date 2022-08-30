@@ -36,12 +36,14 @@ class LoginSliverAppBar extends StatelessWidget {
       floating: false,
       stretch: false,
       backgroundColor: Colors.white,
-      expandedHeight: isAuth ? kToolbarHeight : 175,
-      collapsedHeight: isAuth ? kToolbarHeight : 175,
+      toolbarHeight: isAuth ? 45 : 175,
+      expandedHeight: isAuth ? 45 : 175,
+      collapsedHeight: isAuth ? 45 : 175,
       flexibleSpace: FlexibleSpaceBar(
         background: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 19, 16, 4),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

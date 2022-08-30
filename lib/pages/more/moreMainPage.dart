@@ -1,6 +1,7 @@
 //PACKAGES
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/widgets/appbars/emptySliverAppBar.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
@@ -132,6 +133,7 @@ class MoreMainPage extends StatelessWidget {
     return CustomScrollView(
       physics: ClampingScrollPhysics(),
       slivers: <Widget>[
+        EmptySliverAppBar(),
         MainPagesSliverAppBar('More', 'Settings ⚙️'),
         SliverList(
           delegate: SliverChildBuilderDelegate(

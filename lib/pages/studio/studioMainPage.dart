@@ -1,6 +1,7 @@
 //PACKAGES
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/widgets/appbars/emptySliverAppBar.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -23,6 +24,7 @@ class _StudioMainPageState extends State<StudioMainPage> {
     final _list = context.watch<AppData>().studioList;
     return CustomScrollView(
       slivers: <Widget>[
+        EmptySliverAppBar(),
         MainPagesSliverAppBar('Printing', 'Studio ♥️'),
         SliverList(
           delegate: SliverChildBuilderDelegate(
