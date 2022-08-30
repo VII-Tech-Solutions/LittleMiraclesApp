@@ -32,19 +32,21 @@ class _HomePageState extends State<HomePage> {
       Duration(seconds: 5),
     ).then(
       (value) {
-        if (context.read<Bookings>().showAppRateDiag == true) {
-          showDialog(
-            barrierDismissible: true,
-            context: context,
-            builder: (_) {
-              return AlertDialog(
-                insetPadding: const EdgeInsets.all(0),
-                elevation: 0,
-                backgroundColor: Colors.transparent,
-                content: RateDialog(),
-              );
-            },
-          );
+        if (mounted) {
+          if (context.read<Bookings>().showAppRateDiag == true) {
+            showDialog(
+              barrierDismissible: true,
+              context: context,
+              builder: (_) {
+                return AlertDialog(
+                  insetPadding: const EdgeInsets.all(0),
+                  elevation: 0,
+                  backgroundColor: Colors.transparent,
+                  content: RateDialog(),
+                );
+              },
+            );
+          }
         }
       },
     );
