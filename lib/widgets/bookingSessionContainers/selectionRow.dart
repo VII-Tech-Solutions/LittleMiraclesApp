@@ -51,34 +51,37 @@ class SelectionRow extends StatelessWidget {
         child: Row(
           children: [
             SizedBox(
-                height: 68,
-                width: 68,
-                child: customImage != null
-                    ? customImage
-                    : CachedNetworkImage(
-                        imageUrl: image ?? '',
-                        placeholder: (context, url) => PlaceholderImageWidget(
-                            index: id ?? 0, orientation: Axis.vertical),
-                        errorWidget: (context, url, error) =>
-                            PlaceholderImageWidget(
-                                index: id ?? 0, orientation: Axis.vertical),
-                        imageBuilder: (context, imageProvider) => Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: AppColors.blue8DC4CB,
-                            image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      )
+              height: 68,
+              width: 68,
+              child: customImage != null
+                  ? customImage
+                  :
 
-                //  CachedImageWidget(
-                //     image,
-                //     ImageShape.square,
-                //   ),
-                ),
+                  // CachedNetworkImage(
+                  //     imageUrl: image ?? '',
+                  //     placeholder: (context, url) => PlaceholderImageWidget(
+                  //         index: id ?? 0, orientation: Axis.vertical),
+                  //     errorWidget: (context, url, error) =>
+                  //         PlaceholderImageWidget(
+                  //             index: id ?? 0, orientation: Axis.vertical),
+                  //     imageBuilder: (context, imageProvider) => Container(
+                  //       decoration: BoxDecoration(
+                  //         borderRadius: BorderRadius.circular(8),
+                  //         color: AppColors.blue8DC4CB,
+                  //         image: DecorationImage(
+                  //           image: imageProvider,
+                  //           fit: BoxFit.cover,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   )
+
+                  CachedImageWidget(
+                      id,
+                      image,
+                      ImageShape.square,
+                    ),
+            ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),

@@ -38,7 +38,9 @@ class CachedImageWidget extends StatelessWidget {
       borderRadius: borderRadius ?? BorderRadius.circular(radius ?? 0.0),
       child: CachedNetworkImage(
         imageUrl: url ?? '',
-        fit: customBoxFit,
+        maxHeightDiskCache: 800,
+        maxWidthDiskCache: 800,
+        fit: BoxFit.cover,
         height: double.infinity,
         width: double.infinity,
         placeholder: (context, url) => placeholder,
