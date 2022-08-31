@@ -277,14 +277,17 @@ class MoreMainPage extends StatelessWidget {
                 children: [
                   FilledButtonWidget(
                     onPress: () {
+                      final user = context.read<Auth>().user;
+                      final userId = user?.id;
+                      final familyId = user?.familyId;
                       context.read<AppData>().clearUserData().then(
                             (_) => context.read<Auth>().logout().then(
                               (_) {
                                 FirebaseAuth.instance.signOut();
-                                FirebaseMessaging.instance.unsubscribeFromTopic(
-                                    'user_${context.read<Auth>().user!.id}');
-                                FirebaseMessaging.instance.unsubscribeFromTopic(
-                                    'family_${context.read<Auth>().user!.familyId}');
+                                FirebaseMessaging.instance
+                                    .unsubscribeFromTopic('user_$userId');
+                                FirebaseMessaging.instance
+                                    .unsubscribeFromTopic('family_$familyId');
                                 return Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(

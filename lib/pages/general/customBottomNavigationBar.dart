@@ -48,24 +48,27 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   Future<void> _firestoreInit() async {
     final user = context.read<Auth>().user;
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: '${user?.id}@lms.com',
-        password: '${user!.id! * 5 * 200 + 100000}',
-      );
-      await FirebaseChatCore.instance.createUserInFirestore(
-        types.User(
-          firstName: user.firstName,
-          id: FirebaseAuth.instance.currentUser?.uid ??
-              '', // UID from Firebase Authentication
-          imageUrl: user.avatar,
-          lastName: user.lastName,
-          lastSeen: DateTime.now().millisecondsSinceEpoch,
-          metadata: {
-            'user_id': user.id,
-            'family_id': user.familyId,
-          },
-        ),
-      );
+      if (user != null && user.id != null) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: '${user.id}@lms.com',
+          password: '${user.id! * 5 * 200 + 100000}',
+        );
+        await FirebaseChatCore.instance.createUserInFirestore(
+          types.User(
+            firstName: user.firstName,
+            id: FirebaseAuth.instance.currentUser?.uid ??
+                '', // UID from Firebase Authentication
+            imageUrl: user.avatar,
+            lastName: user.lastName,
+            lastSeen: DateTime.now().millisecondsSinceEpoch,
+            metadata: {
+              'user_id': user.id,
+              'family_id': user.familyId,
+            },
+          ),
+        );
+      }
+
       // _initFCM();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
