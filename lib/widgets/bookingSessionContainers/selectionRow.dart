@@ -55,28 +55,7 @@ class SelectionRow extends StatelessWidget {
               width: 68,
               child: customImage != null
                   ? customImage
-                  :
-
-                  // CachedNetworkImage(
-                  //     imageUrl: image ?? '',
-                  //     placeholder: (context, url) => PlaceholderImageWidget(
-                  //         index: id ?? 0, orientation: Axis.vertical),
-                  //     errorWidget: (context, url, error) =>
-                  //         PlaceholderImageWidget(
-                  //             index: id ?? 0, orientation: Axis.vertical),
-                  //     imageBuilder: (context, imageProvider) => Container(
-                  //       decoration: BoxDecoration(
-                  //         borderRadius: BorderRadius.circular(8),
-                  //         color: AppColors.blue8DC4CB,
-                  //         image: DecorationImage(
-                  //           image: imageProvider,
-                  //           fit: BoxFit.cover,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   )
-
-                  CachedImageWidget(
+                  : CachedImageWidget(
                       id,
                       image,
                       ImageShape.square,
