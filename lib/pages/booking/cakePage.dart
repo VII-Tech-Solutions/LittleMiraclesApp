@@ -85,117 +85,93 @@ class _CakePageState extends State<CakePage> {
         title: 'Select Cake',
         weight: FontWeight.w800,
       ),
-      body: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 15, 16, 30),
-        children: [
-          SelectionRow(
-            () {
-              setState(() {
-                _selectedItems.clear();
-                _isClearSelected = true;
-              });
-            },
-            '',
-            Container(
-              decoration: BoxDecoration(
-                color: AppColors.greyE8E9EB,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Icon(
-                Icons.do_not_disturb,
-                size: 48,
-                color: AppColors.black45515D,
-              ),
-            ),
-            'No Cake',
-            _isClearSelected,
-            allowedSelection,
-            id: 0,
-          ),
-          ListView.builder(
-            primary: false,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: appDataProvider.cakeCategories.length,
-            itemBuilder: (BuildContext context, int index) {
-              final int? catId = appDataProvider.cakeCategories[index].id;
-              final String? title = appDataProvider.cakeCategories[index].name;
-              if (appDataProvider.getCakesByCategoryId(catId!).isNotEmpty) {
-                return _buildContainer(
-                  title!,
-                  Column(
-                    children: appDataProvider
-                        .getCakesByCategoryId(catId)
-                        .map(
-                          (item) => SelectionRow(
-                            () {
-                              setState(() {
-                                _isClearSelected = false;
-                                if (_selectedItems.contains(item.id)) {
-                                  _selectedItems.removeWhere(
-                                      (element) => element == item.id);
-                                } else {
-                                  if (allowedSelection == 1) {
-                                    _selectedItems.clear();
-                                    _selectedItems.add(item.id!);
-                                  } else if (allowedSelection > 1 &&
-                                      allowedSelection ==
-                                          _selectedItems.length) {
-                                    _selectedItems.removeAt(0);
-                                    _selectedItems.add(item.id!);
-                                  } else {
-                                    _selectedItems.add(item.id!);
-                                  }
-                                }
-                              });
-                            },
-                            item.image,
-                            null,
-                            item.title,
-                            _selectedItems.contains(item.id),
-                            allowedSelection,
-                            id: index,
-                          ),
-                        )
-                        .toList(),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: CustomScrollView(
+          slivers: [
+            SliverPadding(padding: const EdgeInsets.only(top: 15)),
+            SliverToBoxAdapter(
+              child: SelectionRow(
+                () {
+                  setState(() {
+                    _selectedItems.clear();
+                    _isClearSelected = true;
+                  });
+                },
+                '',
+                Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.greyE8E9EB,
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                );
-              } else {
-                return Container();
-              }
-            },
-          ),
-          TextQuestionWidget(
-            Question(
-              id: 1,
-              question: 'Custom Cake',
-              updatedAt: null,
-              deletedAt: null,
-              options: null,
-              order: null,
-              questionType: null,
-            ),
-            (val) {
-              if (val != null) {
-                if (val['answer'] != '') {
-                  _customCake = val['answer'];
-                } else {
-                  _customCake = '';
-                }
-              }
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 5),
-            child: Text(
-              'Additional charges may occur based on custom orders',
-              style: TextStyle(
-                fontSize: 10,
-                color: AppColors.black45515D,
+                  child: Icon(
+                    Icons.do_not_disturb,
+                    size: 48,
+                    color: AppColors.black45515D,
+                  ),
+                ),
+                'No Cake',
+                _isClearSelected,
+                allowedSelection,
+                id: 0,
               ),
             ),
-          )
-        ],
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  final int? catId = appDataProvider.cakeCategories[index].id;
+                  final String? title =
+                      appDataProvider.cakeCategories[index].name;
+                  if (appDataProvider.getCakesByCategoryId(catId!).isNotEmpty) {
+                    return _buildContainer(
+                      title!,
+                      Column(
+                        children: appDataProvider
+                            .getCakesByCategoryId(catId)
+                            .map(
+                              (item) => SelectionRow(
+                                () {
+                                  setState(() {
+                                    _isClearSelected = false;
+                                    if (_selectedItems.contains(item.id)) {
+                                      _selectedItems.removeWhere(
+                                          (element) => element == item.id);
+                                    } else {
+                                      if (allowedSelection == 1) {
+                                        _selectedItems.clear();
+                                        _selectedItems.add(item.id!);
+                                      } else if (allowedSelection > 1 &&
+                                          allowedSelection ==
+                                              _selectedItems.length) {
+                                        _selectedItems.removeAt(0);
+                                        _selectedItems.add(item.id!);
+                                      } else {
+                                        _selectedItems.add(item.id!);
+                                      }
+                                    }
+                                  });
+                                },
+                                item.image,
+                                null,
+                                item.title,
+                                _selectedItems.contains(item.id),
+                                allowedSelection,
+                                id: index,
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
+                childCount: appDataProvider.cakeCategories.length,
+              ),
+            ),
+            SliverPadding(padding: const EdgeInsets.only(top: 30)),
+          ],
+        ),
       ),
       bottomNavigationBar: Container(
         height: 80,
