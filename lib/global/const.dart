@@ -11,7 +11,7 @@ class ErrorMessages {
 }
 
 class Timeout {
-  static const int value = 90;
+  static const int value = 30;
 }
 
 class LastUpdate {
