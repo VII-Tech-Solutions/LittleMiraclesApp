@@ -69,6 +69,7 @@ class StudioBottomSectionContainer extends StatelessWidget {
                       height: 68,
                       width: 68,
                       child: CachedImageWidget(
+                        selectedImages[index].id,
                         selectedImages[index].url,
                         ImageShape.square,
                         radius: 4,

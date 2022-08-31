@@ -28,6 +28,7 @@ class SessionTopSectionContainer extends StatelessWidget {
           height: double.infinity,
           width: double.infinity,
           child: CachedImageWidget(
+            session?.id,
             session?.featuredImage ?? '',
             ImageShape.square,
             radius: 0.0,

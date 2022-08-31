@@ -116,6 +116,7 @@ class _LoyaltyPageState extends State<LoyaltyPage> {
               width: double.infinity,
               height: 177,
               child: CachedImageWidget(
+                gift.id,
                 gift.image ?? "",
                 ImageShape.rectangle,
               ),

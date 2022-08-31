@@ -82,6 +82,7 @@ class PhotoSelectionContainer extends StatelessWidget {
                             BorderRadius.only(topLeft: Radius.circular(7)),
                       ),
                       child: CachedImageWidget(
+                        1,
                         img1,
                         ImageShape.square,
                         radius: 0,
@@ -104,6 +105,7 @@ class PhotoSelectionContainer extends StatelessWidget {
                               ),
                             ),
                             child: CachedImageWidget(
+                              2,
                               img2,
                               ImageShape.square,
                               radius: 0,
@@ -115,8 +117,13 @@ class PhotoSelectionContainer extends StatelessWidget {
                         ),
                         Expanded(
                           child: Container(
-                            child: CachedImageWidget(img3, ImageShape.square,
-                                radius: 0, borderRadius: BorderRadius.zero),
+                            child: CachedImageWidget(
+                              3,
+                              img3,
+                              ImageShape.square,
+                              radius: 0,
+                              borderRadius: BorderRadius.zero,
+                            ),
                           ),
                         ),
                       ],

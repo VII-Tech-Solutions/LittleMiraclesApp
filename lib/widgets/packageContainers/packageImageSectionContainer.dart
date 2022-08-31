@@ -18,6 +18,7 @@ class PackageImageSectionContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('rebuilding image section');
     final media = context.watch<Bookings>().packageMedia;
     return Visibility(
       visible: media.isNotEmpty,

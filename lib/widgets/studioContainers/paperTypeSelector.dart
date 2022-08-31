@@ -70,6 +70,7 @@ class PaperTypeSelector extends StatelessWidget {
                               height: 48,
                               width: 48,
                               child: CachedImageWidget(
+                                selectedPaperType.id,
                                 selectedPaperType.image,
                                 ImageShape.square,
                               ),

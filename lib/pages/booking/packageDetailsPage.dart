@@ -61,12 +61,9 @@ class PackageDetailsPage extends StatelessWidget {
               ],
             ),
           ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                return _list[index];
-              },
-              childCount: _list.length,
+          SliverToBoxAdapter(
+            child: Column(
+              children: _list,
             ),
           ),
         ],

@@ -44,6 +44,7 @@ class ReviewContainer extends StatelessWidget {
                   width: 40,
                   margin: const EdgeInsetsDirectional.only(bottom: 6),
                   child: CachedImageWidget(
+                    review.id,
                     review.userImage,
                     ImageShape.square,
                     radius: 50,

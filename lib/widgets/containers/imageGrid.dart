@@ -28,9 +28,11 @@ class ImageGridWidget extends StatelessWidget {
                 Container(
                   height: size * 0.414,
                   child: CachedImageWidget(
+                    0,
                     media[0].url,
                     ImageShape.rectangle,
                     radius: 0.0,
+                    customBoxFit: BoxFit.cover,
                   ),
                 ),
                 SizedBox(
@@ -38,9 +40,11 @@ class ImageGridWidget extends StatelessWidget {
                 ),
                 Expanded(
                   child: CachedImageWidget(
+                    1,
                     media[1].url,
                     ImageShape.square,
                     radius: 0.0,
+                    customBoxFit: BoxFit.cover,
                   ),
                 ),
               ],
@@ -55,9 +59,11 @@ class ImageGridWidget extends StatelessWidget {
                 Container(
                   height: size * 0.592,
                   child: CachedImageWidget(
+                    1,
                     media[2].url,
                     ImageShape.square,
                     radius: 0.0,
+                    customBoxFit: BoxFit.cover,
                   ),
                 ),
                 SizedBox(
@@ -66,9 +72,11 @@ class ImageGridWidget extends StatelessWidget {
                 Expanded(
                   child: Container(
                     child: CachedImageWidget(
+                      3,
                       media[3].url,
                       ImageShape.square,
                       radius: 0.0,
+                      customBoxFit: BoxFit.cover,
                     ),
                   ),
                 ),

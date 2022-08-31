@@ -70,6 +70,7 @@ class CakeSelector extends StatelessWidget {
                                       height: 48,
                                       width: 48,
                                       child: CachedImageWidget(
+                                        e.id,
                                         e.image,
                                         ImageShape.square,
                                       ),

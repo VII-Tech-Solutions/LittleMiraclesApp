@@ -36,6 +36,7 @@ class PromotionContainer extends StatelessWidget {
               height: 177,
               width: double.infinity,
               child: CachedImageWidget(
+                promotion?.id,
                 promotion?.image,
                 ImageShape.rectangle,
               ),

@@ -55,6 +55,7 @@ class _CartItemContainerState extends State<CartItemContainer> {
               width: 68,
               height: 68,
               child: CachedImageWidget(
+                1, //TODO:: use the item ID instead of static
                 widget.image,
                 ImageShape.square,
               ),

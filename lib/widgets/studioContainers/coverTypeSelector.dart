@@ -70,6 +70,7 @@ class CoverTypeSelector extends StatelessWidget {
                               height: 48,
                               width: 48,
                               child: CachedImageWidget(
+                                selectedCoverType.id,
                                 selectedCoverType.image,
                                 ImageShape.square,
                               ),

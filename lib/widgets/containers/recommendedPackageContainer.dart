@@ -59,6 +59,7 @@ class RecommendedPackageContainer extends StatelessWidget {
               height: MediaQuery.of(context).size.width * 0.64 / 2,
               width: MediaQuery.of(context).size.width * 0.64,
               child: CachedImageWidget(
+                package?.id,
                 package?.image ?? '',
                 ImageShape.rectangle,
               ),

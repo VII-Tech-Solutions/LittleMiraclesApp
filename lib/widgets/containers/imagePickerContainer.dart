@@ -28,6 +28,7 @@ class ImagePickerContainer extends StatelessWidget {
       child: Stack(
         children: [
           CachedImageWidget(
+            media?.id,
             media?.url ?? '',
             ImageShape.square,
             borderRadius: BorderRadius.zero,

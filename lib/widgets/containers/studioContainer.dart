@@ -60,6 +60,7 @@ class StudioContainer extends StatelessWidget {
                 height: double.infinity,
                 width: double.infinity,
                 child: CachedImageWidget(
+                  package?.id,
                   package?.image ?? '',
                   ImageShape.rectangle,
                 ),

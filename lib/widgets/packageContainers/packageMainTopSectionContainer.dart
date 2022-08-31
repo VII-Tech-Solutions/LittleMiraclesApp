@@ -25,6 +25,7 @@ class PackageMainTopSectionContainer extends StatelessWidget {
             height: double.infinity,
             width: double.infinity,
             child: CachedImageWidget(
+              package?.id,
               package?.image ?? '',
               ImageShape.square,
               radius: 0.0,

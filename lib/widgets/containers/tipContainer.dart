@@ -40,6 +40,7 @@ class TipContainer extends StatelessWidget {
                 color: AppColors.blue8DC4CB,
               ),
               child: CachedImageWidget(
+                dailyTip?.id,
                 dailyTip?.image,
                 ImageShape.rectangle,
               ),

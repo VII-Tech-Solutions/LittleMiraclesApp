@@ -37,6 +37,7 @@ class WorkshopContainer extends StatelessWidget {
               height: 177,
               width: double.infinity,
               child: CachedImageWidget(
+                workshop?.id,
                 workshop?.image,
                 ImageShape.rectangle,
               ),

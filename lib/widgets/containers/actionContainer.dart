@@ -52,6 +52,7 @@ class ActionContainer extends StatelessWidget {
               height: 450,
               width: double.infinity,
               child: CachedImageWidget(
+                section.id,
                 section.image ?? '',
                 ImageShape.square,
               ),

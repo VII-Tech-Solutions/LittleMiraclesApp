@@ -1,14 +1,11 @@
 //PACKAGES
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/widgets/general/placeholder_image_widget.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:cached_network_image/cached_network_image.dart';
-
-// Project imports:
-import '../../global/colors.dart';
-import '../../global/globalHelpers.dart';
 
 enum ImageShape {
   square,
@@ -16,12 +13,14 @@ enum ImageShape {
 }
 
 class CachedImageWidget extends StatelessWidget {
+  final int? index;
   final String? url;
   final ImageShape imageShape;
   final double? radius;
   final BoxFit? customBoxFit;
   final BorderRadius? borderRadius;
   const CachedImageWidget(
+    this.index,
     this.url,
     this.imageShape, {
     this.radius = 8.0,
@@ -31,22 +30,19 @@ class CachedImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final placeholder = GlobalHelpers.randomPlaceholder(
-        imageShape == ImageShape.rectangle ? 'r' : 's',
-        borderRadius: borderRadius);
-    return CachedNetworkImage(
-      imageUrl: url ?? '',
-      placeholder: (context, url) => placeholder,
-      errorWidget: (context, url, error) => placeholder,
-      imageBuilder: (context, imageProvider) => Container(
-        decoration: BoxDecoration(
-          borderRadius: borderRadius ?? BorderRadius.circular(radius ?? 0.0),
-          color: AppColors.blue8DC4CB,
-          image: DecorationImage(
-            image: imageProvider,
-            fit: customBoxFit,
-          ),
-        ),
+    final placeholder = PlaceholderImageWidget(
+        index: index ?? 0,
+        orientation:
+            imageShape == ImageShape.square ? Axis.vertical : Axis.horizontal);
+    return ClipRRect(
+      borderRadius: borderRadius ?? BorderRadius.circular(radius ?? 0.0),
+      child: CachedNetworkImage(
+        imageUrl: url ?? '',
+        fit: customBoxFit,
+        height: double.infinity,
+        width: double.infinity,
+        placeholder: (context, url) => placeholder,
+        errorWidget: (context, url, error) => placeholder,
       ),
     );
   }

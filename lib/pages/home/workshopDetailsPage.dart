@@ -37,6 +37,7 @@ class WorkshopDetailsPage extends StatelessWidget {
                   color: AppColors.blue8DC4CB,
                 ),
                 child: CachedImageWidget(
+                  workshop?.id,
                   workshop?.image,
                   ImageShape.rectangle,
                 ),

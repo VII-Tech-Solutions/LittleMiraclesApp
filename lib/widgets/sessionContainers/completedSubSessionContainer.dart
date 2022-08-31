@@ -135,6 +135,7 @@ class CompletedSubSessionContainer extends StatelessWidget {
                                 ],
                               ),
                               child: CachedImageWidget(
+                                images[index].id,
                                 images[index].url,
                                 ImageShape.square,
                               ),

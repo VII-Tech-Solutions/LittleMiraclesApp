@@ -39,6 +39,7 @@ class PromotionDetails extends StatelessWidget {
                   color: AppColors.blue8DC4CB,
                 ),
                 child: CachedImageWidget(
+                  promotion?.id,
                   promotion?.image,
                   ImageShape.rectangle,
                 ),
