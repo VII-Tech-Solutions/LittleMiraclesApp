@@ -21,14 +21,14 @@ import '../../widgets/studioContainers/studioSuccessPaymentPage.dart';
 
 //EXTENSIONS
 
-class Cart extends StatefulWidget {
-  const Cart({Key? key}) : super(key: key);
+class CartPage extends StatefulWidget {
+  const CartPage({Key? key}) : super(key: key);
 
   @override
-  State<Cart> createState() => _CartState();
+  State<CartPage> createState() => _CartPageState();
 }
 
-class _CartState extends State<Cart> {
+class _CartPageState extends State<CartPage> {
   bool _isAgreementChecked = false;
   String? _selectedPayment = null;
   final _scrollController = new ScrollController();

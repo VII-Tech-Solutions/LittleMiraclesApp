@@ -12,7 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
-import '../../pages/cart/cart.dart';
+import '../../pages/cart/cartPage.dart';
 import '../../global/colors.dart';
 import '../../pages/chat/chat.dart';
 import '../../pages/chat/rooms.dart';
@@ -78,7 +78,7 @@ class MainPagesSliverAppBar extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => Cart(),
+                                builder: (context) => CartPage(),
                               ),
                             );
                           },

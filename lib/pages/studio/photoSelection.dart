@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 
 // Project imports:
-import 'package:LMP0001_LittleMiraclesApp/pages/cart/cart.dart';
+import 'package:LMP0001_LittleMiraclesApp/pages/cart/cartPage.dart';
 import 'package:LMP0001_LittleMiraclesApp/providers/studio.dart';
 import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/showOkDialog.dart';
 import '../../global/colors.dart';
@@ -91,7 +91,7 @@ class PhotoSelection extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => Cart(),
+                builder: (context) => CartPage(),
               ),
             );
           } else if (content.selectedMedia.length <= 0) {

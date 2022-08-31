@@ -16,7 +16,7 @@ import '../../pages/chat/chat.dart';
 import '../../pages/chat/rooms.dart';
 import '../dialogs/showLoadingDialog.dart';
 import '../../global/colors.dart';
-import '../../pages/cart/cart.dart';
+import '../../pages/cart/cartPage.dart';
 import '../../pages/login/loginPage.dart';
 import '../../providers/auth.dart';
 import '../buttons/filledButtonWidget.dart';
@@ -84,7 +84,7 @@ class LoginSliverAppBar extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => Cart(),
+                                builder: (context) => CartPage(),
                               ),
                             );
                           },
