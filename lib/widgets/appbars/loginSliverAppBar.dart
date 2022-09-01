@@ -120,12 +120,20 @@ class LoginSliverAppBar extends StatelessWidget {
                                   types.User(
                                       id: 'o61U7RotNGb8ICAtjz3mShxsD802'),
                                 );
+                                //** Multiple support rooms behavior */
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (_) => RoomsPage(
+                                //       canCreateRooms: false,
+                                //     ),
+                                //   ),
+                                // ).then((value) =>
+                                //     ShowLoadingDialog(context, dismiss: true));
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (_) => RoomsPage(
-                                      canCreateRooms: false,
-                                    ),
+                                    builder: (_) => ChatPage(room: supportRoom),
                                   ),
                                 ).then((value) =>
                                     ShowLoadingDialog(context, dismiss: true));
