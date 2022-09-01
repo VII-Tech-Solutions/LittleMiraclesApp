@@ -1,6 +1,3 @@
-// Flutter imports:
-import 'package:flutter/material.dart';
-
 class User {
   final int? id;
   final String? firstName;
@@ -16,28 +13,32 @@ class User {
   final String? pastExperience;
   final int? familyId;
   final int? status;
+  final int? chatWithEveryone;
   final String? providerId;
   final String? username;
   final String? provider;
+  final String? firebaseId;
 
   User({
-    @required this.id,
-    @required this.firstName,
-    @required this.lastName,
-    @required this.phoneNumber,
-    @required this.email,
-    @required this.updatedAt,
-    @required this.deletedAt,
-    @required this.countryCode,
-    @required this.gender,
-    @required this.birthDate,
-    @required this.avatar,
-    @required this.pastExperience,
-    @required this.familyId,
-    @required this.status,
-    @required this.providerId,
-    @required this.username,
-    @required this.provider,
+    required this.id,
+    required this.firstName,
+    required this.lastName,
+    required this.phoneNumber,
+    required this.email,
+    required this.updatedAt,
+    required this.deletedAt,
+    required this.countryCode,
+    required this.gender,
+    required this.birthDate,
+    required this.avatar,
+    required this.pastExperience,
+    required this.familyId,
+    required this.status,
+    required this.providerId,
+    required this.username,
+    required this.provider,
+    required this.firebaseId,
+    required this.chatWithEveryone,
   });
 
   Map<String, Object> toMap() {
@@ -81,6 +82,8 @@ class User {
       providerId: json['provider_id'] as String?,
       username: json['username'] as String?,
       provider: json['provider'] as String?,
+      firebaseId: json['firebase_id'] as String?,
+      chatWithEveryone: json['chat_with_everyone'] as int?,
     );
   }
 }

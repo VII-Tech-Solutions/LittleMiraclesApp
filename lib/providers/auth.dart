@@ -168,6 +168,8 @@ class Auth with ChangeNotifier {
           providerId: extractedUserData['providerId'] as String?,
           username: extractedUserData['username'] as String?,
           provider: extractedUserData['provider'] as String?,
+          firebaseId: extractedUserData['firebase_id'] as String?,
+          chatWithEveryone: extractedUserData['chat_with_everyone'] as int?,
         );
 
         if (familyMembersDataList.isNotEmpty) {
