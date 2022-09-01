@@ -49,6 +49,8 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   bool _isAttachmentUploading = false;
   void _handleAtachmentPressed() {
     showModalBottomSheet<void>(
@@ -284,8 +286,8 @@ class _ChatPageState extends State<ChatPage> {
   @override
   void dispose() {
     global.roomId = null;
-    context
-        .read<ChatData>()
+    _scaffoldKey.currentContext
+        ?.read<ChatData>()
         .updateStatus(widget.room.id, DateTime.now().millisecondsSinceEpoch);
     super.dispose();
   }
@@ -301,6 +303,7 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       bottomNavigationBar: Container(
         height: MediaQuery.of(context).padding.bottom,
         width: double.infinity,
