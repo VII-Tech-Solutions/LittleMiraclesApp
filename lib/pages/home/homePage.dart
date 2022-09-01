@@ -60,20 +60,31 @@ class _HomePageState extends State<HomePage> {
     // final statusBarHeight = MediaQuery.of(context).padding.top;
     // final statusBarHeights = MediaQueryData.fromWindow(ui.window).padding.top;
     final _list = context.watch<AppData>().sessionsAndHomeList;
-    return CustomScrollView(
-      slivers: <Widget>[
-        HomeHeaderSliverAppBar(),
-        LoginSliverAppBar(),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext context, int index) {
-              return _list[index];
-            },
-            childCount: _list.length,
+    return RefreshIndicator(
+      onRefresh: (() async {
+        final token = context.read<Auth>().token;
+        if (token.isNotEmpty) {
+          await context.read<AppData>().fetchAndSetSessions(token: token);
+        }
+        await context.read<AppData>().fetchAndSetAppData();
+      }),
+      edgeOffset: kToolbarHeight + 9,
+      displacement: kToolbarHeight + 9,
+      child: CustomScrollView(
+        slivers: <Widget>[
+          HomeHeaderSliverAppBar(),
+          LoginSliverAppBar(),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                return _list[index];
+              },
+              childCount: _list.length,
+            ),
           ),
-        ),
-        SliverPadding(padding: EdgeInsets.only(bottom: 30))
-      ],
+          SliverPadding(padding: EdgeInsets.only(bottom: 30))
+        ],
+      ),
     );
   }
 }

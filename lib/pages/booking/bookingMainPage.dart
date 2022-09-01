@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 // Project imports:
 import '../../providers/appData.dart';
+import '../../providers/auth.dart';
 import '../../widgets/appbars/mainPagesSliverAppBar.dart';
 
 class BookingMainPage extends StatefulWidget {
@@ -24,9 +25,14 @@ class _BookingMainPageState extends State<BookingMainPage> {
     final _list = context.watch<AppData>().bookingList;
     return RefreshIndicator(
       onRefresh: (() async {
-        print('hahaahaha');
+        final token = context.read<Auth>().token;
+        if (token.isNotEmpty) {
+          await context.read<AppData>().fetchAndSetSessions(token: token);
+        }
+        await context.read<AppData>().fetchAndSetAppData();
       }),
       edgeOffset: kToolbarHeight + 9,
+      displacement: kToolbarHeight + 9,
       child: CustomScrollView(
         slivers: <Widget>[
           EmptySliverAppBar(),
