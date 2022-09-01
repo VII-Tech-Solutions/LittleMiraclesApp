@@ -60,46 +60,46 @@ class _CartItemContainerState extends State<CartItemContainer> {
                 ImageShape.square,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16),
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.52,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    RichText(
-                      text: TextSpan(
-                          text: '${widget.title}\n',
-                          style: TextStyle(
-                            fontFamily: GoogleFonts.manrope().fontFamily,
-                            fontWeight: FontWeight.w800,
-                            fontSize: 12,
-                            color: AppColors.black45515D,
-                          ),
-                          children: [
-                            TextSpan(
-                              text: widget.description,
-                              style: TextStyle(
-                                fontFamily: GoogleFonts.manrope().fontFamily,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 11,
-                                color: AppColors.black45515D,
-                              ),
-                            )
-                          ]),
+            Container(
+              alignment: Alignment.centerLeft,
+              width: MediaQuery.of(context).size.width * 0.51,
+              margin: const EdgeInsets.only(left: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  RichText(
+                    textAlign: TextAlign.left,
+                    text: TextSpan(
+                        text: '${widget.title}\n',
+                        style: TextStyle(
+                          fontFamily: GoogleFonts.manrope().fontFamily,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 12,
+                          color: AppColors.black45515D,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: widget.description,
+                            style: TextStyle(
+                              fontFamily: GoogleFonts.manrope().fontFamily,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 11,
+                              color: AppColors.black45515D,
+                            ),
+                          )
+                        ]),
+                  ),
+                  Text(
+                    'BD ${widget.price}',
+                    style: TextStyle(
+                      fontFamily: GoogleFonts.manrope().fontFamily,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12,
+                      color: AppColors.black45515D,
                     ),
-                    Text(
-                      'BD ${widget.price}',
-                      style: TextStyle(
-                        fontFamily: GoogleFonts.manrope().fontFamily,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 12,
-                        color: AppColors.black45515D,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
             IconButton(

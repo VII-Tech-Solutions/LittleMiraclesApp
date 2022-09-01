@@ -60,69 +60,57 @@ class _StudioPromoCodeContainerState extends State<StudioPromoCodeContainer> {
               ),
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                width: flip == false
-                    ? MediaQuery.of(context).size.width * 0.914667
-                    : MediaQuery.of(context).size.width * 0.78667,
-                child: TextFormField(
-                  controller: _textFieldController,
-                  decoration: InputDecoration(
-                    errorStyle: TextStyle(height: 0),
-                    contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 16.0, vertical: 11.0),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.greyD0D3D6),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.greyD0D3D6),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red),
-                    ),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.greyD0D3D6),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red),
-                    ),
-                    hintText: 'Enter Promo Code',
-                    hintStyle: TextStyle(
-                      color: AppColors.greyD0D3D6,
-                      fontSize: 12.0,
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: 40,
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    controller: _textFieldController,
+                    decoration: InputDecoration(
+                      errorStyle: TextStyle(height: 0),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16.0, vertical: 11.0),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: AppColors.greyD0D3D6),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: AppColors.greyD0D3D6),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.red),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: AppColors.greyD0D3D6),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.red),
+                      ),
+                      hintText: 'Enter Promo Code',
+                      hintStyle: TextStyle(
+                        color: AppColors.greyD0D3D6,
+                        fontSize: 12.0,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Visibility(
+                Visibility(
                   visible: flip,
                   child: IconButton(
-                      onPressed: () {
-                        _textFieldController.clear();
-                        setState(() {
-                          context.read<Studio>().removePromoCode();
-                          flip = !flip;
-                        });
-                      },
-                      icon: Icon(Icons.delete_outline)))
-            ],
+                    onPressed: () {
+                      _textFieldController.clear();
+                      setState(() {
+                        context.read<Studio>().removePromoCode();
+                        flip = !flip;
+                      });
+                    },
+                    icon: Icon(Icons.delete_outline),
+                  ),
+                )
+              ],
+            ),
           ),
-          // Visibility(
-          //   visible: promoCode != null,
-          //   child: Padding(
-          //     padding: const EdgeInsets.only(top: 6),
-          //     child: Text(
-          //       '${promoCode?.message ?? 'Promo code applied successfully'}',
-          //       style: TextStyle(
-          //         color: AppColors.green22D896,
-          //         fontSize: 14,
-          //         fontWeight: FontWeight.w800,
-          //       ),
-          //     ),
-          //   ),
-          // ),
           Visibility(
             visible: !flip,
             child: FilledButtonWidget(

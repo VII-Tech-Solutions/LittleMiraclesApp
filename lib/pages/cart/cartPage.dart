@@ -47,171 +47,182 @@ class _CartPageState extends State<CartPage> {
         title: 'Shopping Cart',
         weight: FontWeight.bold,
       ),
-      body: SingleChildScrollView(
-        controller: _scrollController,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 15.0,
-                left: 16,
-                right: 16,
+      body: Visibility(
+        visible: cartItems.isNotEmpty,
+        replacement: Center(
+          heightFactor: 25,
+          child: Text('Cart is empty.'),
+        ),
+        child: SingleChildScrollView(
+          controller: _scrollController,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 15.0,
+                  left: 16,
+                  right: 16,
+                ),
+                child: Column(
+                  children: cartItems.map(
+                    (e) {
+                      _subtotal = _subtotal +
+                          double.parse(e.price.toString()) -
+                          double.parse(promoCode?.discountPrice ?? '0.00');
+                      _vat = _subtotal * 0.05;
+                      _total = _subtotal + _vat;
+                      return CartItemContainer(
+                        description: e.description,
+                        image: e.displayImage,
+                        price: e.price,
+                        title: e.title,
+                        onTapCallback: () {
+                          context.read<Studio>().removeCartItem(e.id);
+                        },
+                      );
+                    },
+                  ).toList(),
+                ),
               ),
-              child: Column(
-                children: cartItems.map(
-                  (e) {
-                    _subtotal = _subtotal +
-                        double.parse(e.price.toString()) -
-                        double.parse(promoCode?.discountPrice ?? '0.00');
-                    _vat = _subtotal * 0.05;
-                    _total = _subtotal + _vat;
-                    return CartItemContainer(
-                      description: e.description,
-                      image: e.displayImage,
-                      price: e.price,
-                      title: e.title,
-                      onTapCallback: () {
-                        context.read<Studio>().removeCartItem(e.id);
-                      },
-                    );
-                  },
-                ).toList(),
+              Padding(
+                padding: const EdgeInsets.only(top: 14.5),
+                child: Divider(
+                  height: 1,
+                  thickness: 1,
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 14.5),
-              child: Divider(
+              StudioPromoCodeContainer(),
+              Divider(
                 height: 1,
                 thickness: 1,
               ),
-            ),
-            StudioPromoCodeContainer(),
-            Divider(
-              height: 1,
-              thickness: 1,
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 29.5, 25, 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Subtotal',
-                    style: TextStyle(
-                      fontFamily: GoogleFonts.manrope().fontFamily,
-                      fontWeight: FontWeight.w800,
-                      fontSize: 14,
-                      color: AppColors.black45515D,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 29.5, 25, 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Subtotal',
+                      style: TextStyle(
+                        fontFamily: GoogleFonts.manrope().fontFamily,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 14,
+                        color: AppColors.black45515D,
+                      ),
                     ),
-                  ),
-                  Text(
-                    'BD $_subtotal',
-                    style: TextStyle(
-                      fontFamily: GoogleFonts.manrope().fontFamily,
-                      fontWeight: FontWeight.w800,
-                      fontSize: 14,
-                      color: AppColors.black45515D,
+                    Text(
+                      'BD $_subtotal',
+                      style: TextStyle(
+                        fontFamily: GoogleFonts.manrope().fontFamily,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 14,
+                        color: AppColors.black45515D,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Divider(
-              indent: 17,
-              endIndent: 17,
-              height: 1,
-              thickness: 1,
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 14.9, 20, 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'VAT (5%)',
-                    style: TextStyle(
-                      fontFamily: GoogleFonts.manrope().fontFamily,
-                      fontWeight: FontWeight.w800,
-                      fontSize: 14,
-                      color: AppColors.black45515D,
-                    ),
-                  ),
-                  Text(
-                    '+BD ${_vat.toStringAsFixed(1)}',
-                    style: TextStyle(
-                      fontFamily: GoogleFonts.manrope().fontFamily,
-                      fontWeight: FontWeight.w800,
-                      fontSize: 14,
-                      color: AppColors.black45515D,
-                    ),
-                  ),
-                ],
+              Divider(
+                indent: 17,
+                endIndent: 17,
+                height: 1,
+                thickness: 1,
               ),
-            ),
-            Visibility(
-              visible: promoCode != null,
-              child: Column(
-                children: [
-                  Divider(
-                    indent: 17,
-                    endIndent: 17,
-                    height: 1,
-                    thickness: 1,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 14.9, 20, 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Promo code',
-                          style: TextStyle(
-                            fontFamily: GoogleFonts.manrope().fontFamily,
-                            fontWeight: FontWeight.w800,
-                            fontSize: 14,
-                            color: AppColors.black45515D,
+              // Padding(
+              //   padding: const EdgeInsets.fromLTRB(16, 14.9, 20, 20),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //     children: [
+              //       Text(
+              //         'VAT (5%)',
+              //         style: TextStyle(
+              //           fontFamily: GoogleFonts.manrope().fontFamily,
+              //           fontWeight: FontWeight.w800,
+              //           fontSize: 14,
+              //           color: AppColors.black45515D,
+              //         ),
+              //       ),
+              //       Text(
+              //         '+BD ${_vat.toStringAsFixed(1)}',
+              //         style: TextStyle(
+              //           fontFamily: GoogleFonts.manrope().fontFamily,
+              //           fontWeight: FontWeight.w800,
+              //           fontSize: 14,
+              //           color: AppColors.black45515D,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              Visibility(
+                visible: promoCode != null,
+                child: Column(
+                  children: [
+                    Divider(
+                      indent: 17,
+                      endIndent: 17,
+                      height: 1,
+                      thickness: 1,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 14.9, 20, 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Promo code',
+                            style: TextStyle(
+                              fontFamily: GoogleFonts.manrope().fontFamily,
+                              fontWeight: FontWeight.w800,
+                              fontSize: 14,
+                              color: AppColors.black45515D,
+                            ),
                           ),
-                        ),
-                        Text(
-                          '-BD ${promoCode?.discountPrice ?? 0}',
-                          style: TextStyle(
-                            fontFamily: GoogleFonts.manrope().fontFamily,
-                            fontWeight: FontWeight.w800,
-                            fontSize: 14,
-                            color: AppColors.black45515D,
+                          Text(
+                            '-BD ${promoCode?.discountPrice ?? 0}',
+                            style: TextStyle(
+                              fontFamily: GoogleFonts.manrope().fontFamily,
+                              fontWeight: FontWeight.w800,
+                              fontSize: 14,
+                              color: AppColors.black45515D,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  Divider(
-                    height: 1,
-                    thickness: 1,
-                  ),
-                ],
+                    Divider(
+                      height: 1,
+                      thickness: 1,
+                    ),
+                  ],
+                ),
               ),
-            ),
-            StudioPaymentContainer(
-                isMultiSession: true,
-                onTapCallback: (val) => _selectedPayment = val),
-            PaymentAgreement(onTapCallback: (val) => _isAgreementChecked = val)
-            //TODO:: implement functionality
-          ],
+              StudioPaymentContainer(
+                  isMultiSession: true,
+                  onTapCallback: (val) => _selectedPayment = val),
+              PaymentAgreement(
+                  onTapCallback: (val) => _isAgreementChecked = val)
+              //TODO:: implement functionality
+            ],
+          ),
         ),
       ),
-      bottomNavigationBar: StudioPaymentBottomContainer(
-        total: double.parse(_total.toStringAsFixed(3)),
-        onTapCallback: () {
-          if (_selectedPayment == null) {
-            ShowOkDialog(context, 'Please select a payment method');
-          } else if (_isAgreementChecked == false) {
-            _scrollController.animateTo(
-              _scrollController.position.maxScrollExtent,
-              duration: Duration(seconds: 1),
-              curve: Curves.fastOutSlowIn,
-            );
-          }
-        },
+      bottomNavigationBar: Visibility(
+        visible: cartItems.isNotEmpty,
+        child: StudioPaymentBottomContainer(
+          total: double.parse(_total.toStringAsFixed(3)),
+          onTapCallback: () {
+            if (_selectedPayment == null) {
+              ShowOkDialog(context, 'Please select a payment method');
+            } else if (_isAgreementChecked == false) {
+              _scrollController.animateTo(
+                _scrollController.position.maxScrollExtent,
+                duration: Duration(seconds: 1),
+                curve: Curves.fastOutSlowIn,
+              );
+            }
+          },
+        ),
       ),
     );
   }
