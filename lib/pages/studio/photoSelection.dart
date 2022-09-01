@@ -60,43 +60,71 @@ class PhotoSelection extends StatelessWidget {
         btnLabel: 'Add to Cart',
         showSlectedImages: true,
         onTap: () {
-          final content = context.read<Studio>();
-          if (content.selectedMedia.length > 0 &&
-              content.selectedMedia.length <= count!) {
+          final studioProvider = context.read<Studio>();
+          if (studioProvider.selectedMedia.length > 0 &&
+              studioProvider.selectedMedia.length <= count!) {
             String description = '';
-            if (content.studioPackage?.id == 1) {
+            if (studioProvider.studioPackage?.id == 1) {
               description =
-                  " ${content.selectedAlbumSize?.title}, ${content.selectedSpreads?.title}, ${content.selectedPaperType?.title}, ${content.selectedCoverType?.title}";
+                  " ${studioProvider.selectedAlbumSize?.title}, ${studioProvider.selectedSpreads?.title}, ${studioProvider.selectedPaperType?.title}, ${studioProvider.selectedCoverType?.title}";
               print(
-                  'id: ${content.studioBody['package_id']}, desc: $description');
-            } else if (content.studioPackage?.id == 2) {
+                  'id: ${studioProvider.studioBody['package_id']}, desc: $description');
+            } else if (studioProvider.studioPackage?.id == 2) {
               description =
-                  " ${content.selectedCanvasSize?.title}, ${content.selectedCanvasThickness?.title}, ${content.quantity}";
+                  " ${studioProvider.selectedCanvasSize?.title}, ${studioProvider.selectedCanvasThickness?.title}, ${studioProvider.quantity}";
               print(
-                  'id: ${content.studioBody['package_id']}, desc: $description');
-            } else if (content.studioPackage?.id == 3) {
+                  'id: ${studioProvider.studioBody['package_id']}, desc: $description');
+            } else if (studioProvider.studioPackage?.id == 3) {
               description =
-                  " ${content.selectedPrintType?.title}, ${content.selectedPhotoPaperSize?.title}, ${content.selectedPhotoPaperSize?.title}, ${content.selectedPaperType?.title}, ${content.quantity}";
+                  " ${studioProvider.selectedPrintType?.title}, ${studioProvider.selectedPhotoPaperSize?.title}, ${studioProvider.selectedPhotoPaperSize?.title}, ${studioProvider.selectedPaperType?.title}, ${studioProvider.quantity}";
               print(
-                  'id: ${content.studioBody['package_id']}, desc: $description');
+                  'id: ${studioProvider.studioBody['package_id']}, desc: $description');
             }
+            final package = studioProvider.studioPackage;
+            String mediaIds = '';
+            studioProvider.selectedMedia.forEach((element) {
+              mediaIds = '$mediaIds,${element.id}';
+            });
+            mediaIds = mediaIds.replaceFirst(',', '');
 
-            content.addCartItem(
-              content.studioPackage?.title ?? '',
+            studioProvider.addCartItem(
+              studioProvider.studioPackage?.title ?? '',
               description,
-              content.packagePriceWithSpecs.toString(),
-              content.studioPackage?.image ?? '',
-              content.selectedMedia,
+              studioProvider.packagePriceWithSpecs.toString(),
+              studioProvider.studioPackage?.image ?? '',
+              studioProvider.selectedMedia,
             );
+
+            studioProvider.addToCart(
+              {
+                'package_id': package?.id,
+                'package_type': package?.type,
+                'title': package?.title,
+                'description': description,
+                'display_image': package?.image,
+                'media_ids': mediaIds,
+                'album_size': studioProvider.selectedAlbumSize,
+                'spreads': studioProvider.selectedSpreads,
+                'paper_type': studioProvider.selectedPaperType,
+                'cover_type': studioProvider.selectedCoverType,
+                'canvas_size': studioProvider.selectedCanvasSize,
+                'canvas_type': studioProvider.selectedCanvasSize,
+                'quantity': studioProvider.quantity,
+                'print_type': studioProvider.selectedPrintType,
+                'paper_size': studioProvider.selectedPhotoPaperSize,
+                // 'additional_comment': studioProvider.additionalComments,
+              },
+            );
+
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => CartPage(),
               ),
             );
-          } else if (content.selectedMedia.length <= 0) {
+          } else if (studioProvider.selectedMedia.length <= 0) {
             ShowOkDialog(context, 'Please select at least one image');
-          } else if (content.selectedMedia.length > count!) {
+          } else if (studioProvider.selectedMedia.length > count!) {
             ShowOkDialog(context, 'Please remove some images');
           }
         },
