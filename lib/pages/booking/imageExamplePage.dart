@@ -1,6 +1,7 @@
 //PACKAGES
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/pages/booking/image_preview_page.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -25,19 +26,28 @@ class ImageExamplePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBarWithClose('Image Examples', AppColors.pinkFEF2F1),
       backgroundColor: AppColors.pinkFEF2F1,
-      body: ListView.builder(
-        shrinkWrap: true,
+      body: ListView.separated(
         itemCount: media.length,
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        separatorBuilder: (ctx, index) => SizedBox(height: 10),
         itemBuilder: (ctx, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: 600),
+          final url = media[index].url ?? '';
+          final tag = 'tag$index';
+          return GestureDetector(
+            onTap: (() => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ImagePreviewPage(url, tag),
+                  ),
+                )),
+            child: Hero(
+              tag: tag,
               child: CachedNetworkImage(
-                imageUrl: media[index].url ?? '',
+                imageUrl: url,
+                height: 200,
                 width: double.infinity,
                 fit: BoxFit.fitWidth,
+                maxHeightDiskCache: 500,
+                maxWidthDiskCache: 500,
                 placeholder: (context, url) => placeholder,
                 errorWidget: (context, url, error) => placeholder,
               ),
