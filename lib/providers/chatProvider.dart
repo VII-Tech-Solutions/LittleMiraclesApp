@@ -1,7 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import '../database/db_sqflite.dart';
 import '../global/const.dart';
+import '../global/globalEnvironment.dart';
+import 'package:http/http.dart' as http;
+
+import '../global/globalHelpers.dart';
 
 class ChatData with ChangeNotifier {
   Map<String, int> _lastSeen = {};
@@ -45,5 +51,17 @@ class ChatData with ChangeNotifier {
     if (timestamp != null && _lastSeen[id] != null) if (timestamp >
         _lastSeen[id]!) return true;
     return false;
+  }
+
+  Future<http.Response> getSupportUserIds() async {
+    final url = Uri.parse('$apiLink/firebase-ids');
+    final response = http.get(url, headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Platform': '${await AppInfo().platformInfo()}',
+      'App-Version': '${await AppInfo().versionInfo()}',
+      // 'Authorization': 'Bearer $token',
+    }).timeout(Duration(seconds: Timeout.value));
+
+    return response;
   }
 }

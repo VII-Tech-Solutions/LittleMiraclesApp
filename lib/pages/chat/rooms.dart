@@ -1,4 +1,6 @@
 // Flutter imports:
+import 'dart:convert';
+
 import 'package:LMP0001_LittleMiraclesApp/global/colors.dart';
 import 'package:LMP0001_LittleMiraclesApp/pages/chat/users.dart';
 import 'package:LMP0001_LittleMiraclesApp/providers/chatProvider.dart';
@@ -40,12 +42,28 @@ class _RoomsPageState extends State<RoomsPage> {
   String _authorId = '';
   TextEditingController _searchCon = new TextEditingController();
   String _query = '';
+  bool loading = false;
 
   @override
   void initState() {
+    setState(() {
+      loading = true;
+    });
     initializeFlutterFire();
     Future.delayed(Duration(milliseconds: 100))
         .then((_) => context.read<ChatData>().readDB());
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
+      var response = await context.read<ChatData>().getSupportUserIds();
+      final extractedData =
+          jsonDecode(response.body)['data']['firebase_ids'] as List;
+      for (var id in extractedData) {
+        if (id == null) continue;
+        await FirebaseChatCore.instance.createRoom(types.User(id: id));
+      }
+      setState(() {
+        loading = false;
+      });
+    });
     super.initState();
   }
 
@@ -185,10 +203,14 @@ class _RoomsPageState extends State<RoomsPage> {
         initialData: const [],
         builder: (context, snapshot) {
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Container(
-              alignment: Alignment.center,
-              child: const Text('No rooms'),
-            );
+            return loading == true
+                ? Center(
+                    child: CircularProgressIndicator.adaptive(),
+                  )
+                : Container(
+                    alignment: Alignment.center,
+                    child: const Text('No rooms'),
+                  );
           }
           // snapshot.data!.forEach((element) {
           //   if (!context
