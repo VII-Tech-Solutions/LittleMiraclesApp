@@ -85,93 +85,102 @@ class _BackdropPageState extends State<BackdropPage> {
         title: 'Select Backdrop',
         weight: FontWeight.w800,
       ),
-      body: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 30),
-        children: [
-          ListView.builder(
-            primary: false,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: appDataProvider.backdropCategories.length,
-            itemBuilder: (BuildContext context, int index) {
-              final int? catId = appDataProvider.backdropCategories[index].id;
-              final String? title =
-                  appDataProvider.backdropCategories[index].name;
-              if (appDataProvider.getBackdropsByCategoryId(catId!).isNotEmpty) {
-                return _buildContainer(
-                  title!,
-                  Column(
-                    children: appDataProvider
-                        .getBackdropsByCategoryId(catId)
-                        .map(
-                          (item) => SelectionRow(
-                            () {
-                              setState(() {
-                                if (_selectedItems.contains(item.id)) {
-                                  _selectedItems.removeWhere(
-                                      (element) => element == item.id);
-                                } else {
-                                  if (allowedSelection == 1) {
-                                    _selectedItems.clear();
-                                    _selectedItems.add(item.id!);
-                                  } else if (allowedSelection > 1 &&
-                                      allowedSelection ==
-                                          _selectedItems.length) {
-                                    _selectedItems.removeAt(0);
-                                    _selectedItems.add(item.id!);
-                                  } else {
-                                    _selectedItems.add(item.id!);
-                                  }
-                                }
-                              });
-                            },
-                            item.image,
-                            null,
-                            item.title,
-                            _selectedItems.contains(item.id),
-                            allowedSelection,
-                            id: index,
-                          ),
-                        )
-                        .toList(),
-                  ),
-                );
-              } else {
-                return Container();
-              }
-            },
-          ),
-          TextQuestionWidget(
-            Question(
-              id: 1,
-              question: 'Custom Backdrop',
-              updatedAt: null,
-              deletedAt: null,
-              options: null,
-              order: null,
-              questionType: null,
-            ),
-            (val) {
-              if (val != null) {
-                if (val['answer'] != '') {
-                  _customBackdrop = val['answer'];
-                } else {
-                  _customBackdrop = '';
-                }
-              }
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 5),
-            child: Text(
-              'Additional charges may occur based on custom orders',
-              style: TextStyle(
-                fontSize: 10,
-                color: AppColors.black45515D,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: CustomScrollView(
+          slivers: [
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  final int? catId =
+                      appDataProvider.backdropCategories[index].id;
+                  final String? title =
+                      appDataProvider.backdropCategories[index].name;
+                  if (appDataProvider
+                      .getBackdropsByCategoryId(catId!)
+                      .isNotEmpty) {
+                    return _buildContainer(
+                      title!,
+                      Column(
+                        children: appDataProvider
+                            .getBackdropsByCategoryId(catId)
+                            .map(
+                              (item) => SelectionRow(
+                                () {
+                                  setState(() {
+                                    if (_selectedItems.contains(item.id)) {
+                                      _selectedItems.removeWhere(
+                                          (element) => element == item.id);
+                                    } else {
+                                      if (allowedSelection == 1) {
+                                        _selectedItems.clear();
+                                        _selectedItems.add(item.id!);
+                                      } else if (allowedSelection > 1 &&
+                                          allowedSelection ==
+                                              _selectedItems.length) {
+                                        _selectedItems.removeAt(0);
+                                        _selectedItems.add(item.id!);
+                                      } else {
+                                        _selectedItems.add(item.id!);
+                                      }
+                                    }
+                                  });
+                                },
+                                item.image,
+                                null,
+                                item.title,
+                                _selectedItems.contains(item.id),
+                                allowedSelection,
+                                id: index,
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
+                childCount: appDataProvider.backdropCategories.length,
               ),
             ),
-          )
-        ],
+            SliverToBoxAdapter(
+              child: TextQuestionWidget(
+                Question(
+                  id: 1,
+                  question: 'Custom Backdrop',
+                  updatedAt: null,
+                  deletedAt: null,
+                  options: null,
+                  order: null,
+                  questionType: null,
+                ),
+                (val) {
+                  if (val != null) {
+                    if (val['answer'] != '') {
+                      _customBackdrop = val['answer'];
+                    } else {
+                      _customBackdrop = '';
+                    }
+                  }
+                },
+              ),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.only(top: 5),
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                  'Additional charges may occur based on custom orders',
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: AppColors.black45515D,
+                  ),
+                ),
+              ),
+            ),
+            SliverPadding(padding: const EdgeInsets.only(top: 30)),
+          ],
+        ),
       ),
       bottomNavigationBar: Container(
         height: 80,
