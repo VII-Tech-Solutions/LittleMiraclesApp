@@ -25,7 +25,8 @@ import 'chat.dart';
 import 'util.dart';
 
 class RoomsPage extends StatefulWidget {
-  const RoomsPage({Key? key}) : super(key: key);
+  final bool canCreateRooms;
+  const RoomsPage({this.canCreateRooms = true, Key? key}) : super(key: key);
 
   @override
   _RoomsPageState createState() => _RoomsPageState();
@@ -150,32 +151,33 @@ class _RoomsPageState extends State<RoomsPage> {
         title: "Chat",
         weight: FontWeight.bold,
         actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 16.0),
-            child: Container(
-              height: 40,
-              width: 40,
-              child: MaterialButton(
-                elevation: 0,
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      fullscreenDialog: true,
-                      builder: (context) => const UsersPage(),
-                    ),
-                  );
-                },
-                color: AppColors.greyF2F3F3,
-                child: Icon(
-                  Icons.add,
-                  color: AppColors.black45515D,
-                  size: 24,
+          if (widget.canCreateRooms == true)
+            Padding(
+              padding: EdgeInsets.only(right: 16.0),
+              child: Container(
+                height: 40,
+                width: 40,
+                child: MaterialButton(
+                  elevation: 0,
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        fullscreenDialog: true,
+                        builder: (context) => const UsersPage(),
+                      ),
+                    );
+                  },
+                  color: AppColors.greyF2F3F3,
+                  child: Icon(
+                    Icons.add,
+                    color: AppColors.black45515D,
+                    size: 24,
+                  ),
+                  padding: EdgeInsets.all(8.0),
+                  shape: CircleBorder(),
                 ),
-                padding: EdgeInsets.all(8.0),
-                shape: CircleBorder(),
               ),
             ),
-          ),
         ],
       ),
       body: StreamBuilder<List<types.Room>>(
