@@ -168,8 +168,8 @@ class Auth with ChangeNotifier {
           providerId: extractedUserData['providerId'] as String?,
           username: extractedUserData['username'] as String?,
           provider: extractedUserData['provider'] as String?,
-          firebaseId: extractedUserData['firebase_id'] as String?,
-          chatWithEveryone: extractedUserData['chat_with_everyone'] as int?,
+          firebaseId: extractedUserData['firebaseId'] as String?,
+          chatWithEveryone: extractedUserData['chatWithEveryone'] as int?,
         );
 
         if (familyMembersDataList.isNotEmpty) {
@@ -742,6 +742,8 @@ class Auth with ChangeNotifier {
             'providerId': user.providerId,
             'username': user.username,
             'provider': user.provider,
+            'firebaseId': user.firebaseId,
+            'chatWithEveryone': user.chatWithEveryone,
           }));
 
       _familyMembers = [
