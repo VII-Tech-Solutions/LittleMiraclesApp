@@ -67,6 +67,16 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             },
           ),
         );
+        Map userData = {
+          "first_name": user.firstName,
+          "last_name": user.lastName,
+          "gender": user.gender,
+          "country_code": user.countryCode.toString(),
+          "phone_number": user.phoneNumber,
+          "birth_date": user.birthDate,
+          "firebase_id": FirebaseAuth.instance.currentUser?.uid
+        };
+        await context.read<Auth>().updateProfile(userData);
       }
 
       // _initFCM();
@@ -94,6 +104,17 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             'family_id': user.familyId,
           },
         });
+        print('sbala: ${FirebaseAuth.instance.currentUser?.uid}');
+        Map userData = {
+          "first_name": user.firstName,
+          "last_name": user.lastName,
+          "gender": user.gender,
+          "country_code": user.countryCode.toString(),
+          "phone_number": user.phoneNumber,
+          "birth_date": user.birthDate,
+          "firebase_id": FirebaseAuth.instance.currentUser?.uid
+        };
+        await context.read<Auth>().updateProfile(userData);
       }
       // _initFCM();
     } catch (e) {
