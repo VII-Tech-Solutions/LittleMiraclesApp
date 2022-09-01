@@ -89,33 +89,7 @@ class _CakePageState extends State<CakePage> {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: CustomScrollView(
           slivers: [
-            SliverPadding(padding: const EdgeInsets.only(top: 15)),
-            SliverToBoxAdapter(
-              child: SelectionRow(
-                () {
-                  setState(() {
-                    _selectedItems.clear();
-                    _isClearSelected = true;
-                  });
-                },
-                '',
-                Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.greyE8E9EB,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Icon(
-                    Icons.do_not_disturb,
-                    size: 48,
-                    color: AppColors.black45515D,
-                  ),
-                ),
-                'No Cake',
-                _isClearSelected,
-                allowedSelection,
-                id: 0,
-              ),
-            ),
+            SliverToBoxAdapter(),
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
@@ -169,7 +143,41 @@ class _CakePageState extends State<CakePage> {
                 childCount: appDataProvider.cakeCategories.length,
               ),
             ),
-            SliverPadding(padding: const EdgeInsets.only(top: 30)),
+            SliverToBoxAdapter(
+              child: TextQuestionWidget(
+                Question(
+                  id: 1,
+                  question: 'Custom Cake',
+                  updatedAt: null,
+                  deletedAt: null,
+                  options: null,
+                  order: null,
+                  questionType: null,
+                ),
+                (val) {
+                  if (val != null) {
+                    if (val['answer'] != '') {
+                      _customCake = val['answer'];
+                    } else {
+                      _customCake = '';
+                    }
+                  }
+                },
+              ),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.only(top: 5),
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                  'Additional charges may occur based on custom orders',
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: AppColors.black45515D,
+                  ),
+                ),
+              ),
+            ),
+            SliverPadding(padding: const EdgeInsets.only(bottom: 30)),
           ],
         ),
       ),
