@@ -308,6 +308,8 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProxyProvider<Auth, Studio>(
           update: (context, auth, previousStudio) => Studio(
             auth.token,
+            previousStudio == null ? null : previousStudio.albumTitle,
+            previousStudio == null ? null : previousStudio.additionalComment,
             previousStudio == null ? [] : previousStudio.benefits,
             previousStudio == null ? [] : previousStudio.packageMedia,
             previousStudio == null ? null : previousStudio.studioPackage,
@@ -325,8 +327,8 @@ class _MyAppState extends State<MyApp> {
                 : previousStudio.selectedPhotoPaperSize,
             previousStudio == null ? [] : previousStudio.cartItems,
           ),
-          create: (context) => Studio('', [], [], null, null, null, null, null,
-              null, null, null, null, []),
+          create: (context) => Studio('', null, null, [], [], null, null, null,
+              null, null, null, null, null, null, []),
         ),
         ChangeNotifierProvider<ChatData>(
           create: (context) => ChatData({}),

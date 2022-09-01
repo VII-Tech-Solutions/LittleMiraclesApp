@@ -37,6 +37,8 @@ class Studio with ChangeNotifier {
 
   //bookings details
   Map _bookingBody = {};
+  String? _albumTitle;
+  String? _additionalComment;
   StudioMetadata? _selectedAlbumSize;
   StudioMetadata? _selectedSpreads;
   StudioMetadata? _selectedPaperType;
@@ -58,6 +60,8 @@ class Studio with ChangeNotifier {
 
   Studio(
     this.authToken,
+    this._albumTitle,
+    this._additionalComment,
     this._benefits,
     this._studioPackageMedia,
     this._studioPackage,
@@ -71,6 +75,14 @@ class Studio with ChangeNotifier {
     this._selectedPhotoPaperSize,
     this._cartItems,
   );
+
+  String? get albumTitle {
+    return _albumTitle;
+  }
+
+  String? get additionalComment {
+    return _additionalComment;
+  }
 
   PromoCode? get promoCode {
     return _promoCode;
@@ -338,6 +350,14 @@ class Studio with ChangeNotifier {
     notifyListeners();
   }
 
+  void assignAlbumSize(String value) {
+    _albumTitle = value;
+  }
+
+  void assignAdditionalComment(String value) {
+    _additionalComment = value;
+  }
+
   void assignQuantity(int val) {
     _quantity = val;
     notifyListeners();
@@ -364,6 +384,8 @@ class Studio with ChangeNotifier {
     _selectedPhotoPaperSize = null;
     _selectedMedia = [];
     _quantity = 1;
+    _albumTitle = null;
+    _additionalComment = null;
 
     print(jsonEncode(_bookingBody));
   }
