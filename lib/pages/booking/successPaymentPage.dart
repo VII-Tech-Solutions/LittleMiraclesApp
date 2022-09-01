@@ -127,31 +127,34 @@ class SuccessPaymentPage extends StatelessWidget {
           PaymentDetailsContainer(),
         ],
       ),
-      bottomNavigationBar: Container(
-        height: 80,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        child: FilledButtonWidget(
-          onPress: () {
-            context.read<AppData>().assignSessionById(session?.id).then((_) {
-              context.read<Auth>().setSelectedIndex(0);
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CustomBottomNavigationBar(),
-                ),
-                (Route<dynamic> route) => false,
-              );
+      bottomNavigationBar: SafeArea(
+        child: Container(
+          height: 80,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          // margin: const EdgeInsets.only(bottom: 30),
+          child: FilledButtonWidget(
+            onPress: () {
+              context.read<AppData>().assignSessionById(session?.id).then((_) {
+                context.read<Auth>().setSelectedIndex(0);
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CustomBottomNavigationBar(),
+                  ),
+                  (Route<dynamic> route) => false,
+                );
 
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => UpcomingSessionDetailsPage(),
-                ),
-              );
-            });
-          },
-          title: 'Go To Booking Details',
-          type: ButtonType.generalBlue,
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UpcomingSessionDetailsPage(),
+                  ),
+                );
+              });
+            },
+            title: 'Go To Booking Details',
+            type: ButtonType.generalBlue,
+          ),
         ),
       ),
     );
