@@ -199,7 +199,76 @@ class Studio with ChangeNotifier {
     return mediaList;
   }
 
-  // List<int> indices = [];
+  Future<ApiResponse?> addToCart(Map<String, dynamic> requestBody) async {
+    final url = Uri.parse('$apiLink/cart/add');
+
+    try {
+      var response = await http
+          .post(
+            url,
+            headers: {
+              'Content-Type': 'application/json',
+              'Platform': '${await AppInfo().platformInfo()}',
+              'App-Version': '${await AppInfo().versionInfo()}',
+              'Authorization': 'Bearer $authToken',
+            },
+            body: jsonEncode(requestBody),
+
+            // body: jsonEncode({
+            //   'package_id': 1,
+            //   'package_type': 1,
+            //   'title': 'Photo Album',
+            //   'description': '8x12, 10 spreads, Smooth Matte',
+            //   'display_image': 21,
+            //   'media_ids': '10,11,20,50',
+            //   'album_size': 1,
+            //   'spreads': 2,
+            //   'paper_type': 3,
+            //   'cover_type': 4,
+            //   'canvas_size': 1,
+            //   'canvas_type': 2,
+            //   'quantity': 1,
+            //   'print_type': 1,
+            //   'paper_size': 1,
+            //   'additional_comment': 'Please hurry and finish it',
+            // }),
+          )
+          .timeout(Duration(seconds: Timeout.value));
+
+      final result = json.decode(response.body);
+
+      if (response.statusCode != 200) {
+        if ((response.statusCode >= 400 && response.statusCode <= 499) ||
+            response.statusCode == 503) {
+          return ApiResponse(
+              statusCode: response.statusCode,
+              message: result['message'].toString());
+        } else {
+          return null;
+        }
+      }
+
+      // final sessionsJson = result['data']['sessions'] as List;
+
+      // final sessionsList =
+      //     sessionsJson.map((json) => Session.fromJson(json)).toList();
+
+      // _session = sessionsList.last;
+
+      notifyListeners();
+      return (ApiResponse(
+        statusCode: response.statusCode,
+        message: json.decode(response.body)['message'],
+      ));
+    } on TimeoutException catch (e) {
+      print('Exception Timeout:: $e');
+      return null;
+    } catch (e) {
+      print('catch error:: $e');
+      return null;
+    }
+  }
+
   void addCartItem(
     String itemTitle,
     String? description,
@@ -236,6 +305,7 @@ class Studio with ChangeNotifier {
         mediaIds: mediaIds,
       ),
     );
+
     _cartItems.forEach((e) {
       DBHelper.insert(Tables.cartItems, e.toMap());
     });
