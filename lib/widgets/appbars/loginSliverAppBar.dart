@@ -123,7 +123,9 @@ class LoginSliverAppBar extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (_) => ChatPage(room: supportRoom),
+                                    builder: (_) => RoomsPage(
+                                      canCreateRooms: false,
+                                    ),
                                   ),
                                 ).then((value) =>
                                     ShowLoadingDialog(context, dismiss: true));
