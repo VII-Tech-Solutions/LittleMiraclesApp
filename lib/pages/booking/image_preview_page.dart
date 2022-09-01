@@ -18,6 +18,7 @@ class ImagePreviewPage extends StatelessWidget {
       backgroundColor: AppColors.pinkFEF2F1,
       body: SafeArea(
         child: InteractiveViewer(
+          maxScale: 10,
           child: Container(
             height: double.infinity,
             width: double.infinity,
@@ -28,8 +29,6 @@ class ImagePreviewPage extends StatelessWidget {
                 imageUrl: url ?? '',
                 width: double.infinity,
                 fit: BoxFit.fitWidth,
-                maxHeightDiskCache: 500,
-                maxWidthDiskCache: 500,
                 placeholder: (context, url) => placeholder,
                 errorWidget: (context, url, error) => placeholder,
               ),
