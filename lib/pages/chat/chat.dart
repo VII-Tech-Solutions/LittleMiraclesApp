@@ -48,7 +48,7 @@ class ChatPage extends StatefulWidget {
   _ChatPageState createState() => _ChatPageState();
 }
 
-class _ChatPageState extends State<ChatPage> {
+class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   bool _isAttachmentUploading = false;
@@ -202,6 +202,16 @@ class _ChatPageState extends State<ChatPage> {
     FirebaseChatCore.instance.updateMessage(updatedMessage, widget.room.id);
   }
 
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print('state: $state');
+    if (state == AppLifecycleState.resumed) {
+      FirebaseChatCore.instance.updateRoom(widget.room, currentlyActive: true);
+    } else {
+      FirebaseChatCore.instance.updateRoom(widget.room, currentlyActive: false);
+    }
+  }
+
   void _handleSendPressed(types.PartialText message) async {
     FirebaseChatCore.instance.sendMessage(
       message,
@@ -280,6 +290,7 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   void initState() {
+    WidgetsBinding.instance?.addObserver(this);
     global.roomId = widget.room.id;
     Future.delayed(Duration(milliseconds: 500)).then((_) => context
         .read<ChatData>()
@@ -294,6 +305,7 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
     global.roomId = null;
     _scaffoldKey.currentContext
         ?.read<ChatData>()
