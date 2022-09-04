@@ -380,7 +380,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = 7P3P7B34NN;
+				DEVELOPMENT_TEAM = 8A5W3JX65U;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -388,7 +388,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.littlemiracles;
+				PRODUCT_BUNDLE_IDENTIFIER = com.littlemiraclesbys;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -512,7 +512,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = 7P3P7B34NN;
+				DEVELOPMENT_TEAM = 8A5W3JX65U;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -520,7 +520,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.littlemiracles;
+				PRODUCT_BUNDLE_IDENTIFIER = com.littlemiraclesbys;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -538,7 +538,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = 7P3P7B34NN;
+				DEVELOPMENT_TEAM = 8A5W3JX65U;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -546,7 +546,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.littlemiracles;
+				PRODUCT_BUNDLE_IDENTIFIER = com.littlemiraclesbys;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
