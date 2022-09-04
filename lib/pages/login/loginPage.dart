@@ -138,7 +138,7 @@ class LoginPage extends StatelessWidget {
         break;
       case SSOType.apple:
         {
-          // result = await authProvider.signInWithApple();
+          result = await authProvider.signInWithApple();
           // ShowLoadingDialog(context, dismiss: true);
         }
         break;
@@ -339,7 +339,10 @@ class LoginPage extends StatelessWidget {
               Visibility(
                 visible: Platform.isIOS,
                 child: ButtonWithIconWidget(
-                  onPress: () {},
+                  onPress: () {
+                    _socialLogin(
+                        context, SSOType.apple, authProvider, appDataProvider);
+                  },
                   buttonText: 'Login using Apple',
                   assetName: 'assets/images/iconsSocialApple.svg',
                 ),
