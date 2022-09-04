@@ -376,7 +376,7 @@ class FirebaseChatCore {
 
   /// Updates a room in the Firestore. Accepts any room.
   /// Room will probably be taken from the [rooms] stream.
-  void updateRoom(types.Room room) async {
+  void updateRoom(types.Room room, {currentlyActive = false}) async {
     if (firebaseUser == null) return;
 
     final roomMap = room.toJson();
@@ -406,7 +406,29 @@ class FirebaseChatCore {
     }).toList();
     roomMap['updatedAt'] = FieldValue.serverTimestamp();
     roomMap['userIds'] = room.users.map((u) => u.id).toList();
-
+    var newData = await getFirebaseFirestore()
+        .collection(config.roomsCollectionName)
+        .doc(room.id)
+        .get();
+    roomMap['metadata']['currentlyActive'] =
+        newData.data()?['metadata']['currentlyActive'];
+    if (currentlyActive == true) {
+      try {
+        if (!(roomMap['metadata']['currentlyActive'] as List)
+            .contains(firebaseUser?.uid)) {
+          (roomMap['metadata']['currentlyActive'] as List)
+              .add(firebaseUser?.uid);
+        }
+      } catch (e) {
+        roomMap['metadata'] = {
+          'currentlyActive': [firebaseUser?.uid]
+        };
+      }
+    } else if (roomMap['metadata'] != null &&
+        roomMap['metadata']['currentlyActive'] != null &&
+        roomMap['metadata']['currentlyActive'].isNotEmpty) {
+      roomMap['metadata']['currentlyActive'].remove(firebaseUser?.uid);
+    }
     await getFirebaseFirestore()
         .collection(config.roomsCollectionName)
         .doc(room.id)

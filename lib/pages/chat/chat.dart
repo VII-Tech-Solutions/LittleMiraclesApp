@@ -207,7 +207,7 @@ class _ChatPageState extends State<ChatPage> {
       message,
       widget.room.id,
     );
-    FirebaseChatCore.instance.updateRoom(widget.room);
+    FirebaseChatCore.instance.updateRoom(widget.room, currentlyActive: true);
     Future.delayed(Duration(milliseconds: 500)).then((_) => context
         .read<ChatData>()
         .updateStatus(widget.room.id, DateTime.now().millisecondsSinceEpoch));
@@ -217,6 +217,8 @@ class _ChatPageState extends State<ChatPage> {
         .collection('rooms')
         .doc(widget.room.id)
         .get();
+    final List activeUsersInRoom =
+        otherUserDoc.data()?['metadata']['currentlyActive'];
     final arrayOfIds = otherUserDoc.data()!['userIds'];
     String receiverId;
     if (arrayOfIds[0] == FirebaseAuth.instance.currentUser!.uid)
@@ -229,42 +231,44 @@ class _ChatPageState extends State<ChatPage> {
         .get();
     final recieverFamilyId = otherUserData.data()!['metadata']['family_id'];
     final recieverUserId = otherUserData.data()!['metadata']['user_id'];
-    try {
-      final response = await http.post(
-        url,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Platform': '${await AppInfo().platformInfo()}',
-          'App-Version': '${await AppInfo().versionInfo()}',
-          'Authorization': 'Bearer ${auth.token}',
-        },
-        body: {
-          'title':
-              'Message from ${auth.user!.firstName} ${auth.user?.lastName}',
-          'message': '${message.text}',
-          'topic': 'user_${recieverUserId}',
-          'room_id': widget.room.id,
-          'family_id': '${recieverFamilyId}'
-        },
-      ).timeout(Duration(seconds: Timeout.value));
+    if (!activeUsersInRoom.contains(receiverId)) {
+      try {
+        final response = await http.post(
+          url,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Platform': '${await AppInfo().platformInfo()}',
+            'App-Version': '${await AppInfo().versionInfo()}',
+            'Authorization': 'Bearer ${auth.token}',
+          },
+          body: {
+            'title':
+                'Message from ${auth.user!.firstName} ${auth.user?.lastName}',
+            'message': '${message.text}',
+            'topic': 'user_${recieverUserId}',
+            'room_id': widget.room.id,
+            'family_id': '${recieverFamilyId}'
+          },
+        ).timeout(Duration(seconds: Timeout.value));
 
-      final result = json.decode(response.body);
+        final result = json.decode(response.body);
 
-      if (response.statusCode != 200) {
-        if ((response.statusCode >= 400 && response.statusCode <= 499) ||
-            response.statusCode == 503) {
-          print(
-              'statusCode: ${response.statusCode} message: ${result['message'].toString()}');
-        } else {
-          return null;
+        if (response.statusCode != 200) {
+          if ((response.statusCode >= 400 && response.statusCode <= 499) ||
+              response.statusCode == 503) {
+            print(
+                'statusCode: ${response.statusCode} message: ${result['message'].toString()}');
+          } else {
+            return null;
+          }
         }
+        print(
+            'not in if statement: statusCode: ${response.statusCode} message: ${result['message'].toString()}');
+      } on TimeoutException catch (e) {
+        print('Exception Timeout:: $e');
+      } catch (e) {
+        print('catch error:: $e');
       }
-      print(
-          'not in if statement: statusCode: ${response.statusCode} message: ${result['message'].toString()}');
-    } on TimeoutException catch (e) {
-      print('Exception Timeout:: $e');
-    } catch (e) {
-      print('catch error:: $e');
     }
   }
 
@@ -280,6 +284,11 @@ class _ChatPageState extends State<ChatPage> {
     Future.delayed(Duration(milliseconds: 500)).then((_) => context
         .read<ChatData>()
         .updateStatus(widget.room.id, DateTime.now().millisecondsSinceEpoch));
+    FirebaseChatCore.instance.updateRoom(widget.room, currentlyActive: true);
+    //     metadata: {
+    //   'user_id': user.id,
+    //   'family_id': user.familyId,
+    // }
     super.initState();
   }
 
@@ -289,6 +298,7 @@ class _ChatPageState extends State<ChatPage> {
     _scaffoldKey.currentContext
         ?.read<ChatData>()
         .updateStatus(widget.room.id, DateTime.now().millisecondsSinceEpoch);
+    FirebaseChatCore.instance.updateRoom(widget.room);
     super.dispose();
   }
 
