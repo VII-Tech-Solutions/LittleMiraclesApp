@@ -27,6 +27,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  sign_in_with_apple: 4.1.0
   add_2_calendar: 2.1.2
   badges: 2.0.2
   bubble: 1.2.1
