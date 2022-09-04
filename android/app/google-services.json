@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "970217973487-pldhfmh5nbdbbafapgsi9p91idh4kt8d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.littlemiraclesbys",
+            "certificate_hash": "0a631a5d571496ab9ff532a347ad4f7669cabc11"
+          }
+        },
+        {
           "client_id": "970217973487-d1e64ijid51vsdhhv91hilufq1nhm20u.apps.googleusercontent.com",
           "client_type": 3
         }
