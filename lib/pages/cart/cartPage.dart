@@ -90,7 +90,9 @@ class _CartPageState extends State<CartPage> {
                         price: e.price,
                         title: e.title,
                         onTapCallback: () {
-                          context.read<Studio>().removeCartItem(e.id);
+                          ShowLoadingDialog(context);
+                          context.read<Studio>().removeCartItem(e.id).then(
+                              (_) => ShowLoadingDialog(context, dismiss: true));
                         },
                       );
                     },
