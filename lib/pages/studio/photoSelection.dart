@@ -4,6 +4,7 @@
 import 'dart:math';
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/showLoadingDialog.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -14,6 +15,7 @@ import 'package:LMP0001_LittleMiraclesApp/pages/cart/cartPage.dart';
 import 'package:LMP0001_LittleMiraclesApp/providers/studio.dart';
 import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/showOkDialog.dart';
 import '../../global/colors.dart';
+import '../../global/const.dart';
 import '../../providers/appData.dart';
 import '../../widgets/appbars/appBarWithBack.dart';
 import '../../widgets/containers/photoSelectionContainer.dart';
@@ -60,6 +62,7 @@ class PhotoSelection extends StatelessWidget {
         btnLabel: 'Add to Cart',
         showSlectedImages: true,
         onTap: () {
+          ShowLoadingDialog(context);
           final studioProvider = context.read<Studio>();
           if (studioProvider.selectedMedia.length > 0 &&
               studioProvider.selectedMedia.length <= count!) {
@@ -106,14 +109,22 @@ class PhotoSelection extends StatelessWidget {
                 'paper_size': studioProvider.selectedPhotoPaperSize?.id,
                 'additional_comment': studioProvider.additionalComment,
               },
-            );
-
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => CartPage(),
-            //   ),
-            // );
+            ).then((value) {
+              if (value?.statusCode == 200) {
+                ShowLoadingDialog(context, dismiss: false);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CartPage(),
+                  ),
+                );
+              } else {
+                ShowOkDialog(
+                  context,
+                  ErrorMessages.somethingWrong,
+                );
+              }
+            });
           } else if (studioProvider.selectedMedia.length <= 0) {
             ShowOkDialog(context, 'Please select at least one image');
           } else if (studioProvider.selectedMedia.length > count!) {

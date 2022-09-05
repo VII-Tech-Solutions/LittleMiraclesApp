@@ -43,7 +43,7 @@ class _SplashscreenState extends State<Splashscreen> {
           appDataProvider.fetchAndSetSessions(token: token).then(
                 (value) => appDataProvider
                     .fetchAndSetAppData()
-                    .then((_) => cartItems.getCartItemsDB())
+                    // .then((_) => cartItems.getCartItemsDB())
                     .then((_) => authProvider.getToken(withNotify: true).then(
                           (_) => Navigator.pushReplacement(
                             context,

@@ -100,9 +100,13 @@ class _StudioPromoCodeContainerState extends State<StudioPromoCodeContainer> {
                   child: IconButton(
                     onPressed: () {
                       _textFieldController.clear();
-                      setState(() {
-                        context.read<Studio>().removePromoCode();
-                        flip = !flip;
+                      ShowLoadingDialog(context);
+
+                      context.read<Studio>().removePromoCode().then((_) {
+                        setState(() {
+                          flip = !flip;
+                        });
+                        ShowLoadingDialog(context, dismiss: true);
                       });
                     },
                     icon: Icon(Icons.delete_outline),
@@ -120,24 +124,31 @@ class _StudioPromoCodeContainerState extends State<StudioPromoCodeContainer> {
                 if (_textFieldController.text.isNotEmpty) {
                   ShowLoadingDialog(context);
                   FocusManager.instance.primaryFocus?.unfocus();
-                  setState(() {
-                    flip = !flip;
-                  });
+                  // setState(() {
+                  //   flip = !flip;
+                  // });
                   context
                       .read<Studio>()
                       .applyPromoCode(_textFieldController.text.toString())
                       .then((response) {
                     ShowLoadingDialog(context, dismiss: true);
-                    // if (response?.statusCode != 200) {
-                    //   ShowOkDialog(
-                    //     context,
-                    //     response?.message ?? ErrorMessages.somethingWrong,
-                    //   );
-                    // }
+                    if (response != 'Promo code applied') {
+                      ShowOkDialog(
+                        context,
+                        response ?? ErrorMessages.somethingWrong,
+                      );
+                    } else {
+                      setState(() {
+                        flip = !flip;
+                      });
+                    }
                   });
                 } else {
                   _textFieldController.text = '';
-                  context.read<Studio>().removePromoCode();
+                  ShowLoadingDialog(context);
+
+                  context.read<Studio>().removePromoCode().then(
+                      (value) => ShowLoadingDialog(context, dismiss: true));
                 }
               },
               type: ButtonType.generalGrey,

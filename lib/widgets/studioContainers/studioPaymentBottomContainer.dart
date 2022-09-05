@@ -13,7 +13,7 @@ import '../buttons/filledButtonWidget.dart';
 
 class StudioPaymentBottomContainer extends StatelessWidget {
   final VoidCallback? onTapCallback;
-  final double? total;
+  final String? total;
   const StudioPaymentBottomContainer({
     @required this.onTapCallback,
     @required this.total,

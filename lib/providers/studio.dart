@@ -38,6 +38,9 @@ class Studio with ChangeNotifier {
   //bookings details
   Map _bookingBody = {};
   String? _albumTitle;
+  String? _cartTotal;
+  String? _cartSubtotal;
+  // String? _cartDiscount;
   String? _additionalComment;
   StudioMetadata? _selectedAlbumSize;
   StudioMetadata? _selectedSpreads;
@@ -74,6 +77,9 @@ class Studio with ChangeNotifier {
     this._selectedPrintType,
     this._selectedPhotoPaperSize,
     this._cartItems,
+    this._cartTotal,
+    this._cartSubtotal,
+    // this._cartDiscount,
   );
 
   String? get albumTitle {
@@ -82,6 +88,18 @@ class Studio with ChangeNotifier {
 
   String? get additionalComment {
     return _additionalComment;
+  }
+
+  String? get cartTotal {
+    return _cartTotal;
+  }
+
+  // String? get cartDiscount {
+  //   return _cartDiscount;
+  // }
+
+  String? get cartSubtotal {
+    return _cartSubtotal;
   }
 
   PromoCode? get promoCode {
@@ -219,7 +237,7 @@ class Studio with ChangeNotifier {
           .timeout(Duration(seconds: Timeout.value));
 
       final result = json.decode(response.body);
-
+      print(result);
       if (response.statusCode != 200) {
         if ((response.statusCode >= 400 && response.statusCode <= 499) ||
             response.statusCode == 503) {
@@ -315,6 +333,75 @@ class Studio with ChangeNotifier {
     print(_cartItems);
   }
 
+  Future<String?> checkOut() async {
+    final url = Uri.parse(
+        '$apiLink/checkout?code=${_promoCode?.code ?? ''}&total_price=${_cartTotal ?? ''}&discount_price=${_promoCode?.discountPrice ?? ''}');
+    print(url);
+    try {
+      var response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Platform': '${await AppInfo().platformInfo()}',
+          'App-Version': '${await AppInfo().versionInfo()}',
+          'Authorization': 'Bearer $authToken',
+        },
+      ).timeout(Duration(seconds: Timeout.value));
+      final result = json.decode(response.body);
+      print(result);
+      if (result['message'] == 'Order created successfully') {
+        _promoCode = null;
+        _cartTotal = null;
+        _cartItems = [];
+        return result['message'];
+      }
+      return null;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  Future<void> getCartItems() async {
+    final url = Uri.parse('$apiLink/cart');
+    try {
+      var response = await http.get(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Platform': '${await AppInfo().platformInfo()}',
+          'App-Version': '${await AppInfo().versionInfo()}',
+          'Authorization': 'Bearer $authToken',
+        },
+      ).timeout(Duration(seconds: Timeout.value));
+
+      final result = json.decode(response.body);
+
+      if (result['data']['cart_items'].isEmpty) {
+        throw Exception('Cart is empty');
+      }
+      _cartTotal = result['data']['total_price'].toString();
+      _cartSubtotal = result['data']['subtotal'].toString();
+      List lst = result['data']['cart_items']
+          .map(
+            (e) => CartItem(
+              id: e['id'],
+              title: e['title'],
+              description: e['description'],
+              price: e['total_price'].toString(),
+              displayImage: e['displayImage'],
+              mediaIds: e['mediaIds'],
+            ),
+          )
+          .toList();
+      _cartItems = lst.cast<CartItem>();
+    } catch (e) {
+      print(e);
+    }
+    notifyListeners();
+    print(_cartItems);
+  }
+
   void assignSelectedSessionMedia(
     List<Media> list,
     int? sessionId,
@@ -332,17 +419,41 @@ class Studio with ChangeNotifier {
     print('_selectedMedia: $_selectedMedia');
   }
 
-  Future<void> applyPromoCode(String code) async {
+  Future<String?> applyPromoCode(String code) async {
     try {
-      _promoCode = PromoCode(
-        code: code,
-        message: 'potato',
-        originalPrice: '80.0',
-        discountPrice: '80.0',
-        totalPrice: '0.0',
-      );
+      // _promoCode = PromoCode(
+      //   code: code,
+      //   message: 'potato',
+      //   originalPrice: '80.0',
+      //   discountPrice: '80.0',
+      //   totalPrice: '0.0',
+      // );
+      final url = Uri.parse('$apiLink/cart/promotion?code=$code');
 
+      var response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Platform': '${await AppInfo().platformInfo()}',
+          'App-Version': '${await AppInfo().versionInfo()}',
+          'Authorization': 'Bearer $authToken',
+        },
+      ).timeout(Duration(seconds: Timeout.value));
+
+      final result = json.decode(response.body);
+      // print(response.body);
+      if (result['data'].isNotEmpty) {
+        _promoCode = PromoCode(
+          code: code,
+          message: '',
+          originalPrice: result['data']['original_price'],
+          discountPrice: result['data']['discount_price'],
+          totalPrice: result['data']['total_price'],
+        );
+        _cartTotal = _promoCode?.totalPrice;
+      }
       notifyListeners();
+      return result['message'];
     } on TimeoutException catch (e) {
       print('Exception Timeout:: $e');
       return null;
@@ -354,14 +465,38 @@ class Studio with ChangeNotifier {
 
   Future<void> removePromoCode() async {
     _promoCode = null;
+    final url = Uri.parse('$apiLink/cart');
+    var response = await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Platform': '${await AppInfo().platformInfo()}',
+        'App-Version': '${await AppInfo().versionInfo()}',
+        'Authorization': 'Bearer $authToken',
+      },
+    ).timeout(Duration(seconds: Timeout.value));
 
+    final result = json.decode(response.body);
+
+    if (result['data']['cart_items'].isEmpty) {
+      throw Exception('Cart is empty');
+    }
+    _cartTotal = result['data']['total_price'].toString();
     notifyListeners();
   } //TODO:: implement function
 
-  void removeCartItem(int? id) {
+  Future<void> removeCartItem(int? id) async {
     _cartItems.removeWhere((element) => element.id == id);
-    DBHelper.deleteById(Tables.cartItems, id!);
-    notifyListeners();
+    final url = Uri.parse('$apiLink/cart/$id');
+    var response = await http.delete(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Platform': '${await AppInfo().platformInfo()}',
+        'App-Version': '${await AppInfo().versionInfo()}',
+        'Authorization': 'Bearer $authToken',
+      },
+    ).timeout(Duration(seconds: Timeout.value));
   }
 
   void assignSelectedSpec(int category, StudioMetadata? data) {

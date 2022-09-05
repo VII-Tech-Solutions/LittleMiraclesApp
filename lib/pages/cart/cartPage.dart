@@ -1,6 +1,7 @@
 //PACKAGES
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/showLoadingDialog.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -9,6 +10,7 @@ import 'package:provider/provider.dart';
 
 // Project imports:
 import '../../global/colors.dart';
+import '../../global/const.dart';
 import '../../providers/studio.dart';
 import '../../widgets/appbars/appBarWithBackandPop.dart';
 import '../../widgets/containers/cartItemContainer.dart';
@@ -30,8 +32,22 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
   bool _isAgreementChecked = false;
+  bool _isLoading = false;
   String? _selectedPayment = null;
   final _scrollController = new ScrollController();
+  @override
+  void initState() {
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
+      setState(() {
+        _isLoading = true;
+      });
+      await context.read<Studio>().getCartItems();
+      setState(() {
+        _isLoading = false;
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +67,9 @@ class _CartPageState extends State<CartPage> {
         visible: cartItems.isNotEmpty,
         replacement: Center(
           heightFactor: 25,
-          child: Text('Cart is empty.'),
+          child: _isLoading == true
+              ? CircularProgressIndicator.adaptive()
+              : Text('Cart is empty.'),
         ),
         child: SingleChildScrollView(
           controller: _scrollController,
@@ -66,11 +84,6 @@ class _CartPageState extends State<CartPage> {
                 child: Column(
                   children: cartItems.map(
                     (e) {
-                      _subtotal = _subtotal +
-                          double.parse(e.price.toString()) -
-                          double.parse(promoCode?.discountPrice ?? '0.00');
-                      _vat = _subtotal * 0.05;
-                      _total = _subtotal + _vat;
                       return CartItemContainer(
                         description: e.description,
                         image: e.displayImage,
@@ -111,7 +124,7 @@ class _CartPageState extends State<CartPage> {
                       ),
                     ),
                     Text(
-                      'BD $_subtotal',
+                      'BD ${context.read<Studio>().cartSubtotal}',
                       style: TextStyle(
                         fontFamily: GoogleFonts.manrope().fontFamily,
                         fontWeight: FontWeight.w800,
@@ -210,7 +223,7 @@ class _CartPageState extends State<CartPage> {
       bottomNavigationBar: Visibility(
         visible: cartItems.isNotEmpty,
         child: StudioPaymentBottomContainer(
-          total: double.parse(_total.toStringAsFixed(3)),
+          total: context.watch<Studio>().cartTotal,
           onTapCallback: () {
             if (_selectedPayment == null) {
               ShowOkDialog(context, 'Please select a payment method');
@@ -220,6 +233,19 @@ class _CartPageState extends State<CartPage> {
                 duration: Duration(seconds: 1),
                 curve: Curves.fastOutSlowIn,
               );
+            } else {
+              ShowLoadingDialog(context);
+              context.read<Studio>().checkOut().then((value) {
+                ShowLoadingDialog(context, dismiss: true);
+                if (value != 'Order created successfully') {
+                  ShowOkDialog(
+                    context,
+                    value ?? ErrorMessages.somethingWrong,
+                  );
+                } else {
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                }
+              });
             }
           },
         ),
