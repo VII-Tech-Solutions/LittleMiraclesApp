@@ -389,7 +389,7 @@ class Studio with ChangeNotifier {
               title: e['title'],
               description: e['description'],
               price: e['total_price'].toString(),
-              displayImage: e['displayImage'],
+              displayImage: e['display_image'],
               mediaIds: e['mediaIds'],
             ),
           )
