@@ -202,6 +202,8 @@ class Studio with ChangeNotifier {
   Future<ApiResponse?> addToCart(Map<String, dynamic> requestBody) async {
     final url = Uri.parse('$apiLink/cart/add');
 
+    print(requestBody);
+
     try {
       var response = await http
           .post(
@@ -213,25 +215,6 @@ class Studio with ChangeNotifier {
               'Authorization': 'Bearer $authToken',
             },
             body: jsonEncode(requestBody),
-
-            // body: jsonEncode({
-            //   'package_id': 1,
-            //   'package_type': 1,
-            //   'title': 'Photo Album',
-            //   'description': '8x12, 10 spreads, Smooth Matte',
-            //   'display_image': 21,
-            //   'media_ids': '10,11,20,50',
-            //   'album_size': 1,
-            //   'spreads': 2,
-            //   'paper_type': 3,
-            //   'cover_type': 4,
-            //   'canvas_size': 1,
-            //   'canvas_type': 2,
-            //   'quantity': 1,
-            //   'print_type': 1,
-            //   'paper_size': 1,
-            //   'additional_comment': 'Please hurry and finish it',
-            // }),
           )
           .timeout(Duration(seconds: Timeout.value));
 
@@ -269,47 +252,47 @@ class Studio with ChangeNotifier {
     }
   }
 
-  void addCartItem(
-    String itemTitle,
-    String? description,
-    String price,
-    String? displayImage,
-    List<Media> imageList,
-  ) {
-    String mediaIds = '';
-    imageList.forEach((element) {
-      mediaIds = '$mediaIds,${element.id.toString()}';
-    });
-    mediaIds = mediaIds.replaceFirst(',', '');
-    int id = 0;
-    if (_cartItems.isNotEmpty) {
-      id = _cartItems.last.id! + 1;
-    } else {
-      id = 1;
-    }
-    // do {
-    //   final value = Random().nextInt(999999);
-    //   if (!indices.contains(value)) {
-    //     indices.add(value);
-    //     id = value;
-    //   }
-    // } while (id == null);
+  // void addCartItem(
+  //   String itemTitle,
+  //   String? description,
+  //   String price,
+  //   String? displayImage,
+  //   List<Media> imageList,
+  // ) {
+  //   String mediaIds = '';
+  //   imageList.forEach((element) {
+  //     mediaIds = '$mediaIds,${element.id.toString()}';
+  //   });
+  //   mediaIds = mediaIds.replaceFirst(',', '');
+  //   int id = 0;
+  //   if (_cartItems.isNotEmpty) {
+  //     id = _cartItems.last.id! + 1;
+  //   } else {
+  //     id = 1;
+  //   }
+  //   // do {
+  //   //   final value = Random().nextInt(999999);
+  //   //   if (!indices.contains(value)) {
+  //   //     indices.add(value);
+  //   //     id = value;
+  //   //   }
+  //   // } while (id == null);
 
-    _cartItems.add(
-      CartItem(
-        id: id,
-        title: itemTitle,
-        description: description,
-        price: price,
-        displayImage: displayImage,
-        mediaIds: mediaIds,
-      ),
-    );
+  //   _cartItems.add(
+  //     CartItem(
+  //       id: id,
+  //       title: itemTitle,
+  //       description: description,
+  //       price: price,
+  //       displayImage: displayImage,
+  //       mediaIds: mediaIds,
+  //     ),
+  //   );
 
-    _cartItems.forEach((e) {
-      DBHelper.insert(Tables.cartItems, e.toMap());
-    });
-  }
+  //   _cartItems.forEach((e) {
+  //     DBHelper.insert(Tables.cartItems, e.toMap());
+  //   });
+  // }
 
   Future<void> getCartItemsDB() async {
     final cartItemsDBList = await DBHelper.getData(Tables.cartItems);
