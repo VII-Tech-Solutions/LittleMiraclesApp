@@ -497,6 +497,7 @@ class Studio with ChangeNotifier {
         'Authorization': 'Bearer $authToken',
       },
     ).timeout(Duration(seconds: Timeout.value));
+    notifyListeners();
   }
 
   void assignSelectedSpec(int category, StudioMetadata? data) {
