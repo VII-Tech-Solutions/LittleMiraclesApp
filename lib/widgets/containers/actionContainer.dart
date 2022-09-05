@@ -16,7 +16,8 @@ import '../../widgets/general/cachedImageWidget.dart';
 
 class ActionContainer extends StatelessWidget {
   final Section section;
-  const ActionContainer(this.section);
+  final bool firstItem;
+  const ActionContainer(this.section, {this.firstItem = false});
 
   // VARIABLES
 
@@ -44,7 +45,8 @@ class ActionContainer extends StatelessWidget {
         }
       },
       child: Padding(
-        padding: EdgeInsets.fromLTRB(16.0, 25.0, 16.0, 0.0),
+        padding:
+            EdgeInsets.fromLTRB(16.0, firstItem == true ? 0 : 25.0, 16.0, 0.0),
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [

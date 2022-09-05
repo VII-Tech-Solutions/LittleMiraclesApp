@@ -1137,7 +1137,11 @@ class AppData with ChangeNotifier {
           element.goTo == SectionAction.packages) {
         //do nothing and don't add the sesion
       } else {
-        _homeList.add(ActionContainer(element));
+        if (_homeList.length >= 1) {
+          _homeList.add(ActionContainer(element));
+        } else {
+          _homeList.add(ActionContainer(element, firstItem: true));
+        }
       }
     });
 
