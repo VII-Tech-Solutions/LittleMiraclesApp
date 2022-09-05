@@ -181,14 +181,9 @@ class _StudioSpecsSelectorPageState extends State<StudioSpecsSelectorPage> {
                         ),
                         (val) {
                           if (val != null) {
-                            if (val['answer'] != '') {
-                              _bookingBody.addAll({'comments': val['answer']});
-                            } else {
-                              _bookingBody.addAll({'comments': ''});
-                            }
-                            // context
-                            //     .read<Bookings>()
-                            //     .amendMultiSessionBookingBody(_bookingBody);
+                            context
+                                .read<Studio>()
+                                .assignAdditionalComment(val['answer']);
                           }
                         },
                       ),
