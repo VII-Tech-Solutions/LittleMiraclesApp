@@ -127,8 +127,10 @@ class PhotoSelection extends StatelessWidget {
             });
           } else if (studioProvider.selectedMedia.length <= 0) {
             ShowOkDialog(context, 'Please select at least one image');
+            ShowLoadingDialog(context, dismiss: false);
           } else if (studioProvider.selectedMedia.length > count!) {
             ShowOkDialog(context, 'Please remove some images');
+            ShowLoadingDialog(context, dismiss: false);
           }
         },
       ),
