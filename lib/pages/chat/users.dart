@@ -48,26 +48,20 @@ class UsersPage extends StatelessWidget {
         border: Border.all(color: AppColors.greyD0D3D6),
         shape: BoxShape.rectangle,
       ),
-      child: CachedNetworkImage(
-        imageUrl: user.imageUrl ?? '',
-        imageBuilder: (context, imageProvider) => Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(7),
-            image: DecorationImage(
-              image: imageProvider,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(7),
+        child: CachedNetworkImage(
+          fit: BoxFit.cover,
+          imageUrl: user.imageUrl ?? '',
+          errorWidget: (context, url, _) {
+            return Image.asset(
+              'assets/images/chatPlaceHolder.png',
               fit: BoxFit.cover,
-            ),
-          ),
+              height: 40,
+              width: 40,
+            );
+          },
         ),
-        // fit: BoxFit.cover,
-        errorWidget: (context, url, _) {
-          return Image.asset(
-            'assets/images/chatPlaceHolder.png',
-            fit: BoxFit.cover,
-            height: 40,
-            width: 40,
-          );
-        },
       ),
     );
 

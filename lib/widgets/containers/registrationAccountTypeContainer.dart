@@ -39,6 +39,7 @@ class RegistrationAccountTypeContainer extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(50),
                   child: CachedNetworkImage(
+                    fit: BoxFit.cover,
                     imageUrl: user?.avatar ?? "",
                     height: 30,
                     width: 30,
@@ -54,14 +55,6 @@ class RegistrationAccountTypeContainer extends StatelessWidget {
                       child: Icon(
                         Icons.person_outline,
                         color: Colors.white,
-                      ),
-                    ),
-                    imageBuilder: (context, imageProvider) => Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: imageProvider,
-                          fit: BoxFit.cover,
-                        ),
                       ),
                     ),
                   ),

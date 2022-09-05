@@ -45,23 +45,13 @@ class HomeHeaderSliverAppBar extends StatelessWidget {
                   children: [
                     Expanded(
                       child: CachedNetworkImage(
+                        fit: BoxFit.cover,
                         height: double.infinity,
                         width: double.infinity,
                         imageUrl: helloSection.image ?? '',
                         placeholder: (context, url) => Container(),
                         errorWidget: (context, url, error) => Container(),
-                        imageBuilder: (context, imageProvider) => Container(
-                          height: double.infinity,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
                         fadeInDuration: Duration(milliseconds: 50),
-                        fit: BoxFit.cover,
                       ),
                     ),
                     Padding(

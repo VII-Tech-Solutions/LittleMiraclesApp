@@ -128,28 +128,22 @@ class CompletedSessionDetailsPage extends StatelessWidget {
                               ),
                             ],
                           ),
-                          child: CachedNetworkImage(
-                            imageUrl: images[index].url ?? '',
-                            placeholder: (context, url) => Image.asset(
-                              'assets/images/placeholder_r_blue.png',
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: CachedNetworkImage(
                               fit: BoxFit.cover,
-                              height: double.infinity,
-                              width: double.infinity,
-                            ),
-                            errorWidget: (context, url, error) => Image.asset(
-                              'assets/images/placeholder_r_blue.png',
-                              fit: BoxFit.cover,
-                              height: double.infinity,
-                              width: double.infinity,
-                            ),
-                            imageBuilder: (context, imageProvider) => Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: AppColors.blue8DC4CB,
-                                image: DecorationImage(
-                                  image: imageProvider,
-                                  fit: BoxFit.cover,
-                                ),
+                              imageUrl: images[index].url ?? '',
+                              placeholder: (context, url) => Image.asset(
+                                'assets/images/placeholder_r_blue.png',
+                                fit: BoxFit.cover,
+                                height: double.infinity,
+                                width: double.infinity,
+                              ),
+                              errorWidget: (context, url, error) => Image.asset(
+                                'assets/images/placeholder_r_blue.png',
+                                fit: BoxFit.cover,
+                                height: double.infinity,
+                                width: double.infinity,
                               ),
                             ),
                           ),

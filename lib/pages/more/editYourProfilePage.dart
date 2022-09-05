@@ -142,6 +142,7 @@ class _EditYourProfilePageState extends State<EditYourProfilePage> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(50),
                           child: CachedNetworkImage(
+                            fit: BoxFit.cover,
                             imageUrl: user?.avatar ?? "",
                             height: 50,
                             width: 50,
@@ -157,14 +158,6 @@ class _EditYourProfilePageState extends State<EditYourProfilePage> {
                               child: Icon(
                                 Icons.person_outline,
                                 color: Colors.white,
-                              ),
-                            ),
-                            imageBuilder: (context, imageProvider) => Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: imageProvider,
-                                  fit: BoxFit.cover,
-                                ),
                               ),
                             ),
                           ),

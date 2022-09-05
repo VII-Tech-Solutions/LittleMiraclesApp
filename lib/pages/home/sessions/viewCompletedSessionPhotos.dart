@@ -77,28 +77,22 @@ class _ViewCompletedSessionPhotosState
               child: Container(
                 width: double.infinity,
                 height: MediaQuery.of(context).size.height * 0.44248768,
-                child: CachedNetworkImage(
-                  imageUrl: widget.image.url ?? '',
-                  placeholder: (context, url) => Image.asset(
-                    'assets/images/placeholder_s_blue.png',
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: CachedNetworkImage(
                     fit: BoxFit.contain,
-                    height: double.infinity,
-                    width: double.infinity,
-                  ),
-                  errorWidget: (context, url, error) => Image.asset(
-                    'assets/images/placeholder_s_blue.png',
-                    fit: BoxFit.cover,
-                    height: double.infinity,
-                    width: double.infinity,
-                  ),
-                  imageBuilder: (context, imageProvider) => Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.0),
-                      color: Colors.transparent,
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.contain,
-                      ),
+                    imageUrl: widget.image.url ?? '',
+                    placeholder: (context, url) => Image.asset(
+                      'assets/images/placeholder_s_blue.png',
+                      fit: BoxFit.contain,
+                      height: double.infinity,
+                      width: double.infinity,
+                    ),
+                    errorWidget: (context, url, error) => Image.asset(
+                      'assets/images/placeholder_s_blue.png',
+                      fit: BoxFit.cover,
+                      height: double.infinity,
+                      width: double.infinity,
                     ),
                   ),
                 ),
