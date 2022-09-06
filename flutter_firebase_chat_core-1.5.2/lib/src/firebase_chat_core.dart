@@ -410,8 +410,13 @@ class FirebaseChatCore {
         .collection(config.roomsCollectionName)
         .doc(room.id)
         .get();
-    roomMap['metadata']['currentlyActive'] =
-        newData.data()?['metadata']['currentlyActive'];
+    if (newData.data() != null &&
+        newData.data()?['metadata'] != null &&
+        newData.data()?['metadata'].isNotEmpty &&
+        newData.data()?['metadata'].containsKey('currentlyActive')) {
+      roomMap['metadata']['currentlyActive'] =
+          newData.data()?['metadata']['currentlyActive'];
+    }
     if (currentlyActive == true) {
       try {
         if (!(roomMap['metadata']['currentlyActive'] as List)
@@ -428,6 +433,8 @@ class FirebaseChatCore {
         roomMap['metadata']['currentlyActive'] != null &&
         roomMap['metadata']['currentlyActive'].isNotEmpty) {
       roomMap['metadata']['currentlyActive'].remove(firebaseUser?.uid);
+      roomMap['metadata'][firebaseUser?.uid] =
+          DateTime.now().millisecondsSinceEpoch;
     }
     await getFirebaseFirestore()
         .collection(config.roomsCollectionName)

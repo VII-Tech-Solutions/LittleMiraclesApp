@@ -43,6 +43,7 @@ class _RoomsPageState extends State<RoomsPage> {
   TextEditingController _searchCon = new TextEditingController();
   String _query = '';
   bool loading = false;
+  var messageStreamData;
 
   @override
   void initState() {
@@ -277,9 +278,12 @@ class _RoomsPageState extends State<RoomsPage> {
                     //     matchFound = str?.contains(_query) ?? false;
                     //   });
                     // });
-                    _badge = context
-                        .watch<ChatData>()
-                        .showBadge(room.updatedAt, room.id);
+                    _badge = (snapshot
+                                .data![index].metadata?['currentlyActive'] !=
+                            null &&
+                        !snapshot.data![index].metadata?['currentlyActive']
+                            .contains(
+                                FirebaseChatCore.instance.firebaseUser?.uid));
                     match =
                         room.name!.toLowerCase().contains(_query.toLowerCase());
                     return Visibility(
@@ -336,6 +340,12 @@ class _RoomsPageState extends State<RoomsPage> {
                                           stream: FirebaseChatCore.instance
                                               .messages(snapshot.data![index]),
                                           builder: (context, snapshot) {
+                                            if (snapshot.data?.isNotEmpty ??
+                                                false) {
+                                              messageStreamData =
+                                                  snapshot.data![0];
+                                            }
+
                                             try {
                                               _authorId = snapshot.data![0]
                                                   .toJson()['author']['id'];
@@ -372,11 +382,11 @@ class _RoomsPageState extends State<RoomsPage> {
                                         _authorId !=
                                             FirebaseAuth
                                                 .instance.currentUser?.uid &&
-                                        snapshot.data![index]
-                                                .toJson()['createdAt'] >
-                                            context
-                                                .read<ChatData>()
-                                                .lastSeen(room.id),
+                                        (messageStreamData?.createdAt ?? 0) >
+                                            (snapshot.data![index].metadata?[
+                                                    FirebaseChatCore.instance
+                                                        .firebaseUser?.uid] ??
+                                                0),
                                     badgeColor: AppColors.redED0006,
                                     stackFit: StackFit.passthrough,
                                   ),
