@@ -414,8 +414,14 @@ class FirebaseChatCore {
         newData.data()?['metadata'] != null &&
         newData.data()?['metadata'].isNotEmpty &&
         newData.data()?['metadata'].containsKey('currentlyActive')) {
-      roomMap['metadata']['currentlyActive'] =
-          newData.data()?['metadata']['currentlyActive'];
+      if (roomMap['metadata'] != null) {
+        roomMap['metadata']['currentlyActive'] =
+            newData.data()?['metadata']['currentlyActive'];
+      } else {
+        roomMap['metadata'] = {
+          'currentlyActive': newData.data()?['metadata']['currentlyActive']
+        };
+      }
     }
     if (currentlyActive == true) {
       try {
