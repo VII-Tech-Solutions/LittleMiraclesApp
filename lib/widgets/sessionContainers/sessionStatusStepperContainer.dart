@@ -32,7 +32,15 @@ class SessionStatusStepperContainer extends StatelessWidget {
     }
   }
 
-  Widget _stepper(int? status, int step, {bool hasLine = true}) {
+  bool isSameDay(DateTime? a, DateTime? b) {
+    if (a == null || b == null) {
+      return false;
+    }
+
+    return a.year == b.year && a.month == b.month && a.day == b.day;
+  }
+
+  Widget _stepper(bool condition, {bool hasLine = true}) {
     return Padding(
       padding: const EdgeInsets.only(right: 16.0),
       child: Column(
@@ -47,15 +55,13 @@ class SessionStatusStepperContainer extends StatelessWidget {
               color: Colors.white,
               shape: BoxShape.circle,
               border: Border.all(
-                color: status! >= step
-                    ? AppColors.blue8DC4CB
-                    : AppColors.greyD0D3D6,
+                color: condition ? AppColors.blue8DC4CB : AppColors.greyD0D3D6,
                 width: 1,
               ),
             ),
             child: Container(
               decoration: BoxDecoration(
-                color: status >= step ? AppColors.blue8DC4CB : Colors.white,
+                color: condition ? AppColors.blue8DC4CB : Colors.white,
                 shape: BoxShape.circle,
               ),
             ),
@@ -107,7 +113,7 @@ class SessionStatusStepperContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _stepper(session?.status, 1),
+                _stepper((session?.status ?? 0) >= 1),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -174,7 +180,16 @@ class SessionStatusStepperContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _stepper(session?.status, 2),
+                _stepper(
+                  (isSameDay(
+                          DateTime.now(),
+                          (DateTime.tryParse(session?.date ?? '') ??
+                              DateTime(0))) ||
+                      (DateTime.tryParse(session?.date ?? '') ?? DateTime.now())
+                          .isBefore(
+                        DateTime.now(),
+                      )),
+                ),
                 TitleText(
                   title: 'Photoshoot Day!',
                   type: TitleTextType.secondaryTitle,
@@ -220,7 +235,14 @@ class SessionStatusStepperContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _stepper(session?.status, 3),
+                _stepper(
+                  DateTime.now().isAfter(
+                    (DateTime.tryParse(session?.date ?? '') ?? DateTime.now())
+                        .add(
+                      Duration(days: 1),
+                    ),
+                  ),
+                ),
                 TitleText(
                   title: 'Magic making in progress',
                   type: TitleTextType.secondaryTitle,
@@ -237,7 +259,14 @@ class SessionStatusStepperContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _stepper(session?.status, 4),
+                _stepper(
+                  DateTime.now().isAfter(
+                    (DateTime.tryParse(session?.date ?? '') ?? DateTime.now())
+                        .add(
+                      Duration(days: 14),
+                    ),
+                  ),
+                ),
                 TitleText(
                   title: 'Getting all your photos in order',
                   type: TitleTextType.secondaryTitle,
@@ -254,7 +283,14 @@ class SessionStatusStepperContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _stepper(session?.status, 5, hasLine: false),
+                _stepper(
+                    DateTime.now().isAfter(
+                      (DateTime.tryParse(session?.date ?? '') ?? DateTime.now())
+                          .add(
+                        Duration(days: 28),
+                      ),
+                    ),
+                    hasLine: false),
                 TitleText(
                   title: 'Your photos are ready!',
                   type: TitleTextType.secondaryTitle,
