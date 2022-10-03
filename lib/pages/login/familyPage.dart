@@ -134,8 +134,9 @@ class _FamilyPageState extends State<FamilyPage> {
                             Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    CustomBottomNavigationBar(),
+                                builder: (context) => CustomBottomNavigationBar(
+                                  showConfetti: true,
+                                ),
                               ),
                               (Route<dynamic> route) => false,
                             );

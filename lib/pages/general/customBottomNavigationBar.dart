@@ -22,7 +22,8 @@ import '../studio/studioMainPage.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
   final GlobalKey? globalKey;
-  const CustomBottomNavigationBar({this.globalKey});
+  final bool showConfetti;
+  const CustomBottomNavigationBar({this.globalKey, this.showConfetti = false});
 
   @override
   _CustomBottomNavigationBarState createState() =>
@@ -32,12 +33,18 @@ class CustomBottomNavigationBar extends StatefulWidget {
 class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   bool _called = false;
   int _selectedIndex = 0;
-  static List<Widget> _widgetOptions = <Widget>[
-    HomePage(),
-    BookingMainPage(),
-    StudioMainPage(),
-    MoreMainPage()
-  ];
+  static List<Widget> _widgetOptions = [];
+
+  @override
+  void initState() {
+    _widgetOptions = <Widget>[
+      HomePage(showConfetti: widget.showConfetti),
+      BookingMainPage(),
+      StudioMainPage(),
+      MoreMainPage()
+    ];
+    super.initState();
+  }
 
   void _onItemTapped(int index) {
     setState(() {

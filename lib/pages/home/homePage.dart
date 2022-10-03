@@ -1,10 +1,12 @@
 //PACKAGES
 
 // Dart imports:
+import 'dart:math';
 import 'dart:ui' as ui;
 
 // Flutter imports:
 import 'package:LMP0001_LittleMiraclesApp/providers/bookings.dart';
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -18,16 +20,32 @@ import '../../widgets/appbars/loginSliverAppBar.dart';
 import '../booking/rateDialog.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final bool showConfetti;
+  const HomePage({
+    this.showConfetti = false,
+    Key? key,
+  }) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  ConfettiController confettiController =
+      ConfettiController(duration: Duration(seconds: 5));
+
+  @override
+  void dispose() {
+    confettiController.dispose();
+    super.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
+    if (widget.showConfetti == true) {
+      confettiController.play();
+    }
     Future.delayed(
       Duration(seconds: 5),
     ).then(
@@ -70,19 +88,43 @@ class _HomePageState extends State<HomePage> {
       }),
       edgeOffset: kToolbarHeight + 9,
       displacement: kToolbarHeight + 9,
-      child: CustomScrollView(
-        slivers: <Widget>[
-          HomeHeaderSliverAppBar(),
-          LoginSliverAppBar(),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                return _list[index];
-              },
-              childCount: _list.length,
+      child: Stack(
+        children: [
+          CustomScrollView(
+            slivers: <Widget>[
+              HomeHeaderSliverAppBar(),
+              LoginSliverAppBar(),
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                    return _list[index];
+                  },
+                  childCount: _list.length,
+                ),
+              ),
+              SliverPadding(padding: EdgeInsets.only(bottom: 30))
+            ],
+          ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: ConfettiWidget(
+              confettiController: confettiController,
+              numberOfParticles: 4,
+              shouldLoop: false,
+              gravity: 0.09,
+              blastDirection: pi / 4,
             ),
           ),
-          SliverPadding(padding: EdgeInsets.only(bottom: 30))
+          Align(
+            alignment: Alignment.topRight,
+            child: ConfettiWidget(
+              confettiController: confettiController,
+              numberOfParticles: 4,
+              shouldLoop: false,
+              gravity: 0.09,
+              blastDirection: (3 * pi / 4),
+            ),
+          ),
         ],
       ),
     );
