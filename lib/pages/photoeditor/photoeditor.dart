@@ -568,10 +568,12 @@ class PhotoEditScreenState extends State<PhotoEditScreen> {
                               16.width,
                               Padding(
                                 padding: const EdgeInsets.only(right: 16),
-                                child: Text('Save',
-                                        style: boldTextStyle(
-                                            color: AppColors.blue8DC4CB))
-                                    .onTap(() {
+                                child: Text(
+                                  'Save',
+                                  style: boldTextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ).onTap(() {
                                   capture().then(
                                     (success) {
                                       ScaffoldMessenger.of(context)
