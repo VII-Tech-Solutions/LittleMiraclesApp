@@ -113,7 +113,7 @@ class FreeGiftContainer extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => LoyaltyPage(),
+                          builder: (context) => LoyaltyPage(showConfetti: true),
                         ),
                       );
                     } else {

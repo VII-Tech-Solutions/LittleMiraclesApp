@@ -1,6 +1,9 @@
 //PACKAGES
 
 // Flutter imports:
+import 'dart:math';
+
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -20,7 +23,8 @@ import '../../widgets/texts/titleText.dart';
 //EXTENSIONS
 
 class LoyaltyPage extends StatefulWidget {
-  const LoyaltyPage();
+  final bool showConfetti;
+  LoyaltyPage({this.showConfetti = false});
 
   @override
   State<LoyaltyPage> createState() => _LoyaltyPageState();
@@ -172,84 +176,124 @@ class _LoyaltyPageState extends State<LoyaltyPage> {
     );
   }
 
+  ConfettiController confettiController =
+      ConfettiController(duration: Duration(seconds: 5));
+  @override
+  void initState() {
+    if (widget.showConfetti == true) {
+      confettiController.play();
+    }
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    confettiController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final availGifts = context.watch<AppData>().availGifts;
     final prevGifts = context.watch<AppData>().prevGifts;
     return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          _appBar(context),
-          SliverToBoxAdapter(
-            child: Visibility(
-              visible: availGifts.isNotEmpty,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TitleText(
-                      title: 'Congratulations!',
-                      customPadding: const EdgeInsets.only(top: 16),
+      body: Stack(
+        children: [
+          CustomScrollView(
+            slivers: <Widget>[
+              _appBar(context),
+              SliverToBoxAdapter(
+                child: Visibility(
+                  visible: availGifts.isNotEmpty,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TitleText(
+                          title: 'Congratulations!',
+                          customPadding: const EdgeInsets.only(top: 16),
+                        ),
+                        TitleText(
+                          title:
+                              'You have completed 5 sessions with us and this calls for a celebration! 🥳 Please enter the promo code at check out:',
+                          customPadding: const EdgeInsets.only(top: 3),
+                          type: TitleTextType.secondaryTitle,
+                        ),
+                      ],
                     ),
-                    TitleText(
-                      title:
-                          'You have completed 5 sessions with us and this calls for a celebration! 🥳 Please enter the promo code at check out:',
-                      customPadding: const EdgeInsets.only(top: 3),
-                      type: TitleTextType.secondaryTitle,
-                    ),
-                  ],
+                  ),
                 ),
               ),
+              SliverPadding(
+                padding: availGifts.isNotEmpty
+                    ? const EdgeInsets.only(bottom: 30)
+                    : EdgeInsets.zero,
+                sliver: SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                      return GestureDetector(
+                          onTap: () => giftDialog(
+                                context,
+                                availGifts[index].promoCode,
+                                availGifts[index].title,
+                                availGifts[index]
+                                    .validUntil
+                                    .toString()
+                                    .toSlashddMMMyyyy(),
+                                (val) {
+                                  print(val);
+                                  setState(() {
+                                    copiedPromo = val;
+                                  });
+                                },
+                              ),
+                          child: _giftContainer(availGifts[index]));
+                    },
+                    childCount: availGifts.length,
+                  ),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Visibility(
+                  visible: prevGifts.isNotEmpty,
+                  child: TitleText(
+                    title: 'Previous Gifts',
+                    customPadding: const EdgeInsets.only(top: 16, left: 16),
+                  ),
+                ),
+              ),
+              SliverPadding(
+                padding: const EdgeInsets.only(bottom: 30),
+                sliver: SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                      return _giftContainer(prevGifts[index], isPrevious: true);
+                    },
+                    childCount: prevGifts.length,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: ConfettiWidget(
+              confettiController: confettiController,
+              numberOfParticles: 4,
+              shouldLoop: false,
+              gravity: 0.09,
+              blastDirection: pi / 4,
             ),
           ),
-          SliverPadding(
-            padding: availGifts.isNotEmpty
-                ? const EdgeInsets.only(bottom: 30)
-                : EdgeInsets.zero,
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return GestureDetector(
-                      onTap: () => giftDialog(
-                            context,
-                            availGifts[index].promoCode,
-                            availGifts[index].title,
-                            availGifts[index]
-                                .validUntil
-                                .toString()
-                                .toSlashddMMMyyyy(),
-                            (val) {
-                              print(val);
-                              setState(() {
-                                copiedPromo = val;
-                              });
-                            },
-                          ),
-                      child: _giftContainer(availGifts[index]));
-                },
-                childCount: availGifts.length,
-              ),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Visibility(
-              visible: prevGifts.isNotEmpty,
-              child: TitleText(
-                title: 'Previous Gifts',
-                customPadding: const EdgeInsets.only(top: 16, left: 16),
-              ),
-            ),
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.only(bottom: 30),
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return _giftContainer(prevGifts[index], isPrevious: true);
-                },
-                childCount: prevGifts.length,
-              ),
+          Align(
+            alignment: Alignment.topRight,
+            child: ConfettiWidget(
+              confettiController: confettiController,
+              numberOfParticles: 4,
+              shouldLoop: false,
+              gravity: 0.09,
+              blastDirection: (3 * pi / 4),
             ),
           ),
         ],

@@ -68,6 +68,7 @@ dependencies:
   http: 0.13.4
   image_cropper: 1.4.1
   image_picker: 0.8.4+9
+  confetti: 0.6.0
   import_sorter: 4.6.0
   in_app_review: 2.0.4
   intl: 0.17.0
