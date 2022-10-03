@@ -99,10 +99,7 @@ class _ViewCompletedSessionPhotosState
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(
-                left: 16,
-                right: 16,
-              ),
+              margin: const EdgeInsets.only(left: 16, right: 16, bottom: 20),
               width: double.infinity,
               height: MediaQuery.of(context).size.height * 0.09359,
               decoration: BoxDecoration(
