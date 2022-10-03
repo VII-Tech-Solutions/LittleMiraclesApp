@@ -45,25 +45,32 @@ class _SplashscreenState extends State<Splashscreen> {
                     .fetchAndSetAppData()
                     // .then((_) => cartItems.getCartItemsDB())
                     .then((_) => authProvider.getToken(withNotify: true).then(
-                          (_) => Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => authProvider.isFirstOpen
-                                  ? OnboardingPage()
-                                  : CustomBottomNavigationBar(),
-                            ),
-                          ),
+                          (_) {
+                            Future.delayed(Duration(seconds: 1)).then(
+                              (value) => Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => authProvider.isFirstOpen
+                                      ? OnboardingPage()
+                                      : CustomBottomNavigationBar(),
+                                ),
+                              ),
+                            );
+                          },
                         )),
               );
         } else {
           appDataProvider.fetchAndSetAppData().then((_) {
-            Navigator.pushReplacement(
+            Future.delayed(Duration(seconds: 1)).then(
+              (value) => Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                   builder: (context) => authProvider.isFirstOpen
                       ? OnboardingPage()
                       : CustomBottomNavigationBar(),
-                ));
+                ),
+              ),
+            );
           });
         }
       });
@@ -77,24 +84,16 @@ class _SplashscreenState extends State<Splashscreen> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       body: Container(
-          height: double.infinity,
+        height: double.infinity,
+        width: double.infinity,
+        color: AppColors.whiteF4F9FA,
+        child: Image.asset(
+          'assets/images/Splash_Screen.gif',
           width: double.infinity,
-          color: AppColors.whiteF4F9FA,
-          child: Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              Image.asset(
-                'assets/images/splash_background.png',
-                width: double.infinity,
-                height: double.infinity,
-                fit: BoxFit.cover,
-              ),
-              Positioned(
-                bottom: MediaQuery.of(context).size.height * 0.39,
-                child: LoadingIndicator(),
-              )
-            ],
-          )),
+          height: double.infinity,
+          fit: BoxFit.cover,
+        ),
+      ),
     );
   }
 }
