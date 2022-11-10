@@ -1,6 +1,9 @@
 //PACKAGES
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/pages/booking/bookingSessionPage.dart';
+import 'package:LMP0001_LittleMiraclesApp/pages/booking/multiSessionPackage/multiSessionBookingPage.dart';
+import 'package:LMP0001_LittleMiraclesApp/pages/booking/multiSessionPackage/subSessionBookingPage.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -69,60 +72,103 @@ class _PhotographerPageState extends State<PhotographerPage> {
           );
         },
       ),
-      bottomNavigationBar: widget.subPackage != null
-          ? Container(
-              height: 80,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              child: FilledButtonWidget(
-                onPress: () {
-                  Map<int, List<int>> photographersMap = {
-                    widget.subPackage!.id!: _selectedItems,
-                  };
-                  bookingsProvider.amendSubSessionBookingDetails(
-                    SubSessionBookingDetailsType.photographer,
-                    photographersMap,
-                  );
-                  Navigator.pop(context);
-                },
-                title: 'Confirm Photographer',
-                type: ButtonType.generalBlue,
-              ),
-            )
-          : PackageBottomSectionContainer(
-              btnLabel: 'Next',
-              onTap: () {
-                if (_selectedItems.isEmpty) {
-                  ShowOkDialog(
-                      context, 'Please select a photographer to proceed');
-                } else {
-                  bookingsProvider.amendBookingBody(
-                      {'photographer': _selectedItems.first}).then(
-                    (_) {
-                      ShowLoadingDialog(context);
-                      context.read<Bookings>().removePromoCode();
-                      context.read<Bookings>().bookASession().then(
-                        (response) {
-                          ShowLoadingDialog(context, dismiss: true);
-                          if (response?.statusCode == 200) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ReviewAndPayPage(),
-                              ),
-                            );
-                          } else {
-                            ShowOkDialog(
-                              context,
-                              response?.message ?? ErrorMessages.somethingWrong,
-                            );
-                          }
-                        },
+      bottomNavigationBar:
+          // widget.subPackage != null
+          //     ? Container(
+          //         height: 80,
+          //         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          //         child: FilledButtonWidget(
+          //           onPress: () {
+          //             Map<int, List<int>> photographersMap = {
+          //               widget.subPackage!.id!: _selectedItems,
+          //             };
+          //             bookingsProvider.amendSubSessionBookingDetails(
+          //               SubSessionBookingDetailsType.photographer,
+          //               photographersMap,
+          //             );
+          //             Navigator.pop(context);
+          //           },
+          //           title: 'Confirm Photographer',
+          //           type: ButtonType.generalBlue,
+          //         ),
+          //       )
+          //     :
+          PackageBottomSectionContainer(
+        btnLabel: 'Next',
+        onTap: () {
+          if (_selectedItems.isEmpty) {
+            ShowOkDialog(context, 'Please select a photographer to proceed');
+          } else {
+            bookingsProvider
+                .amendBookingBody({'photographer': _selectedItems.first}).then(
+              (_) {
+                final package = context.read<Bookings>().package;
+
+                ShowLoadingDialog(context);
+                context
+                    .read<Bookings>()
+                    .fetchAndSetAvailableDates(_selectedItems.first)
+                    .then((response) {
+                  ShowLoadingDialog(context, dismiss: true);
+                  if (response?.statusCode == 200) {
+                    if (package?.type == PackageType.normalSession ||
+                        package?.type == PackageType.miniSession) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BookingSessionPage(),
+                        ),
                       );
-                    },
-                  );
-                }
+                    } else {
+                      Map<int, List<int>> photographersMap = {
+                        widget.subPackage!.id!: _selectedItems,
+                      };
+                      bookingsProvider.amendSubSessionBookingDetails(
+                        SubSessionBookingDetailsType.photographer,
+                        photographersMap,
+                      );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          // builder: (context) => MultiSessionBookingPage(),
+                          builder: (context) =>
+                              SubSessionBookingPage(widget.subPackage),
+                        ),
+                      );
+                    }
+                  } else {
+                    ShowOkDialog(
+                      context,
+                      response?.message ?? ErrorMessages.somethingWrong,
+                    );
+                  }
+                });
+
+                // ShowLoadingDialog(context);
+                // context.read<Bookings>().removePromoCode();
+                // context.read<Bookings>().bookASession().then(
+                //   (response) {
+                //     ShowLoadingDialog(context, dismiss: true);
+                //     if (response?.statusCode == 200) {
+                //       Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //           builder: (context) => ReviewAndPayPage(),
+                //         ),
+                //       );
+                //     } else {
+                //       ShowOkDialog(
+                //         context,
+                //         response?.message ?? ErrorMessages.somethingWrong,
+                //       );
+                //     }
+                //   },
+                // );
               },
-            ),
+            );
+          }
+        },
+      ),
     );
   }
 }

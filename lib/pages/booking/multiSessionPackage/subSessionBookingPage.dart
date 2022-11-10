@@ -129,10 +129,10 @@ class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
                     widget.subPackage!,
                     cakesList,
                   ),
-                  MultiSessionPhotographerSelector(
-                    widget.subPackage!,
-                    photographersList,
-                  ),
+                  // MultiSessionPhotographerSelector(
+                  //   widget.subPackage!,
+                  //   photographersList,
+                  // ),
                 ],
               ),
             ),
@@ -169,6 +169,8 @@ class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
                   context.read<Bookings>().bookMultiSessions().then((response) {
                     ShowLoadingDialog(context, dismiss: true);
                     if (response?.statusCode == 200) {
+                      //Todo:
+                      Navigator.pop(context);
                       Navigator.pop(context);
                     } else {
                       ShowOkDialog(

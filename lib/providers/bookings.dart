@@ -389,10 +389,10 @@ class Bookings with ChangeNotifier {
     }
   }
 
-  Future<ApiResponse?> fetchAndSetAvailableDates() async {
-    final url =
-        Uri.parse('$apiLink/available-hours?package_id=${_package?.id}');
-
+  Future<ApiResponse?> fetchAndSetAvailableDates(int photographerId) async {
+    final url = Uri.parse(
+        '$apiLink/available-hours?package_id=${_package?.id}&photographer_id=$photographerId');
+    print(url);
     try {
       final response = await http.get(url, headers: {
         'Content-Type': 'application/x-www-form-urlencoded',

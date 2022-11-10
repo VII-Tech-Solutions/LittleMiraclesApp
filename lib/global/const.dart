@@ -111,3 +111,9 @@ class SubSessionBookingDetailsType {
   static const photographer = 3;
   static const subSession = 4;
 }
+
+class PackageType {
+  static const normalSession = 1;
+  static const multipleSessions = 2;
+  static const miniSession = 3;
+}

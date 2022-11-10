@@ -1,6 +1,7 @@
 //PACKAGES
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/pages/booking/reviewAndPayPage.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -114,22 +115,42 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
               ShowOkDialog(context, 'Please select a backdrop to proceed');
             } else {
               ShowLoadingDialog(context);
-              context.read<Bookings>().bookASession().then((response) {
-                ShowLoadingDialog(context, dismiss: true);
-                if (response?.statusCode == 200) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PhotographerPage(),
-                    ),
-                  );
-                } else {
-                  ShowOkDialog(
-                    context,
-                    response?.message ?? ErrorMessages.somethingWrong,
-                  );
-                }
-              });
+              context.read<Bookings>().removePromoCode();
+              context.read<Bookings>().bookASession().then(
+                (response) {
+                  ShowLoadingDialog(context, dismiss: true);
+                  if (response?.statusCode == 200) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ReviewAndPayPage(),
+                      ),
+                    );
+                  } else {
+                    ShowOkDialog(
+                      context,
+                      response?.message ?? ErrorMessages.somethingWrong,
+                    );
+                  }
+                },
+              );
+              // ShowLoadingDialog(context);
+              // context.read<Bookings>().bookASession().then((response) {
+              //   ShowLoadingDialog(context, dismiss: true);
+              //   if (response?.statusCode == 200) {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(
+              //         builder: (context) => PhotographerPage(),
+              //       ),
+              //     );
+              //   } else {
+              //     ShowOkDialog(
+              //       context,
+              //       response?.message ?? ErrorMessages.somethingWrong,
+              //     );
+              //   }
+              // });
             }
           } else {
             ShowOkDialog(context, 'Please login!');

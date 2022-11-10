@@ -36,16 +36,18 @@ class CachedImageWidget extends StatelessWidget {
             imageShape == ImageShape.square ? Axis.vertical : Axis.horizontal);
     return ClipRRect(
       borderRadius: borderRadius ?? BorderRadius.circular(radius ?? 0.0),
-      child: CachedNetworkImage(
-        imageUrl: url ?? '',
-        maxHeightDiskCache: 800,
-        maxWidthDiskCache: 800,
-        fit: BoxFit.cover,
-        height: double.infinity,
-        width: double.infinity,
-        placeholder: (context, url) => placeholder,
-        errorWidget: (context, url, error) => placeholder,
-      ),
+      child: url == null
+          ? placeholder
+          : CachedNetworkImage(
+              imageUrl: url ?? '',
+              maxHeightDiskCache: 800,
+              maxWidthDiskCache: 800,
+              fit: BoxFit.cover,
+              height: double.infinity,
+              width: double.infinity,
+              placeholder: (context, url) => placeholder,
+              errorWidget: (context, url, error) => placeholder,
+            ),
     );
   }
 }

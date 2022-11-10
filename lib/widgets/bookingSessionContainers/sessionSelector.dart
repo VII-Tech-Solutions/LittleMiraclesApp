@@ -1,6 +1,8 @@
 //PACKAGES
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/models/photographer.dart';
+import 'package:LMP0001_LittleMiraclesApp/pages/booking/photographerPage.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -33,7 +35,9 @@ class SessionSelector extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SubSessionBookingPage(subPackage),
+                  // builder: (context) => SubSessionBookingPage(subPackage),
+                  builder: (context) =>
+                      PhotographerPage(subPackage: subPackage),
                 ),
               );
             },

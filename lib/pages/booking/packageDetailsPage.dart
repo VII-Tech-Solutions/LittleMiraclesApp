@@ -1,6 +1,7 @@
 //PACKAGES
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/pages/booking/photographerPage.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -28,13 +29,6 @@ class PackageDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> _list = [
-      PackageDetailsSectionContainer(),
-      PackageLocationSectionContainer(),
-      PackageImageSectionContainer(),
-      PackageRatingSectionContainer(),
-    ];
-
     return Scaffold(
       extendBodyBehindAppBar: true,
       body: CustomScrollView(
@@ -63,40 +57,51 @@ class PackageDetailsPage extends StatelessWidget {
           ),
           SliverToBoxAdapter(
             child: Column(
-              children: _list,
+              children: [
+                PackageDetailsSectionContainer(),
+                PackageLocationSectionContainer(),
+                PackageImageSectionContainer(),
+                PackageRatingSectionContainer(),
+              ],
             ),
           ),
         ],
       ),
       bottomNavigationBar: PackageBottomSectionContainer(onTap: () {
+        // Navigator.of(context).push(
+        //   MaterialPageRoute(
+        //     builder: (context) => PhotographerPage(),
+        //   ),
+        // );
         final package = context.read<Bookings>().package;
 
-        ShowLoadingDialog(context);
-        context.read<Bookings>().fetchAndSetAvailableDates().then((response) {
-          ShowLoadingDialog(context, dismiss: true);
-          if (response?.statusCode == 200) {
-            if (package?.type == 1 || package?.type == 3) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => BookingSessionPage(),
-                ),
-              );
-            } else {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => MultiSessionBookingPage(),
-                ),
-              );
-            }
-          } else {
-            ShowOkDialog(
-              context,
-              response?.message ?? ErrorMessages.somethingWrong,
-            );
-          }
-        });
+        // ShowLoadingDialog(context);
+        // context.read<Bookings>().fetchAndSetAvailableDates().then((response) {
+        //   ShowLoadingDialog(context, dismiss: true);
+        //   if (response?.statusCode == 200) {
+        if (package?.type == PackageType.normalSession ||
+            package?.type == PackageType.miniSession) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PhotographerPage(),
+            ),
+          );
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MultiSessionBookingPage(),
+            ),
+          );
+        }
+        //   } else {
+        //     ShowOkDialog(
+        //       context,
+        //       response?.message ?? ErrorMessages.somethingWrong,
+        //     );
+        //   }
+        // });
       }),
     );
   }

@@ -26,6 +26,7 @@ class Session {
   final String? formattedPeople;
   final String? formattedBackdrop;
   final String? formattedCake;
+  final int? photographerId;
   final String? photographerName;
   final bool? hasGuideline;
   final String? benefitsIds;
@@ -60,6 +61,7 @@ class Session {
     @required this.formattedPeople,
     @required this.formattedBackdrop,
     @required this.formattedCake,
+    @required this.photographerId,
     @required this.photographerName,
     @required this.hasGuideline,
     @required this.benefitsIds,
@@ -96,6 +98,7 @@ class Session {
       'formattedPeople': formattedPeople ?? "",
       'formattedBackdrop': formattedBackdrop ?? "",
       'formattedCake': formattedCake ?? "",
+      'photographer': photographerId ?? "",
       'photographerName': photographerName ?? "",
       'hasGuideline': hasGuideline == true ? 1 : 0,
       'benefitsIds': benefitsIds ?? "",
@@ -132,6 +135,7 @@ class Session {
       formattedPeople: json['formatted_people'] as String?,
       formattedBackdrop: json['formatted_backdrop'] as String?,
       formattedCake: json['formatted_cake'] as String?,
+      photographerId: json['photographer'] as int?,
       photographerName: json['photographer_name'] as String?,
       hasGuideline: json['has_guideline'] as bool?,
       benefitsIds: json['benefits_ids'] as String?,
