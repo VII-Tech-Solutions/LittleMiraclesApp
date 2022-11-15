@@ -52,7 +52,7 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file('../../keys/upload-keystore.jks')
+            storeFile file('../../keys/upload-keystore')
             storePassword 'GdVNEqXwpJeb9oj'
             keyAlias 'littlemiracles-upload-key'
             keyPassword 'GdVNEqXwpJeb9oj'
