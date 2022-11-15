@@ -14,11 +14,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "970217973487-0d3lg2aj30romnrpqahmesfjei2c1v62.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.littlemiraclesbys",
+            "certificate_hash": "02109bfd9b9580e2fe3920ce8c6e2510b7599be5"
+          }
+        },
+        {
           "client_id": "970217973487-ffkfkclprsrka4iav1qlp20mvr0120ri.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.littlemiraclesbys",
             "certificate_hash": "40ee62dddb11d90c68acb5c4948d961521fe7147"
+          }
+        },
+        {
+          "client_id": "970217973487-kpvl0qds4mpr325jnr18cqngep2msc2m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.littlemiraclesbys",
+            "certificate_hash": "761d9502c5911bd28d3c832d3ef0d7d2fc37defb"
           }
         },
         {
@@ -47,10 +63,10 @@
               "client_type": 3
             },
             {
-              "client_id": "970217973487-tp7i2ihrugrnch743vfdg3u1fum423u4.apps.googleusercontent.com",
+              "client_id": "970217973487-tda06jvjvgtgn4tefmenu48r2q0f3rd8.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.littlemiracles"
+                "bundle_id": "com.littlemiraclesbys"
               }
             }
           ]
