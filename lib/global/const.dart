@@ -1,6 +1,6 @@
 class APIEnvironment {
   static const String staging = 'https://littlemiracles.viitech.net';
-  static const String production = '';
+  static const String production = 'https://admin.littlemiraclesbys.app';
 }
 
 class ErrorMessages {
