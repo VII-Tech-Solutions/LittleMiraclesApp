@@ -110,7 +110,9 @@ class LoginPage extends StatelessWidget {
       Auth authProvider, AppData appDataProvider) async {
     ApiResponse? result;
 
-    ShowLoadingDialog(context);
+    if (socialType != SSOType.snapchat) {
+      ShowLoadingDialog(context);
+    }
 
     switch (socialType) {
       case SSOType.google:

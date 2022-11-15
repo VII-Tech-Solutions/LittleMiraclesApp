@@ -679,6 +679,7 @@ class Auth with ChangeNotifier {
   Future<ApiResponse?> socialLogin(dynamic body, String provider,
       {bool withNotifyListeners = true}) async {
     final url = Uri.parse('$apiLink/login');
+    print('HBAL CAME HERE $body');
 
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -693,6 +694,8 @@ class Auth with ChangeNotifier {
             body: body,
           )
           .timeout(Duration(seconds: Timeout.value));
+
+      print(response.statusCode);
 
       final result = json.decode(response.body);
       if (response.statusCode != 200) {
@@ -907,9 +910,9 @@ class Auth with ChangeNotifier {
       ],
     ).then((value) {
       body = {
-        'id': value.identityToken,
-        'name': value.givenName,
-        'email': value.email,
+        'id': value.userIdentifier,
+        'name': value.givenName ?? '',
+        'email': value.email ?? '',
         'photo_url': '',
         'provider': SSOType.apple,
       };
