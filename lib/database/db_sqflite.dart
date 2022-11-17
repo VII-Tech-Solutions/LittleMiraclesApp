@@ -15,9 +15,9 @@ class DBHelper {
     final dbPath = await sql.getDatabasesPath();
 
     //sample for local db update
-    // void _upgradeToV2(Batch batch) {
-    //   batch.execute('ALTER TABLE students ADD COLUMN email TEXT;');
-    // }
+    void _upgradeToV2(Batch batch) {
+      batch.execute('ALTER TABLE ${Tables.photographers} ADD COLUMN additionalCharge INTEGER;');
+    }
 
     return sql.openDatabase(
       path.join(dbPath, 'little_miracles.db'),
@@ -39,7 +39,7 @@ class DBHelper {
         await db.execute(
             'CREATE TABLE ${Tables.cakes}(id INT PRIMARY KEY, title TEXT, categoryId INTEGER, image TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
         await db.execute(
-            'CREATE TABLE ${Tables.photographers}(id INT PRIMARY KEY, name TEXT, image TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
+            'CREATE TABLE ${Tables.photographers}(id INT PRIMARY KEY, name TEXT, image TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT, additionalCharge INTEGER)');
         await db.execute(
             'CREATE TABLE ${Tables.familyMembers}(id INT PRIMARY KEY, familyId INTEGER, firstName TEXT, lastName TEXT, gender INTEGER, birthDate TEXT, relationship INTEGER, status INTEGER, phoneNumber TEXT, countryCode TEXT, personality TEXT, updatedAt TEXT, deletedAt TEXT)');
         await db.execute(
@@ -63,16 +63,16 @@ class DBHelper {
         await db.execute(
             'CREATE TABLE ${Tables.lastSeen}(roomId TEXT PRIMARY KEY, timeStampMS INTEGER)');
       },
-      version: 1,
+      version: 2,
       onUpgrade: (db, oldVersion, newVersion) async {
         print(
             'OLD VERSION = ${oldVersion.toString()} NEW VERSION, = ${newVersion.toString()}');
         var batch = db.batch();
 
-        // if (oldVersion < 2) {
-        //   print('Upgrading to V2');
-        //   _upgradeToV2(batch);
-        // }
+        if (oldVersion < 2) {
+          print('Upgrading to V2');
+          _upgradeToV2(batch);
+        }
 
         await batch.commit();
       },

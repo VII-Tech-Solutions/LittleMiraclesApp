@@ -38,6 +38,16 @@ class _PhotographerPageState extends State<PhotographerPage> {
   List<int> _selectedItems = [];
 
   @override
+  void initState() {
+    // TODO: implement initState
+
+    context.read<AppData>().photographers.forEach((element) {
+      print('additional charge::::${element.additionalCharge}');
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final photographers = context.watch<AppData>().photographers;
     final bookingsProvider = context.watch<Bookings>();
@@ -69,6 +79,11 @@ class _PhotographerPageState extends State<PhotographerPage> {
             _selectedItems.contains(photographers[index].id),
             1,
             id: index,
+            subtitle: photographers[index].additionalCharge != null &&
+                    photographers[index].additionalCharge != 0 &&
+                    photographers[index].additionalCharge != -1
+                ? '+BHD ${photographers[index].additionalCharge} (additional charge)'
+                : null,
           );
         },
       ),

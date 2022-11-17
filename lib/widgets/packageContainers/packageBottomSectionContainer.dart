@@ -22,6 +22,10 @@ class PackageBottomSectionContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final package = context.watch<Bookings>().package;
+
+    //TODO:: get photographer and calculate the additional price locally.
+    final price = (double.tryParse(package?.price ?? '0') ?? 0) + 0;
+
     return Container(
       height: 100,
       width: double.infinity,
@@ -48,7 +52,7 @@ class PackageBottomSectionContainer extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'BD ${package?.price}',
+                  'BD ${price}',
                   style: TextStyle(
                     color: AppColors.black45515D,
                     fontSize: 12,

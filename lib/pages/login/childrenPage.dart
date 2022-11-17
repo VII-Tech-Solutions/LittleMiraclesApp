@@ -112,12 +112,43 @@ class _ChildrenPageState extends State<ChildrenPage> {
         child: SingleChildScrollView(
           controller: _scrollController,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TitleText(
-                customPadding: EdgeInsets.fromLTRB(30.0, 20.0, 16.0, 10.0),
-                title: 'Your Children',
-                type: TitleTextType.mainHomeTitle,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  TitleText(
+                    customPadding: EdgeInsets.fromLTRB(30.0, 20.0, 16.0, 10.0),
+                    title: 'Your Children',
+                    type: TitleTextType.mainHomeTitle,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 30),
+                    child: InkWell(
+                      onTap: () {
+                        context
+                            .read<Auth>()
+                            .amendRegistrationBody({"children": []});
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FamilyPage(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Skip',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: AppColors.black45515D,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
               ),
               ListView.builder(
                   physics: NeverScrollableScrollPhysics(),

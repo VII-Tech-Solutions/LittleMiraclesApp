@@ -17,11 +17,19 @@ class SelectionRow extends StatelessWidget {
   final String? image;
   final Widget? customImage;
   final String? title;
+  final String? subtitle;
   final bool? isSelected;
   final int allowedSelection;
-  const SelectionRow(this.onTap, this.image, this.customImage, this.title,
-      this.isSelected, this.allowedSelection,
-      {required this.id});
+  const SelectionRow(
+    this.onTap,
+    this.image,
+    this.customImage,
+    this.title,
+    this.isSelected,
+    this.allowedSelection, {
+    required this.id,
+    this.subtitle = null,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -64,12 +72,27 @@ class SelectionRow extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Text(
-                  title ?? '',
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w800,
-                      color: AppColors.black45515D),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title ?? '',
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w800,
+                          color: AppColors.black45515D),
+                    ),
+                    if (subtitle != null)
+                      Text(
+                        subtitle ?? '',
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.grey979797,
+                        ),
+                      )
+                  ],
                 ),
               ),
             ),

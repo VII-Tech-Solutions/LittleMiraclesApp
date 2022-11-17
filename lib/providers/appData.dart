@@ -592,7 +592,8 @@ class AppData with ChangeNotifier {
   Future<void> fetchAndSetAppData() async {
     final lastUpdate =
         await LastUpdateClass().getLastUpdate(LastUpdate.appData);
-    final url = Uri.parse('$apiLink/data$lastUpdate');
+    // final url = Uri.parse('$apiLink/data$lastUpdate');
+    final url = Uri.parse('$apiLink/data');
 
     try {
       final response = await http.get(url, headers: {
@@ -1022,6 +1023,7 @@ class AppData with ChangeNotifier {
               image: item['image'],
               name: item['name'],
               status: item['status'],
+              additionalCharge: item['additionalCharge'],
               updatedAt: item['updatedAt'],
               deletedAt: item['deletedAt'],
             ),
