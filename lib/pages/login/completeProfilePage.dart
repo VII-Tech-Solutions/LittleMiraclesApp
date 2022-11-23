@@ -284,7 +284,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                         }
                       },
                       type: ButtonType.generalBlue,
-                      title: 'Next: Partner\'s Info',
+                      title: 'Next: My Partner',
                     ),
                   ],
                 ),

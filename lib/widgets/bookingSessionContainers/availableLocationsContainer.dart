@@ -24,6 +24,7 @@ class AvailableLocationContainer extends StatefulWidget {
 class _AvailableLocationContainerState
     extends State<AvailableLocationContainer> {
   int _selectedLocation = 1;
+
   late final _textFieldController;
 
   @override
@@ -41,6 +42,14 @@ class _AvailableLocationContainerState
   @override
   Widget build(BuildContext context) {
     final package = context.watch<Bookings>().package;
+    final bookingsBody = context.read<Bookings>().bookingsBody;
+    if (_selectedLocation == 1) {
+      context
+          .read<Bookings>()
+          .amendBookingBody({'backdrops': bookingsBody['backdrops'] ?? []});
+    } else {
+      context.read<Bookings>().removeKeyFromBookinBody('backdrops');
+    }
     return Visibility(
       visible: package?.outdoorAllowed == true,
       child: Column(
@@ -84,6 +93,8 @@ class _AvailableLocationContainerState
                         context
                             .read<Bookings>()
                             .removeKeyFromBookinBody('location_link');
+                        context.read<Bookings>().amendBookingBody(
+                            {'backdrops': bookingsBody['backdrops'] ?? []});
                       },
                       child: Container(
                         height: 28,
@@ -150,10 +161,15 @@ class _AvailableLocationContainerState
                           context
                               .read<Bookings>()
                               .amendBookingBody({'location_link': '$value'});
+                          context
+                              .read<Bookings>()
+                              .removeKeyFromBookinBody('backdrops');
                         } else {
                           context
                               .read<Bookings>()
                               .removeKeyFromBookinBody('location_link');
+                          context.read<Bookings>().amendBookingBody(
+                              {'backdrops': bookingsBody['backdrops'] ?? []});
                         }
                       },
                       decoration: InputDecoration(

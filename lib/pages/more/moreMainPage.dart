@@ -134,7 +134,7 @@ class MoreMainPage extends StatelessWidget {
       physics: ClampingScrollPhysics(),
       slivers: <Widget>[
         EmptySliverAppBar(),
-        MainPagesSliverAppBar('More', 'Settings ⚙️'),
+        MainPagesSliverAppBar('', 'Settings ⚙️'),
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (BuildContext context, int index) {

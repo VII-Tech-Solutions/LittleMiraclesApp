@@ -24,7 +24,7 @@ class ImageExamplePage extends StatelessWidget {
     final placeholder = GlobalHelpers.randomPlaceholder('s');
 
     return Scaffold(
-      appBar: AppBarWithClose('Image Examples', AppColors.pinkFEF2F1),
+      appBar: AppBarWithClose('Gallery Photos', AppColors.pinkFEF2F1),
       backgroundColor: AppColors.pinkFEF2F1,
       body: ListView.separated(
         itemCount: media.length,

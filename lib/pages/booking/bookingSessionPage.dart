@@ -1,6 +1,8 @@
 //PACKAGES
 
 // Flutter imports:
+import 'dart:ffi';
+
 import 'package:LMP0001_LittleMiraclesApp/pages/booking/reviewAndPayPage.dart';
 import 'package:flutter/material.dart';
 
@@ -111,7 +113,7 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
               ShowOkDialog(context, 'Please select a time to proceed');
             } else if (!bookingsBody.containsKey('people')) {
               ShowOkDialog(context, 'Please select people joining to proceed');
-            } else if (!bookingsBody.containsKey('backdrops')) {
+            } else if (bookingsBody.containsKey('backdrops') && bookingsBody['backdrops'] as List<int> == []) {
               ShowOkDialog(context, 'Please select a backdrop to proceed');
             } else {
               ShowLoadingDialog(context);

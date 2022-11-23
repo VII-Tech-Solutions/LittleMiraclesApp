@@ -102,7 +102,7 @@ class _EditYourFamilyInfoPageState extends State<EditYourFamilyInfoPage> {
             children: [
               TitleText(
                 customPadding: const EdgeInsets.only(top: 20.0, bottom: 10.0),
-                title: 'Your Family',
+                title: '',
                 type: TitleTextType.mainHomeTitle,
               ),
               Column(

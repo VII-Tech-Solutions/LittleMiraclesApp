@@ -207,7 +207,7 @@ class _ChildrenFormState extends State<ChildrenForm> {
                     customWidth: 128,
                     onPress: widget._onAddMorePressed,
                     type: ButtonType.generalGrey,
-                    title: 'Add more',
+                    title: 'Add child',
                   ),
                 ],
               )

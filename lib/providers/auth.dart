@@ -283,24 +283,13 @@ class Auth with ChangeNotifier {
       FamilyMember? partner;
       print('result: $result');
       print("hello: ${result['data']['partner']}");
-      if (result['data']['partner'] != []) {
+      if (result['data']['partner']['id'] != []) {
+        print("PARTNER FOUND");
+        print(result['data']['partner']);
         partner = FamilyMember.fromJson(result['data']['partner']);
       } else
-        partner = FamilyMember(
-            id: null,
-            familyId: null,
-            firstName: null,
-            lastName: null,
-            gender: null,
-            birthDate: null,
-            relationship: null,
-            status: null,
-            phoneNumber: null,
-            countryCode: null,
-            personality: null,
-            updatedAt: null,
-            deletedAt: null);
-
+        partner = null;
+    
       final childrenJson = result['data']['children'] as List;
       final familyInfoJson = result['data']['family_info'] as List;
       _user = user;
@@ -330,7 +319,7 @@ class Auth with ChangeNotifier {
             'provider': user.provider,
           }));
 
-      if (partner.id != null) {
+      if (partner!= null) {
         _familyMembers.add(partner);
       }
 

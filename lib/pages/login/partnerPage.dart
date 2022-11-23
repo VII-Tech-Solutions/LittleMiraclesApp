@@ -271,7 +271,7 @@ class _PartnerPageState extends State<PartnerPage> {
                         );
                       },
                       type: ButtonType.generalBlue,
-                      title: 'Next: Children\'s Info',
+                      title: 'Next: My Children',
                     ),
                   ],
                 ),

@@ -38,7 +38,7 @@ class PackageImageSectionContainer extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 20, 16, 10),
                 child: Text(
-                  'Image Examples',
+                  'Gallery Photos',
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 14,
@@ -53,7 +53,7 @@ class PackageImageSectionContainer extends StatelessWidget {
                 onPress: null,
                 margin: const EdgeInsets.fromLTRB(16, 16, 16, 20),
                 type: ButtonType.generalGrey,
-                title: 'See all examples',
+                title: 'See All Gallery Photos',
               ),
             ],
           ),
