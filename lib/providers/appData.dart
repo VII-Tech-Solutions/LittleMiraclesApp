@@ -443,8 +443,16 @@ class AppData with ChangeNotifier {
       if (isSubSession) {
         final index =
             _subSessions.indexWhere((element) => element.id == session.id);
+        if (index == -1) {
+          _session = session;
 
-        _subSessions[index] = session;
+          final index =
+              _sessions.indexWhere((element) => element.id == session.id);
+
+          _sessions[index] = session;
+        } else {
+          _subSessions[index] = session;
+        }
       } else {
         _session = session;
 

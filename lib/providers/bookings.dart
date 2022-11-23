@@ -389,10 +389,13 @@ class Bookings with ChangeNotifier {
     }
   }
 
-  Future<ApiResponse?> fetchAndSetAvailableDates(int photographerId) async {
+  Future<ApiResponse?> fetchAndSetAvailableDates(
+      int photographerId, int? packageId) async {
     final url = Uri.parse(
-        '$apiLink/available-hours?package_id=${_package?.id}&photographer_id=$photographerId');
+        '$apiLink/available-hours?package_id=${packageId}&photographer_id=$photographerId');
     print(url);
+    print(photographerId);
+    print(packageId);
     try {
       final response = await http.get(url, headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -401,7 +404,7 @@ class Bookings with ChangeNotifier {
       }).timeout(Duration(seconds: Timeout.value));
 
       final extractedData = json.decode(response.body)['data']['dates'] as List;
-
+      print(extractedData);
       if (response.statusCode != 200) {
         notifyListeners();
         return (ApiResponse(

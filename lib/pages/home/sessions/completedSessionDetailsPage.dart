@@ -184,7 +184,8 @@ class CompletedSessionDetailsPage extends StatelessWidget {
                     context
                         .read<Bookings>()
                         .fetchAndSetAvailableDates(
-                            session?.photographerId ?? -1) //TODO change this
+                            session?.photographerId ?? -1,
+                            session?.packageId) //TODO change this
                         .then((response) {
                       ShowLoadingDialog(context, dismiss: true);
                       if (response?.statusCode == 200) {

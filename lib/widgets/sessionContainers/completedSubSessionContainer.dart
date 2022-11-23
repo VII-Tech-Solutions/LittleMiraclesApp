@@ -175,7 +175,9 @@ class CompletedSubSessionContainer extends StatelessWidget {
                               ShowLoadingDialog(context);
                               context
                                   .read<Bookings>()
-                                  .fetchAndSetAvailableDates(subSession?.photographerId ?? -1)
+                                  .fetchAndSetAvailableDates(
+                                      subSession?.photographerId ?? -1,
+                                      subSession?.packageId)
                                   .then((response) {
                                 ShowLoadingDialog(context, dismiss: true);
                                 if (response?.statusCode == 200) {

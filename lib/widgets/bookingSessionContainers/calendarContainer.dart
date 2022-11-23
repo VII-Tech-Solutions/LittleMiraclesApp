@@ -35,7 +35,13 @@ class _CalendarContainerState extends State<CalendarContainer> {
   void initState() {
     final provider = context.read<Bookings>();
     _availableDate = provider.availableDates;
-    final firstDate = provider.availableDates.first.date;
+    final firstDate;
+    if (provider.availableDates.isNotEmpty) {
+      firstDate = provider.availableDates.first.date;
+    } else {
+      firstDate = null;
+    }
+
     final preSelectedDate = widget.preSelectedDate;
     if (firstDate != null) {
       firstDay = DateTime.parse(firstDate);

@@ -26,7 +26,8 @@ import '../dialogs/showOkDialog.dart';
 
 class SessionButtonContainer extends StatelessWidget {
   final Session? subSession;
-  const SessionButtonContainer({this.subSession});
+  final Session? mainSession;
+  const SessionButtonContainer({this.subSession, this.mainSession});
 
   bool canReschedule(BuildContext context) {
     bool canReschedule = false;
@@ -94,7 +95,8 @@ class SessionButtonContainer extends StatelessWidget {
                 ShowLoadingDialog(context);
                 context
                     .read<Bookings>()
-                    .fetchAndSetAvailableDates(subSession?.photographerId ?? -1)
+                    .fetchAndSetAvailableDates(subSession?.photographerId ?? -1,
+                        mainSession?.packageId)
                     .then((response) {
                   ShowLoadingDialog(context, dismiss: true);
                   if (response?.statusCode == 200) {

@@ -122,7 +122,7 @@ class _PhotographerPageState extends State<PhotographerPage> {
                 ShowLoadingDialog(context);
                 context
                     .read<Bookings>()
-                    .fetchAndSetAvailableDates(_selectedItems.first)
+                    .fetchAndSetAvailableDates(_selectedItems.first, null)
                     .then((response) {
                   ShowLoadingDialog(context, dismiss: true);
                   if (response?.statusCode == 200) {
