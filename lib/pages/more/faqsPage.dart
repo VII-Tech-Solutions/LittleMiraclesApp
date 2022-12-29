@@ -78,7 +78,7 @@ class _FAQsPageState extends State<FAQsPage> {
               item.answer ?? '',
               textAlign: TextAlign.left,
               style: TextStyle(
-                fontSize: 12,
+                fontSize: 13,
                 color: AppColors.black45515D,
               ),
             ),
