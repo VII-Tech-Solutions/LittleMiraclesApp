@@ -1,6 +1,8 @@
 //PACKAGES
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/pages/admin/AdminBookingPage.dart';
+import 'package:LMP0001_LittleMiraclesApp/pages/general/adminBottomNavigationBar.dart';
 import 'package:LMP0001_LittleMiraclesApp/widgets/appbars/emptySliverAppBar.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -188,6 +190,30 @@ class MoreMainPage extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => AboutUsPage(),
+                        ),
+                      );
+                    },
+                  ),
+                  _buttonWidget(
+                    'Admin',
+                    '',
+                        () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AdminBottomNavigationBar(showChat: true,),
+                        ),
+                      );
+                    },
+                  ),
+                  _buttonWidget(
+                    'Photographers',
+                    '',
+                        () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AdminBottomNavigationBar(showChat: false),
                         ),
                       );
                     },
