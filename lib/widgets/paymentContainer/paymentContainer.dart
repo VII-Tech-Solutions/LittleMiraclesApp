@@ -137,13 +137,13 @@ class _PaymentContainerState extends State<PaymentContainer> {
               ),
             ),
           ),
-          _buildSelectionRow(1, 'Paypal'),
+          // _buildSelectionRow(1, 'Paypal'),
+          _buildSelectionRow(3, 'Debit Card'),
+          _buildSelectionRow(4, 'Credit Card'),
           Visibility(
             visible: Platform.isIOS,
             child: _buildSelectionRow(2, 'Apple Pay'),
           ),
-          _buildSelectionRow(3, 'Debit Card'),
-          _buildSelectionRow(4, 'Credit Card'),
         ],
       ),
     );

@@ -61,7 +61,7 @@ class RateDialog extends StatelessWidget {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "Rate the Little Miracles by Sherin App ",
+                          text: "Rate the Little Miracles App ",
                           style: TextStyle(
                             fontFamily: GoogleFonts.manrope().fontFamily,
                             fontSize: 24,
@@ -84,7 +84,7 @@ class RateDialog extends StatelessWidget {
                   SizedBox(
                       height: MediaQuery.of(context).size.height * (30 / 812)),
                   Text(
-                    "Your feedback helps us improve your experience. Are you enjoying the Little Miracles by Sherin App?",
+                    "Your feedback helps us improve your experience. Are you enjoying the Little Miracles App?",
                     style: TextStyle(
                       fontFamily: GoogleFonts.manrope().fontFamily,
                       fontSize: 14,

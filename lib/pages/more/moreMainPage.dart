@@ -184,7 +184,7 @@ class MoreMainPage extends StatelessWidget {
                   ),
                   _buttonWidget(
                     'About Us',
-                    'A little bit more about Little Miracles by Sherin',
+                    'A little bit more about Little Miracles',
                     () {
                       Navigator.push(
                         context,

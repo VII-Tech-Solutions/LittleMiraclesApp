@@ -75,7 +75,7 @@ class HomeHeaderSliverAppBar extends StatelessWidget {
                                 ),
                                 children: <TextSpan>[
                                   TextSpan(
-                                    text: 'to Little\nMiracles by Sherin',
+                                    text: 'to Little\nMiracles',
                                     style: TextStyle(
                                       fontSize: 36,
                                       fontFamily:
