@@ -206,9 +206,11 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     print('state: $state');
     if (state == AppLifecycleState.resumed) {
-      FirebaseChatCore.instance.updateRoom(widget.room, currentlyActive: true);
+      FirebaseChatCore.instance.updateRoom(widget.room);
+      // FirebaseChatCore.instance.updateRoom(widget.room, currentlyActive: true);
     } else {
-      FirebaseChatCore.instance.updateRoom(widget.room, currentlyActive: false);
+      FirebaseChatCore.instance.updateRoom(widget.room);
+      // FirebaseChatCore.instance.updateRoom(widget.room, currentlyActive: false);
     }
   }
 
@@ -217,7 +219,8 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
       message,
       widget.room.id,
     );
-    FirebaseChatCore.instance.updateRoom(widget.room, currentlyActive: true);
+    FirebaseChatCore.instance.updateRoom(widget.room);
+    // FirebaseChatCore.instance.updateRoom(widget.room, currentlyActive: true);
     Future.delayed(Duration(milliseconds: 500)).then((_) => context
         .read<ChatData>()
         .updateStatus(widget.room.id, DateTime.now().millisecondsSinceEpoch));
@@ -290,12 +293,12 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
     global.roomId = widget.room.id;
     Future.delayed(Duration(milliseconds: 500)).then((_) => context
         .read<ChatData>()
         .updateStatus(widget.room.id, DateTime.now().millisecondsSinceEpoch));
-    FirebaseChatCore.instance.updateRoom(widget.room, currentlyActive: true);
+    FirebaseChatCore.instance.updateRoom(widget.room);
     //     metadata: {
     //   'user_id': user.id,
     //   'family_id': user.familyId,
@@ -305,7 +308,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
 
   @override
   void dispose() {
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     global.roomId = null;
     _scaffoldKey.currentContext
         ?.read<ChatData>()

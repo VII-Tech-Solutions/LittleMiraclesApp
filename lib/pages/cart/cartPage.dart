@@ -37,7 +37,7 @@ class _CartPageState extends State<CartPage> {
   final _scrollController = new ScrollController();
   @override
   void initState() {
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       setState(() {
         _isLoading = true;
       });

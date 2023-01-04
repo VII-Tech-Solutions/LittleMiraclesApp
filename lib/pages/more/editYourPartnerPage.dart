@@ -4,11 +4,13 @@
 import 'dart:io';
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/database/db_sqflite.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
@@ -27,7 +29,10 @@ import '../../widgets/texts/titleText.dart';
 //EXTENSIONS
 
 class EditYourPartnerPage extends StatefulWidget {
+  // final VoidCallback? _removeOnPressed;
+  // final bool showDiv;
   const EditYourPartnerPage({Key? key}) : super(key: key);
+
 
   @override
   _EditYourPartnerPageState createState() => _EditYourPartnerPageState();
@@ -112,6 +117,22 @@ class _EditYourPartnerPageState extends State<EditYourPartnerPage> {
     _birthdayController.dispose();
     _phoneController.dispose();
     super.dispose();
+  }
+
+  void _removePartner() {
+    setState(() {
+      _firstNameController.clear();
+      _lastNameController.clear();
+      _genderValue = '';
+      _birthdayController..clear();
+      _phoneController.clear();
+    });
+    
+    // _scrollController.animateTo(
+    //   _scrollController.position.extentBefore,
+    //   duration: Duration(seconds: 1),
+    //   curve: Curves.fastOutSlowIn,
+    // );
   }
 
   @override
@@ -248,6 +269,32 @@ class _EditYourPartnerPageState extends State<EditYourPartnerPage> {
                           ),
                         ),
                       ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 30),
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                            splashFactory: NoSplash.splashFactory),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.close,
+                              color: AppColors.blue8DC4CB,
+                              size: 20,
+                            ),
+                            Text(
+                              'Remove Partner',
+                              style: TextStyle(
+                                fontFamily: GoogleFonts.manrope().fontFamily,
+                                color: AppColors.blue8DC4CB,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 11,
+                              ),
+                            ),
+                          ],
+                        ),
+                        onPressed: _removePartner
+                      ),
                     ),
                     FilledButtonWidget(
                       margin: EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 25.0),

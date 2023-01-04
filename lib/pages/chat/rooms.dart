@@ -53,7 +53,7 @@ class _RoomsPageState extends State<RoomsPage> {
     initializeFlutterFire();
     Future.delayed(Duration(milliseconds: 100))
         .then((_) => context.read<ChatData>().readDB());
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       var response = await context.read<ChatData>().getSupportUserIds();
       final extractedData =
           jsonDecode(response.body)['data']['firebase_ids'] as List;

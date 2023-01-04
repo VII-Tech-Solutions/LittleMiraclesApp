@@ -465,6 +465,9 @@ class Auth with ChangeNotifier {
 
       FamilyMember partner = FamilyMember.fromJson(result['data']['partner']);
 
+      _familyMembers.remove(partner);
+      DBHelper.deleteById(Tables.familyMembers, partner.id ?? -1);
+
       final index =
           _familyMembers.indexWhere((element) => element.id == partner.id);
 
