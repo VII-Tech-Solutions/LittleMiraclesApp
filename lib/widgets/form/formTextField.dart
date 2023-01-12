@@ -44,7 +44,9 @@ class FormTextFieldWidget extends StatelessWidget {
         maxLines: maxLines,
         textInputAction: TextInputAction.next,
         validator: (value) {
-          if (value == null || value.isEmpty) {
+          if (!title!.contains('Have you ever worked with a')) if (value ==
+                  null ||
+              value.isEmpty) {
             return '';
           }
           return null;

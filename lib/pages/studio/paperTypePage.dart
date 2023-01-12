@@ -62,6 +62,8 @@ class _PaperTypePageState extends State<PaperTypePage> {
           _selectedItem == list[index],
           1,
           id: index,
+          maxline: 4,
+          subtitle: list[index].description,
         ),
       ),
       bottomNavigationBar: StudioBottomSectionContainer(

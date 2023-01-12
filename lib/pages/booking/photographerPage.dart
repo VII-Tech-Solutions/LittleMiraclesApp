@@ -4,6 +4,7 @@
 import 'package:LMP0001_LittleMiraclesApp/pages/booking/bookingSessionPage.dart';
 import 'package:LMP0001_LittleMiraclesApp/pages/booking/multiSessionPackage/multiSessionBookingPage.dart';
 import 'package:LMP0001_LittleMiraclesApp/pages/booking/multiSessionPackage/subSessionBookingPage.dart';
+import 'package:LMP0001_LittleMiraclesApp/pages/chat/util.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -57,35 +58,50 @@ class _PhotographerPageState extends State<PhotographerPage> {
         title: 'Select Photographer',
         weight: FontWeight.w800,
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-        itemCount: photographers.length,
-        itemBuilder: (BuildContext context, int index) {
-          return SelectionRow(
-            () {
-              setState(() {
-                if (_selectedItems.contains(photographers[index].id)) {
-                  _selectedItems.removeWhere(
-                      (element) => element == photographers[index].id);
-                } else {
-                  _selectedItems.clear();
-                  _selectedItems.add(photographers[index].id!);
-                }
-              });
-            },
-            photographers[index].image,
-            null,
-            photographers[index].name,
-            _selectedItems.contains(photographers[index].id),
-            1,
-            id: index,
-            subtitle: photographers[index].additionalCharge != null &&
-                    photographers[index].additionalCharge != 0 &&
-                    photographers[index].additionalCharge != -1
-                ? '+BHD ${photographers[index].additionalCharge} (additional charge)'
-                : null,
-          );
-        },
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+              itemCount: photographers.length,
+              itemBuilder: (BuildContext context, int index) {
+                return SelectionRow(
+                  () {
+                    setState(() {
+                      if (_selectedItems.contains(photographers[index].id)) {
+                        _selectedItems.removeWhere(
+                            (element) => element == photographers[index].id);
+                      } else {
+                        _selectedItems.clear();
+                        _selectedItems.add(photographers[index].id!);
+                      }
+                    });
+                  },
+                  photographers[index].image,
+                  null,
+                  photographers[index].name,
+                  _selectedItems.contains(photographers[index].id),
+                  1,
+                  id: index,
+                  subtitle: photographers[index].additionalCharge != null &&
+                          photographers[index].additionalCharge != 0 &&
+                          photographers[index].additionalCharge != -1
+                      ? '+BHD ${photographers[index].additionalCharge} (additional charge)'
+                      : null,
+                );
+              },
+            ),
+          ),
+          Container(
+            height: 120,
+            padding: EdgeInsets.only(left: 10, right: 10),
+            width: MediaQuery.of(context).size.width,
+            child: Image(
+              fit: BoxFit.cover,
+              image: AssetImage('assets/images/PlaceHolderStars.png'),
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar:
           // widget.subPackage != null

@@ -84,6 +84,9 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
     }
   }
 
+  int selectedValuePhoto = 0;
+  int selectedValueExp = 0;
+
   @override
   void initState() {
     _firstNameController = TextEditingController();
@@ -243,12 +246,62 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                         ),
                       ],
                     ),
-                    FormTextFieldWidget(
-                      controller: _detailsController,
-                      title: 'Have you ever worked with a professional photographer?' +
-                          ' Were you happy with that experience? Why or why not?',
-                      maxLines: 8,
+                    Container(
+                      margin: EdgeInsets.fromLTRB(30.0, 10.0, 10.0, 10.0),
+                      child: Row(
+                        children: [
+                          Text(
+                              'Have you ever worked with a\nprofessional photographer?'),
+                          Spacer(
+                            flex: 1,
+                          ),
+                          Container(
+                            width: 100,
+                            child: CupertinoSegmentedControl(
+                              borderColor: AppColors.blue8DC4CB,
+                              selectedColor: AppColors.blue8DC4CB,
+                              onValueChanged: (value) {
+                                selectedValuePhoto =
+                                    int.parse(value.toString());
+                                setState(() {});
+                              },
+                              groupValue: selectedValuePhoto,
+                              children: {0: Text('Yes'), 1: Text('No')},
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(30.0, 10.0, 10.0, 10.0),
+                      child: Row(
+                        children: [
+                          Text('Were you happy with that experience?'),
+                          Spacer(
+                            flex: 1,
+                          ),
+                          Container(
+                            width: 100,
+                            child: CupertinoSegmentedControl(
+                              borderColor: AppColors.blue8DC4CB,
+                              selectedColor: AppColors.blue8DC4CB,
+                              onValueChanged: (value) {
+                                selectedValueExp = int.parse(value.toString());
+                                setState(() {});
+                              },
+                              groupValue: selectedValueExp,
+                              children: {0: Text('Yes'), 1: Text('No')},
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // FormTextFieldWidget(
+                    //   controller: _detailsController,
+                    //   title: 'Have you ever worked with a professional photographer?' +
+                    //       ' Were you happy with that experience? Why or why not?',
+                    //   maxLines: 8,
+                    // ),
                     FilledButtonWidget(
                       margin: EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 25.0),
                       onPress: () {
@@ -264,6 +317,10 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                               "phone_number": _phoneController.text,
                               "birth_date": _formattedDate,
                               "past_experience": _detailsController.text,
+                              "pro_past_experience":
+                                  selectedValuePhoto == 0 ? true : false,
+                              "happy_past_experience":
+                                  selectedValueExp == 0 ? true : false,
                             },
                           };
 

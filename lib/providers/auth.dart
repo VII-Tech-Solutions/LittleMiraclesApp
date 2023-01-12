@@ -148,7 +148,9 @@ class Auth with ChangeNotifier {
         final extractedUserData = json.decode(prefs.getString('userData') ?? "")
             as Map<String, dynamic>;
         // final expiryDate = DateTime.parse(extractedUserData['expires']);
-
+        //TODO:
+        // _token =
+        //     'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMmVjMDhhNTI2MjkyMzUwYzFhMGZiYWIxOGEwZjUyMzdjZTc4OWQ1Y2Q4YWUyZTZlMzcwOGUzOGQ2YTE4ZWU2OTQ3YTZkMTk0NzhjNWZlZGIiLCJpYXQiOjE2NzMzNTM3OTksIm5iZiI6MTY3MzM1Mzc5OSwiZXhwIjoxODMxMTIwMTk5LCJzdWIiOiI3MCIsInNjb3BlcyI6W119.VksfxIzbp_UtmXnpS3hYHbQqYJo7rR4-eflzhbzeOQWsm8atfzeZoqsFA47coJnjVlMQ7T0lIbtoMo7XlQgupj3TCl0whHVKrUEsv6sF57HFfC_-TQctzs56NcIqcRqcY3D6ZsL-JZvLFAV5xaZMhm57rzYcrK68OKR6TUZqp3TCvt9HQFm3Z_A0VpZWA73hz6uzTWtEPVPPpQaweOXnL0Y_v6Son3LI5SYVM88FvOoMX6Xq4hWmoV0xYe2Ci4KWY5QMuTUzTjhZN7Umc8sLtPSqBNTV6SltZQJgNuaYWt_hXCDmmAi03B_u1ASkglBej68cG_9GDDnVNWwcXOkW4ATdlHSbIfyH6KneJWyTql32Ayo_qH5Gc3wBeckgGwwhtMD5as1eV54sZSR09bLiXe8m7A8epUphnlEkCScimABwUkMhvhV2OYc6ueHxZGmCSdoUcuRmFhWTF83HIA4-bw3p9CxiblmkQD8eZ7v2RdBG4Sxov9EMpMJ4yWYY4tUcxhC0AI15HJOKLMxarPsFPHs8MQmbHyumy6hqxhh3i6IvsL03IXu_ZSlhLqjsmu3joSF_CQG3SHa3hIh4JVf1CDXlBwSsjs8PFe7iaIochjZkgoD01ODgovL370z-y3hOEIY5WISvNO2cUbF5dJEkVQwFxzUF-y3UEdnwvGtj580';
         _token = extractedUserData['token'];
         _isFirstOpen = extractedUserData['firstOpen'];
         _user = User(
@@ -289,7 +291,7 @@ class Auth with ChangeNotifier {
         partner = FamilyMember.fromJson(result['data']['partner']);
       } else
         partner = null;
-    
+
       final childrenJson = result['data']['children'] as List;
       final familyInfoJson = result['data']['family_info'] as List;
       _user = user;
@@ -319,7 +321,7 @@ class Auth with ChangeNotifier {
             'provider': user.provider,
           }));
 
-      if (partner!= null) {
+      if (partner != null) {
         _familyMembers.add(partner);
       }
 
@@ -697,7 +699,9 @@ class Auth with ChangeNotifier {
           return null;
         }
       }
-
+      //TODO:
+      // _token =
+      //     'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMmVjMDhhNTI2MjkyMzUwYzFhMGZiYWIxOGEwZjUyMzdjZTc4OWQ1Y2Q4YWUyZTZlMzcwOGUzOGQ2YTE4ZWU2OTQ3YTZkMTk0NzhjNWZlZGIiLCJpYXQiOjE2NzMzNTM3OTksIm5iZiI6MTY3MzM1Mzc5OSwiZXhwIjoxODMxMTIwMTk5LCJzdWIiOiI3MCIsInNjb3BlcyI6W119.VksfxIzbp_UtmXnpS3hYHbQqYJo7rR4-eflzhbzeOQWsm8atfzeZoqsFA47coJnjVlMQ7T0lIbtoMo7XlQgupj3TCl0whHVKrUEsv6sF57HFfC_-TQctzs56NcIqcRqcY3D6ZsL-JZvLFAV5xaZMhm57rzYcrK68OKR6TUZqp3TCvt9HQFm3Z_A0VpZWA73hz6uzTWtEPVPPpQaweOXnL0Y_v6Son3LI5SYVM88FvOoMX6Xq4hWmoV0xYe2Ci4KWY5QMuTUzTjhZN7Umc8sLtPSqBNTV6SltZQJgNuaYWt_hXCDmmAi03B_u1ASkglBej68cG_9GDDnVNWwcXOkW4ATdlHSbIfyH6KneJWyTql32Ayo_qH5Gc3wBeckgGwwhtMD5as1eV54sZSR09bLiXe8m7A8epUphnlEkCScimABwUkMhvhV2OYc6ueHxZGmCSdoUcuRmFhWTF83HIA4-bw3p9CxiblmkQD8eZ7v2RdBG4Sxov9EMpMJ4yWYY4tUcxhC0AI15HJOKLMxarPsFPHs8MQmbHyumy6hqxhh3i6IvsL03IXu_ZSlhLqjsmu3joSF_CQG3SHa3hIh4JVf1CDXlBwSsjs8PFe7iaIochjZkgoD01ODgovL370z-y3hOEIY5WISvNO2cUbF5dJEkVQwFxzUF-y3UEdnwvGtj580';
       _token = result['data']['token'];
       _expiryDate = result['data']['expires'];
       User user = User.fromJson(result['data']['user']);
@@ -708,6 +712,9 @@ class Auth with ChangeNotifier {
           _familyMembers.add(partner);
         }
       }
+      print('****');
+      print(_token);
+      print('****');
 
       final childrenJson = result['data']['children'] as List;
       final familyInfoJson = result['data']['family_info'] as List;
@@ -791,6 +798,7 @@ class Auth with ChangeNotifier {
           await GoogleSignIn(scopes: ['email']).signIn();
 
       if (googleUser != null) {
+        print('local');
         dynamic body = {
           'id': googleUser.id.toString(),
           'name': googleUser.displayName,

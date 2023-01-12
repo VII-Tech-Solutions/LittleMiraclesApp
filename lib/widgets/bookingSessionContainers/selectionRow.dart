@@ -20,16 +20,10 @@ class SelectionRow extends StatelessWidget {
   final String? subtitle;
   final bool? isSelected;
   final int allowedSelection;
-  const SelectionRow(
-    this.onTap,
-    this.image,
-    this.customImage,
-    this.title,
-    this.isSelected,
-    this.allowedSelection, {
-    required this.id,
-    this.subtitle = null,
-  });
+  final int? maxline;
+  const SelectionRow(this.onTap, this.image, this.customImage, this.title,
+      this.isSelected, this.allowedSelection,
+      {required this.id, this.subtitle = null, this.maxline});
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +80,7 @@ class SelectionRow extends StatelessWidget {
                     if (subtitle != null)
                       Text(
                         subtitle ?? '',
+                        maxLines: maxline != null ? maxline : null,
                         style: TextStyle(
                           fontSize: 10,
                           fontWeight: FontWeight.w500,

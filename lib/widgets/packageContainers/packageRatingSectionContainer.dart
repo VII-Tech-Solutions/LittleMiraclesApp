@@ -21,7 +21,7 @@ class PackageRatingSectionContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final package = context.watch<Bookings>().package;
     final reviewsList = context.watch<Bookings>().packageReviews;
-
+    print(reviewsList);
     return Visibility(
       visible: package?.totalReviews != 0,
       child: Column(
