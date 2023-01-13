@@ -169,60 +169,60 @@ class _ChildrenFormState extends State<ChildrenForm> {
           title: 'Description of Their Personalities',
           maxLines: 8,
         ),
-        widget._isLast
-            ? Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Visibility(
-                    visible: widget._showRemove,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 30),
-                      child: TextButton(
-                        style: TextButton.styleFrom(
-                            splashFactory: NoSplash.splashFactory),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.close,
-                              color: AppColors.blue8DC4CB,
-                              size: 20,
-                            ),
-                            Text(
-                              'Remove',
-                              style: TextStyle(
-                                fontFamily: GoogleFonts.manrope().fontFamily,
-                                color: AppColors.blue8DC4CB,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 11,
-                              ),
-                            ),
-                          ],
-                        ),
-                        onPressed: widget._removeOnPressed,
+        // widget._isLast ?
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Visibility(
+              // visible: widget._showRemove,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 30),
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                      splashFactory: NoSplash.splashFactory),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.close,
+                        color: AppColors.blue8DC4CB,
+                        size: 20,
                       ),
-                    ),
+                      Text(
+                        'Remove',
+                        style: TextStyle(
+                          fontFamily: GoogleFonts.manrope().fontFamily,
+                          color: AppColors.blue8DC4CB,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 11,
+                        ),
+                      ),
+                    ],
                   ),
-                  FilledButtonWidget(
-                    margin: EdgeInsets.only(right: 30.0),
-                    customWidth: 128,
-                    onPress: widget._onAddMorePressed,
-                    type: ButtonType.generalGrey,
-                    title: 'Add child',
-                  ),
-                ],
-              )
-            : Visibility(
-                visible: widget.showDiv == true,
-                maintainSize: true,
-                maintainAnimation: true,
-                maintainState: true,
-                child: Container(
-                  height: 1.5,
-                  width: double.infinity,
-                  color: AppColors.greyD0D3D6,
-                  margin: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                  onPressed: widget._removeOnPressed,
                 ),
               ),
+            ),
+            FilledButtonWidget(
+              margin: EdgeInsets.only(right: 30.0),
+              customWidth: 128,
+              onPress: widget._onAddMorePressed,
+              type: ButtonType.generalGrey,
+              title: 'Add child',
+            ),
+          ],
+        )
+        // : Visibility(
+        //     visible: widget.showDiv == true,
+        //     maintainSize: true,
+        //     maintainAnimation: true,
+        //     maintainState: true,
+        //     child: Container(
+        //       height: 1.5,
+        //       width: double.infinity,
+        //       color: AppColors.greyD0D3D6,
+        //       margin: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+        //     ),
+        //   ),
       ],
     );
   }

@@ -86,14 +86,20 @@ class _ChildrenPageState extends State<ChildrenPage> {
     );
   }
 
-  void _removeAChild() {
+  void _removeAChild(int index) {
     setState(() {
-      _formKeysList.removeLast();
-      _firstNameControllersList.removeLast();
-      _lastNameControllersList.removeLast();
-      _genderControllersList.removeLast();
-      _birthdayControllersList.removeLast();
-      _detailsControllersList.removeLast();
+      // _formKeysList.removeLast();
+      // _firstNameControllersList.removeLast();
+      // _lastNameControllersList.removeLast();
+      // _genderControllersList.removeLast();
+      // _birthdayControllersList.removeLast();
+      // _detailsControllersList.removeLast();
+      _formKeysList.removeAt(index);
+      _firstNameControllersList.removeAt(index);
+      _lastNameControllersList.removeAt(index);
+      _genderControllersList.removeAt(index);
+      _birthdayControllersList.removeAt(index);
+      _detailsControllersList.removeAt(index);
     });
     _scrollController.animateTo(
       _scrollController.position.extentBefore,
@@ -166,7 +172,8 @@ class _ChildrenPageState extends State<ChildrenPage> {
                       index + 1 == _formKeysList.length &&
                           _formKeysList.length != 1,
                       _addAChild,
-                      _removeAChild,
+                      // _removeAChild,
+                      () => _removeAChild(index),
                     );
                   }),
               FilledButtonWidget(

@@ -116,7 +116,7 @@ class _JoiningPeopleContainerState extends State<JoiningPeopleContainer> {
                           ),
                         ),
                         Text(
-                          '${_selectedPeople.length + _userSelected}',
+                          '${_selectedPeople.length + _userSelected + _extraPeopleJoining}',
                           style: TextStyle(
                             color: AppColors.black45515D,
                             fontSize: 18,

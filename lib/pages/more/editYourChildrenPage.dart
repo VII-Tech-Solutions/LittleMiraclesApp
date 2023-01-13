@@ -1,6 +1,7 @@
 //PACKAGES
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/pages/chat/util.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -110,14 +111,22 @@ class _EditYourChildrenPageState extends State<EditYourChildrenPage> {
     );
   }
 
-  void _removeAChild() {
+  var childIndex;
+
+  void _removeAChild(int index) {
     setState(() {
-      _formKeysList.removeLast();
-      _firstNameControllersList.removeLast();
-      _lastNameControllersList.removeLast();
-      _genderControllersList.removeLast();
-      _birthdayControllersList.removeLast();
-      _personalityControllersList.removeLast();
+      // _formKeysList.removeLast();
+      // _firstNameControllersList.removeLast();
+      // _lastNameControllersList.removeLast();
+      // _genderControllersList.removeLast();
+      // _birthdayControllersList.removeLast();
+      // _personalityControllersList.removeLast();
+      _formKeysList.removeAt(index);
+      _firstNameControllersList.removeAt(index);
+      _lastNameControllersList.removeAt(index);
+      _genderControllersList.removeAt(index);
+      _birthdayControllersList.removeAt(index);
+      _personalityControllersList.removeAt(index);
     });
     _scrollController.animateTo(
       _scrollController.position.extentBefore,
@@ -149,6 +158,7 @@ class _EditYourChildrenPageState extends State<EditYourChildrenPage> {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     String suffix = '';
+
                     if (index + 1 == 1) {
                       suffix = 'st';
                     } else if (index + 1 == 2) {
@@ -182,7 +192,9 @@ class _EditYourChildrenPageState extends State<EditYourChildrenPage> {
                           index + 1 == _formKeysList.length,
                           index + 1 == _formKeysList.length,
                           _addAChild,
-                          _removeAChild,
+                          // (index) {},
+                          // _removeAChild,
+                          () => _removeAChild(index),
                           showDiv: false,
                         ),
                       ],

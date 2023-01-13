@@ -135,7 +135,7 @@ class _HomePageState extends State<HomePage> {
             child: ConfettiWidget(
               confettiController: confettiController,
               numberOfParticles: 1,
-              // maxBlastForce: 20,
+              maxBlastForce: 20,
               minBlastForce: 5,
               emissionFrequency: 1,
               shouldLoop: false,
@@ -143,11 +143,11 @@ class _HomePageState extends State<HomePage> {
               // blastDirection: pi / 2,
               blastDirectionality: BlastDirectionality.explosive,
               colors: const [
-                Colors.green,
-                Colors.blue,
-                Colors.pink,
-                Colors.orange,
-                Colors.purple
+                Color(0xffABC1C3),
+                Color(0xffB6D8DB),
+                Color(0xffE2C5BB),
+                Color(0xffA59998),
+                Color(0xff6D6A6A),
               ],
               createParticlePath: drawStar,
             ),
@@ -160,15 +160,15 @@ class _HomePageState extends State<HomePage> {
           //     shouldLoop: false,
           //     gravity: 0.09,
           //     blastDirection: (3 * pi / 4),
-              // colors: const [
-              //   Colors.green,
-              //   Colors.blue,
-              //   Colors.pink,
-              //   Colors.orange,
-              //   Colors.purple
-              // ],
-              // createParticlePath: drawStar,
-            // ),
+          // colors: const [
+          //   Colors.green,
+          //   Colors.blue,
+          //   Colors.pink,
+          //   Colors.orange,
+          //   Colors.purple
+          // ],
+          // createParticlePath: drawStar,
+          // ),
           // ),
         ],
       ),
