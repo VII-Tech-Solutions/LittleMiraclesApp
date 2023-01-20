@@ -97,9 +97,25 @@ class PaymentDetailsContainer extends StatelessWidget {
                     //   ),
                     // ),
                     Visibility(
+                      visible: session?.extraPeople != null,
+                      child: BenefitDetailsRow(
+                        'Extra People: ${session?.extraPeople}',
+                        Icons.perm_identity_rounded,
+                        false,
+                      ),
+                    ),
+                    Visibility(
                       visible: session?.formattedBackdrop != null,
                       child: BenefitDetailsRow(
                         '${session?.formattedBackdrop}',
+                        Icons.wallpaper,
+                        false,
+                      ),
+                    ),
+                    Visibility(
+                      visible: session?.customBackdrop != null,
+                      child: BenefitDetailsRow(
+                        '${session?.customBackdrop}',
                         Icons.wallpaper,
                         false,
                       ),

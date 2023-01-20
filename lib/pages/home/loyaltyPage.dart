@@ -313,11 +313,11 @@ class _LoyaltyPageState extends State<LoyaltyPage> {
               // blastDirection: pi / 2,
               blastDirectionality: BlastDirectionality.explosive,
               colors: const [
-                Colors.green,
-                Colors.blue,
-                Colors.pink,
-                Colors.orange,
-                Colors.purple
+                Color(0xffABC1C3),
+                Color(0xffB6D8DB),
+                Color(0xffE2C5BB),
+                Color(0xffA59998),
+                Color(0xff6D6A6A),
               ],
               createParticlePath: drawStar,
             ),
@@ -338,7 +338,7 @@ class _LoyaltyPageState extends State<LoyaltyPage> {
           //       Colors.purple
           //     ],
           //     createParticlePath: drawStar,
-            // ),
+          // ),
           // ),
         ],
       ),

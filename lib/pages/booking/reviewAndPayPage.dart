@@ -1,10 +1,12 @@
 //PACKAGES
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/pages/booking/inAppWebview.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // Project imports:
 import '../../global/colors.dart';
@@ -102,6 +104,14 @@ class _ReviewAndPayPageState extends State<ReviewAndPayPage> {
     });
   }
 
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      print('Could not launch $url');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final session = context.watch<Bookings>().session;
@@ -157,6 +167,18 @@ class _ReviewAndPayPageState extends State<ReviewAndPayPage> {
               curve: Curves.fastOutSlowIn,
             );
           } else {
+            final bookingsProvider = context.read<Bookings>();
+
+            // _launchURL(bookingsProvider.paymentLink);
+            print(bookingsProvider.session!.id);
+            print(bookingsProvider.paymentLink);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    InAppWebViewPage(bookingsProvider.paymentLink),
+              ),
+            );
             session?.subSessionsIds != null
                 ? _confirmMultiSession(context)
                 : _confirmSignelSession(context);

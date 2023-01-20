@@ -187,7 +187,7 @@ class _BackdropPageState extends State<BackdropPage> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: FilledButtonWidget(
           onPress: () {
-            if (_selectedItems.isNotEmpty) {
+            if (_selectedItems.isNotEmpty || _customBackdrop.isNotEmpty) {
               if (widget.subPackage != null) {
                 Map<int, List<int>> backdropsMap = {
                   widget.subPackage!.id!: _selectedItems,

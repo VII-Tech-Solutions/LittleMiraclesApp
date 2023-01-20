@@ -109,10 +109,40 @@ class _PartnerPageState extends State<PartnerPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TitleText(
-                customPadding: EdgeInsets.fromLTRB(30.0, 20.0, 16.0, 10.0),
-                title: 'Your Partner',
-                type: TitleTextType.mainHomeTitle,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  TitleText(
+                    customPadding: EdgeInsets.fromLTRB(30.0, 20.0, 16.0, 10.0),
+                    title: 'Your Partner',
+                    type: TitleTextType.mainHomeTitle,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 30),
+                    child: InkWell(
+                      onTap: () {
+                        context
+                            .read<Auth>()
+                            .amendRegistrationBody({"partner": []});
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChildrenPage(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Skip',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: AppColors.black45515D,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
               ),
               Form(
                 key: _formKey,

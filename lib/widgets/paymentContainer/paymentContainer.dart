@@ -36,11 +36,12 @@ class _PaymentContainerState extends State<PaymentContainer> {
         });
 
         final bookingsProvider = context.read<Bookings>();
+
         widget.isMultiSession == true
             ? bookingsProvider
                 .amendMultiSessionBookingBody({'payment_method': id})
             : bookingsProvider.amendBookingBody({'payment_method': id});
-
+        bookingsProvider.checkout(_selectedPayment == 3 ? '1' : '2');
         return widget.onTapCallback!(title);
       },
       child: Container(
@@ -137,7 +138,7 @@ class _PaymentContainerState extends State<PaymentContainer> {
               ),
             ),
           ),
-          _buildSelectionRow(1, 'Paypal'),
+          // _buildSelectionRow(1, 'Paypal'),
           Visibility(
             visible: Platform.isIOS,
             child: _buildSelectionRow(2, 'Apple Pay'),

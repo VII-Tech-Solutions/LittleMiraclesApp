@@ -147,36 +147,39 @@ class LoginPage extends StatelessWidget {
     }
 
     //TODO:
-
+//production
     // final token =
     //     'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMmVjMDhhNTI2MjkyMzUwYzFhMGZiYWIxOGEwZjUyMzdjZTc4OWQ1Y2Q4YWUyZTZlMzcwOGUzOGQ2YTE4ZWU2OTQ3YTZkMTk0NzhjNWZlZGIiLCJpYXQiOjE2NzMzNTM3OTksIm5iZiI6MTY3MzM1Mzc5OSwiZXhwIjoxODMxMTIwMTk5LCJzdWIiOiI3MCIsInNjb3BlcyI6W119.VksfxIzbp_UtmXnpS3hYHbQqYJo7rR4-eflzhbzeOQWsm8atfzeZoqsFA47coJnjVlMQ7T0lIbtoMo7XlQgupj3TCl0whHVKrUEsv6sF57HFfC_-TQctzs56NcIqcRqcY3D6ZsL-JZvLFAV5xaZMhm57rzYcrK68OKR6TUZqp3TCvt9HQFm3Z_A0VpZWA73hz6uzTWtEPVPPpQaweOXnL0Y_v6Son3LI5SYVM88FvOoMX6Xq4hWmoV0xYe2Ci4KWY5QMuTUzTjhZN7Umc8sLtPSqBNTV6SltZQJgNuaYWt_hXCDmmAi03B_u1ASkglBej68cG_9GDDnVNWwcXOkW4ATdlHSbIfyH6KneJWyTql32Ayo_qH5Gc3wBeckgGwwhtMD5as1eV54sZSR09bLiXe8m7A8epUphnlEkCScimABwUkMhvhV2OYc6ueHxZGmCSdoUcuRmFhWTF83HIA4-bw3p9CxiblmkQD8eZ7v2RdBG4Sxov9EMpMJ4yWYY4tUcxhC0AI15HJOKLMxarPsFPHs8MQmbHyumy6hqxhh3i6IvsL03IXu_ZSlhLqjsmu3joSF_CQG3SHa3hIh4JVf1CDXlBwSsjs8PFe7iaIochjZkgoD01ODgovL370z-y3hOEIY5WISvNO2cUbF5dJEkVQwFxzUF-y3UEdnwvGtj580';
-    // await appDataProvider.fetchAndSetSessions(token: token).then((_) {
-    //   appDataProvider.fetchAndSetAppData().then((_) {
-    //     authProvider.getToken(withNotify: false);
-    //     ShowLoadingDialog(context, dismiss: true);
-    //     if (authProvider.user?.status == 1) {
-    //       authProvider.getToken(withNotify: true);
-    //       FirebaseMessaging.instance
-    //           .subscribeToTopic('user_${context.read<Auth>().user!.id}');
-    //       FirebaseMessaging.instance.subscribeToTopic(
-    //           'family_${context.read<Auth>().user!.familyId}');
-    //       Navigator.pushAndRemoveUntil(
-    //         context,
-    //         MaterialPageRoute(
-    //           builder: (context) => CustomBottomNavigationBar(),
-    //         ),
-    //         (Route<dynamic> route) => false,
-    //       );
-    //     } else {
-    //       Navigator.push(
-    //         context,
-    //         MaterialPageRoute(
-    //           builder: (context) => CompleteProfilePage(),
-    //         ),
-    //       );
-    //     }
-    //   });
-    // });
+    //stage
+    final token =
+        'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMDBjYWM1OTk0YTVjMzlkYjJlYzVjOWUxZWJmNWJmMzAxMjJkNDhlNTBkYzA4YjQ0YjBiYmNhNTNiM2Q3YWU5MjEwNWI0YTk3YWY2NzA1NDYiLCJpYXQiOjE2NzQwNDQ0NDksIm5iZiI6MTY3NDA0NDQ0OSwiZXhwIjoxODMxODEwODQ5LCJzdWIiOiIyOSIsInNjb3BlcyI6W119.fdVgKDTPBTt-kA7qNTYM-3BecErmwLlMbRGV8XRJztcXZTSOcnbPsMmqYIYhm6MtUZQFJkPIaq2AmeiTv7MOHm5yMIkmB_Tc7sN1jhxrp2eFeEldHn9-klfiBYP0j0kDUlVhnT6tkB5AaVXlY8_eBdZej7PLJ7ORz-nCCmg7pUvvz9LcQtnzjuecWs8tG2qB0I4hD-aPgTgVZHEwWUECKOedB2I4Iigu5fEwc2Ovef3fToN__Xza7qf5cQU9GVYs86vKp7oZPh5OZfQeJmcRzsCMtNYgmEI8-oRnLF_fhlm2VLsX3ecqpzH-5umdPhe6V5L6YXYBgPIRHoxzPo8gbYX0UT4BJocKZX9sZ2Hru79Hv2-KQPJwALmTwVP6Vyt2pEf-ma6n3jzPsINoKXM2H0vuSk2gi7hQ7SkAj0WabJNEf71DxpPPgbgUR4iD0pVhL4sw3kmnWmw3IxNkn0HWRgeeBrUq0fJ921uhjFii1Lt97qYq5xs_F2XA-UeAeTCNN7TJz_BoMcoKpQFhjCfK6v2_FBUYI8GOYcUWXuG-DFmRg6yESrGgKMaiWOZuBuYmMASd2VwU9A3ZwgloALhIwT7iZwv20Rnbmpf9laT8t18nOLy9NDiW982vPVaLxZoWJc03a7sYgEMmpMAWRwFMztT9-Rqq5LiJW9XdXr-nIuc';
+    await appDataProvider.fetchAndSetSessions(token: token).then((_) {
+      appDataProvider.fetchAndSetAppData().then((_) {
+        authProvider.getToken(withNotify: false);
+        ShowLoadingDialog(context, dismiss: true);
+        if (authProvider.user?.status == 1) {
+          authProvider.getToken(withNotify: true);
+          FirebaseMessaging.instance
+              .subscribeToTopic('user_${context.read<Auth>().user!.id}');
+          FirebaseMessaging.instance.subscribeToTopic(
+              'family_${context.read<Auth>().user!.familyId}');
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CustomBottomNavigationBar(),
+            ),
+            (Route<dynamic> route) => false,
+          );
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CompleteProfilePage(),
+            ),
+          );
+        }
+      });
+    });
     // Future<void> _firebaseAuth() async {
     //   var credential = EmailAuthProvider.credential(
     //       email: '${_auth.user?.id}@lms.com',
@@ -184,51 +187,51 @@ class LoginPage extends StatelessWidget {
     //   FirebaseAuth.instance.currentUser?.linkWithCredential(credential);
     // }
 
-    if (result != null) {
-      if (authProvider.token.isNotEmpty) {
-        final token = authProvider.token;
-        await appDataProvider.fetchAndSetSessions(token: token).then((_) {
-          appDataProvider.fetchAndSetAppData().then((_) {
-            authProvider.getToken(withNotify: false);
-            ShowLoadingDialog(context, dismiss: true);
-            if (authProvider.user?.status == 1) {
-              authProvider.getToken(withNotify: true);
-              FirebaseMessaging.instance
-                  .subscribeToTopic('user_${context.read<Auth>().user!.id}');
-              FirebaseMessaging.instance.subscribeToTopic(
-                  'family_${context.read<Auth>().user!.familyId}');
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CustomBottomNavigationBar(),
-                ),
-                (Route<dynamic> route) => false,
-              );
-            } else {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CompleteProfilePage(),
-                ),
-              );
-            }
-          });
-        });
-        // Future<void> _firebaseAuth() async {
-        //   var credential = EmailAuthProvider.credential(
-        //       email: '${_auth.user?.id}@lms.com',
-        //       password: generateRandomString(18));
-        //   FirebaseAuth.instance.currentUser?.linkWithCredential(credential);
-        // }
+    // if (result != null) {
+    //   if (authProvider.token.isNotEmpty) {
+    //     final token = authProvider.token;
+    //     await appDataProvider.fetchAndSetSessions(token: token).then((_) {
+    //       appDataProvider.fetchAndSetAppData().then((_) {
+    //         authProvider.getToken(withNotify: false);
+    //         ShowLoadingDialog(context, dismiss: true);
+    //         if (authProvider.user?.status == 1) {
+    //           authProvider.getToken(withNotify: true);
+    //           FirebaseMessaging.instance
+    //               .subscribeToTopic('user_${context.read<Auth>().user!.id}');
+    //           FirebaseMessaging.instance.subscribeToTopic(
+    //               'family_${context.read<Auth>().user!.familyId}');
+    //           Navigator.pushAndRemoveUntil(
+    //             context,
+    //             MaterialPageRoute(
+    //               builder: (context) => CustomBottomNavigationBar(),
+    //             ),
+    //             (Route<dynamic> route) => false,
+    //           );
+    //         } else {
+    //           Navigator.push(
+    //             context,
+    //             MaterialPageRoute(
+    //               builder: (context) => CompleteProfilePage(),
+    //             ),
+    //           );
+    //         }
+    //       });
+    //     });
+    //     // Future<void> _firebaseAuth() async {
+    //     //   var credential = EmailAuthProvider.credential(
+    //     //       email: '${_auth.user?.id}@lms.com',
+    //     //       password: generateRandomString(18));
+    //     //   FirebaseAuth.instance.currentUser?.linkWithCredential(credential);
+    //     // }
 
-      } else {
-        ShowLoadingDialog(context, dismiss: true);
-        ShowOkDialog(context, ErrorMessages.somethingWrong);
-      }
-    } else {
-      ShowLoadingDialog(context, dismiss: true);
-      ShowOkDialog(context, ErrorMessages.somethingWrong);
-    }
+    //   } else {
+    //     ShowLoadingDialog(context, dismiss: true);
+    //     ShowOkDialog(context, ErrorMessages.somethingWrong);
+    //   }
+    // } else {
+    //   ShowLoadingDialog(context, dismiss: true);
+    //   ShowOkDialog(context, ErrorMessages.somethingWrong);
+    // }
   }
 
   @override
@@ -356,26 +359,26 @@ class LoginPage extends StatelessWidget {
                 buttonText: 'Login using Facebook',
                 assetName: 'assets/images/iconsSocialFacebook.svg',
               ),
-              ButtonWithIconWidget(
-                onPress: () {
-                  _socialLogin(
-                      context, SSOType.snapchat, authProvider, appDataProvider);
+              // ButtonWithIconWidget(
+              //   onPress: () {
+              //     _socialLogin(
+              //         context, SSOType.snapchat, authProvider, appDataProvider);
 
-                  // final val = context.read<Auth>().user?.providerId;
+              //     // final val = context.read<Auth>().user?.providerId;
 
-                  // print(val);
+              //     // print(val);
 
-                  // ShowLoadingDialog(context);
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => CompleteProfilePage(),
-                  //   ),
-                  // );
-                },
-                buttonText: 'Login using Snapchat',
-                assetName: 'assets/images/iconsSocialSnapchat.svg',
-              ),
+              //     // ShowLoadingDialog(context);
+              //     // Navigator.push(
+              //     //   context,
+              //     //   MaterialPageRoute(
+              //     //     builder: (context) => CompleteProfilePage(),
+              //     //   ),
+              //     // );
+              //   },
+              //   buttonText: 'Login using Snapchat',
+              //   assetName: 'assets/images/iconsSocialSnapchat.svg',
+              // ),
               Visibility(
                 visible: Platform.isIOS,
                 child: ButtonWithIconWidget(
