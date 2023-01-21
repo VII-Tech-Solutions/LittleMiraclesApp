@@ -1,6 +1,7 @@
 //PACKAGES
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/pages/admin/adminBookingPage.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -212,6 +213,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
             margin: EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 40.0),
             onPress: () {
               final authProvider = context.read<Auth>();
+
               authProvider.setFirstOpen().then((_) {
                 Navigator.pushAndRemoveUntil(
                   context,

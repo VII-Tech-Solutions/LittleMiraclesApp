@@ -6,6 +6,7 @@ import 'dart:ui' as ui;
 
 // Flutter imports:
 import 'package:LMP0001_LittleMiraclesApp/global/colors.dart';
+import 'package:LMP0001_LittleMiraclesApp/pages/admin/adminBookingPage.dart';
 import 'package:LMP0001_LittleMiraclesApp/providers/bookings.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
@@ -97,81 +98,84 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // final isAuth = context.read<Auth>().isAuth;
+    final isAuth = context.read<Auth>();
+
     // final helloSection = context.read<AppData>().helloSection;
     // final size = MediaQuery.of(context).size;
     // final statusBarHeight = MediaQuery.of(context).padding.top;
     // final statusBarHeights = MediaQueryData.fromWindow(ui.window).padding.top;
     final _list = context.watch<AppData>().sessionsAndHomeList;
-    return RefreshIndicator(
-      onRefresh: (() async {
-        final token = context.read<Auth>().token;
-        if (token.isNotEmpty) {
-          await context.read<AppData>().fetchAndSetSessions(token: token);
-        }
-        await context.read<AppData>().fetchAndSetAppData();
-      }),
-      edgeOffset: kToolbarHeight + 9,
-      displacement: kToolbarHeight + 9,
-      child: Stack(
-        children: [
-          CustomScrollView(
-            slivers: <Widget>[
-              HomeHeaderSliverAppBar(),
-              LoginSliverAppBar(),
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                    return _list[index];
-                  },
-                  childCount: _list.length,
+    return isAuth.user!.role == 2
+        ? AdminBookingPage()
+        : RefreshIndicator(
+            onRefresh: (() async {
+              final token = context.read<Auth>().token;
+              if (token.isNotEmpty) {
+                await context.read<AppData>().fetchAndSetSessions(token: token);
+              }
+              await context.read<AppData>().fetchAndSetAppData();
+            }),
+            edgeOffset: kToolbarHeight + 9,
+            displacement: kToolbarHeight + 9,
+            child: Stack(
+              children: [
+                CustomScrollView(
+                  slivers: <Widget>[
+                    HomeHeaderSliverAppBar(),
+                    LoginSliverAppBar(),
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (BuildContext context, int index) {
+                          return _list[index];
+                        },
+                        childCount: _list.length,
+                      ),
+                    ),
+                    SliverPadding(padding: EdgeInsets.only(bottom: 30))
+                  ],
                 ),
-              ),
-              SliverPadding(padding: EdgeInsets.only(bottom: 30))
-            ],
-          ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: ConfettiWidget(
-              confettiController: confettiController,
-              numberOfParticles: 1,
-              maxBlastForce: 20,
-              minBlastForce: 5,
-              emissionFrequency: 1,
-              shouldLoop: false,
-              gravity: 0.05,
-              // blastDirection: pi / 2,
-              blastDirectionality: BlastDirectionality.explosive,
-              colors: const [
-                Color(0xffABC1C3),
-                Color(0xffB6D8DB),
-                Color(0xffE2C5BB),
-                Color(0xffA59998),
-                Color(0xff6D6A6A),
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: ConfettiWidget(
+                    confettiController: confettiController,
+                    numberOfParticles: 1,
+                    maxBlastForce: 20,
+                    minBlastForce: 5,
+                    emissionFrequency: 1,
+                    shouldLoop: false,
+                    gravity: 0.05,
+                    // blastDirection: pi / 2,
+                    blastDirectionality: BlastDirectionality.explosive,
+                    colors: const [
+                      Color(0xffABC1C3),
+                      Color(0xffB6D8DB),
+                      Color(0xffE2C5BB),
+                      Color(0xffA59998),
+                      Color(0xff6D6A6A),
+                    ],
+                    createParticlePath: drawStar,
+                  ),
+                ),
+                // Align(
+                //   alignment: Alignment.topCenter,
+                //   child: ConfettiWidget(
+                //     confettiController: confettiController,
+                //     numberOfParticles: 4,
+                //     shouldLoop: false,
+                //     gravity: 0.09,
+                //     blastDirection: (3 * pi / 4),
+                // colors: const [
+                //   Colors.green,
+                //   Colors.blue,
+                //   Colors.pink,
+                //   Colors.orange,
+                //   Colors.purple
+                // ],
+                // createParticlePath: drawStar,
+                // ),
+                // ),
               ],
-              createParticlePath: drawStar,
             ),
-          ),
-          // Align(
-          //   alignment: Alignment.topCenter,
-          //   child: ConfettiWidget(
-          //     confettiController: confettiController,
-          //     numberOfParticles: 4,
-          //     shouldLoop: false,
-          //     gravity: 0.09,
-          //     blastDirection: (3 * pi / 4),
-          // colors: const [
-          //   Colors.green,
-          //   Colors.blue,
-          //   Colors.pink,
-          //   Colors.orange,
-          //   Colors.purple
-          // ],
-          // createParticlePath: drawStar,
-          // ),
-          // ),
-        ],
-      ),
-    );
+          );
   }
 }
