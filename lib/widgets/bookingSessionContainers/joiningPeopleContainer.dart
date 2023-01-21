@@ -43,11 +43,17 @@ class _JoiningPeopleContainerState extends State<JoiningPeopleContainer> {
       }
     });
     if (widget.onChangeCallback != null) {
-      widget.onChangeCallback!(
-          {'people': _selectedPeople, 'extra_people': _extraPeopleJoining});
+      widget.onChangeCallback!({
+        'people': _selectedPeople,
+        'extra_people':
+            _selectedPeople.length + _userSelected + _extraPeopleJoining
+      });
     } else {
-      context.read<Bookings>().amendBookingBody(
-          {'people': _selectedPeople, 'extra_people': _extraPeopleJoining});
+      context.read<Bookings>().amendBookingBody({
+        'people': _selectedPeople,
+        'extra_people':
+            _selectedPeople.length + _userSelected + _extraPeopleJoining
+      });
     }
   }
 
@@ -61,11 +67,23 @@ class _JoiningPeopleContainerState extends State<JoiningPeopleContainer> {
 
     if (widget.onChangeCallback != null) {
       bool includeMeVal = _userSelected == 1 ? true : false;
-      widget.onChangeCallback!({'include_me': includeMeVal});
+      widget.onChangeCallback!({
+        'include_me': includeMeVal,
+        'extra_people':
+            _selectedPeople.length + _userSelected + _extraPeopleJoining
+      });
       if (_selectedPeople.isNotEmpty)
-        widget.onChangeCallback!({'people': _selectedPeople});
+        widget.onChangeCallback!({
+          'people': _selectedPeople,
+          'extra_people':
+              _selectedPeople.length + _userSelected + _extraPeopleJoining
+        });
     } else {
-      context.read<Bookings>().amendBookingBody({'people': _selectedPeople});
+      context.read<Bookings>().amendBookingBody({
+        'people': _selectedPeople,
+        'extra_people':
+            _selectedPeople.length + _userSelected + _extraPeopleJoining
+      });
     }
     super.initState();
   }
@@ -150,14 +168,31 @@ class _JoiningPeopleContainerState extends State<JoiningPeopleContainer> {
                   });
 
                   if (widget.onChangeCallback != null) {
-                    widget.onChangeCallback!(
-                        {'include_me': _userSelected == 1 ? true : false});
-                    widget.onChangeCallback!({'people': _selectedPeople});
+                    widget.onChangeCallback!({
+                      'include_me': _userSelected == 1 ? true : false,
+                      'extra_people': _selectedPeople.length +
+                          _userSelected +
+                          _extraPeopleJoining
+                    });
+                    widget.onChangeCallback!({
+                      'people': _selectedPeople,
+                      'extra_people': _selectedPeople.length +
+                          _userSelected +
+                          _extraPeopleJoining
+                    });
                   } else {
-                    bookingsProvider.amendBookingBody(
-                        {'include_me': _userSelected == 1 ? true : false});
-                    bookingsProvider
-                        .amendBookingBody({'people': _selectedPeople});
+                    bookingsProvider.amendBookingBody({
+                      'include_me': _userSelected == 1 ? true : false,
+                      'extra_people': _selectedPeople.length +
+                          _userSelected +
+                          _extraPeopleJoining
+                    });
+                    bookingsProvider.amendBookingBody({
+                      'people': _selectedPeople,
+                      'extra_people': _selectedPeople.length +
+                          _userSelected +
+                          _extraPeopleJoining
+                    });
                   }
                 },
               ),
@@ -201,12 +236,16 @@ class _JoiningPeopleContainerState extends State<JoiningPeopleContainer> {
                               if (widget.onChangeCallback != null) {
                                 widget.onChangeCallback!({
                                   'people': _selectedPeople,
-                                  'extra_people': _extraPeopleJoining
+                                  'extra_people': _selectedPeople.length +
+                                      _userSelected +
+                                      _extraPeopleJoining,
                                 });
                               } else {
                                 context.read<Bookings>().amendBookingBody({
                                   'people': _selectedPeople,
-                                  'extra_people': _extraPeopleJoining
+                                  'extra_people': _selectedPeople.length +
+                                      _userSelected +
+                                      _extraPeopleJoining,
                                 });
                               }
                             });
@@ -235,12 +274,16 @@ class _JoiningPeopleContainerState extends State<JoiningPeopleContainer> {
                                 if (widget.onChangeCallback != null) {
                                   widget.onChangeCallback!({
                                     'people': _selectedPeople,
-                                    'extra_people': _extraPeopleJoining
+                                    'extra_people': _selectedPeople.length +
+                                        _userSelected +
+                                        _extraPeopleJoining
                                   });
                                 } else {
                                   context.read<Bookings>().amendBookingBody({
                                     'people': _selectedPeople,
-                                    'extra_people': _extraPeopleJoining
+                                    'extra_people': _selectedPeople.length +
+                                        _userSelected +
+                                        _extraPeopleJoining,
                                   });
                                 }
                               });
