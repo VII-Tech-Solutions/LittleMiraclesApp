@@ -175,12 +175,13 @@ class LoginPage extends StatelessWidget {
     //         (Route<dynamic> route) => false,
     //       );
     //     } else {
-    //       if (authProvider.user?.role == null) {
-    //         Navigator.push(
+    //       print(authProvider.user?.role);
+    //       if (authProvider.user?.role != null && authProvider.user?.role == 2) {
+    //         Navigator.pushAndRemoveUntil<void>(
     //           context,
-    //           MaterialPageRoute(
-    //             builder: (context) => AdminBookingPage(),
-    //           ),
+    //           MaterialPageRoute<void>(
+    //               builder: (BuildContext context) => const AdminBookingPage()),
+    //           ModalRoute.withName('/'),
     //         );
     //       } else
     //         Navigator.push(

@@ -207,6 +207,7 @@ class _JoiningPeopleContainerState extends State<JoiningPeopleContainer> {
                         isUser: false,
                         isSelected: _selectedPeople.contains(e.id),
                         onTapCallback: (val) {
+                          print(e.familyId);
                           if (val != null) _selectPerson(val);
                         },
                       ),

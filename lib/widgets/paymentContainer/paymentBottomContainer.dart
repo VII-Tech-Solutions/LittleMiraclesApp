@@ -45,16 +45,28 @@ class PaymentBottomContainer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Expanded(
-                child: Text(
-                  'BD ${promoCode?.totalPrice ?? package?.price ?? ''}',
-                  style: TextStyle(
-                    color: AppColors.black45515D,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w800,
+              if (package!.additionalCharge == 0)
+                Expanded(
+                  child: Text(
+                    'BD ${promoCode?.totalPrice! ?? package.price ?? ''}',
+                    style: TextStyle(
+                      color: AppColors.black45515D,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                )
+              else
+                Expanded(
+                  child: Text(
+                    'BD ${int.parse(package.price!.replaceAll(RegExp(r"([.]*0+)(?!.*\d)"), "")) + package.additionalCharge}',
+                    style: TextStyle(
+                      color: AppColors.black45515D,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
                 ),
-              ),
               FilledButtonWidget(
                 customWidth: 200,
                 onPress: onTapCallback,

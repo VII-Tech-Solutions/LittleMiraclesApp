@@ -179,9 +179,9 @@ class _ReviewAndPayPageState extends State<ReviewAndPayPage> {
                     InAppWebViewPage(bookingsProvider.paymentLink),
               ),
             );
-            session?.subSessionsIds != null
-                ? _confirmMultiSession(context)
-                : _confirmSignelSession(context);
+            // session?.subSessionsIds != null
+            //     ? _confirmMultiSession(context)
+            //     : _confirmSignelSession(context);
           }
         },
       ),

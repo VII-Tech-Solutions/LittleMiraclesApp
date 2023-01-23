@@ -332,7 +332,7 @@ class Bookings with ChangeNotifier {
 
   Future<ApiResponse> fetchAndSetPackageDetails(int id) async {
     final url = Uri.parse('$apiLink/packages/$id');
-
+    print(url);
     try {
       final response = await http.get(url, headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -889,8 +889,8 @@ class Bookings with ChangeNotifier {
   Future<ApiResponse?> checkout(
     paymentMethod,
   ) async {
-    final url =
-        Uri.parse('$apiLink/checkout?code=LMR&payment_method=$paymentMethod');
+    final url = Uri.parse(
+        '$apiLink/checkout?payment_method=$paymentMethod&booking_type=1&session_id=172');
 
     try {
       print(url);

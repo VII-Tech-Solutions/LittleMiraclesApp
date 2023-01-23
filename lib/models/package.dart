@@ -25,32 +25,33 @@ class Package {
   final String? mediaIds;
   final int? totalReviews;
   final double? rating;
+  var additionalCharge;
 
-  Package({
-    @required this.id,
-    @required this.image,
-    @required this.title,
-    @required this.tag,
-    @required this.price,
-    @required this.isPopular,
-    @required this.type,
-    @required this.content,
-    @required this.locationText,
-    @required this.locationLink,
-    @required this.status,
-    @required this.updatedAt,
-    @required this.deletedAt,
-    @required this.backdropAllowed,
-    @required this.cakeAllowed,
-    @required this.benefitsIds,
-    @required this.outdoorAllowed,
-    @required this.hasGuideline,
-    @required this.subPackagesIds,
-    @required this.reviewsIds,
-    @required this.mediaIds,
-    @required this.totalReviews,
-    @required this.rating,
-  });
+  Package(
+      {@required this.id,
+      @required this.image,
+      @required this.title,
+      @required this.tag,
+      @required this.price,
+      @required this.isPopular,
+      @required this.type,
+      @required this.content,
+      @required this.locationText,
+      @required this.locationLink,
+      @required this.status,
+      @required this.updatedAt,
+      @required this.deletedAt,
+      @required this.backdropAllowed,
+      @required this.cakeAllowed,
+      @required this.benefitsIds,
+      @required this.outdoorAllowed,
+      @required this.hasGuideline,
+      @required this.subPackagesIds,
+      @required this.reviewsIds,
+      @required this.mediaIds,
+      @required this.totalReviews,
+      @required this.rating,
+      this.additionalCharge = 0});
 
   Map<String, Object> toMap() {
     return {

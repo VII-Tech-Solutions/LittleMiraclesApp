@@ -48,6 +48,8 @@ class _PhotographerPageState extends State<PhotographerPage> {
     super.initState();
   }
 
+  var indexs;
+
   @override
   Widget build(BuildContext context) {
     final photographers = context.watch<AppData>().photographers;
@@ -76,6 +78,8 @@ class _PhotographerPageState extends State<PhotographerPage> {
                         _selectedItems.add(photographers[index].id!);
                       }
                     });
+                    indexs = index;
+                    print(indexs);
                   },
                   photographers[index].image,
                   null,
@@ -126,6 +130,9 @@ class _PhotographerPageState extends State<PhotographerPage> {
           //     :
           PackageBottomSectionContainer(
         btnLabel: 'Next',
+        additionalCharge: _selectedItems == [] || _selectedItems.length == 0
+            ? 0
+            : photographers[indexs].additionalCharge,
         onTap: () {
           if (_selectedItems.isEmpty) {
             ShowOkDialog(context, 'Please select a photographer to proceed');
@@ -134,7 +141,8 @@ class _PhotographerPageState extends State<PhotographerPage> {
                 .amendBookingBody({'photographer': _selectedItems.first}).then(
               (_) {
                 final package = context.read<Bookings>().package;
-
+                package!.additionalCharge =
+                    photographers[indexs].additionalCharge;
                 ShowLoadingDialog(context);
                 context
                     .read<Bookings>()
@@ -142,8 +150,8 @@ class _PhotographerPageState extends State<PhotographerPage> {
                     .then((response) {
                   ShowLoadingDialog(context, dismiss: true);
                   if (response?.statusCode == 200) {
-                    if (package?.type == PackageType.normalSession ||
-                        package?.type == PackageType.miniSession) {
+                    if (package.type == PackageType.normalSession ||
+                        package.type == PackageType.miniSession) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
