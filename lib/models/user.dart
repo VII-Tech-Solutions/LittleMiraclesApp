@@ -18,6 +18,7 @@ class User {
   final String? username;
   final String? provider;
   final String? firebaseId;
+  final String? name;
   final role;
 
   User(
@@ -40,6 +41,7 @@ class User {
       required this.provider,
       required this.firebaseId,
       required this.chatWithEveryone,
+      this.name,
       this.role});
 
   Map<String, Object> toMap() {
@@ -62,6 +64,7 @@ class User {
       'username': username ?? "",
       'provider': provider ?? "",
       'role': role ?? "",
+      'name': name ?? "",
     };
   }
 
@@ -86,6 +89,7 @@ class User {
         provider: json['provider'] as String?,
         firebaseId: json['firebase_id'] as String?,
         chatWithEveryone: json['chat_with_everyone'] as int?,
-        role: json['role']);
+        role: json['role'],
+        name: json['name']);
   }
 }

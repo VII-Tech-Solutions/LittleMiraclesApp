@@ -6,6 +6,7 @@ import 'dart:math';
 
 // Flutter imports:
 import 'package:LMP0001_LittleMiraclesApp/pages/admin/adminBookingPage.dart';
+import 'package:LMP0001_LittleMiraclesApp/pages/booking/photographerPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -30,6 +31,7 @@ import '../../widgets/buttons/iconButtonWidget.dart';
 import '../../widgets/dialogs/showLoadingDialog.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
 import '../../widgets/texts/titleText.dart';
+import '../photographer/photographerPage.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -175,7 +177,6 @@ class LoginPage extends StatelessWidget {
     //         (Route<dynamic> route) => false,
     //       );
     //     } else {
-    //       print(authProvider.user?.role);
     //       if (authProvider.user?.role != null && authProvider.user?.role == 2) {
     //         Navigator.pushAndRemoveUntil<void>(
     //           context,
@@ -183,16 +184,26 @@ class LoginPage extends StatelessWidget {
     //               builder: (BuildContext context) => const AdminBookingPage()),
     //           ModalRoute.withName('/'),
     //         );
-    //       } else
+    //       } else if (authProvider.user?.role != null ||
+    //           authProvider.user?.role == 1) {
+    //         Navigator.push(
+    //           context,
+    //           MaterialPageRoute(
+    //             builder: (context) => PhotographersPage(),
+    //           ),
+    //         );
+    //       } else {
     //         Navigator.push(
     //           context,
     //           MaterialPageRoute(
     //             builder: (context) => CompleteProfilePage(),
     //           ),
     //         );
+    //       }
     //     }
     //   });
     // });
+
     // Future<void> _firebaseAuth() async {
     //   var credential = EmailAuthProvider.credential(
     //       email: '${_auth.user?.id}@lms.com',
@@ -221,20 +232,32 @@ class LoginPage extends StatelessWidget {
                 (Route<dynamic> route) => false,
               );
             } else {
-              if (authProvider.user?.role == null) {
+              if (authProvider.user?.role != null &&
+                  authProvider.user?.role == 2) {
+                Navigator.pushAndRemoveUntil<void>(
+                  context,
+                  MaterialPageRoute<void>(
+                      builder: (BuildContext context) =>
+                          const AdminBookingPage()),
+                  ModalRoute.withName('/'),
+                );
+              } else if (authProvider.user?.role != null &&
+                  authProvider.user?.role == 1) {
+                Navigator.pushAndRemoveUntil<void>(
+                  context,
+                  MaterialPageRoute<void>(
+                      builder: (BuildContext context) =>
+                          const PhotographersPage()),
+                  ModalRoute.withName('/'),
+                );
+              } else {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AdminBookingPage(),
+                    builder: (context) => CompleteProfilePage(),
                   ),
                 );
               }
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CompleteProfilePage(),
-                ),
-              );
             }
           });
         });

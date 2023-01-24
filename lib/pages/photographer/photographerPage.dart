@@ -8,16 +8,16 @@ import 'package:provider/provider.dart';
 
 import '../../providers/auth.dart';
 
-class AdminBookingPage extends StatefulWidget {
+class PhotographersPage extends StatefulWidget {
   final bool showChat;
 
-  const AdminBookingPage({this.showChat = false, Key? key}) : super(key: key);
+  const PhotographersPage({this.showChat = false, Key? key}) : super(key: key);
 
   @override
-  State<AdminBookingPage> createState() => _AdminBookingPageState();
+  State<PhotographersPage> createState() => _PhotographersPageState();
 }
 
-class _AdminBookingPageState extends State<AdminBookingPage> {
+class _PhotographersPageState extends State<PhotographersPage> {
   final _list = [
     {
       'id': 1,
@@ -40,7 +40,6 @@ class _AdminBookingPageState extends State<AdminBookingPage> {
   @override
   Widget build(BuildContext context) {
     final authProvider = context.watch<Auth>();
-
     return Scaffold(
       body: RefreshIndicator(
           onRefresh: () async {

@@ -41,7 +41,7 @@ class _PaymentContainerState extends State<PaymentContainer> {
             ? bookingsProvider
                 .amendMultiSessionBookingBody({'payment_method': id})
             : bookingsProvider.amendBookingBody({'payment_method': id});
-        bookingsProvider.checkout(_selectedPayment == 3 ? '1' : '2');
+        bookingsProvider.checkout(_selectedPayment == 3 ? '2' : '1');
         return widget.onTapCallback!(title);
       },
       child: Container(

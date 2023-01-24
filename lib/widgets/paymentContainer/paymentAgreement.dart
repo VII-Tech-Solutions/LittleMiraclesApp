@@ -82,7 +82,8 @@ class _PaymentAgreementState extends State<PaymentAgreement> {
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
                         //todo go to Terms of Use
-                        _launchURL('https://www.littlemiraclesbys.com/about/');
+                        _launchURL(
+                            'hhttps://www.termsfeed.com/live/312c8322-5ff6-4289-9f2f-7d9d77dd620d');
                       },
                   ),
                   TextSpan(
@@ -97,7 +98,8 @@ class _PaymentAgreementState extends State<PaymentAgreement> {
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
                         //todo go to Privacy and Cookie Statement
-                        _launchURL('https://www.littlemiraclesbys.com/faq/');
+                        _launchURL(
+                            'https://www.termsfeed.com/live/0915d9b7-e1b7-46e9-b109-8bff28217b57');
                       },
                   ),
                   TextSpan(
