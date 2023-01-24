@@ -15,7 +15,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-import 'package:snapkit/snapkit.dart';
+// import 'package:snapkit/snapkit.dart';
 
 // Project imports:
 import '../database/db_sqflite.dart';
@@ -47,7 +47,7 @@ class Auth with ChangeNotifier {
   //test
   int _selectedIndex = 0;
 
-  Snapkit snapkit = new Snapkit();
+  // Snapkit snapkit = new Snapkit();
 
   int get selectedIndex {
     return _selectedIndex;
@@ -879,36 +879,36 @@ class Auth with ChangeNotifier {
   }
 
   Future<ApiResponse?> signInWithSnapchat({bool isLogout = false}) async {
-    if (isLogout == true) {
-      //sign out the user to trigger the right login behaviour
-      await snapkit.logout();
+    // if (isLogout == true) {
+    //   //sign out the user to trigger the right login behaviour
+    //   await snapkit.logout();
 
-      return null;
-    }
+    //   return null;
+    // }
 
-    try {
-      dynamic body;
-      await snapkit.login().then(
-        (user) {
-          print(user);
-          return body = {
-            'id': user.externalId,
-            'name': user.displayName,
-            // 'email': value,
-            'photo_url': user.bitmojiUrl ?? '',
-            'provider': SSOType.snapchat,
-          };
-        },
-      );
-      print(body);
-      return socialLogin(body, SSOType.snapchat, withNotifyListeners: false);
-    } on PlatformException catch (exception) {
-      print(exception);
-      return null;
-    } catch (error) {
-      print(error);
-      return null;
-    }
+    // try {
+    //   dynamic body;
+    //   await snapkit.login().then(
+    //     (user) {
+    //       print(user);
+    //       return body = {
+    //         'id': user.externalId,
+    //         'name': user.displayName,
+    //         // 'email': value,
+    //         'photo_url': user.bitmojiUrl ?? '',
+    //         'provider': SSOType.snapchat,
+    //       };
+    //     },
+    //   );
+    //   print(body);
+    //   return socialLogin(body, SSOType.snapchat, withNotifyListeners: false);
+    // } on PlatformException catch (exception) {
+    //   print(exception);
+    //   return null;
+    // } catch (error) {
+    //   print(error);
+    //   return null;
+    // }
   }
 
   Future<ApiResponse?> signInWithApple() async {
