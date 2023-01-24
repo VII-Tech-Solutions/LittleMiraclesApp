@@ -85,11 +85,11 @@ dependencies:
   screenshot: 1.2.3
   share_plus: 3.1.0
   shared_preferences: 2.0.13
-  snapkit: 2.0.0
+  # snapkit: 2.0.0
   sqflite: 2.0.0+4
   table_calendar: 3.0.3
   url_launcher: 6.0.18
-  flutter_inappwebview: 5.0.5
+  flutter_inappwebview: 5.1.0
 
 dev_dependencies:
   flutter_native_splash: 1.3.2

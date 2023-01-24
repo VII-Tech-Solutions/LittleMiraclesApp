@@ -1,7 +1,7 @@
 import UIKit
 import Flutter
 import Firebase
-import SCSDKLoginKit
+//import SCSDKLoginKit
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
@@ -14,10 +14,12 @@ import SCSDKLoginKit
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
     
-    override func application(
-        _ app: UIApplication,
-        open url: URL,
-        options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        return SCSDKLoginClient.application(app, open: url, options: options)
-    }
+    
+    
+//    override func application(
+//        _ app: UIApplication,
+//        open url: URL,
+//        options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+//        return SCSDKLoginClient.application(app, open: url, options: options)
+//    }
 }
