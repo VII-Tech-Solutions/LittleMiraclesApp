@@ -32,6 +32,7 @@ import '../../widgets/dialogs/showLoadingDialog.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
 import '../../widgets/texts/titleText.dart';
 import '../photographer/photographerPage.dart';
+import 'admin/photograher.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -433,6 +434,22 @@ class LoginPage extends StatelessWidget {
                   buttonText: 'Login using Apple',
                   assetName: 'assets/images/iconsSocialApple.svg',
                 ),
+              ),
+              ButtonWithIconWidget(
+                onPress: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AdminPhotograher(),
+                    ),
+                  );
+
+                  // _socialLogin(
+                  //     context, SSOType.facebook, authProvider, appDataProvider);
+                },
+                buttonText: 'Login as Admin/photograher',
+                assetName: 'assets/images/applogo.png',
+                type: 'admin',
               ),
               SizedBox(height: MediaQuery.of(context).padding.bottom + 24),
             ],

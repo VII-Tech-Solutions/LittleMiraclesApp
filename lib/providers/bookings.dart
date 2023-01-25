@@ -889,6 +889,8 @@ class Bookings with ChangeNotifier {
   Future<ApiResponse?> checkout(
     paymentMethod,
   ) async {
+    paymentLink = null;
+    notifyListeners();
     final url = Uri.parse(
         '$apiLink/checkout?payment_method=$paymentMethod&booking_type=1&session_id=172');
 
@@ -924,6 +926,7 @@ class Bookings with ChangeNotifier {
         print(response.body);
         paymentLink = json.decode(response.body)['data']['payment_url'];
         print(paymentLink);
+        notifyListeners();
       }
 
       final sessionsJson = result['data']['sessions'] as dynamic;

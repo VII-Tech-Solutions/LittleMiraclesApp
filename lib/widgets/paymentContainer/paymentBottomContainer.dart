@@ -19,7 +19,7 @@ class PaymentBottomContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final package = context.watch<Bookings>().package;
     final promoCode = context.watch<Bookings>().promoCode;
-
+    final bookingsProvider = context.read<Bookings>();
     return AnimatedContainer(
       duration: Duration(milliseconds: 150),
       height: promoCode?.code == null ? 100 : 123,
@@ -69,8 +69,11 @@ class PaymentBottomContainer extends StatelessWidget {
                 ),
               FilledButtonWidget(
                 customWidth: 200,
-                onPress: onTapCallback,
-                type: ButtonType.generalBlue,
+                onPress:
+                    bookingsProvider.paymentLink == null ? null : onTapCallback,
+                type: bookingsProvider.paymentLink == null
+                    ? ButtonType.disable
+                    : ButtonType.generalBlue,
                 title: 'Confirm & Pay',
               ),
             ],

@@ -14,6 +14,7 @@ enum ButtonType {
   generalBlue,
   generalPink,
   outlinedYellow,
+  disable
 }
 
 class FilledButtonWidget extends StatelessWidget {
@@ -55,6 +56,10 @@ class FilledButtonWidget extends StatelessWidget {
         {
           return AppColors.yellowFFF0CC;
         }
+      case ButtonType.disable:
+        {
+          return AppColors.greyE8E9EB;
+        }
       default:
         {
           return null;
@@ -74,6 +79,11 @@ class FilledButtonWidget extends StatelessWidget {
         {
           return AppColors.whiteFFFFFF;
         }
+      case ButtonType.disable:
+        {
+          return AppColors.grey979797;
+        }
+
       default:
         {
           return null;
@@ -98,6 +108,7 @@ class FilledButtonWidget extends StatelessWidget {
     switch (type) {
       case ButtonType.generalBlue:
       case ButtonType.generalGrey:
+      case ButtonType.disable:
       case ButtonType.outlinedYellow:
         {
           return _subBuildTextWidget(title);

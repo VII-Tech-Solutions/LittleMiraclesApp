@@ -175,8 +175,9 @@ class _ReviewAndPayPageState extends State<ReviewAndPayPage> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) =>
-                    InAppWebViewPage(bookingsProvider.paymentLink),
+                builder: (context) => InAppWebViewPage(
+                    bookingsProvider.paymentLink,
+                    selectedPayment: _selectedPayment == 3 ? '2' : '1'),
               ),
             );
             // session?.subSessionsIds != null

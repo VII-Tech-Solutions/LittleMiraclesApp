@@ -793,6 +793,85 @@ class Auth with ChangeNotifier {
     }
   }
 
+  Future<ApiResponse?> loginAsAdmin(String email, String password,
+      {bool withNotifyListeners = true}) async {
+    final url = Uri.parse('$apiLink/photographer/login');
+
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final response = await http.post(
+        url,
+        headers: {
+          'Platform': '${await AppInfo().platformInfo()}',
+          'App-Version': '${await AppInfo().versionInfo()}',
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: {'email': email, 'password': password},
+      ).timeout(Duration(seconds: Timeout.value));
+
+      print(response.statusCode);
+
+      final result = json.decode(response.body);
+      if (response.statusCode != 200) {
+        if ((response.statusCode >= 400 && response.statusCode <= 499) ||
+            response.statusCode == 503) {
+          return ApiResponse(
+              statusCode: response.statusCode,
+              message: result['message'].toString());
+        } else {
+          return null;
+        }
+      }
+
+      _token = result['data']['token'];
+      _expiryDate = result['data']['expires'];
+      User user = User.fromJson(result['data']['user']);
+
+      print('****');
+      print(_token);
+      print('****');
+
+      _user = user;
+      print(user.name);
+      prefs.setString(
+          'userData',
+          json.encode({
+            'token': _token,
+            'expiryDate': _expiryDate,
+            'firstOpen': false,
+            'userId': user.id,
+            'firstName': user.firstName,
+            'lastName': user.lastName,
+            'phoneNumber': user.phoneNumber,
+            'email': user.email,
+            'updatedAt': user.updatedAt,
+            'deletedAt': user.deletedAt,
+            'countryCode': user.countryCode,
+            'gender': user.gender,
+            'birthDate': user.birthDate,
+            'avatar': user.avatar,
+            'pastExperience': user.pastExperience,
+            'familyId': user.familyId,
+            'status': user.status,
+            'providerId': user.providerId,
+            'username': user.username,
+            'provider': user.provider,
+            'firebaseId': user.firebaseId,
+            'chatWithEveryone': user.chatWithEveryone,
+            'role': user.role,
+            'name': user.name
+          }));
+
+      if (withNotifyListeners == true) {
+        notifyListeners();
+      }
+      return ApiResponse(statusCode: response.statusCode, message: '');
+    } catch (e) {
+      print('this is the error catch error:: $e');
+      return null;
+    }
+  }
+
   //SOCIAL LOGIN FUNCTIONS
   //
   //GOOGLE SOCIAL LOGIN

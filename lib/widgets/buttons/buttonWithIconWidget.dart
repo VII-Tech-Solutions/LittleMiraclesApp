@@ -13,11 +13,12 @@ class ButtonWithIconWidget extends StatelessWidget {
   final VoidCallback? onPress;
   final String? assetName;
   final String? buttonText;
-  const ButtonWithIconWidget({
-    @required this.onPress,
-    @required this.assetName,
-    @required this.buttonText,
-  });
+  final type;
+  const ButtonWithIconWidget(
+      {@required this.onPress,
+      @required this.assetName,
+      @required this.buttonText,
+      this.type});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class ButtonWithIconWidget extends StatelessWidget {
           height: 60,
           margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: type == 'admin' ? AppColors.blue8DC4CB : Colors.white,
             borderRadius: BorderRadius.circular(30),
           ),
           child: Padding(
@@ -36,16 +37,29 @@ class ButtonWithIconWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SvgPicture.asset(
-                  assetName!,
-                  height: 34,
-                  width: 34,
-                ),
+                if (type == 'admin')
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20.0),
+                    child: Image.asset(
+                      assetName!,
+                      fit: BoxFit.cover,
+                      height: 34,
+                      width: 34,
+                    ),
+                  )
+                else
+                  SvgPicture.asset(
+                    assetName!,
+                    height: 34,
+                    width: 34,
+                  ),
                 Text(
                   buttonText ?? '',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: AppColors.black45515D,
+                    color: type == 'admin'
+                        ? AppColors.whiteFFFFFF
+                        : AppColors.black45515D,
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
                   ),
