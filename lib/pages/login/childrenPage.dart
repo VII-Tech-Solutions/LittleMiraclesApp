@@ -130,30 +130,30 @@ class _ChildrenPageState extends State<ChildrenPage> {
                     title: 'Your Children',
                     type: TitleTextType.mainHomeTitle,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 30),
-                    child: InkWell(
-                      onTap: () {
-                        context
-                            .read<Auth>()
-                            .amendRegistrationBody({"children": []});
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => FamilyPage(),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        'Skip',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: AppColors.black45515D,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                    ),
-                  )
+                  // Padding(
+                  //   padding: const EdgeInsets.only(right: 30),
+                  //   child: InkWell(
+                  //     onTap: () {
+                  //       context
+                  //           .read<Auth>()
+                  //           .amendRegistrationBody({"children": []});
+                  //       Navigator.push(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //           builder: (context) => FamilyPage(),
+                  //         ),
+                  //       );
+                  //     },
+                  //     child: Text(
+                  //       'Skip',
+                  //       style: TextStyle(
+                  //         fontSize: 16,
+                  //         color: AppColors.black45515D,
+                  //         fontWeight: FontWeight.w800,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // )
                 ],
               ),
               ListView.builder(

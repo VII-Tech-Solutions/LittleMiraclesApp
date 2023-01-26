@@ -201,16 +201,18 @@ class _JoiningPeopleContainerState extends State<JoiningPeopleContainer> {
                     .watch<Auth>()
                     .familyMembers
                     .map(
-                      (e) => LabeledCheckbox(
-                        id: e.id,
-                        label: '${e.firstName} ${e.lastName}',
-                        isUser: false,
-                        isSelected: _selectedPeople.contains(e.id),
-                        onTapCallback: (val) {
-                          print(e.familyId);
-                          if (val != null) _selectPerson(val);
-                        },
-                      ),
+                      (e) => e.firstName != null
+                          ? LabeledCheckbox(
+                              id: e.id,
+                              label: '${e.firstName} ${e.lastName}',
+                              isUser: false,
+                              isSelected: _selectedPeople.contains(e.id),
+                              onTapCallback: (val) {
+                                print(e.familyId);
+                                if (val != null) _selectPerson(val);
+                              },
+                            )
+                          : Container(),
                     )
                     .toList(),
               ),
