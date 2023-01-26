@@ -79,7 +79,6 @@ class _PhotographerPageState extends State<PhotographerPage> {
                       }
                     });
                     indexs = index;
-                    print(indexs);
                   },
                   photographers[index].image,
                   null,
@@ -134,6 +133,7 @@ class _PhotographerPageState extends State<PhotographerPage> {
             ? 0
             : photographers[indexs].additionalCharge,
         onTap: () {
+          print(_selectedItems);
           if (_selectedItems.isEmpty) {
             ShowOkDialog(context, 'Please select a photographer to proceed');
           } else {

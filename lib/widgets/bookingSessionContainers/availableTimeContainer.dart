@@ -44,6 +44,7 @@ class _AvailableTimeContainerState extends State<AvailableTimeContainer> {
   @override
   Widget build(BuildContext context) {
     final availableTimes = context.watch<Bookings>().availableTimings;
+    print('availableTimes $availableTimes');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
