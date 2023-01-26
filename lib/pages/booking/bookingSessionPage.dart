@@ -63,7 +63,7 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
                   visible: context.read<Bookings>().availableDates.isNotEmpty,
                   child: CalendarContainer()),
               Visibility(
-                  visible: context.read<Bookings>().availableTimings.isNotEmpty,
+                  // visible: context.read<Bookings>().availableTimings.isNotEmpty,
                   child: AvailableTimeContainer()),
               Visibility(
                 visible: context.read<Auth>().isAuth == true,

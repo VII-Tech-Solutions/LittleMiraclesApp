@@ -64,54 +64,58 @@ class _AvailableTimeContainerState extends State<AvailableTimeContainer> {
               width: 1,
             ),
           ),
-          child: GridView.builder(
-            shrinkWrap: true,
-            primary: false,
-            physics: NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              mainAxisSpacing: 15,
-              crossAxisSpacing: 15,
-              mainAxisExtent: 28,
-              crossAxisCount: 3,
-            ),
-            itemCount: availableTimes.length,
-            itemBuilder: (BuildContext ctx, index) {
-              return InkWell(
-                onTap: () {
-                  setState(() {
-                    _selectedTime = availableTimes[index];
-                    if (widget.onChangeCallback != null) {
-                      widget.onChangeCallback!({'time': _selectedTime});
-                    } else {
-                      context
-                          .read<Bookings>()
-                          .amendBookingBody({'time': _selectedTime});
-                    }
-                  });
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: _selectedTime == availableTimes[index]
-                        ? AppColors.black2D3B48
-                        : AppColors.greyF2F3F3,
-                    borderRadius: BorderRadius.circular(24),
+          child: availableTimes == [] || availableTimes.length == 0
+              ? Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Text('No slots available'))
+              : GridView.builder(
+                  shrinkWrap: true,
+                  primary: false,
+                  physics: NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    mainAxisSpacing: 15,
+                    crossAxisSpacing: 15,
+                    mainAxisExtent: 28,
+                    crossAxisCount: 3,
                   ),
-                  child: Text(
-                    availableTimes[index],
-                    style: TextStyle(
-                      color: _selectedTime == availableTimes[index]
-                          ? Colors.white
-                          : AppColors.black45515D,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+                  itemCount: availableTimes.length,
+                  itemBuilder: (BuildContext ctx, index) {
+                    return InkWell(
+                      onTap: () {
+                        setState(() {
+                          _selectedTime = availableTimes[index];
+                          if (widget.onChangeCallback != null) {
+                            widget.onChangeCallback!({'time': _selectedTime});
+                          } else {
+                            context
+                                .read<Bookings>()
+                                .amendBookingBody({'time': _selectedTime});
+                          }
+                        });
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: _selectedTime == availableTimes[index]
+                              ? AppColors.black2D3B48
+                              : AppColors.greyF2F3F3,
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        child: Text(
+                          availableTimes[index],
+                          style: TextStyle(
+                            color: _selectedTime == availableTimes[index]
+                                ? Colors.white
+                                : AppColors.black45515D,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                 ),
-              );
-            },
-          ),
-        ),
+        )
       ],
     );
   }
