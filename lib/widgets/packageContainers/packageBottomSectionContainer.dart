@@ -13,10 +13,11 @@ import '../../widgets/buttons/filledButtonWidget.dart';
 
 class PackageBottomSectionContainer extends StatelessWidget {
   final String? btnLabel;
-  final int? additionalCharge;
   final VoidCallback? onTap;
-  const PackageBottomSectionContainer(
-      {this.btnLabel = 'Book Now', this.onTap, this.additionalCharge = null});
+  const PackageBottomSectionContainer({
+    this.btnLabel = 'Book Now',
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +51,9 @@ class PackageBottomSectionContainer extends StatelessWidget {
                     fontSize: 18,
                   ),
                 ),
-                if (additionalCharge != null)
+                if (package!.additionalCharge != null)
                   Text(
-                    'BD ${price + int.parse(additionalCharge.toString())}',
+                    'BD ${price + int.parse(package.additionalCharge.toString())}',
                     style: TextStyle(
                       color: AppColors.black45515D,
                       fontSize: 12,
@@ -61,7 +62,7 @@ class PackageBottomSectionContainer extends StatelessWidget {
                   )
                 else
                   Text(
-                    'BD ${price + int.parse(package!.additionalCharge.toString())}',
+                    'BD ${price + int.parse(package.additionalCharge.toString())}',
                     style: TextStyle(
                       color: AppColors.black45515D,
                       fontSize: 12,

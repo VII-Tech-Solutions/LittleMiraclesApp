@@ -28,6 +28,7 @@ class GuidelinesButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("session id ${session!.id}");
     return Visibility(
       visible: session?.hasGuideline == true &&
           (session?.subSessionsIds == null || session?.subSessionsIds == ''),

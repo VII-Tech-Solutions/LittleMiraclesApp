@@ -187,22 +187,30 @@ class _BackdropPageState extends State<BackdropPage> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: FilledButtonWidget(
           onPress: () {
-            if (_selectedItems.isNotEmpty || _customBackdrop.isNotEmpty) {
-              if (widget.subPackage != null) {
-                Map<int, List<int>> backdropsMap = {
-                  widget.subPackage!.id!: _selectedItems,
-                };
-                bookingsProvider.amendSubSessionBookingDetails(
-                  SubSessionBookingDetailsType.backdrop,
-                  backdropsMap,
-                );
-              } else {
-                bookingsProvider.assignSelectedBackdrops(
-                    _selectedItems, _customBackdrop);
-              }
-              Navigator.pop(context);
+            print(bookingsProvider.package!.minBackdrop);
+            print(_selectedItems.length);
+            if (_selectedItems.length < bookingsProvider.package!.minBackdrop &&
+                bookingsProvider.package!.minBackdrop != null) {
+              ShowOkDialog(context,
+                  'Please select ${bookingsProvider.package!.minBackdrop} backdrop to proceed');
             } else {
-              ShowOkDialog(context, 'Please select a backrop to proceed');
+              if (_selectedItems.isNotEmpty || _customBackdrop.isNotEmpty) {
+                if (widget.subPackage != null) {
+                  Map<int, List<int>> backdropsMap = {
+                    widget.subPackage!.id!: _selectedItems,
+                  };
+                  bookingsProvider.amendSubSessionBookingDetails(
+                    SubSessionBookingDetailsType.backdrop,
+                    backdropsMap,
+                  );
+                } else {
+                  bookingsProvider.assignSelectedBackdrops(
+                      _selectedItems, _customBackdrop);
+                }
+                Navigator.pop(context);
+              } else {
+                ShowOkDialog(context, 'Please select a backdrop to proceed');
+              }
             }
           },
           title: 'Confirm Backdrop',

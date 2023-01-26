@@ -54,7 +54,7 @@ class _PhotographerPageState extends State<PhotographerPage> {
   Widget build(BuildContext context) {
     final photographers = context.watch<AppData>().photographers;
     final bookingsProvider = context.watch<Bookings>();
-
+    final package = context.read<Bookings>().package;
     return Scaffold(
       appBar: AppBarWithBack(
         title: 'Select Photographer',
@@ -79,6 +79,12 @@ class _PhotographerPageState extends State<PhotographerPage> {
                       }
                     });
                     indexs = index;
+                    package!.additionalCharge =
+                        photographers[indexs].additionalCharge != null &&
+                                photographers[indexs].additionalCharge != 0 &&
+                                photographers[indexs].additionalCharge != -1
+                            ? photographers[indexs].additionalCharge
+                            : 0;
                   },
                   photographers[index].image,
                   null,
@@ -129,9 +135,6 @@ class _PhotographerPageState extends State<PhotographerPage> {
           //     :
           PackageBottomSectionContainer(
         btnLabel: 'Next',
-        additionalCharge: _selectedItems == [] || _selectedItems.length == 0
-            ? 0
-            : photographers[indexs].additionalCharge,
         onTap: () {
           print(_selectedItems);
           if (_selectedItems.isEmpty) {
@@ -140,9 +143,12 @@ class _PhotographerPageState extends State<PhotographerPage> {
             bookingsProvider
                 .amendBookingBody({'photographer': _selectedItems.first}).then(
               (_) {
-                final package = context.read<Bookings>().package;
                 package!.additionalCharge =
-                    photographers[indexs].additionalCharge;
+                    photographers[indexs].additionalCharge != null &&
+                            photographers[indexs].additionalCharge != 0 &&
+                            photographers[indexs].additionalCharge != -1
+                        ? photographers[indexs].additionalCharge
+                        : 0;
                 ShowLoadingDialog(context);
                 context
                     .read<Bookings>()

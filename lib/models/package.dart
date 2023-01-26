@@ -26,6 +26,7 @@ class Package {
   final int? totalReviews;
   final double? rating;
   var additionalCharge;
+  var minBackdrop;
 
   Package(
       {@required this.id,
@@ -51,6 +52,7 @@ class Package {
       @required this.mediaIds,
       @required this.totalReviews,
       @required this.rating,
+      this.minBackdrop,
       this.additionalCharge = 0});
 
   Map<String, Object> toMap() {
@@ -78,6 +80,7 @@ class Package {
       'mediaIds': mediaIds ?? "",
       'totalReviews': totalReviews ?? -1,
       'rating': rating ?? -1.0,
+      'min_backdrop': minBackdrop ?? 0
     };
   }
 
@@ -106,6 +109,7 @@ class Package {
       reviewsIds: json['reviews_ids'] as String?,
       mediaIds: json['media_ids'] as String?,
       totalReviews: json['total_reviews'] as int?,
+      minBackdrop: json['min_backdrop'],
       rating: double.parse(rate.toString()),
     );
   }

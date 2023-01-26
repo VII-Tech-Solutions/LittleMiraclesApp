@@ -88,22 +88,22 @@ class PaymentDetailsContainer extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // Visibility(
-                    //   visible: session?.formattedPeople != null,
-                    //   child: BenefitDetailsRow(
-                    //     '${session?.formattedPeople}',
-                    //     Icons.perm_identity_rounded,
-                    //     false,
-                    //   ),
-                    // ),
                     Visibility(
-                      visible: session?.extraPeople != null,
+                      visible: session?.formattedPeople != null,
                       child: BenefitDetailsRow(
-                        'Extra People: ${session?.extraPeople}',
+                        '${session?.formattedPeople}',
                         Icons.perm_identity_rounded,
                         false,
                       ),
                     ),
+                    // Visibility(
+                    //   visible: session?.extraPeople != null,
+                    //   child: BenefitDetailsRow(
+                    //     'Extra People: ${session?.extraPeople}',
+                    //     Icons.perm_identity_rounded,
+                    //     false,
+                    //   ),
+                    // ),
                     Visibility(
                       visible: session?.formattedBackdrop != null,
                       child: BenefitDetailsRow(

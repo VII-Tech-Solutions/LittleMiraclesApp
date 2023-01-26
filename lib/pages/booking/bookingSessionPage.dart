@@ -103,6 +103,7 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
           if (context.read<Auth>().isAuth == true) {
             final timings = context.read<Bookings>().availableTimings;
             final bookingsBody = context.read<Bookings>().bookingsBody;
+
             if (bookingsBody.containsKey('location_link') &&
                 bookingsBody['location_link'] == "") {
               ShowOkDialog(context, 'Please add the location link to proceed');
