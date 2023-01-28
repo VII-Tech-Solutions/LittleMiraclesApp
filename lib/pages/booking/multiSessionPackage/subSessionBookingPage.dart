@@ -104,6 +104,7 @@ class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
                 children: [
                   CalendarContainer(
                     preSelectedDate: _preselectedDate,
+                    subPackage: widget.subPackage,
                     onChangeCallback: (val) {
                       amendBookingBody(val);
                     },

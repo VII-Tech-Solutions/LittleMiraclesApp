@@ -121,14 +121,15 @@ class SubPackage {
   final String? description;
   final int? backdropAllowed;
   final int? cakeAllowed;
+  final date;
 
-  SubPackage({
-    @required this.id,
-    @required this.title,
-    @required this.description,
-    @required this.backdropAllowed,
-    @required this.cakeAllowed,
-  });
+  SubPackage(
+      {@required this.id,
+      @required this.title,
+      @required this.description,
+      @required this.backdropAllowed,
+      @required this.cakeAllowed,
+      this.date});
 
   Map<String, Object> toMap() {
     return {

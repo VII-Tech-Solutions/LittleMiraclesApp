@@ -37,6 +37,11 @@ class Bookings with ChangeNotifier {
 
   //bookings details
   Map _bookingBody = {};
+  DateTime? bookingMultiDateBody1;
+  DateTime? bookingMultiDateBody2;
+  DateTime? bookingMultiDateBody3;
+  DateTime? bookingMultiDateBody4;
+
   List<int> _selectedCakes = [];
   String _customCake = '';
   List<int> _selectedBackdrops = [];
@@ -80,7 +85,11 @@ class Bookings with ChangeNotifier {
       this._promoCode,
       this._feedbackQuestions,
       this._guidelineString,
-      this._appRate);
+      this._appRate,
+      {this.bookingMultiDateBody1,
+      this.bookingMultiDateBody2,
+      this.bookingMultiDateBody3,
+      this.bookingMultiDateBody4});
 
   Package? get package {
     return _package;
@@ -220,6 +229,24 @@ class Bookings with ChangeNotifier {
     _bookingBody.addAll(data);
 
     print(jsonEncode(_bookingBody));
+  }
+
+  multidateSave(id, date) {
+    if (id == 5) {
+      bookingMultiDateBody1 = date;
+    } else if (id == 6) {
+      bookingMultiDateBody2 = date;
+    } else if (id == 7) {
+      bookingMultiDateBody3 = date;
+    } else {
+      bookingMultiDateBody4 = date;
+    }
+    print(bookingMultiDateBody1);
+    print(bookingMultiDateBody2);
+    print(bookingMultiDateBody3);
+    print(bookingMultiDateBody4);
+
+    notifyListeners();
   }
 
   Future<void> amendMultiSessionBookingBody(Map? data) async {

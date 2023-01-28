@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/models/package.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -11,12 +12,15 @@ import '../../global/colors.dart';
 import '../../models/availableDates.dart';
 import '../../providers/bookings.dart';
 import '../../widgets/texts/titleText.dart';
+import '../dialogs/showOkDialog.dart';
 
 class CalendarContainer extends StatefulWidget {
   final bool isReschedule;
   final String? preSelectedDate;
+  final subPackage;
   final void Function(Map<String, dynamic>?)? onChangeCallback;
   const CalendarContainer({
+    this.subPackage,
     this.isReschedule = false,
     this.preSelectedDate = null,
     this.onChangeCallback = null,
@@ -34,6 +38,7 @@ class _CalendarContainerState extends State<CalendarContainer> {
   @override
   void initState() {
     final provider = context.read<Bookings>();
+
     _availableDate = provider.availableDates;
     final firstDate;
     if (provider.availableDates.isNotEmpty) {
@@ -74,6 +79,7 @@ class _CalendarContainerState extends State<CalendarContainer> {
   @override
   Widget build(BuildContext context) {
     final provider = context.read<Bookings>();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -119,7 +125,45 @@ class _CalendarContainerState extends State<CalendarContainer> {
             ),
             onDaySelected: (DateTime selectDay, DateTime focusDay) {
               setState(() {
+                final bookingsProvider = context.read<Bookings>();
+
                 selectedDay = selectDay;
+                provider.multidateSave(widget.subPackage.id, selectedDay);
+                if (widget.subPackage.id == 6) {
+                  if (bookingsProvider.bookingMultiDateBody1 !=
+                      null) if (bookingsProvider.bookingMultiDateBody1!
+                          .compareTo(DateTime.parse(selectedDay.toString())) <
+                      0) {
+                    print('yes');
+                  } else {
+                    provider.multidateSave(widget.subPackage.id, null);
+                    ShowOkDialog(
+                        context, 'Please select a future date to proceed');
+                  }
+                } else if (widget.subPackage.id == 7) {
+                  if (bookingsProvider.bookingMultiDateBody2 !=
+                      null) if (bookingsProvider.bookingMultiDateBody2!
+                          .compareTo(DateTime.parse(selectedDay.toString())) <
+                      0) {
+                    print('yes');
+                  } else {
+                    provider.multidateSave(widget.subPackage.id, null);
+                    ShowOkDialog(
+                        context, 'Please select a future date to proceed');
+                  }
+                } else if (widget.subPackage.id == 9) {
+                  if (bookingsProvider.bookingMultiDateBody3 !=
+                      null) if (bookingsProvider.bookingMultiDateBody3!
+                          .compareTo(DateTime.parse(selectedDay.toString())) <
+                      0) {
+                    print('yes');
+                  } else {
+                    provider.multidateSave(widget.subPackage.id, null);
+                    ShowOkDialog(
+                        context, 'Please select a future date to proceed');
+                  }
+                }
+
                 final formattedDate = selectedDay.toyyyyMMdd();
                 provider.getAvailableTimings(formattedDate);
 
