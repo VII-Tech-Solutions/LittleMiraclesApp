@@ -1082,24 +1082,24 @@ class AppData with ChangeNotifier {
     }
 
     // STUDIO PACKAGES
-    if (studioPackagesDataList.isNotEmpty) {
-      _studioPackages = studioPackagesDataList
-          .map(
-            (item) => StudioPackage(
-              id: item['id'],
-              title: item['title'],
-              image: item['image'],
-              startingPrice: item['startingPrice'],
-              status: item['status'],
-              benefitIds: item['benefitIds'],
-              mediaIds: item['mediaIds'],
-              type: item['type'],
-              updatedAt: item['updatedAt'],
-              deletedAt: item['deletedAt'],
-            ),
-          )
-          .toList();
-    }
+    // if (studioPackagesDataList.isNotEmpty) {
+    //   _studioPackages = studioPackagesDataList
+    //       .map(
+    //         (item) => StudioPackage(
+    //           id: item['id'],
+    //           title: item['title'],
+    //           image: item['image'],
+    //           startingPrice: item['startingPrice'],
+    //           status: item['status'],
+    //           benefitIds: item['benefitIds'],
+    //           mediaIds: item['mediaIds'],
+    //           type: item['type'],
+    //           updatedAt: item['updatedAt'],
+    //           deletedAt: item['deletedAt'],
+    //         ),
+    //       )
+    //       .toList();
+    // }
 
     // STUDIO METADATA
     if (studioMetadataDataList.isNotEmpty) {
@@ -1223,6 +1223,7 @@ class AppData with ChangeNotifier {
     _studioList.clear();
     if (_studioPackages.isNotEmpty) {
       _studioPackages.forEach((element) {
+        // if (element.title != 'Testing')
         _studioList.add(StudioContainer(element));
       });
     }

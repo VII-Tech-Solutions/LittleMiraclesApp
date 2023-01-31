@@ -23,6 +23,7 @@ class _StudioMainPageState extends State<StudioMainPage> {
   @override
   Widget build(BuildContext context) {
     final _list = context.watch<AppData>().studioList;
+
     return RefreshIndicator(
       onRefresh: (() async {
         final token = context.read<Auth>().token;

@@ -68,7 +68,11 @@ class PackageBottomSectionContainer extends StatelessWidget {
                       fontSize: 12,
                       fontWeight: FontWeight.w800,
                     ),
-                  )
+                  ),
+                Text(
+                  'Exclusive VAT',
+                  style: TextStyle(color: Colors.grey.shade500, fontSize: 13),
+                ),
               ],
             ),
           ),

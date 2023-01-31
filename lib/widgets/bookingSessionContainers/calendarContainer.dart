@@ -128,42 +128,43 @@ class _CalendarContainerState extends State<CalendarContainer> {
                 final bookingsProvider = context.read<Bookings>();
 
                 selectedDay = selectDay;
-                provider.multidateSave(widget.subPackage.id, selectedDay);
-                if (widget.subPackage.id == 6) {
-                  if (bookingsProvider.bookingMultiDateBody1 !=
-                      null) if (bookingsProvider.bookingMultiDateBody1!
-                          .compareTo(DateTime.parse(selectedDay.toString())) <
-                      0) {
-                    print('yes');
-                  } else {
-                    provider.multidateSave(widget.subPackage.id, null);
-                    ShowOkDialog(
-                        context, 'Please select a future date to proceed');
-                  }
-                } else if (widget.subPackage.id == 7) {
-                  if (bookingsProvider.bookingMultiDateBody2 !=
-                      null) if (bookingsProvider.bookingMultiDateBody2!
-                          .compareTo(DateTime.parse(selectedDay.toString())) <
-                      0) {
-                    print('yes');
-                  } else {
-                    provider.multidateSave(widget.subPackage.id, null);
-                    ShowOkDialog(
-                        context, 'Please select a future date to proceed');
-                  }
-                } else if (widget.subPackage.id == 9) {
-                  if (bookingsProvider.bookingMultiDateBody3 !=
-                      null) if (bookingsProvider.bookingMultiDateBody3!
-                          .compareTo(DateTime.parse(selectedDay.toString())) <
-                      0) {
-                    print('yes');
-                  } else {
-                    provider.multidateSave(widget.subPackage.id, null);
-                    ShowOkDialog(
-                        context, 'Please select a future date to proceed');
+                if (widget.subPackage != null) {
+                  provider.multidateSave(widget.subPackage.id, selectedDay);
+                  if (widget.subPackage.id == 6) {
+                    if (bookingsProvider.bookingMultiDateBody1 !=
+                        null) if (bookingsProvider.bookingMultiDateBody1!
+                            .compareTo(DateTime.parse(selectedDay.toString())) <
+                        0) {
+                      print('yes');
+                    } else {
+                      provider.multidateSave(widget.subPackage.id, null);
+                      ShowOkDialog(
+                          context, 'Please select a future date to proceed');
+                    }
+                  } else if (widget.subPackage.id == 7) {
+                    if (bookingsProvider.bookingMultiDateBody2 !=
+                        null) if (bookingsProvider.bookingMultiDateBody2!
+                            .compareTo(DateTime.parse(selectedDay.toString())) <
+                        0) {
+                      print('yes');
+                    } else {
+                      provider.multidateSave(widget.subPackage.id, null);
+                      ShowOkDialog(
+                          context, 'Please select a future date to proceed');
+                    }
+                  } else if (widget.subPackage.id == 9) {
+                    if (bookingsProvider.bookingMultiDateBody3 !=
+                        null) if (bookingsProvider.bookingMultiDateBody3!
+                            .compareTo(DateTime.parse(selectedDay.toString())) <
+                        0) {
+                      print('yes');
+                    } else {
+                      provider.multidateSave(widget.subPackage.id, null);
+                      ShowOkDialog(
+                          context, 'Please select a future date to proceed');
+                    }
                   }
                 }
-
                 final formattedDate = selectedDay.toyyyyMMdd();
                 provider.getAvailableTimings(formattedDate);
 

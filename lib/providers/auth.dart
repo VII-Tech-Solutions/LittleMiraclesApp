@@ -28,6 +28,7 @@ import '../models/familyMember.dart';
 import '../models/question.dart';
 import '../models/ssoData.dart';
 import '../models/user.dart';
+import '../pages/more/editYourPartnerPage.dart';
 
 class Auth with ChangeNotifier {
   List<String> _tables = [
@@ -614,6 +615,55 @@ class Auth with ChangeNotifier {
             DBHelper.insert(Tables.familyInfo, item.toMap());
           }
         });
+      }
+
+      notifyListeners();
+      return (ApiResponse(
+        statusCode: response.statusCode,
+        message: json.decode(response.body)['message'],
+      ));
+    } on TimeoutException catch (e) {
+      print('Exception Timeout:: $e');
+      return null;
+    } catch (e) {
+      print('catch error:: $e');
+      return null;
+    }
+  }
+
+  Future<ApiResponse?> deletePartner(context) async {
+    final url = Uri.parse('$apiLink/partner');
+
+    try {
+      var response = await http.delete(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Platform': '${await AppInfo().platformInfo()}',
+          'App-Version': '${await AppInfo().versionInfo()}',
+          'Authorization': 'Bearer $token',
+        },
+      ).timeout(Duration(seconds: Timeout.value));
+
+      final result = json.decode(response.body);
+
+      if (response.statusCode != 200) {
+        if ((response.statusCode >= 400 && response.statusCode <= 499) ||
+            response.statusCode == 503) {
+          print(result['message'].toString());
+          return ApiResponse(
+              statusCode: response.statusCode,
+              message: result['message'].toString());
+        } else {
+          print('url');
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => EditYourPartnerPage(),
+            ),
+          );
+          // return null;
+        }
       }
 
       notifyListeners();

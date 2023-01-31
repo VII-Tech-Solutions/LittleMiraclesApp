@@ -1,6 +1,7 @@
 //PACKAGES
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/pages/chat/util.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -120,6 +121,10 @@ class PackageContainer extends StatelessWidget {
                       title: 'BD ${package?.price ?? ''}',
                       type: TitleTextType.subContainerMainTitle,
                       weight: FontWeight.w800,
+                    ),
+                    Text(
+                      'Exclusive VAT',
+                      style: TextStyle(color: Colors.grey.shade500),
                     ),
                   ],
                 ),

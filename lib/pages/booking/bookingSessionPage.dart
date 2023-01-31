@@ -69,7 +69,9 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
                 visible: context.read<Auth>().isAuth == true,
                 child: JoiningPeopleContainer(),
               ),
-              BackdropSelector(),
+              Visibility(
+                  visible: bookingsProvider.package?.outdoorAllowed == false,
+                  child: BackdropSelector()),
               CakeSelector(),
               TextQuestionWidget(
                 Question(
@@ -103,6 +105,7 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
           if (context.read<Auth>().isAuth == true) {
             final timings = context.read<Bookings>().availableTimings;
             final bookingsBody = context.read<Bookings>().bookingsBody;
+            print(bookingsProvider.package?.outdoorAllowed);
 
             if (bookingsBody.containsKey('location_link') &&
                 bookingsBody['location_link'] == "") {
@@ -114,7 +117,8 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
               ShowOkDialog(context, 'Please select a time to proceed');
             } else if (!bookingsBody.containsKey('people')) {
               ShowOkDialog(context, 'Please select people joining to proceed');
-            } else if (bookingsBody.containsKey('backdrops') &&
+            } else if (bookingsProvider.package?.outdoorAllowed == false &&
+                bookingsBody.containsKey('backdrops') &&
                 bookingsBody['backdrops'] as List<int> == []) {
               ShowOkDialog(context, 'Please select a backdrop to proceed');
             } else {

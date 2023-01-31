@@ -36,6 +36,7 @@ class Session {
   final String? subSessionsIds;
   final String? bookingText;
   final extraPeople;
+  final vatAmount;
 
   Session(
       {@required this.id,
@@ -71,7 +72,8 @@ class Session {
       @required this.featuredImage,
       @required this.subSessionsIds,
       @required this.bookingText,
-      this.extraPeople});
+      this.extraPeople,
+      this.vatAmount});
 
   Map<String, Object> toMap() {
     return {
@@ -108,6 +110,7 @@ class Session {
       'featuredImage': featuredImage ?? "",
       'subSessionsIds': subSessionsIds ?? "",
       'extra_people': extraPeople ?? "",
+      'vat_amount': vatAmount ?? ""
     };
   }
 
@@ -146,6 +149,7 @@ class Session {
         featuredImage: json['featured_image'] as String?,
         subSessionsIds: json['sub_sessions_ids'] as String?,
         bookingText: json['booking_text'] as String?,
+        vatAmount: json['vat_amount'],
         extraPeople: json['extra_people']);
   }
 }

@@ -769,6 +769,7 @@ class Bookings with ChangeNotifier {
       }
 
       _promoCode = PromoCode.fromJson(result, code);
+      _promoCode!.codepromo = code;
 
       notifyListeners();
       return (ApiResponse(

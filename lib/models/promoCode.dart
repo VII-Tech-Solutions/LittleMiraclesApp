@@ -7,14 +7,15 @@ class PromoCode {
   final String? originalPrice;
   final String? discountPrice;
   final String? totalPrice;
+  String? codepromo;
 
-  PromoCode({
-    @required this.code,
-    @required this.message,
-    @required this.originalPrice,
-    @required this.discountPrice,
-    @required this.totalPrice,
-  });
+  PromoCode(
+      {@required this.code,
+      @required this.message,
+      @required this.originalPrice,
+      @required this.discountPrice,
+      @required this.totalPrice,
+      this.codepromo});
 
   factory PromoCode.fromJson(dynamic json, String code) {
     final message = json['message'];

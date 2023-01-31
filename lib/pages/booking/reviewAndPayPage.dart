@@ -22,6 +22,7 @@ import '../../widgets/paymentContainer/paymentBottomContainer.dart';
 import '../../widgets/paymentContainer/paymentContainer.dart';
 import '../../widgets/paymentContainer/paymentDetailsContainer.dart';
 import '../../widgets/paymentContainer/promoCodeContainer.dart';
+import '../../widgets/paymentContainer/summaryContainer.dart';
 import '../../widgets/sessionContainers/guidelinesButtonWidget.dart';
 
 //EXTENSIONS
@@ -138,6 +139,7 @@ class _ReviewAndPayPageState extends State<ReviewAndPayPage> {
                 margin: const EdgeInsets.only(top: 20),
               ),
               PromoCodeContainer(),
+              SummaryContainer(),
               Container(
                 height: 1,
                 width: double.infinity,

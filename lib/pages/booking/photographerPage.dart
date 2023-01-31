@@ -101,15 +101,15 @@ class _PhotographerPageState extends State<PhotographerPage> {
               },
             ),
           ),
-          Container(
-            height: 120,
-            padding: EdgeInsets.only(left: 10, right: 10),
-            width: MediaQuery.of(context).size.width,
-            child: Image(
-              fit: BoxFit.cover,
-              image: AssetImage('assets/images/PlaceHolderStars.png'),
-            ),
-          ),
+          // Container(
+          //   height: 120,
+          //   padding: EdgeInsets.only(left: 10, right: 10),
+          //   width: MediaQuery.of(context).size.width,
+          //   child: Image(
+          //     fit: BoxFit.cover,
+          //     image: AssetImage('assets/images/PlaceHolderStars.png'),
+          //   ),
+          // ),
         ],
       ),
       bottomNavigationBar:

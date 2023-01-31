@@ -251,19 +251,45 @@ class _EditYourPartnerPageState extends State<EditYourPartnerPage> {
                         ),
                       ],
                     ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 25.0),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.close,
-                            color: AppColors.blue8DC4CB,
-                          ),
-                          Text(
-                            'Remove',
-                            style: TextStyle(color: AppColors.blue8DC4CB),
-                          )
-                        ],
+                    GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          builder: (BuildContext context) {
+                            return CupertinoAlertDialog(
+                              title: Text('Are you sure want to clear?'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(context, false),
+                                  child: Text('No'),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    context.read<Auth>().deletePartner(context);
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('Yes'),
+                                ),
+                              ],
+                            );
+                          },
+                          context: context,
+                        );
+                      },
+                      child: Container(
+                        margin: EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 25.0),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.close,
+                              color: AppColors.blue8DC4CB,
+                            ),
+                            Text(
+                              'Remove',
+                              style: TextStyle(color: AppColors.blue8DC4CB),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     FilledButtonWidget(
