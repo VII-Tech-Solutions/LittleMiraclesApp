@@ -65,7 +65,7 @@ class _PhotographerPageState extends State<PhotographerPage> {
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-              itemCount: photographers.length,
+              itemCount: package!.id == 3 ? 1 : photographers.length,
               itemBuilder: (BuildContext context, int index) {
                 return SelectionRow(
                   () {
@@ -79,12 +79,13 @@ class _PhotographerPageState extends State<PhotographerPage> {
                       }
                     });
                     indexs = index;
-                    package!.additionalCharge =
-                        photographers[indexs].additionalCharge != null &&
-                                photographers[indexs].additionalCharge != 0 &&
-                                photographers[indexs].additionalCharge != -1
-                            ? photographers[indexs].additionalCharge
-                            : 0;
+                    if (package.id != 3)
+                      package.additionalCharge =
+                          photographers[indexs].additionalCharge != null &&
+                                  photographers[indexs].additionalCharge != 0 &&
+                                  photographers[indexs].additionalCharge != -1
+                              ? photographers[indexs].additionalCharge
+                              : 0;
                   },
                   photographers[index].image,
                   null,
@@ -143,7 +144,7 @@ class _PhotographerPageState extends State<PhotographerPage> {
             bookingsProvider
                 .amendBookingBody({'photographer': _selectedItems.first}).then(
               (_) {
-                package!.additionalCharge =
+                package.additionalCharge =
                     photographers[indexs].additionalCharge != null &&
                             photographers[indexs].additionalCharge != 0 &&
                             photographers[indexs].additionalCharge != -1

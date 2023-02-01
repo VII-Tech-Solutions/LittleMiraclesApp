@@ -1,6 +1,7 @@
 //PACKAGES
 
 // Dart imports:
+import 'dart:convert';
 import 'dart:io' show Platform;
 
 // Flutter imports:
@@ -64,6 +65,30 @@ class _SummaryContainerState extends State<SummaryContainer> {
               'Promo code : ${promoCode.codepromo}',
               '- BD ${promoCode.discountPrice ?? ''}',
             ),
+          if (package?.additionalCharge != null)
+            row(
+              'Photographer additional charge',
+              'BD${package?.additionalCharge ?? ''}',
+            ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                    width: 250,
+                    child: Text(
+                      'Subtotal',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    )),
+                Text(
+                    promoCode != null
+                        ? 'BD${promoCode.totalPrice ?? ''}'
+                        : 'BD${session?.totalPrice ?? ''}',
+                    style: TextStyle(fontWeight: FontWeight.bold))
+              ],
+            ),
+          ),
           row(
             'VAT (10%)',
             'BD${session?.vatAmount ?? ''}',
@@ -81,8 +106,8 @@ class _SummaryContainerState extends State<SummaryContainer> {
                     )),
                 Text(
                     promoCode != null
-                        ? 'BD${promoCode.totalPrice ?? ''}'
-                        : 'BD${session?.totalPrice ?? ''}',
+                        ? 'BD${json.decode(promoCode.totalPrice.toString())! + json.decode(session?.vatAmount)}'
+                        : 'BD${session!.subtotal}',
                     style: TextStyle(fontWeight: FontWeight.bold))
               ],
             ),

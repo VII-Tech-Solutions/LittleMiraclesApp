@@ -85,6 +85,7 @@ class StudioPaymentDetailsContainer extends StatelessWidget {
                           Icons.camera_outdoor,
                           false,
                           description: session?.locationLink,
+                          isLocation: true,
                         ),
                       ),
                     ),

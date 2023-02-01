@@ -159,6 +159,7 @@ class _ReviewAndPayPageState extends State<ReviewAndPayPage> {
         ),
       ),
       bottomNavigationBar: PaymentBottomContainer(
+        type: 'final',
         onTapCallback: () {
           if (_selectedPayment == null) {
             ShowOkDialog(context, 'Please select a payment method');

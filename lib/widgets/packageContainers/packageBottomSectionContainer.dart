@@ -51,7 +51,7 @@ class PackageBottomSectionContainer extends StatelessWidget {
                     fontSize: 18,
                   ),
                 ),
-                if (package!.additionalCharge != null)
+                if (package!.additionalCharge != null && package.id != 3)
                   Text(
                     'BD ${price + int.parse(package.additionalCharge.toString())}',
                     style: TextStyle(
@@ -62,7 +62,7 @@ class PackageBottomSectionContainer extends StatelessWidget {
                   )
                 else
                   Text(
-                    'BD ${price + int.parse(package.additionalCharge.toString())}',
+                    'BD ${price}',
                     style: TextStyle(
                       color: AppColors.black45515D,
                       fontSize: 12,

@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import '../../global/colors.dart';
 import '../../providers/bookings.dart';
 import '../../widgets/texts/titleText.dart';
+import '../dialogs/showOkDialog.dart';
 
 //EXTENSIONS
 
@@ -37,6 +38,20 @@ class _AvailableLocationContainerState
   void dispose() {
     _textFieldController.dispose();
     super.dispose();
+  }
+
+  var c1 = true;
+  var c2 = true;
+  bool isGoogleMapLink(String url) {
+    c1 = url.contains(RegExp(r"(map|maps)"));
+    c2 = url.contains(RegExp(r"(google|goo\.gl)"));
+    setState(() {});
+    if (c1 && c2) {
+      print('true');
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @override
@@ -74,89 +89,90 @@ class _AvailableLocationContainerState
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                GridView(
-                  primary: false,
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    mainAxisSpacing: 0,
-                    crossAxisSpacing: 11,
-                    mainAxisExtent: 28,
-                    crossAxisCount: 2,
-                  ),
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          _selectedLocation = 1;
-                        });
-                        context
-                            .read<Bookings>()
-                            .removeKeyFromBookinBody('location_link');
-                        context.read<Bookings>().amendBookingBody(
-                            {'backdrops': bookingsBody['backdrops'] ?? []});
-                      },
-                      child: Container(
-                        height: 28,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: _selectedLocation == 1
-                              ? AppColors.black45515D
-                              : AppColors.greyF2F3F3,
-                          borderRadius: BorderRadius.circular(24),
-                        ),
-                        child: Text(
-                          'Studio',
-                          style: TextStyle(
-                            color: _selectedLocation == 1
-                                ? Colors.white
-                                : AppColors.black45515D,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          _selectedLocation = 2;
-                        });
-                        context.read<Bookings>().amendBookingBody({
-                          'location_link':
-                              '${_textFieldController.text.toString()}'
-                        });
-                      },
-                      child: Container(
-                        height: 28,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: _selectedLocation == 2
-                              ? AppColors.black45515D
-                              : AppColors.greyF2F3F3,
-                          borderRadius: BorderRadius.circular(24),
-                        ),
-                        child: Text(
-                          'Outdoors',
-                          style: TextStyle(
-                            color: _selectedLocation == 2
-                                ? Colors.white
-                                : AppColors.black45515D,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                // GridView(
+                //   primary: false,
+                //   shrinkWrap: true,
+                //   physics: NeverScrollableScrollPhysics(),
+                //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                //     mainAxisSpacing: 0,
+                //     crossAxisSpacing: 11,
+                //     mainAxisExtent: 28,
+                //     crossAxisCount: 2,
+                //   ),
+                //   children: [
+                //     InkWell(
+                //       onTap: () {
+                //         setState(() {
+                //           _selectedLocation = 1;
+                //         });
+                //         context
+                //             .read<Bookings>()
+                //             .removeKeyFromBookinBody('location_link');
+                //         context.read<Bookings>().amendBookingBody(
+                //             {'backdrops': bookingsBody['backdrops'] ?? []});
+                //       },
+                //       child: Container(
+                //         height: 28,
+                //         alignment: Alignment.center,
+                //         decoration: BoxDecoration(
+                //           color: _selectedLocation == 1
+                //               ? AppColors.black45515D
+                //               : AppColors.greyF2F3F3,
+                //           borderRadius: BorderRadius.circular(24),
+                //         ),
+                //         child: Text(
+                //           'Studio',
+                //           style: TextStyle(
+                //             color: _selectedLocation == 1
+                //                 ? Colors.white
+                //                 : AppColors.black45515D,
+                //             fontSize: 12,
+                //             fontWeight: FontWeight.w500,
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //     InkWell(
+                //       onTap: () {
+                //         setState(() {
+                //           _selectedLocation = 2;
+                //         });
+                //         context.read<Bookings>().amendBookingBody({
+                //           'location_link':
+                //               '${_textFieldController.text.toString()}'
+                //         });
+                //       },
+                //       child: Container(
+                //         height: 28,
+                //         alignment: Alignment.center,
+                //         decoration: BoxDecoration(
+                //           color: _selectedLocation == 2
+                //               ? AppColors.black45515D
+                //               : AppColors.greyF2F3F3,
+                //           borderRadius: BorderRadius.circular(24),
+                //         ),
+                //         child: Text(
+                //           'Outdoors',
+                //           style: TextStyle(
+                //             color: _selectedLocation == 2
+                //                 ? Colors.white
+                //                 : AppColors.black45515D,
+                //             fontSize: 12,
+                //             fontWeight: FontWeight.w500,
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 Visibility(
-                  visible: _selectedLocation == 2,
+                  // visible: _selectedLocation == 2,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 16.0),
                     child: TextFormField(
                       controller: _textFieldController,
                       onChanged: (value) {
+                        isGoogleMapLink(value);
                         if (value.isNotEmpty) {
                           context
                               .read<Bookings>()
@@ -173,7 +189,9 @@ class _AvailableLocationContainerState
                         }
                       },
                       decoration: InputDecoration(
-                        errorStyle: TextStyle(height: 0),
+                        errorText:
+                            c1 && c2 ? null : 'Please enter google map url',
+                        // errorStyle: TextStyle(height: 0),
                         contentPadding: const EdgeInsets.symmetric(
                             horizontal: 16.0, vertical: 11.0),
                         enabledBorder: OutlineInputBorder(

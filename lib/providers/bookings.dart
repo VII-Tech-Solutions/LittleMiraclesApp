@@ -483,7 +483,7 @@ class Bookings with ChangeNotifier {
             body: jsonEncode(_bookingBody),
           )
           .timeout(Duration(seconds: Timeout.value));
-
+      print('_bookingBody $_bookingBody');
       final result = json.decode(response.body);
 
       if (response.statusCode != 200) {
@@ -919,8 +919,9 @@ class Bookings with ChangeNotifier {
   ) async {
     paymentLink = null;
     notifyListeners();
+
     final url = Uri.parse(
-        '$apiLink/checkout?payment_method=$paymentMethod&booking_type=1&session_id=172');
+        '$apiLink/checkout?payment_method=$paymentMethod&booking_type=1&session_id=${session!.id}');
 
     try {
       print(url);

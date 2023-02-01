@@ -12,13 +12,15 @@ import '../../providers/bookings.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
 
 class PaymentBottomContainer extends StatelessWidget {
+  final type;
   final VoidCallback? onTapCallback;
-  const PaymentBottomContainer({@required this.onTapCallback});
+  const PaymentBottomContainer({@required this.onTapCallback, this.type});
 
   @override
   Widget build(BuildContext context) {
     final package = context.watch<Bookings>().package;
     final promoCode = context.watch<Bookings>().promoCode;
+    final session = context.watch<Bookings>().session;
     final bookingsProvider = context.read<Bookings>();
     return AnimatedContainer(
       duration: Duration(milliseconds: 150),
@@ -30,36 +32,25 @@ class PaymentBottomContainer extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Visibility(
-            visible: promoCode?.code != null,
-            child: Text(
-              '- BD ${promoCode?.discountPrice ?? ''}',
-              style: TextStyle(
-                color: AppColors.redED0006,
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              if (package!.additionalCharge == 0)
+          // Visibility(
+          //   visible: promoCode?.code != null,
+          //   child: Text(
+          //     '- BD ${promoCode?.discountPrice ?? ''}',
+          //     style: TextStyle(
+          //       color: AppColors.redED0006,
+          //       fontSize: 16,
+          //       fontWeight: FontWeight.w500,
+          //     ),
+          //   ),
+          // ),
+          if (type == 'final')
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
                 Expanded(
                   child: Text(
-                    'BD ${promoCode?.totalPrice! ?? package.price ?? ''}',
-                    style: TextStyle(
-                      color: AppColors.black45515D,
-                      fontSize: 24,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                )
-              else
-                Expanded(
-                  child: Text(
-                    'BD ${int.parse(package.price!.replaceAll(RegExp(r"([.]*0+)(?!.*\d)"), "")) + package.additionalCharge}',
+                    'BD ${promoCode?.code != null ? session!.subtotal - int.parse(promoCode!.discountPrice!.replaceAll(RegExp(r"([.]*0+)(?!.*\d)"), "")) : session!.subtotal}',
                     style: TextStyle(
                       color: AppColors.black45515D,
                       fontSize: 24,
@@ -67,17 +58,57 @@ class PaymentBottomContainer extends StatelessWidget {
                     ),
                   ),
                 ),
-              FilledButtonWidget(
-                customWidth: 200,
-                onPress:
-                    bookingsProvider.paymentLink == null ? null : onTapCallback,
-                type: bookingsProvider.paymentLink == null
-                    ? ButtonType.disable
-                    : ButtonType.generalBlue,
-                title: 'Confirm & Pay',
-              ),
-            ],
-          ),
+                FilledButtonWidget(
+                  customWidth: 200,
+                  onPress: bookingsProvider.paymentLink == null
+                      ? null
+                      : onTapCallback,
+                  type: bookingsProvider.paymentLink == null
+                      ? ButtonType.disable
+                      : ButtonType.generalBlue,
+                  title: 'Confirm & Pay',
+                ),
+              ],
+            )
+          else
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                if (package!.additionalCharge == 0)
+                  Expanded(
+                    child: Text(
+                      'BD ${promoCode?.totalPrice! ?? package.price ?? ''}',
+                      style: TextStyle(
+                        color: AppColors.black45515D,
+                        fontSize: 24,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  )
+                else
+                  Expanded(
+                    child: Text(
+                      'BD ${int.parse(package.price!.replaceAll(RegExp(r"([.]*0+)(?!.*\d)"), "")) + package.additionalCharge}',
+                      style: TextStyle(
+                        color: AppColors.black45515D,
+                        fontSize: 24,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ),
+                FilledButtonWidget(
+                  customWidth: 200,
+                  onPress: bookingsProvider.paymentLink == null
+                      ? null
+                      : onTapCallback,
+                  type: bookingsProvider.paymentLink == null
+                      ? ButtonType.disable
+                      : ButtonType.generalBlue,
+                  title: 'Confirm & Pay',
+                ),
+              ],
+            ),
         ],
       ),
     );

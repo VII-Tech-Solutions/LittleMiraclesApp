@@ -95,6 +95,10 @@ class PackageMainTopSectionContainer extends StatelessWidget {
                   type: TitleTextType.subContainerMainTitle,
                   weight: FontWeight.w800,
                 ),
+                Text(
+                  'Exclusive VAT',
+                  style: TextStyle(color: Colors.grey.shade500),
+                ),
               ],
             ),
           ),

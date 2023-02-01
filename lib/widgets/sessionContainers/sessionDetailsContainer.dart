@@ -81,6 +81,7 @@ class SessionDetailsContainer extends StatelessWidget {
                 Icons.camera_outdoor,
                 isReschedule,
                 description: session?.locationLink,
+                isLocation: true,
               ),
             ),
           ),

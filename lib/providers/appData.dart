@@ -1170,27 +1170,31 @@ class AppData with ChangeNotifier {
       });
     }
 
-    if (_promotions.isNotEmpty) {
-      _homeList.add(TitleText(
-        title: 'Promotions',
-        type: TitleTextType.mainHomeTitle,
-      ));
+    //TODO: promotion hidden
 
-      _promotions.forEach((element) {
-        _homeList.add(PromotionContainer(element));
-      });
-    }
+    // if (_promotions.isNotEmpty) {
+    //   _homeList.add(TitleText(
+    //     title: 'Promotions',
+    //     type: TitleTextType.mainHomeTitle,
+    //   ));
 
-    if (_workshops.isNotEmpty) {
-      _homeList.add(TitleText(
-        title: 'Workshop',
-        type: TitleTextType.mainHomeTitle,
-      ));
+    //   _promotions.forEach((element) {
+    //     _homeList.add(PromotionContainer(element));
+    //   });
+    // }
 
-      _workshops.forEach((element) {
-        _homeList.add(WorkshopContainer(element));
-      });
-    }
+//TODO: workshop hidden
+
+    // if (_workshops.isNotEmpty) {
+    //   _homeList.add(TitleText(
+    //     title: 'Workshop',
+    //     type: TitleTextType.mainHomeTitle,
+    //   ));
+
+    //   _workshops.forEach((element) {
+    //     _homeList.add(WorkshopContainer(element));
+    //   });
+    // }
 
     if (_packages.isNotEmpty) {
       _homeList.add(TitleText(
