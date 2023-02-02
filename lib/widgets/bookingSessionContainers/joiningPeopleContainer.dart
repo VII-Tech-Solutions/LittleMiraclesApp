@@ -234,43 +234,6 @@ class _JoiningPeopleContainerState extends State<JoiningPeopleContainer> {
                       children: [
                         InkWell(
                           onTap: () {
-                            setState(() {
-                              _extraPeopleJoining += 1;
-                              if (widget.onChangeCallback != null) {
-                                widget.onChangeCallback!({
-                                  'people': _selectedPeople,
-                                  'extra_people': _selectedPeople.length +
-                                      _userSelected +
-                                      _extraPeopleJoining,
-                                });
-                              } else {
-                                context.read<Bookings>().amendBookingBody({
-                                  'people': _selectedPeople,
-                                  'extra_people': _selectedPeople.length +
-                                      _userSelected +
-                                      _extraPeopleJoining,
-                                });
-                              }
-                            });
-                          },
-                          child: Icon(
-                            Icons.add_circle_outline,
-                            color: AppColors.greyA2A8AE,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 24),
-                          child: Text(
-                            '$_extraPeopleJoining',
-                            style: TextStyle(
-                              color: AppColors.black45515D,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
                             if (_extraPeopleJoining > 0) {
                               setState(() {
                                 _extraPeopleJoining -= 1;
@@ -294,6 +257,43 @@ class _JoiningPeopleContainerState extends State<JoiningPeopleContainer> {
                           },
                           child: Icon(
                             Icons.remove_circle_outline,
+                            color: AppColors.greyA2A8AE,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          child: Text(
+                            '$_extraPeopleJoining',
+                            style: TextStyle(
+                              color: AppColors.black45515D,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              _extraPeopleJoining += 1;
+                              if (widget.onChangeCallback != null) {
+                                widget.onChangeCallback!({
+                                  'people': _selectedPeople,
+                                  'extra_people': _selectedPeople.length +
+                                      _userSelected +
+                                      _extraPeopleJoining,
+                                });
+                              } else {
+                                context.read<Bookings>().amendBookingBody({
+                                  'people': _selectedPeople,
+                                  'extra_people': _selectedPeople.length +
+                                      _userSelected +
+                                      _extraPeopleJoining,
+                                });
+                              }
+                            });
+                          },
+                          child: Icon(
+                            Icons.add_circle_outline,
                             color: AppColors.greyA2A8AE,
                           ),
                         ),
