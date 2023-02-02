@@ -1161,7 +1161,7 @@ class AppData with ChangeNotifier {
 
     if (_dailyTips.isNotEmpty) {
       _homeList.add(TitleText(
-        title: 'Your daily tip',
+        title: 'Tips & Tricks',
         type: TitleTextType.mainHomeTitle,
       ));
 

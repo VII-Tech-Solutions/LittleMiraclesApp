@@ -19,7 +19,7 @@ class DailyTipDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWithBack(
-        title: 'Your daily tip',
+        title: 'Tips & Tricks',
         weight: FontWeight.w800,
       ),
       body: SingleChildScrollView(

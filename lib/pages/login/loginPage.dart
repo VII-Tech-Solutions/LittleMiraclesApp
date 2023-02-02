@@ -340,8 +340,7 @@ class LoginPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TitleText(
-                title:
-                    'Sign in to unlock the best of Little Miracles by Sherin.',
+                title: 'Sign in to unlock the best of Little Miracles.',
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(16.0, 10.0, 16.0, 11.0),
