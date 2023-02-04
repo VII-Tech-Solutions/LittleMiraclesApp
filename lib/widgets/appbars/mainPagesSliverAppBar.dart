@@ -84,67 +84,74 @@ class MainPagesSliverAppBar extends StatelessWidget {
                           },
                           icon: Icons.shopping_cart),
                       SizedBox(width: 16),
-                      IconButtonWidget(
-                          onPress: () async {
-                            ShowLoadingDialog(context);
-                            if (isAuth == true) {
-                              //**room chat setup */
-                              if (context.read<Auth>().user?.chatWithEveryone !=
-                                      null &&
-                                  context.read<Auth>().user?.chatWithEveryone ==
-                                      1) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => RoomsPage(),
-                                  ),
-                                ).then((_) =>
-                                    ShowLoadingDialog(context, dismiss: true));
-                              }
-
-                              // **Support only chat setup */
-                              // if (await FirebaseAuth
-                              //         .instance.currentUser?.uid ==
-                              //     'o61U7RotNGb8ICAtjz3mShxsD802') {
-                              //   Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //       builder: (context) => RoomsPage(),
-                              //     ),
-                              //   ).then((_) =>
-                              //       ShowLoadingDialog(context, dismiss: true));
-                              // }
-                              else {
-                                // final supportRoom =
-                                //     await FirebaseChatCore.instance.createRoom(
-                                //   types.User(
-                                //       id: 'o61U7RotNGb8ICAtjz3mShxsD802'),
-                                // );
-                                //** Multiple support rooms behavior */
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => RoomsPage(
-                                      canCreateRooms: false,
+                      if (isAuth)
+                        IconButtonWidget(
+                            onPress: () async {
+                              ShowLoadingDialog(context);
+                              if (isAuth == true) {
+                                //**room chat setup */
+                                if (context
+                                            .read<Auth>()
+                                            .user
+                                            ?.chatWithEveryone !=
+                                        null &&
+                                    context
+                                            .read<Auth>()
+                                            .user
+                                            ?.chatWithEveryone ==
+                                        1) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => RoomsPage(),
                                     ),
-                                  ),
-                                ).then((value) =>
-                                    ShowLoadingDialog(context, dismiss: true));
-                                //**Support only chat setup */
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: (_) => ChatPage(room: supportRoom),
-                                //   ),
-                                // ).then((value) =>
-                                //     ShowLoadingDialog(context, dismiss: true));
+                                  ).then((_) => ShowLoadingDialog(context,
+                                      dismiss: true));
+                                }
+
+                                // **Support only chat setup */
+                                // if (await FirebaseAuth
+                                //         .instance.currentUser?.uid ==
+                                //     'o61U7RotNGb8ICAtjz3mShxsD802') {
+                                //   Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //       builder: (context) => RoomsPage(),
+                                //     ),
+                                //   ).then((_) =>
+                                //       ShowLoadingDialog(context, dismiss: true));
+                                // }
+                                else {
+                                  // final supportRoom =
+                                  //     await FirebaseChatCore.instance.createRoom(
+                                  //   types.User(
+                                  //       id: 'o61U7RotNGb8ICAtjz3mShxsD802'),
+                                  // );
+                                  //** Multiple support rooms behavior */
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => RoomsPage(
+                                        canCreateRooms: false,
+                                      ),
+                                    ),
+                                  ).then((value) => ShowLoadingDialog(context,
+                                      dismiss: true));
+                                  //**Support only chat setup */
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (_) => ChatPage(room: supportRoom),
+                                  //   ),
+                                  // ).then((value) =>
+                                  //     ShowLoadingDialog(context, dismiss: true));
+                                }
+                              } else {
+                                ShowOkDialog(context, 'Please login!',
+                                    popToFirst: true);
                               }
-                            } else {
-                              ShowOkDialog(context, 'Please login!',
-                                  popToFirst: true);
-                            }
-                          },
-                          icon: Icons.forum),
+                            },
+                            icon: Icons.forum),
                     ],
                   )
                 ],

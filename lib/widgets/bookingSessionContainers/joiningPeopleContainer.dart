@@ -224,7 +224,7 @@ class _JoiningPeopleContainerState extends State<JoiningPeopleContainer> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Extra people joining',
+                      'Additional guest',
                       style: TextStyle(
                         color: AppColors.black45515D,
                         fontSize: 14,

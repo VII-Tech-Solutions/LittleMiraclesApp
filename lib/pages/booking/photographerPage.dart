@@ -60,8 +60,15 @@ class _PhotographerPageState extends State<PhotographerPage> {
         title: 'Select Photographer',
         weight: FontWeight.w800,
       ),
-      body: Column(
+      body: Stack(
         children: [
+          Container(
+            width: MediaQuery.of(context).size.width,
+            child: Image(
+              fit: BoxFit.fitWidth,
+              image: AssetImage('assets/images/PlaceHolderStars.png'),
+            ),
+          ),
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
@@ -93,7 +100,8 @@ class _PhotographerPageState extends State<PhotographerPage> {
                   _selectedItems.contains(photographers[index].id),
                   1,
                   id: index,
-                  subtitle: photographers[index].additionalCharge != null &&
+                  subtitle: package.id != 3 &&
+                          photographers[index].additionalCharge != null &&
                           photographers[index].additionalCharge != 0 &&
                           photographers[index].additionalCharge != -1
                       ? '+BHD ${photographers[index].additionalCharge} (additional charge)'
