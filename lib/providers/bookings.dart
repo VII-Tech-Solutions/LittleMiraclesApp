@@ -34,6 +34,7 @@ class Bookings with ChangeNotifier {
   List<Media> _packageMedia = [];
   List<Review> _packageReviews = [];
   List<SubPackage> _subPackages = [];
+  List<Session>? sessionList;
 
   //bookings details
   Map _bookingBody = {};
@@ -42,7 +43,7 @@ class Bookings with ChangeNotifier {
   DateTime? bookingMultiDateBody3;
   DateTime? bookingMultiDateBody4;
 
-  List<int> _selectedCakes = [];
+  Map<dynamic, dynamic> _selectedCakes;
   String _customCake = '';
   List<int> _selectedBackdrops = [];
   String _customBackrop = '';
@@ -89,6 +90,7 @@ class Bookings with ChangeNotifier {
       {this.bookingMultiDateBody1,
       this.bookingMultiDateBody2,
       this.bookingMultiDateBody3,
+      this.sessionList,
       this.bookingMultiDateBody4});
 
   Package? get package {
@@ -119,8 +121,12 @@ class Bookings with ChangeNotifier {
     return [..._selectedBackdrops];
   }
 
-  List<int> get selectedCakes {
-    return [..._selectedCakes];
+  //   List get selectedCakes {
+  //   return [..._selectedCakes];
+  // }
+
+  Map get selectedCakes {
+    return _selectedCakes;
   }
 
   Map<int, List<int>> get subSessionSelectedBackdrops {
@@ -206,7 +212,7 @@ class Bookings with ChangeNotifier {
   void resetBookingsData() {
     // single session
     _bookingBody = {};
-    _selectedCakes = [];
+    _selectedCakes = {};
     _customCake = '';
     _selectedBackdrops = [];
     _customBackrop = '';
@@ -346,7 +352,7 @@ class Bookings with ChangeNotifier {
     notifyListeners();
   }
 
-  void assignSelectedCakes(List<int> selectedList, String val) {
+  void assignSelectedCakes(Map<String, dynamic> selectedList, String val) {
     _selectedCakes = selectedList;
     _customCake = val;
 
@@ -395,6 +401,59 @@ class Bookings with ChangeNotifier {
 
       _subPackages =
           subPackagesData.map((json) => SubPackage.fromJson(json)).toList();
+
+      notifyListeners();
+      return (ApiResponse(
+        statusCode: response.statusCode,
+        message: '',
+      ));
+    } on TimeoutException catch (e) {
+      print('Exception Timeout:: $e');
+      return (ApiResponse(
+        statusCode: 500,
+        message: ErrorMessages.somethingWrong,
+      ));
+    } catch (e) {
+      print('catch error:: $e');
+      return (ApiResponse(
+        statusCode: 500,
+        message: ErrorMessages.somethingWrong,
+      ));
+    }
+  }
+
+  Future<ApiResponse> fetchAdminSessionDetails({String? date}) async {
+    final url = Uri.parse('$apiLink/photographer/sessions');
+    print(url);
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Platform': '${await AppInfo().platformInfo()}',
+          'App-Version': '${await AppInfo().versionInfo()}',
+          'Authorization': 'Bearer $authToken',
+        },
+        body: {
+          'access_token': authToken,
+          //  'date': date
+        },
+      ).timeout(Duration(seconds: Timeout.value));
+
+      final extractedData = json.decode(response.body)['data'];
+      final sessionData = extractedData['sessions'] as List;
+
+      if (response.statusCode != 200) {
+        notifyListeners();
+        return (ApiResponse(
+          statusCode: response.statusCode,
+          message: ErrorMessages.somethingWrong,
+        ));
+      }
+
+      sessionList = sessionData.map((json) => Session.fromJson(json)).toList();
+      _session = sessionList!.first;
 
       notifyListeners();
       return (ApiResponse(

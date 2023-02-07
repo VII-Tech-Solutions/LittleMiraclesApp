@@ -41,7 +41,7 @@ class _AdminBookingItemContainerState extends State<AdminBookingItemContainer> {
     return InkWell(
       onTap: widget.onTapCallback,
       child: Container(
-        height: 110,
+        height: 130,
         width: double.infinity,
         margin: const EdgeInsets.only(
           bottom: 10,
@@ -73,6 +73,7 @@ class _AdminBookingItemContainerState extends State<AdminBookingItemContainer> {
                   children: [
                     Text(
                       '${widget.date}',
+                      maxLines: 2,
                       style: TextStyle(
                         fontFamily: GoogleFonts.manrope().fontFamily,
                         fontWeight: FontWeight.w400,
@@ -81,13 +82,16 @@ class _AdminBookingItemContainerState extends State<AdminBookingItemContainer> {
                       ),
                     ),
                     SizedBox(height: 4),
-                    Text(
-                      '${widget.title}',
-                      style: TextStyle(
-                        fontFamily: GoogleFonts.manrope().fontFamily,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 16,
-                        color: AppColors.black45515D,
+                    Container(
+                      width: MediaQuery.of(context).size.width / 1.5,
+                      child: Text(
+                        '${widget.title}',
+                        style: TextStyle(
+                          fontFamily: GoogleFonts.manrope().fontFamily,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                          color: AppColors.black45515D,
+                        ),
                       ),
                     ),
                     SizedBox(height: 4),

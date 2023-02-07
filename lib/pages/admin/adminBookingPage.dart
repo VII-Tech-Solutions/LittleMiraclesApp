@@ -1,4 +1,6 @@
+import 'package:LMP0001_LittleMiraclesApp/extensions/dateTimeExtension.dart';
 import 'package:LMP0001_LittleMiraclesApp/pages/admin/adminBookingDetailPage.dart';
+import 'package:LMP0001_LittleMiraclesApp/providers/bookings.dart';
 import 'package:LMP0001_LittleMiraclesApp/widgets/admin/calendarContainer.dart';
 import 'package:LMP0001_LittleMiraclesApp/widgets/appbars/adminSliverAppBar.dart';
 import 'package:LMP0001_LittleMiraclesApp/widgets/appbars/emptySliverAppBar.dart';
@@ -18,6 +20,7 @@ class AdminBookingPage extends StatefulWidget {
 }
 
 class _AdminBookingPageState extends State<AdminBookingPage> {
+  @override
   final _list = [
     {
       'id': 1,
@@ -40,7 +43,8 @@ class _AdminBookingPageState extends State<AdminBookingPage> {
   @override
   Widget build(BuildContext context) {
     final authProvider = context.watch<Auth>();
-
+    final bookingsProvider = context.watch<Bookings>();
+    bookingsProvider.fetchAdminSessionDetails();
     return Scaffold(
       body: RefreshIndicator(
           onRefresh: () async {
@@ -60,31 +64,37 @@ class _AdminBookingPageState extends State<AdminBookingPage> {
                     padding: const EdgeInsets.all(16),
                     child: CalendarContainer()),
               ),
-              SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  var itemData = _list[index];
-                  itemData[''];
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 16, right: 16),
-                    child: (AdminBookingItemContainer(
-                      image: itemData['image'].toString(),
-                      description: itemData['description'].toString(),
-                      title: itemData['title'].toString(),
-                      date: itemData['date'].toString(),
-                      time: itemData['time'].toString(),
-                      onTapCallback: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => AdminBookingDetailPage(),
-                          ),
-                        );
-                      },
-                    )),
-                  );
-                },
-                childCount: _list.length,
-              ))
+              if (bookingsProvider.sessionList != null)
+                SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 16, right: 16),
+                      child: (AdminBookingItemContainer(
+                        image: bookingsProvider
+                            .sessionList![index].featuredImage
+                            .toString(),
+                        description: ''.toString(),
+                        title: bookingsProvider.sessionList![index].title
+                            .toString(),
+                        date: bookingsProvider.sessionList![index].date
+                            .toString(),
+                        time: bookingsProvider.sessionList![index].time
+                            .toString(),
+                        onTapCallback: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => AdminBookingDetailPage(
+                                  sessionDetails:
+                                      bookingsProvider.sessionList![index]),
+                            ),
+                          );
+                        },
+                      )),
+                    );
+                  },
+                  childCount: bookingsProvider.sessionList!.length,
+                ))
             ],
           )),
     );

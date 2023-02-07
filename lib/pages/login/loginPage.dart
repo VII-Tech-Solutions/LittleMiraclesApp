@@ -26,6 +26,7 @@ import '../../pages/general/customBottomNavigationBar.dart';
 import '../../pages/login/completeProfilePage.dart';
 import '../../providers/appData.dart';
 import '../../providers/auth.dart';
+import '../../providers/bookings.dart';
 import '../../widgets/buttons/buttonWithIconWidget.dart';
 import '../../widgets/buttons/iconButtonWidget.dart';
 import '../../widgets/dialogs/showLoadingDialog.dart';
@@ -215,6 +216,8 @@ class LoginPage extends StatelessWidget {
     if (result != null) {
       if (authProvider.token.isNotEmpty) {
         final token = authProvider.token;
+        final bookingsProvider = context.watch<Bookings>();
+        bookingsProvider.fetchAdminSessionDetails();
         await appDataProvider.fetchAndSetSessions(token: token).then((_) {
           appDataProvider.fetchAndSetAppData().then((_) {
             authProvider.getToken(withNotify: false);

@@ -10,6 +10,7 @@ import '../../extensions/dateTimeExtension.dart';
 import '../../global/colors.dart';
 import '../../models/availableDates.dart';
 import '../../providers/bookings.dart';
+
 class CalendarContainer extends StatefulWidget {
   final bool isReschedule;
   final String? preSelectedDate;
@@ -31,13 +32,13 @@ class _CalendarContainerState extends State<CalendarContainer> {
 
   @override
   void initState() {
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final provider = context.read<Bookings>();
+    final bookingsProvider = context.watch<Bookings>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -77,6 +78,8 @@ class _CalendarContainerState extends State<CalendarContainer> {
               setState(() {
                 selectedDay = selectDay;
                 final formattedDate = selectedDay.toyyyyMMdd();
+
+                bookingsProvider.fetchAdminSessionDetails(date: formattedDate);
                 print(formattedDate);
               });
             },

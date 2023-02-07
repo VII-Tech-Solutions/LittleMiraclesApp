@@ -62,44 +62,44 @@ class MultiSessionCakeSelector extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
-                          child: Column(
-                            children: context
-                                .watch<AppData>()
-                                .getCakesByIds(selectedCakes)
-                                .map(
-                                  (e) => Padding(
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 5),
-                                    child: Row(children: [
-                                      SizedBox(
-                                        height: 48,
-                                        width: 48,
-                                        child: CachedImageWidget(
-                                          e.id,
-                                          e.image,
-                                          ImageShape.square,
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 16),
-                                          child: Text(
-                                            e.title ?? '',
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w800,
-                                                color: AppColors.black45515D),
-                                          ),
-                                        ),
-                                      ),
-                                    ]),
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                        ),
+                        // Expanded(
+                        //   child: Column(
+                        //     children: context
+                        //         .watch<AppData>()
+                        //         .getCakesByIds(selectedCakes)
+                        //         .map(
+                        //           (e) => Padding(
+                        //             padding:
+                        //                 const EdgeInsets.symmetric(vertical: 5),
+                        //             child: Row(children: [
+                        //               SizedBox(
+                        //                 height: 48,
+                        //                 width: 48,
+                        //                 child: CachedImageWidget(
+                        //                   e.id,
+                        //                   e.image,
+                        //                   ImageShape.square,
+                        //                 ),
+                        //               ),
+                        //               Expanded(
+                        //                 child: Padding(
+                        //                   padding: const EdgeInsets.symmetric(
+                        //                       horizontal: 16),
+                        //                   child: Text(
+                        //                     e.title ?? '',
+                        //                     style: TextStyle(
+                        //                         fontSize: 14,
+                        //                         fontWeight: FontWeight.w800,
+                        //                         color: AppColors.black45515D),
+                        //                   ),
+                        //                 ),
+                        //               ),
+                        //             ]),
+                        //           ),
+                        //         )
+                        //         .toList(),
+                        //   ),
+                        // ),
                         Padding(
                           padding: const EdgeInsets.only(top: 13.0),
                           child: Icon(

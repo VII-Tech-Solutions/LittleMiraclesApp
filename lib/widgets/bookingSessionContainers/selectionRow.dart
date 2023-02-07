@@ -21,9 +21,10 @@ class SelectionRow extends StatelessWidget {
   final bool? isSelected;
   final int allowedSelection;
   final int? maxline;
+  final String? type;
   const SelectionRow(this.onTap, this.image, this.customImage, this.title,
       this.isSelected, this.allowedSelection,
-      {required this.id, this.subtitle = null, this.maxline});
+      {required this.id, this.subtitle = null, this.maxline, this.type});
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +45,7 @@ class SelectionRow extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               )
             : BoxDecoration(
+                color: Colors.white,
                 border: Border.all(
                   color: AppColors.greyD0D3D6,
                   width: 1,
@@ -52,6 +54,11 @@ class SelectionRow extends StatelessWidget {
               ),
         child: Row(
           children: [
+            // CircleAvatar(
+            //           radius: 12,
+            //           backgroundColor: Color(),
+
+            //         ),
             SizedBox(
               height: 68,
               width: 68,

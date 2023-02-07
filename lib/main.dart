@@ -287,7 +287,7 @@ class _MyAppState extends State<MyApp> {
             previousBookings == null ? [] : previousBookings.packageReviews,
             previousBookings == null ? [] : previousBookings.subPackages,
             previousBookings == null ? [] : previousBookings.selectedBackdrops,
-            previousBookings == null ? [] : previousBookings.selectedCakes,
+            previousBookings == null ? {} : previousBookings.selectedCakes,
             previousBookings == null
                 ? {}
                 : previousBookings.subSessionSelectedBackdrops,
@@ -312,7 +312,7 @@ class _MyAppState extends State<MyApp> {
             previousBookings == null ? '' : previousBookings.guidelineString,
             previousBookings == null ? false : previousBookings.showAppRateDiag,
           ),
-          create: (context) => Bookings('', null, [], [], [], [], [], [], {},
+          create: (context) => Bookings('', null, [], [], [], [], [], {}, {},
               {}, {}, {}, '', '', {}, [], [], null, [], null, [], '', false),
         ),
         ChangeNotifierProxyProvider<Auth, Studio>(

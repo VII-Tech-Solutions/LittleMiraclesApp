@@ -8,12 +8,12 @@ import 'package:provider/provider.dart';
 
 // Project imports:
 import '../../global/colors.dart';
-import '../../pages/booking/cakePage.dart';
 import '../../providers/appData.dart';
 import '../../providers/bookings.dart';
 import '../form/formTextField.dart';
 import '../general/cachedImageWidget.dart';
 import '../texts/titleText.dart';
+import '../../pages/booking/cakePage.dart';
 
 //EXTENSIONS
 
@@ -23,6 +23,7 @@ class CakeSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bookingsProvider = context.watch<Bookings>();
+    print('object ${bookingsProvider.selectedCakes}');
     return bookingsProvider.selectedCakes.length > 0
         ? Column(
             mainAxisAlignment: MainAxisAlignment.start,

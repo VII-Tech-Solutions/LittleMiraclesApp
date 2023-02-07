@@ -1,6 +1,7 @@
 //PACKAGES
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/models/session.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -16,7 +17,8 @@ import '../general/benefitDetailsRow.dart';
 //EXTENSIONS
 
 class BookingDetailsContainer extends StatelessWidget {
-  const BookingDetailsContainer();
+  final sessionDetails;
+  BookingDetailsContainer(this.sessionDetails);
 
   _launchURL(String url) async {
     if (await canLaunch(url)) {
@@ -28,6 +30,7 @@ class BookingDetailsContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final bookingsProvider = context.watch<Bookings>().session;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -37,7 +40,7 @@ class BookingDetailsContainer extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: Text(
-              'Twinkle Portrait Studio Session',
+              sessionDetails!.title.toString(),
               style: TextStyle(
                 fontWeight: FontWeight.w800,
                 fontSize: 18,
@@ -45,67 +48,67 @@ class BookingDetailsContainer extends StatelessWidget {
               ),
             ),
           ),
-
-              Column(
-                  children: [
-                    Visibility(
-                      visible: true,
-                      child: BenefitDetailsRow(
-                        '8th, January 2022',
-                        Icons.today_outlined,
-                        false,
-                      ),
-                    ),
-                    Visibility(
-                      visible: true,
-                      child: BenefitDetailsRow(
-                        '10:00 AM',
-                        Icons.access_time,
-                        false,
-                      ),
-                    ),
-                    Visibility(
-                      visible: true,
-                      child: BenefitDetailsRow(
-                        '2 baby, 1 adult',
-                        Icons.perm_identity_rounded,
-                        false,
-                      ),
-                    ),
-                    Visibility(
-                      visible: true,
-                      child: BenefitDetailsRow(
-                        '3 extra people joining',
-                        Icons.perm_identity_rounded,
-                        false,
-                      ),
-                    ),
-                    Visibility(
-                      visible: true,
-                      child: BenefitDetailsRow(
-                        'Pastel Rainbow Backdrop',
-                        Icons.wallpaper,
-                        false,
-                      ),
-                    ),
-                    Visibility(
-                      visible: true,
-                      child: BenefitDetailsRow(
-                        'Naked Cake - Pink',
-                        Icons.cake_outlined,
-                        false,
-                      ),
-                    ),
-                    Visibility(
-                      visible: true,
-                      child: BenefitDetailsRow(
-                        'Noni ',
-                        Icons.photo_camera_outlined,
-                        false,
-                      ),
-                    ),
-                  ],
+          Column(
+            children: [
+              Visibility(
+                visible: true,
+                child: BenefitDetailsRow(
+                  sessionDetails.formattedDate.toString(),
+                  Icons.today_outlined,
+                  false,
                 ),
+              ),
+              Visibility(
+                visible: true,
+                child: BenefitDetailsRow(
+                  sessionDetails.time.toString(),
+                  Icons.access_time,
+                  false,
+                ),
+              ),
+              Visibility(
+                visible: true,
+                child: BenefitDetailsRow(
+                  '2 baby, 1 adult',
+                  Icons.perm_identity_rounded,
+                  false,
+                ),
+              ),
+              Visibility(
+                visible: true,
+                child: BenefitDetailsRow(
+                  sessionDetails.formattedPeople.toString(),
+                  Icons.perm_identity_rounded,
+                  false,
+                ),
+              ),
+              Visibility(
+                visible:
+                    sessionDetails.formattedBackdrop != null ? true : false,
+                child: BenefitDetailsRow(
+                  sessionDetails.formattedBackdrop.toString(),
+                  Icons.wallpaper,
+                  false,
+                ),
+              ),
+              Visibility(
+                visible: sessionDetails.formattedCake != null ? true : false,
+                child: BenefitDetailsRow(
+                  sessionDetails.formattedCake.toString(),
+                  Icons.cake_outlined,
+                  false,
+                ),
+              ),
+              Visibility(
+                visible: true,
+                child: BenefitDetailsRow(
+                  sessionDetails.photographerName.toString(),
+                  Icons.photo_camera_outlined,
+                  false,
+                ),
+              ),
+            ],
+          ),
           Padding(
             padding: EdgeInsets.only(top: 17, bottom: 6),
             child: Text(

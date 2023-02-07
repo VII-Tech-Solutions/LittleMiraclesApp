@@ -69,46 +69,44 @@ class _PhotographerPageState extends State<PhotographerPage> {
               image: AssetImage('assets/images/PlaceHolderStars.png'),
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-              itemCount: package!.id == 3 ? 1 : photographers.length,
-              itemBuilder: (BuildContext context, int index) {
-                return SelectionRow(
-                  () {
-                    setState(() {
-                      if (_selectedItems.contains(photographers[index].id)) {
-                        _selectedItems.removeWhere(
-                            (element) => element == photographers[index].id);
-                      } else {
-                        _selectedItems.clear();
-                        _selectedItems.add(photographers[index].id!);
-                      }
-                    });
-                    indexs = index;
-                    if (package.id != 3)
-                      package.additionalCharge =
-                          photographers[indexs].additionalCharge != null &&
-                                  photographers[indexs].additionalCharge != 0 &&
-                                  photographers[indexs].additionalCharge != -1
-                              ? photographers[indexs].additionalCharge
-                              : 0;
-                  },
-                  photographers[index].image,
-                  null,
-                  photographers[index].name,
-                  _selectedItems.contains(photographers[index].id),
-                  1,
-                  id: index,
-                  subtitle: package.id != 3 &&
-                          photographers[index].additionalCharge != null &&
-                          photographers[index].additionalCharge != 0 &&
-                          photographers[index].additionalCharge != -1
-                      ? '+BHD ${photographers[index].additionalCharge} (additional charge)'
-                      : null,
-                );
-              },
-            ),
+          ListView.builder(
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            itemCount: package!.id == 3 ? 1 : photographers.length,
+            itemBuilder: (BuildContext context, int index) {
+              return SelectionRow(
+                () {
+                  setState(() {
+                    if (_selectedItems.contains(photographers[index].id)) {
+                      _selectedItems.removeWhere(
+                          (element) => element == photographers[index].id);
+                    } else {
+                      _selectedItems.clear();
+                      _selectedItems.add(photographers[index].id!);
+                    }
+                  });
+                  indexs = index;
+                  if (package.id != 3)
+                    package.additionalCharge =
+                        photographers[indexs].additionalCharge != null &&
+                                photographers[indexs].additionalCharge != 0 &&
+                                photographers[indexs].additionalCharge != -1
+                            ? photographers[indexs].additionalCharge
+                            : 0;
+                },
+                photographers[index].image,
+                null,
+                photographers[index].name,
+                _selectedItems.contains(photographers[index].id),
+                1,
+                id: index,
+                subtitle: package.id != 3 &&
+                        photographers[index].additionalCharge != null &&
+                        photographers[index].additionalCharge != 0 &&
+                        photographers[index].additionalCharge != -1
+                    ? '+BHD ${photographers[index].additionalCharge} (additional charge)'
+                    : null,
+              );
+            },
           ),
           // Container(
           //   height: 120,
