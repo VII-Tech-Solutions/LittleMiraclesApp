@@ -52,9 +52,8 @@ class _AdminPhotograherState extends State<AdminPhotograher> {
     ApiResponse? result;
 
     result = await authProvider.loginAsAdmin(
-      _firstNameController.text,
-      _lastNameController.text,
-    );
+        _firstNameController.text, _lastNameController.text,
+        context: context);
 
     if (result != null) {
       if (authProvider.token.isNotEmpty) {

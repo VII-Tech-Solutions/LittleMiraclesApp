@@ -49,6 +49,7 @@ class _AdminBookingPageState extends State<AdminBookingPage> {
       body: RefreshIndicator(
           onRefresh: () async {
             print('refresh');
+            print(authProvider.user!.name);
           },
           edgeOffset: kToolbarHeight + 9,
           displacement: kToolbarHeight + 9,
@@ -57,7 +58,7 @@ class _AdminBookingPageState extends State<AdminBookingPage> {
               EmptySliverAppBar(),
               AdminSliverAppBar(
                   'Hi',
-                  '${authProvider.user!.name != null ? authProvider.user!.name : ''} ✨',
+                  '${authProvider.user != null ? authProvider.user!.name : ''} ✨',
                   widget.showChat),
               SliverToBoxAdapter(
                 child: Padding(
@@ -74,7 +75,9 @@ class _AdminBookingPageState extends State<AdminBookingPage> {
                         image: bookingsProvider
                             .sessionList![index].featuredImage
                             .toString(),
-                        description: ''.toString(),
+                        description: bookingsProvider
+                            .sessionList![index].formattedPeople
+                            .toString(),
                         title: bookingsProvider.sessionList![index].title
                             .toString(),
                         date: bookingsProvider.sessionList![index].date
@@ -95,6 +98,10 @@ class _AdminBookingPageState extends State<AdminBookingPage> {
                   },
                   childCount: bookingsProvider.sessionList!.length,
                 ))
+              else
+                SliverToBoxAdapter(
+                  child: Center(child: CircularProgressIndicator()),
+                )
             ],
           )),
     );

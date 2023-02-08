@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:convert';
 
 // Flutter imports:
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -29,6 +30,7 @@ import '../models/question.dart';
 import '../models/ssoData.dart';
 import '../models/user.dart';
 import '../pages/more/editYourPartnerPage.dart';
+import '../widgets/dialogs/showLoadingDialog.dart';
 
 class Auth with ChangeNotifier {
   List<String> _tables = [
@@ -181,6 +183,7 @@ class Auth with ChangeNotifier {
           firebaseId: extractedUserData['firebaseId'] as String?,
           chatWithEveryone: extractedUserData['chatWithEveryone'] as int?,
           role: extractedUserData['role'] as int?,
+          name: extractedUserData['name'] as String?,
         );
 
         if (familyMembersDataList.isNotEmpty) {
@@ -327,6 +330,7 @@ class Auth with ChangeNotifier {
             'providerId': user.providerId,
             'username': user.username,
             'provider': user.provider,
+            'name': user.name
           }));
 
       if (partner != null) {
@@ -427,6 +431,7 @@ class Auth with ChangeNotifier {
             'providerId': user.providerId,
             'username': user.username,
             'provider': user.provider,
+            'name': user.name
           }));
 
       notifyListeners();
@@ -807,6 +812,7 @@ class Auth with ChangeNotifier {
             'provider': user.provider,
             'firebaseId': user.firebaseId,
             'chatWithEveryone': user.chatWithEveryone,
+            'name': user.name
           }));
 
       _familyMembers = [
@@ -844,8 +850,9 @@ class Auth with ChangeNotifier {
   }
 
   Future<ApiResponse?> loginAsAdmin(String email, String password,
-      {bool withNotifyListeners = true}) async {
+      {bool withNotifyListeners = true, context}) async {
     final url = Uri.parse('$apiLink/photographer/login');
+    ShowLoadingDialog(context);
 
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -860,7 +867,7 @@ class Auth with ChangeNotifier {
       ).timeout(Duration(seconds: Timeout.value));
 
       print(response.statusCode);
-
+      Navigator.pop(context);
       final result = json.decode(response.body);
       if (response.statusCode != 200) {
         if ((response.statusCode >= 400 && response.statusCode <= 499) ||

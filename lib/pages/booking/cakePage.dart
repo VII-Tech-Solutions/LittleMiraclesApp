@@ -337,7 +337,7 @@ class _CakePageState extends State<CakePage> {
                             width: 68,
                             child: CachedImageWidget(
                               1,
-                              'image',
+                              appDataProvider.cakeCategories[index].image,
                               ImageShape.square,
                             ),
                           ),
