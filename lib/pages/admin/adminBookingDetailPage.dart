@@ -25,87 +25,76 @@ class _AdminBookingDetailPageState extends State<AdminBookingDetailPage> {
           SizedBox(height: 15),
           BookingDetailsContainer(widget.sessionDetails),
           SizedBox(height: 22),
-          // Container(
-          //   height: 110,
-          //   width: double.infinity,
-          //   margin: const EdgeInsets.only(bottom: 10, left: 16, right: 16),
-          //   padding: EdgeInsets.all(15),
-          //   decoration: BoxDecoration(
-          //     color: AppColors.blueE8F3F5,
-          //     borderRadius: BorderRadius.circular(8),
-          //   ),
-          //   child: Column(
-          //     crossAxisAlignment: CrossAxisAlignment.start,
-          //     children: [
-          //       RichText(
-          //         textAlign: TextAlign.left,
-          //         text: TextSpan(
-          //             text: 'Parent Name: ',
-          //             style: TextStyle(
-          //               fontFamily: GoogleFonts.manrope().fontFamily,
-          //               fontWeight: FontWeight.w400,
-          //               fontSize: 14,
-          //               color: AppColors.black45515D,
-          //             ),
-          //             children: [
-          //               TextSpan(
-          //                 text: 'Brenda Arnold',
-          //                 style: TextStyle(
-          //                   fontFamily: GoogleFonts.manrope().fontFamily,
-          //                   fontWeight: FontWeight.w700,
-          //                   fontSize: 14,
-          //                   color: AppColors.black45515D,
-          //                 ),
-          //               )
-          //             ]),
-          //       ),
-          //       RichText(
-          //         textAlign: TextAlign.left,
-          //         text: TextSpan(
-          //             text: 'Child Name: ',
-          //             style: TextStyle(
-          //               fontFamily: GoogleFonts.manrope().fontFamily,
-          //               fontWeight: FontWeight.w400,
-          //               fontSize: 14,
-          //               color: AppColors.black45515D,
-          //             ),
-          //             children: [
-          //               TextSpan(
-          //                 text: 'Adam Bing',
-          //                 style: TextStyle(
-          //                   fontFamily: GoogleFonts.manrope().fontFamily,
-          //                   fontWeight: FontWeight.w700,
-          //                   fontSize: 14,
-          //                   color: AppColors.black45515D,
-          //                 ),
-          //               )
-          //             ]),
-          //       ),
-          //       RichText(
-          //         textAlign: TextAlign.left,
-          //         text: TextSpan(
-          //             text: 'Child Name: ',
-          //             style: TextStyle(
-          //               fontFamily: GoogleFonts.manrope().fontFamily,
-          //               fontWeight: FontWeight.w400,
-          //               fontSize: 14,
-          //               color: AppColors.black45515D,
-          //             ),
-          //             children: [
-          //               TextSpan(
-          //                 text: 'James Bing',
-          //                 style: TextStyle(
-          //                   fontFamily: GoogleFonts.manrope().fontFamily,
-          //                   fontWeight: FontWeight.w700,
-          //                   fontSize: 14,
-          //                   color: AppColors.black45515D,
-          //                 ),
-          //               )
-          //             ]),
-          //       ),
-          //     ],
-          //   ),
-          // )
+          if (widget.sessionDetails.peopleData != null)
+            Container(
+              height: 110,
+              width: double.infinity,
+              margin: const EdgeInsets.only(bottom: 10, left: 16, right: 16),
+              padding: EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                color: AppColors.blueE8F3F5,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (widget.sessionDetails.peopleData['parents'][0]['name'] !=
+                      null)
+                    RichText(
+                      textAlign: TextAlign.left,
+                      text: TextSpan(
+                          text: 'Parent Name: ',
+                          style: TextStyle(
+                            fontFamily: GoogleFonts.manrope().fontFamily,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14,
+                            color: AppColors.black45515D,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: widget.sessionDetails.peopleData['parents']
+                                  [0]['name'],
+                              style: TextStyle(
+                                fontFamily: GoogleFonts.manrope().fontFamily,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 14,
+                                color: AppColors.black45515D,
+                              ),
+                            )
+                          ]),
+                    ),
+                  if (widget.sessionDetails.peopleData['childrens'] != [])
+                    for (int i = 0;
+                        i <
+                            widget
+                                .sessionDetails.peopleData['childrens'].length;
+                        i++)
+                      RichText(
+                        textAlign: TextAlign.left,
+                        text: TextSpan(
+                            text: 'Child Name: ',
+                            style: TextStyle(
+                              fontFamily: GoogleFonts.manrope().fontFamily,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14,
+                              color: AppColors.black45515D,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: widget.sessionDetails
+                                    .peopleData['childrens'][i]['name'],
+                                style: TextStyle(
+                                  fontFamily: GoogleFonts.manrope().fontFamily,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14,
+                                  color: AppColors.black45515D,
+                                ),
+                              )
+                            ]),
+                      ),
+                ],
+              ),
+            )
         ],
       ),
     );

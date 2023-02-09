@@ -313,9 +313,27 @@ class _BackdropPageState extends State<BackdropPage> {
         weight: FontWeight.w800,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         child: CustomScrollView(
           slivers: [
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Select Backdrop Category'.toString(),
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w800,
+                          color: AppColors.black737C85),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
@@ -470,7 +488,7 @@ class _BackdropPageState extends State<BackdropPage> {
                               borderRadius: BorderRadius.circular(5),
                               color: Colors.grey.shade300),
                           child: Icon(
-                            Icons.cake,
+                            Icons.photo_outlined,
                             size: 50,
                           )),
                       Expanded(
@@ -481,7 +499,7 @@ class _BackdropPageState extends State<BackdropPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Custom cake'.toString(),
+                                'Custom Backdrop'.toString(),
                                 style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w800,
@@ -559,26 +577,29 @@ class _BackdropPageState extends State<BackdropPage> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: FilledButtonWidget(
           onPress: () {
+            print(bookingsProvider.selectedBackdrops.length);
             print(bookingsProvider.package!.minBackdrop);
-            print(_selectedItems.length);
-            if (_selectedItems.length < bookingsProvider.package!.minBackdrop &&
+            if (bookingsProvider.selectedBackdrops.length <
+                    bookingsProvider.package!.minBackdrop &&
                 bookingsProvider.package!.minBackdrop != null) {
               ShowOkDialog(context,
                   'Please select ${bookingsProvider.package!.minBackdrop} backdrop to proceed');
             } else {
-              if (_selectedItems.isNotEmpty || _customBackdrop.isNotEmpty) {
-                if (widget.subPackage != null) {
-                  Map<int, List<int>> backdropsMap = {
-                    widget.subPackage!.id!: _selectedItems,
-                  };
-                  bookingsProvider.amendSubSessionBookingDetails(
-                    SubSessionBookingDetailsType.backdrop,
-                    backdropsMap,
-                  );
-                } else {
-                  bookingsProvider.assignSelectedBackdrops(
-                      _selectedItems, _customBackdrop);
-                }
+              // Navigator.pop(context);
+              if (bookingsProvider.selectedBackdrops.isNotEmpty ||
+                  _customBackdrop.isNotEmpty) {
+                // if (widget.subPackage != null) {
+                //   Map<int, List<int>> backdropsMap = {
+                //     widget.subPackage!.id!: _selectedItems,
+                //   };
+                //   bookingsProvider.amendSubSessionBookingDetails(
+                //     SubSessionBookingDetailsType.backdrop,
+                //     backdropsMap,
+                //   );
+                // } else {
+                //   bookingsProvider.assignSelectedBackdrops(
+                //       _selectedItems, _customBackdrop);
+                // }
                 Navigator.pop(context);
               } else {
                 ShowOkDialog(context, 'Please select a backdrop to proceed');
