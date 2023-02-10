@@ -55,10 +55,13 @@ class _RoomsPageState extends State<RoomsPage> {
         .then((_) => context.read<ChatData>().readDB());
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
       var response = await context.read<ChatData>().getSupportUserIds();
+
       final extractedData =
           jsonDecode(response.body)['data']['firebase_ids'] as List;
       for (var id in extractedData) {
-        if (id == null) continue;
+        print(id);
+        //TODO:
+        if (id != null) continue;
         await FirebaseChatCore.instance.createRoom(types.User(id: id));
       }
       setState(() {
@@ -197,16 +200,17 @@ class _RoomsPageState extends State<RoomsPage> {
         stream: FirebaseChatCore.instance.rooms(orderByUpdatedAt: true),
         initialData: const [],
         builder: (context, snapshot) {
-          if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return loading == true
-                ? Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  )
-                : Container(
-                    alignment: Alignment.center,
-                    child: const Text('No rooms'),
-                  );
-          }
+          print(snapshot.hasData);
+          // if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          //   return loading == true
+          //       ? Center(
+          //           child: CircularProgressIndicator.adaptive(),
+          //         )
+          //       : Container(
+          //           alignment: Alignment.center,
+          //           child: const Text('No rooms'),
+          //         );
+          // }
           // snapshot.data!.forEach((element) {
           //   if (!context
           //       .read<ChatData>()
