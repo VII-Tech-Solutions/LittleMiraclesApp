@@ -200,17 +200,17 @@ class _RoomsPageState extends State<RoomsPage> {
         stream: FirebaseChatCore.instance.rooms(orderByUpdatedAt: true),
         initialData: const [],
         builder: (context, snapshot) {
-          print(snapshot.hasData);
-          // if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          //   return loading == true
-          //       ? Center(
-          //           child: CircularProgressIndicator.adaptive(),
-          //         )
-          //       : Container(
-          //           alignment: Alignment.center,
-          //           child: const Text('No rooms'),
-          //         );
-          // }
+          print(snapshot.data!.length);
+          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return loading == true
+                ? Center(
+                    child: CircularProgressIndicator.adaptive(),
+                  )
+                : Container(
+                    alignment: Alignment.center,
+                    child: const Text('No rooms'),
+                  );
+          }
           // snapshot.data!.forEach((element) {
           //   if (!context
           //       .read<ChatData>()
@@ -273,6 +273,7 @@ class _RoomsPageState extends State<RoomsPage> {
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
                     final room = snapshot.data![index];
+
                     // bool matchFound = false;
                     // FirebaseChatCore.instance
                     //     .messages(snapshot.data![index])

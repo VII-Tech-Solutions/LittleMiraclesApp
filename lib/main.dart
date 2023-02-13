@@ -45,25 +45,41 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 Future<void> saveTokenToDatabase(String token) async {
   // Assume user is logged in for this example
   String? userId = FirebaseAuth.instance.currentUser?.uid;
-  print(userId);
-
-  await FirebaseFirestore.instance.collection('users').doc(userId).update({
-    'tokens': token,
-  });
+  print('userid $userId');
+  // await FirebaseFirestore.instance.collection('users').doc(userId).update({
+  //   'tokens': FieldValue.arrayUnion([token]),
+  // });
+  // await FirebaseFirestore.instance.collection('users').doc(userId).update({
+  //   'tokens': token,
+  // });
+  print(FirebaseFirestore.instance.app.name);
+  await FirebaseFirestore.instance.collection("users").doc(userId).set({
+    "tokens": FieldValue.arrayUnion([
+      token //Make sure this is Map<String, dynamic> so that firestore can read it
+    ])
+  }, SetOptions(merge: true));
+  print('saved');
 }
 
 NotificationSettings? _iosSettings;
 late final AndroidNotificationChannel channel;
 Future<void> _initFCM() async {
+  print("fire token ");
   // Get the token each time the application loads
-  // String? token = await FirebaseMessaging.instance.getToken();
-
+  String? token = await FirebaseMessaging.instance.getToken();
+  Map userData = {
+    "firebase_id": FirebaseAuth.instance.currentUser?.uid,
+    "device_token ": token
+  };
+  await Auth().updateProfile(userData);
+  Auth().savefiretoken(token);
+  print('token $token');
   // // Save the initial token to the database
-  // await saveTokenToDatabase(token!);
+  await saveTokenToDatabase(token!);
 
   // // Any time the token refreshes, store this in the database too.
   // FirebaseMessaging.instance.onTokenRefresh.listen(saveTokenToDatabase);
-  // print(token);
+
   _iosSettings = await messaging.requestPermission(
     alert: true,
     announcement: false,

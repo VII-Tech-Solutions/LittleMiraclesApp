@@ -55,6 +55,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 
   Future<void> _firestoreInit() async {
     final user = context.read<Auth>().user;
+    final auth = context.read<Auth>();
     try {
       if (user != null && user.id != null) {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -82,7 +83,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           "country_code": user.countryCode.toString(),
           "phone_number": user.phoneNumber,
           "birth_date": user.birthDate,
-          "firebase_id": FirebaseAuth.instance.currentUser?.uid
+          "firebase_id": FirebaseAuth.instance.currentUser?.uid,
+          "device_token ": auth.firetoken
         };
         await context.read<Auth>().updateProfile(userData);
       }
@@ -120,7 +122,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           "country_code": user.countryCode.toString(),
           "phone_number": user.phoneNumber,
           "birth_date": user.birthDate,
-          "firebase_id": FirebaseAuth.instance.currentUser?.uid
+          "firebase_id": FirebaseAuth.instance.currentUser?.uid,
+          "device_token ": auth.firetoken
         };
         await context.read<Auth>().updateProfile(userData);
       }
