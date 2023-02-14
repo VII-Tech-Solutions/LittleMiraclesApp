@@ -142,7 +142,7 @@ class _PaymentContainerState extends State<PaymentContainer> {
 
           // TODO: Change visibility to iOS
           Visibility(
-            visible: Platform.isAndroid,
+            visible: Platform.isIOS,
             child: _buildSelectionRow(2, 'Apple Pay'),
           ),
           _buildSelectionRow(3, 'Debit Card'),

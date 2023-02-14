@@ -241,8 +241,9 @@ class LoginPage extends StatelessWidget {
                 Navigator.pushAndRemoveUntil<void>(
                   context,
                   MaterialPageRoute<void>(
-                      builder: (BuildContext context) =>
-                          const AdminBookingPage()),
+                      builder: (BuildContext context) => const AdminBookingPage(
+                            showChat: true,
+                          )),
                   ModalRoute.withName('/'),
                 );
               } else if (authProvider.user?.role != null &&

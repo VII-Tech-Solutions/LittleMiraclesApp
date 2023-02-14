@@ -77,13 +77,20 @@ class _AdminPhotograherState extends State<AdminPhotograher> {
             //   );
             // }
             if (authProvider.user?.role == 2) {
-              Navigator.pushAndRemoveUntil<void>(
+              Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute<void>(
-                    builder: (BuildContext context) =>
-                        const AdminBookingPage()),
-                ModalRoute.withName('/'),
+                MaterialPageRoute(
+                  builder: (context) => CustomBottomNavigationBar(),
+                ),
+                (Route<dynamic> route) => false,
               );
+              // Navigator.pushAndRemoveUntil<void>(
+              //   context,
+              //   MaterialPageRoute<void>(
+              //       builder: (BuildContext context) =>
+              //           const AdminBookingPage()),
+              //   ModalRoute.withName('/'),
+              // );
             } else if (authProvider.user?.role == 1) {
               Navigator.pushAndRemoveUntil<void>(
                 context,

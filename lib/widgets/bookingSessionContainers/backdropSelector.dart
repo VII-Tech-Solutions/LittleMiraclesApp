@@ -23,7 +23,8 @@ class BackdropSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bookingsProvider = context.watch<Bookings>();
-    return bookingsProvider.selectedBackdrops.length > 0
+    return bookingsProvider.selectedBackdrops.length > 0 ||
+            bookingsProvider.customBackdrop != ''
         ? Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: Column(
@@ -55,48 +56,53 @@ class BackdropSelector extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Expanded(
-                          child: Column(
-                            children: context
-                                .watch<AppData>()
-                                .getBackdropsByIds(
-                                    bookingsProvider.selectedBackdrops)
-                                .map(
-                                  (e) => Padding(
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 5),
-                                    child: Row(children: [
-                                      SizedBox(
-                                        height: 48,
-                                        width: 48,
-                                        child: CachedImageWidget(
-                                          e.id,
-                                          e.image,
-                                          ImageShape.square,
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 16),
-                                          child: Text(
-                                            e.title ?? '',
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w800,
-                                                color: AppColors.black45515D),
+                        if (bookingsProvider.selectedBackdrops.length > 0)
+                          Expanded(
+                            child: Column(
+                              children: context
+                                  .watch<AppData>()
+                                  .getBackdropsByIds(
+                                      bookingsProvider.selectedBackdrops)
+                                  .map(
+                                    (e) => Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5),
+                                      child: Row(children: [
+                                        SizedBox(
+                                          height: 48,
+                                          width: 48,
+                                          child: CachedImageWidget(
+                                            e.id,
+                                            e.image,
+                                            ImageShape.square,
                                           ),
                                         ),
-                                      ),
-                                    ]),
-                                  ),
-                                )
-                                .toList(),
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 16),
+                                            child: Text(
+                                              e.title ?? '',
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w800,
+                                                  color: AppColors.black45515D),
+                                            ),
+                                          ),
+                                        ),
+                                      ]),
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
                           ),
-                        ),
+                        if (bookingsProvider.customBackdrop != '')
+                          Expanded(
+                              child: Text(
+                                  "Custom backdrop: ${bookingsProvider.customBackdrop}")),
                         Padding(
                           padding: const EdgeInsets.only(top: 13.0),
                           child: Icon(
@@ -108,7 +114,7 @@ class BackdropSelector extends StatelessWidget {
                       ],
                     ),
                   ),
-                )
+                ),
               ],
             ))
         : Visibility(

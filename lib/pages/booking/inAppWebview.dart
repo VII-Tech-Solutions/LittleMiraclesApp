@@ -30,24 +30,24 @@ class _InAppWebViewPageState extends State<InAppWebViewPage> {
             ShowLoadingDialog(context, dismiss: true);
             if (bookResponse?.statusCode == 200 &&
                 confirmResponse?.statusCode == 200) {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      SuccessPaymentPage(widget.selectedPayment.toString()),
-                ),
-                (Route<dynamic> route) => false,
-              );
+              // Navigator.pushAndRemoveUntil(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) =>
+              //         SuccessPaymentPage(widget.selectedPayment.toString()),
+              //   ),
+              //   (Route<dynamic> route) => false,
+              // );
             } else if (bookResponse?.statusCode != 200) {
-              ShowOkDialog(
-                context,
-                bookResponse?.message ?? ErrorMessages.somethingWrong,
-              );
+              // ShowOkDialog(
+              //   context,
+              //   bookResponse?.message ?? ErrorMessages.somethingWrong,
+              // );
             } else {
-              ShowOkDialog(
-                context,
-                confirmResponse?.message ?? ErrorMessages.somethingWrong,
-              );
+              // ShowOkDialog(
+              //   context,
+              //   confirmResponse?.message ?? ErrorMessages.somethingWrong,
+              // );
             }
           });
         });
@@ -87,13 +87,21 @@ class _InAppWebViewPageState extends State<InAppWebViewPage> {
           onPageFinished: (String url) {
             print("url: $url");
             if (url.endsWith("/approved")) {
-              _confirmSignelSession(context);
-              // Navigator.push(
+              // Navigator.pushAndRemoveUntil(
               //   context,
               //   MaterialPageRoute(
-              //       builder: (context) =>
-              //           SuccessPaymentPage(widget.selectedPayment.toString())),
+              //     builder: (context) =>
+              //         SuccessPaymentPage(widget.selectedPayment.toString()),
+              //   ),
+              //   (Route<dynamic> route) => false,
               // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        SuccessPaymentPage(widget.selectedPayment.toString())),
+              );
+              _confirmSignelSession(context);
             } else if (url.endsWith("/declined")) {
               Navigator.push(
                 context,

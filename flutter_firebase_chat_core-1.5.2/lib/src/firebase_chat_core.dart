@@ -293,11 +293,10 @@ class FirebaseChatCore {
     final collection = orderByUpdatedAt
         ? getFirebaseFirestore()
             .collection(config.roomsCollectionName)
-            .where('userIds', arrayContains: fu.uid)
+            // .where('userIds', arrayContains: fu.uid)
             .orderBy('updatedAt', descending: true)
-        : getFirebaseFirestore()
-            .collection(config.roomsCollectionName)
-            .where('userIds', arrayContains: fu.uid);
+        : getFirebaseFirestore().collection(config.roomsCollectionName);
+    // .where('userIds', arrayContains: fu.uid);
 
     return collection.snapshots().asyncMap(
           (query) => processRoomsQuery(

@@ -73,7 +73,7 @@ class _RoomsPageState extends State<RoomsPage> {
 
   void initializeFlutterFire() async {
     try {
-      // await Firebase.initializeApp();
+      await Firebase.initializeApp();
       FirebaseAuth.instance.authStateChanges().listen((User? user) {
         setState(() {
           _user = user;
@@ -200,17 +200,17 @@ class _RoomsPageState extends State<RoomsPage> {
         stream: FirebaseChatCore.instance.rooms(orderByUpdatedAt: true),
         initialData: const [],
         builder: (context, snapshot) {
-          print(snapshot.data!.length);
-          if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return loading == true
-                ? Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  )
-                : Container(
-                    alignment: Alignment.center,
-                    child: const Text('No rooms'),
-                  );
-          }
+          // print(snapshot.data!.length);
+          // if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          //   return loading == true
+          //       ? Center(
+          //           child: CircularProgressIndicator.adaptive(),
+          //         )
+          //       : Container(
+          //           alignment: Alignment.center,
+          //           child: const Text('No rooms'),
+          //         );
+          // }
           // snapshot.data!.forEach((element) {
           //   if (!context
           //       .read<ChatData>()

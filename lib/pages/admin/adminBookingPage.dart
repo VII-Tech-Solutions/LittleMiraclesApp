@@ -20,31 +20,25 @@ class AdminBookingPage extends StatefulWidget {
 }
 
 class _AdminBookingPageState extends State<AdminBookingPage> {
+  init() {
+    final bookingsProvider = context.watch<Bookings>();
+    bookingsProvider.fetchAdminSessionDetails(
+        date: DateTime.now().toyyyyMMdd());
+  }
+
   @override
-  final _list = [
-    {
-      'id': 1,
-      'image': 'image',
-      'description': '2 baby, 1 adult',
-      'title': 'Twinkle Portrait Studio Session',
-      'date': '8th, January 2022',
-      'time': '10:00 AM'
-    },
-    {
-      'id': 2,
-      'image': 'image',
-      'description': '1 baby, 2 adult',
-      'title': 'Tread Stone',
-      'date': '10th, January 2022',
-      'time': '08:00 AM'
-    },
-  ];
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      init();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final authProvider = context.watch<Auth>();
     final bookingsProvider = context.watch<Bookings>();
-    bookingsProvider.fetchAdminSessionDetails();
+    // bookingsProvider.fetchAdminSessionDetails();
     return Scaffold(
       body: RefreshIndicator(
           onRefresh: () async {
@@ -65,7 +59,8 @@ class _AdminBookingPageState extends State<AdminBookingPage> {
                     padding: const EdgeInsets.all(16),
                     child: CalendarContainer()),
               ),
-              if (bookingsProvider.sessionList != null)
+              if (bookingsProvider.sessionList != null &&
+                  bookingsProvider.sessionList!.length != 0)
                 SliverList(
                     delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
@@ -100,7 +95,7 @@ class _AdminBookingPageState extends State<AdminBookingPage> {
                 ))
               else
                 SliverToBoxAdapter(
-                  child: Center(child: CircularProgressIndicator()),
+                  child: Center(child: Text('No data')),
                 )
             ],
           )),

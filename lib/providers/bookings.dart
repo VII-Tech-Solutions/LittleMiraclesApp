@@ -424,8 +424,8 @@ class Bookings with ChangeNotifier {
 
   Future<ApiResponse> fetchAdminSessionDetails({String? date}) async {
     final url = Uri.parse('$apiLink/photographer/sessions');
-    print(url);
-
+    sessionList = null;
+    notifyListeners();
     try {
       final response = await http.post(
         url,
@@ -435,15 +435,11 @@ class Bookings with ChangeNotifier {
           'App-Version': '${await AppInfo().versionInfo()}',
           'Authorization': 'Bearer $authToken',
         },
-        body: {
-          'access_token': authToken,
-          //  'date': date
-        },
+        body: {'access_token': authToken, 'date': date},
       ).timeout(Duration(seconds: Timeout.value));
+      print(authToken);
 
-      final extractedData = json.decode(response.body)['data'];
-      final sessionData = extractedData['sessions'] as List;
-
+      print(response.statusCode);
       if (response.statusCode != 200) {
         notifyListeners();
         return (ApiResponse(
@@ -451,7 +447,8 @@ class Bookings with ChangeNotifier {
           message: ErrorMessages.somethingWrong,
         ));
       }
-
+      final extractedData = json.decode(response.body)['data'];
+      final sessionData = extractedData['sessions'] as List;
       sessionList = sessionData.map((json) => Session.fromJson(json)).toList();
       _session = sessionList!.first;
 
@@ -468,6 +465,7 @@ class Bookings with ChangeNotifier {
       ));
     } catch (e) {
       print('catch error:: $e');
+
       return (ApiResponse(
         statusCode: 500,
         message: ErrorMessages.somethingWrong,
@@ -542,7 +540,7 @@ class Bookings with ChangeNotifier {
             body: jsonEncode(_bookingBody),
           )
           .timeout(Duration(seconds: Timeout.value));
-      print('_bookingBody $_bookingBody');
+      print('_bookingBody ${jsonEncode(_bookingBody)}');
       final result = json.decode(response.body);
 
       if (response.statusCode != 200) {

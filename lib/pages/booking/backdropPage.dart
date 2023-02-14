@@ -586,7 +586,8 @@ class _BackdropPageState extends State<BackdropPage> {
                   'Please select ${bookingsProvider.package!.minBackdrop} backdrop to proceed');
             } else {
               // Navigator.pop(context);
-              if (bookingsProvider.selectedBackdrops.isNotEmpty ||
+              if (
+                  // bookingsProvider.selectedBackdrops.isNotEmpty ||
                   _customBackdrop.isNotEmpty) {
                 // if (widget.subPackage != null) {
                 //   Map<int, List<int>> backdropsMap = {
@@ -597,9 +598,11 @@ class _BackdropPageState extends State<BackdropPage> {
                 //     backdropsMap,
                 //   );
                 // } else {
-                //   bookingsProvider.assignSelectedBackdrops(
-                //       _selectedItems, _customBackdrop);
+                bookingsProvider.assignSelectedBackdrops([], _customBackdrop);
+                print(bookingsProvider.customBackdrop);
                 // }
+                Navigator.pop(context);
+              } else if (bookingsProvider.selectedBackdrops.isNotEmpty) {
                 Navigator.pop(context);
               } else {
                 ShowOkDialog(context, 'Please select a backdrop to proceed');

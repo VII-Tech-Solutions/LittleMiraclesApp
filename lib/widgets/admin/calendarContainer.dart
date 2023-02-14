@@ -79,7 +79,9 @@ class _CalendarContainerState extends State<CalendarContainer> {
                 selectedDay = selectDay;
                 final formattedDate = selectedDay.toyyyyMMdd();
 
-                bookingsProvider.fetchAdminSessionDetails(date: formattedDate);
+                bookingsProvider.fetchAdminSessionDetails(
+                  date: formattedDate,
+                );
                 print(formattedDate);
               });
             },

@@ -8,11 +8,14 @@ import 'package:provider/provider.dart';
 
 // Project imports:
 import '../../global/colors.dart';
+import '../../global/const.dart';
 import '../../pages/general/customBottomNavigationBar.dart';
 import '../../providers/appData.dart';
 import '../../providers/auth.dart';
 import '../../providers/bookings.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
+import '../../widgets/dialogs/showLoadingDialog.dart';
+import '../../widgets/dialogs/showOkDialog.dart';
 import '../../widgets/paymentContainer/paymentDetailsContainer.dart';
 import '../home/sessions/upcomingSessionDetailsPage.dart';
 
@@ -22,12 +25,47 @@ class SuccessPaymentPage extends StatelessWidget {
   final String? paymentMethod;
   const SuccessPaymentPage(this.paymentMethod);
 
+  void _confirmSignelSession(BuildContext context) {
+    ShowLoadingDialog(context);
+    context.read<Bookings>().bookASession().then((bookResponse) {
+      context.read<Bookings>().confirmASession().then((confirmResponse) {
+        context.read<AppData>().fetchAndSetSessions().then((_) {
+          context.read<AppData>().fetchAndSetAppData().then((_) {
+            ShowLoadingDialog(context, dismiss: true);
+            if (bookResponse?.statusCode == 200 &&
+                confirmResponse?.statusCode == 200) {
+              // Navigator.pushAndRemoveUntil(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) =>
+              //         SuccessPaymentPage(widget.selectedPayment.toString()),
+              //   ),
+              //   (Route<dynamic> route) => false,
+              // );
+            } else if (bookResponse?.statusCode != 200) {
+              ShowOkDialog(
+                context,
+                bookResponse?.message ?? ErrorMessages.somethingWrong,
+              );
+            } else {
+              ShowOkDialog(
+                context,
+                confirmResponse?.message ?? ErrorMessages.somethingWrong,
+              );
+            }
+          });
+        });
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final package = context.watch<Bookings>().package;
     final session = context.watch<Bookings>().session;
     final promoCode = context.watch<Bookings>().promoCode;
     context.read<Bookings>().showAppRate();
+    // _confirmSignelSession(context);
     print(session?.id);
     return Scaffold(
       appBar: AppBar(
