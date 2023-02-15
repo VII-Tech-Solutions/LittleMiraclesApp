@@ -66,14 +66,14 @@ class BookingDetailsContainer extends StatelessWidget {
                   false,
                 ),
               ),
-              Visibility(
-                visible: true,
-                child: BenefitDetailsRow(
-                  '2 baby, 1 adult',
-                  Icons.perm_identity_rounded,
-                  false,
-                ),
-              ),
+              // Visibility(
+              //   visible: true,
+              //   child: BenefitDetailsRow(
+              //     '2 baby, 1 adult',
+              //     Icons.perm_identity_rounded,
+              //     false,
+              //   ),
+              // ),
               Visibility(
                 visible: true,
                 child: BenefitDetailsRow(
