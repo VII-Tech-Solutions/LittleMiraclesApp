@@ -151,7 +151,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     print(auth.user);
     return Scaffold(
       body: auth.user != null && auth.user!.role == 2
-          ? AdminBookingPage()
+          ? Container()
           : Center(
               child: _widgetOptions.elementAt(_selectedIndex),
             ),

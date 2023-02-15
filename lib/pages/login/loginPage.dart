@@ -434,7 +434,7 @@ class LoginPage extends StatelessWidget {
                     _socialLogin(
                         context, SSOType.apple, authProvider, appDataProvider);
                   },
-                  buttonText: 'Login using Apple',
+                  buttonText: 'Sign in with Apple',
                   assetName: 'assets/images/iconsSocialApple.svg',
                 ),
               ),
