@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:LMP0001_LittleMiraclesApp/pages/booking/failurePaymentPage.dart';
 import 'package:LMP0001_LittleMiraclesApp/pages/booking/successPaymentPage.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -21,6 +25,14 @@ class InAppWebViewPage extends StatefulWidget {
 }
 
 class _InAppWebViewPageState extends State<InAppWebViewPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // Android keyboard fix
+    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+  }
+
   void _confirmSignelSession(BuildContext context) {
     ShowLoadingDialog(context);
     context.read<Bookings>().bookASession().then((bookResponse) {
@@ -57,62 +69,67 @@ class _InAppWebViewPageState extends State<InAppWebViewPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Stack(children: [
-        // InAppWebView(
-        //   initialUrlRequest: URLRequest(url: Uri.parse(widget.link.toString())),
-        //   onLoadStop: (InAppWebViewController controller, url) {
-        //     print("url: $url");
-        //     if (url!.path.endsWith("/approved")) {
-        //       Navigator.push(
-        //           context,
-        //           MaterialPageRoute(
-        //             builder: (context) =>
-        //                 SuccessPaymentPage(widget.selectedPayment),
-        //           ));
-        //     } else if (url.path.endsWith("/declined")) {
-        //       Navigator.push(
-        //         context,
-        //         MaterialPageRoute(
-        //             builder: (context) =>
-        //                 FailurePaymentPage(widget.selectedPayment)),
-        //       );
-        //     }
-        //   },
-        // ),
-        WebView(
-          initialUrl: widget.link.toString(),
-          javascriptMode: JavascriptMode.unrestricted,
-          onPageFinished: (String url) {
-            print("url: $url");
-            if (url.endsWith("/approved")) {
-              // Navigator.pushAndRemoveUntil(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) =>
-              //         SuccessPaymentPage(widget.selectedPayment.toString()),
-              //   ),
-              //   (Route<dynamic> route) => false,
-              // );
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        SuccessPaymentPage(widget.selectedPayment.toString())),
-              );
-              _confirmSignelSession(context);
-            } else if (url.endsWith("/declined")) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        FailurePaymentPage(widget.selectedPayment.toString())),
-              );
-            }
-          },
-        )
-      ]),
+    // return Stack(children: [
+    // InAppWebView(
+    //   initialUrlRequest: URLRequest(url: Uri.parse(widget.link.toString())),
+    //   onLoadStop: (InAppWebViewController controller, url) {
+    //     print("url: $url");
+    //     if (url!.path.endsWith("/approved")) {
+    //       Navigator.push(
+    //           context,
+    //           MaterialPageRoute(
+    //             builder: (context) =>
+    //                 SuccessPaymentPage(widget.selectedPayment),
+    //           ));
+    //     } else if (url.path.endsWith("/declined")) {
+    //       Navigator.push(
+    //         context,
+    //         MaterialPageRoute(
+    //             builder: (context) =>
+    //                 FailurePaymentPage(widget.selectedPayment)),
+    //       );
+    //     }
+    //   },
+    // ),
+    return Container(
+      child: WebView(
+        initialUrl: widget.link.toString(),
+        javascriptMode: JavascriptMode.unrestricted,
+        gestureRecognizers: Set()
+          ..add(
+            Factory<DragGestureRecognizer>(
+              () => VerticalDragGestureRecognizer(),
+            ),
+          ),
+        onPageFinished: (String url) {
+          print("url: $url");
+          if (url.endsWith("/approved")) {
+            // Navigator.pushAndRemoveUntil(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) =>
+            //         SuccessPaymentPage(widget.selectedPayment.toString()),
+            //   ),
+            //   (Route<dynamic> route) => false,
+            // );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      SuccessPaymentPage(widget.selectedPayment.toString())),
+            );
+            _confirmSignelSession(context);
+          } else if (url.endsWith("/declined")) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      FailurePaymentPage(widget.selectedPayment.toString())),
+            );
+          }
+        },
+      ),
     );
+    // ]);
   }
 }

@@ -24,7 +24,8 @@ class CakeSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     final bookingsProvider = context.watch<Bookings>();
     print('object ${bookingsProvider.selectedCakes}');
-    return bookingsProvider.selectedCakes.length > 0
+    return bookingsProvider.selectedCakes.length > 0 ||
+            bookingsProvider.customCake != ''
         ? Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,44 +58,49 @@ class CakeSelector extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: Column(
-                          children: context
-                              .watch<AppData>()
-                              .getCakesByIds(bookingsProvider.selectedCakes)
-                              .map(
-                                (e) => Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 5),
-                                  child: Row(children: [
-                                    SizedBox(
-                                      height: 48,
-                                      width: 48,
-                                      child: CachedImageWidget(
-                                        e.id,
-                                        e.image,
-                                        ImageShape.square,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16),
-                                        child: Text(
-                                          e.title ?? '',
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w800,
-                                              color: AppColors.black45515D),
+                      if (bookingsProvider.selectedCakes.length > 0)
+                        Expanded(
+                          child: Column(
+                            children: context
+                                .watch<AppData>()
+                                .getCakesByIds(bookingsProvider.selectedCakes)
+                                .map(
+                                  (e) => Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 5),
+                                    child: Row(children: [
+                                      SizedBox(
+                                        height: 48,
+                                        width: 48,
+                                        child: CachedImageWidget(
+                                          e.id,
+                                          e.image,
+                                          ImageShape.square,
                                         ),
                                       ),
-                                    ),
-                                  ]),
-                                ),
-                              )
-                              .toList(),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 16),
+                                          child: Text(
+                                            e.title ?? '',
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w800,
+                                                color: AppColors.black45515D),
+                                          ),
+                                        ),
+                                      ),
+                                    ]),
+                                  ),
+                                )
+                                .toList(),
+                          ),
                         ),
-                      ),
+                      if (bookingsProvider.customCake != '')
+                        Expanded(
+                            child: Text(
+                                "Custom cake: ${bookingsProvider.customCake}")),
                       Padding(
                         padding: const EdgeInsets.only(top: 13.0),
                         child: Icon(
