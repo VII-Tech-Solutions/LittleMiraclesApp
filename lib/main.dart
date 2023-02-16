@@ -354,10 +354,11 @@ class _MyAppState extends State<MyApp> {
             previousStudio == null ? [] : previousStudio.cartItems,
             previousStudio == null ? '' : previousStudio.cartTotal,
             previousStudio == null ? '' : previousStudio.cartSubtotal,
+            previousStudio == null ? '' : previousStudio.vatAmount,
             // previousStudio == null ? '' : previousStudio.cartDiscount,
           ),
           create: (context) => Studio('', null, null, [], [], null, null, null,
-              null, null, null, null, null, null, [], '', ''),
+              null, null, null, null, null, null, [], '', '', ''),
         ),
         ChangeNotifierProvider<ChatData>(
           create: (context) => ChatData({}),

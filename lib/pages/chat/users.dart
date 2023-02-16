@@ -14,12 +14,17 @@ import '../../widgets/dialogs/showLoadingDialog.dart';
 import 'chat.dart';
 import 'util.dart';
 
-class UsersPage extends StatelessWidget {
+class UsersPage extends StatefulWidget {
   const UsersPage({Key? key}) : super(key: key);
 
-  void _handlePressed(types.User otherUser, BuildContext context) async {
+  @override
+  State<UsersPage> createState() => _UsersPageState();
+}
+
+class _UsersPageState extends State<UsersPage> {
+  void _handlePressed(types.User otherUserid, BuildContext context) async {
     ShowLoadingDialog(context);
-    final room = await FirebaseChatCore.instance.createRoom(otherUser);
+    final room = await FirebaseChatCore.instance.createRoom((otherUserid));
 
     Navigator.of(context).pop();
     await Navigator.of(context)
@@ -33,10 +38,10 @@ class UsersPage extends StatelessWidget {
         .then((value) => ShowLoadingDialog(context, dismiss: true));
   }
 
-  Widget _buildAvatar(types.User user) {
-    final color = getUserAvatarNameColor(user);
-    final hasImage = user.imageUrl != null;
-    final name = getUserName(user);
+  Widget _buildAvatar(user) {
+    // final color = getUserAvatarNameColor(user);
+    // final hasImage = user.imageUrl != null;
+    // final name = getUserName(user);
     return AnimatedContainer(
       margin: const EdgeInsets.only(right: 16),
       duration: Duration(milliseconds: 300),
@@ -52,7 +57,7 @@ class UsersPage extends StatelessWidget {
         borderRadius: BorderRadius.circular(7),
         child: CachedNetworkImage(
           fit: BoxFit.cover,
-          imageUrl: user.imageUrl ?? '',
+          imageUrl: user['imageUrl'] ?? '',
           errorWidget: (context, url, _) {
             return Image.asset(
               'assets/images/chatPlaceHolder.png',
@@ -96,46 +101,25 @@ class UsersPage extends StatelessWidget {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FirebaseChatCore.instance.usertest();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWithBack(
-        title: 'Users',
-      ),
-      body: StreamBuilder<List<types.User>>(
-        stream: FirebaseChatCore.instance.users(),
-        initialData: const [],
-        builder: (context, snapshot) {
-          if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Container(
-              alignment: Alignment.center,
-              margin: const EdgeInsets.only(
-                bottom: 200,
-              ),
-              child: const Text('No users'),
-            );
-          }
-          // int index = 0;
-          snapshot.data!.sort((a, b) => b.id.compareTo(a.id));
-          // snapshot.data!.forEach((e) {
-          //   if (e.id == 'o61U7RotNGb8ICAtjz3mShxsD802') {
-          //     final tempUser = snapshot.data![0];
-          //     snapshot.data![0] = snapshot.data![index];
-          //     snapshot.data![index] = tempUser;
-          //   }
-          //   index++;
-          // });
-          // if (user.id == 'o61U7RotNGb8ICAtjz3mShxsD802') {
-          //   final tempUser = snapshot.data![0];
-          //   snapshot.data![0] = snapshot.data![index];
-          //   snapshot.data![index] = tempUser;
-          // }
-          return ListView.separated(
-            itemCount: snapshot.data!.length,
+        appBar: AppBarWithBack(
+          title: 'Users',
+        ),
+        body: ListView.builder(
+            itemCount: FirebaseChatCore.instance.usersData.length,
             itemBuilder: (context, index) {
-              final user = snapshot.data![index];
               return InkWell(
                 onTap: () {
-                  _handlePressed(user, context);
+                  _handlePressed(
+                      FirebaseChatCore.instance.usersData[index], context);
                 },
                 child: Container(
                   width: double.infinity,
@@ -146,23 +130,81 @@ class UsersPage extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      _buildAvatar(user),
-                      Text(getUserName(user)),
+                      _buildAvatar(FirebaseChatCore.instance.usersData[index]),
+                      Text(
+                          '${FirebaseChatCore.instance.usersData[index]['firstName'] ?? ''} ${FirebaseChatCore.instance.usersData[index]['lastName'] ?? ''}'
+                              .trim()),
                     ],
                   ),
                 ),
               );
-            },
-            separatorBuilder: (context, index) {
-              return Divider(
-                indent: 16,
-                endIndent: 16,
-                thickness: 1,
-              );
-            },
-          );
-        },
-      ),
-    );
+
+              return Text(
+                  FirebaseChatCore.instance.usersData[index]['firstName']);
+            })
+        // body: StreamBuilder<List<types.User>>(
+        //   stream: FirebaseChatCore.instance.usertest(),
+        //   initialData: const [],
+        //   builder: (context, snapshot) {
+        //     print("hasdata ${snapshot.hasData}");
+        //     if (!snapshot.hasData || snapshot.data!.isEmpty) {
+        //       return Container(
+        //         alignment: Alignment.center,
+        //         margin: const EdgeInsets.only(
+        //           bottom: 200,
+        //         ),
+        //         child: const Text('No users'),
+        //       );
+        //     }
+        //     // int index = 0;
+        //     snapshot.data!.sort((a, b) => b.id.compareTo(a.id));
+        //     // snapshot.data!.forEach((e) {
+        //     //   if (e.id == 'o61U7RotNGb8ICAtjz3mShxsD802') {
+        //     //     final tempUser = snapshot.data![0];
+        //     //     snapshot.data![0] = snapshot.data![index];
+        //     //     snapshot.data![index] = tempUser;
+        //     //   }
+        //     //   index++;
+        //     // });
+        //     // if (user.id == 'o61U7RotNGb8ICAtjz3mShxsD802') {
+        //     //   final tempUser = snapshot.data![0];
+        //     //   snapshot.data![0] = snapshot.data![index];
+        //     //   snapshot.data![index] = tempUser;
+        //     // }
+        //     return ListView.separated(
+        //       itemCount: snapshot.data!.length,
+        //       itemBuilder: (context, index) {
+        //         final user = snapshot.data![index];
+        //         return InkWell(
+        //           onTap: () {
+        //             _handlePressed(user, context);
+        //           },
+        //           child: Container(
+        //             width: double.infinity,
+        //             height: MediaQuery.of(context).size.height * 0.0887,
+        //             padding: const EdgeInsets.symmetric(
+        //               horizontal: 16,
+        //               vertical: 8,
+        //             ),
+        //             child: Row(
+        //               children: [
+        //                 _buildAvatar(user),
+        //                 Text(getUserName(user)),
+        //               ],
+        //             ),
+        //           ),
+        //         );
+        //       },
+        //       separatorBuilder: (context, index) {
+        //         return Divider(
+        //           indent: 16,
+        //           endIndent: 16,
+        //           thickness: 1,
+        //         );
+        //       },
+        //     );
+        //   },
+        // ),
+        );
   }
 }

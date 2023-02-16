@@ -114,7 +114,8 @@ class PaymentDetailsContainer extends StatelessWidget {
                       ),
                     ),
                     Visibility(
-                      visible: session?.customBackdrop != null,
+                      visible: session?.customBackdrop != null &&
+                          session?.customBackdrop != '',
                       child: BenefitDetailsRow(
                         '${session?.customBackdrop}',
                         Icons.wallpaper,
@@ -122,9 +123,19 @@ class PaymentDetailsContainer extends StatelessWidget {
                       ),
                     ),
                     Visibility(
-                      visible: session?.formattedCake != null,
+                      visible: session?.formattedCake != null &&
+                          session?.formattedCake != '',
                       child: BenefitDetailsRow(
                         '${session?.formattedCake}',
+                        Icons.cake_outlined,
+                        false,
+                      ),
+                    ),
+                    Visibility(
+                      visible: session?.customCake != null &&
+                          session?.customCake != '',
+                      child: BenefitDetailsRow(
+                        '${session?.customCake}',
                         Icons.cake_outlined,
                         false,
                       ),

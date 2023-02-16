@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -96,10 +98,8 @@ class FirebaseChatCore {
 
   /// Creates a direct chat for 2 people. Add [metadata] for any additional
   /// custom data.
-  Future<types.Room> createRoom(
-    types.User otherUser, {
-    Map<String, dynamic>? metadata,
-  }) async {
+  Future<types.Room> createRoom(types.User otherUser,
+      {Map<String, dynamic>? metadata, otherUserid}) async {
     final fu = firebaseUser;
 
     if (fu == null) return Future.error('User does not exist');
@@ -121,7 +121,8 @@ class FirebaseChatCore {
         if (room.type == types.RoomType.group) return false;
 
         final userIds = room.users.map((u) => u.id);
-        return userIds.contains(fu.uid) && userIds.contains(otherUser.id);
+        return userIds.contains(fu.uid) &&
+            userIds.contains(otherUserid ?? otherUser.id);
       });
     } catch (e) {
       // Do nothing if room does not exist
@@ -450,6 +451,7 @@ class FirebaseChatCore {
   /// Returns a stream of all users from Firebase
   Stream<List<types.User>> users() {
     if (firebaseUser == null) return const Stream.empty();
+
     return getFirebaseFirestore()
         .collection(config.usersCollectionName)
         .snapshots()
@@ -470,5 +472,32 @@ class FirebaseChatCore {
             },
           ),
         );
+  }
+
+  var usersData;
+
+  usertest({bool orderByUpdatedAt = false}) async {
+    final fu = firebaseUser;
+
+    if (fu == null) return const Stream.empty();
+
+    final collection = orderByUpdatedAt
+        ? getFirebaseFirestore().collection(config.usersCollectionName)
+        // .where('userIds', arrayContains: fu.uid)
+
+        : getFirebaseFirestore().collection(config.usersCollectionName);
+    // .where('userIds', arrayContains: fu.uid);
+
+    QuerySnapshot querySnapshot = await collection.get();
+    List<QueryDocumentSnapshot> documentList = querySnapshot.docs;
+
+    var usersDatas = documentList.map((document) => document.data()).toList();
+    usersData = jsonEncode(usersDatas);
+    print(usersData.length);
+
+    return usersData;
+
+    return collection.snapshots().map((snapshot) =>
+        snapshot.docs.map((doc) => types.User.fromJson(doc.data())).toList());
   }
 }

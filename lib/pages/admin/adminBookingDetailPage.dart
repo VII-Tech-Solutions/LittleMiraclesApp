@@ -25,7 +25,9 @@ class _AdminBookingDetailPageState extends State<AdminBookingDetailPage> {
           SizedBox(height: 15),
           BookingDetailsContainer(widget.sessionDetails),
           SizedBox(height: 22),
-          if (widget.sessionDetails.peopleData != null)
+          if (widget.sessionDetails.peopleData != null &&
+              (widget.sessionDetails.peopleData['parents'].length != 0 ||
+                  widget.sessionDetails.peopleData['childrens'].length != 0))
             Container(
               height: 110,
               width: double.infinity,
@@ -38,8 +40,7 @@ class _AdminBookingDetailPageState extends State<AdminBookingDetailPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (widget.sessionDetails.peopleData['parents'][0]['name'] !=
-                      null)
+                  if (widget.sessionDetails.peopleData['parents'].length != 0)
                     RichText(
                       textAlign: TextAlign.left,
                       text: TextSpan(

@@ -355,9 +355,9 @@ class Bookings with ChangeNotifier {
   void assignSelectedCakes(Map<String, dynamic> selectedList, String val) {
     _selectedCakes = selectedList;
     _customCake = val;
-
+    print('_selectedCakes $_selectedCakes');
     amendBookingBody({
-      'cakes': _selectedCakes,
+      'cakes': _customCake != '' ? null : [_selectedCakes],
       'custom_cake': _customCake,
     });
     notifyListeners();

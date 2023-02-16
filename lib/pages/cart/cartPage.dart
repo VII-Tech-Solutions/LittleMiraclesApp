@@ -126,7 +126,7 @@ class _CartPageState extends State<CartPage> {
                       ),
                     ),
                     Text(
-                      'BD ${context.read<Studio>().cartSubtotal}',
+                      'BD ${context.read<Studio>().cartTotal}',
                       style: TextStyle(
                         fontFamily: GoogleFonts.manrope().fontFamily,
                         fontWeight: FontWeight.w800,
@@ -143,32 +143,32 @@ class _CartPageState extends State<CartPage> {
                 height: 1,
                 thickness: 1,
               ),
-              // Padding(
-              //   padding: const EdgeInsets.fromLTRB(16, 14.9, 20, 20),
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //     children: [
-              //       Text(
-              //         'VAT (5%)',
-              //         style: TextStyle(
-              //           fontFamily: GoogleFonts.manrope().fontFamily,
-              //           fontWeight: FontWeight.w800,
-              //           fontSize: 14,
-              //           color: AppColors.black45515D,
-              //         ),
-              //       ),
-              //       Text(
-              //         '+BD ${_vat.toStringAsFixed(1)}',
-              //         style: TextStyle(
-              //           fontFamily: GoogleFonts.manrope().fontFamily,
-              //           fontWeight: FontWeight.w800,
-              //           fontSize: 14,
-              //           color: AppColors.black45515D,
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 14.9, 20, 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'VAT (5%)',
+                      style: TextStyle(
+                        fontFamily: GoogleFonts.manrope().fontFamily,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 14,
+                        color: AppColors.black45515D,
+                      ),
+                    ),
+                    Text(
+                      '+BD ${context.read<Studio>().vatAmount}',
+                      style: TextStyle(
+                        fontFamily: GoogleFonts.manrope().fontFamily,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 14,
+                        color: AppColors.black45515D,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               Visibility(
                 visible: promoCode != null,
                 child: Column(
@@ -225,7 +225,7 @@ class _CartPageState extends State<CartPage> {
       bottomNavigationBar: Visibility(
         visible: cartItems.isNotEmpty,
         child: StudioPaymentBottomContainer(
-          total: context.watch<Studio>().cartTotal,
+          total: context.watch<Studio>().cartSubtotal,
           onTapCallback: () {
             if (_selectedPayment == null) {
               ShowOkDialog(context, 'Please select a payment method');

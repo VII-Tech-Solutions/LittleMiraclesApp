@@ -40,6 +40,7 @@ class Studio with ChangeNotifier {
   String? _albumTitle;
   String? _cartTotal;
   String? _cartSubtotal;
+  String? _vatAmount;
   // String? _cartDiscount;
   String? _additionalComment;
   StudioMetadata? _selectedAlbumSize;
@@ -79,6 +80,7 @@ class Studio with ChangeNotifier {
     this._cartItems,
     this._cartTotal,
     this._cartSubtotal,
+    this._vatAmount,
     // this._cartDiscount,
   );
 
@@ -100,6 +102,10 @@ class Studio with ChangeNotifier {
 
   String? get cartSubtotal {
     return _cartSubtotal;
+  }
+
+  String? get vatAmount {
+    return _vatAmount;
   }
 
   PromoCode? get promoCode {
@@ -352,6 +358,7 @@ class Studio with ChangeNotifier {
       if (result['message'] == 'Order created successfully') {
         _promoCode = null;
         _cartTotal = null;
+        _vatAmount = null;
         _cartItems = [];
         return result['message'];
       }
@@ -382,6 +389,7 @@ class Studio with ChangeNotifier {
       }
       _cartTotal = result['data']['total_price'].toString();
       _cartSubtotal = result['data']['subtotal'].toString();
+      _vatAmount = result['data']['vat_amount'].toString();
       List lst = result['data']['cart_items']
           .map(
             (e) => CartItem(

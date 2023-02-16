@@ -71,6 +71,9 @@ class _AdminBookingPageState extends State<AdminBookingPage> {
     final bookingsProvider = context.watch<Bookings>();
     // bookingsProvider.fetchAdminSessionDetails();
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0.0,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         enableFeedback: false,
         showUnselectedLabels: true,
