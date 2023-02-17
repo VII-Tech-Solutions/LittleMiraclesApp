@@ -24,7 +24,8 @@ class UsersPage extends StatefulWidget {
 class _UsersPageState extends State<UsersPage> {
   void _handlePressed(types.User otherUserid, BuildContext context) async {
     ShowLoadingDialog(context);
-    final room = await FirebaseChatCore.instance.createRoom((otherUserid));
+
+    final room = await FirebaseChatCore.instance.createRoom(otherUserid);
 
     Navigator.of(context).pop();
     await Navigator.of(context)
@@ -57,7 +58,8 @@ class _UsersPageState extends State<UsersPage> {
         borderRadius: BorderRadius.circular(7),
         child: CachedNetworkImage(
           fit: BoxFit.cover,
-          imageUrl: user['imageUrl'] ?? '',
+          // imageUrl: user['imageUrl'] ?? '',
+          imageUrl: '',
           errorWidget: (context, url, _) {
             return Image.asset(
               'assets/images/chatPlaceHolder.png',
@@ -110,16 +112,74 @@ class _UsersPageState extends State<UsersPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBarWithBack(
-          title: 'Users',
-        ),
-        body: ListView.builder(
-            itemCount: FirebaseChatCore.instance.usersData.length,
+      appBar: AppBarWithBack(
+        title: 'Users',
+      ),
+      // body: ListView.builder(
+      //     itemCount: FirebaseChatCore.instance.usersData.length,
+      //     itemBuilder: (context, index) {
+      //       return InkWell(
+      //         onTap: () {
+      //           _handlePressed(
+      //               FirebaseChatCore.instance.usersData[index], context);
+      //         },
+      //         child: Container(
+      //           width: double.infinity,
+      //           height: MediaQuery.of(context).size.height * 0.0887,
+      //           padding: const EdgeInsets.symmetric(
+      //             horizontal: 16,
+      //             vertical: 8,
+      //           ),
+      //           child: Row(
+      //             children: [
+      //               _buildAvatar(FirebaseChatCore.instance.usersData[index]),
+      //               Text(
+      //                   '${FirebaseChatCore.instance.usersData[index]['firstName'] ?? ''} ${FirebaseChatCore.instance.usersData[index]['lastName'] ?? ''}'
+      //                       .trim()),
+      //             ],
+      //           ),
+      //         ),
+      //       );
+
+      //       // return Text(
+      //       //     FirebaseChatCore.instance.usersData[index]['firstName']);
+      //     })
+      body: StreamBuilder<List<types.User>>(
+        stream: FirebaseChatCore.instance.users(),
+        initialData: [],
+        builder: (context, snapshot) {
+          print("hasdata ${snapshot}");
+          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return Container(
+              alignment: Alignment.center,
+              margin: const EdgeInsets.only(
+                bottom: 200,
+              ),
+              child: const Text('No users'),
+            );
+          }
+          // int index = 0;
+          snapshot.data!.sort((a, b) => b.id.compareTo(a.id));
+          // snapshot.data!.forEach((e) {
+          //   if (e.id == 'o61U7RotNGb8ICAtjz3mShxsD802') {
+          //     final tempUser = snapshot.data![0];
+          //     snapshot.data![0] = snapshot.data![index];
+          //     snapshot.data![index] = tempUser;
+          //   }
+          //   index++;
+          // });
+          // if (user.id == 'o61U7RotNGb8ICAtjz3mShxsD802') {
+          //   final tempUser = snapshot.data![0];
+          //   snapshot.data![0] = snapshot.data![index];
+          //   snapshot.data![index] = tempUser;
+          // }
+          return ListView.separated(
+            itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
+              final user = snapshot.data![index];
               return InkWell(
                 onTap: () {
-                  _handlePressed(
-                      FirebaseChatCore.instance.usersData[index], context);
+                  _handlePressed(user, context);
                 },
                 child: Container(
                   width: double.infinity,
@@ -130,81 +190,23 @@ class _UsersPageState extends State<UsersPage> {
                   ),
                   child: Row(
                     children: [
-                      _buildAvatar(FirebaseChatCore.instance.usersData[index]),
-                      Text(
-                          '${FirebaseChatCore.instance.usersData[index]['firstName'] ?? ''} ${FirebaseChatCore.instance.usersData[index]['lastName'] ?? ''}'
-                              .trim()),
+                      _buildAvatar(user),
+                      Text(getUserName(user)),
                     ],
                   ),
                 ),
               );
-
-              return Text(
-                  FirebaseChatCore.instance.usersData[index]['firstName']);
-            })
-        // body: StreamBuilder<List<types.User>>(
-        //   stream: FirebaseChatCore.instance.usertest(),
-        //   initialData: const [],
-        //   builder: (context, snapshot) {
-        //     print("hasdata ${snapshot.hasData}");
-        //     if (!snapshot.hasData || snapshot.data!.isEmpty) {
-        //       return Container(
-        //         alignment: Alignment.center,
-        //         margin: const EdgeInsets.only(
-        //           bottom: 200,
-        //         ),
-        //         child: const Text('No users'),
-        //       );
-        //     }
-        //     // int index = 0;
-        //     snapshot.data!.sort((a, b) => b.id.compareTo(a.id));
-        //     // snapshot.data!.forEach((e) {
-        //     //   if (e.id == 'o61U7RotNGb8ICAtjz3mShxsD802') {
-        //     //     final tempUser = snapshot.data![0];
-        //     //     snapshot.data![0] = snapshot.data![index];
-        //     //     snapshot.data![index] = tempUser;
-        //     //   }
-        //     //   index++;
-        //     // });
-        //     // if (user.id == 'o61U7RotNGb8ICAtjz3mShxsD802') {
-        //     //   final tempUser = snapshot.data![0];
-        //     //   snapshot.data![0] = snapshot.data![index];
-        //     //   snapshot.data![index] = tempUser;
-        //     // }
-        //     return ListView.separated(
-        //       itemCount: snapshot.data!.length,
-        //       itemBuilder: (context, index) {
-        //         final user = snapshot.data![index];
-        //         return InkWell(
-        //           onTap: () {
-        //             _handlePressed(user, context);
-        //           },
-        //           child: Container(
-        //             width: double.infinity,
-        //             height: MediaQuery.of(context).size.height * 0.0887,
-        //             padding: const EdgeInsets.symmetric(
-        //               horizontal: 16,
-        //               vertical: 8,
-        //             ),
-        //             child: Row(
-        //               children: [
-        //                 _buildAvatar(user),
-        //                 Text(getUserName(user)),
-        //               ],
-        //             ),
-        //           ),
-        //         );
-        //       },
-        //       separatorBuilder: (context, index) {
-        //         return Divider(
-        //           indent: 16,
-        //           endIndent: 16,
-        //           thickness: 1,
-        //         );
-        //       },
-        //     );
-        //   },
-        // ),
-        );
+            },
+            separatorBuilder: (context, index) {
+              return Divider(
+                indent: 16,
+                endIndent: 16,
+                thickness: 1,
+              );
+            },
+          );
+        },
+      ),
+    );
   }
 }

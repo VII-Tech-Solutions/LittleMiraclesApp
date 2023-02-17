@@ -99,7 +99,7 @@ class FirebaseChatCore {
   /// Creates a direct chat for 2 people. Add [metadata] for any additional
   /// custom data.
   Future<types.Room> createRoom(types.User otherUser,
-      {Map<String, dynamic>? metadata, otherUserid}) async {
+      {Map<String, dynamic>? metadata}) async {
     final fu = firebaseUser;
 
     if (fu == null) return Future.error('User does not exist');
@@ -121,8 +121,7 @@ class FirebaseChatCore {
         if (room.type == types.RoomType.group) return false;
 
         final userIds = room.users.map((u) => u.id);
-        return userIds.contains(fu.uid) &&
-            userIds.contains(otherUserid ?? otherUser.id);
+        return userIds.contains(fu.uid) && userIds.contains(otherUser.id);
       });
     } catch (e) {
       // Do nothing if room does not exist
@@ -462,24 +461,25 @@ class FirebaseChatCore {
               if (firebaseUser!.uid == doc.id) return previousValue;
 
               final data = doc.data();
-
-              data['createdAt'] = data['createdAt']?.millisecondsSinceEpoch;
+              print(data);
+              data['createdAt'] =
+                  data['createdAt']?.millisecondsSinceEpoch.toString();
               data['id'] = doc.id;
-              data['lastSeen'] = data['lastSeen']?.millisecondsSinceEpoch;
+              data['lastSeen'] = 5;
               data['updatedAt'] = data['updatedAt']?.millisecondsSinceEpoch;
-
+              print([...previousValue, types.User.fromJson(data)]);
               return [...previousValue, types.User.fromJson(data)];
             },
           ),
         );
   }
 
-  var usersData;
+  // List<types.User> usersData;
 
-  usertest({bool orderByUpdatedAt = false}) async {
+  Future<List<types.User>> usertest({bool orderByUpdatedAt = false}) async {
     final fu = firebaseUser;
 
-    if (fu == null) return const Stream.empty();
+    // if (fu == null) return const Stream.empty();
 
     final collection = orderByUpdatedAt
         ? getFirebaseFirestore().collection(config.usersCollectionName)
@@ -492,12 +492,13 @@ class FirebaseChatCore {
     List<QueryDocumentSnapshot> documentList = querySnapshot.docs;
 
     var usersDatas = documentList.map((document) => document.data()).toList();
-    usersData = jsonEncode(usersDatas);
-    print(usersData.length);
+    Map<String, dynamic> map = jsonDecode(usersDatas.toString());
 
+    List<types.User> usersData = [types.User.fromJson((map))];
+    print(usersData);
     return usersData;
 
-    return collection.snapshots().map((snapshot) =>
-        snapshot.docs.map((doc) => types.User.fromJson(doc.data())).toList());
+    // return collection.snapshots().map((snapshot) =>
+    //     snapshot.docs.map((doc) => types.User.fromJson(doc.data())).toList());
   }
 }
