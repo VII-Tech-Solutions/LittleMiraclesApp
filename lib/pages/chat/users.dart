@@ -106,7 +106,6 @@ class _UsersPageState extends State<UsersPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    FirebaseChatCore.instance.usertest();
   }
 
   @override
