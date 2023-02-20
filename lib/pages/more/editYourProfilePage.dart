@@ -335,7 +335,8 @@ class _EditYourProfilePageState extends State<EditYourProfilePage> {
               "country_code": _countryCodeValue,
               "phone_number": _phoneController.text,
               "birth_date": _formattedDate,
-              "firebase_id": FirebaseAuth.instance.currentUser?.uid
+              "firebase_id": FirebaseAuth.instance.currentUser?.uid,
+              // "device_token ": context.read<Auth>().firetoken
             };
 
             ShowLoadingDialog(context);

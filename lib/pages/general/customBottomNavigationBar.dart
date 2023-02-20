@@ -84,7 +84,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           "phone_number": user.phoneNumber,
           "birth_date": user.birthDate,
           "firebase_id": FirebaseAuth.instance.currentUser?.uid,
-          "device_token ": auth.firetoken
+          // "device_token ": context.read<Auth>().firtoken
         };
         await context.read<Auth>().updateProfile(userData);
       }
@@ -123,7 +123,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           "phone_number": user.phoneNumber,
           "birth_date": user.birthDate,
           "firebase_id": FirebaseAuth.instance.currentUser?.uid,
-          "device_token ": auth.firetoken
+          // "device_token ": context.read<Auth>().firtoken
         };
         await context.read<Auth>().updateProfile(userData);
       }

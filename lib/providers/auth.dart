@@ -46,6 +46,7 @@ class Auth with ChangeNotifier {
   bool? _isFirstOpen;
   String? _expiryDate;
   Map _registrationBody = {};
+  var _firtoken;
 
   //test
   int _selectedIndex = 0;
@@ -67,6 +68,10 @@ class Auth with ChangeNotifier {
 
   String get token {
     return _token ?? "";
+  }
+
+  String get firtoken {
+    return _firtoken ?? "";
   }
 
   User? get user {
@@ -377,14 +382,16 @@ class Auth with ChangeNotifier {
   var firetoken;
 
   savefiretoken(firetokens) {
-    firetoken = firetokens;
+    _firtoken = firetokens;
     print('****$token');
     notifyListeners();
   }
 
   Future<ApiResponse?> updateProfile(Map jsonBody) async {
     final url = Uri.parse('$apiLink/profile');
-
+    print(url);
+    print(firetoken);
+    print(jsonBody);
     try {
       final prefs = await SharedPreferences.getInstance();
       var response = await http
