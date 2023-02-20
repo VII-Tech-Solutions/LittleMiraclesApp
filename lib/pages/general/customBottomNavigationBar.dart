@@ -12,6 +12,7 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
 // Package imports:
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // Project imports:
 import '../../global/colors.dart';
@@ -56,6 +57,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   Future<void> _firestoreInit() async {
     final user = context.read<Auth>().user;
     final auth = context.read<Auth>();
+    final prefs = await SharedPreferences.getInstance();
+    print('new ${prefs.getString('firetoken')}');
     try {
       if (user != null && user.id != null) {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -84,7 +87,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           "phone_number": user.phoneNumber,
           "birth_date": user.birthDate,
           "firebase_id": FirebaseAuth.instance.currentUser?.uid,
-          // "device_token ": context.read<Auth>().firtoken
+          "device_token": prefs.getString('firetoken')
+          // context.read<Auth>().sharedPreferences!.getString('firetoken')
         };
         await context.read<Auth>().updateProfile(userData);
       }
@@ -123,7 +127,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           "phone_number": user.phoneNumber,
           "birth_date": user.birthDate,
           "firebase_id": FirebaseAuth.instance.currentUser?.uid,
-          // "device_token ": context.read<Auth>().firtoken
+          "device_token": prefs.getString('firetoken')
         };
         await context.read<Auth>().updateProfile(userData);
       }

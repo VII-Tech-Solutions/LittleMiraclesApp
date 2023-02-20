@@ -71,7 +71,9 @@ class _PhotographerPageState extends State<PhotographerPage> {
           ),
           ListView.builder(
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-            itemCount: package!.id == 3 ? 1 : photographers.length,
+            itemCount: package!.id == 3 || package.id == 6 || package.id == 5
+                ? 1
+                : photographers.length,
             itemBuilder: (BuildContext context, int index) {
               return SelectionRow(
                 () {
@@ -85,7 +87,7 @@ class _PhotographerPageState extends State<PhotographerPage> {
                     }
                   });
                   indexs = index;
-                  if (package.id != 3)
+                  if (package.id != 3 || package.id != 6 || package.id != 5)
                     package.additionalCharge =
                         photographers[indexs].additionalCharge != null &&
                                 photographers[indexs].additionalCharge != 0 &&
@@ -99,7 +101,9 @@ class _PhotographerPageState extends State<PhotographerPage> {
                 _selectedItems.contains(photographers[index].id),
                 1,
                 id: index,
-                subtitle: package.id != 3 &&
+                subtitle: (package.id != 3 ||
+                            package.id != 6 ||
+                            package.id != 5) &&
                         photographers[index].additionalCharge != null &&
                         photographers[index].additionalCharge != 0 &&
                         photographers[index].additionalCharge != -1

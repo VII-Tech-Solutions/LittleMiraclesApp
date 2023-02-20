@@ -64,12 +64,11 @@ Future<void> saveTokenToDatabase(String token) async {
 NotificationSettings? _iosSettings;
 late final AndroidNotificationChannel channel;
 Future<void> _initFCM() async {
-  print("fire token ");
   // Get the token each time the application loads
   String? token = await FirebaseMessaging.instance.getToken();
   Map userData = {
     "firebase_id": FirebaseAuth.instance.currentUser?.uid,
-    "device_token ": token
+    "device_token": token
   };
   await Auth().updateProfile(userData);
   Auth().savefiretoken(token);
