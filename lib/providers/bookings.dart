@@ -291,6 +291,7 @@ class Bookings with ChangeNotifier {
         _subSessionsTemporaryBooked.addAll(data);
         break;
     }
+    print(_subSessionSelectedBackdrops);
     notifyListeners();
   }
 

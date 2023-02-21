@@ -137,7 +137,7 @@ class _PaymentContainerState extends State<StudioPaymentContainer> {
               ),
             ),
           ),
-          _buildSelectionRow(1, 'Paypal'),
+          // _buildSelectionRow(1, 'Paypal'),
           Visibility(
             visible: Platform.isIOS,
             child: _buildSelectionRow(2, 'Apple Pay'),

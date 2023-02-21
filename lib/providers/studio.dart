@@ -181,6 +181,7 @@ class Studio with ChangeNotifier {
     }
 
     if (_selectedAlbumSize != null) {
+      print(_selectedAlbumSize!.price);
       price += _selectedAlbumSize!.price.toString().toDouble();
     }
     if (_selectedSpreads != null) {

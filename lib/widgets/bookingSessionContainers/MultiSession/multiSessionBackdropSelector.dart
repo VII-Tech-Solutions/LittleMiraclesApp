@@ -11,6 +11,7 @@ import '../../../global/colors.dart';
 import '../../../models/package.dart';
 import '../../../pages/booking/backdropPage.dart';
 import '../../../providers/appData.dart';
+import '../../../providers/bookings.dart';
 import '../../form/formTextField.dart';
 import '../../general/cachedImageWidget.dart';
 import '../../texts/titleText.dart';
@@ -24,7 +25,9 @@ class MultiSessionBackdropSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return selectedBackdrops.length > 0
+    final bookingsProvider = context.watch<Bookings>();
+    return bookingsProvider.selectedBackdrops.length > 0 ||
+            bookingsProvider.customBackdrop != ''
         ? Padding(
             padding: const EdgeInsets.only(top: 20),
             child: Column(
@@ -42,7 +45,8 @@ class MultiSessionBackdropSelector extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (context) => BackdropPage(
                           subPackage: subPackage,
-                          subSessionSelectedBackdrops: selectedBackdrops,
+                          subSessionSelectedBackdrops:
+                              bookingsProvider.selectedBackdrops,
                         ),
                       ),
                     );
@@ -66,7 +70,8 @@ class MultiSessionBackdropSelector extends StatelessWidget {
                           child: Column(
                             children: context
                                 .watch<AppData>()
-                                .getBackdropsByIds(selectedBackdrops)
+                                .getBackdropsByIds(
+                                    bookingsProvider.selectedBackdrops)
                                 .map(
                                   (e) => Padding(
                                     padding:

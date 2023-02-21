@@ -172,6 +172,7 @@ class _BackdropTypeState extends State<BackdropType> {
         child: FilledButtonWidget(
           onPress: () {
             print(bookingsProvider.package!.minBackdrop);
+            print('muli');
             print(_selectedItems.length);
             if (_selectedItems.length < bookingsProvider.package!.minBackdrop &&
                 bookingsProvider.package!.minBackdrop != null) {
@@ -183,6 +184,7 @@ class _BackdropTypeState extends State<BackdropType> {
                   Map<int, List<int>> backdropsMap = {
                     widget.subPackage!.id!: _selectedItems,
                   };
+
                   bookingsProvider.amendSubSessionBookingDetails(
                     SubSessionBookingDetailsType.backdrop,
                     backdropsMap,

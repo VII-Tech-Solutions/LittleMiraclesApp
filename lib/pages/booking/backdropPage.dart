@@ -343,7 +343,8 @@ class _BackdropPageState extends State<BackdropPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => BackdropType(index: index),
+                            builder: (context) => BackdropType(
+                                subPackage: widget.subPackage, index: index),
                           ),
                         );
                       });
@@ -577,8 +578,6 @@ class _BackdropPageState extends State<BackdropPage> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: FilledButtonWidget(
           onPress: () {
-            print(bookingsProvider.selectedBackdrops.length);
-            print(bookingsProvider.package!.minBackdrop);
             if (bookingsProvider.selectedBackdrops.length <
                     bookingsProvider.package!.minBackdrop &&
                 bookingsProvider.package!.minBackdrop != null) {
@@ -589,18 +588,17 @@ class _BackdropPageState extends State<BackdropPage> {
               if (
                   // bookingsProvider.selectedBackdrops.isNotEmpty ||
                   _customBackdrop.isNotEmpty) {
-                // if (widget.subPackage != null) {
-                //   Map<int, List<int>> backdropsMap = {
-                //     widget.subPackage!.id!: _selectedItems,
-                //   };
-                //   bookingsProvider.amendSubSessionBookingDetails(
-                //     SubSessionBookingDetailsType.backdrop,
-                //     backdropsMap,
-                //   );
-                // } else {
-                bookingsProvider.assignSelectedBackdrops([], _customBackdrop);
-                print(bookingsProvider.customBackdrop);
-                // }
+                if (widget.subPackage != null) {
+                  Map<int, List<int>> backdropsMap = {
+                    widget.subPackage!.id!: _selectedItems,
+                  };
+                  bookingsProvider.amendSubSessionBookingDetails(
+                    SubSessionBookingDetailsType.backdrop,
+                    backdropsMap,
+                  );
+                } else {
+                  bookingsProvider.assignSelectedBackdrops([], _customBackdrop);
+                }
                 Navigator.pop(context);
               } else if (bookingsProvider.selectedBackdrops.isNotEmpty) {
                 Navigator.pop(context);

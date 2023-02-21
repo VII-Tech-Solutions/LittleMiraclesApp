@@ -83,6 +83,7 @@ class SessionStatusStepperContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final package = context.watch<AppData>().package;
     final session = subSession ?? context.watch<AppData>().session;
+    print("session?.status ${session?.status}");
 
     return Container(
       height: 422,
@@ -180,16 +181,17 @@ class SessionStatusStepperContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _stepper(
-                  (isSameDay(
-                          DateTime.now(),
-                          (DateTime.tryParse(session?.date ?? '') ??
-                              DateTime(0))) ||
-                      (DateTime.tryParse(session?.date ?? '') ?? DateTime.now())
-                          .isBefore(
-                        DateTime.now(),
-                      )),
-                ),
+                _stepper((session?.status ?? 0) >= 2),
+                // _stepper(
+                //   (isSameDay(
+                //           DateTime.now(),
+                //           (DateTime.tryParse(session?.date ?? '') ??
+                //               DateTime(0))) ||
+                //       (DateTime.tryParse(session?.date ?? '') ?? DateTime.now())
+                //           .isBefore(
+                //         DateTime.now(),
+                //       )),
+                // ),
                 TitleText(
                   title: 'Photoshoot Day!',
                   type: TitleTextType.secondaryTitle,
@@ -235,14 +237,15 @@ class SessionStatusStepperContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _stepper(
-                  DateTime.now().isAfter(
-                    (DateTime.tryParse(session?.date ?? '') ?? DateTime.now())
-                        .add(
-                      Duration(days: 1),
-                    ),
-                  ),
-                ),
+                _stepper((session?.status ?? 0) >= 3),
+                // _stepper(
+                //   DateTime.now().isAfter(
+                //     (DateTime.tryParse(session?.date ?? '') ?? DateTime.now())
+                //         .add(
+                //       Duration(days: 1),
+                //     ),
+                //   ),
+                // ),
                 TitleText(
                   title: 'Magic making in progress',
                   type: TitleTextType.secondaryTitle,
@@ -259,14 +262,15 @@ class SessionStatusStepperContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _stepper(
-                  DateTime.now().isAfter(
-                    (DateTime.tryParse(session?.date ?? '') ?? DateTime.now())
-                        .add(
-                      Duration(days: 14),
-                    ),
-                  ),
-                ),
+                _stepper((session?.status ?? 0) >= 3),
+                // _stepper(
+                //   DateTime.now().isAfter(
+                //     (DateTime.tryParse(session?.date ?? '') ?? DateTime.now())
+                //         .add(
+                //       Duration(days: 14),
+                //     ),
+                //   ),
+                // ),
                 TitleText(
                   title: 'Getting all your photos in order',
                   type: TitleTextType.secondaryTitle,
@@ -283,14 +287,15 @@ class SessionStatusStepperContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _stepper(
-                    DateTime.now().isAfter(
-                      (DateTime.tryParse(session?.date ?? '') ?? DateTime.now())
-                          .add(
-                        Duration(days: 28),
-                      ),
-                    ),
-                    hasLine: false),
+                _stepper((session?.status ?? 0) >= 4, hasLine: false),
+                // _stepper(
+                //     DateTime.now().isAfter(
+                //       (DateTime.tryParse(session?.date ?? '') ?? DateTime.now())
+                //           .add(
+                //         Duration(days: 28),
+                //       ),
+                //     ),
+                //     hasLine: false),
                 TitleText(
                   title: 'Your photos are ready!',
                   type: TitleTextType.secondaryTitle,
