@@ -149,7 +149,7 @@ class _CartPageState extends State<CartPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'VAT (5%)',
+                      'VAT (10%)',
                       style: TextStyle(
                         fontFamily: GoogleFonts.manrope().fontFamily,
                         fontWeight: FontWeight.w800,
