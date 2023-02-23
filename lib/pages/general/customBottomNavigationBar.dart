@@ -154,47 +154,48 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     final auth = context.watch<Auth>();
     print(auth.user);
     return Scaffold(
-      body: auth.user != null && auth.user!.role == 2
+      body: auth.user != null && (auth.user!.role == 2 || auth.user!.role == 1)
           ? Container()
           : Center(
               child: _widgetOptions.elementAt(_selectedIndex),
             ),
-      bottomNavigationBar: auth.user != null && auth.user!.role == 2
-          ? AdminBookingPage()
-          : BottomNavigationBar(
-              key: widget.globalKey,
-              enableFeedback: false,
-              showUnselectedLabels: true,
-              type: BottomNavigationBarType.fixed,
-              backgroundColor: Colors.white,
-              elevation: 0,
-              items: const <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: 'Explore',
+      bottomNavigationBar:
+          auth.user != null && (auth.user!.role == 2 || auth.user!.role == 1)
+              ? AdminBookingPage()
+              : BottomNavigationBar(
+                  key: widget.globalKey,
+                  enableFeedback: false,
+                  showUnselectedLabels: true,
+                  type: BottomNavigationBarType.fixed,
+                  backgroundColor: Colors.white,
+                  elevation: 0,
+                  items: const <BottomNavigationBarItem>[
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.home),
+                      label: 'Explore',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.local_activity),
+                      label: 'Bookings',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.photo_album),
+                      label: 'Studio',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.menu),
+                      label: 'More',
+                    ),
+                  ],
+                  currentIndex: _selectedIndex,
+                  unselectedFontSize: 12,
+                  unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w400),
+                  unselectedItemColor: AppColors.black45515D,
+                  selectedFontSize: 12,
+                  selectedLabelStyle: TextStyle(fontWeight: FontWeight.w800),
+                  selectedItemColor: AppColors.blue8DC4CB,
+                  onTap: _onItemTapped,
                 ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.local_activity),
-                  label: 'Bookings',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.photo_album),
-                  label: 'Studio',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.menu),
-                  label: 'More',
-                ),
-              ],
-              currentIndex: _selectedIndex,
-              unselectedFontSize: 12,
-              unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w400),
-              unselectedItemColor: AppColors.black45515D,
-              selectedFontSize: 12,
-              selectedLabelStyle: TextStyle(fontWeight: FontWeight.w800),
-              selectedItemColor: AppColors.blue8DC4CB,
-              onTap: _onItemTapped,
-            ),
     );
   }
 }

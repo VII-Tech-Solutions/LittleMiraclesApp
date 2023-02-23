@@ -69,6 +69,7 @@ class _AdminBookingPageState extends State<AdminBookingPage> {
   Widget build(BuildContext context) {
     final authProvider = context.watch<Auth>();
     final bookingsProvider = context.watch<Bookings>();
+
     // bookingsProvider.fetchAdminSessionDetails();
     return Scaffold(
       appBar: AppBar(
@@ -112,7 +113,7 @@ class _AdminBookingPageState extends State<AdminBookingPage> {
               AdminSliverAppBar(
                   'Hi',
                   '${authProvider.user != null ? authProvider.user!.name : ''} ✨',
-                  widget.showChat),
+                  authProvider.user!.role == 1 ? false : widget.showChat),
               SliverToBoxAdapter(
                 child: Padding(
                     padding: const EdgeInsets.all(16),

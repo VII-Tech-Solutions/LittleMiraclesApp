@@ -105,7 +105,7 @@ class _PhotographerPageState extends State<PhotographerPage> {
                             package.id != 6 ||
                             package.id != 5 ||
                             package.id != 6 ||
-                            package.sub_packages.id != 10) &&
+                            package.subPackagesIds != 10) &&
                         photographers[index].additionalCharge != null &&
                         photographers[index].additionalCharge != 0 &&
                         photographers[index].additionalCharge != -1

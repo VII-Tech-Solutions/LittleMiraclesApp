@@ -84,21 +84,21 @@ class _AdminPhotograherState extends State<AdminPhotograher> {
                 ),
                 (Route<dynamic> route) => false,
               );
+            } else if (authProvider.user?.role == 1) {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CustomBottomNavigationBar(),
+                ),
+                (Route<dynamic> route) => false,
+              );
               // Navigator.pushAndRemoveUntil<void>(
               //   context,
               //   MaterialPageRoute<void>(
               //       builder: (BuildContext context) =>
-              //           const AdminBookingPage()),
+              //           const PhotographersPage()),
               //   ModalRoute.withName('/'),
               // );
-            } else if (authProvider.user?.role == 1) {
-              Navigator.pushAndRemoveUntil<void>(
-                context,
-                MaterialPageRoute<void>(
-                    builder: (BuildContext context) =>
-                        const PhotographersPage()),
-                ModalRoute.withName('/'),
-              );
             }
           });
         });
