@@ -113,7 +113,7 @@ class _AdminBookingPageState extends State<AdminBookingPage> {
               AdminSliverAppBar(
                   'Hi',
                   '${authProvider.user != null ? authProvider.user!.name : ''} ✨',
-                  authProvider.user!.role == 1 ? false : widget.showChat),
+                  authProvider.user!.role == 1 ? false : true),
               SliverToBoxAdapter(
                 child: Padding(
                     padding: const EdgeInsets.all(16),
