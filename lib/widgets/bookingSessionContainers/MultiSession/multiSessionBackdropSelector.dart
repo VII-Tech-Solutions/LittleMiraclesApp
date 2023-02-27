@@ -26,6 +26,7 @@ class MultiSessionBackdropSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bookingsProvider = context.watch<Bookings>();
+    print(bookingsProvider.subSessionSelectedBackdrops);
     return bookingsProvider.selectedBackdrops.length > 0 ||
             bookingsProvider.customBackdrop != ''
         ? Padding(

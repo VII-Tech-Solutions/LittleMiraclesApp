@@ -273,9 +273,12 @@ class Bookings with ChangeNotifier {
     print(jsonEncode(_bookingBody));
   }
 
-  Future<void> amendSubSessionBookingDetails(int dataType, dynamic data) async {
+  Future<void> amendSubSessionBookingDetails(int dataType, dynamic data,
+      {selectedList}) async {
     switch (dataType) {
       case SubSessionBookingDetailsType.backdrop:
+        _selectedBackdrops = selectedList;
+
         _subSessionSelectedBackdrops.addAll(data);
         break;
 

@@ -878,7 +878,7 @@ class Auth with ChangeNotifier {
       ).timeout(Duration(seconds: Timeout.value));
 
       print(response.statusCode);
-      Navigator.pop(context);
+
       final result = json.decode(response.body);
       if (response.statusCode != 200) {
         if ((response.statusCode >= 400 && response.statusCode <= 499) ||

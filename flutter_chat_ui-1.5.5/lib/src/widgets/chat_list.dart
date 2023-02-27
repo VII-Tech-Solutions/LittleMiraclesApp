@@ -261,9 +261,49 @@ class _ChatListState extends State<ChatList>
           backgroundColor: Colors.transparent,
           systemOverlayStyle: SystemUiOverlayStyle.dark,
           flexibleSpace: AnimatedContainer(
-            color: _showAppBar ? Colors.white : Colors.white.withOpacity(0),
+            decoration: !_showAppBar
+                ? null
+                : const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft,
+                      colors: [
+                        AppColors.blueE8F3F5,
+                        AppColors.blue8DC4CB,
+                      ],
+                    ),
+                  ),
+            // color: _showAppBar ? Colors.white : Colors.white.withOpacity(0),
             duration: const Duration(milliseconds: 100),
           ),
+          title: !_showAppBar
+              ? null
+              : Align(
+                  alignment: Alignment.bottomLeft,
+                  child: RichText(
+                    textAlign: TextAlign.start,
+                    text: TextSpan(
+                      text: 'Let\'s ',
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontFamily: GoogleFonts.manrope().fontFamily,
+                        fontWeight: FontWeight.w300,
+                        color: AppColors.black45515D,
+                      ),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'chat 🤗',
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontFamily: GoogleFonts.manrope().fontFamily,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.black45515D,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
           leading: Padding(
             padding: const EdgeInsets.only(left: 16.0),
             child: MaterialButton(

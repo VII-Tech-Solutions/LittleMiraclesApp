@@ -603,7 +603,8 @@ class _BackdropPageState extends State<BackdropPage> {
               } else if (bookingsProvider.selectedBackdrops.isNotEmpty) {
                 Navigator.pop(context);
               } else {
-                ShowOkDialog(context, 'Please select a backdrop to proceed');
+                Navigator.pop(context);
+                // ShowOkDialog(context, 'Please select a backdrop to proceed');
               }
             }
           },

@@ -186,9 +186,8 @@ class _BackdropTypeState extends State<BackdropType> {
                   };
 
                   bookingsProvider.amendSubSessionBookingDetails(
-                    SubSessionBookingDetailsType.backdrop,
-                    backdropsMap,
-                  );
+                      SubSessionBookingDetailsType.backdrop, backdropsMap,
+                      selectedList: _selectedItems);
                 } else {
                   bookingsProvider.assignSelectedBackdrops(
                       _selectedItems, _customBackdrop);

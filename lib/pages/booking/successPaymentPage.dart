@@ -124,7 +124,8 @@ class SuccessPaymentPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 5),
                   child: Text(
-                    'BD ${promoCode?.totalPrice ?? package?.price ?? ''}',
+                    // 'BD ${promoCode?.totalPrice  ?? package?.price  ?? ''}',
+                    'BD ${promoCode?.totalPrice ?? session!.subtotal ?? ''}',
                     style: TextStyle(
                       color: AppColors.black45515D,
                       fontSize: 14,
