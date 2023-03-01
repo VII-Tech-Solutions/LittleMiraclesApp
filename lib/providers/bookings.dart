@@ -45,6 +45,7 @@ class Bookings with ChangeNotifier {
 
   Map<dynamic, dynamic> _selectedCakes;
   String _customCake = '';
+
   List<int> _selectedBackdrops = [];
   String _customBackrop = '';
   List<AvailableDates> _availableDates = [];
@@ -62,36 +63,39 @@ class Bookings with ChangeNotifier {
   String _guidelineString = '';
   List<Question> _feedbackQuestions = [];
   bool _appRate = false;
+  bool? nocake = false;
 
   Bookings(
-      this.authToken,
-      this._package,
-      this._benefits,
-      this._packageMedia,
-      this._packageReviews,
-      this._subPackages,
-      this._selectedBackdrops,
-      this._selectedCakes,
-      this._subSessionSelectedBackdrops,
-      this._subSessionSelectedCakes,
-      this._subSessionSelectedPhotographer,
-      this._subSessionsTemporaryBooked,
-      this._customBackrop,
-      this._customCake,
-      this._bookingBody,
-      this._availableDates,
-      this._availableTimings,
-      this._session,
-      this._subSessions,
-      this._promoCode,
-      this._feedbackQuestions,
-      this._guidelineString,
-      this._appRate,
-      {this.bookingMultiDateBody1,
-      this.bookingMultiDateBody2,
-      this.bookingMultiDateBody3,
-      this.sessionList,
-      this.bookingMultiDateBody4});
+    this.authToken,
+    this._package,
+    this._benefits,
+    this._packageMedia,
+    this._packageReviews,
+    this._subPackages,
+    this._selectedBackdrops,
+    this._selectedCakes,
+    this._subSessionSelectedBackdrops,
+    this._subSessionSelectedCakes,
+    this._subSessionSelectedPhotographer,
+    this._subSessionsTemporaryBooked,
+    this._customBackrop,
+    this._customCake,
+    this._bookingBody,
+    this._availableDates,
+    this._availableTimings,
+    this._session,
+    this._subSessions,
+    this._promoCode,
+    this._feedbackQuestions,
+    this._guidelineString,
+    this._appRate, {
+    this.bookingMultiDateBody1,
+    this.bookingMultiDateBody2,
+    this.bookingMultiDateBody3,
+    this.sessionList,
+    this.bookingMultiDateBody4,
+    this.nocake,
+  });
 
   Package? get package {
     return _package;
@@ -273,6 +277,11 @@ class Bookings with ChangeNotifier {
     print(jsonEncode(_bookingBody));
   }
 
+  clearbackdrop() {
+    _selectedBackdrops = [];
+    notifyListeners();
+  }
+
   Future<void> amendSubSessionBookingDetails(int dataType, dynamic data,
       {selectedList}) async {
     switch (dataType) {
@@ -356,10 +365,12 @@ class Bookings with ChangeNotifier {
     notifyListeners();
   }
 
-  void assignSelectedCakes(Map<String, dynamic> selectedList, String val) {
+  void assignSelectedCakes(Map<String, dynamic> selectedList, String val,
+      {nocakes}) {
     _selectedCakes = selectedList;
     _customCake = val;
-    print('_selectedCakes $_selectedCakes');
+    nocake = nocakes;
+    print('_selectedCakes $nocake');
     amendBookingBody({
       'cakes': _customCake != '' ? null : [_selectedCakes],
       'custom_cake': _customCake,

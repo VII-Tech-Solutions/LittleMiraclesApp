@@ -27,11 +27,13 @@ class SessionSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     final session =
         context.watch<Bookings>().getSubSessionBySubPackageId(subPackage.id);
-
+    final bookingsProvider = context.watch<Bookings>();
     return session != null
         ? SubSessionDetailsContainer(subPackage, session, canEdit)
         : InkWell(
             onTap: () {
+              bookingsProvider.clearbackdrop();
+
               Navigator.push(
                 context,
                 MaterialPageRoute(

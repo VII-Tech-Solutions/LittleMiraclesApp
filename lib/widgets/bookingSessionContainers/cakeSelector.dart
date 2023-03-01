@@ -23,9 +23,10 @@ class CakeSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bookingsProvider = context.watch<Bookings>();
-    print('object ${bookingsProvider.selectedCakes}');
+    print('object ${bookingsProvider.nocake}');
     return bookingsProvider.selectedCakes.length > 0 ||
-            bookingsProvider.customCake != ''
+            bookingsProvider.customCake != '' ||
+            bookingsProvider.nocake == true
         ? Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,6 +102,28 @@ class CakeSelector extends StatelessWidget {
                         Expanded(
                             child: Text(
                                 "Custom cake: ${bookingsProvider.customCake}")),
+                      if (bookingsProvider.nocake == true)
+                        Expanded(
+                          child: Row(
+                            children: [
+                              Container(
+                                  height: 68,
+                                  width: 68,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: AppColors.pinkFEF2F1),
+                                  child: Icon(
+                                    Icons.block,
+                                    size: 50,
+                                    color: AppColors.pinkFCE0DC,
+                                  )),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text("No cake"),
+                            ],
+                          ),
+                        ),
                       Padding(
                         padding: const EdgeInsets.only(top: 13.0),
                         child: Icon(

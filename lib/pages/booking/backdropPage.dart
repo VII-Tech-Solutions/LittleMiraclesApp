@@ -225,6 +225,7 @@
 
 // Flutter imports:
 import 'package:LMP0001_LittleMiraclesApp/pages/booking/backdropType.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -458,7 +459,9 @@ class _BackdropPageState extends State<BackdropPage> {
                     ),
                   );
                 },
-                childCount: appDataProvider.backdropCategories.length,
+                childCount: bookingsProvider.package!.id == 6
+                    ? appDataProvider.backdropCategories.length
+                    : 3,
               ),
             ),
             SliverToBoxAdapter(
@@ -483,15 +486,28 @@ class _BackdropPageState extends State<BackdropPage> {
                   child: Row(
                     children: [
                       Container(
-                          height: 68,
-                          width: 68,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: Colors.grey.shade300),
-                          child: Icon(
-                            Icons.photo_outlined,
-                            size: 50,
-                          )),
+                        height: 50,
+                        width: 50,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.asset(
+                            'assets/images/backdrop.png',
+                            fit: BoxFit.cover,
+                            height: double.infinity,
+                            width: double.infinity,
+                          ),
+                        ),
+                      ),
+                      // Container(
+                      //     height: 68,
+                      //     width: 68,
+                      //     decoration: BoxDecoration(
+                      //         borderRadius: BorderRadius.circular(5),
+                      //         color: Colors.grey.shade300),
+                      //     child: Icon(
+                      //       Icons.photo_outlined,
+                      //       size: 50,
+                      //     )),
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
