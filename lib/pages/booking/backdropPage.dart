@@ -458,7 +458,7 @@ class _BackdropPageState extends State<BackdropPage> {
                     ),
                   );
                 },
-                childCount: appDataProvider.cakeCategories.length,
+                childCount: appDataProvider.backdropCategories.length,
               ),
             ),
             SliverToBoxAdapter(
