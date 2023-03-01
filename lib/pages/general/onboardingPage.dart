@@ -137,7 +137,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   style: const TextStyle(
                     color: AppColors.black45515D,
                     fontWeight: FontWeight.w200,
-                    fontSize: 12.0,
+                    fontSize: 14.0,
                   ),
                 ),
               ),
