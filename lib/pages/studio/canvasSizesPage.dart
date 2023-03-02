@@ -102,7 +102,7 @@ class _CanvasSizePageState extends State<CanvasSizePage> {
               crossAxisCount: 3,
               childAspectRatio: 107 / 115,
               children: appDataProvider
-                  .getStudioMetadata(StudioMetaCategory.canvasSize)
+                  .getStudioCanvasSize(StudioMetaCategory.canvasSize, context)
                   .map(
                     (item) => InkWell(
                       onTap: () {
@@ -183,10 +183,12 @@ class _CanvasSizePageState extends State<CanvasSizePage> {
       bottomNavigationBar: StudioBottomSectionContainer(
           title: 'Canvas Size ${_selectedItem?.title ?? ''}',
           btnLabel: 'Confirm Size',
+          priceData: _selectedItem?.price,
           onTap: () {
             if (_selectedItem != null) {
               context.read<Studio>().assignSelectedSpec(
                   StudioMetaCategory.canvasSize, _selectedItem);
+              print('-----canvas---${_selectedItem!.title}');
               Navigator.pop(context);
             } else {
               ShowOkDialog(context, 'Please select canvas size to proceed');

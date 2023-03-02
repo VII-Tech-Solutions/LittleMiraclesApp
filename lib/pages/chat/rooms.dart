@@ -19,7 +19,7 @@ import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as b;
 import 'package:provider/provider.dart';
 // Project imports:
 import '../../global/colors.dart';
@@ -53,7 +53,7 @@ class _RoomsPageState extends State<RoomsPage> {
     initializeFlutterFire();
     Future.delayed(Duration(milliseconds: 100))
         .then((_) => context.read<ChatData>().readDB());
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
       var response = await context.read<ChatData>().getSupportUserIds();
 
       final extractedData =
@@ -380,7 +380,7 @@ class _RoomsPageState extends State<RoomsPage> {
                               Stack(
                                 alignment: Alignment.center,
                                 children: [
-                                  Badge(
+                                  b.Badge(
                                     padding: const EdgeInsets.only(
                                         top: 14, right: 14),
                                     showBadge: _badge &&

@@ -396,11 +396,10 @@ class _CakePageState extends State<CakePage> {
                           width: 68,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
-                              color: AppColors.pinkFEF2F1),
+                              color: Colors.grey.shade300),
                           child: Icon(
                             Icons.block,
                             size: 50,
-                            color: AppColors.pinkFCE0DC,
                           )),
                       Expanded(
                         child: Padding(
@@ -471,10 +470,9 @@ class _CakePageState extends State<CakePage> {
                           width: 68,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
-                              color: AppColors.blueF4F9FA),
+                              color: Colors.grey.shade300),
                           child: Icon(
                             Icons.cake,
-                            color: AppColors.blueBBDCE0,
                             size: 50,
                           )),
                       Expanded(
@@ -576,8 +574,7 @@ class _CakePageState extends State<CakePage> {
               // bookingsProvider.assignSelectedCakes(_selectedItems, _customCake);
               bookingsProvider.assignSelectedCakes(
                   colorId == [] || colorId == null ? {} : colorId[0],
-                  _customCake,
-                  nocakes: isSelected == 'nocake' ? true : false);
+                  _customCake);
             }
             Navigator.pop(context);
           },

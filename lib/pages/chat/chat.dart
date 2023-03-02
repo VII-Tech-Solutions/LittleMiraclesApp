@@ -290,7 +290,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance!.addObserver(this);
     global.roomId = widget.room.id;
     Future.delayed(Duration(milliseconds: 500)).then((_) => context
         .read<ChatData>()
@@ -305,7 +305,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
 
   @override
   void dispose() {
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance!.removeObserver(this);
     global.roomId = null;
     _scaffoldKey.currentContext
         ?.read<ChatData>()

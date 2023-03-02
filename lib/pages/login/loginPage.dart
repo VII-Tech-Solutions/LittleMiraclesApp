@@ -216,7 +216,7 @@ class LoginPage extends StatelessWidget {
     if (result != null) {
       if (authProvider.token.isNotEmpty) {
         final token = authProvider.token;
-        final bookingsProvider = context.watch<Bookings>();
+        final bookingsProvider = context.read<Bookings>();
         bookingsProvider.fetchAdminSessionDetails();
         await appDataProvider.fetchAndSetSessions(token: token).then((_) {
           appDataProvider.fetchAndSetAppData().then((_) {
@@ -272,7 +272,6 @@ class LoginPage extends StatelessWidget {
         //       password: generateRandomString(18));
         //   FirebaseAuth.instance.currentUser?.linkWithCredential(credential);
         // }
-
       } else {
         ShowLoadingDialog(context, dismiss: true);
         ShowOkDialog(context, ErrorMessages.somethingWrong);

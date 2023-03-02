@@ -15,6 +15,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nb_utils/nb_utils.dart';
+
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -26,6 +27,7 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import './pages/general/splashscreen.dart';
 import './providers/appData.dart';
 import './providers/auth.dart';
+
 import './providers/bookings.dart';
 import './providers/studio.dart';
 import 'firebase_options.dart';

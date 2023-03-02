@@ -15,6 +15,7 @@ import '../../providers/appData.dart';
 import '../../providers/auth.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
 import './customBottomNavigationBar.dart';
+import 'dart:io' show Platform;
 
 class OnboardingPage extends StatefulWidget {
   @override
@@ -134,10 +135,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 ),
                 child: Text(
                   '$description',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.black45515D,
                     fontWeight: FontWeight.w200,
-                    fontSize: 14.0,
+                    fontSize: Platform.isAndroid ? 14.0 : 16.0,
                   ),
                 ),
               ),
