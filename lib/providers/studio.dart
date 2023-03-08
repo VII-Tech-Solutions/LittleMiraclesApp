@@ -195,9 +195,13 @@ class Studio with ChangeNotifier {
     }
     if (_selectedCanvasSize != null) {
       price += _selectedCanvasSize!.price.toString().toDouble();
+      print(
+          '------tcanvasPrice--- ${_selectedCanvasSize!.price.toString().toDouble()}---price--$price');
     }
     if (_selectedCanvasThickness != null) {
       price += _selectedCanvasThickness!.price.toString().toDouble();
+      print(
+          '------thickPrice--- ${_selectedCanvasThickness!.price.toString().toDouble()}');
     }
     if (_selectedPrintType != null) {
       price += _selectedPrintType!.price.toString().toDouble();

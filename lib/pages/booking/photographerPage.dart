@@ -208,7 +208,7 @@ class _PhotographerPageState extends State<PhotographerPage> {
                 //   (response) {
                 //     ShowLoadingDialog(context, dismiss: true);
                 //     if (response?.statusCode == 200) {
-                //       Navigator.push(
+                //       Navigator.push(  
                 //         context,
                 //         MaterialPageRoute(
                 //           builder: (context) => ReviewAndPayPage(),

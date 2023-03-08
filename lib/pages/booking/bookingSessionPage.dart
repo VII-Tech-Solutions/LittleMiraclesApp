@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 import '../../global/const.dart';
 import '../../models/question.dart';
 import '../../pages/booking/photographerPage.dart';
+import '../../providers/appData.dart';
 import '../../providers/auth.dart';
 import '../../providers/bookings.dart';
 import '../../widgets/appbars/appBarWithBack.dart';
@@ -26,6 +27,7 @@ import '../../widgets/dialogs/showLoadingDialog.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
 import '../../widgets/form/textQuestionWidget.dart';
 import '../../widgets/packageContainers/packageBottomSectionContainer.dart';
+import 'backdropType.dart';
 
 //EXTENSIONS
 
@@ -40,9 +42,11 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
   @override
   void deactivate() {
     context.read<Bookings>().resetBookingsData();
+
     super.deactivate();
   }
 
+  
   @override
   Widget build(BuildContext context) {
     final bookingsProvider = context.read<Bookings>();
@@ -86,8 +90,9 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
                 (val) {
                   if (val != null) {
                     if (val['answer'] != '') {
-                      bookingsProvider
-                          .amendBookingBody({'comments': val['answer']});
+                      bookingsProvider.amendBookingBody(
+                        {'comments': val['answer']},
+                      );
                     } else {
                       bookingsProvider.amendBookingBody({'comments': ''});
                     }

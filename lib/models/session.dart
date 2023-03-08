@@ -79,6 +79,8 @@ class Session {
       this.peopleData,
       this.vatAmount});
 
+  get people => null;
+
   Map<String, dynamic> toMap() {
     return {
       'id': id ?? -1,

@@ -1,6 +1,7 @@
 //PACKAGES
 
 // Dart imports:
+import 'dart:convert';
 import 'dart:io';
 
 // Flutter imports:
@@ -54,6 +55,7 @@ class _AdminPhotograherState extends State<AdminPhotograher> {
     result = await authProvider.loginAsAdmin(
         _firstNameController.text, _lastNameController.text,
         context: context);
+    print('---resulttt---${jsonEncode(result)}');
 
     if (result != null) {
       if (authProvider.token.isNotEmpty) {

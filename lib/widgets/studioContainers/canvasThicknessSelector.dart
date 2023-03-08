@@ -51,7 +51,7 @@ class _CanvasThicknessSelectorState extends State<CanvasThicknessSelector> {
       children: [
         Padding(
           padding: const EdgeInsets.only(
-            top: 30,
+            // top: 10,
             bottom: 5,
           ),
           child: Text(
@@ -74,6 +74,28 @@ class _CanvasThicknessSelectorState extends State<CanvasThicknessSelector> {
                     _selectedItem = item;
                     context.read<Studio>().assignSelectedSpec(
                         StudioMetaCategory.canvasThickness, _selectedItem);
+                    StudioMetadata? _data =
+                        context.read<Studio>().selectedCanvasSize;
+
+                    if (_data != null) {
+                      var list = context.read<AppData>().getStudioCanvasSize(
+                          StudioMetaCategory.canvasSize, context);
+                      list.forEach((element) {
+                        setState(() {
+                          if (_data?.id == element.id) {
+                            _data = null;
+                          } else {
+                            _data = element;
+                          }
+                        });
+                      });
+
+                      context.read<Studio>().assignSelectedSpec(
+                          StudioMetaCategory.canvasSize, _data);
+                      print('-----data123--- ${_data!.price}');
+                    }
+
+                    // context.read<Studio>()._selectedCanvasSize;
                   }),
                   child: AnimatedContainer(
                     height: 40,

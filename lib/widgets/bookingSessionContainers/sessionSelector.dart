@@ -14,6 +14,7 @@ import '../../models/package.dart';
 import '../../pages/booking/multiSessionPackage/subSessionBookingPage.dart';
 import '../../providers/bookings.dart';
 import '../../widgets/bookingSessionContainers/MultiSession/subSessionDetailsContainer.dart';
+import '../dialogs/showOkDialog.dart';
 import '../texts/titleText.dart';
 
 //EXTENSIONS
@@ -21,27 +22,89 @@ import '../texts/titleText.dart';
 class SessionSelector extends StatelessWidget {
   final SubPackage subPackage;
   final bool canEdit;
+
   const SessionSelector(this.subPackage, this.canEdit);
 
   @override
   Widget build(BuildContext context) {
     final session =
         context.watch<Bookings>().getSubSessionBySubPackageId(subPackage.id);
-    final bookingsProvider = context.watch<Bookings>();
+    final sessionBody1 =
+        context.watch<Bookings>().getSubSessionBySubPackageId(5);
+    final sessionBody2 =
+        context.watch<Bookings>().getSubSessionBySubPackageId(10);
+    final sessionBody3 =
+        context.watch<Bookings>().getSubSessionBySubPackageId(11);
+
     return session != null
         ? SubSessionDetailsContainer(subPackage, session, canEdit)
         : InkWell(
             onTap: () {
-              bookingsProvider.clearbackdrop();
+              final provider = context.read<Bookings>();
 
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  // builder: (context) => SubSessionBookingPage(subPackage),
-                  builder: (context) =>
-                      PhotographerPage(subPackage: subPackage),
-                ),
-              );
+              switch (subPackage.id) {
+                case 10:
+                  {
+                    if (sessionBody1 != null) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          // builder: (context) => SubSessionBookingPage(subPackage),
+                          builder: (context) =>
+                              PhotographerPage(subPackage: subPackage),
+                        ),
+                      );
+                    } else {
+                      ShowOkDialog(context, 'Please select above session');
+                    }
+                  }
+                  break;
+                case 11:
+                  {
+                    if (sessionBody1 != null && sessionBody2 != null) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          // builder: (context) => SubSessionBookingPage(subPackage),
+                          builder: (context) =>
+                              PhotographerPage(subPackage: subPackage),
+                        ),
+                      );
+                    } else {
+                      ShowOkDialog(context, 'Please select above session');
+                    }
+                  }
+                  break;
+                case 12:
+                  {
+                    if (sessionBody1 != null &&
+                        sessionBody2 != null &&
+                        sessionBody3 != null) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          // builder: (context) => SubSessionBookingPage(subPackage),
+                          builder: (context) =>
+                              PhotographerPage(subPackage: subPackage),
+                        ),
+                      );
+                    } else {
+                      ShowOkDialog(context, 'Please select above session');
+                    }
+                  }
+                  break;
+                default:
+                  {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        // builder: (context) => SubSessionBookingPage(subPackage),
+                        builder: (context) =>
+                            PhotographerPage(subPackage: subPackage),
+                      ),
+                    );
+                  }
+              }
             },
             child: Container(
               margin: const EdgeInsets.fromLTRB(16, 10, 16, 0),

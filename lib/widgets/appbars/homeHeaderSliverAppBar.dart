@@ -66,18 +66,18 @@ class HomeHeaderSliverAppBar extends StatelessWidget {
                             child: RichText(
                               textAlign: TextAlign.start,
                               text: TextSpan(
-                                text: 'Welcome ',
+                                text: 'Welcome to\n',
                                 style: TextStyle(
-                                  fontSize: 36,
+                                  fontSize: 30,
                                   fontFamily: GoogleFonts.manrope().fontFamily,
-                                  fontWeight: FontWeight.w300,
+                                  fontWeight: FontWeight.normal,
                                   color: AppColors.black45515D,
                                 ),
                                 children: <TextSpan>[
                                   TextSpan(
-                                    text: 'to Little\nMiracles',
+                                    text: 'Little Miracles 🌟',
                                     style: TextStyle(
-                                      fontSize: 36,
+                                      fontSize: 34,
                                       fontFamily:
                                           GoogleFonts.manrope().fontFamily,
                                       fontWeight: FontWeight.bold,

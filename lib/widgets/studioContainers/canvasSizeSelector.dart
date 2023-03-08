@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
 import '../../global/colors.dart';
 import '../../pages/studio/canvasSizesPage.dart';
+import '../../providers/appData.dart';
 import '../../providers/studio.dart';
 import '../form/formTextField.dart';
 import '../texts/titleText.dart';
@@ -19,14 +21,17 @@ import '../texts/titleText.dart';
 class CanvasSizeSelector extends StatelessWidget {
   const CanvasSizeSelector();
 
-  void _goToItemsPage(BuildContext context) {
+  Future<void> _goToItemsPage(BuildContext context) async {
     FocusScope.of(context).requestFocus(new FocusNode());
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => CanvasSizePage(),
-      ),
-    );
+
+    context.read<Studio>().selectedCanvasThickness?.id != null
+        ? await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CanvasSizePage(),
+            ),
+          )
+        : snackBar(context, title: 'Please select Canvas Thickness');
   }
 
   @override
@@ -39,7 +44,7 @@ class CanvasSizeSelector extends StatelessWidget {
             children: [
               TitleText(
                 title: 'Canvas Size',
-                customPadding: const EdgeInsets.only(bottom: 10),
+                customPadding: const EdgeInsets.only(bottom: 10, top: 10),
                 type: TitleTextType.subTitleBlack,
                 weight: FontWeight.w800,
               ),

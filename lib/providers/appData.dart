@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'dart:math';
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/providers/studio.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -13,6 +14,7 @@ import 'package:http/http.dart' as http;
 
 // Project imports:
 import 'package:LMP0001_LittleMiraclesApp/widgets/containers/recommendedPackageContainer.dart';
+import 'package:provider/provider.dart';
 import '../database/db_sqflite.dart';
 import '../extensions/stringExtension.dart';
 import '../global/const.dart';
@@ -326,6 +328,7 @@ class AppData with ChangeNotifier {
   List<Backdrop> getBackdropsByCategoryId(int catId) {
     final list = _backdrops.where((element) => element.categoryId == catId);
     return [...list];
+    // return [list.first];
   }
 
   List<Backdrop> getBackdropsByIds(List<int> list) {
@@ -374,6 +377,27 @@ class AppData with ChangeNotifier {
           .where((element) => element.category == category)
           .toList()
     ];
+  }
+
+  List<StudioMetadata> getStudioCanvasSize(int category, BuildContext context) {
+    var thicknessId = context.read<Studio>().selectedCanvasThickness?.id;
+    // _studioMetadataList.forEach((element) {
+    //   // element.thicknessId == thicknessId
+    //   print('---iddata--12--${thicknessId}');
+    //   // :
+    //   print('---iddata--eles---${element.id}--${element.thicknessId}');
+    // });
+
+    var data = [
+      ..._studioMetadataList
+          .where((element) =>
+              element.category == category &&
+              element.thicknessId == thicknessId)
+          .toList()
+    ];
+    print('----_studioMetadataList---${_studioMetadataList[0].thicknessId})');
+    print('----data---${data[0].thicknessId})');
+    return data;
   }
 
   List<StudioMetadata> getSelectedStudioMetadataByIds(
@@ -616,6 +640,7 @@ class AppData with ChangeNotifier {
         await LastUpdateClass().getLastUpdate(LastUpdate.appData);
     // final url = Uri.parse('$apiLink/data$lastUpdate');
     final url = Uri.parse('$apiLink/data');
+    print('url: $url');
 
     try {
       final response = await http.get(url, headers: {
@@ -625,6 +650,7 @@ class AppData with ChangeNotifier {
       }).timeout(Duration(seconds: Timeout.value));
 
       final extractedData = json.decode(response.body)['data'];
+      print('-----extractedData--${extractedData['studio_metadata']}');
       final onboardingJson = extractedData['onboarding'] as List;
       final dailyTipsJson = extractedData['daily_tips'] as List;
       final promotionsJson = extractedData['promotions'] as List;
@@ -1129,6 +1155,7 @@ class AppData with ChangeNotifier {
               category: item['category'],
               updatedAt: item['updatedAt'],
               deletedAt: item['deletedAt'],
+              thicknessId: item['thickness_id'],
             ),
           )
           .toList();

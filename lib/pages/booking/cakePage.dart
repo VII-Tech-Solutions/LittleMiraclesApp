@@ -209,6 +209,7 @@
 
 // Flutter imports:
 import 'package:LMP0001_LittleMiraclesApp/pages/booking/cakeColor.dart';
+import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/showOkDialog.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -306,16 +307,16 @@ class _CakePageState extends State<CakePage> {
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
                   return GestureDetector(
-                    onTap: () {
-                      setState(() async {
+                    onTap: () async {
+                      setState(() {
                         _isClearSelected = false;
-                        colorId = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => CakeColor(index: index),
-                          ),
-                        );
                       });
+                      colorId = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CakeColor(index: index),
+                        ),
+                      );
                     },
                     child: Container(
                       width: double.infinity,
@@ -447,8 +448,10 @@ class _CakePageState extends State<CakePage> {
             SliverToBoxAdapter(
               child: GestureDetector(
                 onTap: () {
-                  isSelected = 'custom';
-                  setState(() {});
+                  setState(() {
+                    isSelected = 'custom';
+                  });
+                  print('------_customCake--$_customCake');
                 },
                 child: Container(
                   width: double.infinity,
@@ -569,14 +572,22 @@ class _CakePageState extends State<CakePage> {
                 SubSessionBookingDetailsType.cake,
                 cakesMap,
               );
+              Navigator.pop(context);
             } else {
-              print(colorId);
+              print('----colorId----$colorId---$_customCake');
+              print(
+                  '----isSelected : ${isSelected.toString()}---: $_customCake');
               // bookingsProvider.assignSelectedCakes(_selectedItems, _customCake);
-              bookingsProvider.assignSelectedCakes(
-                  colorId == [] || colorId == null ? {} : colorId[0],
-                  _customCake);
+              if (isSelected == 'custom' && _customCake == '')
+                ShowOkDialog(
+                    context, 'Please add the custom cake details to proceed');
+              else {
+                bookingsProvider.assignSelectedCakes(
+                    colorId == [] || colorId == null ? {} : colorId[0],
+                    _customCake);
+                Navigator.pop(context);
+              }
             }
-            Navigator.pop(context);
           },
           title: 'Confirm Cake',
           type: ButtonType.generalBlue,

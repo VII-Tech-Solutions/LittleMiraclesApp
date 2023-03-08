@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:convert';
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/showOkDialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -762,6 +763,7 @@ class Auth with ChangeNotifier {
       print(response.statusCode);
 
       final result = json.decode(response.body);
+      print('----respos---$result');
       if (response.statusCode != 200) {
         if ((response.statusCode >= 400 && response.statusCode <= 499) ||
             response.statusCode == 503) {
@@ -849,6 +851,7 @@ class Auth with ChangeNotifier {
           DBHelper.insert(Tables.familyInfo, item.toMap());
         }
       });
+      print('-----_familyInfoList--$_familyInfoList');
 
       if (withNotifyListeners == true) {
         notifyListeners();
@@ -877,12 +880,15 @@ class Auth with ChangeNotifier {
         body: {'email': email, 'password': password},
       ).timeout(Duration(seconds: Timeout.value));
 
-      print(response.statusCode);
+      print('-----response.statusCode-----${response.statusCode}');
 
       final result = json.decode(response.body);
+      print('-----response.result-----${result}');
+
       if (response.statusCode != 200) {
         if ((response.statusCode >= 400 && response.statusCode <= 499) ||
             response.statusCode == 503) {
+          ShowOkDialog(context, result['message'].toString());
           return ApiResponse(
               statusCode: response.statusCode,
               message: result['message'].toString());
@@ -952,13 +958,17 @@ class Auth with ChangeNotifier {
     }
 
     try {
-      await GoogleSignIn(scopes: ['email']).signOut();
+      // await GoogleSignIn(scopes: ['email']).signOut();
+      print('----local----${['email']}');
 
       final GoogleSignInAccount? googleUser =
           await GoogleSignIn(scopes: ['email']).signIn();
+      print('----local----${['email']}');
+
+      print('----local----$googleUser');
 
       if (googleUser != null) {
-        print('local');
+        print('----local----');
         dynamic body = {
           'id': googleUser.id.toString(),
           'name': googleUser.displayName,
@@ -970,7 +980,7 @@ class Auth with ChangeNotifier {
         return socialLogin(body, SSOType.google, withNotifyListeners: false);
       }
     } catch (error) {
-      print(error);
+      print('------error----$error');
       return null;
     }
   }

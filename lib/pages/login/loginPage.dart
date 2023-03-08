@@ -112,7 +112,7 @@ class LoginPage extends StatelessWidget {
   //     FlutterLocalNotificationsPlugin();
 
   Future<void> _socialLogin(BuildContext context, String socialType,
-      Auth authProvider, AppData appDataProvider) async {
+      Auth                                        authProvider, AppData appDataProvider) async {
     ApiResponse? result;
 
     if (socialType != SSOType.snapchat) {

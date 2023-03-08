@@ -91,6 +91,19 @@ class _BackdropTypeState extends State<BackdropType> {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: CustomScrollView(
           slivers: [
+            SliverPadding(
+              padding: const EdgeInsets.only(top: 15, bottom: 5),
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                  'Backdrop type - ${appDataProvider.backdropCategories[widget.index].name.toString()}',
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w800,
+                    color: AppColors.black45515D,
+                  ),
+                ),
+              ),
+            ),
             SliverToBoxAdapter(
               child: Column(
                 children: appDataProvider
@@ -128,40 +141,40 @@ class _BackdropTypeState extends State<BackdropType> {
                     .toList(),
               ),
             ),
-            SliverToBoxAdapter(
-              child: TextQuestionWidget(
-                Question(
-                  id: 1,
-                  question: 'Custom Backdrop',
-                  updatedAt: null,
-                  deletedAt: null,
-                  options: null,
-                  order: null,
-                  questionType: null,
-                ),
-                (val) {
-                  if (val != null) {
-                    if (val['answer'] != '') {
-                      _customBackdrop = val['answer'];
-                    } else {
-                      _customBackdrop = '';
-                    }
-                  }
-                },
-              ),
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.only(top: 5),
-              sliver: SliverToBoxAdapter(
-                child: Text(
-                  'Additional charges may occur based on custom orders',
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: AppColors.black45515D,
-                  ),
-                ),
-              ),
-            ),
+            // SliverToBoxAdapter(
+            //   child: TextQuestionWidget(
+            //     Question(
+            //       id: 1,
+            //       question: 'Custom Backdrop',
+            //       updatedAt: null,
+            //       deletedAt: null,
+            //       options: null,
+            //       order: null,
+            //       questionType: null,
+            //     ),
+            //     (val) {
+            //       if (val != null) {
+            //         if (val['answer'] != '') {
+            //           _customBackdrop = val['answer'];
+            //         } else {
+            //           _customBackdrop = '';
+            //         }
+            //       }
+            //     },
+            //   ),
+            // ),
+            // SliverPadding(
+            //   padding: const EdgeInsets.only(top: 5),
+            //   sliver: SliverToBoxAdapter(
+            //     child: Text(
+            //       'Additional charges may occur based on custom orders',
+            //       style: TextStyle(
+            //         fontSize: 10,
+            //         color: AppColors.black45515D,
+            //       ),
+            //     ),
+            //   ),
+            // ),
             SliverPadding(padding: const EdgeInsets.only(top: 30)),
           ],
         ),

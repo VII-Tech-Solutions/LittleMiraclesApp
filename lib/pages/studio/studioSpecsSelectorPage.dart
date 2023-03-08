@@ -89,13 +89,14 @@ class _StudioSpecsSelectorPageState extends State<StudioSpecsSelectorPage> {
       // CANVAS
       Visibility(
         visible: packageType == StudioPackageTypes.canvasPrint,
-        child: CanvasSizeSelector(),
+        child: CanvasThicknessSelector(),
       ),
       // CANVAS
       Visibility(
         visible: packageType == StudioPackageTypes.canvasPrint,
-        child: CanvasThicknessSelector(),
+        child: CanvasSizeSelector(),
       ),
+
       // PHOTO
       Visibility(
         visible: packageType == StudioPackageTypes.photoPaper,

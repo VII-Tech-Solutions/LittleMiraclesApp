@@ -8,7 +8,9 @@ import 'package:provider/provider.dart';
 
 // Project imports:
 import '../../global/colors.dart';
+import '../../global/const.dart';
 import '../../pages/booking/backdropPage.dart';
+import '../../pages/booking/backdropType.dart';
 import '../../providers/appData.dart';
 import '../../providers/bookings.dart';
 import '../form/formTextField.dart';
@@ -17,8 +19,25 @@ import '../texts/titleText.dart';
 
 //EXTENSIONS
 
-class BackdropSelector extends StatelessWidget {
+class BackdropSelector extends StatefulWidget {
   const BackdropSelector();
+
+  @override
+  State<BackdropSelector> createState() => _BackdropSelectorState();
+}
+
+class _BackdropSelectorState extends State<BackdropSelector> {
+  @override
+  void initState() {
+    super.initState();
+    var _backdropsItems = context.read<AppData>().getBackdropsByCategoryId(6);
+    context.read<Bookings>().package!.type == PackageType.miniSession &&
+            _backdropsItems.length == 1
+        ? context
+            .read<Bookings>()
+            .assignSelectedBackdrops([_backdropsItems.first.id!], "")
+        : null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +56,34 @@ class BackdropSelector extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => BackdropPage(),
-                      ),
-                    );
+                    final appData = context.read<AppData>();
+
+                    if (bookingsProvider.package!.type ==
+                        PackageType.miniSession) {
+                      if (appData.getBackdropsByCategoryId(6).length > 1) {
+                        for (int i = 0;
+                            i < appData.backdropCategories.length;
+                            i++)
+                          appData.backdropCategories[i].id == 6
+                              ? Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => BackdropType(
+                                      subPackage: null,
+                                      index: i,
+                                    ),
+                                  ),
+                                )
+                              : null;
+                      } else
+                        null;
+                    } else
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BackdropPage(),
+                        ),
+                      );
                   },
                   child: Container(
                     width: double.infinity,
@@ -103,14 +144,23 @@ class BackdropSelector extends StatelessWidget {
                           Expanded(
                               child: Text(
                                   "Custom backdrop: ${bookingsProvider.customBackdrop}")),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 13.0),
-                          child: Icon(
-                            Icons.edit,
-                            size: 32,
-                            color: AppColors.black5C6671,
-                          ),
-                        )
+                        bookingsProvider.package!.type ==
+                                    PackageType.miniSession &&
+                                // bookingsProvider.selectedBackdrops == 6 &&
+                                context
+                                        .watch<AppData>()
+                                        .getBackdropsByCategoryId(6)
+                                        .length >
+                                    1
+                            ? Padding(
+                                padding: const EdgeInsets.only(top: 13.0),
+                                child: Icon(
+                                  Icons.edit,
+                                  size: 32,
+                                  color: AppColors.black5C6671,
+                                ),
+                              )
+                            : Container()
                       ],
                     ),
                   ),
@@ -137,12 +187,30 @@ class BackdropSelector extends StatelessWidget {
               ),
               onTap: () {
                 FocusScope.of(context).requestFocus(new FocusNode());
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BackdropPage(),
-                  ),
-                );
+                final appData = context.read<AppData>();
+                print('------${bookingsProvider.selectedBackdrops}');
+
+                if (bookingsProvider.package!.type == PackageType.miniSession) {
+                  if (appData.getBackdropsByCategoryId(6).length > 1)
+                    for (int i = 0; i < appData.backdropCategories.length; i++)
+                      appData.backdropCategories[i].id == 6
+                          ? Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BackdropType(
+                                  subPackage: null,
+                                  index: i,
+                                ),
+                              ),
+                            )
+                          : null;
+                } else
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BackdropPage(),
+                    ),
+                  );
               },
             ),
           );

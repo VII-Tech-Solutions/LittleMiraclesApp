@@ -276,6 +276,9 @@ class _BackdropPageState extends State<BackdropPage> {
         _selectedItems = selectedList;
       });
     }
+    print('-------${context.read<AppData>().backdropCategories}');
+    print(
+        '-----selectedBackdrops---${context.read<Bookings>().selectedBackdrops}');
     super.initState();
   }
 
@@ -337,128 +340,145 @@ class _BackdropPageState extends State<BackdropPage> {
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BackdropType(
-                                subPackage: widget.subPackage, index: index),
-                          ),
-                        );
-                      });
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      // height: 75,
-                      margin: const EdgeInsets.symmetric(vertical: 5),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 10),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(
-                          color: AppColors.greyD0D3D6,
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        appDataProvider
-                                            .backdropCategories[index].name
-                                            .toString(),
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                            color: AppColors.black162534),
-                                      ),
-                                    ],
-                                  ),
+                  return bookingsProvider.package!.type !=
+                              PackageType.miniSession &&
+                          appDataProvider.backdropCategories[index].id == 6
+                      ? Container()
+                      : GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => BackdropType(
+                                      subPackage: widget.subPackage,
+                                      index: index),
                                 ),
+                              );
+                            });
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            // height: 75,
+                            margin: const EdgeInsets.symmetric(vertical: 5),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 10),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(
+                                color: AppColors.greyD0D3D6,
+                                width: 1,
                               ),
-                              Icon(
-                                Icons.arrow_forward_ios,
-                                size: 15,
-                              )
-                            ],
-                          ),
-                          Column(
-                            children: context
-                                .watch<AppData>()
-                                .getBackdropsByIds(
-                                    bookingsProvider.selectedBackdrops)
-                                .map(
-                                  (e) => Padding(
-                                      padding: const EdgeInsets.symmetric(),
-                                      child: e.categoryId ==
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
                                               appDataProvider
-                                                  .backdropCategories[index].id
-                                          ? Container(
-                                              margin: EdgeInsets.only(top: 10),
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 5,
-                                                      horizontal: 5),
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                border: Border.all(
-                                                  color: AppColors.greyD0D3D6,
-                                                  width: 1,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                              ),
-                                              child: Row(children: [
-                                                SizedBox(
-                                                  height: 48,
-                                                  width: 48,
-                                                  child: CachedImageWidget(
-                                                    e.id,
-                                                    e.image,
-                                                    ImageShape.square,
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Padding(
+                                                  .backdropCategories[index]
+                                                  .name
+                                                  .toString(),
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: AppColors.black162534),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Icon(
+                                      Icons.arrow_forward_ios,
+                                      size: 15,
+                                    )
+                                  ],
+                                ),
+                                Column(
+                                  children: context
+                                      .watch<AppData>()
+                                      .getBackdropsByIds(
+                                          bookingsProvider.selectedBackdrops)
+                                      .map(
+                                        (e) => Padding(
+                                            padding:
+                                                const EdgeInsets.symmetric(),
+                                            child: e.categoryId ==
+                                                    appDataProvider
+                                                        .backdropCategories[
+                                                            index]
+                                                        .id
+                                                ? Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 10),
                                                     padding: const EdgeInsets
                                                             .symmetric(
-                                                        horizontal: 16),
-                                                    child: Text(
-                                                      e.title ?? '',
-                                                      style: TextStyle(
-                                                          fontSize: 14,
-                                                          fontWeight:
-                                                              FontWeight.w800,
-                                                          color: AppColors
-                                                              .black45515D),
+                                                        vertical: 5,
+                                                        horizontal: 5),
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      border: Border.all(
+                                                        color: AppColors
+                                                            .greyD0D3D6,
+                                                        width: 1,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
                                                     ),
-                                                  ),
-                                                ),
-                                              ]),
-                                            )
-                                          : Container()),
-                                )
-                                .toList(),
+                                                    child: Row(children: [
+                                                      SizedBox(
+                                                        height: 48,
+                                                        width: 48,
+                                                        child:
+                                                            CachedImageWidget(
+                                                          e.id,
+                                                          e.image,
+                                                          ImageShape.square,
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      16),
+                                                          child: Text(
+                                                            e.title ?? '',
+                                                            style: TextStyle(
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w800,
+                                                                color: AppColors
+                                                                    .black45515D),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ]),
+                                                  )
+                                                : Container()),
+                                      )
+                                      .toList(),
+                                ),
+                              ],
+                            ),
                           ),
-                        ],
-                      ),
-                    ),
-                  );
+                        );
                 },
-                childCount: appDataProvider.cakeCategories.length,
+                childCount: appDataProvider.backdropCategories.length,
               ),
             ),
             SliverToBoxAdapter(

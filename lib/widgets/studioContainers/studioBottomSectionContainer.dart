@@ -17,12 +17,14 @@ class StudioBottomSectionContainer extends StatelessWidget {
   final bool? canShowEditedPrice;
   final bool? showSlectedImages;
   final VoidCallback? onTap;
+  final String? priceData;
   const StudioBottomSectionContainer({
     this.title,
     this.btnLabel,
     this.canShowEditedPrice = true,
     this.showSlectedImages = false,
     this.onTap,
+    this.priceData,
   });
 
   @override
@@ -107,9 +109,11 @@ class StudioBottomSectionContainer extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      price != null && canShowEditedPrice == true
-                          ? 'BD $price'
-                          : 'Starting BD ${package?.startingPrice ?? ''}',
+                      priceData != null
+                          ? 'BD $priceData'
+                          : price != null && canShowEditedPrice == true
+                              ? 'BD $price'
+                              : 'Starting BD ${package?.startingPrice ?? ''}',
                       style: TextStyle(
                         color: AppColors.black45515D,
                         fontSize: 12,

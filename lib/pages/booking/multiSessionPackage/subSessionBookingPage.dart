@@ -26,6 +26,24 @@ import '../../../widgets/dialogs/showLoadingDialog.dart';
 import '../../../widgets/dialogs/showOkDialog.dart';
 import '../../../widgets/texts/titleText.dart';
 
+// class SubPackageBody {
+
+//   // SubPackageBody(this._bookingBody);
+
+//   static Map<String, dynamic> get subBookingBody {
+//     return _bookingBody;
+//   }
+
+//   static Future<void> amendBookingBody(
+//       Map<String, dynamic>? data, subPackageId) async {
+//     _bookingBody.addAll({'sub_package_id': subPackageId});
+
+//     if (data != null) _bookingBody.addAll(data);
+
+//     print("-----json-- " + jsonEncode(_bookingBody));
+//   }
+// }
+
 //EXTENSIONS
 
 class SubSessionBookingPage extends StatefulWidget {
@@ -37,38 +55,44 @@ class SubSessionBookingPage extends StatefulWidget {
 }
 
 class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
-  Map<String, dynamic> _bookingBody = {};
   String? _preselectedDate;
   String? _preselectedTime;
   int _includeMe = 0;
   List<int?> _selectedPeople = [];
-
-  Future<void> amendBookingBody(Map<String, dynamic>? data) async {
-    _bookingBody.addAll({'sub_package_id': widget.subPackage?.id});
-
-    if (data != null) _bookingBody.addAll(data);
-
-    print(jsonEncode(_bookingBody));
-  }
+  Map<String, dynamic> _bookingBody = {};
 
   @override
   void initState() {
     //fill preselected date and time and people
     final bookingsProvider = context.read<Bookings>();
+    // final map =
+    //     bookingsProvider.getSubSessionBySubPackageId(widget.subPackage?.id);
 
     final map =
         bookingsProvider.getTemporaryBookedSubSession(widget.subPackage?.id);
-
-    _preselectedDate = map?['date'];
-    _preselectedTime = map?['time'];
-    _includeMe = map?['include_me'] == true ? 1 : 0;
-    if (map?['people'] != null) _selectedPeople = map!['people'];
-
+    print('---map-123---$map');
+    if (map != null) {
+      _preselectedDate = map['date'];
+      _preselectedTime = map['time'];
+      _includeMe = map['include_me'] == true ? 1 : 0;
+      if (map['people'] != null) _selectedPeople = map['people'];
+    }
     super.initState();
+  }
+
+  Future<void> amendBookingBody(
+      Map<String, dynamic>? data, subPackageId) async {
+    _bookingBody.addAll({'sub_package_id': subPackageId});
+
+    if (data != null) _bookingBody.addAll(data);
+
+    print("-----json-- " + jsonEncode(_bookingBody));
   }
 
   @override
   Widget build(BuildContext context) {
+    // final subBodyProvider = context.watch<SubPackageBody>();
+
     final bookingsProvider = context.watch<Bookings>();
     final backdropsList = bookingsProvider.getSubSessionBookingDetails(
         SubSessionBookingDetailsType.backdrop, widget.subPackage!.id!);
@@ -106,20 +130,21 @@ class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
                     preSelectedDate: _preselectedDate,
                     subPackage: widget.subPackage,
                     onChangeCallback: (val) {
-                      amendBookingBody(val);
+                      amendBookingBody(val, widget.subPackage?.id);
                     },
                   ),
                   AvailableTimeContainer(
                     preSelectedTime: _preselectedTime,
+                    subPackage: widget.subPackage,
                     onChangeCallback: (val) {
-                      amendBookingBody(val);
+                      amendBookingBody(val, widget.subPackage?.id);
                     },
                   ),
                   JoiningPeopleContainer(
                     includeMe: _includeMe,
                     selectedPeople: _selectedPeople,
                     onChangeCallback: (val) {
-                      amendBookingBody(val);
+                      amendBookingBody(val, widget.subPackage?.id);
                     },
                   ),
                   MultiSessionBackdropSelector(
@@ -171,6 +196,7 @@ class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
                     ShowLoadingDialog(context, dismiss: true);
                     if (response?.statusCode == 200) {
                       //Todo:
+                      print('-----res-- $response');
                       Navigator.pop(context);
                       Navigator.pop(context);
                     } else {

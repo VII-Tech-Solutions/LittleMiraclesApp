@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:image/image.dart' as Img;
 import 'package:image_cropper/image_cropper.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:path_provider/path_provider.dart';
@@ -185,8 +186,8 @@ Future<void> getResizeFile(File? file, double sliderValue,
   }
 }
 
-Future<void> cropImage(File imageFile, {Function(File)? onDone}) async {
-  File? croppedFile = await ImageCropper.cropImage(
+Future<void> cropImages(File imageFile, {Function(File)? onDone}) async {
+  final cFile = await ImageCropper().cropImage(
     sourcePath: imageFile.path,
     aspectRatioPresets: Platform.isAndroid
         ? [
@@ -218,7 +219,8 @@ Future<void> cropImage(File imageFile, {Function(File)? onDone}) async {
       title: 'Crop Image',
     ),
   );
-  if (croppedFile != null) {
+  if (cFile != null) {
+    File croppedFile = File(cFile.path);
     print(croppedFile);
     onDone?.call(croppedFile);
   }

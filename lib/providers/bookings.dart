@@ -190,6 +190,7 @@ class Bookings with ChangeNotifier {
   }
 
   void getAvailableTimings(String date, {bool withNotify = true}) {
+    _availableTimings = [];
     final list =
         _availableDates.where((element) => element.date == date).toList();
 
@@ -238,23 +239,36 @@ class Bookings with ChangeNotifier {
 
     _bookingBody.addAll(data);
 
-    print(jsonEncode(_bookingBody));
+    print("------amenbookingbody--" + jsonEncode(_bookingBody));
   }
 
   multidateSave(id, date) {
-    if (id == 5) {
-      bookingMultiDateBody1 = date;
-    } else if (id == 6) {
-      bookingMultiDateBody2 = date;
-    } else if (id == 7) {
-      bookingMultiDateBody3 = date;
-    } else {
-      bookingMultiDateBody4 = date;
+    switch (id) {
+      case 5:
+        {
+          bookingMultiDateBody1 = date;
+        }
+        break;
+      case 10:
+        {
+          bookingMultiDateBody2 = date;
+        }
+        break;
+      case 11:
+        {
+          bookingMultiDateBody3 = date;
+        }
+        break;
+      case 12:
+        {
+          bookingMultiDateBody4 = date;
+        }
+        break;
     }
-    print(bookingMultiDateBody1);
-    print(bookingMultiDateBody2);
-    print(bookingMultiDateBody3);
-    print(bookingMultiDateBody4);
+    print('------body1---' + bookingMultiDateBody1.toString());
+    print('------body2---' + bookingMultiDateBody2.toString());
+    print('------body3---' + bookingMultiDateBody3.toString());
+    print('------body4---' + bookingMultiDateBody4.toString());
 
     notifyListeners();
   }
@@ -275,11 +289,6 @@ class Bookings with ChangeNotifier {
     }
 
     print(jsonEncode(_bookingBody));
-  }
-
-  clearbackdrop() {
-    _selectedBackdrops = [];
-    notifyListeners();
   }
 
   Future<void> amendSubSessionBookingDetails(int dataType, dynamic data,
@@ -303,7 +312,7 @@ class Bookings with ChangeNotifier {
         _subSessionsTemporaryBooked.addAll(data);
         break;
     }
-    print(_subSessionSelectedBackdrops);
+    print('----datatt---' + _subSessionSelectedBackdrops.toString());
     notifyListeners();
   }
 
@@ -362,6 +371,8 @@ class Bookings with ChangeNotifier {
       'backdrops': _selectedBackdrops,
       'custom_backdrop': _customBackrop,
     });
+    print('----length123---${selectedBackdrops.length}');
+
     notifyListeners();
   }
 
@@ -369,10 +380,13 @@ class Bookings with ChangeNotifier {
       {nocakes}) {
     _selectedCakes = selectedList;
     _customCake = val;
-    nocake = nocakes;
-    print('_selectedCakes $nocake');
+    print('_selectedCakes ${_selectedCakes}');
     amendBookingBody({
-      'cakes': _customCake != '' ? null : [_selectedCakes],
+      'cakes': _customCake != ''
+          ? null
+          : _selectedCakes.isEmpty
+              ? null
+              : [_selectedCakes],
       'custom_cake': _customCake,
     });
     notifyListeners();
@@ -440,6 +454,7 @@ class Bookings with ChangeNotifier {
   Future<ApiResponse> fetchAdminSessionDetails({String? date}) async {
     final url = Uri.parse('$apiLink/photographer/sessions');
     sessionList = null;
+    print('---url--$url');
     notifyListeners();
     try {
       final response = await http.post(
@@ -452,7 +467,9 @@ class Bookings with ChangeNotifier {
         },
         body: {'access_token': authToken, 'date': date},
       ).timeout(Duration(seconds: Timeout.value));
-      print(authToken);
+
+      print('----session res-- $response');
+      print("----" + authToken);
 
       print(response.statusCode);
       if (response.statusCode != 200) {
@@ -466,6 +483,8 @@ class Bookings with ChangeNotifier {
       final sessionData = extractedData['sessions'] as List;
       sessionList = sessionData.map((json) => Session.fromJson(json)).toList();
       _session = sessionList!.first;
+
+      print('------sessionList---$sessionList');
 
       notifyListeners();
       return (ApiResponse(
@@ -541,6 +560,7 @@ class Bookings with ChangeNotifier {
 
   Future<ApiResponse?> bookASession() async {
     final url = Uri.parse('$apiLink/sessions');
+    print('---url--- $url');
 
     try {
       var response = await http
@@ -557,6 +577,7 @@ class Bookings with ChangeNotifier {
           .timeout(Duration(seconds: Timeout.value));
       print('_bookingBody ${jsonEncode(_bookingBody)}');
       final result = json.decode(response.body);
+      print('---result--- $result');
 
       if (response.statusCode != 200) {
         if ((response.statusCode >= 400 && response.statusCode <= 499) ||

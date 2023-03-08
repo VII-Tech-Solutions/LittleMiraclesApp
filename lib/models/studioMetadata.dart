@@ -11,6 +11,7 @@ class StudioMetadata {
   final int? category;
   final String? updatedAt;
   final String? deletedAt;
+  final int? thicknessId;
 
   StudioMetadata({
     @required this.id,
@@ -22,6 +23,7 @@ class StudioMetadata {
     @required this.category,
     @required this.updatedAt,
     @required this.deletedAt,
+    @required this.thicknessId,
   });
 
   Map<String, Object> toMap() {
@@ -35,20 +37,21 @@ class StudioMetadata {
       'category': category ?? -1,
       'updatedAt': updatedAt ?? "",
       'deletedAt': deletedAt ?? "",
+      'thickness_id': thicknessId ?? -1,
     };
   }
 
   factory StudioMetadata.fromJson(dynamic json) {
     return StudioMetadata(
-      id: json['id'] as int?,
-      title: json['title'] as String?,
-      price: json['price'] as String?,
-      description: json['description'] as String?,
-      image: json['image'] as String?,
-      status: json['status'] as int?,
-      category: json['category'] as int?,
-      updatedAt: json['updated_at'] as String?,
-      deletedAt: json['deleted_at'] as String?,
-    );
+        id: json['id'] as int?,
+        title: json['title'] as String?,
+        price: json['price'] as String?,
+        description: json['description'] as String?,
+        image: json['image'] as String?,
+        status: json['status'] as int?,
+        category: json['category'] as int?,
+        updatedAt: json['updated_at'] as String?,
+        deletedAt: json['deleted_at'] as String?,
+        thicknessId: json['thickness_id'] as int?,);
   }
 }

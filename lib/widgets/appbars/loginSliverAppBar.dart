@@ -78,7 +78,7 @@ class LoginSliverAppBar extends StatelessWidget {
                           customPadding: null,
                           type: TitleTextType.mainHomeTitle,
                         ),
-                  if (isAuth)
+                  if (!isAuth)
                     Row(
                       children: [
                         IconButtonWidget(
