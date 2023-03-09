@@ -611,7 +611,8 @@ class _CakePageState extends State<CakePage> {
               else {
                 bookingsProvider.assignSelectedCakes(
                     colorId == [] || colorId == null ? {} : colorId[0],
-                    _customCake);
+                    _customCake,
+                    nocakes: isSelected == 'nocake' ? true : false);
                 Navigator.pop(context);
               }
             }

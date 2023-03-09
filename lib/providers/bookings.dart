@@ -377,16 +377,18 @@ class Bookings with ChangeNotifier {
   }
 
   void assignSelectedCakes(Map<String, dynamic> selectedList, String val,
-      {nocakes}) {
+      {bool? nocakes}) {
     _selectedCakes = selectedList;
     _customCake = val;
     print('_selectedCakes ${_selectedCakes}');
     amendBookingBody({
-      'cakes': _customCake != ''
+      'cakes': nocake == true
           ? null
-          : _selectedCakes.isEmpty
+          : _customCake != ''
               ? null
-              : [_selectedCakes],
+              : _selectedCakes.isEmpty
+                  ? null
+                  : [_selectedCakes],
       'custom_cake': _customCake,
     });
     notifyListeners();
