@@ -187,7 +187,7 @@ Future<void> getResizeFile(File? file, double sliderValue,
 }
 
 Future<void> cropImages(File imageFile, {Function(File)? onDone}) async {
-  final cFile = await ImageCropper().cropImage(
+  final cFile = await ImageCropper.cropImage(
     sourcePath: imageFile.path,
     aspectRatioPresets: Platform.isAndroid
         ? [

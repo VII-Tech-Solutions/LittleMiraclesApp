@@ -210,6 +210,7 @@
 // Flutter imports:
 import 'package:LMP0001_LittleMiraclesApp/pages/booking/cakeColor.dart';
 import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/showOkDialog.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -393,15 +394,28 @@ class _CakePageState extends State<CakePage> {
                   child: Row(
                     children: [
                       Container(
-                          height: 68,
-                          width: 68,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: Colors.grey.shade300),
-                          child: Icon(
-                            Icons.block,
-                            size: 50,
-                          )),
+                        height: 68,
+                        width: 68,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: CachedNetworkImage(
+                            fit: BoxFit.contain,
+                            imageUrl: '',
+                            placeholder: (context, url) => Image.asset(
+                              'assets/images/nocake.png',
+                              fit: BoxFit.contain,
+                              height: double.infinity,
+                              width: double.infinity,
+                            ),
+                            errorWidget: (context, url, error) => Image.asset(
+                              'assets/images/nocake.png',
+                              fit: BoxFit.cover,
+                              height: double.infinity,
+                              width: double.infinity,
+                            ),
+                          ),
+                        ),
+                      ),
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -469,15 +483,28 @@ class _CakePageState extends State<CakePage> {
                   child: Row(
                     children: [
                       Container(
-                          height: 68,
-                          width: 68,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: Colors.grey.shade300),
-                          child: Icon(
-                            Icons.cake,
-                            size: 50,
-                          )),
+                        height: 68,
+                        width: 68,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: CachedNetworkImage(
+                            fit: BoxFit.contain,
+                            imageUrl: '',
+                            placeholder: (context, url) => Image.asset(
+                              'assets/images/customcake.png',
+                              fit: BoxFit.contain,
+                              height: double.infinity,
+                              width: double.infinity,
+                            ),
+                            errorWidget: (context, url, error) => Image.asset(
+                              'assets/images/customcake.png',
+                              fit: BoxFit.cover,
+                              height: double.infinity,
+                              width: double.infinity,
+                            ),
+                          ),
+                        ),
+                      ),
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
