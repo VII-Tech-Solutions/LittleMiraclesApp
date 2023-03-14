@@ -31,6 +31,7 @@ import '../models/gift.dart';
 import '../models/media.dart';
 import '../models/onboarding.dart';
 import '../models/package.dart';
+import '../models/packagePhotographer.dart';
 import '../models/paymentMethod.dart';
 import '../models/photographer.dart';
 import '../models/promotion.dart';
@@ -69,6 +70,7 @@ class AppData with ChangeNotifier {
   List<Backdrop> _backdrops = [];
   List<Cake> _cakes = [];
   List<Photographer> _photographers = [];
+  List<PackagePhotographer> _packagePhotographers = [];
   List<PaymentMethod> _paymentMethods = [];
   List<BackdropCategory> _backdropCategories = [];
   List<CakeCategory> _cakeCategories = [];
@@ -135,6 +137,7 @@ class AppData with ChangeNotifier {
     this._backdrops,
     this._cakes,
     this._photographers,
+    this._packagePhotographers,
     this._paymentMethods,
     this._backdropCategories,
     this._cakeCategories,
@@ -317,6 +320,10 @@ class AppData with ChangeNotifier {
     return [..._photographers];
   }
 
+  List<PackagePhotographer> get packagePhotographers {
+    return [..._packagePhotographers];
+  }
+
   List<PaymentMethod> get paymentMethods {
     return [..._paymentMethods];
   }
@@ -417,6 +424,27 @@ class AppData with ChangeNotifier {
       final item = _photographers.firstWhere((element) => element.id == id);
       finalList.add(item);
     });
+    return [...finalList];
+  }
+
+  List<PackagePhotographer> getpackagePhotographersByIds(packageid,
+      {subPackageId}) {
+    List<PackagePhotographer> finalList = [];
+    // final item = _packagePhotographers
+    //     .firstWhere((element) => element.packageId == packageid);
+    _packagePhotographers.forEach((element) {
+      // final item = _packagePhotographers
+      //     .where((element) => element.packageId == packageid);
+      if (element.packageId == packageid && subPackageId == null) {
+        finalList.add(element);
+      } else if (subPackageId != null && element.subPackageId == subPackageId) {
+        finalList.add(element);
+      }
+    });
+    // list.forEach((category_id) {
+    //   final item = _cakes.firstWhere((element) => element.id == category_id);
+
+    // });
     return [...finalList];
   }
 
@@ -660,6 +688,8 @@ class AppData with ChangeNotifier {
       final backdropsJson = extractedData['backdrops'] as List;
       final cakesJson = extractedData['cakes'] as List;
       final photographersJson = extractedData['photographers'] as List;
+      final packagePhotographersJson =
+          extractedData['package_photographers'] as List;
       final paymentMethodsJson = extractedData['payment_methods'] as List;
       final backdropCategoriesJson =
           extractedData['backdrop_categories'] as List;
@@ -700,6 +730,10 @@ class AppData with ChangeNotifier {
 
       _photographers =
           photographersJson.map((json) => Photographer.fromJson(json)).toList();
+
+      _packagePhotographers = packagePhotographersJson
+          .map((json) => PackagePhotographer.fromJson(json))
+          .toList();
 
       _paymentMethods = paymentMethodsJson
           .map((json) => PaymentMethod.fromJson(json))
