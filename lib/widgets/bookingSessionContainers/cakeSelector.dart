@@ -1,6 +1,7 @@
 //PACKAGES
 
 // Flutter imports:
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -107,16 +108,29 @@ class CakeSelector extends StatelessWidget {
                           child: Row(
                             children: [
                               Container(
-                                  height: 68,
-                                  width: 68,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      color: AppColors.pinkFEF2F1),
-                                  child: Icon(
-                                    Icons.block,
-                                    size: 50,
-                                    color: AppColors.pinkFCE0DC,
-                                  )),
+                                height: 68,
+                                width: 68,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: CachedNetworkImage(
+                                    fit: BoxFit.contain,
+                                    imageUrl: '',
+                                    placeholder: (context, url) => Image.asset(
+                                      'assets/images/nocake.png',
+                                      fit: BoxFit.contain,
+                                      height: double.infinity,
+                                      width: double.infinity,
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        Image.asset(
+                                      'assets/images/nocake.png',
+                                      fit: BoxFit.cover,
+                                      height: double.infinity,
+                                      width: double.infinity,
+                                    ),
+                                  ),
+                                ),
+                              ),
                               SizedBox(
                                 width: 10,
                               ),

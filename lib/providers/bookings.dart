@@ -380,6 +380,7 @@ class Bookings with ChangeNotifier {
       {bool? nocakes}) {
     _selectedCakes = selectedList;
     _customCake = val;
+    nocake = nocakes;
     print('_selectedCakes ${_selectedCakes}');
     amendBookingBody({
       'cakes': nocake == true

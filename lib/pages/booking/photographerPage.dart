@@ -313,15 +313,15 @@ class _PhotographerPageState extends State<PhotographerPage> {
                 .map((e) => SelectionRow(
                       () {
                         setState(() {
-                          if (_selectedItems.contains(e.id)) {
-                            _selectedItems
-                                .removeWhere((element) => element == e.id);
+                          if (_selectedItems.contains(e.photographerId)) {
+                            _selectedItems.removeWhere(
+                                (element) => element == e.photographerId);
                           } else {
                             _selectedItems.clear();
-                            _selectedItems.add(e.id!);
+                            _selectedItems.add(e.photographerId!);
                           }
                         });
-                        indexs = e;
+
                         // if (package!.id != 3 ||
                         //     package.id != 6 ||
                         //     package.id !=
@@ -342,7 +342,7 @@ class _PhotographerPageState extends State<PhotographerPage> {
                       e.photographerImage,
                       null,
                       e.photographerName,
-                      _selectedItems.contains(e.id),
+                      _selectedItems.contains(e.photographerId),
                       1,
                       id: 1,
                       subtitle: e.additionalCharge != null
