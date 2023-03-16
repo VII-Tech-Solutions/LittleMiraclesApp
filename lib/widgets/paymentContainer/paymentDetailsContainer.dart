@@ -132,6 +132,14 @@ class PaymentDetailsContainer extends StatelessWidget {
                       ),
                     ),
                     Visibility(
+                      visible: session?.formattedCake == null,
+                      child: BenefitDetailsRow(
+                        'No cake',
+                        Icons.cake_outlined,
+                        false,
+                      ),
+                    ),
+                    Visibility(
                       visible: session?.customCake != null &&
                           session?.customCake != '',
                       child: BenefitDetailsRow(
