@@ -531,6 +531,7 @@ class PhotoEditScreenState extends State<PhotoEditScreen> {
                                 icon: Icon(Icons.crop),
                                 onPressed: () {
                                   cropImages(originalFile!, onDone: (file) {
+                                  // cropImage(originalFile!, onDone: (file) {
                                     croppedFile = file;
                                     getImageSize();
                                     setState(() {});
