@@ -363,9 +363,11 @@ class Bookings with ChangeNotifier {
     print(jsonEncode(_bookingBody));
   }
 
-  void assignSelectedBackdrops(List<int> selectedList, String val) {
-    _selectedBackdrops = selectedList;
-    _customBackrop = val;
+  void assignSelectedBackdrops({List<int>? selectedList, String? val}) {
+    if (selectedList != null) {
+      _selectedBackdrops = selectedList;
+    }
+    _customBackrop = val!;
 
     amendBookingBody({
       'backdrops': _selectedBackdrops,

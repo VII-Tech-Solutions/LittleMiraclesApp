@@ -322,29 +322,18 @@ class _PhotographerPageState extends State<PhotographerPage> {
                           }
                         });
 
-                        // if (package!.id != 3 ||
-                        //     package.id != 6 ||
-                        //     package.id !=
-                        //         5)
-                        //   package
-                        //       .additionalCharge = packagePhotographers[indexs]
-                        //                   .additionalCharge !=
-                        //               null &&
-                        //           packagePhotographers[indexs]
-                        //                   .additionalCharge !=
-                        //               0 &&
-                        //           packagePhotographers[indexs]
-                        //                   .additionalCharge !=
-                        //               -1
-                        //       ? packagePhotographers[indexs].additionalCharge
-                        //       : 0;
+                        if (e.additionalCharge != null) {
+                          package.additionalCharge = e.additionalCharge;
+                        } else {
+                          package.additionalCharge = 0;
+                        }
                       },
                       e.photographerImage,
                       null,
                       e.photographerName,
                       _selectedItems.contains(e.photographerId),
                       1,
-                      id: 1,
+                      id: e.photographerId,
                       subtitle: e.additionalCharge != null
                           ? '+BHD ${e.additionalCharge} (additional charge)'
                           : null,

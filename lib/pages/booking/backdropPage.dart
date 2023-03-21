@@ -631,7 +631,15 @@ class _BackdropPageState extends State<BackdropPage> {
                     backdropsMap,
                   );
                 } else {
-                  bookingsProvider.assignSelectedBackdrops([], _customBackdrop);
+                  print(bookingsProvider.package!.backdropAllowed);
+
+                  if (bookingsProvider.package!.backdropAllowed == 1) {
+                    bookingsProvider.assignSelectedBackdrops(
+                        selectedList: [], val: _customBackdrop);
+                  } else {
+                    bookingsProvider.assignSelectedBackdrops(
+                        val: _customBackdrop);
+                  }
                 }
                 Navigator.pop(context);
               } else if (bookingsProvider.selectedBackdrops.isNotEmpty) {

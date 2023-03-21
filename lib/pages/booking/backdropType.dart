@@ -203,7 +203,7 @@ class _BackdropTypeState extends State<BackdropType> {
                       selectedList: _selectedItems);
                 } else {
                   bookingsProvider.assignSelectedBackdrops(
-                      _selectedItems, _customBackdrop);
+                      selectedList: _selectedItems, val: _customBackdrop);
                 }
                 Navigator.pop(context);
               } else {
