@@ -27,6 +27,7 @@ class SessionSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bookings = context.watch<Bookings>();
     final session =
         context.watch<Bookings>().getSubSessionBySubPackageId(subPackage.id);
     final sessionBody1 =
@@ -41,7 +42,7 @@ class SessionSelector extends StatelessWidget {
         : InkWell(
             onTap: () {
               final provider = context.read<Bookings>();
-
+              bookings.emptybackdrop();
               switch (subPackage.id) {
                 case 10:
                   {

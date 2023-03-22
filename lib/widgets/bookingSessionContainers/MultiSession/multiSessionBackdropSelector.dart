@@ -21,14 +21,16 @@ import '../../texts/titleText.dart';
 class MultiSessionBackdropSelector extends StatelessWidget {
   final SubPackage subPackage;
   final List<int> selectedBackdrops;
-  const MultiSessionBackdropSelector(this.subPackage, this.selectedBackdrops);
+  final type;
+  const MultiSessionBackdropSelector(this.subPackage, this.selectedBackdrops,
+      {this.type});
 
   @override
   Widget build(BuildContext context) {
     final bookingsProvider = context.watch<Bookings>();
     print(bookingsProvider.subSessionSelectedBackdrops);
-    return bookingsProvider.selectedBackdrops.length > 0 ||
-            bookingsProvider.customBackdrop != ''
+    return (bookingsProvider.selectedBackdrops.length > 0 ||
+            bookingsProvider.customBackdrop != '')
         ? Padding(
             padding: const EdgeInsets.only(top: 20),
             child: Column(

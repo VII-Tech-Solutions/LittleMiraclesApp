@@ -100,6 +100,7 @@ class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
         SubSessionBookingDetailsType.cake, widget.subPackage!.id!);
     final photographersList = bookingsProvider.getSubSessionBookingDetails(
         SubSessionBookingDetailsType.photographer, widget.subPackage!.id!);
+
     return Scaffold(
       appBar: AppBarWithBack(
         title: widget.subPackage?.title ?? '',
