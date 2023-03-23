@@ -210,59 +210,59 @@ class _CalendarContainerState extends State<CalendarContainer> {
                 selectedDay =
                     DateTime.parse(selectDay.toString().replaceAll('Z', ''));
                 if (widget.subPackage != null) {
-                  // provider.multidateSave(widget.subPackage.id, selectedDay);
+                  provider.multidateSave(widget.subPackage.id, selectedDay);
                   print('------date---${selectedDay}');
-
-                  // if (widget.subPackage.id == 10) {
-                  //   if (bookingsProvider.bookingMultiDateBody1 !=
-                  //       null) if (DateTime.parse(bookingsProvider
-                  //                   .bookingMultiDateBody1
-                  //                   .toString())
-                  //               .compareTo(selectedDay) <
-                  //           0 ||
-                  //       DateTime.parse(bookingsProvider.bookingMultiDateBody1
-                  //                   .toString())
-                  //               .compareTo(selectedDay) ==
-                  //           0) {
-                  //     print('-----yes');
-                  //   } else {
-                  //     provider.multidateSave(widget.subPackage.id, null);
-                  //     ShowOkDialog(
-                  //         context, 'Please select a future date to proceed');
-                  //   }
-                  // } else if (widget.subPackage.id == 11) {
-                  //   if (bookingsProvider.bookingMultiDateBody2 !=
-                  //       null) if (bookingsProvider.bookingMultiDateBody2!
-                  //               .compareTo(
-                  //                   DateTime.parse(selectedDay.toString())) <
-                  //           0 ||
-                  //       DateTime.parse(bookingsProvider.bookingMultiDateBody2
-                  //                   .toString())
-                  //               .compareTo(selectedDay) ==
-                  //           0) {
-                  //     print('yes');
-                  //   } else {
-                  //     provider.multidateSave(widget.subPackage.id, null);
-                  //     ShowOkDialog(
-                  //         context, 'Please select a future date to proceed');
-                  //   }
-                  // } else if (widget.subPackage.id == 12) {
-                  //   if (bookingsProvider.bookingMultiDateBody3 !=
-                  //       null) if (bookingsProvider.bookingMultiDateBody3!
-                  //               .compareTo(
-                  //                   DateTime.parse(selectedDay.toString())) <
-                  //           0 ||
-                  //       DateTime.parse(bookingsProvider.bookingMultiDateBody3
-                  //                   .toString())
-                  //               .compareTo(selectedDay) ==
-                  //           0) {
-                  //     print('yes');
-                  //   } else {
-                  //     provider.multidateSave(widget.subPackage.id, null);
-                  //     ShowOkDialog(
-                  //         context, 'Please select a future date to proceed');
-                  //   }
-                  // }
+                  print(bookingsProvider.bookingMultiDateBody1);
+                  if (widget.subPackage.id == 10) {
+                    if (bookingsProvider.bookingMultiDateBody1 !=
+                        null) if (DateTime.parse(bookingsProvider
+                                    .bookingMultiDateBody1
+                                    .toString())
+                                .compareTo(selectedDay) <
+                            0 ||
+                        DateTime.parse(bookingsProvider.bookingMultiDateBody1
+                                    .toString())
+                                .compareTo(selectedDay) ==
+                            0) {
+                      print('-----yes');
+                    } else {
+                      provider.multidateSave(widget.subPackage.id, null);
+                      ShowOkDialog(
+                          context, 'Please select a future date to proceed');
+                    }
+                  } else if (widget.subPackage.id == 11) {
+                    if (bookingsProvider.bookingMultiDateBody2 !=
+                        null) if (bookingsProvider.bookingMultiDateBody2!
+                                .compareTo(
+                                    DateTime.parse(selectedDay.toString())) <
+                            0 ||
+                        DateTime.parse(bookingsProvider.bookingMultiDateBody2
+                                    .toString())
+                                .compareTo(selectedDay) ==
+                            0) {
+                      print('yes');
+                    } else {
+                      provider.multidateSave(widget.subPackage.id, null);
+                      ShowOkDialog(
+                          context, 'Please select a future date to proceed');
+                    }
+                  } else if (widget.subPackage.id == 12) {
+                    if (bookingsProvider.bookingMultiDateBody3 !=
+                        null) if (bookingsProvider.bookingMultiDateBody3!
+                                .compareTo(
+                                    DateTime.parse(selectedDay.toString())) <
+                            0 ||
+                        DateTime.parse(bookingsProvider.bookingMultiDateBody3
+                                    .toString())
+                                .compareTo(selectedDay) ==
+                            0) {
+                      print('yes');
+                    } else {
+                      provider.multidateSave(widget.subPackage.id, null);
+                      ShowOkDialog(
+                          context, 'Please select a future date to proceed');
+                    }
+                  }
                 }
                 final formattedDate = selectedDay.toyyyyMMdd();
                 provider.getAvailableTimings(formattedDate);

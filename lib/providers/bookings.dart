@@ -243,6 +243,7 @@ class Bookings with ChangeNotifier {
   }
 
   multidateSave(id, date) {
+    print(id);
     switch (id) {
       case 5:
         {
