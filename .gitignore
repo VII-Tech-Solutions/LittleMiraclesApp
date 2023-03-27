@@ -375,3 +375,5 @@ fabric.properties
 /android/.idea
 
 # End of https://www.toptal.com/developers/gitignore/api/fastlane,flutter,android,androidstudio,macos,windows,osx,linux
+
+.fvm/flutter_sdk

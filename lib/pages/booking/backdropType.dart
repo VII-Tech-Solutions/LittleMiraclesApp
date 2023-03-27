@@ -187,29 +187,29 @@ class _BackdropTypeState extends State<BackdropType> {
             print(bookingsProvider.package!.minBackdrop);
             print('muli');
             print(_selectedItems.length);
-            if (_selectedItems.length < bookingsProvider.package!.minBackdrop &&
-                bookingsProvider.package!.minBackdrop != null) {
-              ShowOkDialog(context,
-                  'Please select ${bookingsProvider.package!.minBackdrop} backdrop to proceed');
-            } else {
-              if (_selectedItems.isNotEmpty || _customBackdrop.isNotEmpty) {
-                if (widget.subPackage != null) {
-                  Map<int, List<int>> backdropsMap = {
-                    widget.subPackage!.id!: _selectedItems,
-                  };
+            // if (_selectedItems.length < bookingsProvider.package!.minBackdrop &&
+            //     bookingsProvider.package!.minBackdrop != null) {
+            //   ShowOkDialog(context,
+            //       'Please select ${bookingsProvider.package!.minBackdrop} backdrop to proceed');
+            // } else {
+            if (_selectedItems.isNotEmpty || _customBackdrop.isNotEmpty) {
+              if (widget.subPackage != null) {
+                Map<int, List<int>> backdropsMap = {
+                  widget.subPackage!.id!: _selectedItems,
+                };
 
-                  bookingsProvider.amendSubSessionBookingDetails(
-                      SubSessionBookingDetailsType.backdrop, backdropsMap,
-                      selectedList: _selectedItems);
-                } else {
-                  bookingsProvider.assignSelectedBackdrops(
-                      selectedList: _selectedItems, val: _customBackdrop);
-                }
-                Navigator.pop(context);
+                bookingsProvider.amendSubSessionBookingDetails(
+                    SubSessionBookingDetailsType.backdrop, backdropsMap,
+                    selectedList: _selectedItems);
               } else {
-                ShowOkDialog(context, 'Please select a backdrop to proceed');
+                bookingsProvider.assignSelectedBackdrops(
+                    selectedList: _selectedItems, val: _customBackdrop);
               }
+              Navigator.pop(context);
+            } else {
+              ShowOkDialog(context, 'Please select a backdrop to proceed');
             }
+            // }
           },
           title: 'Confirm Backdrop',
           type: ButtonType.generalBlue,

@@ -285,54 +285,67 @@ class _CakeColorState extends State<CakeColor> {
         child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(),
-            SliverToBoxAdapter(
-              child: Container(
-                width: double.infinity,
-                height: 100,
-                margin: const EdgeInsets.symmetric(vertical: 5),
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(
-                    color: AppColors.greyD0D3D6,
-                    width: 1,
+            SliverPadding(
+              padding: const EdgeInsets.only(top: 15, bottom: 5),
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                  'Cake type - ${appDataProvider.cakeCategories[widget.index].name.toString()}',
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w800,
+                    color: AppColors.black45515D,
                   ),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      height: 68,
-                      width: 68,
-                      child: CachedImageWidget(
-                        1,
-                        'image',
-                        ImageShape.square,
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              appDataProvider.cakeCategories[widget.index].name
-                                  .toString(),
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w800,
-                                  color: AppColors.black45515D),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
                 ),
               ),
             ),
+            // SliverToBoxAdapter(
+            //   child: Container(
+            //     width: double.infinity,
+            //     height: 100,
+            //     margin: const EdgeInsets.symmetric(vertical: 5),
+            //     padding: const EdgeInsets.symmetric(horizontal: 16),
+            //     decoration: BoxDecoration(
+            //       color: Colors.white,
+            //       border: Border.all(
+            //         color: AppColors.greyD0D3D6,
+            //         width: 1,
+            //       ),
+            //       borderRadius: BorderRadius.circular(8),
+            //     ),
+            //     child: Row(
+            //       children: [
+            //         SizedBox(
+            //           height: 68,
+            //           width: 68,
+            //           child: CachedImageWidget(
+            //             1,
+            //             'image',
+            //             ImageShape.square,
+            //           ),
+            //         ),
+            //         Expanded(
+            //           child: Padding(
+            //             padding: const EdgeInsets.symmetric(horizontal: 16),
+            //             child: Column(
+            //               mainAxisAlignment: MainAxisAlignment.center,
+            //               crossAxisAlignment: CrossAxisAlignment.start,
+            //               children: [
+            //                 Text(
+            //                   appDataProvider.cakeCategories[widget.index].name
+            //                       .toString(),
+            //                   style: TextStyle(
+            //                       fontSize: 14,
+            //                       fontWeight: FontWeight.w800,
+            //                       color: AppColors.black45515D),
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
