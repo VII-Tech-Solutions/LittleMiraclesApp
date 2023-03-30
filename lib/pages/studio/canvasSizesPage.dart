@@ -102,8 +102,8 @@ class _CanvasSizePageState extends State<CanvasSizePage> {
               crossAxisCount: 3,
               childAspectRatio: 107 / 115,
               children: appDataProvider
-                  .getStudioMetadata(StudioMetaCategory.canvasSize)
-                  // .getStudioCanvasSize(StudioMetaCategory.canvasSize, context)
+                  // .getStudioMetadata(StudioMetaCategory.canvasSize)
+                  .getStudioCanvasSize(StudioMetaCategory.canvasSize, context)
                   .map(
                     (item) => InkWell(
                       onTap: () {
