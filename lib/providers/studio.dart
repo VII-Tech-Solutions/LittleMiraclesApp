@@ -24,6 +24,7 @@ import '../models/media.dart';
 import '../models/promoCode.dart';
 import '../models/studioMetadata.dart';
 import '../models/studioPackage.dart';
+import '../pages/cart/cartPage.dart';
 
 //EXTENSIONS
 
@@ -498,7 +499,7 @@ class Studio with ChangeNotifier {
     notifyListeners();
   } //TODO:: implement function
 
-  Future<void> removeCartItem(int? id) async {
+  Future<void> removeCartItem(int? id, context) async {
     _cartItems.removeWhere((element) => element.id == id);
     final url = Uri.parse('$apiLink/cart/$id');
     var response = await http.delete(
@@ -510,7 +511,9 @@ class Studio with ChangeNotifier {
         'Authorization': 'Bearer $authToken',
       },
     ).timeout(Duration(seconds: Timeout.value));
+
     notifyListeners();
+    getCartItems();
   }
 
   void assignSelectedSpec(int category, StudioMetadata? data) {
