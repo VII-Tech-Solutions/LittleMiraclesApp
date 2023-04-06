@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import '../../global/colors.dart';
+import '../../pages/booking/image_preview_page.dart';
 import '../../widgets/general/cachedImageWidget.dart';
 
 //EXTENSIONS
@@ -59,16 +60,23 @@ class SelectionRow extends StatelessWidget {
             //           backgroundColor: Color(),
 
             //         ),
-            SizedBox(
-              height: 68,
-              width: 68,
-              child: customImage != null
-                  ? customImage
-                  : CachedImageWidget(
-                      id,
-                      image,
-                      ImageShape.square,
+            GestureDetector(
+              onTap: (() => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ImagePreviewPage(image, ''),
                     ),
+                  )),
+              child: SizedBox(
+                height: 68,
+                width: 68,
+                child: customImage != null
+                    ? customImage
+                    : CachedImageWidget(
+                        id,
+                        image,
+                        ImageShape.square,
+                      ),
+              ),
             ),
             Expanded(
               child: Padding(

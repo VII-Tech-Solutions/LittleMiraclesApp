@@ -228,6 +228,7 @@ import '../../widgets/bookingSessionContainers/selectionRow.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
 import '../../widgets/form/textQuestionWidget.dart';
 import '../../widgets/general/cachedImageWidget.dart';
+import 'image_preview_page.dart';
 
 //EXTENSIONS
 
@@ -334,13 +335,23 @@ class _CakePageState extends State<CakePage> {
                       ),
                       child: Row(
                         children: [
-                          SizedBox(
-                            height: 68,
-                            width: 68,
-                            child: CachedImageWidget(
-                              1,
-                              appDataProvider.cakeCategories[index].image,
-                              ImageShape.square,
+                          GestureDetector(
+                            onTap: (() => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => ImagePreviewPage(
+                                        appDataProvider
+                                            .cakeCategories[index].image,
+                                        ''),
+                                  ),
+                                )),
+                            child: SizedBox(
+                              height: 68,
+                              width: 68,
+                              child: CachedImageWidget(
+                                1,
+                                appDataProvider.cakeCategories[index].image,
+                                ImageShape.square,
+                              ),
                             ),
                           ),
                           Expanded(
