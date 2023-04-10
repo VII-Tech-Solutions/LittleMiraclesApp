@@ -58,6 +58,7 @@ class _PhotoPaperSizePageState extends State<PhotoPaperSizePage> {
   @override
   Widget build(BuildContext context) {
     final appDataProvider = context.watch<AppData>();
+    final package = context.watch<Studio>().studioPackage;
 
     return Scaffold(
       appBar: AppBarWithBack(
@@ -182,6 +183,11 @@ class _PhotoPaperSizePageState extends State<PhotoPaperSizePage> {
       ),
       bottomNavigationBar: StudioBottomSectionContainer(
           title: 'Paper Size ${_selectedItem?.title ?? ''}',
+          priceData: _selectedItem != null
+              ? (double.parse(_selectedItem!.price.toString()) +
+                      double.parse(package!.startingPrice.toString()))
+                  .toString()
+              : package!.startingPrice,
           btnLabel: 'Confirm Size',
           onTap: () {
             if (_selectedItem != null) {
