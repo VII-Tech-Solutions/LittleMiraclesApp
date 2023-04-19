@@ -1,0 +1,98 @@
+//PACKAGES
+
+// Package imports:
+import 'package:intl/intl.dart';
+
+//EXTENSIONS
+
+extension StringExtension on String {
+  String firstLetterToUpper() {
+    return "${this[0].toUpperCase()}${this.substring(1)}";
+  }
+
+  String apiDob() {
+    final removedTabs = this.replaceAll('Birthday\t\t\t\t', '');
+    final formattedDate = removedTabs.replaceAll('/', '-');
+
+    final day = formattedDate.substring(0, 2);
+    final month = formattedDate.substring(3, 5);
+    final year = formattedDate.substring(6, 10);
+    return "$year-$month-$day";
+  }
+
+  int toInt() {
+    if (this.isEmpty) {
+      return 1;
+    }
+    return int.parse(this);
+  }
+
+  double toDouble() {
+    if (this.isEmpty) {
+      return 1;
+    }
+    return double.parse(this);
+  }
+
+  String toddMMMyyyy() {
+    if (this.isNotEmpty) {
+      var dateTimeString = this;
+      final dateTime = DateTime.parse(dateTimeString);
+
+      final format = DateFormat('dd, MMM yyyy');
+      final formattedDate = format.format(dateTime);
+      return formattedDate;
+    } else {
+      return "";
+    }
+  }
+
+  String toddMMMMyyyy() {
+    if (this.isNotEmpty) {
+      var dateTimeString = this;
+      final dateTime = DateTime.parse(dateTimeString);
+
+      final format = DateFormat('dd MMMM yyyy');
+      final formattedDate = format.format(dateTime);
+      return formattedDate;
+    } else {
+      return "";
+    }
+  }
+
+  String toSlashddMMMyyyy() {
+    if (this.isNotEmpty) {
+      var dateTimeString = this;
+      final dateTime = DateTime.parse(dateTimeString);
+
+      final format = DateFormat('dd/MM/yyyy');
+      final formattedDate = format.format(dateTime);
+      return formattedDate;
+    } else {
+      return "";
+    }
+  }
+
+  int? dateToInt() {
+    final formattedDate = this.replaceAll('-', '');
+
+    return int.parse(formattedDate);
+  }
+
+  List<int> toIntList() {
+    List<int> list = [];
+
+    //this is some weird shit, but it's working
+    if ('$this' != 'null' && this.isNotEmpty) {
+      final splittedList = this.split(',');
+
+      splittedList.removeWhere((element) => element.isEmpty);
+
+      splittedList.forEach((element) {
+        list.add(int.parse(element));
+      });
+    }
+
+    return list;
+  }
+}

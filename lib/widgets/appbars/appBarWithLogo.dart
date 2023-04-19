@@ -1,0 +1,44 @@
+//PACKAGES
+
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Project imports:
+import '../../global/colors.dart';
+
+class AppBarWithLogo extends StatelessWidget with PreferredSizeWidget {
+  final bool showLogo;
+  const AppBarWithLogo({this.showLogo = true});
+
+  @override
+  Size get preferredSize => Size.fromHeight(80);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      backgroundColor: AppColors.blueF4F9FA,
+      elevation: 0,
+      toolbarHeight: 101,
+      leading: Padding(
+        padding: EdgeInsets.only(left: 16.0),
+        child: IconButton(
+          icon: Icon(
+            Icons.keyboard_backspace,
+            color: AppColors.black45515D,
+            size: 24,
+          ),
+          onPressed: () {
+            Navigator.maybePop(context);
+          },
+        ),
+      ),
+      title: Visibility(
+        visible: showLogo,
+        child: Image.asset(
+          'assets/images/logoNameColor.png',
+          width: MediaQuery.of(context).size.width * 0.555,
+        ),
+      ),
+    );
+  }
+}

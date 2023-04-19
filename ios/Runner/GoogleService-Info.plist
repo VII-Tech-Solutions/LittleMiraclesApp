@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>970217973487-tda06jvjvgtgn4tefmenu48r2q0f3rd8.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.970217973487-tda06jvjvgtgn4tefmenu48r2q0f3rd8</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>970217973487-0d3lg2aj30romnrpqahmesfjei2c1v62.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC9KtONUC1mlcHV3L4-NH1TBHTPc6iF6bs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>970217973487</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.littlemiraclesbys</string>
+	<key>PROJECT_ID</key>
+	<string>little-miracles-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>little-miracles-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:970217973487:ios:4c8cbd8504d4e4961d1d1a</string>
+</dict>
+</plist>

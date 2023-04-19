@@ -1,0 +1,59 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+before_all do
+	ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
+  ENV["FIREBASE_TOKEN"] = "4/1AX4XfWhPU4-YeaBJxd52LuiorBvIRcMfwM9aWagJk8dd5LBmK_HQp7UZpGI"
+  # ENV["FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD"] = "gwqu-ouev-cvhz-fwvm"
+end
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Description of what the lane does"
+ # Deploy to Fireabse: STAGING
+ lane :firebase_staging do
+  desc "Deploy a new staging build to firebase distribution"
+  Dir.chdir "../.." do
+    sh("flutter", "clean")
+    sh("flutter", "packages", "get")
+    sh("flutter", "build", "ios")
+  end
+  
+  get_certificates
+  get_provisioning_profile(
+    adhoc: true,
+    force: true,
+    filename: "LM_App_Ad_Hoc.mobileprovision"
+  )
+  build_app(
+    export_method: "ad-hoc",
+    export_options: {
+      method: "ad-hoc",
+      signingStyle: 'manual',
+      provisioningProfiles: {
+        "com.littlemiracles" => "Little Miracles App Ad Hoc"
+      }
+    }
+  )
+  firebase_app_distribution(
+   app: "1:970217973487:ios:935a943dec36d6ea1d1d1a",
+    groups: "viitech",
+    release_notes: "Staging Environment"
+  )
+  clean_build_artifacts
+ end
+
+end
