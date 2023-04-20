@@ -2,7 +2,7 @@
 
 // Flutter imports:
 import 'package:flutter/material.dart';
-
+import 'package:nb_utils/nb_utils.dart';
 // Package imports:
 import 'package:provider/provider.dart';
 
@@ -20,12 +20,17 @@ class PhotoPaperSizeSelector extends StatelessWidget {
 
   void _goToItemsPage(BuildContext context) {
     FocusScope.of(context).requestFocus(new FocusNode());
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => PhotoPaperSizePage(),
-      ),
-    );
+
+    print(context.read<Studio>().selectedPrintType);
+
+    context.read<Studio>().selectedPrintType?.id != null
+        ? Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PhotoPaperSizePage(),
+            ),
+          )
+        : snackBar(context, title: 'Please select Print Type');
   }
 
   @override

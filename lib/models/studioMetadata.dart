@@ -12,6 +12,7 @@ class StudioMetadata {
   final String? updatedAt;
   final String? deletedAt;
   final int? thicknessId;
+  final int? printTypeId;
 
   StudioMetadata({
     @required this.id,
@@ -24,6 +25,7 @@ class StudioMetadata {
     @required this.updatedAt,
     @required this.deletedAt,
     @required this.thicknessId,
+    @required this.printTypeId,
   });
 
   Map<String, Object> toMap() {
@@ -38,6 +40,7 @@ class StudioMetadata {
       'updatedAt': updatedAt ?? "",
       'deletedAt': deletedAt ?? "",
       'thickness_id': thicknessId ?? -1,
+      'print_type_id': printTypeId ?? -1,
     };
   }
 
@@ -52,6 +55,7 @@ class StudioMetadata {
         category: json['category'] as int?,
         updatedAt: json['updated_at'] as String?,
         deletedAt: json['deleted_at'] as String?,
-        thicknessId: json['thickness_id'] as int?,);
+        thicknessId: json['thickness_id'] as int?,
+        printTypeId: json['print_type_id'] as int?);
   }
 }

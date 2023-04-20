@@ -1,19 +1,17 @@
 //PACKAGES
 
+// Project imports:
+import 'package:LMP0001_LittleMiraclesApp/providers/studio.dart';
 // Flutter imports:
 import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:provider/provider.dart';
 
-// Project imports:
-import 'package:LMP0001_LittleMiraclesApp/providers/studio.dart';
+import './customBottomNavigationBar.dart';
+import './onboardingPage.dart';
 import '../../global/colors.dart';
 import '../../providers/appData.dart';
 import '../../providers/auth.dart';
-import '../../widgets/general/loadingIndicator.dart';
-import './customBottomNavigationBar.dart';
-import './onboardingPage.dart';
 
 class Splashscreen extends StatefulWidget {
   const Splashscreen({Key? key}) : super(key: key);

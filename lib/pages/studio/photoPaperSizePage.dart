@@ -1,10 +1,9 @@
 //PACKAGES
 
-// Flutter imports:
-import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:cached_network_image/cached_network_image.dart';
+// Flutter imports:
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -103,6 +102,9 @@ class _PhotoPaperSizePageState extends State<PhotoPaperSizePage> {
               childAspectRatio: 107 / 115,
               children: appDataProvider
                   .getStudioMetadata(StudioMetaCategory.paperSize)
+                  .where((dataItem) =>
+                      dataItem.printTypeId ==
+                      context.read<Studio>().selectedPrintType!.id!)
                   .map(
                     (item) => InkWell(
                       onTap: () {

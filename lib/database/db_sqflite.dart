@@ -16,7 +16,8 @@ class DBHelper {
 
     //sample for local db update
     void _upgradeToV2(Batch batch) {
-      batch.execute('ALTER TABLE ${Tables.photographers} ADD COLUMN additionalCharge INTEGER;');
+      batch.execute(
+          'ALTER TABLE ${Tables.photographers} ADD COLUMN additionalCharge INTEGER;');
     }
 
     return sql.openDatabase(
