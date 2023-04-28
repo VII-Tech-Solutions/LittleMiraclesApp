@@ -8,11 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import '../../global/const.dart';
 import '../../providers/appData.dart';
 import '../../providers/bookings.dart';
 import '../../widgets/dialogs/showLoadingDialog.dart';
-import '../../widgets/dialogs/showOkDialog.dart';
 // import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class InAppWebViewPage extends StatefulWidget {
@@ -25,6 +23,8 @@ class InAppWebViewPage extends StatefulWidget {
 }
 
 class _InAppWebViewPageState extends State<InAppWebViewPage> {
+  String? testurl = "";
+
   @override
   void initState() {
     // TODO: implement initState
@@ -91,43 +91,100 @@ class _InAppWebViewPageState extends State<InAppWebViewPage> {
     //     }
     //   },
     // ),
-    return Container(
-      child: WebView(
-        initialUrl: widget.link.toString(),
-        javascriptMode: JavascriptMode.unrestricted,
-        gestureRecognizers: Set()
-          ..add(
-            Factory<DragGestureRecognizer>(
-              () => VerticalDragGestureRecognizer(),
-            ),
-          ),
-        onPageFinished: (String url) {
-          print("url: $url");
-          if (url.endsWith("/approved")) {
-            // Navigator.pushAndRemoveUntil(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) =>
-            //         SuccessPaymentPage(widget.selectedPayment.toString()),
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          children: [
+            // SizedBox(
+            //   height: 20,
+            // ),
+            // Center(
+            //   child: SelectableText(
+            //     testurl.toString(),
+            //     style: TextStyle(
+            //         color: Colors.red,
+            //         fontWeight: FontWeight.bold,
+            //         fontSize: 12),
+            //     textAlign: TextAlign.center,
+            //     onTap: () => print('Tapped'),
+            //     toolbarOptions: ToolbarOptions(
+            //       copy: true,
+            //       selectAll: true,
+            //     ),
+            //     showCursor: true,
+            //     cursorWidth: 2,
+            //     cursorColor: Colors.red,
+            //     cursorRadius: Radius.circular(5),
             //   ),
-            //   (Route<dynamic> route) => false,
-            // );
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      SuccessPaymentPage(widget.selectedPayment.toString())),
-            );
-            _confirmSignelSession(context);
-          } else if (url.endsWith("/declined")) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      FailurePaymentPage(widget.selectedPayment.toString())),
-            );
-          }
-        },
+            // ),
+            Expanded(
+              child: WebView(
+                initialUrl: widget.link.toString(),
+                javascriptMode: JavascriptMode.unrestricted,
+                gestureRecognizers: Set()
+                  ..add(
+                    Factory<DragGestureRecognizer>(
+                      () => VerticalDragGestureRecognizer(),
+                    ),
+                  ),
+                onPageStarted: (url) {
+                  setState(() {
+                    testurl = url;
+                  });
+                  if (url.contains('hc-action-cancel')) {
+                    Navigator.pop(context);
+                  } else if (url.endsWith("/approved")) {
+                    // Navigator.pushAndRemoveUntil(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) =>
+                    //         SuccessPaymentPage(widget.selectedPayment.toString()),
+                    //   ),
+                    //   (Route<dynamic> route) => false,
+                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SuccessPaymentPage(
+                              widget.selectedPayment.toString())),
+                    );
+                    _confirmSignelSession(context);
+                  }
+                },
+                onPageFinished: (String url) {
+                  setState(() {
+                    testurl = url;
+                  });
+                  print("url: $url");
+                  if (url.endsWith("/approved")) {
+                    // Navigator.pushAndRemoveUntil(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) =>
+                    //         SuccessPaymentPage(widget.selectedPayment.toString()),
+                    //   ),
+                    //   (Route<dynamic> route) => false,
+                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SuccessPaymentPage(
+                              widget.selectedPayment.toString())),
+                    );
+                    _confirmSignelSession(context);
+                  } else if (url.endsWith("/declined")) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => FailurePaymentPage(
+                              widget.selectedPayment.toString())),
+                    );
+                  }
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
     // ]);

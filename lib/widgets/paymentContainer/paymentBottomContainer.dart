@@ -2,7 +2,6 @@
 
 // Flutter imports:
 import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:provider/provider.dart';
 
@@ -50,7 +49,10 @@ class PaymentBottomContainer extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    'BD ${promoCode?.code != null ? session!.subtotal - int.parse(promoCode!.discountPrice!.replaceAll(RegExp(r"([.]*0+)(?!.*\d)"), "")) : session!.subtotal}',
+                    // 'BD ${promoCode?.code != null ? session!.subtotal - int.parse(promoCode!.discountPrice!.replaceAll(RegExp(r"([.]*0+)(?!.*\d)"), "")) : session!.subtotal}',
+
+                    'BD ${promoCode?.code != null ? session!.subtotal - double.parse(promoCode!.discountPrice!.replaceAll(RegExp(r"([.]*0+)(?!.*\d)"), "")) : session!.subtotal}',
+
                     style: TextStyle(
                       color: AppColors.black45515D,
                       fontSize: 24,

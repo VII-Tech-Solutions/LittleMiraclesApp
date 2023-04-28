@@ -2,14 +2,10 @@
 
 // Dart imports:
 import 'dart:math';
-import 'dart:ui' as ui;
 
-// Flutter imports:
-import 'package:LMP0001_LittleMiraclesApp/global/colors.dart';
 import 'package:LMP0001_LittleMiraclesApp/providers/bookings.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:provider/provider.dart';
 

@@ -3,18 +3,14 @@
 // Flutter imports:
 import 'package:LMP0001_LittleMiraclesApp/pages/booking/photographerPage.dart';
 import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:provider/provider.dart';
 
 // Project imports:
 import '../../global/const.dart';
-import '../../pages/booking/bookingSessionPage.dart';
 import '../../pages/booking/multiSessionPackage/multiSessionBookingPage.dart';
 import '../../providers/bookings.dart';
 import '../../widgets/buttons/iconButtonWidget.dart';
-import '../../widgets/dialogs/showLoadingDialog.dart';
-import '../../widgets/dialogs/showOkDialog.dart';
 import '../../widgets/packageContainers/packageBottomSectionContainer.dart';
 import '../../widgets/packageContainers/packageDetailsSectionContainer.dart';
 import '../../widgets/packageContainers/packageImageSectionContainer.dart';

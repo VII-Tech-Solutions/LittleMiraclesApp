@@ -4,25 +4,19 @@ import 'dart:convert';
 import 'package:LMP0001_LittleMiraclesApp/global/colors.dart';
 import 'package:LMP0001_LittleMiraclesApp/pages/chat/users.dart';
 import 'package:LMP0001_LittleMiraclesApp/providers/chatProvider.dart';
-import 'package:LMP0001_LittleMiraclesApp/widgets/appbars/appBarWithBack.dart';
 import 'package:LMP0001_LittleMiraclesApp/widgets/appbars/appBarWithBackAndActions.dart';
+import 'package:badges/badges.dart' as b;
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
 // Package imports:
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
-import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:badges/badges.dart' as b;
 import 'package:provider/provider.dart';
-// Project imports:
-import '../../global/colors.dart';
+
 import 'chat.dart';
 import 'util.dart';
 
@@ -200,6 +194,17 @@ class _RoomsPageState extends State<RoomsPage> {
         stream: FirebaseChatCore.instance.rooms(orderByUpdatedAt: true),
         initialData: const [],
         builder: (context, snapshot) {
+          // code for duplicate removal ..
+
+          //    var uniqueRooms = [];
+          // var seenNames = [];
+          // for (final room in snapshot.data!) {
+          //   if (!seenNames.contains(room.name)) {
+          //     uniqueRooms.add(room);
+          //     seenNames.add(room.name);
+          //   }
+          // }
+          // print("uniqueRooms");
           // print(snapshot.data!.length);
           // if (!snapshot.hasData || snapshot.data!.isEmpty) {
           //   return loading == true

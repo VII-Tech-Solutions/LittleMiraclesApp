@@ -2,16 +2,18 @@
 
 // Flutter imports:
 import 'package:LMP0001_LittleMiraclesApp/widgets/appbars/emptySliverAppBar.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import './aboutUsPage.dart';
+import './editYourFamilyChoicesPage.dart';
+import './editYourProfilePage.dart';
+import './faqsPage.dart';
 // Project imports:
 import '../../global/colors.dart';
 import '../../global/const.dart';
@@ -20,10 +22,6 @@ import '../../providers/appData.dart';
 import '../../providers/auth.dart';
 import '../../widgets/appbars/mainPagesSliverAppBar.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
-import './aboutUsPage.dart';
-import './editYourFamilyChoicesPage.dart';
-import './editYourProfilePage.dart';
-import './faqsPage.dart';
 
 //EXTENSIONS
 
@@ -168,6 +166,18 @@ class MoreMainPage extends StatelessWidget {
                       }
                     },
                   ),
+                  // _buttonWidget(
+                  //   'Gift a studio package',
+                  //   'Send a gift to a family member or friend',
+                  //   () {
+                  //     Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //         builder: (context) => SendGift(),
+                  //       ),
+                  //     );
+                  //   },
+                  // ),
                   _buttonWidget(
                     'FAQs',
                     'Frequently Asked Questions',

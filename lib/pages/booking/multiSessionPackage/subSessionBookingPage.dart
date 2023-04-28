@@ -5,19 +5,16 @@ import 'dart:convert';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:provider/provider.dart';
 
-// Project imports:
-import '../../../global/colors.dart';
+import '../../../Global/colors.dart';
 import '../../../global/const.dart';
 import '../../../models/package.dart';
 import '../../../providers/bookings.dart';
 import '../../../widgets/appbars/appBarWithBack.dart';
 import '../../../widgets/bookingSessionContainers/MultiSession/multiSessionBackdropSelector.dart';
 import '../../../widgets/bookingSessionContainers/MultiSession/multiSessionCakeSelector.dart';
-import '../../../widgets/bookingSessionContainers/MultiSession/multiSessionPhotographerSelector.dart';
 import '../../../widgets/bookingSessionContainers/availableTimeContainer.dart';
 import '../../../widgets/bookingSessionContainers/calendarContainer.dart';
 import '../../../widgets/bookingSessionContainers/joiningPeopleContainer.dart';
@@ -117,12 +114,30 @@ class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
               color: AppColors.pinkFCE0DC,
               alignment: Alignment.center,
               child: TitleText(
-                title: widget.subPackage?.description ?? '',
+                // title: widget.subPackage?.description ?? '',
+                title: widget.subPackage?.description,
+
                 customPadding: null,
                 type: TitleTextType.secondaryTitle,
                 weight: FontWeight.w600,
               ),
             ),
+
+            // ExpansionTile(
+            //   iconColor: AppColors.grey5C6671,
+            //   backgroundColor: AppColors.pinkFCE0DC,
+            //   collapsedBackgroundColor: AppColors.pinkFCE0DC,
+            //   title: TitleText(
+            //     // title: widget.subPackage?.description ?? '',
+            //     title: widget.subPackage?.description,
+            //     customPadding: null,
+            //     type: TitleTextType.secondaryTitle,
+            //     weight: FontWeight.w600,
+            //   ),
+            //   children: <Widget>[
+            //     Text('Content'),
+            //   ],
+            // ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: Column(
