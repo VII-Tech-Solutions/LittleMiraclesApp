@@ -96,7 +96,7 @@ dependencies:
   provider: 6.0.3
   screenshot: 1.2.3
   # share_plus: 3.1.0
-  share_plus: #6.3.2
+  share_plus: 2.0.0
 
   shared_preferences: 2.0.13
   # snapkit: 2.0.0

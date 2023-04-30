@@ -1017,6 +1017,7 @@ class Bookings with ChangeNotifier {
   }
 
   var paymentLink;
+  var credimaxSuccessIndicator;
 
   Future<ApiResponse?> checkout(
     paymentMethod,
@@ -1058,7 +1059,11 @@ class Bookings with ChangeNotifier {
       } else {
         print(response.body);
         paymentLink = json.decode(response.body)['data']['payment_url'];
+        credimaxSuccessIndicator =
+            json.decode(response.body)['data']['success_indicator']??null;
+
         print(paymentLink);
+
         notifyListeners();
       }
 

@@ -180,6 +180,7 @@ class _ReviewAndPayPageState extends State<ReviewAndPayPage> {
               MaterialPageRoute(
                 builder: (context) => InAppWebViewPage(
                     bookingsProvider.paymentLink,
+                    bookingsProvider.credimaxSuccessIndicator,
                     selectedPayment: _selectedPayment == 3 ? '2' : '1'),
               ),
             );

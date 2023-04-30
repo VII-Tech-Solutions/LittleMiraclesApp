@@ -16,19 +16,21 @@ import '../../widgets/dialogs/showLoadingDialog.dart';
 class InAppWebViewPage extends StatefulWidget {
   final String link;
   final selectedPayment;
-  InAppWebViewPage(this.link, {this.selectedPayment});
+  final String? successIndicator;
+  InAppWebViewPage(this.link, this.successIndicator, {this.selectedPayment});
 
   @override
   State<InAppWebViewPage> createState() => _InAppWebViewPageState();
 }
 
 class _InAppWebViewPageState extends State<InAppWebViewPage> {
-  String? testurl = "";
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    print(widget.link.contains('Credimax'));
+    print(widget.successIndicator);
     // Android keyboard fix
     if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
   }
@@ -128,33 +130,21 @@ class _InAppWebViewPageState extends State<InAppWebViewPage> {
                     ),
                   ),
                 onPageStarted: (url) {
-                  setState(() {
-                    testurl = url;
-                  });
-                  if (url.contains('hc-action-cancel')) {
-                    Navigator.pop(context);
-                  } else if (url.endsWith("/approved")) {
-                    // Navigator.pushAndRemoveUntil(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) =>
-                    //         SuccessPaymentPage(widget.selectedPayment.toString()),
-                    //   ),
-                    //   (Route<dynamic> route) => false,
-                    // );
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => SuccessPaymentPage(
-                              widget.selectedPayment.toString())),
-                    );
-                    _confirmSignelSession(context);
+                  if (widget.link.contains('Credimax')) {
+                    if (url.contains('hc-action-cancel')) {
+                      Navigator.pop(context);
+                    } else if (url.contains('resultIndicator') &&
+                        url.contains(widget.successIndicator!)) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SuccessPaymentPage(
+                                widget.selectedPayment.toString())),
+                      );
+                    }
                   }
                 },
                 onPageFinished: (String url) {
-                  setState(() {
-                    testurl = url;
-                  });
                   print("url: $url");
                   if (url.endsWith("/approved")) {
                     // Navigator.pushAndRemoveUntil(
