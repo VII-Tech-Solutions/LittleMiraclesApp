@@ -135,14 +135,13 @@ class _InAppWebViewPageState extends State<InAppWebViewPage> {
                       Navigator.pop(context);
                     } else if (url.contains('resultIndicator') &&
                         url.contains(widget.successIndicator!)) {
-                                              _confirmSignelSession(context);
-
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => SuccessPaymentPage(
                                 widget.selectedPayment.toString())),
                       );
+                      _confirmSignelSession(context);
                     }
                   }
                 },
