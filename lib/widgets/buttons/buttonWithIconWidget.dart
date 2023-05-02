@@ -28,7 +28,11 @@ class ButtonWithIconWidget extends StatelessWidget {
           height: 60,
           margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
           decoration: BoxDecoration(
-            color: type == 'admin' ? AppColors.blue8DC4CB : Colors.white,
+            color: type == 'admin'
+                ? AppColors.blue8DC4CB
+                : type == 'apple'
+                    ? Colors.black
+                    : Colors.white,
             borderRadius: BorderRadius.circular(30),
           ),
           child: Padding(
@@ -50,14 +54,14 @@ class ButtonWithIconWidget extends StatelessWidget {
                 else
                   SvgPicture.asset(
                     assetName!,
-                    height: 34,
-                    width: 34,
+                    height: type == 'apple' ? 26 : 34,
+                    width: type == 'apple' ? 26 : 34,
                   ),
                 Text(
                   buttonText ?? '',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: type == 'admin'
+                    color: type == 'admin' || type == 'apple'
                         ? AppColors.whiteFFFFFF
                         : AppColors.black45515D,
                     fontSize: 14,

@@ -434,7 +434,8 @@ class LoginPage extends StatelessWidget {
                         context, SSOType.apple, authProvider, appDataProvider);
                   },
                   buttonText: 'Sign in with Apple',
-                  assetName: 'assets/images/iconsSocialApple.svg',
+                  assetName: 'assets/images/Shape.svg',
+                  type: 'apple',
                 ),
               ),
               ButtonWithIconWidget(
