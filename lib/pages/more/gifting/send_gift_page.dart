@@ -60,6 +60,7 @@ class _SendGiftState extends State<SendGift> {
       bottomNavigationBar: Container(
         height: 80,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        margin: const EdgeInsets.only(bottom: 20),
         child: FilledButtonWidget(
           onPress: () {
             Navigator.push(

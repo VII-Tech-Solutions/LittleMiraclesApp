@@ -7,9 +7,14 @@ import 'package:provider/provider.dart';
 
 // Project imports:
 import '../../../global/colors.dart';
+import '../../../models/package.dart';
 import '../../../providers/appData.dart';
+import '../../../providers/bookings.dart';
 import '../../../widgets/appbars/appBarWithBack.dart';
 import '../../../widgets/bookingSessionContainers/selectionRow.dart';
+import '../../../widgets/form/formTextField.dart';
+import '../../../widgets/packageContainers/packageBottomSectionContainer.dart';
+import '../../booking/photographerPage.dart';
 
 //EXTENSIONS
 
@@ -22,6 +27,7 @@ class SelectPackage extends StatefulWidget {
 
 class _SelectPackageState extends State<SelectPackage> {
   List<int> _selectedItems = [];
+  late Package selectedPackage;
   String _customBackdrop = '';
 
   @override
@@ -65,75 +71,125 @@ class _SelectPackageState extends State<SelectPackage> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Container(
-          height: 500,
-          width: 400,
-          child: ListView.builder(
-            primary: false,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: _list.length,
-            itemBuilder: (BuildContext context, int index) {
-              return SelectionRow(
-                () {
-                  // setState(() {
-                  //   if (_selectedItems.contains(index)) {
-                  //     _selectedItems
-                  //         .removeWhere((element) => element == index);
-                  //   } else {
-                  //     _selectedItems.clear();
-                  //     _selectedItems.add(index);
-                  //   }
-                  // });
-                  // print("here .. ");
-                },
-                _list[index].image,
-                null,
-                _list[index].title,
-                _selectedItems.contains(index),
-                1,
-                id: index,
-              );
-            },
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: ListView.builder(
+                  primary: false,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: _list.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return SelectionRow(
+                      () {
+                        setState(() {
+                          selectedPackage = _list[index];
+                          _selectedItems.clear();
+                          _selectedItems.add(index);
+                        });
+                        print("here .. ");
+                      },
+                      _list[index].image,
+                      null,
+                      _list[index].title,
+                      _selectedItems.contains(index),
+                      1,
+                      id: index,
+                    );
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Text(
+                  'To:',
+                  style: TextStyle(
+                    color: AppColors.black45515D,
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+              FormTextFieldWidget(
+                title: 'enter their email address',
+                controller: TextEditingController(),
+                maxLines: 1,
+                customWidth: double.infinity,
+                customMargin:
+                    const EdgeInsets.symmetric(horizontal: 0.0, vertical: 10),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Text(
+                  'From:',
+                  style: TextStyle(
+                    color: AppColors.black45515D,
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+              FormTextFieldWidget(
+                title: 'enter your name',
+                controller: TextEditingController(),
+                maxLines: 1,
+                customWidth: double.infinity,
+                customMargin:
+                    const EdgeInsets.symmetric(horizontal: 0.0, vertical: 10),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Text(
+                  'Message (optional):',
+                  style: TextStyle(
+                    color: AppColors.black45515D,
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+              FormTextFieldWidget(
+                title: 'enter their email address',
+                controller: TextEditingController(),
+                maxLines: 5,
+                customWidth: double.infinity,
+                customMargin:
+                    const EdgeInsets.symmetric(horizontal: 0.0, vertical: 10),
+              )
+            ],
           ),
         ),
       ),
-      bottomNavigationBar: Container(
-        height: 80,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        // child: FilledButtonWidget(
-        //   onPress: () {
-        //     print(bookingsProvider.package!.minBackdrop);
-        //     print('muli');
-        //     print(_selectedItems.length);
-        //     // if (_selectedItems.length < bookingsProvider.package!.minBackdrop &&
-        //     //     bookingsProvider.package!.minBackdrop != null) {
-        //     //   ShowOkDialog(context,
-        //     //       'Please select ${bookingsProvider.package!.minBackdrop} backdrop to proceed');
-        //     // } else {
-        //     if (_selectedItems.isNotEmpty || _customBackdrop.isNotEmpty) {
-        //       if (widget.subPackage != null) {
-        //         Map<int, List<int>> backdropsMap = {
-        //           widget.subPackage!.id!: _selectedItems,
-        //         };
-
-        //         bookingsProvider.amendSubSessionBookingDetails(
-        //             SubSessionBookingDetailsType.backdrop, backdropsMap,
-        //             selectedList: _selectedItems);
-        //       } else {
-        //         bookingsProvider.assignSelectedBackdrops(
-        //             selectedList: _selectedItems, val: _customBackdrop);
-        //       }
-        //       Navigator.pop(context);
-        //     } else {
-        //       ShowOkDialog(context, 'Please select a backdrop to proceed');
-        //     }
-        //     // }
-        //   },
-        //   title: 'Confirm Package',
-        //   type: ButtonType.generalBlue,
-        // ),
-      ),
+      // bottomNavigationBar: PackageBottomSectionContainer(onTap: () {
+      //   // print(selectedPackage.title);
+      //   //     if (package?.id != null) {
+      //   //   ShowLoadingDialog(context);
+      //   //   context
+      //   //       .read<Bookings>()
+      //   //       .fetchAndSetPackageDetails(package!.id!)
+      //   //       .then((response) {
+      //   //     ShowLoadingDialog(context, dismiss: true);
+      //   //     if (response.statusCode == 200) {
+      //   //       Navigator.push(
+      //   //         context,
+      //   //         MaterialPageRoute(
+      //   //           builder: (context) => PackageDetailsPage(),
+      //   //         ),
+      //   //       );
+      //   //     } else {
+      //   //       ShowOkDialog(
+      //   //         context,
+      //   //         response.message ?? ErrorMessages.somethingWrong,
+      //   //       );
+      //   //     }
+      //   //   });
+      //   // }
+      //   // Navigator.of(context).push(
+      //   //   MaterialPageRoute(
+      //   //     builder: (context) => PhotographerPage(),
+      //   //   ),
+      //   // );
+      // }),
     );
   }
 }

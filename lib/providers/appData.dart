@@ -756,7 +756,7 @@ class AppData with ChangeNotifier {
 
       await LastUpdateClass().setLastUpdate(LastUpdate.appData);
       // await syncLocalDatabase();
-      await getLocalAppData();
+      // await getLocalAppData();
       await generateHomePageWidgets();
       await generateBookingsPageWidgets();
       await generateStudioPageWidgets();

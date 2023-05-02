@@ -119,6 +119,8 @@ class SubPackage {
   final int? id;
   final String? title;
   final String? description;
+  final String? details;
+
   final int? backdropAllowed;
   final int? cakeAllowed;
   final date;
@@ -129,6 +131,7 @@ class SubPackage {
       @required this.description,
       @required this.backdropAllowed,
       @required this.cakeAllowed,
+      this.details,
       this.date});
 
   Map<String, Object> toMap() {
@@ -136,6 +139,7 @@ class SubPackage {
       'id': id ?? -1,
       'title': title ?? "",
       'description': description ?? "",
+      'details': details ?? "",
       'backdropAllowed': backdropAllowed ?? -1,
       'cakeAllowed': cakeAllowed ?? -1,
     };
@@ -146,6 +150,7 @@ class SubPackage {
       id: json['id'] as int?,
       title: json['title'] as String?,
       description: json['description'] as String?,
+      details: json['details'] as String?,
       backdropAllowed: json['backdrop_allowed'] as int?,
       cakeAllowed: json['cake_allowed'] as int?,
     );
