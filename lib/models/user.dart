@@ -18,7 +18,7 @@ class User {
   final String? username;
   final String? provider;
   final String? firebaseId;
-  final name;
+  String? name;
   final role;
 
   User(

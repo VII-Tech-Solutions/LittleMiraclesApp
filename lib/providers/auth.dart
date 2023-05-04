@@ -786,6 +786,9 @@ class Auth with ChangeNotifier {
       _token = result['data']['token'];
       _expiryDate = result['data']['expires'];
       User user = User.fromJson(result['data']['user']);
+      if (body["provider"] == 'apple') {
+        user.name = body["name"];
+      }
       if (user.status == 1) {
         final partnerJson = result['data']['partner'];
         if (partnerJson != null && partnerJson != []) {
@@ -1076,13 +1079,21 @@ class Auth with ChangeNotifier {
         AppleIDAuthorizationScopes.fullName,
       ],
     ).then((value) {
+      String fullName;
+      if (value.givenName == null) {
+        fullName = '';
+      } else {
+        fullName = value.givenName! + " " + value.familyName!;
+      }
+
       body = {
         'id': value.userIdentifier,
-        'name': value.givenName ?? '',
+        'name': fullName,
         'email': value.email ?? '',
         'photo_url': '',
         'provider': SSOType.apple,
       };
+      print(value);
     });
 
     print(body);

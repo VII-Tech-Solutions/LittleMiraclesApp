@@ -39,8 +39,8 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
   String _genderValue = '1';
   String _countryCodeValue = '+973';
 
-  late final _firstNameController;
-  late final _lastNameController;
+  TextEditingController? _firstNameController;
+  TextEditingController? _lastNameController;
   late final _birthdayController;
   late final _phoneController;
   late final _detailsController;
@@ -89,19 +89,37 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
 
   @override
   void initState() {
-    _firstNameController = TextEditingController();
-    _lastNameController = TextEditingController();
     _birthdayController = TextEditingController();
     _phoneController = TextEditingController();
     _detailsController = TextEditingController();
     context.read<Auth>().fetchRegistrationQuestions();
+
+    var userData = context.read<Auth>().user;
+
+    if (userData!.provider == 'apple') {
+      if (userData.name != null && userData.name!.isNotEmpty) {
+        List<String> nameParts = userData.name!.split(" ");
+        String firstName = nameParts[0];
+        String lastName = nameParts[nameParts.length - 1];
+
+        _firstNameController = TextEditingController(text: firstName);
+        _lastNameController = TextEditingController(text: lastName);
+      } else {
+        _firstNameController = TextEditingController();
+        _lastNameController = TextEditingController();
+      }
+    } else {
+      _firstNameController = TextEditingController();
+      _lastNameController = TextEditingController();
+    }
+
     super.initState();
   }
 
   @override
   void dispose() {
-    _firstNameController.dispose();
-    _lastNameController.dispose();
+    _firstNameController!.dispose();
+    _lastNameController!.dispose();
     _birthdayController.dispose();
     _phoneController.dispose();
     _detailsController.dispose();
@@ -310,8 +328,8 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                         if (isFormValid == true) {
                           Map userData = {
                             "user": {
-                              "first_name": _firstNameController.text,
-                              "last_name": _lastNameController.text,
+                              "first_name": _firstNameController!.text,
+                              "last_name": _lastNameController!.text,
                               "gender": _genderValue.toInt(),
                               "country_code": _countryCodeValue,
                               "phone_number": _phoneController.text,
