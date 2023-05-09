@@ -171,12 +171,14 @@ class MoreMainPage extends StatelessWidget {
                     'Gift a studio package',
                     'Send a gift to a family member or friend',
                     () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SendGift(),
-                        ),
-                      );
+                      if (_isAuthenticated(context)) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SendGift(),
+                          ),
+                        );
+                      }
                     },
                   ),
                   _buttonWidget(
