@@ -398,14 +398,14 @@ class LoginPage extends StatelessWidget {
                 buttonText: 'Login using Google',
                 assetName: 'assets/images/iconsSocialGoogle.svg',
               ),
-              ButtonWithIconWidget(
-                onPress: () {
-                  _socialLogin(
-                      context, SSOType.facebook, authProvider, appDataProvider);
-                },
-                buttonText: 'Login using Facebook',
-                assetName: 'assets/images/iconsSocialFacebook.svg',
-              ),
+              // ButtonWithIconWidget(
+              //   onPress: () {
+              //     _socialLogin(
+              //         context, SSOType.facebook, authProvider, appDataProvider);
+              //   },
+              //   buttonText: 'Login using Facebook',
+              //   assetName: 'assets/images/iconsSocialFacebook.svg',
+              // ),
               // ButtonWithIconWidget(
               //   onPress: () {
               //     _socialLogin(
