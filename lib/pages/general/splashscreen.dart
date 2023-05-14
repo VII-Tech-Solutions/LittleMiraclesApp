@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:provider/provider.dart';
 
+import '../../providers/giftingProvider.dart';
 import './customBottomNavigationBar.dart';
 import './onboardingPage.dart';
 import '../../global/colors.dart';
@@ -34,10 +35,12 @@ class _SplashscreenState extends State<Splashscreen> {
       final authProvider = context.watch<Auth>();
       final appDataProvider = context.read<AppData>();
       final cartItems = context.watch<Studio>();
+      var giftingProvider = Provider.of<GiftingData>(context, listen: false);
 
       authProvider.getToken().then((_) {
         if (authProvider.isAuth) {
           final token = authProvider.token;
+          giftingProvider.fetchUserGifts(token);
           appDataProvider.fetchAndSetSessions(token: token).then(
                 (value) => appDataProvider
                     .fetchAndSetAppData()

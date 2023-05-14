@@ -118,7 +118,7 @@ class _ReviewAndPayGiftState extends State<ReviewAndPayGift> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(widget.giftInformation.toString()),
+              // Text(widget.giftInformation.toString()),
               GiftInfoContainer(giftInformation: widget.giftInformation),
               Container(
                 height: 1,
@@ -126,7 +126,7 @@ class _ReviewAndPayGiftState extends State<ReviewAndPayGift> {
                 color: AppColors.greyE8E9EB,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -240,22 +240,22 @@ class _ReviewAndPayGiftState extends State<ReviewAndPayGift> {
               var giftInformation = await giftCheckout();
               print(giftInformation);
               if (giftInformation != null) {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => InAppWebViewPageGift(
-                //       giftInformation: giftInformation,
-                //     ),
-                //   ),
-                // );
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => GiftSuccessPaymentPage(
-                      giftInformation,
+                    builder: (context) => InAppWebViewPageGift(
+                      giftInformation: giftInformation,
                     ),
                   ),
                 );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => GiftSuccessPaymentPage(
+                //       giftInformation,
+                //     ),
+                //   ),
+                // );
               }
             }
           }),

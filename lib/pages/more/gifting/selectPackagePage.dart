@@ -17,6 +17,7 @@ import '../../../global/colors.dart';
 import '../../../models/package.dart';
 import '../../../providers/appData.dart';
 import '../../../providers/auth.dart';
+import '../../../providers/giftingProvider.dart';
 import '../../../widgets/appbars/appBarWithBack.dart';
 import '../../../widgets/bookingSessionContainers/selectionRow.dart';
 import '../../../widgets/dialogs/showLoadingDialog.dart';
@@ -40,11 +41,15 @@ class _SelectPackageState extends State<SelectPackage> {
   @override
   void initState() {
     authProvider = Provider.of<Auth>(context, listen: false);
+    giftingProvider = Provider.of<GiftingData>(context, listen: false);
+
+    print(authProvider.token);
 
     super.initState();
   }
 
   var authProvider;
+  var giftingProvider;
 // fetching package list from provider and setting first pacakge selected by default ...
   @override
   void didChangeDependencies() {
@@ -101,11 +106,14 @@ class _SelectPackageState extends State<SelectPackage> {
         } else {
           // API call failed
           print('Response body: ${response.body}');
+          ShowLoadingDialog(context, dismiss: true);
+
+          return null;
         }
-        ShowLoadingDialog(context, dismiss: true);
       } catch (e) {
         print(e);
         ShowLoadingDialog(context, dismiss: true);
+        return null;
       }
     }
   }
@@ -129,6 +137,19 @@ class _SelectPackageState extends State<SelectPackage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 20,
+                  ),
+                  child: Text(
+                    'Select a Package',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 18,
+                      color: AppColors.black45515D,
+                    ),
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: ListView.builder(
@@ -154,6 +175,19 @@ class _SelectPackageState extends State<SelectPackage> {
                         id: index,
                       );
                     },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 20,
+                  ),
+                  child: Text(
+                    'Gift details',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 18,
+                      color: AppColors.black45515D,
+                    ),
                   ),
                 ),
                 Padding(

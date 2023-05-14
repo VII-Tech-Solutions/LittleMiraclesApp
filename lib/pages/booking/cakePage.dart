@@ -286,6 +286,7 @@ class _CakePageState extends State<CakePage> {
   }
 
   var colorId;
+  var colorId2;
 
   @override
   Widget build(BuildContext context) {
@@ -313,12 +314,18 @@ class _CakePageState extends State<CakePage> {
                       setState(() {
                         _isClearSelected = false;
                       });
-                      colorId = await Navigator.push(
+
+                      colorId2 = await Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => CakeColor(index: index),
                         ),
                       );
+
+                      setState(() {
+                        colorId = colorId2;
+                      });
+                      print(colorId2[0]["color_id"].runtimeType);
                     },
                     child: Container(
                       width: double.infinity,
@@ -604,7 +611,8 @@ class _CakePageState extends State<CakePage> {
           onPress: () {
             if (widget.subPackage != null) {
               Map<int, List<int>> cakesMap = {
-                widget.subPackage!.id!: _selectedItems,
+                // widget.subPackage!.id!: _selectedItems,
+                widget.subPackage!.id!: [colorId2[0]['color_id']],
               };
               bookingsProvider.amendSubSessionBookingDetails(
                 SubSessionBookingDetailsType.cake,

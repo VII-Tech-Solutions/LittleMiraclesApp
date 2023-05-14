@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:LMP0001_LittleMiraclesApp/pages/booking/failurePaymentPage.dart';
 import 'package:LMP0001_LittleMiraclesApp/pages/booking/successPaymentPage.dart';
+import 'package:LMP0001_LittleMiraclesApp/pages/more/gifting/successPaymentPage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -54,6 +55,14 @@ class _InAppWebViewPageState extends State<InAppWebViewPageGift> {
                     } else if (url.contains('resultIndicator') &&
                         url.contains(
                             widget.giftInformation['success_indicator'])) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => GiftSuccessPaymentPage(
+                            widget.giftInformation,
+                          ),
+                        ),
+                      );
                       // Navigator.push(
                       //   context,
                       //   MaterialPageRoute(
@@ -62,14 +71,22 @@ class _InAppWebViewPageState extends State<InAppWebViewPageGift> {
                       // );
                     }
                   } else {
-                    // if (url.contains('paymentcancel')) {
-                    //   Navigator.pop(context);
-                    // }
+                    if (url.contains('paymentcancel')) {
+                      Navigator.pop(context);
+                    }
                   }
                 },
                 onPageFinished: (String url) {
                   print("url: $url");
                   if (url.endsWith("/approved")) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => GiftSuccessPaymentPage(
+                          widget.giftInformation,
+                        ),
+                      ),
+                    );
                     // Navigator.push(
                     //   context,
                     //   MaterialPageRoute(

@@ -4,6 +4,7 @@
 import 'package:LMP0001_LittleMiraclesApp/Global/colors.dart';
 import 'package:LMP0001_LittleMiraclesApp/global/globalHelpers.dart' as global;
 import 'package:LMP0001_LittleMiraclesApp/providers/chatProvider.dart';
+import 'package:LMP0001_LittleMiraclesApp/providers/giftingProvider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -231,6 +232,7 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => Auth()),
+        ChangeNotifierProvider(create: (_) => GiftingData()),
         ChangeNotifierProxyProvider<Auth, AppData>(
           update: (context, auth, previousAppData) => AppData(
             auth.token,

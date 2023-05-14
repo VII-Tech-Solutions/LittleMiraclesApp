@@ -51,7 +51,7 @@ class PaymentBottomContainer extends StatelessWidget {
                   child: Text(
                     // 'BD ${promoCode?.code != null ? session!.subtotal - int.parse(promoCode!.discountPrice!.replaceAll(RegExp(r"([.]*0+)(?!.*\d)"), "")) : session!.subtotal}',
 
-                    'BD ${promoCode?.code != null ? session!.subtotal - double.parse(promoCode!.discountPrice!.replaceAll(RegExp(r"([.]*0+)(?!.*\d)"), "")) : session!.subtotal}',
+                    'BD ${promoCode?.code != null ? (session!.subtotal - double.parse(promoCode!.discountPrice!.replaceAll(RegExp(r"([.]*0+)(?!.*\d)"), ""))).toStringAsFixed(2) : session!.subtotal}',
 
                     style: TextStyle(
                       color: AppColors.black45515D,

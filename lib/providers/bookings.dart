@@ -1060,7 +1060,7 @@ class Bookings with ChangeNotifier {
         print(response.body);
         paymentLink = json.decode(response.body)['data']['payment_url'];
         credimaxSuccessIndicator =
-            json.decode(response.body)['data']['success_indicator']??null;
+            json.decode(response.body)['data']['success_indicator'] ?? null;
 
         print(paymentLink);
 

@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:convert';
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/providers/giftingProvider.dart';
 import 'package:LMP0001_LittleMiraclesApp/widgets/dialogs/showOkDialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 // import 'package:snapkit/snapkit.dart';
@@ -784,6 +786,9 @@ class Auth with ChangeNotifier {
       // _token =
       //     'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMWE1ZTQ4MjliMTVjMzZkZWFkYmM5YTdlMTQyNjE3NzZhZjc3NGU0ZDY1YjdiMzc1MTE3NzVhM2MxNjkwMjZhMmQyZmU0ODIxOTIyZmNlN2MiLCJpYXQiOjE2NzQzMTg0NTIsIm5iZiI6MTY3NDMxODQ1MiwiZXhwIjoxODMyMDg0ODUyLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.DnqJNmCz53iaVOBy8eno1--R68-QQcKYa2ZQx_NkIhNl_DswF3Zy-A0WWDMZK0qgYdIROUlYLAmqL-l5EubNOVJfHUN18Qb9qhilGKMEEtUaBanGuve_ImMJ9YPTI4aJbFdiEl7kjLpNrK-p4f3O6PbUsflsP_vJ6FM2vZ2AH6Ni_2lZQ56rWP7D55cknRU79v0u69x1eRfsYjnXhqTQS8qjGAj6bsH59F6kWOaxCqIWQYki0BIxhl7oYwbWo5JrpQmgt7qZTahqoVQ8EaHQxdccf4CSZBMSxEmKlJxgPOf86eNZ9U9Ks7zrjVKquQ42Hls1ofxwDs2kp-bWlLGCJoHLmcXQlNHx79XKD6f8aJgg4G3DToOdgBg3XFFGbBuy8Y_MaETWLvB2lF3lUNuUh0v8GHqSjx1MihSb-_YHZws8fPSsPbVZMSowOMWzyBS84WoUjrakdwsxE_cOhSgzz1kWmhjQhzE9-TfyQiri_qqqzvu-LvBC0PLoLR-A2B0Hq17KoprkOkn6PTbUhf0F_SmdLWJqTNBb4rfriNmHYVaeodevLaGsMOE1xq8GWCI_A3IT0uGmx5jLKy8WzO9aApsIdEjn2a6Vx1Oi0qy8MWpbcdJcTcv3oTgq5rdPXYEXZL5RRgnWT9cBgudEz0CUxZw41rWZe6-Ojo7jpQRMd0o';
       _token = result['data']['token'];
+
+      //
+
       _expiryDate = result['data']['expires'];
       User user = User.fromJson(result['data']['user']);
       if (user.status == 1) {

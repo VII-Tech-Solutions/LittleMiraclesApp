@@ -152,7 +152,7 @@ class FailurePaymentPage extends StatelessWidget {
                 );
               });
             },
-            title: 'Go To Booking Details',
+            title: 'Go To Dashboard',
             type: ButtonType.generalBlue,
           ),
         ),

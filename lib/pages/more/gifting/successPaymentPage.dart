@@ -1,23 +1,34 @@
 //PACKAGES
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/pages/more/gifting/send_gift_page.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:provider/provider.dart';
 
 import '../../../Global/colors.dart';
+import '../../../providers/auth.dart';
+import '../../../providers/giftingProvider.dart';
 import '../../../widgets/buttons/filledButtonWidget.dart';
+import '../../../widgets/dialogs/showLoadingDialog.dart';
+import '../../general/customBottomNavigationBar.dart';
 import 'components/giftInfoContainer.dart';
 
 //EXTENSIONS
 
 class GiftSuccessPaymentPage extends StatelessWidget {
   final dynamic giftInformation;
-  const GiftSuccessPaymentPage(this.giftInformation);
+  GiftSuccessPaymentPage(this.giftInformation);
+
+  var authProvider;
+  late GiftingData giftingProvider;
 
   @override
   Widget build(BuildContext context) {
+    authProvider = Provider.of<Auth>(context, listen: false);
+    giftingProvider = Provider.of<GiftingData>(context, listen: false);
+
     // _confirmSignelSession(context);
     return Scaffold(
       appBar: AppBar(
@@ -28,13 +39,14 @@ class GiftSuccessPaymentPage extends StatelessWidget {
           child: MaterialButton(
             elevation: 0,
             onPressed: () {
-              // Navigator.pushAndRemoveUntil(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => CustomBottomNavigationBar(),
-              //   ),
-              //   (Route<dynamic> route) => false,
-              // );
+              // Navigator.pop(context);
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CustomBottomNavigationBar(),
+                ),
+                (Route<dynamic> route) => false,
+              );
             },
             color: AppColors.greyF2F3F3,
             child: Icon(
@@ -126,8 +138,19 @@ class GiftSuccessPaymentPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           // margin: const EdgeInsets.only(bottom: 30),
           child: FilledButtonWidget(
-            onPress: () {},
-            title: 'Go To Home Screen',
+            onPress: () async {
+              ShowLoadingDialog(context);
+
+              await giftingProvider.fetchUserGifts(authProvider.token);
+
+              ShowLoadingDialog(context, dismiss: true);
+              Navigator.of(context)
+                ..pop()
+                ..pop()
+                ..pop()
+                ..pop();
+            },
+            title: 'Go To Gift Details',
             type: ButtonType.generalBlue,
           ),
         ),
