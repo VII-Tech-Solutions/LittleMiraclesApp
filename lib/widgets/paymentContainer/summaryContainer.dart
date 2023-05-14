@@ -90,9 +90,10 @@ class _SummaryContainerState extends State<SummaryContainer> {
             ),
           ),
           row(
-            'VAT (10%)',
-            'BD${session?.vatAmount ?? ''}',
-          ),
+              'VAT (10%)',
+              promoCode != null
+                  ? 'BD${promoCode.vatAmount ?? ''}'
+                  : 'BD${session?.vatAmount ?? ''}'),
           Padding(
             padding: const EdgeInsets.only(bottom: 8),
             child: Row(
@@ -106,7 +107,7 @@ class _SummaryContainerState extends State<SummaryContainer> {
                     )),
                 Text(
                     promoCode != null
-                        ? 'BD${json.decode(promoCode.totalPrice.toString())! + json.decode(session?.vatAmount)}'
+                        ? 'BD${json.decode(promoCode.totalPrice.toString())! + json.decode(promoCode.vatAmount.toString())}'
                         : 'BD${session!.subtotal}',
                     style: TextStyle(fontWeight: FontWeight.bold))
               ],

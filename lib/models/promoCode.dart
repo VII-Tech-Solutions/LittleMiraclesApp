@@ -7,6 +7,9 @@ class PromoCode {
   final String? originalPrice;
   final String? discountPrice;
   final String? totalPrice;
+  final String? subTotalPrice;
+  final String? vatAmount;
+
   String? codepromo;
 
   PromoCode(
@@ -15,6 +18,8 @@ class PromoCode {
       @required this.originalPrice,
       @required this.discountPrice,
       @required this.totalPrice,
+      this.subTotalPrice,
+      this.vatAmount,
       this.codepromo});
 
   factory PromoCode.fromJson(dynamic json, String code) {
@@ -26,6 +31,8 @@ class PromoCode {
       originalPrice: data['original_price'] as String?,
       discountPrice: data['discount_price'] as String?,
       totalPrice: data['total_price'] as String?,
+      subTotalPrice: data['subtotal'] as String?,
+      vatAmount: data['vat_amount'] as String?,
     );
   }
 }

@@ -88,8 +88,7 @@ class GiftSuccessPaymentPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 5),
                   child: Text(
-                    'BD ${giftInformation['package_price']}',
-                    // 'BD ${"promoCode"?.totalPrice ?? session!.subtotal ?? ''}',
+                    'BD ${double.parse(giftInformation['package_price']) + (double.parse(giftInformation['package_price']) * 0.1)}', // 'BD ${"promoCode"?.totalPrice ?? session!.subtotal ?? ''}',
 
                     style: TextStyle(
                       color: AppColors.black45515D,
@@ -112,7 +111,7 @@ class GiftSuccessPaymentPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 5),
                   child: Text(
-                    '${giftInformation['success_indicator'] == '' ? "Credit Card Payment" : "Debit Card Payment"} ',
+                    '${giftInformation['success_indicator'] == '' ? "Debit Card Payment" : "Credit Card Payment"} ',
                     style: TextStyle(
                       color: AppColors.black45515D,
                       fontSize: 14,

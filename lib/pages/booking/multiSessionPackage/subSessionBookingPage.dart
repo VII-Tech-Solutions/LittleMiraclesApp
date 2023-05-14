@@ -209,7 +209,13 @@ class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
                       context, 'Please select people joining to proceed');
                 } else if (backdropsList.isEmpty) {
                   ShowOkDialog(context, 'Please select a backdrop to proceed');
-                } else if (!_bookingBody.containsKey('photographer')) {
+                }
+
+                // else if (cakesList.isEmpty) {
+                //   ShowOkDialog(context, 'Please select a cake to proceed');
+                // }
+
+                else if (!_bookingBody.containsKey('photographer')) {
                   ShowOkDialog(
                       context, 'Please select a photographer to proceed');
                 } else {

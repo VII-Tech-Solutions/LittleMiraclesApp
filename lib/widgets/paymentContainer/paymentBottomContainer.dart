@@ -39,7 +39,7 @@ class PaymentBottomContainer extends StatelessWidget {
           //       color: AppColors.redED0006,
           //       fontSize: 16,
           //       fontWeight: FontWeight.w500,
-          //     ),
+          //     ),How
           //   ),
           // ),
           if (type == 'final')
@@ -51,7 +51,8 @@ class PaymentBottomContainer extends StatelessWidget {
                   child: Text(
                     // 'BD ${promoCode?.code != null ? session!.subtotal - int.parse(promoCode!.discountPrice!.replaceAll(RegExp(r"([.]*0+)(?!.*\d)"), "")) : session!.subtotal}',
 
-                    'BD ${promoCode?.code != null ? (session!.subtotal - double.parse(promoCode!.discountPrice!.replaceAll(RegExp(r"([.]*0+)(?!.*\d)"), ""))).toStringAsFixed(2) : session!.subtotal}',
+                    // 'BD ${promoCode?.code != null ? (promoCode.subtotal - double.parse(promoCode!.discountPrice!.replaceAll(RegExp(r"([.]*0+)(?!.*\d)"), ""))).toStringAsFixed(2) : session!.subtotal}',
+                    'BD ${promoCode?.code != null ? (promoCode?.subTotalPrice) : session!.subtotal}',
 
                     style: TextStyle(
                       color: AppColors.black45515D,
