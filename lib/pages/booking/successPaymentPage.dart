@@ -59,6 +59,16 @@ class SuccessPaymentPage extends StatelessWidget {
     });
   }
 
+// reset app data without payment ..
+  Future<void> resetData(BuildContext context) async {
+    ShowLoadingDialog(context);
+    context.read<AppData>().fetchAndSetSessions().then((_) {
+      context.read<AppData>().fetchAndSetAppData().then((_) {
+        ShowLoadingDialog(context, dismiss: true);
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final package = context.watch<Bookings>().package;
@@ -75,15 +85,27 @@ class SuccessPaymentPage extends StatelessWidget {
           padding: EdgeInsets.only(left: 16.0),
           child: MaterialButton(
             elevation: 0,
-            onPressed: () {
-              context.read<Auth>().setSelectedIndex(0);
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CustomBottomNavigationBar(),
-                ),
-                (Route<dynamic> route) => false,
-              );
+            onPressed: () async {
+              if (paymentMethod == null) {
+                await resetData(context);
+                context.read<Auth>().setSelectedIndex(0);
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CustomBottomNavigationBar(),
+                  ),
+                  (Route<dynamic> route) => false,
+                );
+              } else {
+                context.read<Auth>().setSelectedIndex(0);
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CustomBottomNavigationBar(),
+                  ),
+                  (Route<dynamic> route) => false,
+                );
+              }
             },
             color: AppColors.greyF2F3F3,
             child: Icon(
@@ -113,7 +135,7 @@ class SuccessPaymentPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: Text(
-                    'Payment Successful',
+                    paymentMethod == null ? "Success" : 'Payment Successful',
                     style: TextStyle(
                       color: AppColors.green22D896,
                       fontSize: 18,
@@ -144,17 +166,29 @@ class SuccessPaymentPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 5),
-                  child: Text(
-                    '${paymentMethod ?? ''} Payment',
-                    style: TextStyle(
-                      color: AppColors.black45515D,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ),
+                paymentMethod == null
+                    ? Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: Text(
+                          "No Payment",
+                          style: TextStyle(
+                            color: AppColors.black45515D,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: Text(
+                          '${paymentMethod ?? ''} Payment',
+                          style: TextStyle(
+                            color: AppColors.black45515D,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
               ],
             ),
           ),
@@ -173,8 +207,9 @@ class SuccessPaymentPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           // margin: const EdgeInsets.only(bottom: 30),
           child: FilledButtonWidget(
-            onPress: () {
-              context.read<AppData>().assignSessionById(session?.id).then((_) {
+            onPress: () async {
+              if (paymentMethod == null) {
+                await resetData(context);
                 context.read<Auth>().setSelectedIndex(0);
                 Navigator.pushAndRemoveUntil(
                   context,
@@ -183,14 +218,28 @@ class SuccessPaymentPage extends StatelessWidget {
                   ),
                   (Route<dynamic> route) => false,
                 );
+              } else {
+                context
+                    .read<AppData>()
+                    .assignSessionById(session?.id)
+                    .then((_) {
+                  context.read<Auth>().setSelectedIndex(0);
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CustomBottomNavigationBar(),
+                    ),
+                    (Route<dynamic> route) => false,
+                  );
 
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => UpcomingSessionDetailsPage(),
-                  ),
-                );
-              });
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => UpcomingSessionDetailsPage(),
+                    ),
+                  );
+                });
+              }
             },
             title: 'Go To Booking Details',
             type: ButtonType.generalBlue,

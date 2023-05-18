@@ -116,6 +116,18 @@ class _ReviewAndPayPageState extends State<ReviewAndPayPage> {
   @override
   Widget build(BuildContext context) {
     final session = context.watch<Bookings>().session;
+    final promoCode = context.watch<Bookings>().promoCode;
+
+    bool zeroPrice = false;
+    if (promoCode == null) {
+      if (session!.subtotal == 0) {
+        zeroPrice = true;
+      }
+    } else {
+      if (double.parse(promoCode.subTotalPrice!) == 0) {
+        zeroPrice = true;
+      }
+    }
 
     return Scaffold(
       appBar: AppBarWithBack(
@@ -145,12 +157,14 @@ class _ReviewAndPayPageState extends State<ReviewAndPayPage> {
                 width: double.infinity,
                 color: AppColors.greyE8E9EB,
               ),
-              PaymentContainer(
-                isMultiSession: session?.subSessionsIds != null,
-                onTapCallback: (val) {
-                  _selectedPayment = val;
-                },
-              ),
+              zeroPrice
+                  ? SizedBox()
+                  : PaymentContainer(
+                      isMultiSession: session?.subSessionsIds != null,
+                      onTapCallback: (val) {
+                        _selectedPayment = val;
+                      },
+                    ),
               PaymentAgreement(onTapCallback: (val) {
                 _isAgreementChecked = val;
               }),

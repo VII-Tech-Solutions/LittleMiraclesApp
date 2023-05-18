@@ -606,6 +606,15 @@ class Bookings with ChangeNotifier {
       final sessionsList =
           sessionsJson.map((json) => Session.fromJson(json)).toList();
 
+      // promo fixes .. i.e. keep promo if same package is selected again .. else remove promo ..
+
+      if (_promoCode != null && session != null) {
+        if ((session!.id == sessionsList.last.id)) {
+        } else {
+          _promoCode = null;
+        }
+      }
+
       _session = sessionsList.last;
 
       notifyListeners();
@@ -660,6 +669,15 @@ class Bookings with ChangeNotifier {
 
       final subSessionList =
           subSessionsJson.map((json) => Session.fromJson(json)).toList();
+
+      // promo fixes .. i.e. keep promo if same package is selected again .. else remove promo ..
+
+      if (_promoCode != null && session != null) {
+        if ((session!.id == sessionsList.last.id)) {
+        } else {
+          _promoCode = null;
+        }
+      }
 
       _session = sessionsList.last;
       _subSessions = subSessionList;
@@ -893,6 +911,52 @@ class Bookings with ChangeNotifier {
     _promoCode = null;
 
     notifyListeners();
+  }
+
+  // remove promo
+
+  Future removePromoCodeBackend(String code) async {
+    final url = Uri.parse('$apiLink/sessions/${_session?.id}/promotion');
+
+    try {
+      var response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Platform': '${await AppInfo().platformInfo()}',
+          'App-Version': '${await AppInfo().versionInfo()}',
+          'Authorization': 'Bearer $authToken',
+        },
+        body: {'code': code, "remove": "true"},
+      ).timeout(Duration(seconds: Timeout.value));
+
+      final result = json.decode(response.body);
+
+      if (response.statusCode != 200) {
+        if ((response.statusCode >= 400 && response.statusCode <= 499) ||
+            response.statusCode == 503) {
+          return ApiResponse(
+              statusCode: response.statusCode,
+              message: result['message'].toString());
+        } else {
+          return null;
+        }
+      }
+
+      _promoCode = null;
+
+      notifyListeners();
+      return (ApiResponse(
+        statusCode: response.statusCode,
+        message: result['message'],
+      ));
+    } on TimeoutException catch (e) {
+      print('Exception Timeout:: $e');
+      return null;
+    } catch (e) {
+      print('catch error:: $e');
+      return null;
+    }
   }
 
   Future<ApiResponse?> showSessionGuidelines(int? id) async {
