@@ -1,6 +1,7 @@
 //PACKAGES
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/pages/more/gifting/send_gift_page.dart';
 import 'package:LMP0001_LittleMiraclesApp/widgets/appbars/emptySliverAppBar.dart';
 // Package imports:
 import 'package:firebase_auth/firebase_auth.dart';
@@ -166,18 +167,20 @@ class MoreMainPage extends StatelessWidget {
                       }
                     },
                   ),
-                  // _buttonWidget(
-                  //   'Gift a studio package',
-                  //   'Send a gift to a family member or friend',
-                  //   () {
-                  //     Navigator.push(
-                  //       context,
-                  //       MaterialPageRoute(
-                  //         builder: (context) => SendGift(),
-                  //       ),
-                  //     );
-                  //   },
-                  // ),
+                  _buttonWidget(
+                    'Gift a studio package',
+                    'Send a gift to a family member or friend',
+                    () {
+                      if (_isAuthenticated(context)) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SendGift(),
+                          ),
+                        );
+                      }
+                    },
+                  ),
                   _buttonWidget(
                     'FAQs',
                     'Frequently Asked Questions',

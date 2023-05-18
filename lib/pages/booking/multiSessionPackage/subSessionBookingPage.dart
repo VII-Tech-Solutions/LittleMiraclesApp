@@ -108,36 +108,46 @@ class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
         child: ListView(
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           children: [
-            Container(
-              height: 50,
-              width: double.infinity,
-              color: AppColors.pinkFCE0DC,
-              alignment: Alignment.center,
-              child: TitleText(
-                // title: widget.subPackage?.description ?? '',
-                title: widget.subPackage?.description,
-
-                customPadding: null,
-                type: TitleTextType.secondaryTitle,
-                weight: FontWeight.w600,
-              ),
-            ),
-
-            // ExpansionTile(
-            //   iconColor: AppColors.grey5C6671,
-            //   backgroundColor: AppColors.pinkFCE0DC,
-            //   collapsedBackgroundColor: AppColors.pinkFCE0DC,
-            //   title: TitleText(
+            // Container(
+            //   height: 50,
+            //   width: double.infinity,
+            //   color: AppColors.pinkFCE0DC,
+            //   alignment: Alignment.center,
+            //   child: TitleText(
             //     // title: widget.subPackage?.description ?? '',
             //     title: widget.subPackage?.description,
+
             //     customPadding: null,
             //     type: TitleTextType.secondaryTitle,
             //     weight: FontWeight.w600,
             //   ),
-            //   children: <Widget>[
-            //     Text('Content'),
-            //   ],
             // ),
+
+            ExpansionTile(
+              iconColor: AppColors.grey5C6671,
+              backgroundColor: AppColors.pinkFCE0DC,
+              collapsedBackgroundColor: AppColors.pinkFCE0DC,
+              title: TitleText(
+                // title: widget.subPackage?.description ?? '',
+                title: widget.subPackage?.description,
+                customPadding: null,
+                type: TitleTextType.secondaryTitle,
+                weight: FontWeight.w600,
+              ),
+              children: <Widget>[
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      child: Text(widget.subPackage?.details ?? ''),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    )
+                  ],
+                ),
+              ],
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: Column(
@@ -199,6 +209,8 @@ class _SubSessionBookingPageState extends State<SubSessionBookingPage> {
                       context, 'Please select people joining to proceed');
                 } else if (backdropsList.isEmpty) {
                   ShowOkDialog(context, 'Please select a backdrop to proceed');
+                } else if (widget.subPackage!.id == 12 && cakesList.isEmpty) {
+                  ShowOkDialog(context, 'Please select a cake to proceed');
                 } else if (!_bookingBody.containsKey('photographer')) {
                   ShowOkDialog(
                       context, 'Please select a photographer to proceed');

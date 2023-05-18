@@ -2,7 +2,7 @@
 import './const.dart';
 
 //Staging
-// String apiLink = '${APIEnvironment.staging}/api';
+String apiLink = '${APIEnvironment.staging}/api';
 
 //Production
-String apiLink = '${APIEnvironment.production}/api';
+// String apiLink = '${APIEnvironment.production}/api';

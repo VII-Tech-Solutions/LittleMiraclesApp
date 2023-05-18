@@ -119,6 +119,8 @@ class PhotoSelection extends StatelessWidget {
                   ),
                 );
               } else {
+                ShowLoadingDialog(context, dismiss: false);
+
                 ShowOkDialog(
                   context,
                   ErrorMessages.somethingWrong,

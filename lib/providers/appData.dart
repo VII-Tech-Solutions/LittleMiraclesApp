@@ -353,15 +353,15 @@ class AppData with ChangeNotifier {
     return [..._cakes];
   }
 
-  // List<Cake> getCakesByIds(List list) {
-  //   List<Cake> finalList = [];
-  //   print(list);
-  //   list.forEach((category_id) {
-  //     final item = _cakes.firstWhere((element) => element.id == category_id);
-  //     finalList.add(item);
-  //   });
-  //   return [...finalList];
-  // }
+  List<Cake> getCakesByIds2(List list) {
+    List<Cake> finalList = [];
+    print(list);
+    list.forEach((category_id) {
+      final item = _cakes.firstWhere((element) => element.id == category_id);
+      finalList.add(item);
+    });
+    return [...finalList];
+  }
 
   List<Cake> getCakesByIds(Map<dynamic, dynamic> list) {
     List<Cake> finalList = [];

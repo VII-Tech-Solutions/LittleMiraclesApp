@@ -1,15 +1,27 @@
 //PACKAGES
 
 // Flutter imports:
+import 'dart:convert';
+
+import 'package:LMP0001_LittleMiraclesApp/global/globalEnvironment.dart';
+import 'package:LMP0001_LittleMiraclesApp/pages/booking/reviewAndPayPage.dart';
+import 'package:LMP0001_LittleMiraclesApp/pages/more/gifting/components/packageBottomBar.dart';
+import 'package:LMP0001_LittleMiraclesApp/pages/more/gifting/reviewAndPayGift.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 // Package imports:
 import 'package:provider/provider.dart';
 
 // Project imports:
 import '../../../global/colors.dart';
+import '../../../models/package.dart';
 import '../../../providers/appData.dart';
+import '../../../providers/auth.dart';
+import '../../../providers/giftingProvider.dart';
 import '../../../widgets/appbars/appBarWithBack.dart';
 import '../../../widgets/bookingSessionContainers/selectionRow.dart';
+import '../../../widgets/dialogs/showLoadingDialog.dart';
+import '../../../widgets/form/formTextField.dart';
 
 //EXTENSIONS
 
@@ -21,43 +33,97 @@ class SelectPackage extends StatefulWidget {
 }
 
 class _SelectPackageState extends State<SelectPackage> {
-  List<int> _selectedItems = [];
-  String _customBackdrop = '';
+  final _formKey = GlobalKey<FormState>();
 
+  List<int> _selectedItems = [];
+  late Package selectedPackage;
+  var packageList = [];
   @override
   void initState() {
+    authProvider = Provider.of<Auth>(context, listen: false);
+    giftingProvider = Provider.of<GiftingData>(context, listen: false);
+
+    print(authProvider.token);
+
     super.initState();
   }
 
-  Widget _buildContainer(String title, Widget childWidget) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 5, top: 15),
-          child: Text(
-            title,
-            style: TextStyle(
-              color: AppColors.black45515D,
-              fontSize: 18,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-        ),
-        childWidget,
-      ],
-    );
+  var authProvider;
+  var giftingProvider;
+// fetching package list from provider and setting first pacakge selected by default ...
+  @override
+  void didChangeDependencies() {
+    packageList = context.watch<AppData>().packages;
+    print(packageList);
+    setState(() {
+      selectedPackage = packageList[0];
+      _selectedItems.clear();
+      _selectedItems.add(0);
+    });
+    super.didChangeDependencies();
   }
+
+  var giftInformation;
+
+  Future<bool?> sendGift() async {
+    bool? validForm = _formKey.currentState?.validate();
+
+    if (validForm!) {
+      ShowLoadingDialog(context);
+
+      try {
+        var url = Uri.parse(apiLink + '/gifts');
+        var requestData = {
+          'package_id': selectedPackage.id.toString(),
+          'to': toController.text,
+          'from': fromController.text,
+          'message':
+              messageController.text.isEmpty ? "" : messageController.text
+        };
+
+        var response = await http.post(url,
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'Authorization': 'Bearer ${authProvider.token}'
+            },
+            body: requestData);
+
+        if (response.statusCode == 200) {
+          // API call successful
+
+          var jsonResponse = jsonDecode(response.body);
+          giftInformation = requestData;
+          giftInformation['gift_id'] =
+              jsonResponse['data']['gift']['id'].toString();
+          giftInformation['package_name'] = selectedPackage.title;
+          giftInformation['package_tag'] = selectedPackage.tag;
+          giftInformation['package_price'] = selectedPackage.price.toString();
+
+          print(giftInformation);
+          ShowLoadingDialog(context, dismiss: true);
+
+          return true;
+        } else {
+          // API call failed
+          print('Response body: ${response.body}');
+          ShowLoadingDialog(context, dismiss: true);
+
+          return null;
+        }
+      } catch (e) {
+        print(e);
+        ShowLoadingDialog(context, dismiss: true);
+        return null;
+      }
+    }
+  }
+
+  TextEditingController toController = TextEditingController();
+  TextEditingController fromController = TextEditingController();
+  TextEditingController messageController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final _list = context.watch<AppData>().packages;
-    print(_list);
-    // final bookingsProvider = context.watch<Bookings>();
-    // final allowedSelection = widget.subPackage != null
-    //     ? widget.subPackage!.backdropAllowed!
-    //     : bookingsProvider.package!.backdropAllowed!;
-
     return Scaffold(
       appBar: AppBarWithBack(
         title: 'Send a Gift',
@@ -65,75 +131,143 @@ class _SelectPackageState extends State<SelectPackage> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Container(
-          height: 500,
-          width: 400,
-          child: ListView.builder(
-            primary: false,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: _list.length,
-            itemBuilder: (BuildContext context, int index) {
-              return SelectionRow(
-                () {
-                  // setState(() {
-                  //   if (_selectedItems.contains(index)) {
-                  //     _selectedItems
-                  //         .removeWhere((element) => element == index);
-                  //   } else {
-                  //     _selectedItems.clear();
-                  //     _selectedItems.add(index);
-                  //   }
-                  // });
-                  // print("here .. ");
-                },
-                _list[index].image,
-                null,
-                _list[index].title,
-                _selectedItems.contains(index),
-                1,
-                id: index,
-              );
-            },
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 20,
+                  ),
+                  child: Text(
+                    'Select a Package',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 18,
+                      color: AppColors.black45515D,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: ListView.builder(
+                    primary: false,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: packageList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return SelectionRow(
+                        () {
+                          setState(() {
+                            selectedPackage = packageList[index];
+                            _selectedItems.clear();
+                            _selectedItems.add(index);
+                          });
+                          print("here .. ");
+                        },
+                        packageList[index].image,
+                        null,
+                        packageList[index].title,
+                        _selectedItems.contains(index),
+                        1,
+                        id: index,
+                      );
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 20,
+                  ),
+                  child: Text(
+                    'Gift details',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 18,
+                      color: AppColors.black45515D,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: Text(
+                    'To:',
+                    style: TextStyle(
+                      color: AppColors.black45515D,
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+                FormTextFieldWidget(
+                  title: 'Enter their email address',
+                  controller: toController,
+                  maxLines: 1,
+                  customWidth: double.infinity,
+                  customMargin:
+                      const EdgeInsets.symmetric(horizontal: 0.0, vertical: 10),
+                  emailCheck: true,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: Text(
+                    'From:',
+                    style: TextStyle(
+                      color: AppColors.black45515D,
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+                FormTextFieldWidget(
+                  title: 'Enter your name',
+                  controller: fromController,
+                  maxLines: 1,
+                  customWidth: double.infinity,
+                  customMargin:
+                      const EdgeInsets.symmetric(horizontal: 0.0, vertical: 10),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: Text(
+                    'Message (optional):',
+                    style: TextStyle(
+                      color: AppColors.black45515D,
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+                FormTextFieldWidget(
+                  optional: true,
+                  title: 'Your Message',
+                  controller: messageController,
+                  maxLines: 5,
+                  customWidth: double.infinity,
+                  customMargin:
+                      const EdgeInsets.symmetric(horizontal: 0.0, vertical: 10),
+                )
+              ],
+            ),
           ),
         ),
       ),
-      bottomNavigationBar: Container(
-        height: 80,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        // child: FilledButtonWidget(
-        //   onPress: () {
-        //     print(bookingsProvider.package!.minBackdrop);
-        //     print('muli');
-        //     print(_selectedItems.length);
-        //     // if (_selectedItems.length < bookingsProvider.package!.minBackdrop &&
-        //     //     bookingsProvider.package!.minBackdrop != null) {
-        //     //   ShowOkDialog(context,
-        //     //       'Please select ${bookingsProvider.package!.minBackdrop} backdrop to proceed');
-        //     // } else {
-        //     if (_selectedItems.isNotEmpty || _customBackdrop.isNotEmpty) {
-        //       if (widget.subPackage != null) {
-        //         Map<int, List<int>> backdropsMap = {
-        //           widget.subPackage!.id!: _selectedItems,
-        //         };
+      bottomNavigationBar: PackageBottomBar(
+          selectedPackage: selectedPackage,
+          onTap: () async {
+            // print(selectedPackage);
+            var success = await sendGift();
 
-        //         bookingsProvider.amendSubSessionBookingDetails(
-        //             SubSessionBookingDetailsType.backdrop, backdropsMap,
-        //             selectedList: _selectedItems);
-        //       } else {
-        //         bookingsProvider.assignSelectedBackdrops(
-        //             selectedList: _selectedItems, val: _customBackdrop);
-        //       }
-        //       Navigator.pop(context);
-        //     } else {
-        //       ShowOkDialog(context, 'Please select a backdrop to proceed');
-        //     }
-        //     // }
-        //   },
-        //   title: 'Confirm Package',
-        //   type: ButtonType.generalBlue,
-        // ),
-      ),
+            if (success == true) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ReviewAndPayGift(
+                    giftInformation: giftInformation,
+                  ),
+                ),
+              );
+            }
+          }),
     );
   }
 }

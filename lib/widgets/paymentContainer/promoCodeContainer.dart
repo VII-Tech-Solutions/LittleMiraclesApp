@@ -42,6 +42,10 @@ class _PromoCodeContainerState extends State<PromoCodeContainer> {
   @override
   Widget build(BuildContext context) {
     final promoCode = context.watch<Bookings>().promoCode;
+
+    if (promoCode != null) {
+      _textFieldController.text = promoCode.code;
+    }
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -118,8 +122,26 @@ class _PromoCodeContainerState extends State<PromoCodeContainer> {
                   }
                 });
               } else {
-                _textFieldController.text = '';
-                context.read<Bookings>().removePromoCode();
+                // context
+                //     .read<Bookings>()
+                //     .removePromoCodeBackend(promoCode!.code!);
+
+                ShowLoadingDialog(context);
+                FocusManager.instance.primaryFocus?.unfocus();
+                context
+                    .read<Bookings>()
+                    .removePromoCodeBackend(promoCode!.code!)
+                    .then((response) {
+                  ShowLoadingDialog(context, dismiss: true);
+                  if (response?.statusCode != 200) {
+                    ShowOkDialog(
+                      context,
+                      response?.message ?? ErrorMessages.somethingWrong,
+                    );
+                  } else {
+                    _textFieldController.text = '';
+                  }
+                });
               }
             },
             type: ButtonType.generalGrey,

@@ -7,8 +7,10 @@ import 'package:provider/provider.dart';
 
 // Project imports:
 import '../../global/colors.dart';
+import '../../pages/booking/successPaymentPage.dart';
 import '../../providers/bookings.dart';
 import '../../widgets/buttons/filledButtonWidget.dart';
+import '../dialogs/showLoadingDialog.dart';
 
 class PaymentBottomContainer extends StatelessWidget {
   final type;
@@ -21,6 +23,18 @@ class PaymentBottomContainer extends StatelessWidget {
     final promoCode = context.watch<Bookings>().promoCode;
     final session = context.watch<Bookings>().session;
     final bookingsProvider = context.read<Bookings>();
+
+    bool zeroPrice = false;
+    if (promoCode == null) {
+      if (session!.subtotal == 0) {
+        zeroPrice = true;
+      }
+    } else {
+      if (double.parse(promoCode.subTotalPrice!) == 0) {
+        zeroPrice = true;
+      }
+    }
+
     return AnimatedContainer(
       duration: Duration(milliseconds: 150),
       height: promoCode?.code == null ? 100 : 123,
@@ -39,7 +53,7 @@ class PaymentBottomContainer extends StatelessWidget {
           //       color: AppColors.redED0006,
           //       fontSize: 16,
           //       fontWeight: FontWeight.w500,
-          //     ),
+          //     ),How
           //   ),
           // ),
           if (type == 'final')
@@ -51,7 +65,8 @@ class PaymentBottomContainer extends StatelessWidget {
                   child: Text(
                     // 'BD ${promoCode?.code != null ? session!.subtotal - int.parse(promoCode!.discountPrice!.replaceAll(RegExp(r"([.]*0+)(?!.*\d)"), "")) : session!.subtotal}',
 
-                    'BD ${promoCode?.code != null ? session!.subtotal - double.parse(promoCode!.discountPrice!.replaceAll(RegExp(r"([.]*0+)(?!.*\d)"), "")) : session!.subtotal}',
+                    // 'BD ${promoCode?.code != null ? (promoCode.subtotal - double.parse(promoCode!.discountPrice!.replaceAll(RegExp(r"([.]*0+)(?!.*\d)"), ""))).toStringAsFixed(2) : session!.subtotal}',
+                    'BD ${promoCode?.code != null ? (promoCode?.subTotalPrice) : session!.subtotal}',
 
                     style: TextStyle(
                       color: AppColors.black45515D,
@@ -62,13 +77,30 @@ class PaymentBottomContainer extends StatelessWidget {
                 ),
                 FilledButtonWidget(
                   customWidth: 200,
-                  onPress: bookingsProvider.paymentLink == null
-                      ? null
-                      : onTapCallback,
-                  type: bookingsProvider.paymentLink == null
-                      ? ButtonType.disable
-                      : ButtonType.generalBlue,
-                  title: 'Confirm & Pay',
+                  // if price is zero then directly confirm session ...
+                  onPress: zeroPrice == true
+                      ? () {
+                          ShowLoadingDialog(context);
+
+                          bookingsProvider.confirmASession().then((value) => {
+                                ShowLoadingDialog(context, dismiss: true),
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          SuccessPaymentPage(null)),
+                                )
+                              });
+                        }
+                      : bookingsProvider.paymentLink == null
+                          ? null
+                          : onTapCallback,
+                  type: zeroPrice == true
+                      ? ButtonType.generalBlue
+                      : bookingsProvider.paymentLink == null
+                          ? ButtonType.disable
+                          : ButtonType.generalBlue,
+                  title: zeroPrice == true ? "Confirm" : 'Confirm & Pay',
                 ),
               ],
             )

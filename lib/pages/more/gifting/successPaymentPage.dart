@@ -1,33 +1,35 @@
 //PACKAGES
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/pages/more/gifting/send_gift_page.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:provider/provider.dart';
 
-// Project imports:
-import '../../global/colors.dart';
-import '../../pages/general/customBottomNavigationBar.dart';
-import '../../providers/appData.dart';
-import '../../providers/auth.dart';
-import '../../providers/bookings.dart';
-import '../../widgets/buttons/filledButtonWidget.dart';
-import '../../widgets/paymentContainer/paymentDetailsContainer.dart';
-import '../home/sessions/upcomingSessionDetailsPage.dart';
+import '../../../Global/colors.dart';
+import '../../../providers/auth.dart';
+import '../../../providers/giftingProvider.dart';
+import '../../../widgets/buttons/filledButtonWidget.dart';
+import '../../../widgets/dialogs/showLoadingDialog.dart';
+import '../../general/customBottomNavigationBar.dart';
+import 'components/giftInfoContainer.dart';
 
 //EXTENSIONS
 
-class FailurePaymentPage extends StatelessWidget {
-  final String? paymentMethod;
-  const FailurePaymentPage(this.paymentMethod);
+class GiftSuccessPaymentPage extends StatelessWidget {
+  final dynamic giftInformation;
+  GiftSuccessPaymentPage(this.giftInformation);
+
+  var authProvider;
+  late GiftingData giftingProvider;
 
   @override
   Widget build(BuildContext context) {
-    final package = context.watch<Bookings>().package;
-    final session = context.watch<Bookings>().session;
-    final promoCode = context.watch<Bookings>().promoCode;
-    context.read<Bookings>().showAppRate();
+    authProvider = Provider.of<Auth>(context, listen: false);
+    giftingProvider = Provider.of<GiftingData>(context, listen: false);
+
+    // _confirmSignelSession(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -37,7 +39,7 @@ class FailurePaymentPage extends StatelessWidget {
           child: MaterialButton(
             elevation: 0,
             onPressed: () {
-              context.read<Auth>().setSelectedIndex(0);
+              // Navigator.pop(context);
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
@@ -66,17 +68,18 @@ class FailurePaymentPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Text(giftInformation.toString()),
                 Icon(
-                  Icons.close,
+                  Icons.check_circle_rounded,
                   size: 100,
-                  color: AppColors.redED0006,
+                  color: AppColors.green22D896,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: Text(
-                    'Payment failed',
+                    'Payment Successful',
                     style: TextStyle(
-                      color: AppColors.redED0006,
+                      color: AppColors.green22D896,
                       fontSize: 18,
                       fontWeight: FontWeight.w800,
                     ),
@@ -85,7 +88,8 @@ class FailurePaymentPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 5),
                   child: Text(
-                    'BD ${promoCode?.totalPrice ?? package?.price ?? ''}',
+                    'BD ${double.parse(giftInformation['package_price']) + (double.parse(giftInformation['package_price']) * 0.1)}', // 'BD ${"promoCode"?.totalPrice ?? session!.subtotal ?? ''}',
+
                     style: TextStyle(
                       color: AppColors.black45515D,
                       fontSize: 14,
@@ -96,7 +100,7 @@ class FailurePaymentPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 5),
                   child: Text(
-                    'Order ID #15978',
+                    'Gift ID #${giftInformation['gift_id']}',
                     style: TextStyle(
                       color: AppColors.black45515D,
                       fontSize: 14,
@@ -107,7 +111,7 @@ class FailurePaymentPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 5),
                   child: Text(
-                    '${paymentMethod ?? ''} Payment',
+                    '${giftInformation['success_indicator'] == '' ? "Debit Card Payment" : "Credit Card Payment"} ',
                     style: TextStyle(
                       color: AppColors.black45515D,
                       fontSize: 14,
@@ -124,7 +128,7 @@ class FailurePaymentPage extends StatelessWidget {
             color: AppColors.greyE8E9EB,
             margin: const EdgeInsets.only(top: 48.5, bottom: 15.5),
           ),
-          PaymentDetailsContainer(),
+          GiftInfoContainer(giftInformation: giftInformation),
         ],
       ),
       bottomNavigationBar: SafeArea(
@@ -133,26 +137,19 @@ class FailurePaymentPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           // margin: const EdgeInsets.only(bottom: 30),
           child: FilledButtonWidget(
-            onPress: () {
-              context.read<AppData>().assignSessionById(session?.id).then((_) {
-                context.read<Auth>().setSelectedIndex(0);
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CustomBottomNavigationBar(),
-                  ),
-                  (Route<dynamic> route) => false,
-                );
+            onPress: () async {
+              ShowLoadingDialog(context);
 
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => UpcomingSessionDetailsPage(),
-                  ),
-                );
-              });
+              await giftingProvider.fetchUserGifts(authProvider.token);
+
+              ShowLoadingDialog(context, dismiss: true);
+              Navigator.of(context)
+                ..pop()
+                ..pop()
+                ..pop()
+                ..pop();
             },
-            title: 'Go To Dashboard',
+            title: 'Go To Gift Details',
             type: ButtonType.generalBlue,
           ),
         ),

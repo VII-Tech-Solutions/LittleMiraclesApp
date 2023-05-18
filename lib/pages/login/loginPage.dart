@@ -27,6 +27,7 @@ import '../../pages/login/completeProfilePage.dart';
 import '../../providers/appData.dart';
 import '../../providers/auth.dart';
 import '../../providers/bookings.dart';
+import '../../providers/giftingProvider.dart';
 import '../../widgets/buttons/buttonWithIconWidget.dart';
 import '../../widgets/buttons/iconButtonWidget.dart';
 import '../../widgets/dialogs/showLoadingDialog.dart';
@@ -216,6 +217,10 @@ class LoginPage extends StatelessWidget {
     if (result != null) {
       if (authProvider.token.isNotEmpty) {
         final token = authProvider.token;
+        GiftingData giftingProvider =
+            Provider.of<GiftingData>(context, listen: false);
+        giftingProvider.fetchUserGifts(token);
+
         final bookingsProvider = context.read<Bookings>();
         bookingsProvider.fetchAdminSessionDetails();
         await appDataProvider.fetchAndSetSessions(token: token).then((_) {
