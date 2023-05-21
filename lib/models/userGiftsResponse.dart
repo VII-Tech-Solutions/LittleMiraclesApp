@@ -47,23 +47,23 @@ class Gift {
   int id;
   dynamic image;
   String? title;
-  String offer;
+  String? offer;
   dynamic content;
-  int status;
-  DateTime createdAt;
-  DateTime updatedAt;
+  int? status;
+  DateTime? createdAt;
+  DateTime? updatedAt;
   dynamic deletedAt;
-  DateTime postedAt;
-  DateTime validUntil;
-  String promoCode;
+  DateTime? postedAt;
+  DateTime? validUntil;
+  String? promoCode;
   dynamic sessionId;
-  int packageId;
-  int userId;
-  int type;
-  String to;
-  String from;
+  int? packageId;
+  int? userId;
+  int? type;
+  String? to;
+  String? from;
   String? message;
-  String packageImage;
+  String? packageImage;
   String? packageTitle;
   String? packageTag;
 
@@ -77,7 +77,7 @@ class Gift {
     required this.createdAt,
     required this.updatedAt,
     this.deletedAt,
-    required this.postedAt,
+    this.postedAt,
     required this.validUntil,
     required this.promoCode,
     this.sessionId,
@@ -102,8 +102,12 @@ class Gift {
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
         deletedAt: json["deleted_at"],
-        postedAt: DateTime.parse(json["posted_at"]),
-        validUntil: DateTime.parse(json["valid_until"]),
+        postedAt: json["posted_at"] == null
+            ? null
+            : DateTime.parse(json["posted_at"]),
+        validUntil: json["valid_until"] == null
+            ? null
+            : DateTime.parse(json["valid_until"]),
         promoCode: json["promo_code"],
         sessionId: json["session_id"],
         packageId: json["package_id"],
@@ -114,7 +118,7 @@ class Gift {
         message: json["message"],
         packageImage: json["package_image"],
         packageTitle: json["package_title"],
-        packageTag: json["package_tag"]!,
+        packageTag: json["package_tag"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -124,11 +128,11 @@ class Gift {
         "offer": offer,
         "content": content,
         "status": status,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
         "deleted_at": deletedAt,
-        "posted_at": postedAt.toIso8601String(),
-        "valid_until": validUntil.toIso8601String(),
+        "posted_at": postedAt?.toIso8601String(),
+        "valid_until": validUntil?.toIso8601String(),
         "promo_code": promoCode,
         "session_id": sessionId,
         "package_id": packageId,

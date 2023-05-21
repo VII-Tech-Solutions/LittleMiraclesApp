@@ -114,7 +114,10 @@ class _SendGiftState extends State<SendGift> {
                                   ),
                                 ),
                                 Text(
-                                  "${giftingProvider.userGifts[index].createdAt.day.toString().padLeft(2, '0')} / ${giftingProvider.userGifts[index].createdAt.month.toString().padLeft(2, '0')} /${giftingProvider.userGifts[index].createdAt.year}",
+                                  giftingProvider.userGifts[index].createdAt !=
+                                          null
+                                      ? ("${giftingProvider.userGifts[index].createdAt!.day.toString().padLeft(2, '0')} / ${giftingProvider.userGifts[index].createdAt!.month.toString().padLeft(2, '0')} /${giftingProvider.userGifts[index].createdAt!.year}")
+                                      : "",
                                   style: TextStyle(
                                     fontSize: 13,
                                     fontWeight: FontWeight.w800,
