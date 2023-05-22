@@ -755,8 +755,8 @@ class AppData with ChangeNotifier {
       _faqsList = faqsJson.map((json) => FAQ.fromJson(json)).toList();
 
       await LastUpdateClass().setLastUpdate(LastUpdate.appData);
-      await syncLocalDatabase();
-      await getLocalAppData();
+      // await syncLocalDatabase();
+      // await getLocalAppData();
       await generateHomePageWidgets();
       await generateBookingsPageWidgets();
       await generateStudioPageWidgets();
