@@ -30,12 +30,14 @@ class _BackdropSelectorState extends State<BackdropSelector> {
   @override
   void initState() {
     super.initState();
-    var _backdropsItems = context.read<AppData>().getBackdropsByCategoryId(6);
-    context.read<Bookings>().package!.type == PackageType.miniSession &&
-            _backdropsItems.length == 1
-        ? context.read<Bookings>().assignSelectedBackdrops(
-            selectedList: [_backdropsItems.first.id!], val: "")
-        : null;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      var _backdropsItems = context.read<AppData>().getBackdropsByCategoryId(6);
+      context.read<Bookings>().package!.type == PackageType.miniSession &&
+              _backdropsItems.length == 1
+          ? context.read<Bookings>().assignSelectedBackdrops(
+              selectedList: [_backdropsItems.first.id!], val: "")
+          : null;
+    });
   }
 
   @override

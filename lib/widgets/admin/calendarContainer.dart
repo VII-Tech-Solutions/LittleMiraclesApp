@@ -1,4 +1,7 @@
 // Flutter imports:
+import 'dart:collection';
+
+import 'package:LMP0001_LittleMiraclesApp/widgets/admin/eventsModel.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -10,6 +13,7 @@ import '../../extensions/dateTimeExtension.dart';
 import '../../global/colors.dart';
 import '../../models/availableDates.dart';
 import '../../providers/bookings.dart';
+import '../dialogs/showLoadingDialog.dart';
 
 class CalendarContainer extends StatefulWidget {
   final bool isReschedule;
@@ -30,15 +34,44 @@ class _CalendarContainerState extends State<CalendarContainer> {
   DateTime selectedDay = DateTime.now();
   late final List<AvailableDates> _availableDate;
 
+  getAllBookings() {
+    ShowLoadingDialog(context);
+
+    setState(() {
+      isLoading = true;
+    });
+    final bookingsProvider = context.read<Bookings>();
+    bookingsProvider.fetchAllAdminSessionDetails().then((value) => {
+          setState(() {
+            isLoading = false;
+          })
+        });
+    ShowLoadingDialog(context, dismiss: true);
+  }
+
   @override
   void initState() {
     super.initState();
+    Future.delayed(Duration.zero, () {
+      getAllBookings();
+    });
   }
+
+// booking privider ...
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     final provider = context.read<Bookings>();
     final bookingsProvider = context.watch<Bookings>();
+    List<Event> _getEventsForDay(DateTime day) {
+      // Implementation example
+      return bookingsProvider.kEvents[day] ?? [];
+    }
+
+    // // event dots implementation ..
+    bookingsProvider.fetchAllAdminSessionDetails();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -52,6 +85,7 @@ class _CalendarContainerState extends State<CalendarContainer> {
             ),
           ),
           child: TableCalendar(
+            eventLoader: isLoading ? null : _getEventsForDay,
             firstDay: firstDay.subtract(Duration(days: 365)),
             focusedDay: selectedDay,
             lastDay: DateTime.now().add(Duration(days: 365)),
@@ -84,6 +118,7 @@ class _CalendarContainerState extends State<CalendarContainer> {
                 );
                 print(formattedDate);
               });
+              // bookingsProvider.fetchAllAdminSessionDetails();
             },
             selectedDayPredicate: (day) {
               return isSameDay(selectedDay, day);
