@@ -71,7 +71,7 @@ Future<void> _initFCM() async {
     "firebase_id": FirebaseAuth.instance.currentUser?.uid,
     "device_token": token
   };
-  await Auth().updateProfile(userData);
+  // await Auth().updateProfile(userData);
   Auth().savefiretoken(token);
   print('token $token');
   // // Save the initial token to the database

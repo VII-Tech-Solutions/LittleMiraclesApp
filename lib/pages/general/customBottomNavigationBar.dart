@@ -90,7 +90,11 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           "device_token": prefs.getString('firetoken')
           // context.read<Auth>().sharedPreferences!.getString('firetoken')
         };
-        await context.read<Auth>().updateProfile(userData);
+        if (user.role == 1 || user.role == 2) {
+          await context.read<Auth>().updatePhotographerAdmin(userData);
+        } else {
+          await context.read<Auth>().updateProfile(userData);
+        }
       }
 
       // _initFCM();
@@ -123,13 +127,18 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           "first_name": user.firstName,
           "last_name": user.lastName,
           "gender": user.gender,
-          "country_code": user.countryCode.toString(),
+          "country_code": user.countryCode,
           "phone_number": user.phoneNumber,
           "birth_date": user.birthDate,
           "firebase_id": FirebaseAuth.instance.currentUser?.uid,
           "device_token": prefs.getString('firetoken')
         };
-        await context.read<Auth>().updateProfile(userData);
+
+        if (user.role == 1 || user.role == 2) {
+          await context.read<Auth>().updatePhotographerAdmin(userData);
+        } else {
+          await context.read<Auth>().updateProfile(userData);
+        }
       }
       // _initFCM();
     } catch (e) {

@@ -53,7 +53,7 @@ class _CalendarContainerState extends State<CalendarContainer> {
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
-      getAllBookings();
+      // getAllBookings();
     });
   }
 
@@ -64,13 +64,14 @@ class _CalendarContainerState extends State<CalendarContainer> {
   Widget build(BuildContext context) {
     final provider = context.read<Bookings>();
     final bookingsProvider = context.watch<Bookings>();
-    List<Event> _getEventsForDay(DateTime day) {
-      // Implementation example
-      return bookingsProvider.kEvents[day] ?? [];
-    }
+
+    // List<Event> _getEventsForDay(DateTime day) {
+    //   // Implementation example
+    //   return bookingsProvider.kEvents[day] ?? [];
+    // }
 
     // // event dots implementation ..
-    bookingsProvider.fetchAllAdminSessionDetails();
+    // bookingsProvider.fetchAllAdminSessionDetails();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,7 +86,7 @@ class _CalendarContainerState extends State<CalendarContainer> {
             ),
           ),
           child: TableCalendar(
-            eventLoader: isLoading ? null : _getEventsForDay,
+            // eventLoader: isLoading ? null : _getEventsForDay,
             firstDay: firstDay.subtract(Duration(days: 365)),
             focusedDay: selectedDay,
             lastDay: DateTime.now().add(Duration(days: 365)),
