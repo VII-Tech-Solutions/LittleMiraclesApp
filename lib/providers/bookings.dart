@@ -556,16 +556,28 @@ class Bookings with ChangeNotifier {
       }
       final extractedData = json.decode(response.body)['data'];
       final sessionData = extractedData['sessions'] as List;
-      sessionData.forEach((session) {
-        List<String> dateParts = session['date'].split("-");
+
+      for (var i = 0; i < sessionData.length; i++) {
+        List<String> dateParts = sessionData[i]['date'].split("-");
         int year = int.parse(dateParts[0]);
         int month = int.parse(dateParts[1]);
         int day = int.parse(dateParts[2]);
 
         kEventSource[DateTime.utc(year, month, day)] = [
-          Event(session['title'])
+          Event(sessionData[i]['title'])
         ];
-      });
+      }
+
+      // sessionData.forEach((session) {
+      //   List<String> dateParts = session['date'].split("-");
+      //   int year = int.parse(dateParts[0]);
+      //   int month = int.parse(dateParts[1]);
+      //   int day = int.parse(dateParts[2]);
+
+      //   kEventSource[DateTime.utc(year, month, day)] = [
+      //     Event(session['title'])
+      //   ];
+      // });
 
       kEvents = LinkedHashMap<DateTime, List<Event>>(
         equals: isSameDay,

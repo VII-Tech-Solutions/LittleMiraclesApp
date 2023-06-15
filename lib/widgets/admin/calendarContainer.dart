@@ -34,8 +34,18 @@ class _CalendarContainerState extends State<CalendarContainer> {
   DateTime selectedDay = DateTime.now();
   late final List<AvailableDates> _availableDate;
 
+// implemetation for adding dots on calander ...
+  var kEvents;
+
+  List<Event> _getEventsForDay(DateTime day) {
+    return kEvents[day] ?? [];
+  }
+
+// booking privider ...
+  bool isLoading = true;
+
   getAllBookings() {
-    ShowLoadingDialog(context);
+    // ShowLoadingDialog(context);
 
     setState(() {
       isLoading = true;
@@ -43,32 +53,25 @@ class _CalendarContainerState extends State<CalendarContainer> {
     final bookingsProvider = context.read<Bookings>();
     bookingsProvider.fetchAllAdminSessionDetails().then((value) => {
           setState(() {
+            kEvents = value;
             isLoading = false;
           })
         });
-    ShowLoadingDialog(context, dismiss: true);
+    // ShowLoadingDialog(context, dismiss: true);
   }
 
   @override
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
-      // getAllBookings();
+      getAllBookings();
     });
   }
-
-// booking privider ...
-  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     final provider = context.read<Bookings>();
     final bookingsProvider = context.watch<Bookings>();
-
-    // List<Event> _getEventsForDay(DateTime day) {
-    //   // Implementation example
-    //   return bookingsProvider.kEvents[day] ?? [];
-    // }
 
     // // event dots implementation ..
     // bookingsProvider.fetchAllAdminSessionDetails();
@@ -86,7 +89,27 @@ class _CalendarContainerState extends State<CalendarContainer> {
             ),
           ),
           child: TableCalendar(
-            // eventLoader: isLoading ? null : _getEventsForDay,
+            calendarBuilders: CalendarBuilders(
+              markerBuilder: (context, date, events) {
+                if (events.isNotEmpty) {
+                  return Positioned(
+                    bottom: 7.5,
+                    child: Container(
+                      width: 4.5,
+                      height: 4.5,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color:
+                            date == selectedDay ? Colors.white : Colors.black,
+                      ),
+                    ),
+                  );
+                }
+                return Container();
+              },
+            ),
+
+            eventLoader: isLoading ? null : _getEventsForDay,
             firstDay: firstDay.subtract(Duration(days: 365)),
             focusedDay: selectedDay,
             lastDay: DateTime.now().add(Duration(days: 365)),
