@@ -137,7 +137,7 @@ class _AdminPhotograherState extends State<AdminPhotograher> {
     return Scaffold(
       backgroundColor: AppColors.whiteFFFFFF,
       appBar: AppBarWithBackAndActions(
-        title: 'Admin/Photograher',
+        title: 'Admin/Photographer',
       ),
       body: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),

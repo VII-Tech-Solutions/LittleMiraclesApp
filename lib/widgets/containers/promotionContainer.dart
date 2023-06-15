@@ -46,13 +46,16 @@ class PromotionContainer extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    promotion?.title ?? '',
-                    maxLines: 1,
-                    style: TextStyle(
-                      color: AppColors.black45515D,
-                      fontWeight: FontWeight.w800,
-                      fontSize: 14.0,
+                  Container(
+                    width: 250,
+                    child: Text(
+                      promotion?.title ?? '',
+                      maxLines: 1,
+                      style: TextStyle(
+                        color: AppColors.black45515D,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 14.0,
+                      ),
                     ),
                   ),
                   Text(

@@ -455,7 +455,7 @@ class LoginPage extends StatelessWidget {
                   // _socialLogin(
                   //     context, SSOType.facebook, authProvider, appDataProvider);
                 },
-                buttonText: 'Login as Admin/photograher',
+                buttonText: 'Login as Admin/photographer',
                 assetName: 'assets/images/applogo.png',
                 type: 'admin',
               ),

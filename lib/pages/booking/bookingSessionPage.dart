@@ -49,6 +49,8 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
   @override
   Widget build(BuildContext context) {
     final bookingsProvider = context.read<Bookings>();
+    // final packagesData = context.read<AppData>().packages;
+
     return Scaffold(
       appBar: AppBarWithBack(
         title: 'Reserve your session',
@@ -123,7 +125,8 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
               ShowOkDialog(context, 'Please select people joining to proceed');
             } else if (bookingsProvider.package?.outdoorAllowed == false &&
                 bookingsBody.containsKey('backdrops') &&
-                bookingsBody['backdrops'] as List<int> == []) {
+                // bookingsBody['backdrops'] as List<int> == []) {
+                bookingsBody['backdrops'] as List == []) {
               ShowOkDialog(context, 'Please select a backdrop to proceed');
             } else {
               ShowLoadingDialog(context);

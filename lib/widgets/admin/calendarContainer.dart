@@ -1,4 +1,7 @@
 // Flutter imports:
+import 'dart:collection';
+
+import 'package:LMP0001_LittleMiraclesApp/widgets/admin/eventsModel.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -10,6 +13,7 @@ import '../../extensions/dateTimeExtension.dart';
 import '../../global/colors.dart';
 import '../../models/availableDates.dart';
 import '../../providers/bookings.dart';
+import '../dialogs/showLoadingDialog.dart';
 
 class CalendarContainer extends StatefulWidget {
   final bool isReschedule;
@@ -30,15 +34,49 @@ class _CalendarContainerState extends State<CalendarContainer> {
   DateTime selectedDay = DateTime.now();
   late final List<AvailableDates> _availableDate;
 
+// implemetation for adding dots on calander ...
+  var kEvents;
+
+  List<Event> _getEventsForDay(DateTime day) {
+    // Implementation example
+    return kEvents[day] ?? [];
+  }
+
+// booking privider ...
+  bool isLoading = true;
+
+  getAllBookings() {
+    // ShowLoadingDialog(context);
+
+    setState(() {
+      isLoading = true;
+    });
+    final bookingsProvider = context.read<Bookings>();
+    bookingsProvider.fetchAllAdminSessionDetails().then((value) => {
+          setState(() {
+            kEvents = value;
+            isLoading = false;
+          })
+        });
+    // ShowLoadingDialog(context, dismiss: true);
+  }
+
   @override
   void initState() {
     super.initState();
+    Future.delayed(Duration.zero, () {
+      getAllBookings();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final provider = context.read<Bookings>();
     final bookingsProvider = context.watch<Bookings>();
+
+    // // event dots implementation ..
+    // bookingsProvider.fetchAllAdminSessionDetails();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -52,6 +90,27 @@ class _CalendarContainerState extends State<CalendarContainer> {
             ),
           ),
           child: TableCalendar(
+            calendarBuilders: CalendarBuilders(
+              markerBuilder: (context, date, events) {
+                if (events.isNotEmpty) {
+                  return Positioned(
+                    bottom: 7.5,
+                    child: Container(
+                      width: 4.5,
+                      height: 4.5,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color:
+                            date == selectedDay ? Colors.white : Colors.black,
+                      ),
+                    ),
+                  );
+                }
+                return Container();
+              },
+            ),
+
+            eventLoader: isLoading ? null : _getEventsForDay,
             firstDay: firstDay.subtract(Duration(days: 365)),
             focusedDay: selectedDay,
             lastDay: DateTime.now().add(Duration(days: 365)),
@@ -84,6 +143,7 @@ class _CalendarContainerState extends State<CalendarContainer> {
                 );
                 print(formattedDate);
               });
+              // bookingsProvider.fetchAllAdminSessionDetails();
             },
             selectedDayPredicate: (day) {
               return isSameDay(selectedDay, day);

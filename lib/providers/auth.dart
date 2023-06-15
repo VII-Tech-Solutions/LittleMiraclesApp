@@ -462,6 +462,80 @@ class Auth with ChangeNotifier {
     }
   }
 
+  Future<ApiResponse?> updatePhotographerAdmin(Map jsonBody) async {
+    final url = Uri.parse('$apiLink/update/photographer');
+    Map reqBody = jsonBody;
+    reqBody['access_token'] = token;
+
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      var response = await http
+          .post(
+            url,
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: jsonEncode(jsonBody),
+          )
+          .timeout(Duration(seconds: Timeout.value));
+
+      final result = json.decode(response.body);
+
+      if (response.statusCode != 200) {
+        if ((response.statusCode >= 400 && response.statusCode <= 499) ||
+            response.statusCode == 503) {
+          return ApiResponse(
+              statusCode: response.statusCode,
+              message: result['message'].toString());
+        } else {
+          return null;
+        }
+      }
+
+      User user = User.fromJson(result['data']['photographer']);
+      _user = user;
+
+      prefs.setString(
+          'userData',
+          json.encode({
+            'token': _token,
+            'expiryDate': _expiryDate,
+            'firstOpen': false,
+            'userId': user.id,
+            'firstName': user.firstName,
+            'lastName': user.lastName,
+            'phoneNumber': user.phoneNumber,
+            'email': user.email,
+            'updatedAt': user.updatedAt,
+            'deletedAt': user.deletedAt,
+            'countryCode': user.countryCode,
+            'gender': user.gender,
+            'birthDate': user.birthDate,
+            'avatar': user.avatar,
+            'pastExperience': user.pastExperience,
+            'familyId': user.familyId,
+            'status': user.status,
+            'providerId': user.providerId,
+            'username': user.username,
+            'provider': user.provider,
+            'name': user.name,
+            'role': user.role
+          }));
+
+      notifyListeners();
+      return (ApiResponse(
+        statusCode: response.statusCode,
+        message: json.decode(response.body)['message'],
+      ));
+    } on TimeoutException catch (e) {
+      print('Exception Timeout:: $e');
+      return null;
+    } catch (e) {
+      print('catch error:: $e');
+      return null;
+    }
+  }
+
   Future<ApiResponse?> updatePartner(Map jsonBody) async {
     final url = Uri.parse('$apiLink/partner');
 

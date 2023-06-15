@@ -2,14 +2,17 @@
 
 // Dart imports:
 import 'dart:async';
+import 'dart:collection';
 import 'dart:convert';
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/widgets/admin/eventsModel.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:collection/collection.dart';
 import 'package:http/http.dart' as http;
+import 'package:table_calendar/table_calendar.dart';
 
 // Project imports:
 import '../global/const.dart';
@@ -518,6 +521,99 @@ class Bookings with ChangeNotifier {
     }
   }
 
+  Map<DateTime, List<Event>> kEventSource = {};
+  var kEvents;
+
+  Future<dynamic> fetchAllAdminSessionDetails() async {
+    final url = Uri.parse('$apiLink/photographer/sessions');
+    sessionList = null;
+    print('---url--$url');
+    notifyListeners();
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Platform': '${await AppInfo().platformInfo()}',
+          'App-Version': '${await AppInfo().versionInfo()}',
+          'Authorization': 'Bearer $authToken',
+        },
+        body: {
+          'access_token': authToken,
+        },
+      ).timeout(Duration(seconds: Timeout.value));
+
+      print('----session res-- $response');
+      print("----" + authToken);
+
+      print(response.statusCode);
+      if (response.statusCode != 200) {
+        notifyListeners();
+        return (ApiResponse(
+          statusCode: response.statusCode,
+          message: ErrorMessages.somethingWrong,
+        ));
+      }
+      final extractedData = json.decode(response.body)['data'];
+      final sessionData = extractedData['sessions'] as List;
+
+      for (var i = 0; i < sessionData.length; i++) {
+        List<String> dateParts = sessionData[i]['date'].split("-");
+        int year = int.parse(dateParts[0]);
+        int month = int.parse(dateParts[1]);
+        int day = int.parse(dateParts[2]);
+
+        kEventSource[DateTime.utc(year, month, day)] = [
+          Event(sessionData[i]['title'])
+        ];
+      }
+
+      // sessionData.forEach((session) {
+      //   List<String> dateParts = session['date'].split("-");
+      //   int year = int.parse(dateParts[0]);
+      //   int month = int.parse(dateParts[1]);
+      //   int day = int.parse(dateParts[2]);
+
+      //   kEventSource[DateTime.utc(year, month, day)] = [
+      //     Event(session['title'])
+      //   ];
+      // });
+
+      kEvents = LinkedHashMap<DateTime, List<Event>>(
+        equals: isSameDay,
+      )..addAll(kEventSource);
+
+      print(kEventSource);
+      print(kEvents);
+
+      // sessionList = sessionData.map((json) => Session.fromJson(json)).toList();
+      // _session = sessionList!.first;
+
+      // print('------sessionList---$sessionList');
+
+      notifyListeners();
+      // return (ApiResponse(
+      //   statusCode: response.statusCode,
+      //   message: '',
+      // ));
+
+      return kEvents;
+    } on TimeoutException catch (e) {
+      print('Exception Timeout:: $e');
+      return (ApiResponse(
+        statusCode: 500,
+        message: ErrorMessages.somethingWrong,
+      ));
+    } catch (e) {
+      print('catch error:: $e');
+
+      return (ApiResponse(
+        statusCode: 500,
+        message: ErrorMessages.somethingWrong,
+      ));
+    }
+  }
+
   Future<ApiResponse?> fetchAndSetAvailableDates(
       int photographerId, int? packageId) async {
     final url = Uri.parse(
@@ -892,6 +988,7 @@ class Bookings with ChangeNotifier {
 
       _promoCode = PromoCode.fromJson(result, code);
       _promoCode!.codepromo = code;
+      print(_promoCode!.message.toString());
 
       notifyListeners();
       return (ApiResponse(

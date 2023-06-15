@@ -589,7 +589,19 @@ class _CakePageState extends State<CakePage> {
               ),
             ),
             SliverPadding(
-              padding: const EdgeInsets.only(top: 5),
+              padding: const EdgeInsets.only(top: 10),
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                  'Note: One week notice for customized cakes and additional charges apply.',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: AppColors.black45515D,
+                  ),
+                ),
+              ),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.only(top: 10),
               sliver: SliverToBoxAdapter(
                 child: Text(
                   'Additional charges may occur based on custom orders',

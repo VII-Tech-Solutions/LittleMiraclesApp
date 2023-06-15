@@ -40,7 +40,9 @@ class _SplashscreenState extends State<Splashscreen> {
       authProvider.getToken().then((_) {
         if (authProvider.isAuth) {
           final token = authProvider.token;
-          giftingProvider.fetchUserGifts(token);
+          if (authProvider.user!.role != 1 && authProvider.user!.role != 2) {
+            giftingProvider.fetchUserGifts(token);
+          }
           appDataProvider.fetchAndSetSessions(token: token).then(
                 (value) => appDataProvider
                     .fetchAndSetAppData()
