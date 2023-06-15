@@ -38,6 +38,7 @@ class _CalendarContainerState extends State<CalendarContainer> {
   var kEvents;
 
   List<Event> _getEventsForDay(DateTime day) {
+    // Implementation example
     return kEvents[day] ?? [];
   }
 

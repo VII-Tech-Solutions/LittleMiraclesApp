@@ -76,6 +76,9 @@ class _JoiningPeopleContainerState extends State<JoiningPeopleContainer> {
   @override
   Widget build(BuildContext context) {
     final user = context.watch<Auth>().user;
+    final bookingBody = context.watch<Bookings>().bookingsBody;
+    print(bookingBody['package_id']);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -193,6 +196,11 @@ class _JoiningPeopleContainerState extends State<JoiningPeopleContainer> {
                     )
                     .toList(),
               ),
+              // donot show additional guests for twinkle i.e booking id == 1
+              // bookingBody['package_id'] == 1
+              //     ? SizedBox()
+              //     :
+
               Container(
                 height: 22,
                 width: double.infinity,

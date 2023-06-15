@@ -592,7 +592,19 @@ class _BackdropPageState extends State<BackdropPage> {
               ),
             ),
             SliverPadding(
-              padding: const EdgeInsets.only(top: 5),
+              padding: const EdgeInsets.only(top: 10),
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                  'Note: It takes 2-3 weeks for customized backdrops.',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: AppColors.black45515D,
+                  ),
+                ),
+              ),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.only(top: 10),
               sliver: SliverToBoxAdapter(
                 child: Text(
                   'Additional charges may occur based on custom orders',

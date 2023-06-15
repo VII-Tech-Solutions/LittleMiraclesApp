@@ -43,6 +43,7 @@ import '../widgets/buttons/viewAllSessionsButton.dart';
 import '../widgets/containers/actionContainer.dart';
 import '../widgets/containers/packageContainer.dart';
 import '../widgets/containers/popularPackageContainer.dart';
+import '../widgets/containers/promotionContainer.dart';
 import '../widgets/containers/studioContainer.dart';
 import '../widgets/containers/tipContainer.dart';
 import '../widgets/loggedUserContainers/freeGiftContainer.dart';
@@ -755,8 +756,8 @@ class AppData with ChangeNotifier {
       _faqsList = faqsJson.map((json) => FAQ.fromJson(json)).toList();
 
       await LastUpdateClass().setLastUpdate(LastUpdate.appData);
-      // await syncLocalDatabase();
-      // await getLocalAppData();
+      await syncLocalDatabase();
+      await getLocalAppData();
       await generateHomePageWidgets();
       await generateBookingsPageWidgets();
       await generateStudioPageWidgets();
@@ -1244,16 +1245,16 @@ class AppData with ChangeNotifier {
 
     //TODO: promotion hidden
 
-    // if (_promotions.isNotEmpty) {
-    //   _homeList.add(TitleText(
-    //     title: 'Promotions',
-    //     type: TitleTextType.mainHomeTitle,
-    //   ));
+    if (_promotions.isNotEmpty) {
+      _homeList.add(TitleText(
+        title: 'Promotions',
+        type: TitleTextType.mainHomeTitle,
+      ));
 
-    //   _promotions.forEach((element) {
-    //     _homeList.add(PromotionContainer(element));
-    //   });
-    // }
+      _promotions.forEach((element) {
+        _homeList.add(PromotionContainer(element));
+      });
+    }
 
 //TODO: workshop hidden
 
