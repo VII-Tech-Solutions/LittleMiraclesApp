@@ -410,6 +410,8 @@ class _PhotographerPageState extends State<PhotographerPage> {
         btnLabel: 'Next',
         onTap: () {
           print(_selectedItems);
+          // making child count 0 when the user navigates to photographer page i.e. this is for sparke ..
+          bookingsProvider.childCount = 0;
           if (_selectedItems.isEmpty) {
             ShowOkDialog(context, 'Please select a photographer to proceed');
           } else {

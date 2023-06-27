@@ -22,7 +22,7 @@ class _PhotographersPageState extends State<PhotographersPage> {
     {
       'id': 1,
       'image': 'image',
-      'description': '2 baby, 1 adult',
+      'description': '2 children, 1 adult',
       'title': 'Twinkle Portrait Studio Session',
       'date': '8th, January 2022',
       'time': '10:00 AM'
@@ -30,7 +30,7 @@ class _PhotographersPageState extends State<PhotographersPage> {
     {
       'id': 2,
       'image': 'image',
-      'description': '1 baby, 2 adult',
+      'description': '1 child, 2 adult',
       'title': 'Tread Stone',
       'date': '10th, January 2022',
       'time': '08:00 AM'

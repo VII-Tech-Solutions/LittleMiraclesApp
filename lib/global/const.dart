@@ -117,3 +117,12 @@ class PackageType {
   static const multipleSessions = 2;
   static const miniSession = 3;
 }
+
+class PackageIds {
+  static const twinkleId = 1;
+  static const sparkleId = 2;
+  static const glimmerId = 3;
+  static const shimmerId = 4;
+  static const babyPlanId = 5;
+  static const miniSessionId = 6;
+}

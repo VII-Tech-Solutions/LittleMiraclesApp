@@ -1,6 +1,7 @@
 //PACKAGES
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/providers/auth.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -13,6 +14,7 @@ import '../../pages/booking/backdropPage.dart';
 import '../../pages/booking/backdropType.dart';
 import '../../providers/appData.dart';
 import '../../providers/bookings.dart';
+import '../dialogs/showOkDialog.dart';
 import '../form/formTextField.dart';
 import '../general/cachedImageWidget.dart';
 import '../texts/titleText.dart';
@@ -168,52 +170,104 @@ class _BackdropSelectorState extends State<BackdropSelector> {
                 ),
               ],
             ))
-        : Visibility(
-            visible: bookingsProvider.package?.backdropAllowed != 0,
-            child: FormTextFieldWidget(
-              controller: TextEditingController(),
-              customMargin:
-                  const EdgeInsets.symmetric(horizontal: 0.0, vertical: 20),
-              title: bookingsProvider.package?.backdropAllowed == 1
-                  ? 'Select Backdrop'
-                  : 'Select ${bookingsProvider.package?.backdropAllowed ?? ''} Backdrops',
-              hintStyle: TextStyle(
-                color: AppColors.black45515D,
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-              ),
-              suffixIcon: Icon(
-                Icons.keyboard_arrow_right,
-                color: AppColors.black45515D,
-              ),
-              onTap: () {
-                FocusScope.of(context).requestFocus(new FocusNode());
-                final appData = context.read<AppData>();
-                print('------${bookingsProvider.selectedBackdrops}');
+        // for sparkle package we need to show custom backdrop selector ...
+        : bookingsProvider.package!.id == PackageIds.sparkleId
+            ? Visibility(
+                // visible: bookingsProvider.package?.backdropAllowed != 0,
+                child: FormTextFieldWidget(
+                  controller: TextEditingController(),
+                  customMargin:
+                      const EdgeInsets.symmetric(horizontal: 0.0, vertical: 20),
+                  title: bookingsProvider.childCount == 0
+                      ? 'Select Backdrop'
+                      : bookingsProvider.childCount == 1
+                          ? 'Select  1 Backdrop'
+                          : 'Select ${bookingsProvider.childCount} Backdrops',
+                  hintStyle: TextStyle(
+                    color: AppColors.black45515D,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                  ),
+                  suffixIcon: Icon(
+                    Icons.keyboard_arrow_right,
+                    color: AppColors.black45515D,
+                  ),
+                  onTap: () {
+                    FocusScope.of(context).requestFocus(new FocusNode());
 
-                if (bookingsProvider.package!.type == PackageType.miniSession) {
-                  if (appData.getBackdropsByCategoryId(6).length > 1)
-                    for (int i = 0; i < appData.backdropCategories.length; i++)
-                      appData.backdropCategories[i].id == 6
-                          ? Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => BackdropType(
-                                  subPackage: null,
-                                  index: i,
-                                ),
-                              ),
-                            )
-                          : null;
-                } else
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BackdropPage(),
-                    ),
-                  );
-              },
-            ),
-          );
+                    if (bookingsProvider.childCount == 0) {
+                      ShowOkDialog(
+                        context,
+                        "Please select a child.",
+                        title: "Oops",
+                      );
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BackdropPage(),
+                        ),
+                      );
+                    }
+                  },
+                ),
+              )
+            : Visibility(
+                visible: bookingsProvider.package?.backdropAllowed != 0,
+                child: FormTextFieldWidget(
+                  controller: TextEditingController(),
+                  customMargin:
+                      const EdgeInsets.symmetric(horizontal: 0.0, vertical: 20),
+                  title: bookingsProvider.package?.backdropAllowed == 1 ||
+                          bookingsProvider.package!.id == PackageIds.sparkleId
+                      ? 'Select Backdrop'
+                      : 'Select ${bookingsProvider.package?.backdropAllowed ?? ''} Backdrops',
+                  hintStyle: TextStyle(
+                    color: AppColors.black45515D,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                  ),
+                  suffixIcon: Icon(
+                    Icons.keyboard_arrow_right,
+                    color: AppColors.black45515D,
+                  ),
+                  onTap: () {
+                    final appData = context.read<AppData>();
+                    final userData = context.read<Auth>();
+
+                    if (bookingsProvider.package!.id == PackageIds.sparkleId) {
+                      print(userData.familyMembers);
+                    } else {
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                      print('------${bookingsProvider.selectedBackdrops}');
+
+                      if (bookingsProvider.package!.type ==
+                          PackageType.miniSession) {
+                        if (appData.getBackdropsByCategoryId(6).length > 1)
+                          for (int i = 0;
+                              i < appData.backdropCategories.length;
+                              i++)
+                            appData.backdropCategories[i].id == 6
+                                ? Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => BackdropType(
+                                        subPackage: null,
+                                        index: i,
+                                      ),
+                                    ),
+                                  )
+                                : null;
+                      } else
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BackdropPage(),
+                          ),
+                        );
+                    }
+                  },
+                ),
+              );
   }
 }

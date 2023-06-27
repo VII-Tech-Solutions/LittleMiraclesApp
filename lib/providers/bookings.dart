@@ -50,6 +50,9 @@ class Bookings with ChangeNotifier {
   String _customCake = '';
 
   List<int> _selectedBackdrops = [];
+  // allow option for multiple selection of cakes for sparke for now .. can be used later ..
+  List selectedCakesMulti = [];
+
   String _customBackrop = '';
   List<AvailableDates> _availableDates = [];
   List<dynamic>? _availableTimings = [];
@@ -67,6 +70,10 @@ class Bookings with ChangeNotifier {
   List<Question> _feedbackQuestions = [];
   bool _appRate = false;
   bool? nocake = false;
+
+  // childCount for Sparkle package .. i.e.
+
+  int childCount = 0;
 
   Bookings(
     this.authToken,
@@ -402,6 +409,15 @@ class Bookings with ChangeNotifier {
                   ? null
                   : [_selectedCakes],
       'custom_cake': _customCake,
+    });
+    notifyListeners();
+  }
+
+  void assignSelectedCakesMultiple(List selectedList) {
+    selectedCakesMulti = selectedList;
+    print('_selectedCakes ${_selectedCakes}');
+    amendBookingBody({
+      'cakes': selectedCakesMulti,
     });
     notifyListeners();
   }
@@ -1290,6 +1306,17 @@ class Bookings with ChangeNotifier {
     } catch (e) {
       print('catch error:: $e');
     }
+  }
+
+  void addChildCount() {
+    childCount = childCount + 1;
+    notifyListeners();
+  }
+
+  void subtractChildCount() {
+    childCount = childCount - 1;
+
+    notifyListeners();
   }
 
   //END OF CLASS

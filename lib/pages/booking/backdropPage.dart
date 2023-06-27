@@ -482,140 +482,155 @@ class _BackdropPageState extends State<BackdropPage> {
                 childCount: appDataProvider.backdropCategories.length,
               ),
             ),
-            SliverToBoxAdapter(
-              child: GestureDetector(
-                onTap: () {
-                  isSelected = !isSelected!;
-                  setState(() {});
-                },
-                child: Container(
-                  width: double.infinity,
-                  height: 100,
-                  margin: const EdgeInsets.symmetric(vertical: 5),
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(
-                      color: AppColors.greyD0D3D6,
-                      width: 1,
+            // we are not showing custom backdrops for sparkle ...
+            if (bookingsProvider.package!.id != PackageIds.sparkleId) ...[
+              SliverToBoxAdapter(
+                child: GestureDetector(
+                  onTap: () {
+                    isSelected = !isSelected!;
+                    setState(() {});
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    height: 100,
+                    margin: const EdgeInsets.symmetric(vertical: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        color: AppColors.greyD0D3D6,
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        height: 68,
-                        width: 68,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: CachedNetworkImage(
-                            fit: BoxFit.contain,
-                            imageUrl: '',
-                            placeholder: (context, url) => Image.asset(
-                              'assets/images/backdrop.png',
+                    child: Row(
+                      children: [
+                        Container(
+                          height: 68,
+                          width: 68,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: CachedNetworkImage(
                               fit: BoxFit.contain,
-                              height: double.infinity,
-                              width: double.infinity,
-                            ),
-                            errorWidget: (context, url, error) => Image.asset(
-                              'assets/images/backdrop.png',
-                              fit: BoxFit.cover,
-                              height: double.infinity,
-                              width: double.infinity,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Custom Backdrop'.toString(),
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w800,
-                                    color: AppColors.black45515D),
+                              imageUrl: '',
+                              placeholder: (context, url) => Image.asset(
+                                'assets/images/backdrop.png',
+                                fit: BoxFit.contain,
+                                height: double.infinity,
+                                width: double.infinity,
                               ),
-                            ],
+                              errorWidget: (context, url, error) => Image.asset(
+                                'assets/images/backdrop.png',
+                                fit: BoxFit.cover,
+                                height: double.infinity,
+                                width: double.infinity,
+                              ),
+                            ),
                           ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Custom Backdrop'.toString(),
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w800,
+                                      color: AppColors.black45515D),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: 20,
+                          height: 20,
+                          padding: const EdgeInsets.all(3),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: AppColors.greyD0D3D6,
+                                width: 1,
+                              )),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: isSelected!
+                                  ? AppColors.blue8DC4CB
+                                  : Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: TextQuestionWidget(
+                  Question(
+                    id: 1,
+                    question: 'Custom Backdrop',
+                    updatedAt: null,
+                    deletedAt: null,
+                    options: null,
+                    order: null,
+                    questionType: null,
+                  ),
+                  (val) {
+                    if (val != null) {
+                      if (val['answer'] != '') {
+                        _customBackdrop = val['answer'];
+                      } else {
+                        _customBackdrop = '';
+                      }
+                    }
+                  },
+                ),
+              ),
+              SliverPadding(
+                padding: const EdgeInsets.only(top: 15, left: 5),
+                sliver: SliverToBoxAdapter(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Note: It takes 2-3 weeks for customized backdrops.',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: AppColors.black45515D,
                         ),
                       ),
-                      Container(
-                        width: 20,
-                        height: 20,
-                        padding: const EdgeInsets.all(3),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: AppColors.greyD0D3D6,
-                              width: 1,
-                            )),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: isSelected!
-                                ? AppColors.blue8DC4CB
-                                : Colors.white,
-                            shape: BoxShape.circle,
-                          ),
+                      Text(
+                        'Additional charges may occur based on custom orders',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: AppColors.black45515D,
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
               ),
-            ),
-            SliverToBoxAdapter(
-              child: TextQuestionWidget(
-                Question(
-                  id: 1,
-                  question: 'Custom Backdrop',
-                  updatedAt: null,
-                  deletedAt: null,
-                  options: null,
-                  order: null,
-                  questionType: null,
-                ),
-                (val) {
-                  if (val != null) {
-                    if (val['answer'] != '') {
-                      _customBackdrop = val['answer'];
-                    } else {
-                      _customBackdrop = '';
-                    }
-                  }
-                },
-              ),
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.only(top: 10),
-              sliver: SliverToBoxAdapter(
-                child: Text(
-                  'Note: It takes 2-3 weeks for customized backdrops.',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: AppColors.black45515D,
-                  ),
-                ),
-              ),
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.only(top: 10),
-              sliver: SliverToBoxAdapter(
-                child: Text(
-                  'Additional charges may occur based on custom orders',
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: AppColors.black45515D,
-                  ),
-                ),
-              ),
-            ),
-            SliverPadding(padding: const EdgeInsets.only(top: 30)),
+              // SliverPadding(
+              //   padding: const EdgeInsets.only(top: 10),
+              //   sliver: SliverToBoxAdapter(
+              //     child: Text(
+              //       'Additional charges may occur based on custom orders',
+              //       style: TextStyle(
+              //         fontSize: 10,
+              //         color: AppColors.black45515D,
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              SliverPadding(padding: const EdgeInsets.only(top: 30)),
+            ]
           ],
         ),
       ),
@@ -624,41 +639,53 @@ class _BackdropPageState extends State<BackdropPage> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: FilledButtonWidget(
           onPress: () {
-            if (bookingsProvider.selectedBackdrops.length <
-                    bookingsProvider.package!.minBackdrop &&
-                bookingsProvider.package!.minBackdrop != null) {
-              ShowOkDialog(context,
-                  'Please select ${bookingsProvider.package!.minBackdrop} backdrop to proceed');
-            } else {
-              // Navigator.pop(context);
-              if (
-                  // bookingsProvider.selectedBackdrops.isNotEmpty ||
-                  _customBackdrop.isNotEmpty) {
-                if (widget.subPackage != null) {
-                  Map<int, List<int>> backdropsMap = {
-                    widget.subPackage!.id!: _selectedItems,
-                  };
-                  bookingsProvider.amendSubSessionBookingDetails(
-                    SubSessionBookingDetailsType.backdrop,
-                    backdropsMap,
-                  );
-                } else {
-                  print(bookingsProvider.package!.backdropAllowed);
+            //for sparkle package ..
 
-                  if (bookingsProvider.package!.backdropAllowed == 1) {
-                    bookingsProvider.assignSelectedBackdrops(
-                        selectedList: [], val: _customBackdrop);
-                  } else {
-                    bookingsProvider.assignSelectedBackdrops(
-                        val: _customBackdrop);
-                  }
-                }
-                Navigator.pop(context);
-              } else if (bookingsProvider.selectedBackdrops.isNotEmpty) {
-                Navigator.pop(context);
+            if (bookingsProvider.package!.id == PackageIds.sparkleId) {
+              if (bookingsProvider.selectedBackdrops.length !=
+                  bookingsProvider.childCount) {
+                ShowOkDialog(context,
+                    'Please select ${bookingsProvider.childCount} backdrop to proceed');
               } else {
                 Navigator.pop(context);
-                // ShowOkDialog(context, 'Please select a backdrop to proceed');
+              }
+            } else {
+              if (bookingsProvider.selectedBackdrops.length <
+                      bookingsProvider.package!.minBackdrop &&
+                  bookingsProvider.package!.minBackdrop != null) {
+                ShowOkDialog(context,
+                    'Please select ${bookingsProvider.package!.minBackdrop} backdrop to proceed');
+              } else {
+                // Navigator.pop(context);
+                if (
+                    // bookingsProvider.selectedBackdrops.isNotEmpty ||
+                    _customBackdrop.isNotEmpty) {
+                  if (widget.subPackage != null) {
+                    Map<int, List<int>> backdropsMap = {
+                      widget.subPackage!.id!: _selectedItems,
+                    };
+                    bookingsProvider.amendSubSessionBookingDetails(
+                      SubSessionBookingDetailsType.backdrop,
+                      backdropsMap,
+                    );
+                  } else {
+                    print(bookingsProvider.package!.backdropAllowed);
+
+                    if (bookingsProvider.package!.backdropAllowed == 1) {
+                      bookingsProvider.assignSelectedBackdrops(
+                          selectedList: [], val: _customBackdrop);
+                    } else {
+                      bookingsProvider.assignSelectedBackdrops(
+                          val: _customBackdrop);
+                    }
+                  }
+                  Navigator.pop(context);
+                } else if (bookingsProvider.selectedBackdrops.isNotEmpty) {
+                  Navigator.pop(context);
+                } else {
+                  Navigator.pop(context);
+                  // ShowOkDialog(context, 'Please select a backdrop to proceed');
+                }
               }
             }
           },

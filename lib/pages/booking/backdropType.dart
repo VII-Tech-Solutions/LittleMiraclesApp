@@ -79,6 +79,8 @@ class _BackdropTypeState extends State<BackdropType> {
         ? widget.subPackage!.backdropAllowed!
         : bookingsProvider.package!.backdropAllowed!;
 
+    final sparkleAllowSelection = bookingsProvider.childCount;
+
     return Scaffold(
       appBar: AppBarWithBack(
         title: 'Select Backdrop',
@@ -109,29 +111,54 @@ class _BackdropTypeState extends State<BackdropType> {
                     .map(
                       (item) => SelectionRow(
                         () {
-                          setState(() {
-                            if (_selectedItems.contains(item.id)) {
-                              _selectedItems
-                                  .removeWhere((element) => element == item.id);
-                            } else {
-                              if (allowedSelection == 1) {
-                                _selectedItems.clear();
-                                _selectedItems.add(item.id!);
-                              } else if (allowedSelection > 1 &&
-                                  allowedSelection == _selectedItems.length) {
-                                _selectedItems.removeAt(0);
-                                _selectedItems.add(item.id!);
+                          // for sparkle package ... we apply checks on sparkle selection ..
+                          if (bookingsProvider.package!.id ==
+                              PackageIds.sparkleId) {
+                            setState(() {
+                              if (_selectedItems.contains(item.id)) {
+                                _selectedItems.removeWhere(
+                                    (element) => element == item.id);
                               } else {
-                                _selectedItems.add(item.id!);
+                                if (sparkleAllowSelection == 1) {
+                                  _selectedItems.clear();
+                                  _selectedItems.add(item.id!);
+                                } else if (sparkleAllowSelection > 1 &&
+                                    sparkleAllowSelection ==
+                                        _selectedItems.length) {
+                                  _selectedItems.removeAt(0);
+                                  _selectedItems.add(item.id!);
+                                } else {
+                                  _selectedItems.add(item.id!);
+                                }
                               }
-                            }
-                          });
+                            });
+                          } else {
+                            setState(() {
+                              if (_selectedItems.contains(item.id)) {
+                                _selectedItems.removeWhere(
+                                    (element) => element == item.id);
+                              } else {
+                                if (allowedSelection == 1) {
+                                  _selectedItems.clear();
+                                  _selectedItems.add(item.id!);
+                                } else if (allowedSelection > 1 &&
+                                    allowedSelection == _selectedItems.length) {
+                                  _selectedItems.removeAt(0);
+                                  _selectedItems.add(item.id!);
+                                } else {
+                                  _selectedItems.add(item.id!);
+                                }
+                              }
+                            });
+                          }
                         },
                         item.image,
                         null,
                         item.title,
                         _selectedItems.contains(item.id),
-                        allowedSelection,
+                        bookingsProvider.package!.id == PackageIds.sparkleId
+                            ? sparkleAllowSelection
+                            : allowedSelection,
                         id: item.id,
                       ),
                     )
