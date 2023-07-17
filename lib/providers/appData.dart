@@ -790,6 +790,10 @@ class AppData with ChangeNotifier {
     });
 
     // PROMOTIONS
+
+    // clear table before updating data ..
+    DBHelper.clearTableData(Tables.promotions);
+
     _promotions.forEach((item) {
       if (item.deletedAt != null) {
         DBHelper.deleteById(Tables.promotions, item.id ?? -1);

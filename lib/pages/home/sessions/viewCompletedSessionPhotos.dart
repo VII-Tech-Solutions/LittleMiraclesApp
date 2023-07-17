@@ -6,6 +6,7 @@ import 'dart:typed_data';
 
 // Flutter imports:
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -112,8 +113,20 @@ class _ViewCompletedSessionPhotosState
                 children: [
                   InkWell(
                     onTap: () async {
-                      var status = await Permission.photos.status;
-                      print(status);
+                      PermissionStatus status = await Permission.photos.status;
+                      if (Platform.isAndroid) {
+                        final androidInfo =
+                            await DeviceInfoPlugin().androidInfo;
+                        if (androidInfo.version.sdkInt! <= 32) {
+                          status = await Permission.storage.request();
+                        } else {
+                          status = await Permission.photos.request();
+                        }
+                      } else {
+                        status = await Permission.photos.request();
+                      }
+
+                      // print(status);
                       if (status.isLimited)
                         status = await Permission.photos.request();
 
@@ -149,13 +162,27 @@ class _ViewCompletedSessionPhotosState
                       } else if (status.isDenied ||
                           status.isRestricted ||
                           status.isPermanentlyDenied) {
-                        DialogHelper.confirmActionWithCancel(context,
-                                confirmText: 'Ok',
-                                cancelText: 'Cancel',
-                                title: 'Please Allow Access to Photos')
-                            .then((value) {
-                          if (value == true) openAppSettings();
-                        });
+                        if (Platform.isAndroid) {
+                          final androidInfo =
+                              await DeviceInfoPlugin().androidInfo;
+                          if (androidInfo.version.sdkInt! <= 32) {
+                            DialogHelper.confirmActionWithCancel(context,
+                                    confirmText: 'Ok',
+                                    cancelText: 'Cancel',
+                                    title: 'Please Allow Access to Storage')
+                                .then((value) {
+                              if (value == true) openAppSettings();
+                            });
+                          }
+                        } else {
+                          DialogHelper.confirmActionWithCancel(context,
+                                  confirmText: 'Ok',
+                                  cancelText: 'Cancel',
+                                  title: 'Please Allow Access to Photos')
+                              .then((value) {
+                            if (value == true) openAppSettings();
+                          });
+                        }
                       }
                     },
                     child: Column(

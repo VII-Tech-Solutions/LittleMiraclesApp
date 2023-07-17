@@ -34,7 +34,7 @@ class DBHelper {
         await db.execute(
             'CREATE TABLE ${Tables.sections}(id INT PRIMARY KEY, image TEXT, title TEXT, content TEXT, status INTEGER, type INTEGER, actionText TEXT, goTo TEXT, updatedAt TEXT, deletedAt TEXT, isFeatured INTEGER)');
         await db.execute(
-            'CREATE TABLE ${Tables.packages}(id INT PRIMARY KEY, title TEXT, tag TEXT, image TEXT, price TEXT, isPopular INTEGER, type INTEGER, content TEXT, locationText TEXT, locationLink TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT, backdropAllowed INTEGER, cakeAllowed INTEGER, outdoorAllowed INTEGER, hasGuideline INTEGER, benefitsIds TEXT, subPackagesIds TEXT, reviewsIds TEXT, mediaIds TEXT, totalReviews INTEGER, rating REAL)');
+            'CREATE TABLE ${Tables.packages}(id INT PRIMARY KEY, title TEXT, tag TEXT, image TEXT, price TEXT, isPopular INTEGER, type INTEGER, content TEXT, locationText TEXT, locationLink TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT, backdropAllowed INTEGER, cakeAllowed INTEGER, outdoorAllowed INTEGER, hasGuideline INTEGER, benefitsIds TEXT, subPackagesIds TEXT, reviewsIds TEXT, mediaIds TEXT, totalReviews INTEGER, rating REAL, min_backdrop INTEGER)');
         await db.execute(
             'CREATE TABLE ${Tables.backdrops}(id INT PRIMARY KEY, title TEXT, categoryId INTEGER, image TEXT, status INTEGER, updatedAt TEXT, deletedAt TEXT)');
         await db.execute(
@@ -198,5 +198,10 @@ class DBHelper {
   static Future<int> deleteAllForUser(String table, String where) async {
     final db = await DBHelper.database();
     return db.delete(table, where: where);
+  }
+
+  static Future clearTableData(String table) async {
+    final db = await DBHelper.database();
+    return db.rawDelete("DELETE FROM $table");
   }
 }
