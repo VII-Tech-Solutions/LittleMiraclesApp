@@ -253,11 +253,14 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
           },
           body: {
             'title':
-                'Message from ${auth.user!.firstName} ${auth.user?.lastName}',
+                // 'Message from ${auth.user!.firstName} ${auth.user?.lastName}',
+                'Message from ${auth.user!.name ?? auth.user!.firstName}',
             'message': '${message.text}',
-            'topic': 'user_${recieverUserId}',
+            'topic': 'user_1${1}',
             'room_id': widget.room.id,
-            'family_id': '${recieverFamilyId}'
+            'family_id': '${recieverFamilyId}',
+            // we need to send is photographer true if a normal user is sending a message to a photographer or admin ..
+            'is_photographer': auth.user!.role == null ? 'true' : 'false'
           },
         ).timeout(Duration(seconds: Timeout.value));
 

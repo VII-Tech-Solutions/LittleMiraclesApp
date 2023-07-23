@@ -127,7 +127,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           "first_name": user.firstName,
           "last_name": user.lastName,
           "gender": user.gender,
-          "country_code": user.countryCode,
+          "country_code": user.countryCode.toString(),
           "phone_number": user.phoneNumber,
           "birth_date": user.birthDate,
           "firebase_id": FirebaseAuth.instance.currentUser?.uid,

@@ -126,9 +126,34 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
             } else if (bookingsProvider.package?.outdoorAllowed == false &&
                 bookingsBody.containsKey('backdrops') &&
                 // bookingsBody['backdrops'] as List<int> == []) {
-                bookingsBody['backdrops'] as List == []) {
+                // bookingsBody['backdrops'] as List == []) {
+                bookingsBody['backdrops'].isEmpty) {
               ShowOkDialog(context, 'Please select a backdrop to proceed');
-            } else {
+            }
+
+            // validation for selecting atleast one cake if cakes are allowed in pacakge ...  ...
+
+            else if (bookingsProvider.package!.cakeAllowed != null &&
+                bookingsProvider.package!.cakeAllowed! > 0 &&
+                (!bookingsBody.containsKey("cakes") ||
+                    bookingsBody['cakes'].isEmpty)) {
+              ShowOkDialog(context, 'Please select a cake to proceed');
+            }
+
+            // validation for min one backdrop ...
+            else if (bookingsProvider.package!.outdoorAllowed == false &&
+                bookingsProvider.package!.backdropAllowed != null &&
+                bookingsProvider.package!.backdropAllowed! > 0 &&
+                (!bookingsBody.containsKey("backdrops") ||
+                    bookingsBody['backdrops'].isEmpty)) {
+              ShowOkDialog(context, 'Please select a backdrop to proceed');
+            }
+
+            // validation for min one person  ...
+            else if (bookingsBody.containsKey("include_me") &&
+                    bookingsBody['include_me'] == true ||
+                bookingsBody.containsKey("people") &&
+                    bookingsBody['people'].isNotEmpty) {
               ShowLoadingDialog(context);
               // context.read<Bookings>().removePromoCode();
               context.read<Bookings>().bookASession().then(
@@ -149,6 +174,7 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
                   }
                 },
               );
+
               // ShowLoadingDialog(context);
               // context.read<Bookings>().bookASession().then((response) {
               //   ShowLoadingDialog(context, dismiss: true);
@@ -166,6 +192,8 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
               //     );
               //   }
               // });
+            } else {
+              ShowOkDialog(context, 'Please select people to proceed');
             }
           } else {
             ShowOkDialog(context, 'Please login!');
