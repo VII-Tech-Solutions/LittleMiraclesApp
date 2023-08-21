@@ -390,240 +390,249 @@ class _CakePageState extends State<CakePage> {
                 childCount: appDataProvider.cakeCategories.length,
               ),
             ),
-            SliverToBoxAdapter(
-              child: GestureDetector(
-                onTap: () {
-                  isSelected = 'nocake';
-                  setState(() {});
-                },
-                child: Container(
-                  width: double.infinity,
-                  height: 100,
-                  margin: const EdgeInsets.symmetric(vertical: 5),
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(
-                      color: AppColors.greyD0D3D6,
-                      width: 1,
+
+            // hide no cake as we have applied validations on packages ...
+
+            if (widget.subPackage == null) ...[
+              SliverToBoxAdapter(
+                child: GestureDetector(
+                  onTap: () {
+                    isSelected = 'nocake';
+                    setState(() {});
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    height: 100,
+                    margin: const EdgeInsets.symmetric(vertical: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        color: AppColors.greyD0D3D6,
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        height: 68,
-                        width: 68,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: CachedNetworkImage(
-                            fit: BoxFit.contain,
-                            imageUrl: '',
-                            placeholder: (context, url) => Image.asset(
-                              'assets/images/nocake.png',
+                    child: Row(
+                      children: [
+                        Container(
+                          height: 68,
+                          width: 68,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: CachedNetworkImage(
                               fit: BoxFit.contain,
-                              height: double.infinity,
-                              width: double.infinity,
-                            ),
-                            errorWidget: (context, url, error) => Image.asset(
-                              'assets/images/nocake.png',
-                              fit: BoxFit.cover,
-                              height: double.infinity,
-                              width: double.infinity,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'No Cake'.toString(),
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w800,
-                                    color: AppColors.black45515D),
+                              imageUrl: '',
+                              placeholder: (context, url) => Image.asset(
+                                'assets/images/nocake.png',
+                                fit: BoxFit.contain,
+                                height: double.infinity,
+                                width: double.infinity,
                               ),
-                            ],
+                              errorWidget: (context, url, error) => Image.asset(
+                                'assets/images/nocake.png',
+                                fit: BoxFit.cover,
+                                height: double.infinity,
+                                width: double.infinity,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        width: 20,
-                        height: 20,
-                        padding: const EdgeInsets.all(3),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: AppColors.greyD0D3D6,
-                              width: 1,
-                            )),
-                        child: Container(
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'No Cake'.toString(),
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w800,
+                                      color: AppColors.black45515D),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: 20,
+                          height: 20,
+                          padding: const EdgeInsets.all(3),
                           decoration: BoxDecoration(
-                            color: isSelected == 'nocake'
-                                ? AppColors.blue8DC4CB
-                                : Colors.white,
-                            shape: BoxShape.circle,
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: AppColors.greyD0D3D6,
+                                width: 1,
+                              )),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: isSelected == 'nocake'
+                                  ? AppColors.blue8DC4CB
+                                  : Colors.white,
+                              shape: BoxShape.circle,
+                            ),
                           ),
-                        ),
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            SliverToBoxAdapter(
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    isSelected = 'custom';
-                  });
-                  print('------_customCake--$_customCake');
-                },
-                child: Container(
-                  width: double.infinity,
-                  height: 100,
-                  margin: const EdgeInsets.symmetric(vertical: 5),
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(
-                      color: AppColors.greyD0D3D6,
-                      width: 1,
+            ],
+            // hide custom cake for baby plan ..
+
+            if (widget.subPackage == null) ...[
+              SliverToBoxAdapter(
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isSelected = 'custom';
+                    });
+                    print('------_customCake--$_customCake');
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    height: 100,
+                    margin: const EdgeInsets.symmetric(vertical: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        color: AppColors.greyD0D3D6,
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        height: 68,
-                        width: 68,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: CachedNetworkImage(
-                            fit: BoxFit.contain,
-                            imageUrl: '',
-                            placeholder: (context, url) => Image.asset(
-                              'assets/images/customcake.png',
+                    child: Row(
+                      children: [
+                        Container(
+                          height: 68,
+                          width: 68,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: CachedNetworkImage(
                               fit: BoxFit.contain,
-                              height: double.infinity,
-                              width: double.infinity,
-                            ),
-                            errorWidget: (context, url, error) => Image.asset(
-                              'assets/images/customcake.png',
-                              fit: BoxFit.cover,
-                              height: double.infinity,
-                              width: double.infinity,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Custom cake'.toString(),
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w800,
-                                    color: AppColors.black45515D),
+                              imageUrl: '',
+                              placeholder: (context, url) => Image.asset(
+                                'assets/images/customcake.png',
+                                fit: BoxFit.contain,
+                                height: double.infinity,
+                                width: double.infinity,
                               ),
-                            ],
+                              errorWidget: (context, url, error) => Image.asset(
+                                'assets/images/customcake.png',
+                                fit: BoxFit.cover,
+                                height: double.infinity,
+                                width: double.infinity,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        width: 20,
-                        height: 20,
-                        padding: const EdgeInsets.all(3),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: AppColors.greyD0D3D6,
-                              width: 1,
-                            )),
-                        child: Container(
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Custom cake'.toString(),
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w800,
+                                      color: AppColors.black45515D),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: 20,
+                          height: 20,
+                          padding: const EdgeInsets.all(3),
                           decoration: BoxDecoration(
-                            color: isSelected == 'custom'
-                                ? AppColors.blue8DC4CB
-                                : Colors.white,
-                            shape: BoxShape.circle,
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: AppColors.greyD0D3D6,
+                                width: 1,
+                              )),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: isSelected == 'custom'
+                                  ? AppColors.blue8DC4CB
+                                  : Colors.white,
+                              shape: BoxShape.circle,
+                            ),
                           ),
-                        ),
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            SliverToBoxAdapter(
-              child: TextQuestionWidget(
-                Question(
-                  id: 1,
-                  question: 'Custom Cake',
-                  updatedAt: null,
-                  deletedAt: null,
-                  options: null,
-                  order: null,
-                  questionType: null,
-                ),
-                (val) {
-                  if (val != null) {
-                    if (val['answer'] != '') {
-                      _customCake = val['answer'];
-                    } else {
-                      _customCake = '';
+              SliverToBoxAdapter(
+                child: TextQuestionWidget(
+                  Question(
+                    id: 1,
+                    question: 'Custom Cake',
+                    updatedAt: null,
+                    deletedAt: null,
+                    options: null,
+                    order: null,
+                    questionType: null,
+                  ),
+                  (val) {
+                    if (val != null) {
+                      if (val['answer'] != '') {
+                        _customCake = val['answer'];
+                      } else {
+                        _customCake = '';
+                      }
                     }
-                  }
-                },
-              ),
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.only(top: 10, left: 5),
-              sliver: SliverToBoxAdapter(
-                child: Column(
-                  children: [
-                    Text(
-                      'Note: One week notice for customized cakes and additional charges apply. Additional charges may occur based on custom orders',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: AppColors.black45515D,
-                      ),
-                    ),
-                    // Text(
-                    //   'Additional charges may occur based on custom orders',
-                    //   style: TextStyle(
-                    //     fontSize: 14,
-                    //     color: AppColors.black45515D,
-                    //   ),
-                    // ),
-                  ],
+                  },
                 ),
               ),
-            ),
-            // SliverPadding(
-            //   padding: const EdgeInsets.only(top: 10),
-            //   sliver: SliverToBoxAdapter(
-            //     child: Text(
-            //       'Additional charges may occur based on custom orders',
-            //       style: TextStyle(
-            //         fontSize: 10,
-            //         color: AppColors.black45515D,
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            SliverPadding(padding: const EdgeInsets.only(bottom: 30)),
+              SliverPadding(
+                padding: const EdgeInsets.only(top: 10, left: 5),
+                sliver: SliverToBoxAdapter(
+                  child: Column(
+                    children: [
+                      Text(
+                        'Note: One week notice for customized cakes and additional charges apply. Additional charges may occur based on custom orders',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: AppColors.black45515D,
+                        ),
+                      ),
+                      // Text(
+                      //   'Additional charges may occur based on custom orders',
+                      //   style: TextStyle(
+                      //     fontSize: 14,
+                      //     color: AppColors.black45515D,
+                      //   ),
+                      // ),
+                    ],
+                  ),
+                ),
+              ),
+              // SliverPadding(
+              //   padding: const EdgeInsets.only(top: 10),
+              //   sliver: SliverToBoxAdapter(
+              //     child: Text(
+              //       'Additional charges may occur based on custom orders',
+              //       style: TextStyle(
+              //         fontSize: 10,
+              //         color: AppColors.black45515D,
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              SliverPadding(padding: const EdgeInsets.only(bottom: 30)),
+            ]
           ],
         ),
       ),
@@ -666,7 +675,6 @@ class _CakePageState extends State<CakePage> {
     );
   }
 }
-
 
 // // //PACKAGES
 

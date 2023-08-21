@@ -1,6 +1,7 @@
 //PACKAGES
 
 // Flutter imports:
+import 'package:LMP0001_LittleMiraclesApp/pages/booking/contract_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -68,7 +69,7 @@ class _PaymentAgreementState extends State<PaymentAgreement> {
           Expanded(
             child: Text.rich(
               TextSpan(
-                text: 'By proceeding, you agree to our ',
+                text: 'By Selecting this checkbox, you agree to our ',
                 style: TextStyle(
                   color: AppColors.black45515D,
                 ),
@@ -83,14 +84,14 @@ class _PaymentAgreementState extends State<PaymentAgreement> {
                       ..onTap = () {
                         //todo go to Terms of Use
                         _launchURL(
-                            'hhttps://www.termsfeed.com/live/312c8322-5ff6-4289-9f2f-7d9d77dd620d');
+                            'https://www.termsfeed.com/live/312c8322-5ff6-4289-9f2f-7d9d77dd620d');
                       },
                   ),
                   TextSpan(
                     text: 'and confirm you have read our ',
                   ),
                   TextSpan(
-                    text: 'Privacy and Cookie Statement',
+                    text: 'Privacy Statement',
                     style: TextStyle(
                       decoration: TextDecoration.underline,
                       fontWeight: FontWeight.w700,
@@ -103,7 +104,22 @@ class _PaymentAgreementState extends State<PaymentAgreement> {
                       },
                   ),
                   TextSpan(
-                    text: '.',
+                    text: ' and ',
+                  ),
+                  TextSpan(
+                    text: 'Contract.',
+                    style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ContractsPage()),
+                        );
+                      },
                   ),
                 ],
               ),

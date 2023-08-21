@@ -483,7 +483,10 @@ class _BackdropPageState extends State<BackdropPage> {
               ),
             ),
             // we are not showing custom backdrops for sparkle ...
-            if (bookingsProvider.package!.id != PackageIds.sparkleId) ...[
+            // we are not showing custom backdrops subsession  ...
+
+            if (bookingsProvider.package!.id != PackageIds.sparkleId &&
+                widget.subPackage == null) ...[
               SliverToBoxAdapter(
                 child: GestureDetector(
                   onTap: () {

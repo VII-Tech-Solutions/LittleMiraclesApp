@@ -1,10 +1,15 @@
 //PACKAGES
 
 // Flutter imports:
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
+import 'package:gallery_saver/gallery_saver.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
@@ -22,6 +27,7 @@ import '../../../widgets/general/cachedImageWidget.dart';
 import '../../models/session.dart';
 import '../../pages/home/sessions/bookAppointmentPage.dart';
 import '../../pages/home/sessions/sessionFeedbackPage.dart';
+import '../dialogs/dialogHelper.dart';
 
 //EXTENSION
 
@@ -145,6 +151,114 @@ class CompletedSubSessionContainer extends StatelessWidget {
                       ),
                     ),
                   ),
+                  images.length > 0
+                      ? Column(
+                          children: [
+                            Text(
+                              'Download all photos ? Downloading takes few seconds ... ',
+                              style: TextStyle(
+                                color: AppColors.black45515D,
+                                fontSize: 14.0,
+                              ),
+                            ),
+                            FilledButtonWidget(
+                              onPress: () async {
+                                bool imagesDownloaded = true;
+                                PermissionStatus status =
+                                    await Permission.photos.status;
+                                if (Platform.isAndroid) {
+                                  final androidInfo =
+                                      await DeviceInfoPlugin().androidInfo;
+                                  if (androidInfo.version.sdkInt! <= 32) {
+                                    status = await Permission.storage.request();
+                                  } else {
+                                    status = await Permission.photos.request();
+                                  }
+                                } else {
+                                  status = await Permission.photos.request();
+                                }
+
+                                // print(status);
+                                if (status.isLimited)
+                                  status = await Permission.photos.request();
+
+                                if (status.isGranted) {
+                                  ShowLoadingDialog(context);
+                                  for (int i = 0; i < images.length; i++) {
+                                    var success = await GallerySaver.saveImage(
+                                        images[i].url!);
+
+                                    if (success == false) {
+                                      imagesDownloaded = false;
+
+                                      break;
+                                    }
+                                  }
+
+                                  ShowLoadingDialog(context, dismiss: true);
+
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      behavior: SnackBarBehavior.floating,
+                                      elevation: 2,
+                                      duration: Duration(seconds: 2),
+                                      content: Padding(
+                                        padding: const EdgeInsets.all(10),
+                                        child: Text(
+                                          imagesDownloaded == false
+                                              ? 'Something went wrong'
+                                              : 'Image Saved',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w800,
+                                          ),
+                                        ),
+                                      ),
+                                      backgroundColor: AppColors.black2D3B48,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                    ),
+                                  );
+                                } else if (status.isDenied ||
+                                    status.isRestricted ||
+                                    status.isPermanentlyDenied) {
+                                  if (Platform.isAndroid) {
+                                    final androidInfo =
+                                        await DeviceInfoPlugin().androidInfo;
+                                    if (androidInfo.version.sdkInt! <= 32) {
+                                      DialogHelper.confirmActionWithCancel(
+                                              context,
+                                              confirmText: 'Ok',
+                                              cancelText: 'Cancel',
+                                              title:
+                                                  'Please Allow Access to Storage')
+                                          .then((value) {
+                                        if (value == true) openAppSettings();
+                                      });
+                                    }
+                                  } else {
+                                    DialogHelper.confirmActionWithCancel(
+                                            context,
+                                            confirmText: 'Ok',
+                                            cancelText: 'Cancel',
+                                            title:
+                                                'Please Allow Access to Photos')
+                                        .then((value) {
+                                      if (value == true) openAppSettings();
+                                    });
+                                  }
+                                }
+                              },
+                              title: 'Download',
+                              type: ButtonType.generalBlue,
+                              margin:
+                                  const EdgeInsets.symmetric(vertical: 20.0),
+                            ),
+                          ],
+                        )
+                      : SizedBox(),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Column(

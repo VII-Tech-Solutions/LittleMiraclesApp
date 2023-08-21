@@ -33,6 +33,7 @@ import '../../widgets/buttons/iconButtonWidget.dart';
 import '../../widgets/dialogs/showLoadingDialog.dart';
 import '../../widgets/dialogs/showOkDialog.dart';
 import '../../widgets/texts/titleText.dart';
+import '../booking/contract_page.dart';
 import '../photographer/photographerPage.dart';
 import 'admin/photograher.dart';
 
@@ -354,7 +355,7 @@ class LoginPage extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(16.0, 10.0, 16.0, 11.0),
                 child: Text.rich(
                   TextSpan(
-                    text: 'By proceeding, you agree to our ',
+                    text: 'By Selecting this checkbox, you agree to our ',
                     style: TextStyle(
                       color: AppColors.black45515D,
                     ),
@@ -376,7 +377,7 @@ class LoginPage extends StatelessWidget {
                         text: 'and confirm you have read our ',
                       ),
                       TextSpan(
-                        text: 'Privacy and Cookie Statement',
+                        text: 'Privacy Statement',
                         style: TextStyle(
                           decoration: TextDecoration.underline,
                           fontWeight: FontWeight.w700,
@@ -389,7 +390,22 @@ class LoginPage extends StatelessWidget {
                           },
                       ),
                       TextSpan(
-                        text: '.',
+                        text: ' and ',
+                      ),
+                      TextSpan(
+                        text: 'Contract.',
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ContractsPage()),
+                            );
+                          },
                       ),
                     ],
                   ),

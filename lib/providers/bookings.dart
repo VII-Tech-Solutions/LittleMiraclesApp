@@ -311,9 +311,11 @@ class Bookings with ChangeNotifier {
       {selectedList}) async {
     switch (dataType) {
       case SubSessionBookingDetailsType.backdrop:
-        _selectedBackdrops = selectedList;
+        if (selectedList != null) {
+          _selectedBackdrops = selectedList;
 
-        _subSessionSelectedBackdrops.addAll(data);
+          _subSessionSelectedBackdrops.addAll(data);
+        }
         break;
 
       case SubSessionBookingDetailsType.cake:
@@ -409,6 +411,7 @@ class Bookings with ChangeNotifier {
                   ? null
                   : [_selectedCakes],
       'custom_cake': _customCake,
+      'no_cake': nocake
     });
     notifyListeners();
   }

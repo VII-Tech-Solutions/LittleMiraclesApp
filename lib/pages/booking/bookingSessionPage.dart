@@ -123,30 +123,36 @@ class _BookingSessionPageState extends State<BookingSessionPage> {
               ShowOkDialog(context, 'Please select a time to proceed');
             } else if (!bookingsBody.containsKey('people')) {
               ShowOkDialog(context, 'Please select people joining to proceed');
-            } else if (bookingsProvider.package?.outdoorAllowed == false &&
-                bookingsBody.containsKey('backdrops') &&
-                // bookingsBody['backdrops'] as List<int> == []) {
-                // bookingsBody['backdrops'] as List == []) {
-                bookingsBody['backdrops'].isEmpty) {
-              ShowOkDialog(context, 'Please select a backdrop to proceed');
             }
+
+            // else if (bookingsProvider.package?.outdoorAllowed == false &&
+            //     bookingsBody.containsKey('backdrops') &&
+            //     // bookingsBody['backdrops'] as List<int> == []) {
+            //     // bookingsBody['backdrops'] as List == []) {
+            //     bookingsBody['backdrops'].isEmpty) {
+            //   ShowOkDialog(context, 'Please select a backdrop to proceed');
+            // }
 
             // validation for selecting atleast one cake if cakes are allowed in pacakge ...  ...
-
-            else if (bookingsProvider.package!.cakeAllowed != null &&
-                bookingsProvider.package!.cakeAllowed! > 0 &&
-                (!bookingsBody.containsKey("cakes") ||
-                    bookingsBody['cakes'].isEmpty)) {
-              ShowOkDialog(context, 'Please select a cake to proceed');
-            }
 
             // validation for min one backdrop ...
             else if (bookingsProvider.package!.outdoorAllowed == false &&
                 bookingsProvider.package!.backdropAllowed != null &&
                 bookingsProvider.package!.backdropAllowed! > 0 &&
+                (!bookingsBody.containsKey("custom_backdrop") ||
+                    bookingsBody['custom_backdrop'].isEmpty) &&
                 (!bookingsBody.containsKey("backdrops") ||
                     bookingsBody['backdrops'].isEmpty)) {
               ShowOkDialog(context, 'Please select a backdrop to proceed');
+            } else if (bookingsProvider.package!.cakeAllowed != null &&
+                bookingsProvider.package!.cakeAllowed! > 0 &&
+                (!bookingsBody.containsKey("custom_cake") ||
+                    bookingsBody['custom_cake'].isEmpty) &&
+                (!bookingsBody.containsKey("cakes") ||
+                    bookingsBody['cakes'] == null ||
+                    bookingsBody['cakes'].isEmpty) &&
+                bookingsBody['no_cake'] != true) {
+              ShowOkDialog(context, 'Please select a cake to proceed');
             }
 
             // validation for min one person  ...
