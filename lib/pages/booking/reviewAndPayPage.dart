@@ -39,71 +39,71 @@ class _ReviewAndPayPageState extends State<ReviewAndPayPage> {
   String? _selectedPayment = null;
   final _scrollController = new ScrollController();
 
-  void _confirmSignelSession(BuildContext context) {
-    ShowLoadingDialog(context);
-    context.read<Bookings>().bookASession().then((bookResponse) {
-      context.read<Bookings>().confirmASession().then((confirmResponse) {
-        context.read<AppData>().fetchAndSetSessions().then((_) {
-          context.read<AppData>().fetchAndSetAppData().then((_) {
-            ShowLoadingDialog(context, dismiss: true);
-            if (bookResponse?.statusCode == 200 &&
-                confirmResponse?.statusCode == 200) {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SuccessPaymentPage(_selectedPayment),
-                ),
-                (Route<dynamic> route) => false,
-              );
-            } else if (bookResponse?.statusCode != 200) {
-              ShowOkDialog(
-                context,
-                bookResponse?.message ?? ErrorMessages.somethingWrong,
-              );
-            } else {
-              ShowOkDialog(
-                context,
-                confirmResponse?.message ?? ErrorMessages.somethingWrong,
-              );
-            }
-          });
-        });
-      });
-    });
-  }
+  // void _confirmSignelSession(BuildContext context) {
+  //   ShowLoadingDialog(context);
+  //   context.read<Bookings>().bookASession().then((bookResponse) {
+  //     context.read<Bookings>().confirmASession().then((confirmResponse) {
+  //       context.read<AppData>().fetchAndSetSessions().then((_) {
+  //         context.read<AppData>().fetchAndSetAppData().then((_) {
+  //           ShowLoadingDialog(context, dismiss: true);
+  //           if (bookResponse?.statusCode == 200 &&
+  //               confirmResponse?.statusCode == 200) {
+  //             Navigator.pushAndRemoveUntil(
+  //               context,
+  //               MaterialPageRoute(
+  //                 builder: (context) => SuccessPaymentPage(_selectedPayment),
+  //               ),
+  //               (Route<dynamic> route) => false,
+  //             );
+  //           } else if (bookResponse?.statusCode != 200) {
+  //             ShowOkDialog(
+  //               context,
+  //               bookResponse?.message ?? ErrorMessages.somethingWrong,
+  //             );
+  //           } else {
+  //             ShowOkDialog(
+  //               context,
+  //               confirmResponse?.message ?? ErrorMessages.somethingWrong,
+  //             );
+  //           }
+  //         });
+  //       });
+  //     });
+  //   });
+  // }
 
-  void _confirmMultiSession(BuildContext context) {
-    ShowLoadingDialog(context);
-    context.read<Bookings>().bookMultiSessions().then((bookResponse) {
-      context.read<Bookings>().confirmASession().then((confirmResponse) {
-        context.read<AppData>().fetchAndSetSessions().then((_) {
-          context.read<AppData>().fetchAndSetAppData().then((_) {
-            ShowLoadingDialog(context, dismiss: true);
-            if (bookResponse?.statusCode == 200 &&
-                confirmResponse?.statusCode == 200) {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SuccessPaymentPage(_selectedPayment),
-                ),
-                (Route<dynamic> route) => false,
-              );
-            } else if (bookResponse?.statusCode != 200) {
-              ShowOkDialog(
-                context,
-                bookResponse?.message ?? ErrorMessages.somethingWrong,
-              );
-            } else {
-              ShowOkDialog(
-                context,
-                confirmResponse?.message ?? ErrorMessages.somethingWrong,
-              );
-            }
-          });
-        });
-      });
-    });
-  }
+  // void _confirmMultiSession(BuildContext context) {
+  //   ShowLoadingDialog(context);
+  //   context.read<Bookings>().bookMultiSessions().then((bookResponse) {
+  //     context.read<Bookings>().confirmASession().then((confirmResponse) {
+  //       context.read<AppData>().fetchAndSetSessions().then((_) {
+  //         context.read<AppData>().fetchAndSetAppData().then((_) {
+  //           ShowLoadingDialog(context, dismiss: true);
+  //           if (bookResponse?.statusCode == 200 &&
+  //               confirmResponse?.statusCode == 200) {
+  //             Navigator.pushAndRemoveUntil(
+  //               context,
+  //               MaterialPageRoute(
+  //                 builder: (context) => SuccessPaymentPage(_selectedPayment),
+  //               ),
+  //               (Route<dynamic> route) => false,
+  //             );
+  //           } else if (bookResponse?.statusCode != 200) {
+  //             ShowOkDialog(
+  //               context,
+  //               bookResponse?.message ?? ErrorMessages.somethingWrong,
+  //             );
+  //           } else {
+  //             ShowOkDialog(
+  //               context,
+  //               confirmResponse?.message ?? ErrorMessages.somethingWrong,
+  //             );
+  //           }
+  //         });
+  //       });
+  //     });
+  //   });
+  // }
 
   _launchURL(String url) async {
     if (await canLaunch(url)) {

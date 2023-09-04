@@ -646,9 +646,12 @@ class _BackdropPageState extends State<BackdropPage> {
 
             if (bookingsProvider.package!.id == PackageIds.sparkleId) {
               if (bookingsProvider.selectedBackdrops.length !=
-                  bookingsProvider.childCount) {
-                ShowOkDialog(context,
-                    'Please select ${bookingsProvider.childCount} backdrop to proceed');
+                  //bookingsProvider.childCount
+                  2) {
+                ShowOkDialog(
+                    context,
+                    // 'Please select ${bookingsProvider.childCount} backdrop to proceed');
+                    'Please select 2 backdrops to proceed');
               } else {
                 Navigator.pop(context);
               }

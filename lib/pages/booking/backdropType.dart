@@ -79,7 +79,8 @@ class _BackdropTypeState extends State<BackdropType> {
         ? widget.subPackage!.backdropAllowed!
         : bookingsProvider.package!.backdropAllowed!;
 
-    final sparkleAllowSelection = bookingsProvider.childCount;
+    // final sparkleAllowSelection = bookingsProvider.childCount;
+    final sparkleAllowSelection = 2;
 
     return Scaffold(
       appBar: AppBarWithBack(

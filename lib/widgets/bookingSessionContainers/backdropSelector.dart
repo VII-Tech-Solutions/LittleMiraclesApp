@@ -178,11 +178,13 @@ class _BackdropSelectorState extends State<BackdropSelector> {
                   controller: TextEditingController(),
                   customMargin:
                       const EdgeInsets.symmetric(horizontal: 0.0, vertical: 20),
-                  title: bookingsProvider.childCount == 0
-                      ? 'Select Backdrop'
-                      : bookingsProvider.childCount == 1
-                          ? 'Select  1 Backdrop'
-                          : 'Select ${bookingsProvider.childCount} Backdrops',
+                  // title: bookingsProvider.childCount == 0
+                  //     ? 'Select Backdrop'
+                  //     : bookingsProvider.childCount == 1
+                  //         ? 'Select  1 Backdrop'
+                  //         : 'Select ${bookingsProvider.childCount} Backdrops',
+
+                  title: 'Select 2 Backdrops',
                   hintStyle: TextStyle(
                     color: AppColors.black45515D,
                     fontSize: 12,
