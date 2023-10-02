@@ -29,6 +29,7 @@ import './providers/bookings.dart';
 import './providers/studio.dart';
 import 'firebase_options.dart';
 import 'store/AppStore.dart';
+import 'package:flutter_app_badger/flutter_app_badger.dart';
 
 // initializing the apptore class
 AppStore appStore = AppStore();
@@ -103,6 +104,11 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // set badge count on app start ...
+
+  FlutterAppBadger.updateBadgeCount(0);
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

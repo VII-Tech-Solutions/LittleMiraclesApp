@@ -45,19 +45,25 @@ class _CalendarContainerState extends State<CalendarContainer> {
 // booking privider ...
   bool isLoading = true;
 
-  getAllBookings() {
+  getAllBookings() async {
     // ShowLoadingDialog(context);
 
     setState(() {
       isLoading = true;
     });
     final bookingsProvider = context.read<Bookings>();
-    bookingsProvider.fetchAllAdminSessionDetails().then((value) => {
-          setState(() {
-            kEvents = value;
-            isLoading = false;
-          })
-        });
+    // bookingsProvider.fetchAllAdminSessionDetails().then((value) => {
+    //       setState(() {
+    //         kEvents = value;
+    //         isLoading = false;
+    //       })
+    //     });
+
+    var value = await bookingsProvider.fetchAllAdminSessionDetails();
+    setState(() {
+      kEvents = value;
+      isLoading = false;
+    });
     // ShowLoadingDialog(context, dismiss: true);
   }
 
@@ -111,6 +117,8 @@ class _CalendarContainerState extends State<CalendarContainer> {
             ),
 
             eventLoader: isLoading ? null : _getEventsForDay,
+            // eventLoader: null,
+
             firstDay: firstDay.subtract(Duration(days: 365)),
             focusedDay: selectedDay,
             lastDay: DateTime.now().add(Duration(days: 365)),

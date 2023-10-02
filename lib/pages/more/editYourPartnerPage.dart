@@ -103,7 +103,6 @@ class _EditYourPartnerPageState extends State<EditYourPartnerPage> {
       _countryCodeValue = '${partner.countryCode ?? ''}';
     }
     print('***');
-    print(partner!.firstName);
     super.initState();
   }
 

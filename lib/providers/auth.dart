@@ -1179,5 +1179,43 @@ class Auth with ChangeNotifier {
     return socialLogin(body, SSOType.apple, withNotifyListeners: false);
   }
 
+  Future<ApiResponse?> deleteAccount(context) async {
+    final url = Uri.parse('$apiLink/delete-account');
+
+    ShowLoadingDialog(context);
+
+    try {
+      var response = await http.delete(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Platform': '${await AppInfo().platformInfo()}',
+          'App-Version': '${await AppInfo().versionInfo()}',
+          'Authorization': 'Bearer $token',
+        },
+      ).timeout(Duration(seconds: Timeout.value));
+
+      final result = json.decode(response.body);
+
+      if (response.statusCode == 200) {
+        await logout();
+      }
+
+      notifyListeners();
+      return (ApiResponse(
+        statusCode: response.statusCode,
+        message: json.decode(response.body)['message'],
+      ));
+    } on TimeoutException catch (e) {
+      print('Exception Timeout:: $e');
+      return null;
+    } catch (e) {
+      print('catch error:: $e');
+      return null;
+    } finally {
+      ShowLoadingDialog(context, dismiss: true);
+    }
+  }
+
 //END OF CLASS
 }

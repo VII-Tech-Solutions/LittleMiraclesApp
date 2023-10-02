@@ -610,7 +610,7 @@ class Bookings with ChangeNotifier {
 
       // print('------sessionList---$sessionList');
 
-      notifyListeners();
+      // notifyListeners();
       // return (ApiResponse(
       //   statusCode: response.statusCode,
       //   message: '',

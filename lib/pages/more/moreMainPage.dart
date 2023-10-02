@@ -11,6 +11,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../widgets/dialogs/dialogHelper.dart';
 import './aboutUsPage.dart';
 import './editYourFamilyChoicesPage.dart';
 import './editYourProfilePage.dart';
@@ -314,6 +315,63 @@ class MoreMainPage extends StatelessWidget {
                     },
                     type: ButtonType.generalGrey,
                     title: 'Log out',
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  FilledButtonWidget(
+                    onPress: () {
+                      DialogHelper.confirmActionWithCancel(context,
+                              confirmText: 'Delete',
+                              cancelText: 'Cancel',
+                              title:
+                                  'Are you sure you want to delete your account ?')
+                          .then((value) {
+                        print(value);
+
+                        if (value) {
+                          final user = context.read<Auth>().user;
+                          final userId = user?.id;
+                          final familyId = user?.familyId;
+                          context
+                              .read<Auth>()
+                              .deleteAccount(context)
+                              .then((value) => {
+                                    if (value != null &&
+                                        value.statusCode == 200)
+                                      {
+                                        context
+                                            .read<AppData>()
+                                            .clearUserData()
+                                            .then((_) {
+                                          FirebaseAuth.instance.signOut();
+                                          FirebaseMessaging.instance
+                                              .unsubscribeFromTopic(
+                                                  'user_$userId');
+                                          FirebaseMessaging.instance
+                                              .unsubscribeFromTopic(
+                                                  'family_$familyId');
+                                          return Navigator.pushAndRemoveUntil(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  Splashscreen(),
+                                            ),
+                                            (Route<dynamic> route) => false,
+                                          );
+                                        })
+                                      }
+                                    else
+                                      {
+                                        print(
+                                            "couldnot delete user account ... ")
+                                      }
+                                  });
+                        }
+                      });
+                    },
+                    type: ButtonType.generalBlue,
+                    title: 'Delete Account',
                   )
                 ],
               ),
