@@ -299,7 +299,8 @@ class Auth with ChangeNotifier {
       FamilyMember? partner;
       print('result: $result');
       print("hello: ${result['data']['partner']}");
-      if (result['data']['partner']['id'] != []) {
+      if (result['data']['partner'].isNotEmpty &&
+          result['data']['partner']['id'] != []) {
         print("PARTNER FOUND");
         print(result['data']['partner']);
         partner = FamilyMember.fromJson(result['data']['partner']);

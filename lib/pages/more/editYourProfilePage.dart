@@ -194,6 +194,9 @@ class _EditYourProfilePageState extends State<EditYourProfilePage> {
                                   value: _genderValue,
                                   items: <DropdownMenuItem<String>>[
                                     DropdownMenuItem(
+                                        child: Text('Gender (Optional)'),
+                                        value: '0'),
+                                    DropdownMenuItem(
                                         child: Text('Male'), value: '1'),
                                     DropdownMenuItem(
                                         child: Text('Female'), value: '2'),

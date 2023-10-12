@@ -33,7 +33,7 @@ class PartnerPage extends StatefulWidget {
 
 class _PartnerPageState extends State<PartnerPage> {
   final _formKey = GlobalKey<FormState>();
-  String _genderValue = '1';
+  String _genderValue = '0';
   String _countryCodeValue = '+973';
 
   late final _firstNameController;
@@ -167,6 +167,8 @@ class _PartnerPageState extends State<PartnerPage> {
                         ),
                         value: _genderValue,
                         items: <DropdownMenuItem<String>>[
+                          DropdownMenuItem(
+                              child: Text('Gender (Optional)'), value: '0'),
                           DropdownMenuItem(child: Text('Male'), value: '1'),
                           DropdownMenuItem(child: Text('Female'), value: '2'),
                         ],
@@ -193,10 +195,11 @@ class _PartnerPageState extends State<PartnerPage> {
                       ),
                     ),
                     FormTextFieldWidget(
+                      optional: true,
                       controller: _birthdayController,
                       title: _birthdayController.text == null
                           ? _birthdayController.text
-                          : 'Birthday\t\t\t\t',
+                          : 'Birthday (Optional)',
                       hintStyle: TextStyle(
                         color: AppColors.black45515D,
                         fontSize: 12,

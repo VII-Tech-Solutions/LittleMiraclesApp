@@ -115,9 +115,11 @@ class _ChildrenFormState extends State<ChildrenForm> {
                     fontWeight: FontWeight.w400,
                   ),
                   value: widget._genderController.text.isEmpty
-                      ? '1'
+                      ? '0'
                       : widget._genderController.text,
                   items: <DropdownMenuItem<String>>[
+                    DropdownMenuItem(
+                        child: Text('Gender (Optional)'), value: '0'),
                     DropdownMenuItem(child: Text('Male'), value: '1'),
                     DropdownMenuItem(child: Text('Female'), value: '2'),
                   ],
@@ -142,9 +144,11 @@ class _ChildrenFormState extends State<ChildrenForm> {
                 ),
               ),
               FormTextFieldWidget(
+                optional: true,
                 controller: widget._birthdayController,
                 title:
-                    'Birthday\t\t\t\t${DateFormatClass().toddMMyyyy('${DateTime.now()}')}',
+                    // 'Birthday\t\t\t\t${DateFormatClass().toddMMyyyy('${DateTime.now()}')}',
+                    'Birthday (Optional)',
                 hintStyle: TextStyle(
                   color: AppColors.black45515D,
                   fontSize: 12,
